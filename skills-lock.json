@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "clinical-guideline": {
+      "source": "zhuangwenhui/Asklepios",
+      "sourceType": "github",
+      "skillPath": "Asklepios/agent/asklepios/skills/clinical-guideline/SKILL.md",
+      "computedHash": "dc6dc85b590a31668623f62c7c4427051788f452c4d2e6dd40b5392f959bb603"
+    }
+  }
+}
