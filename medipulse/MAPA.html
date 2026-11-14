@@ -163,7 +163,7 @@ tfoot td{font-weight:700}
   <!-- ========== CABECERA ========== -->
   <section class="hero">
     <div>
-      <div class="eyebrow">Estado al 14 nov. 2026 · rama claude/new-session-8n8aj8</div>
+      <div class="eyebrow">Estado al 14 nov. 2026 · publicada en GitHub Pages</div>
       <h1 style="margin-top:10px">Mapa de MediPulse</h1>
       <p class="lead muted">App de estudio para el examen de residencia médica que adapta la sesión a la energía del estudiante, repasa con repetición espaciada, convierte PDFs en preguntas y vigila que sus fuentes sigan vigentes.</p>
       <svg class="pulse" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 26 H170 L184 26 L192 10 L202 40 L212 4 L224 34 L232 26 H390 L402 26 L410 14 L418 34 L426 26 H600"/></svg>
@@ -188,7 +188,7 @@ tfoot td{font-weight:700}
       <div class="layer"><div class="lbl"><b>Acceso</b><span>cómo llega el usuario</span></div>
         <div class="boxes"><div class="box">GitHub Pages<small>/checkerexam/medipulse/</small></div><div class="box">PWA instalable<small>“Agregar a pantalla de inicio”</small></div><div class="box">Service worker<small>caché sin conexión · v6</small></div></div></div>
       <div class="layer"><div class="lbl"><b>Interfaz</b><span>medipulse/index.html</span></div>
-        <div class="boxes"><div class="box">HTML + CSS + JS sin frameworks<small>~177 KB, tema claro/oscuro, primero celular</small></div><div class="box">11 vistas<small>6 en la barra inferior + 5 internas</small></div><div class="box">Atajos de teclado<small>1–4, Enter, espacio</small></div></div></div>
+        <div class="boxes"><div class="box">HTML + CSS + JS sin frameworks<small>~177 KB, tema claro/oscuro, primero celular</small></div><div class="box">14 vistas<small>7 en la barra inferior + 7 internas</small></div><div class="box">Atajos de teclado<small>1–4, Enter, espacio</small></div></div></div>
       <div class="layer"><div class="lbl"><b>Lógica</b><span>dentro del mismo archivo</span></div>
         <div class="boxes"><div class="box">Motor de sesión<small>etapas, temporizador, retroalimentación</small></div><div class="box">Repaso espaciado<small>Leitner, 6 cajas</small></div><div class="box">Generador local<small>tarjetas de completar</small></div><div class="box">Vigencia<small>estados, revisión, correcciones</small></div></div></div>
       <div class="layer"><div class="lbl"><b>Datos</b><span>solo en el dispositivo</span></div>
@@ -202,22 +202,25 @@ tfoot td{font-weight:700}
 
   <!-- ========== PANTALLAS ========== -->
   <section class="sec" id="pantallas">
-    <header><span class="eyebrow">2 · Pantallas</span><h2>Seis pestañas y lo que hay detrás de cada una</h2></header>
+    <header><span class="eyebrow">2 · Pantallas</span><h2>Siete pestañas y lo que hay detrás de cada una</h2></header>
     <div class="navmap">
       <article class="screen"><div class="top"><div class="ico">⌂</div><h3>Hoy</h3></div>
-        <ul><li>Elegir energía: Sin ganas · Normal · A tope</li><li>Resumen del día: minutos, casos, % de aciertos, tarjetas</li><li>Recomendación: repasos vencidos → racha → ítems nuevos de PDFs → tema débil</li><li>Perla del día</li></ul>
+        <ul><li>Meta: examen objetivo (Colombia, ENARM, MIR…)</li><li>Elegir energía: Sin ganas · Normal · A tope</li><li>Diagnóstico rápido: 5 preguntas, una por área</li><li>Resumen del día: minutos, casos, % de aciertos, tarjetas</li><li>Recomendación: repasos vencidos → racha → ítems nuevos de PDFs → tema débil</li><li>Perla del día</li></ul>
         <div class="sub"><span class="tag">Internas</span><ul><li><b>Sin ganas:</b> 10 tarjetas, un caso o leer una ficha</li><li><b>Sesión:</b> preguntas, tarjetas, fichas y pausas entre bloques</li></ul></div></article>
       <article class="screen"><div class="top"><div class="ico">🩺</div><h3>Casos</h3></div>
-        <ul><li>Filtro por especialidad (6)</li><li>Casos vistos y % de aciertos</li><li>Practicar 10 con explicación, perla, trampa y fuente</li><li>Solo los pendientes de repaso</li></ul></article>
+        <ul><li>Filtros: especialidad · mis fallos · sin responder</li><li>Pistas (resaltar datos clave) y tachar opciones</li><li>Explicación, perla, trampa y fuente</li><li>🚩 Reportar un error</li></ul>
+        <div class="sub"><span class="tag">Internas</span><ul><li><b>Crear pregunta o tarjeta:</b> a mano, con fuente y página</li></ul></div></article>
       <article class="screen"><div class="top"><div class="ico">🃏</div><h3>Fichas</h3></div>
         <ul><li>6 fichas high-yield: umbrales, bandera roja y trampa</li><li>Filtro por especialidad</li><li>Repasar 15 tarjetas rápidas</li></ul></article>
       <article class="screen"><div class="top"><div class="ico">⏱</div><h3>Simulacro</h3></div>
-        <ul><li>5, 10, 20 o todas las preguntas</li><li>72 s por pregunta, sin retroalimentación hasta el final</li><li>Revisión detallada con fuente</li><li>Historial de puntajes</li></ul></article>
+        <ul><li>Micro-sprint 5 · Bloque 10 · Intermedio 20 · Completo</li><li>72 s por pregunta, sin retroalimentación hasta el final</li><li>🚩 Marcar para revisar y mapa de navegación</li><li>Revisión detallada con fuente</li><li>Historial de puntajes</li></ul></article>
+      <article class="screen"><div class="top"><div class="ico">🔬</div><h3>MBE</h3></div>
+        <ul><li>Cómo leer: guía, ECA, metaanálisis, observacional, revisión</li><li>Método en 5 pasos, trampa y ejemplo real</li><li>Destilador: ficha → tarjetas de repaso</li><li>Calculadoras: NNT y prueba diagnóstica 2×2</li></ul></article>
       <article class="screen"><div class="top"><div class="ico">📚</div><h3>Fuentes</h3></div>
-        <ul><li>Agregar PDFs</li><li>Tarjeta de vigencia</li><li>Clave de API</li><li>33 referencias, de la más nueva a la más antigua</li></ul>
-        <div class="sub"><span class="tag">Internas</span><ul><li><b>Detalle de fuente:</b> generar, revisar, banco, nueva versión</li><li><b>Vigencia:</b> revisar y actualizar</li><li><b>Guía de la clave:</b> 7 pasos, problemas y preguntas frecuentes</li></ul></div></article>
+        <ul><li>Agregar PDFs, pegar texto, importar packs</li><li>Tarjeta de vigencia</li><li>Clave de API</li><li>33 referencias, de la más nueva a la más antigua</li></ul>
+        <div class="sub"><span class="tag">Internas</span><ul><li><b>Detalle de fuente:</b> generar, revisar, banco, nueva versión</li><li><b>Vigencia:</b> revisar y actualizar</li><li><b>Guía de la clave:</b> 7 pasos, problemas y preguntas frecuentes</li><li><b>Reportes:</b> revisar, corregir con IA o archivar</li></ul></div></article>
       <article class="screen"><div class="top"><div class="ico">📈</div><h3>Progreso</h3></div>
-        <ul><li>Racha, horas, % de aciertos, ítems dominados</li><li>Dominio por especialidad</li><li>Mapa de calor de 5 semanas</li><li>Exportar, importar, borrar progreso</li></ul></article>
+        <ul><li>Racha, horas, % de aciertos, ítems dominados</li><li>Dominio por especialidad (toca para practicar)</li><li>Mapa de calor de 5 semanas</li><li>Exportar, importar, borrar progreso</li></ul></article>
     </div>
   </section>
 
@@ -257,11 +260,11 @@ tfoot td{font-weight:700}
   <section class="sec" id="fuentes">
     <header><span class="eyebrow">4 · Fuentes y PDFs</span><h2>De un PDF a preguntas en el repaso</h2></header>
     <div class="flow">
-      <div class="step"><b>Subir PDF</b><span>pdf.js extrae el texto por página; se guarda en IndexedDB</span></div>
+      <div class="step"><b>Subir PDF o pegar texto</b><span>pdf.js extrae el texto por página; se guarda en IndexedDB</span></div>
       <div class="step"><b>Elegir páginas</b><span>rango, cantidad y especialidad; costo estimado si usa IA</span></div>
       <div class="step"><b>Generar</b><span>sin IA: tarjetas de completar<br>con IA: casos + tarjetas</span></div>
       <div class="step"><b>Revisar</b><span>marcar, editar o descartar antes de guardar</span></div>
-      <div class="step"><b>Banco</b><span>cada ítem enlaza al PDF y a la página</span></div>
+      <div class="step"><b>Banco</b><span>cada ítem enlaza a su fuente; se puede exportar como pack</span></div>
       <div class="step"><b>Repaso</b><span>entra al repaso espaciado y a la recomendación de “Hoy”</span></div>
     </div>
     <div class="branch">
@@ -314,7 +317,7 @@ tfoot td{font-weight:700}
     <header><span class="eyebrow">7 · Datos y privacidad</span><h2>Qué se guarda y qué sale del dispositivo</h2></header>
     <div class="store">
       <article class="card"><h3>💾 En el dispositivo</h3>
-        <ul><li>Progreso: cajas de repaso, registro diario, simulacros</li><li>Banco propio, correcciones y archivados</li><li>Estados de vigencia</li><li>PDFs y su texto (IndexedDB)</li><li>Clave de API (aparte)</li></ul></article>
+        <ul><li>Progreso: cajas de repaso, registro diario, simulacros</li><li>Meta, fichas MBE y reportes</li><li>Banco propio, correcciones y archivados</li><li>Estados de vigencia</li><li>PDFs y su texto (IndexedDB)</li><li>Clave de API (aparte)</li></ul></article>
       <article class="card"><h3>📦 En el respaldo JSON</h3>
         <ul><li>Todo el progreso y el banco propio</li><li>Correcciones, archivados y vigencia</li><li><b>No</b> incluye los PDFs</li><li><b>No</b> incluye la clave de API</li></ul></article>
       <article class="card"><h3>🌐 Se envía a Anthropic</h3>
@@ -333,6 +336,7 @@ tfoot td{font-weight:700}
           <li><span class="d y">✓</span><span>Fuentes actualizadas a las versiones vigentes <span class="commit">2f62d16</span></span></li>
           <li><span class="d y">✓</span><span>Revisión y actualización de vigencia <span class="commit">039b66a</span></span></li>
           <li><span class="d y">✓</span><span>Guía de la clave de API (en la app y en GUIA_CLAVE_API.md) <span class="commit">c01937f</span></span></li>
+          <li><span class="d y">✓</span><span>Módulos de la versión Gemini: MBE, diagnóstico, pistas, tachar, fallos, marcas y mapa en simulacro, reportes, crear preguntas, pegar texto y packs</span></li>
           <li><span class="d y">✓</span><span>Probado en navegador con respuestas de la API simuladas, sin errores</span></li>
         </ul></article>
       <article class="card"><h3>Pendiente</h3>
@@ -341,7 +345,7 @@ tfoot td{font-weight:700}
           <li><span class="d p">!</span><span>Probar las funciones con IA con una clave real</span></li>
           <li><span class="d p">!</span><span>Confirmar los nombres de menú de la Consola de Anthropic en la guía</span></li>
           <li><span class="d p">!</span><span>Ampliar el banco (26 casos es poco para el examen)</span></li>
-          <li><span class="d p">!</span><span>Abrir PR a <span class="mono">main</span> para publicarlo en GitHub Pages</span></li>
+          <li><span class="d p">!</span><span>Plan gratis/Pro y muro de pago: esperan la decisión de cobro</span></li>
         </ul></article>
     </div>
     <p class="note">Si se implementa el servidor con suscripción, cambian las capas <b>Datos</b> (cuenta del usuario) y <b>Servicios externos</b> (la app llama a tu servidor, no directo a Anthropic), y se quita o esconde la guía de la clave.</p>
