@@ -114,10 +114,10 @@ nav.bottom button.on{color:var(--accent)}
 .filters button{flex:none}
 .filters .on{background:var(--accent);border-color:var(--accent);color:#fff}
 .hycard{border-top:4px solid var(--accent)}
-.hycard .th{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
-.hycard .th div{background:var(--subtle);border-radius:10px;padding:8px;font-size:12.5px}
-.hycard .th b{display:block;font-size:13.5px}
-@media (max-width:480px){.hycard .th{grid-template-columns:1fr}.bars .bar{grid-template-columns:100px 1fr 44px}}
+.hycard .th,.hyprev .th{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.hycard .th div,.hyprev .th div{background:var(--subtle);border-radius:10px;padding:8px;font-size:12.5px}
+.hycard .th b,.hyprev .th b{display:block;font-size:13.5px}
+@media (max-width:480px){.hycard .th,.hyprev .th{grid-template-columns:1fr}.bars .bar{grid-template-columns:100px 1fr 44px}}
 .center{text-align:center}
 .big{font-size:44px;line-height:1}
 hr{border:0;border-top:1px solid var(--border);margin:16px 0}
@@ -223,6 +223,10 @@ mark{background:color-mix(in srgb,var(--warn) 35%,transparent);color:inherit;bor
 details.custom{border:1px solid var(--border);border-radius:12px;padding:10px 12px}
 details.custom summary{cursor:pointer;font-weight:600;font-size:14px}
 .stars{color:var(--warn);letter-spacing:1px}
+.hyprev{border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:12px;padding:12px}
+.hyprev .th{grid-template-columns:1fr 1fr}
+@media (max-width:480px){.hyprev .th{grid-template-columns:1fr}}
+.erow textarea{min-height:44px}
 kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
 </style>
 </head>
@@ -1547,7 +1551,7 @@ const hyById = id => HYS.find(h=>String(h.id)===String(id));
 function pickHY(n, spec){
   const pool = HYS.filter(h=>!spec || h.specialty===spec);
   const due = pool.filter(h=>isDue("h"+h.id));
-  const unseen = shuffle(pool.filter(h=>!S.srs["h"+h.id]));
+  const unseen = shuffle(pool.filter(h=>!S.srs["h"+h.id])).sort((a,b)=>(b.relevance||3)-(a.relevance||3));   // las nuevas, primero las más relevantes
   const rest = shuffle(pool.filter(h=>S.srs["h"+h.id] && !isDue("h"+h.id))).sort((a,b)=>S.srs["h"+a.id].b - S.srs["h"+b.id].b);
   const out = []; for (const h of [...due, ...unseen, ...rest]) { if (!out.includes(h)) out.push(h); if (out.length >= n) break; }
   return out.map(h=>({t:"h", id:h.id}));
@@ -2400,6 +2404,14 @@ async function runGenerate(){
 }
 
 // ---------- Revisión antes de guardar ----------
+// Vista previa de una ficha propuesta, tal como se verá en la app
+const hyPrevHTML = c => `<div class="hyprev" style="border-top-color:${SPEC_COLOR[c.specialty]||"var(--accent)"}">
+  <div class="row"><span class="tag">${esc(c.badge || "Ficha HY")}</span><span class="xs muted">${esc(c.specialty)}</span>${c.relevance ? `<div class="spacer"></div><span class="stars xs" title="Relevancia ${c.relevance} de 5">${"★".repeat(c.relevance)}${"☆".repeat(5-c.relevance)}</span>` : ""}</div>
+  <h4 style="margin:6px 0 0;font-size:15.5px">${esc(c.title)}</h4>
+  <div class="th">${c.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b>${esc(t.val)}</b></div>`).join("")}</div>
+  ${c.why ? `<div class="note pearl"><b>💡 Por qué es high-yield:</b> ${esc(c.why)}</div>` : ""}
+  ${c.redFlag ? `<div class="note" style="border-color:var(--bad);margin-top:6px"><b>🚩</b> ${esc(c.redFlag)}</div>` : ""}
+  ${c.trap ? `<div class="note trap" style="margin-top:6px"><b>⚠️ Trampa:</b> ${esc(c.trap)}</div>` : ""}</div>`;
 const qtLabel = k => k==="critica" ? "🔬 Lectura crítica" : k==="directa" ? "❓ Pregunta directa" : "🩺 Caso";
 function renderReview(){
   const box = $("#reviewBox");
@@ -2412,12 +2424,13 @@ function renderReview(){
     <div id="candList">${cands.map((c,i)=> c.kind==="h" ? `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div class="stack" style="min-width:0;gap:6px">
-          <div class="xs muted">💎 Ficha high-yield · ${esc(c.specialty)} · pág. ${c.page}${c.relevance ? ` · <span class="stars" title="Relevancia ${c.relevance} de 5">${"★".repeat(c.relevance)}${"☆".repeat(5-c.relevance)}</span>` : ""}</div>
-          ${c.why ? `<div class="xs">💡 ${esc(c.why)}</div>` : ""}
+          <div class="xs muted">💎 Ficha high-yield · pág. ${c.page}</div>
+          <div id="hp${i}">${hyPrevHTML(c)}</div>
+          <details class="custom"><summary>✏️ Editar esta ficha</summary><div class="stack" style="margin-top:10px;gap:6px">
           <label class="fld">Título<input type="text" data-hf="${i}" data-k="title" value="${esc(c.title)}"></label>
-          ${c.thresholds.map((x,j)=>`<div class="erow two"><input type="text" data-hr="${i}:${j}:label" value="${esc(x.label)}" aria-label="Qué es"><input type="text" data-hr="${i}:${j}:val" value="${esc(x.val)}" aria-label="Dato"></div>`).join("")}
-          <label class="fld">🚩 Bandera roja<textarea data-hf="${i}" data-k="redFlag" rows="1">${esc(c.redFlag)}</textarea></label>
-          <label class="fld">⚠️ Trampa<textarea data-hf="${i}" data-k="trap" rows="1">${esc(c.trap)}</textarea></label>
+          ${c.thresholds.map((x,j)=>`<div class="erow two"><textarea rows="2" data-hr="${i}:${j}:label" aria-label="Qué es">${esc(x.label)}</textarea><textarea rows="2" data-hr="${i}:${j}:val" aria-label="Dato">${esc(x.val)}</textarea></div>`).join("")}
+          <label class="fld">🚩 Bandera roja<textarea data-hf="${i}" data-k="redFlag" rows="2">${esc(c.redFlag)}</textarea></label>
+          <label class="fld">⚠️ Trampa<textarea data-hf="${i}" data-k="trap" rows="2">${esc(c.trap)}</textarea></label></div></details>
         </div></div>` : c.kind==="c" ? `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div class="stack" style="min-width:0">
@@ -2439,8 +2452,8 @@ function renderReview(){
     const n = cands.filter(c=>c.on).length; $("#candCount").textContent = `${n}/${cands.length} seleccionadas`; $("#candSave").textContent = `Guardar ${n} en el banco`;
   });
   box.querySelectorAll("[data-cf]").forEach(ta=>ta.oninput=()=>{ cands[+ta.dataset.cf][ta.dataset.k] = ta.value; });
-  box.querySelectorAll("[data-hf]").forEach(x=>x.oninput=()=>{ cands[+x.dataset.hf][x.dataset.k] = x.value; });
-  box.querySelectorAll("[data-hr]").forEach(x=>x.oninput=()=>{ const [i,j,k] = x.dataset.hr.split(":"); cands[+i].thresholds[+j][k] = x.value; });
+  box.querySelectorAll("[data-hf]").forEach(x=>x.oninput=()=>{ const i = +x.dataset.hf; cands[i][x.dataset.k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[i]); });
+  box.querySelectorAll("[data-hr]").forEach(x=>x.oninput=()=>{ const [i,j,k] = x.dataset.hr.split(":"); cands[+i].thresholds[+j][k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[+i]); });
   $("#candCancel").onclick = ()=>{ cands = null; renderReview(); };
   $("#candSave").onclick = saveCands;
 }
