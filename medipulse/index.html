@@ -146,6 +146,18 @@ label.fld>*{margin-top:4px}
 .seg button b{display:block;font-size:14.5px}
 .seg button span{font-size:12.5px;color:var(--muted)}
 @media (max-width:480px){.seg{grid-template-columns:1fr}}
+.guide h3{font-size:16px;margin:0 0 6px}
+.guide ul{margin:6px 0 0;padding-left:20px}.guide li{margin:4px 0}
+.guide p{margin:6px 0 0}
+.steps{list-style:none;counter-reset:st;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+.steps>li{counter-increment:st;position:relative;padding-left:58px}
+.steps>li::before{content:counter(st);position:absolute;left:16px;top:16px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;display:grid;place-items:center}
+.gtable{width:100%;border-collapse:collapse;margin-top:10px}
+.gtable th,.gtable td{text-align:left;vertical-align:top;padding:8px 6px;border-top:1px solid var(--border)}
+.gtable th{font-size:12.5px;color:var(--muted);border-top:0}
+.guide details{border-top:1px solid var(--border);padding:10px 0}
+.guide details summary{cursor:pointer;font-weight:600;font-size:14.5px}
+code{font:13px ui-monospace,monospace;background:var(--subtle);border-radius:5px;padding:1px 5px}
 kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
 </style>
 </head>
@@ -254,6 +266,115 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
         <details><summary style="cursor:pointer"><b style="font-size:16px">Referencias del contenido incluido</b> <span class="xs muted" id="bsCount"></span></summary>
         <p class="muted xs" style="margin:8px 0 0">Guías y textos en los que se basan los casos, tarjetas y fichas de la app, ordenados del más reciente al más antiguo. Vigencia revisada en <span id="bsChecked"></span>. Compara siempre con la normativa de tu país.</p>
         <div id="builtinSrc" style="margin-top:6px"></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GUÍA: CLAVE DE API ============ -->
+  <section class="view" id="v-guide">
+    <div class="stack guide">
+      <button class="btn ghost" data-go="lib">← Fuentes</button>
+      <div>
+        <span class="tag">Guía · 10 minutos</span>
+        <h2 style="margin-top:8px">Cómo conseguir tu clave de API de Claude</h2>
+        <p class="muted small" style="margin:6px 0 0">La clave es opcional. Sin ella, MediPulse funciona completo: estudio, repaso, simulacros y tarjetas de completar desde tus PDF. Con ella, además puedes <b>generar casos clínicos tipo examen</b> desde tus PDF, <b>revisar si tus fuentes siguen vigentes</b> y <b>actualizar las preguntas</b> cuando sale una guía nueva.</p>
+      </div>
+
+      <div class="card">
+        <h3>Antes de empezar</h3>
+        <ul class="small">
+          <li><b>Es un servicio aparte de Claude.ai.</b> Aunque pagues Claude Pro o Max, la API se paga por separado.</li>
+          <li><b>Se paga por uso, con saldo prepagado.</b> Recargas crédito (lo habitual es empezar con US$5) y cada uso se descuenta. El crédito vence al año y no es reembolsable.</li>
+          <li><b>Necesitas</b> un correo y una tarjeta de crédito o débito internacional.</li>
+        </ul>
+        <table class="gtable small">
+          <thead><tr><th>Acción en MediPulse</th><th>Costo aprox.</th></tr></thead>
+          <tbody>
+            <tr><td>Generar 10 casos + 10 tarjetas desde un PDF</td><td>US$0.10–0.40</td></tr>
+            <tr><td>Revisar la vigencia de 5 fuentes</td><td>~US$0.25</td></tr>
+            <tr><td>Actualizar las preguntas de una fuente</td><td>US$0.10–0.30</td></tr>
+            <tr><td>Estudiar, repasar, simulacros, tarjetas de completar</td><td>Gratis</td></tr>
+          </tbody>
+        </table>
+        <p class="xs muted" style="margin:8px 0 0">Precios estimados a noviembre de 2026. La app muestra el costo aproximado antes de cada acción que usa la API.</p>
+      </div>
+
+      <ol class="steps">
+        <li class="card">
+          <h3>Crea tu cuenta</h3>
+          <p class="small">Entra a <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (la Consola de Claude) y regístrate con tu correo. Confirma el correo y completa los datos que te pida.</p>
+          <p class="xs muted">Si la página te lleva a platform.claude.com, es el mismo servicio con otra dirección.</p>
+        </li>
+        <li class="card">
+          <h3>Agrega saldo</h3>
+          <p class="small">En el menú, entra a <b>Settings → Billing</b> (Facturación), registra tu tarjeta y compra crédito. Con <b>US$5</b> alcanza para mucho uso en MediPulse.</p>
+          <p class="xs muted">Sin saldo, la clave no funciona aunque esté bien copiada.</p>
+        </li>
+        <li class="card">
+          <h3>Pon un límite de gasto</h3>
+          <p class="small">En <b>Settings → Limits</b> define un <b>límite mensual</b>, por ejemplo US$5. Es tu red de seguridad: aunque alguien obtuviera tu clave, nunca se gastaría más de eso en el mes.</p>
+          <p class="xs muted">Si luego llegas al límite, la app mostrará un error; puedes subirlo en esa misma pantalla.</p>
+        </li>
+        <li class="card">
+          <h3>Activa la búsqueda web</h3>
+          <p class="small">Solo es necesario para <b>revisar la vigencia de las fuentes</b>. Busca en la configuración de tu organización en la Consola (normalmente en la sección de <b>privacidad</b> o de funciones) la opción de <b>búsqueda web</b> (<i>web search</i>) y actívala.</p>
+          <p class="xs muted">Si no la activas, todo lo demás funciona y la app te avisará cuando intentes revisar la vigencia.</p>
+        </li>
+        <li class="card">
+          <h3>Crea la clave</h3>
+          <p class="small">Entra a <b>API Keys</b> y toca <b>Create Key</b>. Ponle un nombre que reconozcas, por ejemplo <code>MediPulse celular</code>, y deja el espacio de trabajo (<i>workspace</i>) en <b>Default</b>.</p>
+          <div class="warnbox small"><b>Cópiala en ese momento.</b> La clave empieza con <code>sk-ant-</code> y la Consola la muestra <b>una sola vez</b>. Si la pierdes, no se puede recuperar: crea otra.</div>
+        </li>
+        <li class="card">
+          <h3>Pégala en MediPulse</h3>
+          <p class="small">En la app ve a <b>📚 Fuentes → 🤖 Generación con IA</b>, pega la clave en el campo y toca <b>Guardar clave</b>. Verás “✓ Clave guardada” con sus últimos 4 caracteres.</p>
+          <div class="row" style="margin-top:8px"><button class="btn primary sm" id="gdToKey">Ir a guardar mi clave</button></div>
+        </li>
+        <li class="card">
+          <h3>Pruébala</h3>
+          <p class="small">Abre un PDF tuyo en Fuentes, elige <b>🤖 Casos clínicos + tarjetas (IA)</b>, selecciona 1–3 páginas y 5 casos, y toca <b>Generar</b>. Si en 1–3 minutos aparecen las preguntas para revisar, todo está listo.</p>
+        </li>
+      </ol>
+
+      <div class="card">
+        <h3>🔒 Cuida tu clave</h3>
+        <ul class="small">
+          <li><b>Dónde se guarda:</b> solo en el navegador de este dispositivo. MediPulse solo la envía a Anthropic, nunca a otro servidor, y no la incluye en el respaldo que exportas.</li>
+          <li><b>Quién puede verla:</b> cualquiera que use este navegador. No la guardes en una computadora compartida o pública.</li>
+          <li><b>No la compartas</b> ni la pegues en chats, correos, capturas de pantalla o código. Quien la tenga puede gastar tu saldo.</li>
+          <li><b>Si crees que alguien la vio:</b> en la Consola, entra a <b>API Keys</b>, elimínala y crea otra. La anterior deja de funcionar al instante.</li>
+          <li><b>Para quitarla de la app:</b> Fuentes → Generación con IA → <b>Quitar clave</b>.</li>
+          <li><b>Otro dispositivo:</b> crea una clave distinta para cada uno (ej. “MediPulse laptop”); así puedes desactivar una sin afectar las demás.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🛠️ Si algo falla</h3>
+        <table class="gtable small">
+          <thead><tr><th>Mensaje en la app</th><th>Qué hacer</th></tr></thead>
+          <tbody>
+            <tr><td>“La clave debe empezar con sk-ant-”</td><td>Se copió mal o incompleta. Vuelve a copiarla, sin espacios al inicio ni al final. Si ya no la ves en la Consola, crea una nueva.</td></tr>
+            <tr><td>“La clave de API no es válida”</td><td>Fue eliminada o tiene un error. Crea una nueva en <b>API Keys</b> y vuelve a guardarla.</td></tr>
+            <tr><td>“La API rechazó la solicitud: … credit balance …”</td><td>Te quedaste sin saldo. Recarga en <b>Settings → Billing</b>.</td></tr>
+            <tr><td>“La API rechazó la solicitud: … usage limit …”</td><td>Llegaste a tu límite mensual. Súbelo en <b>Settings → Limits</b> o espera al próximo mes.</td></tr>
+            <tr><td>“Llegaste al límite de uso de la API”</td><td>Hiciste muchas solicitudes seguidas. Espera un minuto y vuelve a intentarlo.</td></tr>
+            <tr><td>“La búsqueda web no está activada para tu cuenta”</td><td>Haz el paso 4.</td></tr>
+            <tr><td>“Tu clave no tiene permiso…”</td><td>Revisa en la Consola que la clave pertenezca al espacio de trabajo <b>Default</b> y que tu cuenta esté activa.</td></tr>
+            <tr><td>“Sin conexión con la API”</td><td>Las funciones con IA necesitan internet. Revisa tu conexión; lo demás de la app sigue funcionando sin ella.</td></tr>
+            <tr><td>“La respuesta quedó incompleta”</td><td>Pediste demasiado de una vez. Elige menos páginas o menos preguntas.</td></tr>
+            <tr><td>“Error del servicio de IA (5xx)”</td><td>Falla temporal de Anthropic. Inténtalo en unos minutos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Preguntas frecuentes</h3>
+        <details><summary>¿Puedo usar mi suscripción de Claude Pro o Max?</summary><p class="small">No. La suscripción es para usar Claude en claude.ai y sus apps; la API se paga aparte, por uso.</p></details>
+        <details><summary>¿Cuánto me va a costar al mes?</summary><p class="small">Depende de cuánto generes. Un uso típico (algunos PDF por semana y una revisión de vigencia al mes) suele quedar en pocos dólares. Con el límite del paso 3 nunca pagas más de lo que decides.</p></details>
+        <details><summary>¿Qué datos se envían a Anthropic?</summary><p class="small">Solo lo necesario para cada acción: el texto de las páginas que eliges de tu PDF, los nombres de tus fuentes o las preguntas que vas a actualizar. Tu progreso, tu racha y tus estadísticas nunca salen del dispositivo.</p></details>
+        <details><summary>¿Qué modelo usa la app?</summary><p class="small">Claude Opus 5.5, con respaldo automático a otro modelo si el primero no puede responder una solicitud.</p></details>
+        <details><summary>¿La IA puede equivocarse?</summary><p class="small">Sí. Por eso nada entra a tu banco sin que lo revises, cada pregunta indica su fuente y página, y las preguntas actualizadas llevan la marca “verifícalo”.</p></details>
+        <details><summary>¿Y si no quiero pagar nada?</summary><p class="small">No necesitas la clave. Puedes crear tarjetas de completar desde tus PDF gratis y revisar la vigencia de las fuentes a mano con el botón 🔗 de cada una.</p></details>
       </div>
     </div>
   </section>
@@ -984,8 +1105,8 @@ function go(v){
   if (sess && v!=="sess" && !confirmLeave()) return;
   currentView = v;
   document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.id==="v-"+v));
-  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v || ((v==="src"||v==="check") && b.dataset.go==="lib")));
-  ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, sim:renderSim, prog:renderProg, lib:renderLib, src:renderSrc, check:renderCheck})[v]?.();
+  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v || ((v==="src"||v==="check"||v==="guide") && b.dataset.go==="lib")));
+  ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, sim:renderSim, prog:renderProg, lib:renderLib, src:renderSrc, check:renderCheck, guide:renderGuide})[v]?.();
   scrollTo(0,0);
 }
 document.addEventListener("click", e=>{ const g=e.target.closest("[data-go]"); if(g) go(g.dataset.go); });
@@ -1457,11 +1578,12 @@ function renderAiBox(){
   const k = getKey();
   $("#aiBox").innerHTML = k
     ? `<p class="small" style="margin:0">✓ Clave guardada en este dispositivo (termina en …${esc(k.slice(-4))}). Al generar desde un PDF puedes pedir <b>casos clínicos tipo examen</b> con explicación, perla y trampa.</p>
-       <div class="row" style="margin-top:10px"><button class="btn ghost" id="keyDel" style="color:var(--bad)">Quitar clave</button></div>`
+       <div class="row" style="margin-top:10px"><button class="btn ghost" id="keyDel" style="color:var(--bad)">Quitar clave</button><button class="btn ghost sm" data-go="guide">📖 Guía y solución de problemas</button></div>`
     : `<p class="small" style="margin:0 0 10px">Sin IA, la app crea <b>tarjetas de completar</b> con las frases que tienen datos clave: gratis y sin internet. Con una clave de la API de Claude también genera <b>casos clínicos tipo examen</b>.</p>
        <label class="fld">Clave de API de Anthropic<input type="password" id="keyIn" placeholder="sk-ant-…" autocomplete="off"></label>
        <div class="row" style="margin-top:10px"><button class="btn primary" id="keySave">Guardar clave</button></div>
-       <p class="xs muted" style="margin:10px 0 0">La obtienes en console.anthropic.com. Se guarda solo en este navegador y solo se envía a la API de Anthropic. Usa una clave con límite de gasto y no la guardes en una computadora compartida.</p>`;
+       <p class="xs muted" style="margin:10px 0 0">Se guarda solo en este navegador y solo se envía a la API de Anthropic. Se paga aparte de Claude Pro/Max, por uso (unos centavos por acción).</p>
+       <button class="btn sm" data-go="guide" style="margin-top:10px">📖 ¿No tienes clave? Guía paso a paso</button>`;
   $("#keySave") && ($("#keySave").onclick = ()=>{ const v = $("#keyIn").value.trim(); if (!/^sk-ant-/.test(v)) return toast("La clave debe empezar con sk-ant-"); setKey(v); renderAiBox(); toast("Clave guardada ✓"); });
   $("#keyDel") && ($("#keyDel").onclick = ()=>{ if (confirm("¿Quitar la clave de este dispositivo?")) { setKey(""); renderAiBox(); } });
 }
@@ -1556,7 +1678,7 @@ async function runGenerate(){
     }
     st.innerHTML = "";
   } catch(err) {
-    st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span>`;
+    st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button>`;
   } finally { genBusy = false; const b = $("#gGo"); if (b) b.disabled = false; }
   renderReview();
   if (cands) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
@@ -1893,7 +2015,7 @@ function renderChkTop(){
     <div class="xs muted">${n} seleccionada${n===1?"":"s"} · costo aprox. US$${(Math.ceil(n/5)*0.25).toFixed(2)} (incluye las búsquedas web) · ~1 min por cada 5 fuentes</div>
     <button class="btn primary block" id="chkGo" ${chkBusy || !n ? "disabled" : ""}>Revisar ${n} fuente${n===1?"":"s"} con IA</button>
     <div id="chkStatus" class="small">${prevStatus}</div>`
-  : `<p class="small" style="margin:0">Para revisarlas automáticamente necesitas una clave de API (se configura en <button class="linkbtn" data-go="lib">Fuentes</button>). También puedes hacerlo a mano: busca cada fuente con 🔗 y márcala como vigente o desactualizada.</p>`;
+  : `<p class="small" style="margin:0">Para revisarlas automáticamente necesitas una clave de API (<button class="linkbtn" data-go="guide">cómo conseguirla</button>). También puedes hacerlo a mano: busca cada fuente con 🔗 y márcala como vigente o desactualizada.</p>`;
   document.querySelectorAll("[data-sel]").forEach(b=>b.onclick=()=>{
     const m = b.dataset.sel;
     chkSel = new Set(m==="all" ? all.map(s=>s.id) : m==="pend" ? all.filter(s=>needsCheck(s.id)).map(s=>s.id) : []);
@@ -1992,7 +2114,7 @@ async function runCheck(){
       save();
     } catch(err) {
       chkBusy = false; renderChkTop(); renderChkList();
-      status(`<span style="color:var(--bad)">${esc(err.userMsg || err.message)}</span>`);
+      status(`<span style="color:var(--bad)">${esc(err.userMsg || err.message)}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button>`);
       return;
     }
     done += batch.length; renderChkList();
@@ -2070,7 +2192,7 @@ function renderItemReview(){
   ["#srcRev","#itemReview"].forEach(q=>{ const el = $(q); if (el && q !== target) el.innerHTML = ""; });
   const box = target && $(target); if (!box) return;
   if (irev.busy) { box.innerHTML = `<div class="card"><span class="spin"></span> Claude está comparando cada ítem con la versión nueva${irev.mode==="web" ? " y verificando los datos en la web" : ""}. Puede tardar 1–3 minutos; no cierres la app.</div>`; return; }
-  if (irev.err) { box.innerHTML = `<div class="card"><p class="small" style="margin:0;color:var(--bad)">${esc(irev.err)}</p><button class="btn sm" id="irClose" style="margin-top:10px">Cerrar</button></div>`; $("#irClose").onclick = ()=>{ irev = null; renderItemReview(); }; return; }
+  if (irev.err) { box.innerHTML = `<div class="card"><p class="small" style="margin:0"><span style="color:var(--bad)">${esc(irev.err)}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button></p><button class="btn sm" id="irClose" style="margin-top:10px">Cerrar</button></div>`; $("#irClose").onclick = ()=>{ irev = null; renderItemReview(); }; return; }
   const rows = irev.rows, cnt = v => rows.filter(r=>r.verdict===v).length;
   const chip = {keep:["Sin cambios","var(--ok)"], update:["Corregir","var(--warn)"], remove:["Archivar","var(--bad)"]};
   box.innerHTML = `<div class="card">
@@ -2165,6 +2287,9 @@ function editSrcMeta(){
   $("#mSave").onclick = ()=>{ const t = $("#mTitle").value.trim(); if (t) s.title = t; s.org = $("#mOrg").value.trim(); s.year = +$("#mYear").value || ""; save(); renderSrc(); };
 }
 
+function renderGuide(){
+  $("#gdToKey").onclick = ()=>{ go("lib"); const k = $("#keyIn") || $("#aiBox"); k && k.scrollIntoView({behavior:"smooth", block:"center"}); $("#keyIn") && $("#keyIn").focus({preventScroll:true}); };
+}
 // ===================================================================
 applyTheme(); renderHoy();
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(()=>{});

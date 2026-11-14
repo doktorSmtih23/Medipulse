@@ -31,6 +31,9 @@ Al abrirla eliges cómo te sientes y la app arma la sesión:
 
 Los datos se guardan solo en el dispositivo: el progreso en `localStorage` y los PDF en IndexedDB. El respaldo exportado no incluye los PDF ni la clave de API.
 
+## Clave de API (opcional)
+Las funciones con IA usan la clave de API de Claude del propio usuario. Guía paso a paso para obtenerla, costos, seguridad y solución de problemas: **[GUIA_CLAVE_API.md](GUIA_CLAVE_API.md)** (también dentro de la app: Fuentes → Generación con IA → 📖 Guía paso a paso).
+
 ## Archivos de terceros (`vendor/`)
 - `pdf.min.js`, `pdf.worker.min.js`: pdf.js 3.11.174 (Mozilla, licencia Apache 2.0).
 - `anthropic-sdk.mjs`: SDK oficial `@anthropic-ai/sdk` 1.2.0 (licencia MIT), empaquetado con esbuild para el navegador.
