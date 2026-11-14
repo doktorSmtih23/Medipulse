@@ -100,8 +100,8 @@ main{padding:20px 0 24px}
 .plan li.done{color:var(--muted);text-decoration:line-through}
 .plan li.cur{font-weight:700;color:var(--fire)}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--panel);border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom)}
-nav.bottom .wrap{display:grid;grid-template-columns:repeat(5,1fr)}
-nav.bottom button{background:none;border:0;padding:8px 0 10px;font-size:11.5px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.bottom .wrap{display:grid;grid-template-columns:repeat(6,1fr);padding:0 4px}
+nav.bottom button{background:none;border:0;padding:8px 0 10px;font-size:11px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px}
 nav.bottom button .i{font-size:20px;line-height:1}
 nav.bottom button.on{color:var(--accent)}
 .toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:50;max-width:calc(100% - 32px);text-align:center}
@@ -120,6 +120,30 @@ nav.bottom button.on{color:var(--accent)}
 .big{font-size:44px;line-height:1}
 hr{border:0;border-top:1px solid var(--border);margin:16px 0}
 @media (hover:none){kbd,.kbhint{display:none}}
+.srcline{margin-top:10px;font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:baseline}
+.srcline a,.linkbtn{color:var(--accent);text-decoration:none;background:none;border:0;padding:0;font:inherit;cursor:pointer}
+.srcline a:hover,.linkbtn:hover{text-decoration:underline}
+.ctx{margin-top:10px;font-size:14px;font-weight:400;color:var(--muted)}
+input[type=text],input[type=password],input[type=number],textarea,select{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:8px 10px;width:100%}
+textarea{resize:vertical;min-height:44px}
+label.fld{display:block;font-size:13px;font-weight:600;color:var(--muted)}
+label.fld>*{margin-top:4px}
+.cand{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;padding:12px 0;border-top:1px solid var(--border)}
+.cand:first-child{border-top:0}
+.cand input[type=checkbox]{width:20px;height:20px;margin-top:2px;accent-color:var(--accent)}
+.cand.off{opacity:.45}
+.srcitem{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--border)}
+.srcitem:first-of-type{border-top:0}
+.srcitem .ic{flex:none;width:36px;height:36px;border-radius:10px;background:var(--subtle);display:grid;place-items:center;font-size:18px}
+.spin{width:22px;height:22px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:sp 0.8s linear infinite;display:inline-block;vertical-align:middle}
+@keyframes sp{to{transform:rotate(360deg)}}
+.warnbox{background:var(--warn-soft);border-radius:10px;padding:10px 12px;font-size:13.5px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{text-align:left;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--panel)}
+.seg button.on{border-color:var(--accent);background:var(--accent-soft)}
+.seg button b{display:block;font-size:14.5px}
+.seg button span{font-size:12.5px;color:var(--muted)}
+@media (max-width:480px){.seg{grid-template-columns:1fr}}
 kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
 </style>
 </head>
@@ -210,6 +234,38 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
     </div>
   </section>
 
+  <!-- ============ FUENTES ============ -->
+  <section class="view" id="v-lib">
+    <div class="stack">
+      <div><h2>Biblioteca de fuentes</h2><p class="muted small" style="margin:4px 0 0">Sube tus PDF (guías, resúmenes, libros) y conviértelos en tarjetas y casos que entran a tu repaso espaciado. Cada pregunta indica de qué fuente y de qué página sale.</p></div>
+      <div class="card stack">
+        <label class="btn primary block center" style="display:block">➕ Agregar PDF<input type="file" id="pdfIn" accept="application/pdf" multiple hidden></label>
+        <div id="pdfProgress" class="small muted"></div>
+        <div id="myDocs"></div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:16px">🤖 Generación con IA (opcional)</h3>
+        <div id="aiBox" style="margin-top:8px"></div>
+      </div>
+      <div class="card">
+        <details><summary style="cursor:pointer"><b style="font-size:16px">Referencias del contenido incluido</b> <span class="xs muted" id="bsCount"></span></summary>
+        <p class="muted xs" style="margin:8px 0 0">Guías y textos en los que se basan los casos, tarjetas y fichas de la app. Verifica siempre la versión vigente y la normativa de tu país.</p>
+        <div id="builtinSrc" style="margin-top:6px"></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETALLE DE FUENTE ============ -->
+  <section class="view" id="v-src">
+    <div class="stack">
+      <button class="btn ghost" data-go="lib">← Biblioteca</button>
+      <div id="srcHead"></div>
+      <div class="card stack" id="genCard"></div>
+      <div id="reviewBox"></div>
+      <div class="card" id="srcItems"></div>
+    </div>
+  </section>
+
   <!-- ============ PROGRESO ============ -->
   <section class="view" id="v-prog">
     <div class="stack">
@@ -219,8 +275,8 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
       <div class="card"><h3 style="font-size:16px">Últimas 5 semanas</h3><p class="muted xs" style="margin:4px 0 10px">Minutos de estudio por día.</p><div class="heat" id="heat"></div></div>
       <div class="card stack">
         <h3 style="font-size:16px">Tus datos</h3>
-        <p class="muted small" style="margin:0">Todo se guarda solo en este dispositivo. Exporta un respaldo para pasarlo a otro.</p>
-        <div class="row"><button class="btn" id="expBtn">⬇ Exportar</button><label class="btn" style="display:inline-block">⬆ Importar<input type="file" id="impFile" accept="application/json" hidden></label><button class="btn ghost" id="resetBtn" style="color:var(--bad)">Borrar todo</button></div>
+        <p class="muted small" style="margin:0">Todo se guarda solo en este dispositivo. El respaldo incluye tu progreso y las preguntas que generaste, pero no los PDF ni tu clave de API.</p>
+        <div class="row"><button class="btn" id="expBtn">⬇ Exportar</button><label class="btn" style="display:inline-block">⬆ Importar<input type="file" id="impFile" accept="application/json" hidden></label><button class="btn ghost" id="resetBtn" style="color:var(--bad)">Borrar progreso</button></div>
       </div>
     </div>
   </section>
@@ -231,6 +287,7 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
   <button data-go="banco"><span class="i">🩺</span>Casos</button>
   <button data-go="tarjetas"><span class="i">🃏</span>Fichas</button>
   <button data-go="sim"><span class="i">⏱</span>Simulacro</button>
+  <button data-go="lib"><span class="i">📚</span>Fuentes</button>
   <button data-go="prog"><span class="i">📈</span>Progreso</button>
 </div></nav>
 <div class="toast" id="toast"></div>
@@ -622,7 +679,48 @@ const QUESTIONS_EXTRA = [
     trap: "Normalizar el sodio en un día porque la paciente se ve bien."
   }
 ];
-const QUESTIONS = [...QUESTIONS_BASE, ...QUESTIONS_EXTRA];
+const BUILTIN_Q = [...QUESTIONS_BASE, ...QUESTIONS_EXTRA];
+
+// Fuentes del contenido incluido
+const SOURCES = [
+  {id:"esc_acs",  t:"Guías ESC 2023 para el manejo de los síndromes coronarios agudos", r:"European Heart Journal, 2023", k:"guideline"},
+  {id:"ssc21",    t:"Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021", r:"Critical Care Medicine, 2021", k:"guideline"},
+  {id:"ada_cri",  t:"Hyperglycemic Crises in Adults With Diabetes: A Consensus Report (ADA/EASD/JBDS/AACE/DTS)", r:"Diabetes Care, 2024", k:"guideline"},
+  {id:"ada_soc",  t:"ADA Standards of Care in Diabetes—2025", r:"Diabetes Care, 2025", k:"guideline"},
+  {id:"acog_htn", t:"ACOG Practice Bulletin No. 222: Gestational Hypertension and Preeclampsia", r:"Obstetrics & Gynecology, 2020", k:"guideline"},
+  {id:"croup",    t:"Croup in children (Bjornson CL, Johnson DW)", r:"CMAJ, 2013", k:"article"},
+  {id:"tg18",     t:"Tokyo Guidelines 2018 (TG18): colecistitis y colangitis agudas", r:"J Hepatobiliary Pancreat Sci, 2018", k:"guideline"},
+  {id:"aha_acv",  t:"Guidelines for the Early Management of Patients With Acute Ischemic Stroke: 2019 Update (AHA/ASA)", r:"Stroke, 2019", k:"guideline"},
+  {id:"apap",     t:"Management of Acetaminophen Poisoning in the US and Canada: A Consensus Statement (Dart RC et al.)", r:"JAMA Network Open, 2023", k:"guideline"},
+  {id:"idsa_men", t:"IDSA Practice Guidelines for the Management of Bacterial Meningitis (Tunkel AR et al.)", r:"Clinical Infectious Diseases, 2004", k:"guideline"},
+  {id:"atls10",   t:"ATLS: Advanced Trauma Life Support, 10ª edición", r:"American College of Surgeons, 2018", k:"book"},
+  {id:"who_dia",  t:"El tratamiento de la diarrea: manual para médicos y otros profesionales sanitarios", r:"OMS, 2005", k:"book"},
+  {id:"who_hpp",  t:"Recomendaciones de la OMS para la prevención y el tratamiento de la hemorragia posparto (y actualización sobre ácido tranexámico, 2017)", r:"OMS, 2012", k:"guideline"},
+  {id:"ukka_k",   t:"Clinical Practice Guidelines: Treatment of Acute Hyperkalaemia in Adults", r:"UK Kidney Association, 2020", k:"guideline"},
+  {id:"wao_ana",  t:"World Allergy Organization Anaphylaxis Guidance 2020", r:"World Allergy Organization Journal, 2020", k:"guideline"},
+  {id:"wses_app", t:"Diagnosis and treatment of acute appendicitis: 2020 update of the WSES Jerusalem guidelines", r:"World Journal of Emergency Surgery, 2020", k:"guideline"},
+  {id:"esc_tep",  t:"Guías ESC 2019 para el diagnóstico y manejo de la embolia pulmonar aguda", r:"European Heart Journal, 2019", k:"guideline"},
+  {id:"aap_bq",   t:"AAP Clinical Practice Guideline: The Diagnosis, Management, and Prevention of Bronchiolitis", r:"Pediatrics, 2014", k:"guideline"},
+  {id:"acog_ect", t:"ACOG Practice Bulletin No. 193: Tubal Ectopic Pregnancy", r:"Obstetrics & Gynecology, 2018", k:"guideline"},
+  {id:"gordis",   t:"Gordis Epidemiología, 6ª edición (Celentano DD, Szklo M)", r:"Elsevier, 2019", k:"book"},
+  {id:"acc_fa",   t:"2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation", r:"Circulation, 2023", k:"guideline"},
+  {id:"aha_kaw",  t:"Diagnosis, Treatment, and Long-Term Management of Kawasaki Disease: AHA Scientific Statement", r:"Circulation, 2017", k:"guideline"},
+  {id:"eddl",     t:"Management of acute organophosphorus pesticide poisoning (Eddleston M et al.)", r:"The Lancet, 2008", k:"article"},
+  {id:"rcog_pp",  t:"RCOG Green-top Guideline No. 27a: Placenta Praevia and Placenta Accreta", r:"BJOG, 2018", k:"guideline"},
+  {id:"eu_hna",   t:"Clinical practice guideline on diagnosis and treatment of hyponatraemia (Spasovski G et al.)", r:"European Journal of Endocrinology, 2014", k:"guideline"},
+  {id:"aha_rcp",  t:"2020 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care", r:"Circulation, 2020", k:"guideline"},
+  {id:"goldf",    t:"Goldfrank's Toxicologic Emergencies, 11ª edición", r:"McGraw-Hill, 2019", k:"book"},
+  {id:"curb65",   t:"Defining community acquired pneumonia severity on presentation to hospital (Lim WS et al.)", r:"Thorax, 2003", k:"article"},
+  {id:"aap_fs",   t:"AAP Clinical Practice Guideline: Febrile Seizures", r:"Pediatrics, 2011", k:"guideline"},
+  {id:"aap_oma",  t:"AAP Clinical Practice Guideline: The Diagnosis and Management of Acute Otitis Media", r:"Pediatrics, 2013", k:"guideline"},
+  {id:"aap_bili", t:"AAP Clinical Practice Guideline Revision: Management of Hyperbilirubinemia in the Newborn ≥ 35 Weeks", r:"Pediatrics, 2022", k:"guideline"},
+  {id:"acog_cort",t:"ACOG Committee Opinion No. 713: Antenatal Corticosteroid Therapy for Fetal Maturation", r:"Obstetrics & Gynecology, 2017", k:"guideline"},
+  {id:"williams", t:"Williams Obstetricia, 26ª edición", r:"McGraw-Hill, 2022", k:"book"}
+];
+const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
+const Q_SRC = {1:"esc_acs",2:"ssc21",3:"ada_cri",4:"acog_htn",5:"croup",6:"tg18",7:"aha_acv",8:"apap",9:"idsa_men",10:"atls10",11:"who_dia",12:"who_hpp",13:"ukka_k",14:"wao_ana",15:"wses_app",16:"esc_tep",17:"aap_bq",18:"acog_ect",19:"gordis",20:"gordis",21:"acc_fa",22:"aha_kaw",23:"eddl",24:"tg18",25:"rcog_pp",26:"eu_hna"};
+BUILTIN_Q.forEach(q=>{ q.src = Q_SRC[q.id]; });
+let QUESTIONS = BUILTIN_Q;
 
 const HY_CARDS = [
       {
@@ -711,8 +809,9 @@ const HY_CARDS = [
       }
     ];
 
-// Tarjetas rápidas: frente → reverso
-const FLASH = [
+// Tarjetas rápidas: frente → reverso (F_SRC = fuente de cada una, en orden)
+const F_SRC = ["aha_acv", "aha_acv", "ada_soc", "ada_soc", "eu_hna", "atls10", "acc_fa", "acc_fa", "curb65", "ukka_k", "ada_soc", "goldf", "goldf", "eddl", "apap", "goldf", "aha_rcp", "aha_rcp", "aha_rcp", "wao_ana", "ssc21", "atls10", "atls10", "atls10", "tg18", "tg18", "wses_app", "wses_app", "aap_bq", "croup", "aha_kaw", "aap_fs", "aap_bili", "who_dia", "aap_oma", "williams", "acog_htn", "acog_htn", "acog_cort", "rcog_pp", "who_hpp", "gordis", "gordis", "gordis", "gordis", "gordis"];
+const BUILTIN_F = [
   ["Medicina Interna","Meta de PA antes de trombolizar un ACV isquémico","< 185/110 mmHg"],
   ["Medicina Interna","Ventana para alteplasa IV en ACV isquémico","Hasta 4.5 h desde la última vez que se vio bien al paciente"],
   ["Medicina Interna","Glucosa en ayunas diagnóstica de diabetes","≥ 126 mg/dL (confirmar en 2 ocasiones)"],
@@ -759,7 +858,11 @@ const FLASH = [
   ["Salud Pública","Fórmula del NNT","1 / reducción absoluta del riesgo"],
   ["Salud Pública","Medida de asociación en casos y controles","Odds ratio"],
   ["Salud Pública","¿Qué cambia con la prevalencia: sensibilidad o VPP?","Los valores predictivos (VPP y VPN)"]
-].map((f,i)=>({id:i+1,specialty:f[0],front:f[1],back:f[2]}));
+].map((f,i)=>({id:i+1,specialty:f[0],front:f[1],back:f[2],src:F_SRC[i]}));
+let FLASH = BUILTIN_F;
+
+const HY_SRC = {hy1:"ssc21",hy2:"ada_cri",hy3:"acog_htn",hy4:"ukka_k",hy5:"croup",hy6:"atls10"};
+HY_CARDS.forEach(h=>{ h.src = HY_SRC[h.id]; });
 
 const SPECS = ["Medicina Interna","Urgencias","Cirugía","Pediatría","Ginecología","Salud Pública"];
 const SPEC_COLOR = {"Medicina Interna":"#0891b2","Urgencias":"#e11d48","Cirugía":"#7c3aed","Pediatría":"#059669","Ginecología":"#db2777","Salud Pública":"#b45309"};
@@ -770,8 +873,11 @@ const SPEC_COLOR = {"Medicina Interna":"#0891b2","Urgencias":"#e11d48","Cirugía
 const KEY = "medipulse_v2";
 const DAY = 864e5;
 const BOX_DAYS = [0, 1, 3, 7, 16, 35];
-let S = {srs:{}, log:{}, sims:[], theme:null};
+const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, userQ:[], userC:[], sources:[], seq:0});
+let S = BLANK();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
+function rebuild(){ QUESTIONS = [...BUILTIN_Q, ...S.userQ]; FLASH = [...BUILTIN_F, ...S.userC]; }
+rebuild();
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
 
 const todayKey = (d=new Date()) => new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
@@ -787,7 +893,8 @@ function grade(key, g){
   save();
 }
 const isDue = k => S.srs[k] && S.srs[k].due <= Date.now();
-const dueKeys = () => Object.keys(S.srs).filter(isDue).sort((a,b)=>S.srs[a].due-S.srs[b].due);
+const itemExists = k => k[0]==="q" ? !!qById(k.slice(1)) : !!cById(k.slice(1));
+const dueKeys = () => Object.keys(S.srs).filter(k=>isDue(k) && itemExists(k)).sort((a,b)=>S.srs[a].due-S.srs[b].due);
 
 function specStats(){
   const st = {}; SPECS.forEach(s=>st[s]={n:0,ok:0,seen:0,total:0});
@@ -807,8 +914,8 @@ function streak(){
   return n;
 }
 const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
-const qById = id => QUESTIONS.find(q=>q.id===id);
-const cById = id => FLASH.find(c=>c.id===id);
+const qById = id => QUESTIONS.find(q=>String(q.id)===String(id));
+const cById = id => FLASH.find(c=>String(c.id)===String(id));
 
 // Arma una cola: primero lo vencido, luego lo no visto (priorizando un tema), luego lo más débil.
 function pickQuestions(n, {spec=null, preferSpec=null}={}){
@@ -845,8 +952,8 @@ function go(v){
   if (sess && v!=="sess" && !confirmLeave()) return;
   currentView = v;
   document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.id==="v-"+v));
-  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v));
-  ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, sim:renderSim, prog:renderProg})[v]?.();
+  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v || (v==="src" && b.dataset.go==="lib")));
+  ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, sim:renderSim, prog:renderProg, lib:renderLib, src:renderSrc})[v]?.();
   scrollTo(0,0);
 }
 document.addEventListener("click", e=>{ const g=e.target.closest("[data-go]"); if(g) go(g.dataset.go); });
@@ -871,9 +978,11 @@ function renderHoy(){
   let sug;
   if (due>0) sug = `Tienes <b>${due} repaso${due>1?"s":""}</b> pendiente${due>1?"s":""}. Es lo que más rinde: estás a punto de olvidarlo.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDue">Repasar ahora</button></div>`;
   else if (!l.sec && st>0) sug = `Llevas <b>${st} día${st>1?"s":""}</b> de racha. Aunque hoy no tengas ganas, con <b>una tarjeta</b> la mantienes.<div class="row" style="margin-top:10px"><button class="btn" id="doOne">Mantener racha (1 min)</button></div>`;
+  else if (newUserItems().length) sug = `Tienes <b>${newUserItems().length} ítems nuevos</b> generados de tus PDF sin estudiar. Lo que acabas de leer se fija mejor si lo practicas hoy.<div class="row" style="margin-top:10px"><button class="btn primary" id="doNew">Practicar lo nuevo</button></div>`;
   else sug = `Tu punto más débil ahora: <b>${weak}</b>. Una ronda de 5 casos de ese tema te dará el mayor avance.<div class="row" style="margin-top:10px"><button class="btn" id="doWeak">5 casos de ${weak}</button></div>`;
   $("#suggestCard").innerHTML = `<h3 style="font-size:16px">💡 Recomendación</h3><p style="margin:6px 0 0" class="small">${sug}</p>`;
   $("#doDue") && ($("#doDue").onclick = startDue);
+  $("#doNew") && ($("#doNew").onclick = ()=>startSession({label:"Mis PDF",tag:"norm",stages:[{name:"Nuevo de tus fuentes",items:newUserItems().slice(0,15)}]}));
   $("#doOne") && ($("#doOne").onclick = ()=>startSession({label:"Mantener racha",tag:"lazy",stages:[{name:"Tarjetas",items:pickCards(3)}]}));
   $("#doWeak") && ($("#doWeak").onclick = ()=>startSession({label:"Tema débil",tag:"norm",stages:[{name:weak,items:pickQuestions(5,{spec:weak})}]}));
   const day = Math.floor(Date.now()/DAY);
@@ -889,7 +998,7 @@ document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{
     {name:"Tarjetas rápidas",items:pickCards(8)}]});
   if (m==="beast") { const w=weakestSpec(); const due=dueKeys();
     return startSession({label:"Modo a tope",tag:"fire",stages:[
-      {name:"Bloque 1 · Repaso espaciado", items: due.length? due.slice(0,15).map(k=>({t:k[0],id:+k.slice(1)})) : pickCards(12)},
+      {name:"Bloque 1 · Repaso espaciado", items: due.length? due.slice(0,15).map(k=>({t:k[0],id:k.slice(1)})) : pickCards(12)},
       {name:"Bloque 2 · Tema débil: "+w, items:pickQuestions(10,{spec:w}).concat(pickQuestions(5,{preferSpec:w})).filter((x,i,a)=>a.findIndex(y=>y.id===x.id)===i).slice(0,12)},
       {name:"Bloque 3 · Simulacro mixto", items:pickQuestions(15), exam:true, limit:15*72},
       {name:"Bloque 4 · Cierre con tarjetas", items:pickCards(10)}], breaks:true});
@@ -902,7 +1011,7 @@ document.querySelectorAll("[data-lazy]").forEach(b=>b.onclick=()=>{
   if (m==="read") { const hy=HY_CARDS[Math.random()*HY_CARDS.length|0]; startSession({label:"Sin ganas",tag:"lazy",lazy:true,stages:[{name:"Una ficha",items:[{t:"hy",id:hy.id}]}]}); }
 });
 function startDue(){
-  const items = dueKeys().slice(0,20).map(k=>({t:k[0],id:+k.slice(1)}));
+  const items = dueKeys().slice(0,20).map(k=>({t:k[0],id:k.slice(1)}));
   startSession({label:"Repaso espaciado",tag:"norm",stages:[{name:"Repasos pendientes",items}]});
 }
 
@@ -976,6 +1085,7 @@ function answerQ(q, o, exam){
       <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
       <div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>
       <div class="note trap"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>
+      ${srcLine(q)}
       <button class="btn primary block" id="nextBtn">Siguiente →</button>
     </div>`;
   $("#nextBtn").onclick=()=>{ sess.i++; renderItem(); };
@@ -994,7 +1104,7 @@ function renderC(c){
 }
 function flipC(c){
   if (sess.state!=="ask") return; sess.state="flip";
-  $("#back").innerHTML = `<div class="back">${esc(c.back)}</div>`;
+  $("#back").innerHTML = `<div class="back">${esc(c.back)}${c.ctx?`<div class="ctx">“${esc(c.ctx)}”</div>`:""}</div>${srcLine(c)}`;
   $("#cBtns").innerHTML = `<div class="grid3">
     <button class="btn" data-g="0" style="border-color:var(--bad)">✗ No la sabía <kbd>1</kbd></button>
     <button class="btn" data-g="1" style="border-color:var(--warn)">~ Dudé <kbd>2</kbd></button>
@@ -1044,7 +1154,7 @@ function finishExam(timeUp){
     return `<details class="card" style="padding:12px 14px;margin-top:10px"><summary style="cursor:pointer"><b style="color:${good?"var(--ok)":"var(--bad)"}">${good?"✓":"✗"}</b> ${i+1}. ${esc(q.topic)}</summary>
       <p class="small" style="margin:10px 0">${q.vignette}</p>
       <p class="small" style="margin:0">Tu respuesta: <b>${a==null?"(sin responder)":esc(q.options[a])}</b><br>Correcta: <b style="color:var(--ok)">${esc(q.options[q.correct])}</b></p>
-      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p><div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div></details>`;
+      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p><div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>${srcLine(q)}</details>`;
   });
   const pct=Math.round(ok/st.items.length*100);
   S.sims.push({d:Date.now(),n:st.items.length,ok}); save();
@@ -1129,7 +1239,7 @@ function hyCardHTML(c){
     <h3 style="margin-top:8px;font-size:18px">${esc(c.title)}</h3>
     <div class="th">${c.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b>${esc(t.val)}</b></div>`).join("")}</div>
     <div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(c.redFlag)}</div>
-    <div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(c.trap)}</div></div>`;
+    <div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(c.trap)}</div>${srcLine(c)}</div>`;
 }
 function renderHY(){
   const specs=[...new Set(HY_CARDS.map(c=>c.specialty))];
@@ -1174,8 +1284,412 @@ function renderProg(){
   $("#heat").innerHTML=cells.join("");
 }
 $("#expBtn").onclick=()=>{ const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="medipulse-respaldo-"+todayKey()+".json"; a.click(); };
-$("#impFile").onchange=e=>{ const f=e.target.files[0]; if(!f) return; f.text().then(t=>{ try{ const d=JSON.parse(t); if(!d.srs||!d.log) throw 0; S=Object.assign({srs:{},log:{},sims:[]},d); save(); applyTheme(); renderProg(); refreshChips(); toast("Respaldo importado ✓"); }catch(_){ toast("Archivo no válido"); } }); };
-$("#resetBtn").onclick=()=>{ if(confirm("¿Borrar todo tu progreso? No se puede deshacer.")){ S={srs:{},log:{},sims:[],theme:S.theme}; save(); renderProg(); refreshChips(); toast("Progreso borrado"); } };
+$("#impFile").onchange=e=>{ const f=e.target.files[0]; if(!f) return; f.text().then(t=>{ try{ const d=JSON.parse(t); if(!d.srs||!d.log) throw 0; S=Object.assign(BLANK(),d); rebuild(); save(); applyTheme(); renderProg(); refreshChips(); toast("Respaldo importado ✓"); }catch(_){ toast("Archivo no válido"); } }); };
+$("#resetBtn").onclick=()=>{ if(confirm("¿Borrar tu progreso (racha, repasos, estadísticas)? Tus PDF y las preguntas generadas se conservan. No se puede deshacer.")){ S=Object.assign(BLANK(),{theme:S.theme,userQ:S.userQ,userC:S.userC,sources:S.sources,seq:S.seq}); save(); renderProg(); refreshChips(); toast("Progreso borrado"); } };
+
+// ===================================================================
+// BIBLIOTECA DE FUENTES
+// ===================================================================
+const KEY_API = "medipulse_api_key";
+function getKey(){ try { return localStorage.getItem(KEY_API) || ""; } catch(e) { return ""; } }
+function setKey(k){ try { k ? localStorage.setItem(KEY_API, k) : localStorage.removeItem(KEY_API); } catch(e) {} }
+const pubmed = t => "https://pubmed.ncbi.nlm.nih.gov/?term=" + encodeURIComponent(t);
+
+function srcInfo(id){
+  if (!id) return null;
+  if (SRC_BY_ID[id]) return Object.assign({builtin:true}, SRC_BY_ID[id]);
+  const s = S.sources.find(x=>x.id===id);
+  return s ? {builtin:false, id:s.id, t:s.title} : null;
+}
+function srcLine(item){
+  const s = srcInfo(item.src); if (!s) return "";
+  if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${s.k!=="book"?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>`;
+  const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : "";
+  return `<div class="srcline">📄 <span>${esc(s.t)}${item.page?` · pág. ${item.page}`:""}${how} · <button class="linkbtn" onclick="openPdf('${s.id}',${item.page||1})">abrir PDF</button></span></div>`;
+}
+
+// ---------- IndexedDB: guarda los PDF y su texto ----------
+const idb = (()=>{
+  let dbp;
+  const db = () => dbp || (dbp = new Promise((res,rej)=>{
+    const r = indexedDB.open("medipulse", 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("pdfs");
+    r.onsuccess = () => res(r.result); r.onerror = () => { dbp = null; rej(r.error); };
+  }));
+  const tx = async (mode, fn) => { const d = await db(); return new Promise((res,rej)=>{
+    const t = d.transaction("pdfs", mode), req = fn(t.objectStore("pdfs"));
+    t.oncomplete = () => res(req && req.result); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error || new Error("Sin espacio de almacenamiento"));
+  }); };
+  return { get:id=>tx("readonly",s=>s.get(id)), put:(id,v)=>tx("readwrite",s=>s.put(v,id)), del:id=>tx("readwrite",s=>s.delete(id)) };
+})();
+const recCache = {};
+async function getRec(id){ return recCache[id] || (recCache[id] = await idb.get(id)); }
+
+async function openPdf(id, page){
+  const r = await getRec(id).catch(()=>null);
+  if (!r) return toast("Este PDF no está guardado en este dispositivo.");
+  window.open(URL.createObjectURL(r.blob) + "#page=" + (page||1), "_blank", "noopener");
+}
+
+// ---------- pdf.js (incluido en vendor/, funciona sin internet) ----------
+let pdfjsP = null;
+function loadPdfJs(){
+  return pdfjsP || (pdfjsP = new Promise((res,rej)=>{
+    const s = document.createElement("script"); s.src = "vendor/pdf.min.js";
+    s.onload = () => { pdfjsLib.GlobalWorkerOptions.workerSrc = "vendor/pdf.worker.min.js"; res(pdfjsLib); };
+    s.onerror = () => { pdfjsP = null; rej(new Error("no se pudo cargar el lector de PDF")); };
+    document.head.appendChild(s);
+  }));
+}
+async function extractPages(buf, onProg){
+  const lib = await loadPdfJs();
+  const doc = await lib.getDocument({data: new Uint8Array(buf.slice(0))}).promise;
+  const pages = [];
+  for (let i=1; i<=doc.numPages; i++){
+    const tc = await (await doc.getPage(i)).getTextContent();
+    let s = ""; for (const it of tc.items) s += it.str + (it.hasEOL ? "\n" : " ");
+    pages.push(s.replace(/[ \t]+/g," ").replace(/(\p{L})-\s*\n\s*(\p{Ll})/gu,"$1$2").replace(/\s*\n\s*/g,"\n").trim());
+    onProg && onProg(i, doc.numPages);
+  }
+  return pages;
+}
+
+$("#pdfIn").onchange = async e => {
+  const files = [...e.target.files]; e.target.value = "";
+  for (const f of files) await addPdf(f, files.length===1);
+  renderLib();
+};
+async function addPdf(f, openAfter){
+  const prog = $("#pdfProgress");
+  try {
+    prog.innerHTML = `<span class="spin"></span> Leyendo “${esc(f.name)}”…`;
+    const buf = await f.arrayBuffer();
+    const pages = await extractPages(buf, (i,n)=> prog.innerHTML = `<span class="spin"></span> Extrayendo texto de “${esc(f.name)}”: página ${i} de ${n}…`);
+    const chars = pages.reduce((a,p)=>a+p.length, 0);
+    const id = "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
+    const rec = {blob: new Blob([buf], {type:"application/pdf"}), pages};
+    await idb.put(id, rec); recCache[id] = rec;
+    S.sources.push({id, title: f.name.replace(/\.pdf$/i,""), pages: pages.length, chars, added: Date.now(), spec: "Medicina Interna"});
+    save(); prog.innerHTML = "";
+    toast(chars < pages.length*80 ? "PDF agregado, pero casi no tiene texto (¿es escaneado?)." : "PDF agregado ✓");
+    if (openAfter) openSrc(id);
+  } catch(err) {
+    prog.innerHTML = `<span style="color:var(--bad)">No se pudo agregar “${esc(f.name)}”: ${esc(err && err.message || err)}</span>`;
+  }
+}
+
+function itemsOfSource(id){
+  return [...QUESTIONS.filter(q=>q.src===id).map(q=>({t:"q",id:q.id})), ...FLASH.filter(c=>c.src===id).map(c=>({t:"c",id:c.id}))];
+}
+function newUserItems(){
+  return [...S.userQ.map(q=>({t:"q",id:q.id})), ...S.userC.map(c=>({t:"c",id:c.id}))].filter(it=>!S.srs[it.t+it.id]);
+}
+function studySource(id){
+  const s = srcInfo(id), items = itemsOfSource(id);
+  if (!items.length) return toast("Esta fuente aún no tiene preguntas. Genera algunas primero.");
+  const rank = it => { const k = it.t+it.id; return isDue(k) ? 0 : !S.srs[k] ? 1 : 2; };
+  const sorted = shuffle(items).sort((a,b)=>rank(a)-rank(b)).slice(0,20);
+  startSession({label:"Fuente", tag:"norm", stages:[{name: s.t.length>48 ? s.t.slice(0,48)+"…" : s.t, items: sorted}]});
+}
+
+function renderLib(){
+  const docs = S.sources.slice().reverse();
+  $("#myDocs").innerHTML = docs.length
+    ? `<h3 style="font-size:15px;margin:4px 0 0">Tus documentos</h3>` + docs.map(s=>{
+        const nq = S.userQ.filter(q=>q.src===s.id).length, nc = S.userC.filter(c=>c.src===s.id).length;
+        return `<div class="srcitem"><div class="ic">📄</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${s.pages} págs · ${nq} casos · ${nc} tarjetas</div></div><button class="btn" data-src="${s.id}">Abrir</button></div>`;
+      }).join("")
+    : `<p class="muted small" style="margin:0">Aún no tienes documentos. Empieza con el PDF de una guía de práctica clínica o con tus apuntes de una rotación.</p>`;
+  document.querySelectorAll("[data-src]").forEach(b=>b.onclick=()=>openSrc(b.dataset.src));
+  renderAiBox();
+  const cnt = {}; [...BUILTIN_Q, ...BUILTIN_F, ...HY_CARDS].forEach(x=>{ if (x.src) cnt[x.src] = (cnt[x.src]||0) + 1; });
+  $("#bsCount").textContent = `(${SOURCES.length})`;
+  $("#builtinSrc").innerHTML = SOURCES.slice().sort((a,b)=>(cnt[b.id]||0)-(cnt[a.id]||0)).map(s=>`
+    <div class="srcitem"><div class="ic">${s.k==="book"?"📕":s.k==="article"?"📰":"📋"}</div>
+      <div style="flex:1;min-width:0"><div class="small"><b>${esc(s.t)}</b></div><div class="xs muted">${esc(s.r)} · ${cnt[s.id]||0} ítems${s.k!=="book"?` · <a class="linkbtn" href="${pubmed(s.t)}" target="_blank" rel="noopener">PubMed</a>`:""}</div></div>
+      <button class="btn" data-bsrc="${s.id}">Estudiar</button></div>`).join("");
+  document.querySelectorAll("[data-bsrc]").forEach(b=>b.onclick=()=>studySource(b.dataset.bsrc));
+}
+
+function renderAiBox(){
+  const k = getKey();
+  $("#aiBox").innerHTML = k
+    ? `<p class="small" style="margin:0">✓ Clave guardada en este dispositivo (termina en …${esc(k.slice(-4))}). Al generar desde un PDF puedes pedir <b>casos clínicos tipo examen</b> con explicación, perla y trampa.</p>
+       <div class="row" style="margin-top:10px"><button class="btn ghost" id="keyDel" style="color:var(--bad)">Quitar clave</button></div>`
+    : `<p class="small" style="margin:0 0 10px">Sin IA, la app crea <b>tarjetas de completar</b> con las frases que tienen datos clave: gratis y sin internet. Con una clave de la API de Claude también genera <b>casos clínicos tipo examen</b>.</p>
+       <label class="fld">Clave de API de Anthropic<input type="password" id="keyIn" placeholder="sk-ant-…" autocomplete="off"></label>
+       <div class="row" style="margin-top:10px"><button class="btn primary" id="keySave">Guardar clave</button></div>
+       <p class="xs muted" style="margin:10px 0 0">La obtienes en console.anthropic.com. Se guarda solo en este navegador y solo se envía a la API de Anthropic. Usa una clave con límite de gasto y no la guardes en una computadora compartida.</p>`;
+  $("#keySave") && ($("#keySave").onclick = ()=>{ const v = $("#keyIn").value.trim(); if (!/^sk-ant-/.test(v)) return toast("La clave debe empezar con sk-ant-"); setKey(v); renderAiBox(); toast("Clave guardada ✓"); });
+  $("#keyDel") && ($("#keyDel").onclick = ()=>{ if (confirm("¿Quitar la clave de este dispositivo?")) { setKey(""); renderAiBox(); } });
+}
+
+// ===================================================================
+// DETALLE DE FUENTE + GENERADOR
+// ===================================================================
+let curSrc = null, gen = null, cands = null, genBusy = false;
+const cur = () => S.sources.find(x=>x.id===curSrc);
+function openSrc(id){
+  curSrc = id; cands = null;
+  const s = cur();
+  gen = {mode: getKey() ? "ai" : "local", from: 1, to: Math.min(s.pages, 10), n: 10, spec: s.spec || "Medicina Interna"};
+  go("src");
+}
+async function renderSrc(){
+  const s = cur(); if (!s) return go("lib");
+  $("#srcHead").innerHTML = `<span class="tag">PDF · ${s.pages} págs</span><h2 style="margin-top:8px;word-break:break-word">${esc(s.title)}</h2>
+    <div class="row" style="margin-top:10px"><button class="btn" id="srcOpen">📄 Abrir PDF</button><button class="btn" id="srcRen">✏️ Renombrar</button><button class="btn ghost" id="srcDel" style="color:var(--bad)">Eliminar</button></div>`;
+  $("#srcOpen").onclick = ()=>openPdf(s.id, 1);
+  $("#srcRen").onclick = ()=>{ const v = prompt("Nombre de la fuente", s.title); if (v && v.trim()) { s.title = v.trim(); save(); renderSrc(); } };
+  $("#srcDel").onclick = ()=>deleteSource(s.id);
+  renderGen(); renderReview(); renderSrcItems();
+  try { await getRec(s.id); updEstimate(); } catch(e) {}
+}
+
+function renderGen(){
+  const s = cur(), hasKey = !!getKey();
+  $("#genCard").innerHTML = `
+    <h3 style="font-size:16px">Generar preguntas de este PDF</h3>
+    <div class="seg">
+      <button data-gm="local" class="${gen.mode==="local"?"on":""}"><b>🃏 Tarjetas de completar</b><span>Gratis y sin internet. Usa las frases con datos clave (dosis, umbrales, fármaco de elección).</span></button>
+      <button data-gm="ai" class="${gen.mode==="ai"?"on":""}"><b>🤖 Casos clínicos + tarjetas (IA)</b><span>${hasKey ? "Preguntas tipo examen con explicación. Usa tu clave de API." : "Necesitas una clave de API: configúrala en Fuentes."}</span></button>
+    </div>
+    <div class="grid3">
+      <label class="fld">Desde pág.<input type="number" id="gFrom" min="1" max="${s.pages}" value="${gen.from}"></label>
+      <label class="fld">Hasta pág.<input type="number" id="gTo" min="1" max="${s.pages}" value="${gen.to}"></label>
+      <label class="fld">${gen.mode==="ai"?"Casos (+ igual nº de tarjetas)":"Tarjetas"}<select id="gN">${[5,10,15,20].map(n=>`<option ${n===gen.n?"selected":""}>${n}</option>`).join("")}</select></label>
+    </div>
+    ${gen.mode==="local" ? `<label class="fld">Especialidad de estas tarjetas<select id="gSpec">${SPECS.map(x=>`<option ${x===gen.spec?"selected":""}>${x}</option>`).join("")}</select></label>` : ""}
+    <div id="gEst" class="xs muted"></div>
+    <button class="btn primary block" id="gGo" ${genBusy?"disabled":""}>Generar</button>
+    <div id="gStatus" class="small"></div>`;
+  document.querySelectorAll("[data-gm]").forEach(b=>b.onclick=()=>{ gen.mode = b.dataset.gm; renderGen(); updEstimate(); });
+  const rd = ()=>{ gen.from = +$("#gFrom").value||1; gen.to = +$("#gTo").value||1; gen.n = +$("#gN").value; if ($("#gSpec")) { gen.spec = $("#gSpec").value; s.spec = gen.spec; save(); } updEstimate(); };
+  ["#gFrom","#gTo","#gN","#gSpec"].forEach(q=>{ const el = $(q); if (el) el.oninput = el.onchange = rd; });
+  $("#gGo").onclick = runGenerate;
+}
+const MAX_AI_CHARS = 350000;
+function selectedText(){
+  const r = recCache[curSrc]; if (!r) return null;
+  const s = cur(), a = Math.max(1, Math.min(gen.from, s.pages)), b = Math.max(a, Math.min(gen.to, s.pages));
+  return {a, b, pages: r.pages.slice(a-1, b)};
+}
+function updEstimate(){
+  const el = $("#gEst"); if (!el) return;
+  const sel = selectedText(); if (!sel) { el.textContent = ""; return; }
+  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
+  if (chars < 200) { el.innerHTML = `<span style="color:var(--warn)">Esas páginas casi no tienen texto seleccionable (¿PDF escaneado o solo imágenes?).</span>`; return; }
+  if (gen.mode === "ai") {
+    if (chars > MAX_AI_CHARS) { el.innerHTML = `<span style="color:var(--bad)">Es demasiado texto para una sola vez (${Math.round(chars/1000)} mil caracteres). Elige menos páginas.</span>`; return; }
+    const tin = Math.round(chars/3.5), cost = tin*4e-6 + gen.n*2*700*20e-6 + 4000*20e-6;
+    el.textContent = `Págs. ${sel.a}–${sel.b} · ≈ ${tin<1000?tin:Math.round(tin/1000)+" mil"} tokens de entrada · costo aprox. US$${cost.toFixed(2)} (se cobra a tu cuenta de Anthropic).`;
+  } else el.textContent = `Págs. ${sel.a}–${sel.b} · ${Math.round(chars/1000)} mil caracteres para analizar.`;
+}
+
+async function runGenerate(){
+  if (genBusy) return;
+  const st = $("#gStatus"), s = cur();
+  if (gen.mode === "ai" && !getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return go("lib"); }
+  let sel;
+  try { await getRec(s.id); sel = selectedText(); } catch(e) {}
+  if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el PDF en este dispositivo. Vuelve a agregarlo.</span>`;
+  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
+  if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">Esas páginas no tienen texto que se pueda leer.</span>`;
+  if (gen.mode === "ai" && chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">Demasiado texto: elige menos páginas.</span>`;
+  genBusy = true; $("#gGo").disabled = true;
+  try {
+    if (gen.mode === "local") {
+      cands = localGenerate(sel.pages, sel.a, gen.n, gen.spec);
+    } else {
+      st.innerHTML = `<span class="spin"></span> Claude está leyendo las págs. ${sel.a}–${sel.b} y redactando las preguntas. Puede tardar 1–3 minutos; no cierres la app.`;
+      cands = await aiGenerate(sel, gen.n, s.title);
+    }
+    st.innerHTML = "";
+  } catch(err) {
+    st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span>`;
+  } finally { genBusy = false; const b = $("#gGo"); if (b) b.disabled = false; }
+  renderReview();
+  if (cands) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+// ---------- Generador local: tarjetas de completar ----------
+const UNIT_RE = /(?:[<>≥≤]\s*=?\s*)?\d+(?:[.,]\d+)?(?:\s*(?:-|–|a)\s*\d+(?:[.,]\d+)?)?\s*(?:mg\/kg\/d[ií]a|mg\/kg|mg\/dL|mg\/dl|mEq\/L|mmol\/L|mL\/kg|ml\/kg|U\/kg|UI\/kg|g\/dL|mmHg|lpm|rpm|mcg|µg|mg|g|mL|ml|L|kg|%|°C|horas?|h|minutos?|min|d[ií]as?|semanas?|meses|años?|cm|mm|UI|U)(?![\p{L}\d])/iu;
+const TERM_RE = /(?:de elecci[oó]n|de primera l[ií]nea|el tratamiento inicial|el ant[ií]doto|el agente (?:causal )?m[aá]s (?:com[uú]n|frecuente)|la causa m[aá]s (?:com[uú]n|frecuente)|el est[aá]ndar de oro|el gold standard)\s+(?:es|son|consiste en)\s+(?:el |la |los |las |un |una )?([^,.;:()]{3,70})/i;
+const DEF_RE = /^(?:El |La |Los |Las )?([^,.;:()]{3,50}?)\s+(?:se define como|consiste en|se caracteriza por)\s+(.{12,200})$/i;
+const KEYW = /(primera l[ií]nea|de elecci[oó]n|tratamiento|diagn[oó]stic|contraindicad|est[aá]ndar de oro|gold standard|se define|causa m[aá]s|signo|criterio|indicad|ant[ií]doto|factor(?:es)? de riesgo|complicaci[oó]n|m[aá]s frecuente|patognom|meta|objetivo|dosis|umbral|sospech|urgencia)/i;
+function localGenerate(pages, from, n, spec){
+  const out = [];
+  pages.forEach((txt, i)=>{
+    const page = from + i;
+    // Un salto de línea seguido de mayúscula suele ser un título o un párrafo nuevo: se corta ahí.
+    const sents = txt.split(/\n(?=[A-ZÁÉÍÓÚÑ¿¡])/).flatMap(b=>b.replace(/\n/g," ").split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/));
+    for (let s of sents) {
+      s = s.trim();
+      if (s.length < 45 || s.length > 300) continue;
+      if ((s.match(/\d/g)||[]).length > s.length*0.2) continue;   // probablemente una tabla
+      if (!/[a-záéíóúñ]{3}/.test(s)) continue;
+      let score = 0, ans = null, front = null;
+      const tm = s.match(TERM_RE), um = s.match(UNIT_RE), dm = s.replace(/\.$/,"").match(DEF_RE);
+      if (tm) { ans = tm[1].trim(); score += 4; }
+      else if (um) { ans = um[0].trim(); score += 3; }
+      else if (dm) { const term = dm[1].trim(); front = `${term[0].toUpperCase()+term.slice(1)}: ¿cómo se define o caracteriza?`; ans = dm[2].trim(); score += 2; }
+      if (!ans || ans.length < 2) continue;
+      if (KEYW.test(s)) score += 2;
+      if (s.length <= 200) score += 1;
+      if (!front) { const k = s.indexOf(ans); front = s.slice(0,k) + "_____" + s.slice(k+ans.length); }
+      out.push({kind:"c", on:true, front, back:ans, ctx:s, page, score, specialty:spec});
+    }
+  });
+  const seen = new Set();
+  return out.filter(c=>{ const k = c.ctx.slice(0,80); if (seen.has(k)) return false; seen.add(k); return true; })
+            .sort((a,b)=>b.score-a.score).slice(0, n).sort((a,b)=>a.page-b.page);
+}
+
+// ---------- Generador con IA (Claude API) ----------
+const GEN_SCHEMA = {
+  type:"object", additionalProperties:false, required:["questions","cards"],
+  properties:{
+    questions:{type:"array", items:{type:"object", additionalProperties:false,
+      required:["specialty","topic","vignette","options","correct","whyCorrect","pearl","trap","page"],
+      properties:{specialty:{type:"string", enum:SPECS}, topic:{type:"string"}, vignette:{type:"string"},
+        options:{type:"array", items:{type:"string"}}, correct:{type:"integer"}, whyCorrect:{type:"string"},
+        pearl:{type:"string"}, trap:{type:"string"}, page:{type:"integer"}}}},
+    cards:{type:"array", items:{type:"object", additionalProperties:false, required:["specialty","front","back","page"],
+      properties:{specialty:{type:"string", enum:SPECS}, front:{type:"string"}, back:{type:"string"}, page:{type:"integer"}}}}
+  }
+};
+const GEN_SYSTEM = `Eres un profesor de medicina que prepara a estudiantes para el examen de residencia médica. Redactas material de estudio a partir de un documento que te entrega el estudiante.
+
+Reglas:
+- Usa solo información que aparezca en el documento. No agregues datos de otras fuentes. Si el texto no alcanza para la cantidad pedida, genera menos ítems.
+- En "page" indica la página de donde sale cada ítem, según las marcas [pág. N] del documento.
+- Casos clínicos: viñeta breve y realista (edad, sexo, cuadro y datos clave) que termina en una pregunta. Exactamente 4 opciones plausibles y una sola correcta; "correct" es el índice (0 a 3) de la correcta. Reparte la posición de la respuesta correcta entre las cuatro. "whyCorrect" explica en 2 a 4 frases por qué es la correcta y por qué fallan las otras. "pearl" es el dato que conviene memorizar. "trap" es el error típico del estudiante en ese tema. "topic" es el tema en pocas palabras, por ejemplo "Cardiología · Insuficiencia cardíaca".
+- Tarjetas: en "front" una pregunta corta; en "back" la respuesta concreta (dato, umbral, fármaco, criterio), sin repetir la pregunta.
+- Prioriza lo que más se pregunta en los exámenes: umbrales y valores de corte, tratamiento de primera línea, criterios diagnósticos, contraindicaciones y banderas rojas. No hagas preguntas sobre autores, fechas de publicación ni la estructura del documento.
+- "specialty" es la más cercana de la lista permitida.
+- Escribe en español neutro, en texto plano, sin markdown ni LaTeX.`;
+
+async function aiGenerate(sel, n, title){
+  let Anthropic;
+  try { ({default: Anthropic} = await import("./vendor/anthropic-sdk.mjs")); }
+  catch(e) { const x = new Error(e.message); x.userMsg = "No se pudo cargar el módulo de IA. Revisa tu conexión."; throw x; }
+  const client = new Anthropic({apiKey: getKey(), dangerouslyAllowBrowser: true});
+  const doc = sel.pages.map((p,i)=>`[pág. ${sel.a+i}]\n${p}`).join("\n\n");
+  let msg;
+  try {
+    const stream = client.beta.messages.stream({
+      model: "claude-opus-5-5",
+      max_tokens: 32000,
+      betas: ["server-side-fallback-2026-07-01"],
+      fallbacks: "default",
+      output_config: {effort: "medium", format: {type: "json_schema", schema: GEN_SCHEMA}},
+      system: GEN_SYSTEM,
+      messages: [{role: "user", content: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>\n\nGenera ${n} casos clínicos y ${n} tarjetas a partir de este documento.`}]
+    });
+    msg = await stream.finalMessage();
+  } catch(e) {
+    const x = new Error(e.message || String(e));
+    if (e instanceof Anthropic.AuthenticationError) x.userMsg = "La clave de API no es válida. Revísala en Fuentes.";
+    else if (e instanceof Anthropic.PermissionDeniedError) x.userMsg = "Tu clave no tiene permiso para usar este modelo.";
+    else if (e instanceof Anthropic.RateLimitError) x.userMsg = "Llegaste al límite de uso de la API. Espera un minuto e inténtalo de nuevo.";
+    else if (e instanceof Anthropic.BadRequestError) x.userMsg = "La API rechazó la solicitud: " + (e.error?.error?.message || e.message);
+    else if (e instanceof Anthropic.APIConnectionError) x.userMsg = "Sin conexión con la API. La generación con IA necesita internet.";
+    else if (e instanceof Anthropic.APIError) x.userMsg = "Error del servicio de IA (" + (e.status || "?") + "). Inténtalo de nuevo en unos minutos.";
+    throw x;
+  }
+  if (msg.stop_reason === "refusal") { const x = new Error("refusal"); x.userMsg = "La IA no procesó este texto. Prueba con otras páginas."; throw x; }
+  if (msg.stop_reason === "max_tokens") { const x = new Error("max_tokens"); x.userMsg = "La respuesta quedó incompleta. Prueba con menos páginas o menos preguntas."; throw x; }
+  const txt = msg.content.filter(b=>b.type==="text").map(b=>b.text).join("");
+  let data; try { data = JSON.parse(txt); } catch(e) { const x = new Error("json"); x.userMsg = "La respuesta de la IA no tuvo el formato esperado. Inténtalo de nuevo."; throw x; }
+  const clampPage = p => Math.min(sel.b, Math.max(sel.a, +p || sel.a));
+  const okStr = v => typeof v === "string" && v.trim().length > 0;
+  const qs = (data.questions||[]).filter(q=>okStr(q.vignette) && Array.isArray(q.options) && q.options.length===4 && q.options.every(okStr) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<4)
+    .map(q=>({kind:"q", on:true, specialty: SPECS.includes(q.specialty)?q.specialty:"Medicina Interna", topic:q.topic||"", vignette:q.vignette, options:q.options, correct:q.correct, whyCorrect:q.whyCorrect||"", pearl:q.pearl||"", trap:q.trap||"", page:clampPage(q.page)}));
+  const cs = (data.cards||[]).filter(c=>okStr(c.front) && okStr(c.back))
+    .map(c=>({kind:"c", on:true, specialty: SPECS.includes(c.specialty)?c.specialty:"Medicina Interna", front:c.front, back:c.back, ctx:"", page:clampPage(c.page), ai:true}));
+  return [...qs, ...cs];
+}
+
+// ---------- Revisión antes de guardar ----------
+function renderReview(){
+  const box = $("#reviewBox");
+  if (!cands) { box.innerHTML = ""; return; }
+  if (!cands.length) { box.innerHTML = `<div class="card"><p class="small" style="margin:0">No encontré frases con datos clave en esas páginas. Prueba con otras páginas${getKey()?"":" o usa la generación con IA"}.</p></div>`; return; }
+  const on = cands.filter(c=>c.on).length, hasAI = cands.some(c=>c.kind==="q" || c.ai);
+  box.innerHTML = `<div class="card">
+    <div class="row"><h3 style="font-size:16px">Revisa antes de guardar</h3><div class="spacer"></div><span class="xs muted" id="candCount">${on}/${cands.length} seleccionadas</span></div>
+    <p class="xs muted" style="margin:4px 0 6px">Desmarca lo que no sirva y corrige lo necesario.${hasAI ? " La IA puede equivocarse: compara con la página indicada." : ""}</p>
+    <div id="candList">${cands.map((c,i)=> c.kind==="c" ? `
+      <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
+        <div class="stack" style="min-width:0">
+          <label class="fld">Pregunta<textarea data-cf="${i}" data-k="front" rows="2">${esc(c.front)}</textarea></label>
+          <label class="fld">Respuesta<textarea data-cf="${i}" data-k="back" rows="1">${esc(c.back)}</textarea></label>
+          <div class="xs muted">🃏 Tarjeta · ${esc(c.specialty)} · pág. ${c.page}</div>
+        </div></div>` : `
+      <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
+        <div style="min-width:0">
+          <div class="xs muted">🩺 Caso · ${esc(c.specialty)} · ${esc(c.topic)} · pág. ${c.page}</div>
+          <p class="small" style="margin:6px 0">${esc(c.vignette)}</p>
+          <ol type="A" class="small" style="margin:0;padding-left:22px">${c.options.map((o,j)=>`<li style="${j===c.correct?"color:var(--ok);font-weight:700":""}">${esc(o)}${j===c.correct?" ✓":""}</li>`).join("")}</ol>
+          <p class="xs muted" style="margin:6px 0 0">${esc(c.whyCorrect)}</p>
+        </div></div>`).join("")}</div>
+    <div class="row" style="margin-top:12px"><button class="btn ghost" id="candCancel">Descartar todo</button><div class="spacer"></div><button class="btn primary" id="candSave">Guardar ${on} en el banco</button></div>
+  </div>`;
+  box.querySelectorAll("[data-ci]").forEach(cb=>cb.onchange=()=>{
+    const i = +cb.dataset.ci; cands[i].on = cb.checked; $("#cand"+i).classList.toggle("off", !cb.checked);
+    const n = cands.filter(c=>c.on).length; $("#candCount").textContent = `${n}/${cands.length} seleccionadas`; $("#candSave").textContent = `Guardar ${n} en el banco`;
+  });
+  box.querySelectorAll("[data-cf]").forEach(ta=>ta.oninput=()=>{ cands[+ta.dataset.cf][ta.dataset.k] = ta.value; });
+  $("#candCancel").onclick = ()=>{ cands = null; renderReview(); };
+  $("#candSave").onclick = saveCands;
+}
+function saveCands(){
+  const s = cur(); let nq = 0, nc = 0;
+  cands.filter(c=>c.on).forEach(c=>{
+    const id = "u" + (++S.seq);
+    if (c.kind === "c") {
+      if (!c.front.trim() || !c.back.trim()) return;
+      S.userC.push({id, specialty:c.specialty, front:c.front.trim(), back:c.back.trim(), ctx:c.ctx||"", src:s.id, page:c.page, ai:!!c.ai, auto:!c.ai});
+      nc++;
+    } else {
+      S.userQ.push({id, specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
+        whyCorrect:c.whyCorrect, pearl:c.pearl, trap:c.trap, src:s.id, page:c.page, ai:true});
+      nq++;
+    }
+  });
+  rebuild(); save(); cands = null;
+  toast(`Guardado: ${nq} casos y ${nc} tarjetas ✓ Ya están en tu repaso.`);
+  renderSrc(); refreshChips();
+}
+
+function renderSrcItems(){
+  const s = cur(), qs = S.userQ.filter(q=>q.src===s.id), cs = S.userC.filter(c=>c.src===s.id);
+  const box = $("#srcItems");
+  if (!qs.length && !cs.length) { box.innerHTML = `<h3 style="font-size:16px">En tu banco</h3><p class="muted small" style="margin:6px 0 0">Todavía no hay preguntas de esta fuente.</p>`; return; }
+  const status = k => { const r = S.srs[k]; return !r ? "nueva" : isDue(k) ? "toca repasar" : r.b>=3 ? "dominada" : "en repaso"; };
+  box.innerHTML = `<div class="row"><h3 style="font-size:16px">En tu banco</h3><div class="spacer"></div><button class="btn primary" id="srcStudy">Estudiar esta fuente (${qs.length+cs.length})</button></div>
+    <div style="margin-top:8px">${[...qs.map(q=>({k:"q"+q.id, id:q.id, t:"🩺 "+(q.topic||"Caso clínico"), p:q.page})), ...cs.map(c=>({k:"c"+c.id, id:c.id, t:"🃏 "+c.front, p:c.page}))].map(x=>`
+      <div class="srcitem"><div style="flex:1;min-width:0" class="small">${esc(x.t)}<div class="xs muted">pág. ${x.p} · ${status(x.k)}</div></div><button class="btn ghost xs" data-del="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}</div>`;
+  $("#srcStudy").onclick = ()=>studySource(s.id);
+  box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
+    const k = b.dataset.del, id = k.slice(1);
+    if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);
+    delete S.srs[k]; rebuild(); save(); renderSrcItems(); refreshChips();
+  });
+}
+async function deleteSource(id){
+  const s = S.sources.find(x=>x.id===id); if (!s) return;
+  const n = S.userQ.filter(q=>q.src===id).length + S.userC.filter(c=>c.src===id).length;
+  if (!confirm(`¿Eliminar “${s.title}”${n?` y sus ${n} preguntas/tarjetas`:""}? No se puede deshacer.`)) return;
+  S.userQ.filter(q=>q.src===id).forEach(q=>delete S.srs["q"+q.id]);
+  S.userC.filter(c=>c.src===id).forEach(c=>delete S.srs["c"+c.id]);
+  S.userQ = S.userQ.filter(q=>q.src!==id); S.userC = S.userC.filter(c=>c.src!==id);
+  S.sources = S.sources.filter(x=>x.id!==id);
+  rebuild(); save(); delete recCache[id];
+  try { await idb.del(id); } catch(e) {}
+  toast("Fuente eliminada"); go("lib");
+}
+
 
 // ===================================================================
 applyTheme(); renderHoy();
