@@ -106,7 +106,7 @@ nav.bottom .wrap{display:grid;grid-template-columns:repeat(7,1fr);padding:0 2px}
 nav.bottom button{background:none;border:0;padding:8px 0 10px;font-size:10.5px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px}
 nav.bottom button .i{font-size:20px;line-height:1}
 nav.bottom button.on{color:var(--accent)}
-.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast{pointer-events:none;position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:50;max-width:calc(100% - 32px);text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .sesshead{display:flex;align-items:center;gap:10px}
 .timer{font-variant-numeric:tabular-nums;font-weight:700}
@@ -217,7 +217,12 @@ mark{background:color-mix(in srgb,var(--warn) 35%,transparent);color:inherit;bor
 .hidev{color:var(--muted);letter-spacing:.15em}
 .erow{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;align-items:center}
 .erow .xbtn{height:38px}
-@media (max-width:480px){.erow{grid-template-columns:1fr auto}.erow .eV,.erow [data-fv]{grid-column:1}}
+.erow.two{grid-template-columns:1fr 1fr}
+@media (max-width:480px){.erow.two{grid-template-columns:1fr}.erow{grid-template-columns:1fr auto}.erow .eV,.erow [data-fv]{grid-column:1}}
+.autobox{border:2px solid var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--panel) 80%);border-radius:14px;padding:14px}
+details.custom{border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+details.custom summary{cursor:pointer;font-weight:600;font-size:14px}
+.stars{color:var(--warn);letter-spacing:1px}
 kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
 </style>
 </head>
@@ -1550,9 +1555,10 @@ function pickHY(n, spec){
 const hyAccent = h => h.accent || SPEC_COLOR[h.specialty] || "var(--accent)";
 function hyCardHTML(c){
   return `<div class="card hycard" style="border-top-color:${hyAccent(c)}">
-    <div class="row"><span class="tag">${esc(c.badge || "Ficha HY")}</span><span class="xs muted">${esc(c.specialty)}</span></div>
+    <div class="row"><span class="tag">${esc(c.badge || "Ficha HY")}</span><span class="xs muted">${esc(c.specialty)}</span>${c.relevance ? `<div class="spacer"></div><span class="stars xs" title="Relevancia ${c.relevance} de 5">${"★".repeat(c.relevance)}${"☆".repeat(5-c.relevance)}</span>` : ""}</div>
     <h3 style="margin-top:8px;font-size:18px">${esc(c.title)}</h3>
     <div class="th">${c.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b>${esc(t.val)}</b></div>`).join("")}</div>
+    ${c.why ? `<div class="note pearl"><b>💡 Por qué es high-yield:</b> ${esc(c.why)}</div>` : ""}
     ${c.redFlag ? `<div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(c.redFlag)}</div>` : ""}
     ${c.trap ? `<div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(c.trap)}</div>` : ""}${srcLine(c)}</div>`;
 }
@@ -1570,7 +1576,7 @@ function renderH(h){
 function flipH(h){
   if (sess.state !== "ask") return; sess.state = "flip";
   document.querySelectorAll("#sessBody .hidev").forEach((b,i)=>{ b.textContent = h.thresholds[i].val; b.classList.remove("hidev"); });
-  $("#hBack").innerHTML = `${h.redFlag ? `<div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(h.redFlag)}</div>` : ""}
+  $("#hBack").innerHTML = `${h.why ? `<div class="note pearl" style="margin-bottom:8px"><b>💡 Por qué es high-yield:</b> ${esc(h.why)}</div>` : ""}${h.redFlag ? `<div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(h.redFlag)}</div>` : ""}
     ${h.trap ? `<div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(h.trap)}</div>` : ""}
     ${h.ctx && h.ctx.length >= 40 ? `<div class="ctx">“${esc(h.ctx.length > 300 ? h.ctx.slice(0,300) + "…" : h.ctx)}”</div>` : ""}${srcLine(h)}
     <div style="font-size:13px;margin-top:8px"><button class="linkbtn" id="repBtnH">🚩 Reportar</button><div id="repBoxH"></div></div>`;
@@ -1957,7 +1963,7 @@ function renderGen(){
     <h3 style="font-size:16px">Taller de preguntas</h3>
     <div class="tabs3">
       <button data-gt="read" class="${gen.tab==="read"?"on":""}"><b>📖 Leer y crear</b><span>Arma fichas HY con lo que selecciones. Gratis.</span></button>
-      <button data-gt="ai" class="${gen.tab==="ai"?"on":""}"><b>🤖 IA a tu medida</b><span>Tema, tipos, dificultad, enfoque.${getKey() ? "" : " Requiere clave."}</span></button>
+      <button data-gt="ai" class="${gen.tab==="ai"?"on":""}"><b>✨ IA</b><span>Fichas automáticas por relevancia, o a tu medida.${getKey() ? "" : " Requiere clave."}</span></button>
       <button data-gt="auto" class="${gen.tab==="auto"?"on":""}"><b>⚡ Datos clave</b><span>Encuentra cifras y criterios para tu ficha. Sin internet.</span></button>
     </div>
     <div id="gBody" class="stack"></div>`;
@@ -2010,6 +2016,16 @@ function renderAiTab(){
   const b = $("#gBody"), tpls = S.tpls || [];
   b.innerHTML = `
     ${getKey() ? "" : `<div class="warnbox small">Para generar con IA necesitas una clave de API. <button class="linkbtn" data-go="guide">Cómo conseguirla</button>. Mientras tanto, usa <b>📖 Leer y crear</b>.</div>`}
+    <div class="autobox stack">
+      <div><b>✨ Fichas automáticas</b><p class="xs muted" style="margin:4px 0 0">La IA lee el documento, decide qué es lo más relevante para tu examen y arma las fichas ordenadas por importancia, con el porqué de cada una. Tú solo revisas y guardas.</p></div>
+      <div class="grid2"><label class="fld">Qué leer<select id="aScope"><option value="all">Todo el documento (sin referencias)</option><option value="range">Las páginas o el tema de “Personalizar”</option></select></label>
+        <label class="fld">Cuántas fichas<select id="aCount"><option value="auto">La IA decide (recomendado)</option><option>5</option><option>10</option><option>15</option></select></label></div>
+      <label class="fld">Prioriza (opcional)<input type="text" id="aFocus" placeholder="p. ej. resultados de los ensayos y efectos adversos"></label>
+      <div id="aEst" class="xs muted"></div>
+      <button class="btn primary block" id="aGo" ${genBusy || !getKey() ? "disabled" : ""}>✨ Crear fichas automáticas</button>
+      <div id="aStatus" class="small"></div>
+    </div>
+    <details class="custom" id="gCustomBox" ${gen.customOpen ? "open" : ""}><summary>⚙️ Personalizar: tema, tipos de pregunta, dificultad, enfoque…</summary><div class="stack" style="margin-top:12px">
     ${tpls.length ? `<div class="row" style="gap:6px"><span class="xs muted">Mis plantillas:</span>${tpls.map((t,i)=>`<button class="chip2" data-tpl="${i}">${esc(t.name)}</button>`).join("")}</div>` : ""}
     ${topicBlock()}
     <div><div class="fld" style="margin-bottom:6px">¿Qué quieres que te pregunte? (cantidad de cada tipo)</div>
@@ -2024,7 +2040,7 @@ function renderAiTab(){
     <div class="row" style="gap:6px"><button class="btn ghost sm" id="gSaveTpl">💾 Guardar como plantilla</button>${tpls.length ? `<button class="btn ghost sm" id="gDelTpl">🗑 Borrar plantillas</button>` : ""}</div>
     <div id="gEst" class="xs muted"></div>
     <button class="btn primary block" id="gGo" ${genBusy || !getKey() ? "disabled" : ""}>Generar con IA</button>
-    <div id="gStatus" class="small"></div>`;
+    <div id="gStatus" class="small"></div></div></details>`;
   bindTopic(updEstimate);
   b.querySelectorAll("[data-cnt]").forEach(i=>i.oninput = ()=>{ gen.counts[i.dataset.cnt] = Math.max(0, Math.min(20, parseInt(i.value)||0)); updEstimate(); });
   b.querySelectorAll("[data-lv]").forEach(x=>x.onclick = ()=>{ gen.level = x.dataset.lv; b.querySelectorAll("[data-lv]").forEach(y=>y.classList.toggle("on", y===x)); });
@@ -2042,7 +2058,52 @@ function renderAiTab(){
   };
   $("#gDelTpl") && ($("#gDelTpl").onclick = ()=>{ if (confirm("¿Borrar todas tus plantillas?")) { S.tpls = []; save(); renderAiTab(); } });
   $("#gGo").onclick = runGenerate;
+  bindAuto();
   updEstimate();
+}
+function autoSel(){
+  if (gen.aScope === "range") return selectedText();
+  const info = docInfo(curSrc); if (!info) return null;
+  const nums = [], pages = [];
+  info.pages.forEach((p,i)=>{ if (p.trim()) { nums.push(i+1); pages.push(p); } });
+  return nums.length ? {a: nums[0], b: nums[nums.length-1], nums, pages} : null;
+}
+function estAuto(){
+  const el = $("#aEst"); if (!el) return;
+  const sel = autoSel(); if (!sel) { el.textContent = ""; return; }
+  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
+  if (chars > MAX_AI_CHARS) { el.innerHTML = `<span style="color:var(--bad)">El documento es muy largo para leerlo completo de una vez. En “Qué leer” elige “Las páginas o el tema de Personalizar” y define un rango o un tema.</span>`; return; }
+  el.textContent = `${pagesLabel(sel)} · costo aprox. US$${(chars/3.5*4e-6 + 12*400*20e-6 + 6000*20e-6).toFixed(2)} (se cobra a tu cuenta de Anthropic).`;
+}
+function bindAuto(){
+  $("#aScope").value = gen.aScope || "all"; $("#aCount").value = gen.aCount || "auto"; $("#aFocus").value = gen.aFocus || "";
+  $("#aScope").onchange = ()=>{ gen.aScope = $("#aScope").value; if (gen.aScope === "range") { $("#gCustomBox").open = true; gen.customOpen = true; } estAuto(); };
+  $("#aCount").onchange = ()=>{ gen.aCount = $("#aCount").value; };
+  $("#aFocus").oninput = ()=>{ gen.aFocus = $("#aFocus").value; };
+  $("#gCustomBox").ontoggle = ()=>{ gen.customOpen = $("#gCustomBox").open; };
+  ["#gFrom","#gTo","#gTopic"].forEach(q=>{ const el = $(q); if (el) el.addEventListener("input", estAuto); });
+  $("#aGo").onclick = runAuto;
+  estAuto();
+}
+async function runAuto(){
+  if (genBusy) return;
+  const st = $("#aStatus"), s = cur();
+  if (!getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return go("lib"); }
+  const sel = autoSel();
+  if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
+  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
+  if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">El documento no tiene texto que se pueda leer.</span>`;
+  if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">El documento es muy largo: elige un rango o un tema en “Personalizar”.</span>`;
+  genBusy = true; $("#aGo").disabled = true;
+  try {
+    st.innerHTML = `<span class="spin"></span> Claude está leyendo las ${pagesLabel(sel)} y eligiendo lo más relevante para tu examen. Puede tardar 1–3 minutos; no cierres la app.`;
+    cands = await aiGenerate(sel, s.title, autoAsk({count: gen.aCount || "auto", focus: gen.aFocus || ""}));
+    st.innerHTML = cands.length ? "" : `<span style="color:var(--warn)">La IA no encontró información high-yield en ese texto.</span>`;
+  } catch(err) {
+    st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button>`;
+  } finally { genBusy = false; const b = $("#aGo"); if (b) b.disabled = false; }
+  renderReview();
+  if (cands && cands.length) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
 }
 function updEstimate(){
   const el = $("#gEst"); if (!el) return;
@@ -2064,10 +2125,10 @@ const GEN_SCHEMA = {
       properties:{qtype:{type:"string", enum:["caso","critica","directa"]}, specialty:{type:"string", enum:SPECS}, topic:{type:"string"}, vignette:{type:"string"},
         options:{type:"array", items:{type:"string"}}, correct:{type:"integer"}, whyCorrect:{type:"string"},
         pearl:{type:"string"}, trap:{type:"string"}, page:{type:"integer"}}}},
-    fichas:{type:"array", items:{type:"object", additionalProperties:false, required:["specialty","title","badge","thresholds","redFlag","trap","page"],
+    fichas:{type:"array", items:{type:"object", additionalProperties:false, required:["specialty","title","badge","thresholds","redFlag","trap","relevance","why","page"],
       properties:{specialty:{type:"string", enum:SPECS}, title:{type:"string"}, badge:{type:"string"},
         thresholds:{type:"array", items:{type:"object", additionalProperties:false, required:["label","val"], properties:{label:{type:"string"}, val:{type:"string"}}}},
-        redFlag:{type:"string"}, trap:{type:"string"}, page:{type:"integer"}}}}
+        redFlag:{type:"string"}, trap:{type:"string"}, relevance:{type:"integer"}, why:{type:"string"}, page:{type:"integer"}}}}
   }
 };
 const GEN_SYSTEM = `Eres un profesor de medicina que prepara a médicos para el examen de residencia y para su práctica. Redactas preguntas a partir de un documento que te entrega el médico: puede ser una guía, un artículo original, un ensayo clínico, una revisión o sus apuntes.
@@ -2081,10 +2142,21 @@ Reglas:
   - "critica": pregunta de lectura crítica sobre el estudio del documento (diseño, población, intervención, desenlaces, resultados con sus cifras, sesgos, validez y aplicabilidad). El enunciado puede citar el estudio.
   - "directa": enunciado corto de conocimiento, sin caso clínico.
   El enunciado va en "vignette". Exactamente 4 opciones plausibles y una sola correcta; "correct" es el índice (0 a 3) de la correcta. Reparte la posición de la respuesta correcta. "whyCorrect" explica en 2 a 4 frases por qué es la correcta y por qué fallan las otras. "pearl" es el dato para memorizar. "trap" es el error típico. "topic" es el tema en pocas palabras.
-- Fichas high-yield: "title" es el tema concreto de la ficha (que se entienda sin leer el documento); "badge" una etiqueta corta (p. ej. "Ensayo fase II", "Umbral", "Algoritmo"); "thresholds" de 2 a 4 datos clave, cada uno con "label" (qué es, corto) y "val" (el dato exacto: cifra, dosis, criterio, fármaco o resultado); "redFlag" la señal de alarma o el hallazgo que no se puede pasar por alto (vacío si no aplica); "trap" el error típico o el distractor favorito (vacío si no aplica).
+- Fichas high-yield: "title" es el tema concreto de la ficha (que se entienda sin leer el documento); "badge" una etiqueta corta (p. ej. "Ensayo fase II", "Umbral", "Algoritmo"); "thresholds" de 2 a 4 datos clave, cada uno con "label" (qué es, corto) y "val" (el dato exacto: cifra, dosis, criterio, fármaco o resultado); "redFlag" la señal de alarma o el hallazgo que no se puede pasar por alto (vacío si no aplica); "trap" el error típico o el distractor favorito (vacío si no aplica); "relevance" de 1 a 5 según qué tan probable es que se pregunte en el examen o cambie la conducta clínica (5 = imprescindible); "why" una frase que explique por qué es high-yield.
+- Qué es high-yield: umbrales y puntos de corte, criterios diagnósticos, tratamiento de primera línea y dosis, contraindicaciones, banderas rojas, resultados principales de los estudios con sus cifras, y lo que cambió frente a la práctica o la guía anterior. No es high-yield: autores, financiación, detalles metodológicos menores, antecedentes históricos ni datos que no cambian decisiones.
 - No hagas preguntas sobre autores, revistas, financiación ni la estructura del documento, salvo que el médico lo pida.
 - "specialty" es la más cercana de la lista permitida.
 - Texto plano, sin markdown ni LaTeX.`;
+// Petición para que la IA elija por sí misma lo más relevante
+function autoAsk(o){
+  o = o || {};
+  const lang = gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos del documento tal como aparecen.";
+  let what;
+  if (o.fragment) what = `El médico seleccionó este fragmento de la pág. ${o.page}: «${o.fragment.slice(0, 1500)}».\nCrea 1 ficha high-yield centrada en ese fragmento; complétala con los datos relevantes de la misma página que lo expliquen o le den contexto. Si el fragmento no tiene nada relevante, usa lo más relevante de la página.`;
+  else if (o.page) what = `Analiza esta página y crea entre 1 y 4 fichas high-yield con lo más relevante, según cuánta información importante tenga (no rellenes).`;
+  else what = `Analiza todo el documento y decide qué información es high-yield. Crea ${o.count && o.count !== "auto" ? `${o.count} fichas high-yield (o menos si no hay suficiente información relevante)` : "entre 3 y 12 fichas high-yield, según cuánta información relevante tenga el documento (no rellenes)"}. Cada ficha agrupa datos de un mismo tema; ordénalas de mayor a menor relevancia.`;
+  return [what, "No generes preguntas (deja \"questions\" vacío).", o.focus && o.focus.trim() ? `El médico pide priorizar: ${o.focus.trim()}.` : "", lang].filter(Boolean).join("\n") + examLine();
+}
 function genAsk(){
   const c = gen.counts, lv = LEVELS.find(l=>l[0]===gen.level), em = EMPH.filter(e=>gen.emph.includes(e[0])).map(e=>e[1].toLowerCase());
   const lines = [
@@ -2100,7 +2172,7 @@ function genAsk(){
   ];
   return lines.filter(Boolean).join("\n") + examLine();
 }
-async function aiGenerate(sel, title){
+async function aiGenerate(sel, title, ask){
   const Anthropic = await loadSDK();
   const client = new Anthropic({apiKey: getKey(), dangerouslyAllowBrowser: true});
   const doc = sel.pages.map((p,i)=>`[pág. ${sel.nums[i]}]\n${p}`).join("\n\n");
@@ -2113,7 +2185,7 @@ async function aiGenerate(sel, title){
       fallbacks: "default",
       output_config: {effort: "medium", format: {type: "json_schema", schema: GEN_SCHEMA}},
       system: GEN_SYSTEM,
-      messages: [{role: "user", content: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>\n\n${genAsk()}`}]
+      messages: [{role: "user", content: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>\n\n${ask || genAsk()}`}]
     });
     msg = await stream.finalMessage();
   } catch(e) { throw apiErr(Anthropic, e); }
@@ -2127,7 +2199,8 @@ async function aiGenerate(sel, title){
   const qs = (data.questions||[]).filter(q=>okStr(q.vignette) && Array.isArray(q.options) && q.options.length===4 && q.options.every(okStr) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<4)
     .map(q=>({kind:"q", on:true, qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", specialty: SPECS.includes(q.specialty)?q.specialty:"Medicina Interna", topic:withLab(q.topic||""), vignette:q.vignette, options:q.options, correct:q.correct, whyCorrect:q.whyCorrect||"", pearl:q.pearl||"", trap:q.trap||"", page:fixPage(q.page)}));
   const hs = (data.fichas||[]).filter(h=>okStr(h.title) && Array.isArray(h.thresholds) && h.thresholds.length && h.thresholds.every(x=>x && okStr(x.label) && okStr(x.val)))
-    .map(h=>({kind:"h", on:true, specialty: SPECS.includes(h.specialty)?h.specialty:"Medicina Interna", title:withLab(h.title), badge:h.badge||"", thresholds:h.thresholds.slice(0,6).map(x=>({label:x.label, val:x.val})), redFlag:h.redFlag||"", trap:h.trap||"", page:fixPage(h.page)}));
+    .map(h=>({kind:"h", on:true, specialty: SPECS.includes(h.specialty)?h.specialty:"Medicina Interna", title:withLab(h.title), badge:h.badge||"", thresholds:h.thresholds.slice(0,6).map(x=>({label:x.label, val:x.val})), redFlag:h.redFlag||"", trap:h.trap||"", relevance: Math.max(1, Math.min(5, parseInt(h.relevance)||3)), why: h.why||"", page:fixPage(h.page)}))
+    .sort((a,b)=>b.relevance-a.relevance);
   return [...qs, ...hs];
 }
 
@@ -2203,9 +2276,9 @@ function renderReader(){
     <div class="reader" id="rdText">${pageTxt.trim() ? hlText(pageTxt, gen.rdQuery) : `<p class="muted">Esta página no tiene texto seleccionable.</p>`}</div>
     <div class="selbar" id="rdBar" hidden>
       <div class="xs muted" id="rdSelTxt"></div>
-      <div class="row" style="gap:6px;margin-top:6px"><button class="btn primary sm" id="rdHY">💎 Nueva ficha</button><button class="btn sm" id="rdAdd" hidden>➕ Añadir a la ficha</button><button class="btn sm" id="rdCase">🩺 Caso clínico</button><button class="btn ghost sm" id="rdX">✕</button></div>
+      <div class="row" style="gap:6px;margin-top:6px"><button class="btn primary sm" id="rdHY">💎 Nueva ficha</button><button class="btn sm" id="rdAdd" hidden>➕ Añadir a la ficha</button><button class="btn sm" id="rdAI">✨ Ficha con IA</button><button class="btn sm" id="rdCase">🩺 Caso clínico</button><button class="btn ghost sm" id="rdX">✕</button></div>
     </div>
-    ${building ? "" : `<button class="btn ghost sm" id="rdBlank">💎 Empezar una ficha en blanco</button>`}`;
+    <div class="row" style="gap:6px">${building ? "" : `<button class="btn ghost sm" id="rdBlank">💎 Empezar una ficha en blanco</button>`}<button class="btn sm" id="rdPageAI">✨ Fichas de esta página con IA</button></div>`;
   // el editor vive fuera de #gBody para no perder la ficha al cambiar de página
   if (!$("#rdEditor")) { const ed = document.createElement("div"); ed.id = "rdEditor"; $("#genCard").appendChild(ed); }
   const refreshBar = ()=>{ const on = !!$("#rdEditor")._addRow; $("#rdAdd").hidden = !on; $("#rdHY").className = on ? "btn sm" : "btn primary sm"; if (on) $("#rdAdd").className = "btn primary sm"; };
@@ -2230,6 +2303,29 @@ function renderReader(){
   $("#rdAdd").onclick = ()=>{ const v = rdSel; clearSel(); ed._addRow("", v, v); toast("Dato agregado: escribe a la izquierda qué es"); };
   $("#rdCase").onclick = ()=>{ newPrefill = {why: rdSel, src: s.id, page: gen.rdPage}; newType = "q"; go("new"); };
   $("#rdBlank") && ($("#rdBlank").onclick = ()=>{ startFicha(""); $("#rdBlank").remove(); });
+  const pageSel = ()=>{ const pg = gen.rdPage; return {a: pg, b: pg, nums: [pg], pages: [(info.pages[pg-1] || "").trim() ? info.pages[pg-1] : r.pages[pg-1]]}; };
+  $("#rdAI").onclick = async ()=>{
+    if (!getKey()) { toast("Para crear fichas con IA necesitas una clave de API."); return go("guide"); }
+    const frag = rdSel, pg = gen.rdPage; clearSel();
+    ed.innerHTML = `<div class="card small"><span class="spin"></span> Claude está armando la ficha con lo más relevante de ese fragmento…</div>`;
+    try {
+      const res = await aiGenerate(pageSel(), s.title, autoAsk({fragment: frag, page: pg}));
+      const h = res.find(x=>x.kind==="h"); if (!h) throw uerr("La IA no encontró datos relevantes en ese fragmento.");
+      hyEditor(ed, {title: h.title, badge: h.badge, spec: h.specialty, rows: h.thresholds, redFlag: h.redFlag, trap: h.trap, src: s.id, page: h.page || pg, ctx: frag,
+        heading: `✨ Ficha creada por la IA (relevancia ${"★".repeat(h.relevance)}) · revísala y guárdala`, flags: {ai: true, relevance: h.relevance, why: h.why},
+        onSave: ()=>{ renderSrcItems(); renderReader(); }, onCancel: ()=>renderReader()});
+      if (h.why) ed.querySelector(".hyed h4").insertAdjacentHTML("afterend", `<p class="xs" style="margin:0">💡 ${esc(h.why)}</p>`);
+    } catch(err) { ed.innerHTML = `<div class="card small" style="color:var(--bad)">${esc(err.userMsg || err.message)}</div>`; }
+  };
+  $("#rdPageAI").onclick = async ()=>{
+    if (!getKey()) { toast("Para crear fichas con IA necesitas una clave de API."); return go("guide"); }
+    if (genBusy) return; genBusy = true; const b = $("#rdPageAI"); b.disabled = true; b.innerHTML = `<span class="spin"></span> Analizando la página…`;
+    try { cands = await aiGenerate(pageSel(), s.title, autoAsk({page: true})); }
+    catch(err) { toast(err.userMsg || err.message); cands = null; }
+    finally { genBusy = false; }
+    renderReader(); renderReview();
+    if (cands && cands.length) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
+  };
   function renderReaderBarOnly(){ const b = $("#rdBlank"); if (b) b.remove(); }
 }
 
@@ -2316,9 +2412,10 @@ function renderReview(){
     <div id="candList">${cands.map((c,i)=> c.kind==="h" ? `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div class="stack" style="min-width:0;gap:6px">
-          <div class="xs muted">💎 Ficha high-yield · ${esc(c.specialty)} · pág. ${c.page}</div>
+          <div class="xs muted">💎 Ficha high-yield · ${esc(c.specialty)} · pág. ${c.page}${c.relevance ? ` · <span class="stars" title="Relevancia ${c.relevance} de 5">${"★".repeat(c.relevance)}${"☆".repeat(5-c.relevance)}</span>` : ""}</div>
+          ${c.why ? `<div class="xs">💡 ${esc(c.why)}</div>` : ""}
           <label class="fld">Título<input type="text" data-hf="${i}" data-k="title" value="${esc(c.title)}"></label>
-          ${c.thresholds.map((x,j)=>`<div class="erow"><input type="text" data-hr="${i}:${j}:label" value="${esc(x.label)}" aria-label="Qué es"><input type="text" data-hr="${i}:${j}:val" value="${esc(x.val)}" aria-label="Dato"></div>`).join("")}
+          ${c.thresholds.map((x,j)=>`<div class="erow two"><input type="text" data-hr="${i}:${j}:label" value="${esc(x.label)}" aria-label="Qué es"><input type="text" data-hr="${i}:${j}:val" value="${esc(x.val)}" aria-label="Dato"></div>`).join("")}
           <label class="fld">🚩 Bandera roja<textarea data-hf="${i}" data-k="redFlag" rows="1">${esc(c.redFlag)}</textarea></label>
           <label class="fld">⚠️ Trampa<textarea data-hf="${i}" data-k="trap" rows="1">${esc(c.trap)}</textarea></label>
         </div></div>` : c.kind==="c" ? `
@@ -2354,7 +2451,7 @@ function saveCands(){
     if (c.kind === "h") {
       const rows = c.thresholds.map(x=>({label:x.label.trim(), val:x.val.trim()})).filter(x=>x.label && x.val);
       if (!c.title.trim() || !rows.length) return;
-      S.userH.push({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), ctx:"", src:s.id, page:c.page, ai:true});
+      S.userH.push({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), relevance:c.relevance||0, why:c.why||"", ctx:"", src:s.id, page:c.page, ai:true});
       nh++;
     } else if (c.kind === "c") {
       if (!c.front.trim() || !c.back.trim()) return;
@@ -2367,7 +2464,7 @@ function saveCands(){
     }
   });
   rebuild(); save(); cands = null;
-  toast(`Guardado: ${nq} preguntas y ${nh} fichas ✓ Ya están en tu repaso.`);
+  toast(`Guardado: ${[nq ? `${nq} pregunta${nq===1?"":"s"}` : "", nh ? `${nh} ficha${nh===1?"":"s"}` : ""].filter(Boolean).join(" y ") || "nada"} ✓ Ya está en tu repaso.`);
   renderSrc(); refreshChips();
 }
 
