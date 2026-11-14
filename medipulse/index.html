@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b1220" />
+<meta name="description" content="Estudio para la residencia médica que se adapta a tu energía: 5 minutos si no tienes ganas, bloques profundos si vas a tope." />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="MediPulse" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="icon.svg" />
+<title>MediPulse</title>
+<style>
+:root{
+  --bg:#f6f7fb; --panel:#ffffff; --subtle:#eef1f6; --text:#0f172a; --muted:#5b6474; --border:#dfe3ea;
+  --accent:#0891b2; --accent-soft:#e0f5fa; --ok:#059669; --ok-soft:#dcfce7; --bad:#e11d48; --bad-soft:#ffe4e6;
+  --warn:#b45309; --warn-soft:#fef3c7; --lazy:#7c3aed; --lazy-soft:#ede9fe; --fire:#ea580c; --fire-soft:#ffedd5;
+  --shadow:0 1px 2px rgba(15,23,42,.06),0 4px 16px rgba(15,23,42,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1220; --panel:#121a2b; --subtle:#1a2438; --text:#e8edf5; --muted:#97a3b6; --border:#243049;
+  --accent:#22d3ee; --accent-soft:#0e3440; --ok:#34d399; --ok-soft:#0f3a2c; --bad:#fb7185; --bad-soft:#43172a;
+  --warn:#fbbf24; --warn-soft:#3d2e0b; --lazy:#a78bfa; --lazy-soft:#2a2150; --fire:#fb923c; --fire-soft:#41240f;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  --bg:#0b1220; --panel:#121a2b; --subtle:#1a2438; --text:#e8edf5; --muted:#97a3b6; --border:#243049;
+  --accent:#22d3ee; --accent-soft:#0e3440; --ok:#34d399; --ok-soft:#0f3a2c; --bad:#fb7185; --bad-soft:#43172a;
+  --warn:#fbbf24; --warn-soft:#3d2e0b; --lazy:#a78bfa; --lazy-soft:#2a2150; --fire:#fb923c; --fire-soft:#41240f;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+button{font:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{line-height:1.2;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header.top .wrap{display:flex;align-items:center;gap:12px;height:56px}
+.brand{font-weight:800;font-size:18px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.brand svg{width:26px;height:26px}
+.spacer{flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--subtle);border:1px solid var(--border);font-size:13px;font-weight:600;white-space:nowrap}
+.iconbtn{background:none;border:1px solid var(--border);border-radius:10px;width:36px;height:36px;display:grid;place-items:center}
+main{padding:20px 0 24px}
+.view{display:none}.view.on{display:block}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px}
+.stack>*+*{margin-top:14px}
+.muted{color:var(--muted)}
+.small{font-size:14px}.xs{font-size:12.5px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (max-width:560px){.grid3.stackable{grid-template-columns:1fr}}
+.kpi{background:var(--subtle);border-radius:12px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.btn{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:10px 16px;font-weight:600}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#04222b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#04222b}}
+.btn.ghost{background:transparent}
+.btn.block{width:100%}
+.btn:disabled{opacity:.5;cursor:default}
+.mode{display:block;text-align:left;border:2px solid var(--border);background:var(--panel);border-radius:16px;padding:16px;width:100%;transition:transform .12s,border-color .12s}
+.mode:hover{transform:translateY(-2px)}
+.mode .em{font-size:28px}
+.mode h3{font-size:17px;margin:6px 0 4px}
+.mode p{margin:0;font-size:13.5px;color:var(--muted)}
+.mode.lazy{border-color:color-mix(in srgb,var(--lazy) 45%,var(--border));background:linear-gradient(180deg,var(--lazy-soft),var(--panel) 70%)}
+.mode.norm{border-color:color-mix(in srgb,var(--accent) 45%,var(--border));background:linear-gradient(180deg,var(--accent-soft),var(--panel) 70%)}
+.mode.fire{border-color:color-mix(in srgb,var(--fire) 45%,var(--border));background:linear-gradient(180deg,var(--fire-soft),var(--panel) 70%)}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:6px;background:var(--subtle);color:var(--muted)}
+.tag.lazy{background:var(--lazy-soft);color:var(--lazy)}.tag.norm{background:var(--accent-soft);color:var(--accent)}.tag.fire{background:var(--fire-soft);color:var(--fire)}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-top:10px}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt .l{flex:none;width:26px;height:26px;border-radius:8px;background:var(--subtle);display:grid;place-items:center;font-weight:700;font-size:13px}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.vignette{font-size:16.5px}
+.hy{background:color-mix(in srgb,var(--warn) 22%,transparent);border-radius:4px;padding:0 3px;font-weight:600}
+.fb{border-radius:12px;padding:12px 14px;font-size:14.5px}
+.fb.ok{background:var(--ok-soft)}.fb.bad{background:var(--bad-soft)}
+.fb h4{margin:0 0 4px;font-size:14px}
+.note{border-left:4px solid var(--accent);background:var(--subtle);border-radius:8px;padding:10px 12px;font-size:14px}
+.note.trap{border-color:var(--bad)}.note.pearl{border-color:var(--warn)}
+.progress{height:6px;background:var(--subtle);border-radius:99px;overflow:hidden}
+.progress>i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+.flash{min-height:220px;display:flex;flex-direction:column;justify-content:center;text-align:center;font-size:19px;font-weight:600;padding:28px 20px}
+.flash .back{margin-top:16px;padding-top:16px;border-top:1px dashed var(--border);font-weight:500;font-size:17px;color:var(--text)}
+.bars .bar{display:grid;grid-template-columns:130px 1fr 52px;gap:10px;align-items:center;margin-top:10px;font-size:14px}
+.bars .track{height:10px;background:var(--subtle);border-radius:99px;overflow:hidden}
+.bars .track i{display:block;height:100%;border-radius:99px}
+.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;max-width:300px}
+.heat i{aspect-ratio:1;border-radius:5px;background:var(--subtle);display:block}
+.plan li{margin:6px 0}
+.plan li.done{color:var(--muted);text-decoration:line-through}
+.plan li.cur{font-weight:700;color:var(--fire)}
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--panel);border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom)}
+nav.bottom .wrap{display:grid;grid-template-columns:repeat(5,1fr)}
+nav.bottom button{background:none;border:0;padding:8px 0 10px;font-size:11.5px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.bottom button .i{font-size:20px;line-height:1}
+nav.bottom button.on{color:var(--accent)}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.sesshead{display:flex;align-items:center;gap:10px}
+.timer{font-variant-numeric:tabular-nums;font-weight:700}
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.filters button{flex:none}
+.filters .on{background:var(--accent);border-color:var(--accent);color:#fff}
+.hycard{border-top:4px solid var(--accent)}
+.hycard .th{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.hycard .th div{background:var(--subtle);border-radius:10px;padding:8px;font-size:12.5px}
+.hycard .th b{display:block;font-size:13.5px}
+@media (max-width:480px){.hycard .th{grid-template-columns:1fr}.bars .bar{grid-template-columns:100px 1fr 44px}}
+.center{text-align:center}
+.big{font-size:44px;line-height:1}
+hr{border:0;border-top:1px solid var(--border);margin:16px 0}
+@media (hover:none){kbd,.kbhint{display:none}}
+kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0891b2"/><path d="M5 17h5l3-7 4 13 3-8 2 2h5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>MediPulse</div>
+  <div class="spacer"></div>
+  <span class="chip" id="streakChip" title="Racha de días">🔥 0</span>
+  <span class="chip" id="dueChip" title="Repasos pendientes">🔁 0</span>
+  <button class="iconbtn" id="themeBtn" aria-label="Cambiar tema" style="font-size:17px">🌓</button>
+</div></header>
+
+<main class="wrap">
+  <!-- ============ HOY ============ -->
+  <section class="view on" id="v-hoy">
+    <div class="stack">
+      <div>
+        <h1 style="font-size:24px" id="greet">Hola</h1>
+        <p class="muted" style="margin:4px 0 0">¿Cómo está tu energía ahora? Elige y yo armo la sesión.</p>
+      </div>
+      <div class="grid3 stackable">
+        <button class="mode lazy" data-mode="lazy"><span class="em">🛋️</span><h3>Sin ganas</h3><p>5 minutos, cero presión. Una cosa pequeña y cuenta para tu racha.</p></button>
+        <button class="mode norm" data-mode="normal"><span class="em">🙂</span><h3>Normal</h3><p>25 min: 10 casos + repaso rápido de tarjetas.</p></button>
+        <button class="mode fire" data-mode="beast"><span class="em">🔥</span><h3>A tope</h3><p>Plan de ~90 min en bloques: repaso, tu tema débil y simulacro.</p></button>
+      </div>
+      <div class="card" id="todayCard"></div>
+      <div class="card" id="suggestCard"></div>
+      <div class="card" id="pearlCard"></div>
+    </div>
+  </section>
+
+  <!-- ============ LAZY PICKER ============ -->
+  <section class="view" id="v-lazy">
+    <div class="stack">
+      <button class="btn ghost" data-go="hoy">← Volver</button>
+      <div><span class="tag lazy">Modo sin ganas</span><h2 style="margin-top:8px">Elige lo más fácil para ti ahora</h2>
+      <p class="muted small">Ninguna opción toma más de 5 minutos. Hacer algo, aunque sea poco, mantiene tu racha y tu memoria activas.</p></div>
+      <button class="mode lazy" data-lazy="cards"><span class="em">🃏</span><h3>10 tarjetas rápidas</h3><p>Pregunta corta → respuesta. Solo marcas si la sabías.</p></button>
+      <button class="mode lazy" data-lazy="one"><span class="em">🩺</span><h3>Un solo caso clínico</h3><p>Uno. Lees la explicación y listo.</p></button>
+      <button class="mode lazy" data-lazy="read"><span class="em">📖</span><h3>Solo leer una ficha</h3><p>Sin responder nada: una ficha high-yield con umbrales y trampas.</p></button>
+    </div>
+  </section>
+
+  <!-- ============ SESSION ============ -->
+  <section class="view" id="v-sess">
+    <div class="stack">
+      <div class="sesshead">
+        <button class="btn ghost" id="quitBtn">✕ Salir</button>
+        <span class="tag" id="sessTag"></span>
+        <div class="spacer"></div>
+        <span class="timer" id="sessTimer">00:00</span>
+      </div>
+      <div class="row small muted"><span id="sessStage"></span><div class="spacer"></div><span id="sessCount"></span></div>
+      <div class="progress"><i id="sessBar" style="width:0"></i></div>
+      <div id="sessBody"></div>
+    </div>
+  </section>
+
+  <!-- ============ PREGUNTAS ============ -->
+  <section class="view" id="v-banco">
+    <div class="stack">
+      <div><h2>Banco de casos</h2><p class="muted small" style="margin:4px 0 0">Practica por especialidad con explicación inmediata. Las que falles vuelven solas en tus repasos.</p></div>
+      <div class="filters" id="qFilters"></div>
+      <div class="card" id="qInfo"></div>
+    </div>
+  </section>
+
+  <!-- ============ TARJETAS ============ -->
+  <section class="view" id="v-tarjetas">
+    <div class="stack">
+      <div><h2>Fichas high-yield</h2><p class="muted small" style="margin:4px 0 0">Umbrales, banderas rojas y trampas típicas del examen. Para repasar en el bus o en la fila.</p></div>
+      <div class="row"><button class="btn primary" id="cardsAll">🃏 Repasar tarjetas (15)</button></div>
+      <div class="filters" id="hyFilters"></div>
+      <div id="hyList" class="stack"></div>
+    </div>
+  </section>
+
+  <!-- ============ SIMULACRO ============ -->
+  <section class="view" id="v-sim">
+    <div class="stack">
+      <div><h2>Simulacro cronometrado</h2><p class="muted small" style="margin:4px 0 0">Sin retroalimentación hasta el final, como el examen real. ~72 s por pregunta.</p></div>
+      <div class="card stack">
+        <div><b>Número de preguntas</b></div>
+        <div class="filters" id="simN"></div>
+        <button class="btn primary block" id="simStart">Comenzar simulacro</button>
+      </div>
+      <div class="card" id="simHist"></div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRESO ============ -->
+  <section class="view" id="v-prog">
+    <div class="stack">
+      <h2>Tu progreso</h2>
+      <div class="grid2" id="progKpis"></div>
+      <div class="card"><h3 style="font-size:16px">Dominio por especialidad</h3><p class="muted xs" style="margin:4px 0 0">% de aciertos en casos clínicos. Gris = aún sin datos.</p><div class="bars" id="bars"></div></div>
+      <div class="card"><h3 style="font-size:16px">Últimas 5 semanas</h3><p class="muted xs" style="margin:4px 0 10px">Minutos de estudio por día.</p><div class="heat" id="heat"></div></div>
+      <div class="card stack">
+        <h3 style="font-size:16px">Tus datos</h3>
+        <p class="muted small" style="margin:0">Todo se guarda solo en este dispositivo. Exporta un respaldo para pasarlo a otro.</p>
+        <div class="row"><button class="btn" id="expBtn">⬇ Exportar</button><label class="btn" style="display:inline-block">⬆ Importar<input type="file" id="impFile" accept="application/json" hidden></label><button class="btn ghost" id="resetBtn" style="color:var(--bad)">Borrar todo</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom"><div class="wrap">
+  <button data-go="hoy" class="on"><span class="i">⌂</span>Hoy</button>
+  <button data-go="banco"><span class="i">🩺</span>Casos</button>
+  <button data-go="tarjetas"><span class="i">🃏</span>Fichas</button>
+  <button data-go="sim"><span class="i">⏱</span>Simulacro</button>
+  <button data-go="prog"><span class="i">📈</span>Progreso</button>
+</div></nav>
+<div class="toast" id="toast"></div>
+
+<script>
+// ===================================================================
+// CONTENIDO
+// ===================================================================
+const QUESTIONS_BASE = [
+      {
+        id: 1,
+        specialty: "Medicina Interna",
+        topic: "Cardiología · SCA",
+        difficulty: "Nivel 3",
+        vignette: "Hombre de 62 años con HTA y tabaquismo consulta por <span class='hy'>dolor retroesternal opresivo de 90 minutos</span> irradiado a mandíbula y diaforesis. PA 135/85 mmHg, FC 92 lpm, SatO2 96%. ECG muestra <span class='hy'>supradesnivel del ST de 3 mm en V1-V4</span>. El centro cuenta con sala de hemodinamia disponible en 45 minutos. ¿Cuál es la conducta de reperfusión prioritaria?",
+        options: [
+          "Administrar alteplasa intravenosa inmediata antes del traslado a sala",
+          "Intervención coronaria percutánea (ICP) primaria dentro de los próximos 90 minutos",
+          "Iniciar heparina de bajo peso molecular y esperar troponinas seriadas a las 3 horas",
+          "Realizar ecocardiograma transtorácico antes de definir terapia antitrombótica"
+        ],
+        correct: 1,
+        whyCorrect: "En un IAMCEST con disponibilidad de hemodinamia en menos de 120 minutos desde el primer contacto médico, la ICP primaria es el estándar de oro (meta puerta-balón ≤ 90 min). No se debe retrasar por troponinas ni ecocardiograma.",
+        pearl: "IAMCEST = diagnóstico electrocardiográfico y clínico. Tiempo es miocardio: ICP < 120 min; si no es posible, fibrinólisis en < 10 min.",
+        trap: "Esperar troponinas en un paciente con supradesnivel claro del ST es el error clásico que retrasa la reperfusión y aumenta mortalidad."
+      },
+      {
+        id: 2,
+        specialty: "Urgencias",
+        topic: "Sepsis · Reanimación",
+        difficulty: "Nivel 3",
+        vignette: "Mujer de 71 años ingresa por fiebre, disuria y confusión. PA 78/46 mmHg, FC 124 lpm, FR 28 rpm, T° 39.1°C, <span class='hy'>lactato sérico 4.4 mmol/L</span>. Ya recibió 30 mL/kg de cristaloides balanceados en la primera hora, pero persiste con <span class='hy'>PAM en 54 mmHg</span>. ¿Cuál es el siguiente paso inmediato?",
+        options: [
+          "Administrar un segundo bolo de 30 mL/kg de solución salina al 0.9%",
+          "Iniciar norepinefrina en infusión para meta de PAM ≥ 65 mmHg",
+          "Iniciar dopamina como vasopresor de primera línea por vía periférica",
+          "Indicar hidrocortisona 200 mg IV en bolo único antes de vasopresores"
+        ],
+        correct: 1,
+        whyCorrect: "Si tras la reanimación inicial con cristaloides (30 mL/kg) la PAM permanece < 65 mmHg, se define choque séptico y debe iniciarse norepinefrina de inmediato (primera línea) para mantener PAM ≥ 65 mmHg.",
+        pearl: "Choque séptico = Sepsis + vasopresor para PAM ≥ 65 mmHg + Lactato > 2 mmol/L tras reanimación hídrica.",
+        trap: "Seguir encharcando al paciente con bolos repetidos sin iniciar norepinefrina empeora el edema pulmonar y la mortalidad."
+      },
+      {
+        id: 3,
+        specialty: "Medicina Interna",
+        topic: "Endocrinología · Crisis Hiperglucémica",
+        difficulty: "Nivel 3",
+        vignette: "Joven de 22 años con DM1 ingresa por vómitos y respiración de Kussmaul. Glucemia 480 mg/dL, pH arterial 7.14, HCO3 10 mEq/L, cetonuria +++, Na+ 132 mEq/L, <span class='hy'>K+ sérico 3.1 mEq/L</span>. ¿Qué acción es obligatoria ANTES de iniciar la infusión de insulina?",
+        options: [
+          "Administrar bicarbonato de sodio IV para corregir el pH < 7.20",
+          "Iniciar reposición de potasio IV junto con hidratación y diferir insulina hasta K+ ≥ 3.3 mEq/L",
+          "Pasar bolo de insulina regular 0.15 U/kg IV de inmediato",
+          "Corregir el sodio sérico con solución salina hipertónica al 3%"
+        ],
+        correct: 1,
+        whyCorrect: "En cetoacidosis diabética (CAD), la insulina desplaza potasio al espacio intracelular. Si K+ < 3.3 mEq/L, dar insulina precipita arritmias fatales; se debe reponer potasio primero hasta ≥ 3.3 mEq/L.",
+        pearl: "Regla de oro en CAD: K+ < 3.3 → NO insulina, reponer K+ primero. Bicarbonato solo si pH < 6.9.",
+        trap: "La mayoría cae en dar insulina inmediata por la glucemia de 480 o bicarbonato por el pH de 7.14. Siempre mira el potasio primero."
+      },
+      {
+        id: 4,
+        specialty: "Ginecología",
+        topic: "Obstetricia · Trastornos Hipertensivos",
+        difficulty: "Nivel 3",
+        vignette: "Gestante de 34 semanas consulta por <span class='hy'>cefalea frontal intensa, fosfenos y epigastralgia</span>. PA 168/112 mmHg en dos tomas, proteinuria en tira +++, plaquetas 88.000/mm³, AST 145 U/L. ¿Cuál es el manejo farmacológico prioritario para prevención de eclampsia y control tensional?",
+        options: [
+          "Sulfato de magnesio (esquema Zuspan) + labetalol o nifedipino oral de acción rápida",
+          "Diazepam IV en infusión + losartán oral 50 mg",
+          "Alfamelildopa oral 500 mg cada 8 horas y control ambulatorio en 48 horas",
+          "Furosemida IV + inducción del parto diferida hasta las 37 semanas"
+        ],
+        correct: 0,
+        whyCorrect: "Presenta preeclampsia con criterios de severidad (PA ≥ 160/110, síntomas neurológicos, trombocitopenia < 100.000, elevación de transaminasas). Requiere sulfato de magnesio para neuroprotección/profilaxis de eclampsia y antihipertensivo agudo (labetalol IV o nifedipino oral).",
+        pearl: "Sulfato de magnesio es el fármaco de elección para prevenir y tratar convulsiones eclámpticas (vigilar reflejo patelar, FR y diuresis).",
+        trap: "Los IECA/ARA-II (losartán) están contraindicados en embarazo, y las benzodiacepinas no reemplazan al sulfato de magnesio."
+      },
+      {
+        id: 5,
+        specialty: "Pediatría",
+        topic: "Vía Aérea · Laringotraqueítis",
+        difficulty: "Nivel 2",
+        vignette: "Niño de 2 años con cuadro de 2 días de rinorrea y febrícula, quien presenta esta noche <span class='hy'>tos perruna (metálica), disfonía y estridor inspiratorio en reposo</span> sin babeo ni posición en trípode. ¿Cuál es la terapia inicial más efectiva?",
+        options: [
+          "Nebulización con salbutamol y amoxicilina oral",
+          "Dexametasona dosis única + adrenalina racémica nebulizada",
+          "Intubación endotraqueal inmediata en quirófano bajo sospecha de epiglotitis",
+          "Azitromicina oral y vapor frío domiciliario"
+        ],
+        correct: 1,
+        whyCorrect: "Es un Crup (laringotraqueítis viral) moderado-severo por presentar estridor en reposo. Todo crup recibe dexametasona (0.15–0.6 mg/kg) y, al tener estridor en reposo, se añade adrenalina nebulizada para reducir rápido el edema subglótico.",
+        pearl: "Crup = Parainfluenza, tos perruna, estridor inspiratorio. Epiglotitis = H. influenzae, babeo, disfagia, aspecto tóxico, signo del pulgar.",
+        trap: "Confundir Crup con bronquiolitis (sibilancias en < 2 años) o con epiglotitis (babeo + toxicidad)."
+      },
+      {
+        id: 6,
+        specialty: "Cirugía",
+        topic: "Abdomen Agudo · Vesícula",
+        difficulty: "Nivel 3",
+        vignette: "Mujer de 46 años consulta por dolor en hipocondrio derecho de 36 horas, fiebre de 38.4°C y vómitos. <span class='hy'>Signo de Murphy positivo</span>. Leucocitos 15.200/mm³. Ecografía: litiasis vesicular, pared engrosada de 5 mm y líquido pericolecístico. <span class='hy'>Bilirrubina total y fosfatasa alcalina normales</span>. ¿Conducta?",
+        options: [
+          "CPRE urgente antes de cualquier intervención quirúrgica",
+          "Antibioticoterapia IV + colecistectomía laparoscópica temprana (< 72 h)",
+          "Manejo ambulatorio con analgésicos y colecistectomía electiva en 3 meses",
+          "Colangiorresonancia obligatoria para descartar colangitis aguda"
+        ],
+        correct: 1,
+        whyCorrect: "Cumple criterios de Tokio para colecistitis aguda (Murphy +, fiebre/leucocitosis, engrosamiento parietal y líquido pericolecístico) sin signos de colangitis ni coledocolitiasis (bilirrubinas/FA normales). El tratamiento definitivo es colecistectomía laparoscópica temprana.",
+        pearl: "Colecistitis aguda no complicada → Colecistectomía laparoscópica temprana (primeras 72 h) reduce estancia y complicaciones.",
+        trap: "Pedir CPRE sin dilatación de vía biliar ni colestasis expone innecesariamente a pancreatitis post-CPRE."
+      },
+      {
+        id: 7,
+        specialty: "Medicina Interna",
+        topic: "Neurología · ACV Isquémico",
+        difficulty: "Nivel 3",
+        vignette: "Hombre de 68 años llega a urgencias con <span class='hy'>hemiparesia derecha y afasia de inicio súbito hace 2 horas</span>. NIHSS 12. <span class='hy'>TAC cerebral simple sin hemorragia</span> ni signos de infarto extenso. PA 172/94 mmHg, glucemia 118 mg/dL, sin cirugías recientes ni anticoagulación. ¿Conducta inmediata?",
+        options: [
+          "Administrar ácido acetilsalicílico 300 mg VO y observar evolución 24 horas",
+          "Trombólisis intravenosa con alteplasa (o tenecteplasa) de inmediato",
+          "Bajar la presión arterial a < 120/80 mmHg con nitroprusiato antes de trombolizar",
+          "Iniciar heparina no fraccionada en infusión continua"
+        ],
+        correct: 1,
+        whyCorrect: "Está dentro de la ventana terapéutica (< 4.5 horas), con TAC sin sangrado y PA < 185/110 mmHg. No tiene contraindicaciones, por lo que debe recibir trombólisis IV de inmediato.",
+        pearl: "Meta de PA ANTES de trombólisis en ACV isquémico: < 185/110 mmHg (luego mantener < 180/105). No bajar agresivamente si no se tromboliza.",
+        trap: "Dar aspirina o bajar demasiado la PA antes de decidir trombólisis compromete la penumbra isquémica."
+      },
+      {
+        id: 8,
+        specialty: "Urgencias",
+        topic: "Toxicología · Antídotos",
+        difficulty: "Nivel 2",
+        vignette: "Paciente de 19 años traído por ingesta intencional de <span class='hy'>25 tabletas de acetaminofén (12.5 g) hace 3 horas</span>. Asintomático, signos vitales normales. ¿Cuál es la conducta más apropiada en urgencias?",
+        options: [
+          "Dar de alta con signos de alarma porque está asintomático y con signos normales",
+          "Carbón activado (si < 4 h) + medir acetaminofén sérico a las 4 horas para nomograma de Rumack-Matthew",
+          "Iniciar N-acetilcisteína solo si aparecen náuseas o ictericia a las 24 horas",
+          "Realizar lavado gástrico con sonda de gran calibre y administrar flumazenilo"
+        ],
+        correct: 1,
+        whyCorrect: "La intoxicación por acetaminofén es inicialmente asintomática (Fase I, 0-24 h). En ingesta < 4 horas se considera carbón activado y se toma nivel sérico a las 4 horas post-ingesta para ubicarlo en el nomograma de Rumack-Matthew e iniciar N-acetilcisteína.",
+        pearl: "El nomograma de Rumack-Matthew solo es válido a partir de las 4 horas post-ingesta aguda. NAC es más efectiva si se inicia en las primeras 8 horas.",
+        trap: "Confiarse porque el paciente está asintomático a las 3 horas: la necrosis hepática aparece entre las 24 y 72 horas."
+      },
+      {
+        id: 9,
+        specialty: "Medicina Interna",
+        topic: "Infectología · Meningitis",
+        difficulty: "Nivel 3",
+        vignette: "Adulto de 35 años con fiebre, cefalea intensa, rigidez de nuca y petequias en tronco. Glasgow 13/15, sin déficit focal ni papiledema. ¿Cuál es la secuencia correcta?",
+        options: [
+          "TAC cerebral primero; luego punción lumbar y al tener el resultado iniciar antibióticos",
+          "Hemocultivos + dexametasona IV + ceftriaxona + vancomicina de inmediato, y realizar PL",
+          "Solo aciclovir IV hasta confirmar etiología bacteriana en LCR",
+          "Punción lumbar inmediata sin hemocultivos y observar respuesta a antipiréticos"
+        ],
+        correct: 1,
+        whyCorrect: "Ante sospecha de meningitis bacteriana aguda sin indicación de TAC previa (no inmunosuprimido, sin focalización, sin convulsiones recientes ni papiledema), nunca se deben retrasar los antibióticos ni la dexametasona; se toman hemocultivos y se inicia terapia empírica + dexametasona de inmediato.",
+        pearl: "Dexametasona se administra ANTES o CON la primera dosis de antibiótico para reducir inflamación meníngea y secuelas neurológicas (sobre todo S. pneumoniae).",
+        trap: "Esperar a tener una TAC o el citoquímico del LCR antes de dar antibióticos aumenta exponencialmente la mortalidad."
+      },
+      {
+        id: 10,
+        specialty: "Cirugía",
+        topic: "Trauma · Tórax",
+        difficulty: "Nivel 3",
+        vignette: "Joven sufre herida por arma blanca en hemitórax derecho. Llega con <span class='hy'>disnea severa, PA 70/40 mmHg, ingurgitación yugular, desviación traqueal a la izquierda y abolición del murmullo vesicular derecho</span>. ¿Acción inmediata?",
+        options: [
+          "Solicitar radiografía de tórax portátil urgente para confirmar diagnóstico",
+          "Descompresión torácica inmediata (toracostomía con aguja o descompresión digital) seguida de tubo a tórax",
+          "Pericardiocentesis subxifoidea guiada por ecografía",
+          "Intubación orotraqueal con presión positiva antes de descomprimir el tórax"
+        ],
+        correct: 1,
+        whyCorrect: "Cuadro clínico clásico de neumotórax a tensión (choque obstructivo + ingurgitación yugular + ausencia de ruidos respiratorios + desviación traqueal contralateral). El diagnóstico es clínico y la descompresión es inmediata sin esperar radiografía.",
+        pearl: "Neumotórax a tensión: NUNCA se toma radiografía. Descompresión en 4°-5° EIC línea axilar anterior/media (adultos, ATLS 10ª ed.) o 2° EIC LMC.",
+        trap: "Pedir Rx de tórax o intubar con presión positiva sin descomprimir colapsa aún más el retorno venoso."
+      },
+      {
+        id: 11,
+        specialty: "Pediatría",
+        topic: "Deshidratación · Diarrea Aguda",
+        difficulty: "Nivel 2",
+        vignette: "Lactante de 10 meses (peso 9 kg) con diarrea acuosa abundante. Está <span class='hy'>irritable, con ojos hundidos, boca seca, bebe con avidez</span> y el pliegue cutáneo vuelve lentamente (< 2 s). Tolera vía oral. ¿Plan de hidratación?",
+        options: [
+          "Plan A: líquidos caseros a libre demanda y zinc",
+          "Plan B: Sales de Rehidratación Oral (SRO) de baja osmolaridad 50–100 mL/kg en 4 horas",
+          "Plan C: Bolo de lactato de Ringer 20 mL/kg IV inmediato",
+          "Suspender lactancia materna y administrar loperamida"
+        ],
+        correct: 1,
+        whyCorrect: "Presenta deshidratación leve-moderada ('algún grado de deshidratación': irritable, ojos hundidos, bebe con avidez, pliegue lento). Si tolera la vía oral, se indica Plan B con SRO (50-100 mL/kg en 4 h) más suplementación con zinc.",
+        pearl: "Plan B = Deshidratación sin choque → SRO 50-100 mL/kg en 4 horas. Plan C = Choque o intolerancia oral severa → IV rápido.",
+        trap: "Pasar directamente a líquidos IV en un niño que bebe con avidez o suspender la lactancia materna."
+      },
+      {
+        id: 12,
+        specialty: "Ginecología",
+        topic: "Hemorragia Obstétrica · Código Rojo",
+        difficulty: "Nivel 3",
+        vignette: "Puérpera inmediata tras parto vaginal prolongado presenta <span class='hy'>sangrado vaginal abundante (> 1000 mL), PA 82/50 mmHg, FC 122 lpm y útero blando por encima del ombligo</span>. ¿Causa más probable y primera medida farmacológica?",
+        options: [
+          "Desgarro cervical · Sutura inmediata sin uterotónicos",
+          "Atonía uterina · Masaje uterino bimanual + oxitocina IV + ácido tranexámico",
+          "Acretismo placentario · Histerectomía inmediata sin reanimación",
+          "Coagulopatía primaria · Transfusión aislada de plaquetas"
+        ],
+        correct: 1,
+        whyCorrect: "El útero blando/atónico sobre el ombligo es signo cardinal de atonía uterina (causa #1 de hemorragia posparto, ~70-80%). Se activa Código Rojo: masaje uterino, cristaloides tibios, oxitocina IV y ácido tranexámico (1 g IV en < 3 h).",
+        pearl: "Las 4 T de la HPP: Tono (70-80%), Trauma (20%), Tejido (10%), Trombina (<1%). Ácido tranexámico reduce mortalidad si se da en las primeras 3 horas.",
+        trap: "Olvidar el ácido tranexámico temprano o buscar primero coagulopatía antes de tratar el tono."
+      },
+      {
+        id: 13,
+        specialty: "Medicina Interna",
+        topic: "Nefrología · Hiperkalemia",
+        difficulty: "Nivel 3",
+        vignette: "Paciente con ERC estadio 5 llega por debilidad muscular. <span class='hy'>K+ sérico 7.1 mEq/L</span> y ECG muestra <span class='hy'>ondas T picudas y ensanchamiento del QRS</span>. ¿Cuál es el primer fármaco a administrar?",
+        options: [
+          "Resina de intercambio iónico (poliestireno sulfonato) vía oral",
+          "Gluconato de calcio al 10% IV para estabilizar membrana miocárdica",
+          "Insulina regular 10 U + dextrosa al 50% como única medida",
+          "Furosemida oral y restricción dietética de potasio"
+        ],
+        correct: 1,
+        whyCorrect: "Ante hiperkalemia severa con cambios electrocardiográficos (ensanchamiento del QRS, T picudas), la prioridad absoluta en segundos es estabilizar el potencial de membrana cardíaco con gluconato de calcio al 10% IV (no baja el K+, pero evita la fibrilación ventricular).",
+        pearl: "Orden lógico en hiperkalemia grave: 1) Estabilizar (Gluconato de Ca2+), 2) Redistribuir (Insulina+Dextrosa, Salbutamol), 3) Eliminar (Diurético/Diálisis).",
+        trap: "Administrar insulina primero sin proteger el corazón cuando ya hay ensanchamiento del QRS."
+      },
+      {
+        id: 14,
+        specialty: "Urgencias",
+        topic: "Anafilaxia · Vía Aérea",
+        difficulty: "Nivel 2",
+        vignette: "Mujer de 28 años desarrolla <span class='hy'>urticaria generalizada, estridor laríngeo, sibilancias y PA 80/50 mmHg</span> 10 minutos después de recibir penicilina IM. ¿Tratamiento de primera línea?",
+        options: [
+          "Difenhidramina 50 mg IV + hidrocortisona 200 mg IV",
+          "Adrenalina 0.3–0.5 mg IM en cara anterolateral del muslo",
+          "Adrenalina 1 mg IV en bolo rápido",
+          "Salbutamol nebulizado seguido de observación"
+        ],
+        correct: 1,
+        whyCorrect: "La adrenalina intramuscular (0.01 mg/kg, máx 0.5 mg en adultos, concentración 1:1000) en la cara anterolateral del muslo es el único tratamiento de primera línea que revierte el broncoespasmo, edema laríngeo y vasodilatación.",
+        pearl: "Antihistamínicos y corticoides son adyuvantes (no salvan la vida en agudo). La vía IM en muslo es más segura y rápida que IV en bolo.",
+        trap: "Dar adrenalina 1 mg IV en bolo (dosis de paro) en un paciente con pulso causa crisis hipertensiva y arritmias letales."
+      },
+      {
+        id: 15,
+        specialty: "Cirugía",
+        topic: "Abdomen Agudo · Apendicitis",
+        difficulty: "Nivel 2",
+        vignette: "Hombre de 21 años con <span class='hy'>dolor periumbilical que migró a fosa ilíaca derecha</span> hace 14 horas, anorexia, náuseas, T° 37.9°C, Blumberg positivo y leucocitos 14.500/mm³ con neutrofilia. ¿Puntaje aproximado de Alvarado y conducta?",
+        options: [
+          "Alvarado bajo (≤ 3) · Alta con analgésicos",
+          "Alvarado alto (≥ 7) · Apendicectomía sin necesidad obligatoria de TAC en hombre joven típico",
+          "Alvarado intermedio · Colonoscopia diagnóstica",
+          "Manejo exclusivo con metronidazol oral ambulatorio"
+        ],
+        correct: 1,
+        whyCorrect: "Migración (1) + Anorexia (1) + Náuseas (1) + Dolor FID (2) + Rebote (1) + Fiebre (1) + Leucocitosis (2) + Desviación izquierda (1) = 9-10 puntos. En hombre joven con cuadro típico y Alvarado ≥ 7, la conducta es quirúrgica directa.",
+        pearl: "Escala de Alvarado (MANTRELS): ≥ 7 alta probabilidad quirúrgica; 5-6 requiere imagen (ecografía o TAC).",
+        trap: "Diferir la cirugía para pedir múltiples imágenes en un hombre joven con presentación clásica."
+      },
+      {
+        id: 16,
+        specialty: "Medicina Interna",
+        topic: "Neumología · TEP",
+        difficulty: "Nivel 3",
+        vignette: "Mujer de 54 años en posoperatorio de reemplazo de cadera presenta <span class='hy'>disnea súbita, dolor pleurítico, FC 116 lpm, FR 26 rpm y SatO2 88%</span>. PA 115/75 mmHg. Probabilidad clínica por Wells: 7.5 puntos (alta). ¿Estudio diagnóstico de elección?",
+        options: [
+          "Solicitar Dímero D y si es negativo descartar TEP",
+          "AngioTAC de tórax (protocolo TEP) e inicio empírico de anticoagulación si no hay contraindicación",
+          "Espirometría forzada con broncodilatador",
+          "Radiografía de tórax normal descarta el diagnóstico"
+        ],
+        correct: 1,
+        whyCorrect: "Con probabilidad clínica alta (Wells > 6 o > 4 en modelo dicotomizado), el Dímero D NO se solicita porque un resultado negativo no descarta con seguridad suficiente; se va directo a AngioTAC pulmonar y anticoagulación.",
+        pearl: "Dímero D solo sirve para DESCARTAR TEP en probabilidad baja o intermedia (alto valor predictivo negativo).",
+        trap: "Pedir Dímero D en un paciente con Wells alto es un error clásico de examen que retrasa el diagnóstico."
+      },
+      {
+        id: 17,
+        specialty: "Pediatría",
+        topic: "Neumología · Bronquiolitis",
+        difficulty: "Nivel 2",
+        vignette: "Lactante de 4 meses previamente sano con coriza hace 3 días, ahora con <span class='hy'>taquipnea, tirajes subcostales, sibilancias espiratorias difusas y SatO2 89%</span>. Sin fiebre alta ni consolidación. ¿Manejo indicado?",
+        options: [
+          "Oxígeno suplementario (meta SatO2 ≥ 90-92%), aspiración nasal suave e hidratación",
+          "Prednisolona oral 2 mg/kg + amoxicilina-clavulanato",
+          "Salbutamol horario programado + nebulización con solución hipertónica obligatoria",
+          "Ribavirina intravenosa de rutina"
+        ],
+        correct: 0,
+        whyCorrect: "Primer episodio de sibilancias en < 2 años precedido de infección viral respiratoria = Bronquiolitis (VSR #1). El manejo es estrictamente de soporte: oxígeno si SatO2 < 90-92%, hidratación y limpieza nasal.",
+        pearl: "En bronquiolitis NO están indicados de rutina: corticoides, antibióticos ni broncodilatadores.",
+        trap: "Tratar una bronquiolitis como si fuera una crisis asmática con corticoides y salbutamol programado."
+      },
+      {
+        id: 18,
+        specialty: "Ginecología",
+        topic: "Ginecología · Embarazo Ectópico",
+        difficulty: "Nivel 3",
+        vignette: "Mujer de 27 años con amenorrea de 6 semanas, <span class='hy'>dolor en fosa ilíaca izquierda, sangrado vaginal escaso y PA 84/52 mmHg, FC 120 lpm</span>. β-hCG positiva, ecografía transvaginal: útero vacío y líquido libre abundante en fondo de saco de Douglas. ¿Conducta?",
+        options: [
+          "Metotrexato 50 mg/m² IM en dosis única",
+          "Reanimación con cristaloides + laparoscopia (o laparotomía) quirúrgica urgente",
+          "Repetir β-hCG en 48 horas para verificar duplicación",
+          "Legrado uterino obstétrico por aborto incompleto"
+        ],
+        correct: 1,
+        whyCorrect: "Tiene embarazo ectópico roto con inestabilidad hemodinámica y hemoperitoneo (líquido libre abundante). El metotrexato está absolutamente contraindicado en inestabilidad hemodinámica; requiere cirugía urgente.",
+        pearl: "Metotrexato en ectópico SOLO si: paciente estable, sin líquido libre abundante, β-hCG < 5000 (ideal), sin embriocardia y con seguimiento garantizado.",
+        trap: "Indicar metotrexato o esperar 48 h en una paciente hipotensa con hemoperitoneo."
+      }
+    ];
+
+const QUESTIONS_EXTRA = [
+  {
+    id: 19, specialty: "Salud Pública", topic: "Epidemiología · Pruebas diagnósticas", difficulty: "Nivel 2",
+    vignette: "Se evalúa una nueva prueba rápida para VIH con <span class='hy'>sensibilidad 99%</span> y <span class='hy'>especificidad 92%</span>. Un comité quiere usarla en población general. ¿Cuál es el uso más adecuado de esta prueba?",
+    options: ["Como prueba confirmatoria única antes de iniciar tratamiento", "Como prueba de tamizaje, confirmando los positivos con una prueba más específica", "No sirve porque su especificidad es menor a 95%", "Solo en población de alto riesgo porque el VPP no depende de la prevalencia"],
+    correct: 1,
+    whyCorrect: "Una sensibilidad muy alta deja pocos falsos negativos: un resultado negativo descarta la enfermedad (SnNout). Por eso es ideal para tamizaje. Los positivos se confirman con una prueba de alta especificidad (SpPin).",
+    pearl: "SnNout: Sensible + Negativo = descarta. SpPin: Específica + Positivo = confirma. Los valores predictivos SÍ cambian con la prevalencia; la sensibilidad y la especificidad no.",
+    trap: "Creer que el VPP es fijo. A menor prevalencia, cae el VPP y aumentan los falsos positivos."
+  },
+  {
+    id: 20, specialty: "Salud Pública", topic: "Epidemiología · Diseño de estudios", difficulty: "Nivel 2",
+    vignette: "Investigadores identifican a 120 pacientes con <span class='hy'>carcinoma hepatocelular</span> y 240 sin la enfermedad, y revisan <span class='hy'>retrospectivamente</span> su exposición previa a aflatoxinas. ¿Qué diseño es y qué medida de asociación corresponde?",
+    options: ["Cohorte prospectiva · Riesgo relativo", "Casos y controles · Odds ratio", "Transversal · Prevalencia", "Ensayo clínico · Número necesario a tratar"],
+    correct: 1,
+    whyCorrect: "Se parte del desenlace (con y sin enfermedad) y se busca la exposición hacia atrás: eso es un estudio de casos y controles. No permite calcular incidencia, así que la medida es el odds ratio.",
+    pearl: "Cohorte: parte de la exposición → RR. Casos y controles: parte de la enfermedad → OR. Útil para enfermedades raras.",
+    trap: "Calcular riesgo relativo en un estudio de casos y controles: no se puede porque el investigador fija la proporción de casos."
+  },
+  {
+    id: 21, specialty: "Medicina Interna", topic: "Cardiología · Arritmias", difficulty: "Nivel 2",
+    vignette: "Mujer de 70 años con palpitaciones de 6 horas. FC 168 lpm irregular, <span class='hy'>PA 76/48 mmHg</span>, diaforética y somnolienta. ECG: fibrilación auricular con respuesta ventricular rápida. ¿Conducta inmediata?",
+    options: ["Amiodarona IV en infusión y reevaluar en 24 horas", "Cardioversión eléctrica sincronizada", "Metoprolol IV en bolos para control de frecuencia", "Anticoagular 3 semanas y luego cardiovertir"],
+    correct: 1,
+    whyCorrect: "Toda taquiarritmia con inestabilidad hemodinámica (hipotensión, alteración de conciencia, dolor torácico isquémico o insuficiencia cardíaca aguda) se trata con cardioversión eléctrica sincronizada inmediata, sin importar el tiempo de evolución.",
+    pearl: "Inestable = electricidad. Estable = fármacos (control de frecuencia o ritmo). Anticoagular por CHA₂DS₂-VASc ≥ 2 en hombres y ≥ 3 en mujeres.",
+    trap: "Dar betabloqueador IV a una paciente hipotensa: empeora el choque."
+  },
+  {
+    id: 22, specialty: "Pediatría", topic: "Vasculitis · Kawasaki", difficulty: "Nivel 2",
+    vignette: "Niño de 3 años con <span class='hy'>fiebre de 6 días</span> sin respuesta a antipiréticos, conjuntivitis bilateral sin secreción, labios rojos y fisurados, lengua en fresa, exantema polimorfo, edema de manos y adenopatía cervical de 2 cm. ¿Tratamiento indicado?",
+    options: ["Amoxicilina por probable escarlatina", "Inmunoglobulina IV 2 g/kg + ácido acetilsalicílico", "Prednisolona oral y observación", "Ibuprofeno y control en 48 horas"],
+    correct: 1,
+    whyCorrect: "Fiebre ≥ 5 días más ≥ 4 de 5 criterios (conjuntivitis, cambios orales, exantema, cambios en extremidades, adenopatía cervical ≥ 1.5 cm) define la enfermedad de Kawasaki. La IGIV dentro de los primeros 10 días reduce los aneurismas coronarios.",
+    pearl: "Kawasaki: ecocardiograma al diagnóstico. Es la principal causa de cardiopatía adquirida en niños de países desarrollados.",
+    trap: "Confundirlo con escarlatina o con una infección viral y retrasar la IGIV más allá del día 10."
+  },
+  {
+    id: 23, specialty: "Urgencias", topic: "Toxicología · Organofosforados", difficulty: "Nivel 2",
+    vignette: "Agricultor de 40 años traído tras fumigar sin protección. Presenta <span class='hy'>miosis puntiforme, sialorrea, broncorrea, bradicardia</span>, diarrea y fasciculaciones. ¿Antídoto de primera línea?",
+    options: ["Naloxona IV", "Atropina IV en dosis crecientes hasta secar las secreciones bronquiales", "Flumazenil IV", "N-acetilcisteína"],
+    correct: 1,
+    whyCorrect: "El cuadro colinérgico (muscarínico + nicotínico) es típico de los organofosforados. La atropina revierte los efectos muscarínicos; su meta es secar las secreciones bronquiales, no la midriasis. La pralidoxima es un complemento para los efectos nicotínicos.",
+    pearl: "DUMBELS: Diarrea, Urination, Miosis, Bradicardia/Broncorrea, Emesis, Lagrimeo, Salivación.",
+    trap: "Usar la midriasis o la FC como meta de atropinización: el objetivo es secar los pulmones."
+  },
+  {
+    id: 24, specialty: "Cirugía", topic: "Vía biliar · Colangitis", difficulty: "Nivel 3",
+    vignette: "Hombre de 66 años con fiebre de 39 °C, <span class='hy'>ictericia y dolor en hipocondrio derecho</span>. Además está confuso y con PA 82/50 mmHg. Bilirrubina 6.8 mg/dL. Ecografía: colédoco dilatado de 11 mm con litiasis. ¿Conducta?",
+    options: ["Colecistectomía laparoscópica urgente", "Reanimación + antibióticos IV + drenaje biliar urgente (CPRE)", "Antibióticos orales y CPRE electiva en 6 semanas", "Colangiorresonancia antes de cualquier tratamiento"],
+    correct: 1,
+    whyCorrect: "Tríada de Charcot más hipotensión y alteración de conciencia es la péntada de Reynolds: colangitis grave. Requiere reanimación, antibiótico IV y descompresión biliar urgente, idealmente por CPRE.",
+    pearl: "Charcot: fiebre + ictericia + dolor en HCD. Reynolds: Charcot + choque + confusión.",
+    trap: "Ir directo a colecistectomía: la urgencia es drenar la vía biliar, no quitar la vesícula."
+  },
+  {
+    id: 25, specialty: "Ginecología", topic: "Hemorragia del 3er trimestre", difficulty: "Nivel 2",
+    vignette: "Gestante de 32 semanas con <span class='hy'>sangrado vaginal rojo rutilante, indoloro</span>, que empezó en reposo. Útero blando, sin contracciones, FCF 145 lpm. Signos vitales normales. ¿Qué NO debe hacerse hasta tener el diagnóstico por imagen?",
+    options: ["Ecografía transabdominal", "Tacto vaginal", "Monitoreo fetal continuo", "Canalizar una vía venosa y pedir hemograma"],
+    correct: 1,
+    whyCorrect: "Un sangrado indoloro, rojo brillante y con útero relajado sugiere placenta previa. El tacto vaginal puede desencadenar una hemorragia masiva y está contraindicado hasta descartarla por ecografía.",
+    pearl: "Placenta previa: indolora, útero blando. DPPNI: dolorosa, útero hipertónico, sufrimiento fetal, a menudo con HTA o trauma.",
+    trap: "Hacer tacto vaginal de rutina ante cualquier sangrado del tercer trimestre."
+  },
+  {
+    id: 26, specialty: "Medicina Interna", topic: "Nefrología · Hiponatremia", difficulty: "Nivel 3",
+    vignette: "Mujer de 74 años con náuseas y somnolencia leve de 1 semana de evolución tras iniciar tiazida. <span class='hy'>Na⁺ 112 mEq/L</span>, sin convulsiones. Se inicia corrección. ¿Cuál es el límite de corrección en las primeras 24 h?",
+    options: ["Hasta normalizar el sodio (135 mEq/L) en 24 horas", "No más de 8–10 mEq/L en 24 horas", "Al menos 20 mEq/L en 24 horas para evitar edema cerebral", "No importa la velocidad si la paciente está asintomática"],
+    correct: 1,
+    whyCorrect: "En la hiponatremia crónica (> 48 h), la corrección rápida causa el síndrome de desmielinización osmótica (mielinólisis pontina). El límite es de 8–10 mEq/L en 24 h; en pacientes de alto riesgo, 8 mEq/L.",
+    pearl: "Síntomas graves (convulsiones, coma): bolo de NaCl 3% para subir 4–6 mEq/L rápido, sin pasar el límite diario.",
+    trap: "Normalizar el sodio en un día porque la paciente se ve bien."
+  }
+];
+const QUESTIONS = [...QUESTIONS_BASE, ...QUESTIONS_EXTRA];
+
+const HY_CARDS = [
+      {
+        id: "hy1",
+        specialty: "Urgencias",
+        title: "Sepsis & Choque Séptico",
+        badge: "Surviving Sepsis",
+        accent: "#06b6d4",
+        thresholds: [
+          { label: "Cristaloides", val: "30 mL/kg (1-3 h)" },
+          { label: "Meta PAM", val: "≥ 65 mmHg" },
+          { label: "Vasopresor #1", val: "Norepinefrina" }
+        ],
+        redFlag: "Lactato > 2 mmol/L + vasopresor tras líquidos = Choque séptico (mortalidad > 40%).",
+        trap: "Esperar vía central para iniciar norepinefrina: ¡se puede iniciar por vía periférica proximal mientras se canaliza!"
+      },
+      {
+        id: "hy2",
+        specialty: "Medicina Interna",
+        title: "Cetoacidosis Diabética (CAD)",
+        badge: "Emergencia Endocrina",
+        accent: "#f59e0b",
+        thresholds: [
+          { label: "Glucemia", val: "> 250 mg/dL" },
+          { label: "pH / HCO3", val: "< 7.30 / < 18" },
+          { label: "Regla K+", val: "Si < 3.3 NO insulina" }
+        ],
+        redFlag: "K+ < 3.3 mEq/L: reponer potasio antes de insulina o habrá paro por hipokalemia.",
+        trap: "Suspender insulina cuando glucemia baja a 200 mg/dL: se debe agregar dextrosa y mantener insulina hasta cerrar brecha aniónica."
+      },
+      {
+        id: "hy3",
+        specialty: "Ginecología",
+        title: "Preeclampsia con Severidad",
+        badge: "Obstetricia Crítica",
+        accent: "#f43f5e",
+        thresholds: [
+          { label: "PA Severa", val: "≥ 160/110 mmHg" },
+          { label: "Plaquetas", val: "< 100.000/mm³" },
+          { label: "Neuroprotección", val: "Sulfato de Mg" }
+        ],
+        redFlag: "Cefalea persistente, fosfenos, epigastralgia o clonus = riesgo inminente de eclampsia.",
+        trap: "Usar losartán o enalapril en embarazo (teratogénicos) o bajar la PA demasiado rápido (< 130/80 compromete perfusión placentaria)."
+      },
+      {
+        id: "hy4",
+        specialty: "Medicina Interna",
+        title: "Hiperkalemia Grave",
+        badge: "Electrocardiograma",
+        accent: "#10b981",
+        thresholds: [
+          { label: "1° Estabilizar", val: "Gluconato Ca 10%" },
+          { label: "2° Redistribuir", val: "Insulina + Dextrosa" },
+          { label: "3° Eliminar", val: "Furosemida / Diálisis" }
+        ],
+        redFlag: "Ondas T picudas → PR largo → QRS ancho → patrón sinusoidal → FV.",
+        trap: "Creer que el gluconato de calcio baja el potasio sérico: solo protege el miocardio por 30-60 minutos."
+      },
+      {
+        id: "hy5",
+        specialty: "Pediatría",
+        title: "Crup vs. Epiglotitis",
+        badge: "Estridor Agudo",
+        accent: "#06b6d4",
+        thresholds: [
+          { label: "Crup", val: "Tos perruna + disfonía" },
+          { label: "Manejo Crup", val: "Dexametasona + Adren." },
+          { label: "Epiglotitis", val: "Babeo + Trípode" }
+        ],
+        redFlag: "Niño tóxico con babeo y boca abierta = Epiglotitis. NO explorar garganta con bajalenguas.",
+        trap: "Dar salbutamol en crup (no actúa en edema subglótico) o pedir Rx antes de asegurar vía aérea en epiglotitis."
+      },
+      {
+        id: "hy6",
+        specialty: "Cirugía",
+        title: "Neumotórax a Tensión",
+        badge: "ATLS Trauma",
+        accent: "#f43f5e",
+        thresholds: [
+          { label: "Diagnóstico", val: "100% Clínico" },
+          { label: "Tríada", val: "Choque + IY + MV abolido" },
+          { label: "Acción", val: "Descompresión ya" }
+        ],
+        redFlag: "Hipotensión + ingurgitación yugular + desviación traqueal contralateral.",
+        trap: "Solicitar radiografía de tórax para confirmar: el paciente muere en la sala de rayos X."
+      }
+    ];
+
+// Tarjetas rápidas: frente → reverso
+const FLASH = [
+  ["Medicina Interna","Meta de PA antes de trombolizar un ACV isquémico","< 185/110 mmHg"],
+  ["Medicina Interna","Ventana para alteplasa IV en ACV isquémico","Hasta 4.5 h desde la última vez que se vio bien al paciente"],
+  ["Medicina Interna","Glucosa en ayunas diagnóstica de diabetes","≥ 126 mg/dL (confirmar en 2 ocasiones)"],
+  ["Medicina Interna","HbA1c diagnóstica de diabetes","≥ 6.5 %"],
+  ["Medicina Interna","Velocidad máxima de corrección de Na⁺ en hiponatremia crónica","8–10 mEq/L en 24 h (riesgo de desmielinización osmótica)"],
+  ["Medicina Interna","Tríada de Beck","Hipotensión + ingurgitación yugular + ruidos cardíacos apagados → taponamiento"],
+  ["Medicina Interna","FA con inestabilidad hemodinámica","Cardioversión eléctrica sincronizada"],
+  ["Medicina Interna","CHA₂DS₂-VASc para anticoagular","≥ 2 en hombres · ≥ 3 en mujeres"],
+  ["Medicina Interna","CURB-65 que indica hospitalizar","≥ 2 (con ≥ 3 valorar UCI)"],
+  ["Medicina Interna","Primer paso en hiperkalemia con cambios en ECG","Gluconato de calcio 10 % IV (estabiliza membrana, no baja K⁺)"],
+  ["Medicina Interna","Hipoglucemia en paciente consciente","15 g de carbohidrato oral, glucemia de control a los 15 min"],
+  ["Urgencias","Antídoto de opioides","Naloxona"],
+  ["Urgencias","Antídoto de benzodiacepinas","Flumazenil (cuidado: convulsiones en consumidores crónicos)"],
+  ["Urgencias","Antídoto de organofosforados","Atropina (meta: secar secreciones) + pralidoxima"],
+  ["Urgencias","Antídoto del paracetamol","N-acetilcisteína (ideal < 8 h)"],
+  ["Urgencias","Antídoto de la metahemoglobinemia","Azul de metileno"],
+  ["Urgencias","Adrenalina en paro cardíaco del adulto","1 mg IV/IO cada 3–5 min"],
+  ["Urgencias","Ritmos desfibrilables","FV y TV sin pulso"],
+  ["Urgencias","RCP de calidad en adulto: profundidad y frecuencia","5–6 cm · 100–120 compresiones/min"],
+  ["Urgencias","Adrenalina en anafilaxia (adulto)","0.3–0.5 mg IM en el muslo (1 mg/mL)"],
+  ["Urgencias","Choque séptico: vasopresor de primera línea","Norepinefrina, meta PAM ≥ 65 mmHg"],
+  ["Cirugía","Glasgow que indica asegurar la vía aérea","≤ 8"],
+  ["Cirugía","Regla de los 9 (adulto): tronco anterior","18 %"],
+  ["Cirugía","Fórmula de Parkland","4 mL × kg × % SCQ (2° y 3°): la mitad en las primeras 8 h"],
+  ["Cirugía","Tríada de Charcot","Fiebre + ictericia + dolor en HCD → colangitis"],
+  ["Cirugía","Péntada de Reynolds","Charcot + hipotensión + alteración de conciencia"],
+  ["Cirugía","Signo de Rovsing","Dolor en FID al presionar la FII (apendicitis)"],
+  ["Cirugía","Alvarado que sugiere cirugía","≥ 7 puntos"],
+  ["Pediatría","Agente más común de bronquiolitis","Virus sincitial respiratorio (VSR)"],
+  ["Pediatría","Agente más común de crup","Parainfluenza"],
+  ["Pediatría","Kawasaki: tratamiento","IGIV 2 g/kg + AAS, idealmente antes del día 10"],
+  ["Pediatría","Convulsión febril simple","6 m–5 años, generalizada, < 15 min, una sola en 24 h"],
+  ["Pediatría","Ictericia neonatal en las primeras 24 h de vida","Siempre patológica"],
+  ["Pediatría","Plan B de hidratación","SRO 50–100 mL/kg en 4 h"],
+  ["Pediatría","Antibiótico de primera línea en otitis media aguda","Amoxicilina a dosis altas (80–90 mg/kg/día)"],
+  ["Ginecología","Regla de Naegele","FUM + 7 días − 3 meses (+ 1 año)"],
+  ["Ginecología","Dosis de impregnación de sulfato de Mg (Zuspan)","4 g IV en 15–20 min, luego 1 g/h"],
+  ["Ginecología","Antídoto de la toxicidad por sulfato de Mg","Gluconato de calcio 10 %"],
+  ["Ginecología","Maduración pulmonar fetal","Betametasona 12 mg IM c/24 h × 2 dosis (24–34 sem)"],
+  ["Ginecología","Placenta previa vs DPPNI","Previa: indolora, útero blando · DPPNI: dolor + hipertonía"],
+  ["Ginecología","Causa más frecuente de hemorragia posparto","Atonía uterina (las 4 T: Tono, Trauma, Tejido, Trombina)"],
+  ["Salud Pública","Prueba ideal para descartar enfermedad","Alta sensibilidad (SnNout)"],
+  ["Salud Pública","Prueba ideal para confirmar enfermedad","Alta especificidad (SpPin)"],
+  ["Salud Pública","Fórmula del NNT","1 / reducción absoluta del riesgo"],
+  ["Salud Pública","Medida de asociación en casos y controles","Odds ratio"],
+  ["Salud Pública","¿Qué cambia con la prevalencia: sensibilidad o VPP?","Los valores predictivos (VPP y VPN)"]
+].map((f,i)=>({id:i+1,specialty:f[0],front:f[1],back:f[2]}));
+
+const SPECS = ["Medicina Interna","Urgencias","Cirugía","Pediatría","Ginecología","Salud Pública"];
+const SPEC_COLOR = {"Medicina Interna":"#0891b2","Urgencias":"#e11d48","Cirugía":"#7c3aed","Pediatría":"#059669","Ginecología":"#db2777","Salud Pública":"#b45309"};
+
+// ===================================================================
+// ESTADO (localStorage) + REPASO ESPACIADO
+// ===================================================================
+const KEY = "medipulse_v2";
+const DAY = 864e5;
+const BOX_DAYS = [0, 1, 3, 7, 16, 35];
+let S = {srs:{}, log:{}, sims:[], theme:null};
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
+
+const todayKey = (d=new Date()) => new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+function logToday(){ const k = todayKey(); return S.log[k] || (S.log[k] = {sec:0,q:0,ok:0,c:0}); }
+
+// grade: 0 = fallé, 1 = dudé, 2 = la sabía
+function grade(key, g){
+  const r = S.srs[key] || (S.srs[key] = {b:0,due:0,n:0,ok:0});
+  r.n++; if (g === 2) r.ok++;
+  if (g === 0) { r.b = 0; r.due = Date.now() + 10*6e4; }
+  else if (g === 1) { r.due = Date.now() + DAY; }
+  else { r.b = Math.min(r.b+1, BOX_DAYS.length-1); r.due = Date.now() + BOX_DAYS[r.b]*DAY; }
+  save();
+}
+const isDue = k => S.srs[k] && S.srs[k].due <= Date.now();
+const dueKeys = () => Object.keys(S.srs).filter(isDue).sort((a,b)=>S.srs[a].due-S.srs[b].due);
+
+function specStats(){
+  const st = {}; SPECS.forEach(s=>st[s]={n:0,ok:0,seen:0,total:0});
+  QUESTIONS.forEach(q=>{ const s=st[q.specialty]; s.total++; const r=S.srs["q"+q.id]; if(r){s.n+=r.n;s.ok+=r.ok;s.seen++;} });
+  return st;
+}
+function weakestSpec(){
+  const st = specStats();
+  const withData = SPECS.filter(s=>st[s].n>=3);
+  if (withData.length) return withData.sort((a,b)=>st[a].ok/st[a].n - st[b].ok/st[b].n)[0];
+  return SPECS.slice().sort((a,b)=>st[a].seen/st[a].total - st[b].seen/st[b].total)[0];
+}
+function streak(){
+  let n=0, d=new Date();
+  if (!(S.log[todayKey(d)]?.sec>0 || S.log[todayKey(d)]?.c>0 || S.log[todayKey(d)]?.q>0)) d = new Date(d.getTime()-DAY);
+  while (true){ const l=S.log[todayKey(d)]; if (l && (l.sec>0||l.q>0||l.c>0)) { n++; d=new Date(d.getTime()-DAY); } else break; }
+  return n;
+}
+const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
+const qById = id => QUESTIONS.find(q=>q.id===id);
+const cById = id => FLASH.find(c=>c.id===id);
+
+// Arma una cola: primero lo vencido, luego lo no visto (priorizando un tema), luego lo más débil.
+function pickQuestions(n, {spec=null, preferSpec=null}={}){
+  let pool = QUESTIONS.filter(q=>!spec || q.specialty===spec);
+  const due = pool.filter(q=>isDue("q"+q.id));
+  const unseen = shuffle(pool.filter(q=>!S.srs["q"+q.id]));
+  if (preferSpec) unseen.sort((a,b)=>(b.specialty===preferSpec)-(a.specialty===preferSpec));
+  const rest = pool.filter(q=>S.srs["q"+q.id] && !isDue("q"+q.id)).sort((a,b)=>S.srs["q"+a.id].b - S.srs["q"+b.id].b || S.srs["q"+a.id].due - S.srs["q"+b.id].due);
+  const out=[]; for (const q of [...due,...unseen,...rest]) { if(!out.includes(q)) out.push(q); if(out.length>=n) break; }
+  return shuffle(out).map(q=>({t:"q",id:q.id}));
+}
+function pickCards(n, spec=null){
+  let pool = FLASH.filter(c=>!spec||c.specialty===spec);
+  const due = pool.filter(c=>isDue("c"+c.id));
+  const unseen = shuffle(pool.filter(c=>!S.srs["c"+c.id]));
+  const rest = shuffle(pool.filter(c=>S.srs["c"+c.id] && !isDue("c"+c.id))).sort((a,b)=>S.srs["c"+a.id].b - S.srs["c"+b.id].b);
+  const out=[]; for (const c of [...due,...unseen,...rest]) { if(!out.includes(c)) out.push(c); if(out.length>=n) break; }
+  return out.map(c=>({t:"c",id:c.id}));
+}
+
+// ===================================================================
+// UI BÁSICA
+// ===================================================================
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("on"),2600); }
+function applyTheme(){ if (S.theme) document.documentElement.dataset.theme=S.theme; else delete document.documentElement.dataset.theme; }
+$("#themeBtn").onclick = () => {
+  const dark = S.theme ? S.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  S.theme = dark ? "light" : "dark"; save(); applyTheme();
+};
+let currentView = "hoy";
+function go(v){
+  if (sess && v!=="sess" && !confirmLeave()) return;
+  currentView = v;
+  document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.id==="v-"+v));
+  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v));
+  ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, sim:renderSim, prog:renderProg})[v]?.();
+  scrollTo(0,0);
+}
+document.addEventListener("click", e=>{ const g=e.target.closest("[data-go]"); if(g) go(g.dataset.go); });
+function refreshChips(){ $("#streakChip").textContent = "🔥 " + streak(); $("#dueChip").textContent = "🔁 " + dueKeys().length; }
+const fmt = s => { s=Math.max(0,Math.round(s)); return String(s/60|0).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); };
+
+// ===================================================================
+// HOY
+// ===================================================================
+function renderHoy(){
+  const h = new Date().getHours();
+  $("#greet").textContent = h<12 ? "Buenos días ☀️" : h<19 ? "Buenas tardes 👋" : "Buenas noches 🌙";
+  const l = logToday(), st = streak(), due = dueKeys().length;
+  $("#todayCard").innerHTML = `
+    <div class="row"><h3 style="font-size:16px">Hoy</h3><div class="spacer"></div>${l.sec>0||l.c>0||l.q>0?'<span class="tag" style="background:var(--ok-soft);color:var(--ok)">✓ Racha asegurada</span>':'<span class="tag">Aún sin estudiar</span>'}</div>
+    <div class="grid3" style="margin-top:12px">
+      <div class="kpi"><b>${Math.round(l.sec/60)}</b><span>minutos</span></div>
+      <div class="kpi"><b>${l.q}</b><span>casos${l.q?" · "+Math.round(l.ok/l.q*100)+"% ✓":""}</span></div>
+      <div class="kpi"><b>${l.c}</b><span>tarjetas</span></div>
+    </div>`;
+  const weak = weakestSpec();
+  let sug;
+  if (due>0) sug = `Tienes <b>${due} repaso${due>1?"s":""}</b> pendiente${due>1?"s":""}. Es lo que más rinde: estás a punto de olvidarlo.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDue">Repasar ahora</button></div>`;
+  else if (!l.sec && st>0) sug = `Llevas <b>${st} día${st>1?"s":""}</b> de racha. Aunque hoy no tengas ganas, con <b>una tarjeta</b> la mantienes.<div class="row" style="margin-top:10px"><button class="btn" id="doOne">Mantener racha (1 min)</button></div>`;
+  else sug = `Tu punto más débil ahora: <b>${weak}</b>. Una ronda de 5 casos de ese tema te dará el mayor avance.<div class="row" style="margin-top:10px"><button class="btn" id="doWeak">5 casos de ${weak}</button></div>`;
+  $("#suggestCard").innerHTML = `<h3 style="font-size:16px">💡 Recomendación</h3><p style="margin:6px 0 0" class="small">${sug}</p>`;
+  $("#doDue") && ($("#doDue").onclick = startDue);
+  $("#doOne") && ($("#doOne").onclick = ()=>startSession({label:"Mantener racha",tag:"lazy",stages:[{name:"Tarjetas",items:pickCards(3)}]}));
+  $("#doWeak") && ($("#doWeak").onclick = ()=>startSession({label:"Tema débil",tag:"norm",stages:[{name:weak,items:pickQuestions(5,{spec:weak})}]}));
+  const day = Math.floor(Date.now()/DAY);
+  const p = QUESTIONS[day % QUESTIONS.length];
+  $("#pearlCard").innerHTML = `<div class="row"><span class="tag" style="background:var(--warn-soft);color:var(--warn)">Perla del día</span><span class="xs muted">${esc(p.topic)}</span></div><p style="margin:8px 0 0">${esc(p.pearl)}</p>`;
+  refreshChips();
+}
+document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{
+  const m=b.dataset.mode;
+  if (m==="lazy") return go("lazy");
+  if (m==="normal") return startSession({label:"Sesión normal",tag:"norm",limit:25*60,stages:[
+    {name:"Casos clínicos",items:pickQuestions(10,{preferSpec:weakestSpec()})},
+    {name:"Tarjetas rápidas",items:pickCards(8)}]});
+  if (m==="beast") { const w=weakestSpec(); const due=dueKeys();
+    return startSession({label:"Modo a tope",tag:"fire",stages:[
+      {name:"Bloque 1 · Repaso espaciado", items: due.length? due.slice(0,15).map(k=>({t:k[0],id:+k.slice(1)})) : pickCards(12)},
+      {name:"Bloque 2 · Tema débil: "+w, items:pickQuestions(10,{spec:w}).concat(pickQuestions(5,{preferSpec:w})).filter((x,i,a)=>a.findIndex(y=>y.id===x.id)===i).slice(0,12)},
+      {name:"Bloque 3 · Simulacro mixto", items:pickQuestions(15), exam:true, limit:15*72},
+      {name:"Bloque 4 · Cierre con tarjetas", items:pickCards(10)}], breaks:true});
+  }
+});
+document.querySelectorAll("[data-lazy]").forEach(b=>b.onclick=()=>{
+  const m=b.dataset.lazy;
+  if (m==="cards") startSession({label:"Sin ganas",tag:"lazy",lazy:true,stages:[{name:"10 tarjetas",items:pickCards(10)}]});
+  if (m==="one") startSession({label:"Sin ganas",tag:"lazy",lazy:true,stages:[{name:"Un caso",items:pickQuestions(1)}]});
+  if (m==="read") { const hy=HY_CARDS[Math.random()*HY_CARDS.length|0]; startSession({label:"Sin ganas",tag:"lazy",lazy:true,stages:[{name:"Una ficha",items:[{t:"hy",id:hy.id}]}]}); }
+});
+function startDue(){
+  const items = dueKeys().slice(0,20).map(k=>({t:k[0],id:+k.slice(1)}));
+  startSession({label:"Repaso espaciado",tag:"norm",stages:[{name:"Repasos pendientes",items}]});
+}
+
+// ===================================================================
+// MOTOR DE SESIÓN
+// ===================================================================
+let sess = null, tick = null;
+function confirmLeave(){ if(!sess) return true; if(confirm("¿Salir de la sesión? Lo que ya respondiste queda guardado.")){ endSession(false); return true; } return false; }
+$("#quitBtn").onclick = ()=>{ if(confirmLeave()) go("hoy"); };
+
+function startSession(cfg){
+  cfg.stages = cfg.stages.filter(s=>s.items.length);
+  if (!cfg.stages.length) return toast("No hay contenido para esta sesión todavía.");
+  sess = Object.assign({si:0, i:0, answers:{}, results:[], start:Date.now(), last:Date.now(), stageStart:Date.now(), state:"ask"}, cfg);
+  currentView="sess";
+  document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.id==="v-sess"));
+  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.remove("on"));
+  const tag=$("#sessTag"); tag.className="tag "+(cfg.tag||""); tag.textContent=cfg.label;
+  clearInterval(tick); tick=setInterval(updTimer,1000); updTimer();
+  renderItem();
+}
+function stage(){ return sess.stages[sess.si]; }
+function addTime(){ const now=Date.now(); const d=Math.min((now-sess.last)/1000, 300); logToday().sec+=d; sess.last=now; save(); }
+function updTimer(){
+  if(!sess) return;
+  const st=stage(), el=(Date.now()-sess.start)/1000;
+  if (st.exam && st.limit){ const left=st.limit-(Date.now()-sess.stageStart)/1000; $("#sessTimer").textContent="⏱ "+fmt(left); $("#sessTimer").style.color=left<60?"var(--bad)":""; if(left<=0 && sess.state==="ask") finishExam(true); }
+  else if (sess.limit){ const left=sess.limit-el; $("#sessTimer").textContent=left>0?"⏳ "+fmt(left):"✓ "+fmt(el); if(left<=0 && !sess._warned){sess._warned=1; toast("⏰ Se cumplió tu tiempo. Termina esta y descansa.");} }
+  else { $("#sessTimer").textContent=fmt(el); $("#sessTimer").style.color=""; }
+}
+function renderHead(){
+  const st=stage(), n=st.items.length;
+  $("#sessStage").textContent = (sess.stages.length>1?`Parte ${sess.si+1}/${sess.stages.length} · `:"")+st.name;
+  $("#sessCount").textContent = `${Math.min(sess.i+1,n)} / ${n}`;
+  $("#sessBar").style.width = (sess.i/n*100)+"%";
+}
+function renderItem(){
+  const st=stage(); if (sess.i>=st.items.length) return st.exam ? finishExam(false) : nextStage();
+  sess.state="ask"; renderHead();
+  const it=st.items[sess.i];
+  if (it.t==="q") renderQ(qById(it.id), st.exam);
+  else if (it.t==="c") renderC(cById(it.id));
+  else renderHYItem(HY_CARDS.find(h=>h.id===it.id));
+}
+
+function renderQ(q, exam){
+  const sel = sess.answers[sess.si+":"+sess.i];
+  $("#sessBody").innerHTML = `
+    <div class="card">
+      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span><span class="muted">${esc(q.topic)}</span></div>
+      <p class="vignette" style="margin:12px 0 4px">${q.vignette}</p>
+      <div id="opts">${q.options.map((o,i)=>`<button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCD"[i]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+      <div id="fbBox"></div>
+    </div>
+    ${exam?`<div class="row" style="margin-top:12px">${sess.i>0?'<button class="btn" id="prevBtn">← Anterior</button>':""}<div class="spacer"></div><button class="btn primary" id="nextBtn">${sess.i+1<stage().items.length?"Siguiente →":"Terminar simulacro"}</button></div>`:""}
+    <p class="xs muted center kbhint" style="margin-top:10px">Atajos: <kbd>1</kbd>–<kbd>4</kbd> elegir · <kbd>Enter</kbd> seguir</p>`;
+  document.querySelectorAll("#opts .opt").forEach(b=>b.onclick=()=>answerQ(q,+b.dataset.o,exam));
+  if (exam){ $("#nextBtn").onclick=()=>{ addTime(); sess.i++; renderItem(); }; $("#prevBtn") && ($("#prevBtn").onclick=()=>{ sess.i--; renderItem(); }); }
+}
+function answerQ(q, o, exam){
+  if (sess.state!=="ask") return;
+  if (exam){ sess.answers[sess.si+":"+sess.i]=o; document.querySelectorAll("#opts .opt").forEach((b,i)=>b.classList.toggle("sel",i===o)); return; }
+  sess.state="fb"; addTime();
+  const ok = o===q.correct;
+  grade("q"+q.id, ok?2:0);
+  const l=logToday(); l.q++; if(ok) l.ok++; save();
+  sess.results.push({t:"q",id:q.id,ok});
+  document.querySelectorAll("#opts .opt").forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add("right"); else if(i===o) b.classList.add("wrong"); });
+  $("#fbBox").innerHTML = `
+    <div class="stack" style="margin-top:14px">
+      <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
+      <div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>
+      <div class="note trap"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>
+      <button class="btn primary block" id="nextBtn">Siguiente →</button>
+    </div>`;
+  $("#nextBtn").onclick=()=>{ sess.i++; renderItem(); };
+  $("#nextBtn").focus({preventScroll:true});
+}
+
+function renderC(c){
+  $("#sessBody").innerHTML = `
+    <div class="card flash" id="flash">
+      <div class="xs muted" style="font-weight:600;margin-bottom:10px;color:${SPEC_COLOR[c.specialty]}">${esc(c.specialty)}</div>
+      <div>${esc(c.front)}</div>
+      <div id="back"></div>
+    </div>
+    <div id="cBtns" style="margin-top:12px"><button class="btn primary block" id="flipBtn">Mostrar respuesta <kbd>espacio</kbd></button></div>`;
+  $("#flipBtn").onclick=()=>flipC(c);
+}
+function flipC(c){
+  if (sess.state!=="ask") return; sess.state="flip";
+  $("#back").innerHTML = `<div class="back">${esc(c.back)}</div>`;
+  $("#cBtns").innerHTML = `<div class="grid3">
+    <button class="btn" data-g="0" style="border-color:var(--bad)">✗ No la sabía <kbd>1</kbd></button>
+    <button class="btn" data-g="1" style="border-color:var(--warn)">~ Dudé <kbd>2</kbd></button>
+    <button class="btn" data-g="2" style="border-color:var(--ok)">✓ La sabía <kbd>3</kbd></button></div>`;
+  document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>gradeC(c,+b.dataset.g));
+}
+function gradeC(c,g){
+  if (sess.state!=="flip") return; sess.state="done"; addTime();
+  grade("c"+c.id,g); logToday().c++; save();
+  sess.results.push({t:"c",id:c.id,ok:g===2});
+  sess.i++; renderItem();
+}
+function renderHYItem(h){
+  sess.state="read";
+  $("#sessBody").innerHTML = hyCardHTML(h) + `<button class="btn primary block" id="nextBtn" style="margin-top:12px">Listo, la leí ✓</button>`;
+  $("#nextBtn").onclick=()=>{ addTime(); logToday().c++; save(); sess.results.push({t:"hy",ok:true}); sess.i++; renderItem(); };
+}
+
+function nextStage(){
+  addTime();
+  if (sess.si+1 < sess.stages.length){
+    const done=sess.si+1, nxt=sess.stages[sess.si+1];
+    sess.state="break";
+    $("#sessBar").style.width="100%";
+    $("#sessBody").innerHTML = `<div class="card center stack">
+      <div class="big">✅</div><h3>Parte ${done} completada</h3>
+      ${sess.breaks?`<p class="muted small" style="margin:0">Levántate, toma agua, mira lejos 2–5 minutos. El descanso consolida la memoria.</p>`:""}
+      ${planHTML()}
+      <button class="btn primary block" id="contBtn">Seguir: ${esc(nxt.name)}</button>
+      <button class="btn ghost block" id="stopBtn">Terminar aquí</button></div>`;
+    $("#contBtn").onclick=()=>{ sess.si++; sess.i=0; sess.stageStart=Date.now(); sess.last=Date.now(); renderItem(); };
+    $("#stopBtn").onclick=()=>endSession(true);
+  } else endSession(true);
+}
+function planHTML(){
+  if (sess.stages.length<2) return "";
+  return `<ol class="plan small" style="text-align:left;margin:0 auto;max-width:360px">${sess.stages.map((s,i)=>`<li class="${i<=sess.si?"done":i===sess.si+1?"cur":""}">${esc(s.name)} <span class="muted">(${s.items.length})</span></li>`).join("")}</ol>`;
+}
+
+function finishExam(timeUp){
+  if (sess.state==="examdone") return; sess.state="examdone"; addTime();
+  const st=stage(); let ok=0;
+  const rows = st.items.map((it,i)=>{
+    const q=qById(it.id), a=sess.answers[sess.si+":"+i], good=a===q.correct; if(good) ok++;
+    grade("q"+q.id, good?2:0); const l=logToday(); l.q++; if(good) l.ok++;
+    sess.results.push({t:"q",id:q.id,ok:good});
+    return `<details class="card" style="padding:12px 14px;margin-top:10px"><summary style="cursor:pointer"><b style="color:${good?"var(--ok)":"var(--bad)"}">${good?"✓":"✗"}</b> ${i+1}. ${esc(q.topic)}</summary>
+      <p class="small" style="margin:10px 0">${q.vignette}</p>
+      <p class="small" style="margin:0">Tu respuesta: <b>${a==null?"(sin responder)":esc(q.options[a])}</b><br>Correcta: <b style="color:var(--ok)">${esc(q.options[q.correct])}</b></p>
+      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p><div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div></details>`;
+  });
+  const pct=Math.round(ok/st.items.length*100);
+  S.sims.push({d:Date.now(),n:st.items.length,ok}); save();
+  const more = sess.si+1 < sess.stages.length;
+  $("#sessBar").style.width="100%";
+  $("#sessBody").innerHTML = `<div class="card center stack">
+      ${timeUp?'<span class="tag" style="background:var(--bad-soft);color:var(--bad)">Se acabó el tiempo</span>':""}
+      <div class="big" style="color:${pct>=70?"var(--ok)":pct>=50?"var(--warn)":"var(--bad)"}">${pct}%</div>
+      <p style="margin:0">${ok} de ${st.items.length} correctas</p>
+      <p class="muted small" style="margin:0">${pct>=70?"Nivel competitivo. Las falladas ya están en tu repaso.":pct>=50?"Vas bien. Revisa las falladas abajo: es donde más aprendes.":"Normal al principio. Cada falla queda programada para volver."}</p>
+      <button class="btn primary block" id="contBtn">${more?"Seguir con el plan →":"Terminar"}</button></div>
+    <h3 style="margin-top:18px;font-size:16px">Revisión</h3>${rows.join("")}`;
+  $("#contBtn").onclick = ()=> more ? (sess.state="ask", sess.i=st.items.length, nextStage()) : endSession(true);
+}
+
+function endSession(showSummary){
+  if(!sess) return; addTime(); clearInterval(tick);
+  const s=sess; sess=null; refreshChips();
+  if (!showSummary) return;
+  const q=s.results.filter(r=>r.t==="q"), c=s.results.filter(r=>r.t!=="q");
+  const qok=q.filter(r=>r.ok).length, mins=Math.max(1,Math.round((Date.now()-s.start)/6e4));
+  currentView="sess";
+  $("#sessBar").style.width="100%";
+  $("#sessStage").textContent="Resumen"; $("#sessCount").textContent=""; $("#sessTimer").textContent=fmt((Date.now()-s.start)/1000);
+  $("#sessBody").innerHTML = `<div class="card center stack">
+    <div class="big">${s.lazy?"🌱":s.tag==="fire"?"🏆":"🎯"}</div>
+    <h3>${s.lazy?"¡Listo! Hoy sí estudiaste.":"Sesión terminada"}</h3>
+    <div class="grid3">
+      <div class="kpi"><b>${mins}</b><span>min</span></div>
+      <div class="kpi"><b>${q.length?qok+"/"+q.length:"—"}</b><span>casos</span></div>
+      <div class="kpi"><b>${c.length}</b><span>tarjetas/fichas</span></div>
+    </div>
+    <p class="muted small" style="margin:0">🔥 Racha: <b>${streak()}</b> día${streak()===1?"":"s"}. ${s.lazy?"Lo difícil era empezar. ¿Y si haces otros 5 minutos ahora que ya entraste en ritmo?":"Lo que fallaste vuelve en tu repaso en el momento justo."}</p>
+    ${s.lazy?'<button class="btn primary block" id="moreBtn">Otros 5 minutos 💪</button>':""}
+    <button class="btn ${s.lazy?"ghost":"primary"} block" data-go="hoy">Volver a Hoy</button></div>`;
+  $("#moreBtn") && ($("#moreBtn").onclick=()=>startSession({label:"Sin ganas (+5)",tag:"lazy",lazy:true,stages:[{name:"5 casos rápidos",items:pickQuestions(3)},{name:"Tarjetas",items:pickCards(5)}]}));
+}
+
+document.addEventListener("keydown", e=>{
+  if (!sess || currentView!=="sess" || e.target.tagName==="INPUT") return;
+  const it = stage()?.items[sess.i];
+  if (!it) { if(e.key==="Enter"){ $("#contBtn")?.click(); } return; }
+  if (it.t==="q"){
+    if (/^[1-4]$/.test(e.key) && sess.state==="ask"){ document.querySelectorAll("#opts .opt")[+e.key-1]?.click(); }
+    else if (e.key==="Enter"){ e.preventDefault(); $("#nextBtn")?.click(); }
+  } else if (it.t==="c"){
+    if ((e.key===" "||e.key==="Enter") && sess.state==="ask"){ e.preventDefault(); flipC(cById(it.id)); }
+    else if (/^[1-3]$/.test(e.key) && sess.state==="flip"){ gradeC(cById(it.id), +e.key-1); }
+  } else if (e.key==="Enter") $("#nextBtn")?.click();
+});
+
+// ===================================================================
+// BANCO
+// ===================================================================
+let qSpec = null;
+function renderBanco(){
+  const st=specStats();
+  $("#qFilters").innerHTML = [null,...SPECS].map(s=>`<button class="btn${qSpec===s?" on":""}" data-s="${s||""}">${s||"Todas"}</button>`).join("");
+  document.querySelectorAll("#qFilters button").forEach(b=>b.onclick=()=>{ qSpec=b.dataset.s||null; renderBanco(); });
+  const pool = QUESTIONS.filter(q=>!qSpec||q.specialty===qSpec);
+  const seen = pool.filter(q=>S.srs["q"+q.id]).length, due=pool.filter(q=>isDue("q"+q.id)).length;
+  const n=qSpec?st[qSpec].n:SPECS.reduce((a,s)=>a+st[s].n,0), ok=qSpec?st[qSpec].ok:SPECS.reduce((a,s)=>a+st[s].ok,0);
+  $("#qInfo").innerHTML = `<div class="grid3">
+      <div class="kpi"><b>${pool.length}</b><span>casos</span></div>
+      <div class="kpi"><b>${seen}</b><span>vistos</span></div>
+      <div class="kpi"><b>${n?Math.round(ok/n*100)+"%":"—"}</b><span>aciertos</span></div></div>
+    <div class="stack" style="margin-top:14px">
+      <button class="btn primary block" id="pr10">Practicar ${Math.min(10,pool.length)} casos</button>
+      ${due?`<button class="btn block" id="prDue">Solo los pendientes de repaso (${due})</button>`:""}
+    </div>`;
+  $("#pr10").onclick=()=>startSession({label:qSpec||"Práctica mixta",tag:"norm",stages:[{name:qSpec||"Todas las especialidades",items:pickQuestions(10,{spec:qSpec})}]});
+  $("#prDue") && ($("#prDue").onclick=()=>startSession({label:"Repaso",tag:"norm",stages:[{name:"Pendientes",items:pool.filter(q=>isDue("q"+q.id)).map(q=>({t:"q",id:q.id}))}]}));
+}
+
+// ===================================================================
+// FICHAS HY
+// ===================================================================
+let hySpec=null;
+function hyCardHTML(c){
+  return `<div class="card hycard" style="border-top-color:${c.accent}">
+    <div class="row"><span class="tag">${esc(c.badge)}</span><span class="xs muted">${esc(c.specialty)}</span></div>
+    <h3 style="margin-top:8px;font-size:18px">${esc(c.title)}</h3>
+    <div class="th">${c.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b>${esc(t.val)}</b></div>`).join("")}</div>
+    <div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(c.redFlag)}</div>
+    <div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(c.trap)}</div></div>`;
+}
+function renderHY(){
+  const specs=[...new Set(HY_CARDS.map(c=>c.specialty))];
+  $("#hyFilters").innerHTML=[null,...specs].map(s=>`<button class="btn${hySpec===s?" on":""}" data-s="${s||""}">${s||"Todas"}</button>`).join("");
+  document.querySelectorAll("#hyFilters button").forEach(b=>b.onclick=()=>{hySpec=b.dataset.s||null;renderHY();});
+  $("#hyList").innerHTML = HY_CARDS.filter(c=>!hySpec||c.specialty===hySpec).map(hyCardHTML).join("");
+}
+$("#cardsAll").onclick=()=>startSession({label:"Tarjetas",tag:"norm",stages:[{name:"Tarjetas rápidas",items:pickCards(15)}]});
+
+// ===================================================================
+// SIMULACRO
+// ===================================================================
+let simN=10;
+function renderSim(){
+  const opts=[5,10,20,QUESTIONS.length];
+  $("#simN").innerHTML=opts.map(n=>`<button class="btn${simN===n?" on":""}" data-n="${n}">${n===QUESTIONS.length?"Todas ("+n+")":n} · ${fmt(n*72)}</button>`).join("");
+  document.querySelectorAll("#simN button").forEach(b=>b.onclick=()=>{simN=+b.dataset.n;renderSim();});
+  const h=S.sims.slice(-8).reverse();
+  $("#simHist").innerHTML = `<h3 style="font-size:16px">Historial</h3>` + (h.length? h.map(s=>{const p=Math.round(s.ok/s.n*100);return `<div class="row small" style="margin-top:10px"><span class="muted">${new Date(s.d).toLocaleDateString("es",{day:"numeric",month:"short"})}</span><div class="spacer"></div><span>${s.ok}/${s.n}</span><b style="width:48px;text-align:right;color:${p>=70?"var(--ok)":p>=50?"var(--warn)":"var(--bad)"}">${p}%</b></div>`;}).join("") : `<p class="muted small" style="margin:6px 0 0">Aún no haces simulacros. Empieza con 10.</p>`);
+}
+$("#simStart").onclick=()=>{ const items=shuffle(QUESTIONS).slice(0,simN).map(q=>({t:"q",id:q.id})); startSession({label:"Simulacro",tag:"fire",stages:[{name:`Simulacro de ${simN}`,items,exam:true,limit:simN*72}]}); };
+
+// ===================================================================
+// PROGRESO
+// ===================================================================
+function renderProg(){
+  const days=Object.values(S.log), tot=days.reduce((a,l)=>a+l.sec,0), q=days.reduce((a,l)=>a+l.q,0), ok=days.reduce((a,l)=>a+l.ok,0);
+  const mastered=Object.values(S.srs).filter(r=>r.b>=3).length;
+  $("#progKpis").innerHTML = `
+    <div class="kpi"><b>${streak()}</b><span>días de racha</span></div>
+    <div class="kpi"><b>${(tot/3600).toFixed(1)} h</b><span>estudiadas</span></div>
+    <div class="kpi"><b>${q?Math.round(ok/q*100)+"%":"—"}</b><span>aciertos en ${q} casos</span></div>
+    <div class="kpi"><b>${mastered}</b><span>ítems dominados (≥ 1 semana)</span></div>`;
+  const st=specStats();
+  $("#bars").innerHTML = SPECS.map(s=>{ const x=st[s], p=x.n?Math.round(x.ok/x.n*100):null;
+    const col = p==null?"var(--border)":p>=70?"var(--ok)":p>=50?"var(--warn)":"var(--bad)";
+    return `<div class="bar"><span>${s}</span><div class="track"><i style="width:${p??100}%;background:${col}"></i></div><b style="text-align:right">${p==null?"—":p+"%"}</b></div>`; }).join("");
+  const cells=[]; const now=new Date();
+  for(let i=34;i>=0;i--){ const d=new Date(now.getTime()-i*DAY), m=(S.log[todayKey(d)]?.sec||0)/60;
+    const a = m===0?0: m<10?.3: m<30?.55: m<60?.8:1;
+    cells.push(`<i title="${d.toLocaleDateString("es")}: ${Math.round(m)} min" style="${a?`background:color-mix(in srgb,var(--accent) ${a*100}%,var(--subtle))`:""}"></i>`); }
+  $("#heat").innerHTML=cells.join("");
+}
+$("#expBtn").onclick=()=>{ const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="medipulse-respaldo-"+todayKey()+".json"; a.click(); };
+$("#impFile").onchange=e=>{ const f=e.target.files[0]; if(!f) return; f.text().then(t=>{ try{ const d=JSON.parse(t); if(!d.srs||!d.log) throw 0; S=Object.assign({srs:{},log:{},sims:[]},d); save(); applyTheme(); renderProg(); refreshChips(); toast("Respaldo importado ✓"); }catch(_){ toast("Archivo no válido"); } }); };
+$("#resetBtn").onclick=()=>{ if(confirm("¿Borrar todo tu progreso? No se puede deshacer.")){ S={srs:{},log:{},sims:[],theme:S.theme}; save(); renderProg(); refreshChips(); toast("Progreso borrado"); } };
+
+// ===================================================================
+applyTheme(); renderHoy();
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
