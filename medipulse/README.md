@@ -4,6 +4,11 @@ App web instalable que funciona sin conexión. Es un solo archivo HTML, sin depe
 
 Mapa estructural de la app (arquitectura, pantallas, motor de estudio, fuentes, vigencia, datos y pendientes): **[MAPA.html](MAPA.html)**.
 
+## Estructura
+La app está dividida por módulos (sin frameworks ni compilación): `index.html` (pantallas), `css/app.css` (estilos), `data/` (contenido médico: casos, fuentes, fichas, tarjetas) y `js/` (un archivo por módulo). El detalle de cada archivo, las reglas y cómo integrar código hecho en otra IA están en **[../AGENTS.md](../AGENTS.md)**.
+
+Prueba automática: `node tests/smoke.js` (requiere `npm install --no-save playwright` y `npx playwright install chromium` la primera vez).
+
 ## Cómo funciona
 Al abrirla eliges cómo te sientes y la app arma la sesión:
 
@@ -48,10 +53,10 @@ Las funciones con IA usan la clave de API de Claude del propio usuario. Guía pa
 Se incluyen en el repo para que la app no dependa de ningún CDN y funcione sin conexión.
 
 ## Agregar contenido
-En `index.html`:
-- `QUESTIONS_BASE` / `QUESTIONS_EXTRA`: casos clínicos (`specialty`, `topic`, `vignette`, `options`, `correct`, `whyCorrect`, `pearl`, `trap`).
-- `FLASH`: tarjetas `[especialidad, frente, reverso]`.
-- `HY_CARDS`: fichas con umbrales, bandera roja y trampa.
-- `SOURCES` + `Q_SRC` / `F_SRC` / `HY_SRC`: referencias y a qué ítem corresponde cada una.
+En `data/`:
+- `preguntas.js`: `QUESTIONS_BASE` / `QUESTIONS_EXTRA`: casos clínicos (`specialty`, `topic`, `vignette`, `options`, `correct`, `whyCorrect`, `pearl`, `trap`).
+- `tarjetas.js`: tarjetas `[especialidad, frente, reverso]` y su fuente en `F_SRC`.
+- `fichas-hy.js`: fichas con umbrales, bandera roja y trampa, y su fuente en `HY_SRC`.
+- `fuentes.js`: referencias (`SOURCES`) y la fuente de cada caso (`Q_SRC`).
 
 Si cambias archivos, sube la versión de `CACHE` en `sw.js` para que los celulares descarguen la nueva versión.
