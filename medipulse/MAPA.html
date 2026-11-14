@@ -210,8 +210,8 @@ tfoot td{font-weight:700}
       <article class="screen"><div class="top"><div class="ico">🩺</div><h3>Casos</h3></div>
         <ul><li>Filtros: especialidad · mis fallos · sin responder</li><li>Pistas (resaltar datos clave) y tachar opciones</li><li>Explicación, perla, trampa y fuente</li><li>🚩 Reportar un error</li></ul>
         <div class="sub"><span class="tag">Internas</span><ul><li><b>Crear pregunta o tarjeta:</b> a mano, con fuente y página</li></ul></div></article>
-      <article class="screen"><div class="top"><div class="ico">🃏</div><h3>Fichas</h3></div>
-        <ul><li>6 fichas high-yield: umbrales, bandera roja y trampa</li><li>Filtro por especialidad</li><li>Repasar 15 tarjetas rápidas</li></ul></article>
+      <article class="screen"><div class="top"><div class="ico">💎</div><h3>High Yield</h3></div>
+        <ul><li>6 fichas incluidas + las que creas</li><li>Datos clave, bandera roja y trampa</li><li>Repaso espaciado: recordar los datos antes de verlos</li><li>Crear ficha a mano</li></ul></article>
       <article class="screen"><div class="top"><div class="ico">⏱</div><h3>Simulacro</h3></div>
         <ul><li>Micro-sprint 5 · Bloque 10 · Intermedio 20 · Completo</li><li>72 s por pregunta, sin retroalimentación hasta el final</li><li>🚩 Marcar para revisar y mapa de navegación</li><li>Revisión detallada con fuente</li><li>Historial de puntajes</li></ul></article>
       <article class="screen"><div class="top"><div class="ico">🔬</div><h3>MBE</h3></div>
@@ -262,16 +262,16 @@ tfoot td{font-weight:700}
     <div class="flow">
       <div class="step"><b>Subir PDF o pegar texto</b><span>pdf.js extrae el texto por página; se guarda en IndexedDB</span></div>
       <div class="step"><b>Elegir páginas</b><span>rango, cantidad y especialidad; costo estimado si usa IA</span></div>
-      <div class="step"><b>Generar</b><span>sin IA: tarjetas de completar<br>con IA: casos + tarjetas</span></div>
+      <div class="step"><b>Taller de preguntas</b><span>Leer y crear · Datos clave · IA a tu medida</span></div>
       <div class="step"><b>Revisar</b><span>marcar, editar o descartar antes de guardar</span></div>
       <div class="step"><b>Banco</b><span>cada ítem enlaza a su fuente; se puede exportar como pack</span></div>
       <div class="step"><b>Repaso</b><span>entra al repaso espaciado y a la recomendación de “Hoy”</span></div>
     </div>
     <div class="branch">
-      <article class="card"><h3>🃏 Tarjetas de completar <span class="tag">gratis · sin internet</span></h3>
-        <ul><li>Busca frases con dosis y umbrales, “de elección”, “primera línea”, definiciones</li><li>Oculta el dato: “contraindicada si K⁺ > _____” → 5 mEq/L</li><li>Prioriza frases con palabras clave del examen</li></ul></article>
-      <article class="card"><h3>🤖 Casos + tarjetas con IA <span class="tag ai">clave de API</span></h3>
-        <ul><li>Viñeta, 4 opciones, explicación, perla y trampa</li><li>Usa solo el texto del PDF y cita la página</li><li>Salida con esquema JSON validado</li><li>Aprox. US$0.10–0.40 por tanda</li></ul></article>
+      <article class="card"><h3>📖 Leer y crear · ⚡ Datos clave <span class="tag">gratis · sin internet</span></h3>
+        <ul><li>Lector del PDF con búsqueda y resaltado</li><li>Seleccionas cifras o frases y armas una ficha high-yield, aunque los datos estén en páginas distintas</li><li>Datos clave: encuentra cifras y criterios por tema para elegir</li><li>Caso clínico desde una frase</li></ul></article>
+      <article class="card"><h3>✨ IA <span class="tag ai">clave de API</span></h3>
+        <ul><li><b>Fichas automáticas:</b> la IA elige lo más relevante, lo ordena por importancia (★) y explica por qué es high-yield</li><li>En el lector: ficha con IA desde una selección o de toda la página</li><li>A tu medida: tema del paper y páginas donde aparece</li><li>Cantidad por tipo: caso, lectura crítica, directa, ficha HY</li><li>Dificultad, enfoque, idioma, instrucciones y plantillas</li><li>Usa solo el texto del documento y cita la página</li></ul></article>
     </div>
   </section>
 
@@ -345,6 +345,7 @@ tfoot td{font-weight:700}
           <li><span class="d p">!</span><span>Probar las funciones con IA con una clave real</span></li>
           <li><span class="d p">!</span><span>Confirmar los nombres de menú de la Consola de Anthropic en la guía</span></li>
           <li><span class="d p">!</span><span>Ampliar el banco (26 casos es poco para el examen)</span></li>
+          <li><span class="d y">✓</span><span>Taller de preguntas y fichas high-yield en lugar de tarjetas simples</span></li>
           <li><span class="d p">!</span><span>Plan gratis/Pro y muro de pago: esperan la decisión de cobro</span></li>
         </ul></article>
     </div>

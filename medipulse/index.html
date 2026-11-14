@@ -106,7 +106,7 @@ nav.bottom .wrap{display:grid;grid-template-columns:repeat(7,1fr);padding:0 2px}
 nav.bottom button{background:none;border:0;padding:8px 0 10px;font-size:10.5px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px}
 nav.bottom button .i{font-size:20px;line-height:1}
 nav.bottom button.on{color:var(--accent)}
-.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast{pointer-events:none;position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:50;max-width:calc(100% - 32px);text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .sesshead{display:flex;align-items:center;gap:10px}
 .timer{font-variant-numeric:tabular-nums;font-weight:700}
@@ -114,10 +114,10 @@ nav.bottom button.on{color:var(--accent)}
 .filters button{flex:none}
 .filters .on{background:var(--accent);border-color:var(--accent);color:#fff}
 .hycard{border-top:4px solid var(--accent)}
-.hycard .th{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
-.hycard .th div{background:var(--subtle);border-radius:10px;padding:8px;font-size:12.5px}
-.hycard .th b{display:block;font-size:13.5px}
-@media (max-width:480px){.hycard .th{grid-template-columns:1fr}.bars .bar{grid-template-columns:100px 1fr 44px}}
+.hycard .th,.hyprev .th{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.hycard .th div,.hyprev .th div{background:var(--subtle);border-radius:10px;padding:8px;font-size:12.5px}
+.hycard .th b,.hyprev .th b{display:block;font-size:13.5px}
+@media (max-width:480px){.hycard .th,.hyprev .th{grid-template-columns:1fr}.bars .bar{grid-template-columns:100px 1fr 44px}}
 .center{text-align:center}
 .big{font-size:44px;line-height:1}
 hr{border:0;border-top:1px solid var(--border);margin:16px 0}
@@ -214,6 +214,19 @@ mark{background:color-mix(in srgb,var(--warn) 35%,transparent);color:inherit;bor
 .wordpick{display:flex;flex-wrap:wrap;gap:5px}
 .wordpick button{border:1px solid var(--border);background:var(--panel);border-radius:8px;padding:4px 8px;font-size:14px}
 .wordpick button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.hidev{color:var(--muted);letter-spacing:.15em}
+.erow{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;align-items:center}
+.erow .xbtn{height:38px}
+.erow.two{grid-template-columns:1fr 1fr}
+@media (max-width:480px){.erow.two{grid-template-columns:1fr}.erow{grid-template-columns:1fr auto}.erow .eV,.erow [data-fv]{grid-column:1}}
+.autobox{border:2px solid var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--panel) 80%);border-radius:14px;padding:14px}
+details.custom{border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+details.custom summary{cursor:pointer;font-weight:600;font-size:14px}
+.stars{color:var(--warn);letter-spacing:1px}
+.hyprev{border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:12px;padding:12px}
+.hyprev .th{grid-template-columns:1fr 1fr}
+@media (max-width:480px){.hyprev .th{grid-template-columns:1fr}}
+.erow textarea{min-height:44px}
 kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
 </style>
 </head>
@@ -290,8 +303,8 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
   <!-- ============ TARJETAS ============ -->
   <section class="view" id="v-tarjetas">
     <div class="stack">
-      <div><h2>Fichas high-yield</h2><p class="muted small" style="margin:4px 0 0">Umbrales, banderas rojas y trampas típicas del examen. Para repasar en el bus o en la fila.</p></div>
-      <div class="row"><button class="btn primary" id="cardsAll">🃏 Repasar tarjetas (15)</button></div>
+      <div><h2>Fichas high-yield</h2><p class="muted small" style="margin:4px 0 0">Datos clave, umbrales, banderas rojas y trampas de examen. Las que creas desde tus PDF y lecturas entran aquí y a tu repaso espaciado.</p></div>
+      <div class="row" id="hyTop" style="gap:8px"></div>
       <div class="filters" id="hyFilters"></div>
       <div id="hyList" class="stack"></div>
     </div>
@@ -475,8 +488,8 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
       <div><h2>Laboratorio de lectura crítica</h2><p class="muted small" style="margin:4px 0 0">Cada tipo de documento se lee distinto. Elige qué vas a leer hoy: verás el método en 5 pasos, un ejemplo real desglosado y una ficha para destilarlo y convertirlo en tarjetas.</p></div>
       <div class="filters" id="mbeTabs"></div>
       <div class="card stack" id="mbeGuide"></div>
-      <div class="card stack"><h3 style="font-size:16px">✍️ Destilador de lectura</h3><p class="xs muted" style="margin:0">Resume lo que estás leyendo en 4 campos. Después conviértelo en tarjetas de repaso.</p><div class="stack" id="mbeForm"></div></div>
-      <div class="card"><div class="row"><h3 style="font-size:16px">Mis fichas</h3><span class="chip" id="mbeNotesN">0</span></div><div id="mbeNotes" style="margin-top:6px"></div></div>
+      <div class="card stack"><h3 style="font-size:16px">✍️ Destilador de lectura</h3><p class="xs muted" style="margin:0">Resume lo que estás leyendo en 4 campos. Después conviértelo en una ficha high-yield.</p><div class="stack" id="mbeForm"></div></div>
+      <div class="card"><div class="row"><h3 style="font-size:16px">Mis lecturas</h3><span class="chip" id="mbeNotesN">0</span></div><div id="mbeNotes" style="margin-top:6px"></div></div>
       <div class="card stack"><h3 style="font-size:16px">🧮 Impacto de un tratamiento: RR, RRR, RRA y NNT</h3>
         <div class="grid2"><label class="fld">Eventos en el grupo control (%)<input type="number" id="cCer" value="20" min="0" max="100" step="0.1"></label><label class="fld">Eventos en el grupo intervención (%)<input type="number" id="cEer" value="12" min="0" max="100" step="0.1"></label></div>
         <div id="cOut"></div></div>
@@ -491,7 +504,7 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
   <section class="view" id="v-new">
     <div class="stack">
       <button class="btn ghost" data-go="banco">← Casos</button>
-      <div><h2>Crear pregunta o tarjeta</h2><p class="muted small" style="margin:4px 0 0">Escribe tus propios casos (por ejemplo, de tu rotación o del club de revista). Entran a tu repaso espaciado y los puedes compartir como pack.</p></div>
+      <div><h2>Crear pregunta o ficha</h2><p class="muted small" style="margin:4px 0 0">Escribe tus propios casos o fichas high-yield (por ejemplo, de tu rotación o del club de revista). Entran a tu repaso espaciado y los puedes compartir como pack.</p></div>
       <div class="seg" id="newSeg"></div>
       <div class="card stack" id="newForm"></div>
       <div class="card" id="mineList"></div>
@@ -527,7 +540,7 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
 <nav class="bottom"><div class="wrap">
   <button data-go="hoy" class="on"><span class="i">⌂</span>Hoy</button>
   <button data-go="banco"><span class="i">🩺</span>Casos</button>
-  <button data-go="tarjetas"><span class="i">🃏</span>Fichas</button>
+  <button data-go="tarjetas"><span class="i">💎</span>High Yield</button>
   <button data-go="sim"><span class="i">⏱</span>Simulacro</button>
   <button data-go="mbe"><span class="i">🔬</span>MBE</button>
   <button data-go="lib"><span class="i">📚</span>Fuentes</button>
@@ -1126,14 +1139,16 @@ const SPEC_COLOR = {"Medicina Interna":"#0891b2","Urgencias":"#e11d48","Cirugía
 const KEY = "medipulse_v2";
 const DAY = 864e5;
 const BOX_DAYS = [0, 1, 3, 7, 16, 35];
-const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, userQ:[], userC:[], sources:[], seq:0, check:{}, over:{}, hidden:{}, notes:[], reports:[], exam:"", hints:false, tpls:[]});
+const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, userQ:[], userC:[], sources:[], seq:0, check:{}, over:{}, hidden:{}, notes:[], reports:[], exam:"", hints:false, tpls:[], userH:[]});
 let S = BLANK();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
 // Aplica las correcciones (S.over) a los ítems incluidos y quita los archivados (S.hidden).
+let HYS = [];
 function rebuild(){
   const ov = (k,x) => S.over[k+x.id] ? Object.assign({}, x, S.over[k+x.id], {updated: S.over[k+x.id].upd}) : x;
   QUESTIONS = [...BUILTIN_Q.map(q=>ov("q",q)), ...S.userQ].filter(q=>!S.hidden["q"+q.id]);
   FLASH = [...BUILTIN_F.map(c=>ov("c",c)), ...S.userC].filter(c=>!S.hidden["c"+c.id]);
+  HYS = [...HY_CARDS, ...(S.userH || [])].filter(h=>!S.hidden["h"+h.id]);
 }
 rebuild();
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
@@ -1151,7 +1166,7 @@ function grade(key, g){
   save();
 }
 const isDue = k => S.srs[k] && S.srs[k].due <= Date.now();
-const itemExists = k => k[0]==="q" ? !!qById(k.slice(1)) : !!cById(k.slice(1));
+const itemExists = k => k[0]==="q" ? !!qById(k.slice(1)) : k[0]==="h" ? !!hyById(k.slice(1)) : !!cById(k.slice(1));
 const dueKeys = () => Object.keys(S.srs).filter(k=>isDue(k) && itemExists(k)).sort((a,b)=>S.srs[a].due-S.srs[b].due);
 
 function specStats(){
@@ -1254,20 +1269,20 @@ document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{
   if (m==="lazy") return go("lazy");
   if (m==="normal") return startSession({label:"Sesión normal",tag:"norm",limit:25*60,stages:[
     {name:"Casos clínicos",items:pickQuestions(10,{preferSpec:weakestSpec()})},
-    {name:"Tarjetas rápidas",items:pickCards(8)}]});
+    {name:"Fichas y tarjetas",items:[...pickHY(4), ...pickCards(4)]}]});
   if (m==="beast") { const w=weakestSpec(); const due=dueKeys();
     return startSession({label:"Modo a tope",tag:"fire",stages:[
       {name:"Bloque 1 · Repaso espaciado", items: due.length? due.slice(0,15).map(k=>({t:k[0],id:k.slice(1)})) : pickCards(12)},
       {name:"Bloque 2 · Tema débil: "+w, items:pickQuestions(10,{spec:w}).concat(pickQuestions(5,{preferSpec:w})).filter((x,i,a)=>a.findIndex(y=>y.id===x.id)===i).slice(0,12)},
       {name:"Bloque 3 · Simulacro mixto", items:pickQuestions(15), exam:true, limit:15*72},
-      {name:"Bloque 4 · Cierre con tarjetas", items:pickCards(10)}], breaks:true});
+      {name:"Bloque 4 · Cierre con fichas high-yield", items:[...pickHY(6), ...pickCards(4)]}], breaks:true});
   }
 });
 document.querySelectorAll("[data-lazy]").forEach(b=>b.onclick=()=>{
   const m=b.dataset.lazy;
   if (m==="cards") startSession({label:"Sin ganas",tag:"lazy",lazy:true,stages:[{name:"10 tarjetas",items:pickCards(10)}]});
   if (m==="one") startSession({label:"Sin ganas",tag:"lazy",lazy:true,stages:[{name:"Un caso",items:pickQuestions(1)}]});
-  if (m==="read") { const hy=HY_CARDS[Math.random()*HY_CARDS.length|0]; startSession({label:"Sin ganas",tag:"lazy",lazy:true,stages:[{name:"Una ficha",items:[{t:"hy",id:hy.id}]}]}); }
+  if (m==="read") { const hy=HYS[Math.random()*HYS.length|0]; startSession({label:"Sin ganas",tag:"lazy",lazy:true,stages:[{name:"Una ficha",items:[{t:"hy",id:hy.id}]}]}); }
 });
 function startDue(){
   const items = dueKeys().slice(0,20).map(k=>({t:k[0],id:k.slice(1)}));
@@ -1313,7 +1328,8 @@ function renderItem(){
   const it=st.items[sess.i];
   if (it.t==="q") renderQ(qById(it.id), st.exam);
   else if (it.t==="c") renderC(cById(it.id));
-  else renderHYItem(HY_CARDS.find(h=>h.id===it.id));
+  else if (it.t==="h") renderH(hyById(it.id));
+  else renderHYItem(hyById(it.id));
 }
 
 function renderQ(q, exam){
@@ -1490,6 +1506,9 @@ document.addEventListener("keydown", e=>{
   } else if (it.t==="c"){
     if ((e.key===" "||e.key==="Enter") && sess.state==="ask"){ e.preventDefault(); flipC(cById(it.id)); }
     else if (/^[1-3]$/.test(e.key) && sess.state==="flip"){ gradeC(cById(it.id), +e.key-1); }
+  } else if (it.t==="h"){
+    if ((e.key===" "||e.key==="Enter") && sess.state==="ask"){ e.preventDefault(); flipH(hyById(it.id)); }
+    else if (/^[1-3]$/.test(e.key) && sess.state==="flip"){ gradeH(hyById(it.id), +e.key-1); }
   } else if (e.key==="Enter") $("#nextBtn")?.click();
 });
 
@@ -1516,7 +1535,7 @@ function renderBanco(){
     <div class="stack" style="margin-top:14px">
       <button class="btn primary block" id="pr10" ${pool.length?"":"disabled"}>Practicar ${Math.min(10,pool.length)} casos</button>
       ${due?`<button class="btn block" id="prDue">Solo los pendientes de repaso (${due})</button>`:""}
-      <button class="btn ghost block" data-go="new">➕ Crear pregunta o tarjeta</button>
+      <button class="btn ghost block" data-go="new">➕ Crear pregunta o ficha high-yield</button>
     </div>`;
   $("#pr10").onclick=()=>startSession({label:qSpec||"Práctica mixta",tag:"norm",stages:[{name:(qSpec||"Todas las especialidades")+(qSt==="fail"?" · mis fallos":qSt==="new"?" · sin responder":""),items: qSt==="all" ? pickQuestions(10,{spec:qSpec}) : shuffle(pool).slice(0,10).map(q=>({t:"q",id:q.id}))}]});
   $("#prDue") && ($("#prDue").onclick=()=>startSession({label:"Repaso",tag:"norm",stages:[{name:"Pendientes",items:pool.filter(q=>isDue("q"+q.id)).map(q=>({t:"q",id:q.id}))}]}));
@@ -1525,22 +1544,122 @@ function renderBanco(){
 // ===================================================================
 // FICHAS HY
 // ===================================================================
-let hySpec=null;
+// ===================================================================
+// FICHAS HIGH-YIELD: estudio con repaso espaciado y editor
+// ===================================================================
+const hyById = id => HYS.find(h=>String(h.id)===String(id));
+function pickHY(n, spec){
+  const pool = HYS.filter(h=>!spec || h.specialty===spec);
+  const due = pool.filter(h=>isDue("h"+h.id));
+  const unseen = shuffle(pool.filter(h=>!S.srs["h"+h.id])).sort((a,b)=>(b.relevance||3)-(a.relevance||3));   // las nuevas, primero las más relevantes
+  const rest = shuffle(pool.filter(h=>S.srs["h"+h.id] && !isDue("h"+h.id))).sort((a,b)=>S.srs["h"+a.id].b - S.srs["h"+b.id].b);
+  const out = []; for (const h of [...due, ...unseen, ...rest]) { if (!out.includes(h)) out.push(h); if (out.length >= n) break; }
+  return out.map(h=>({t:"h", id:h.id}));
+}
+const hyAccent = h => h.accent || SPEC_COLOR[h.specialty] || "var(--accent)";
 function hyCardHTML(c){
-  return `<div class="card hycard" style="border-top-color:${c.accent}">
-    <div class="row"><span class="tag">${esc(c.badge)}</span><span class="xs muted">${esc(c.specialty)}</span></div>
+  return `<div class="card hycard" style="border-top-color:${hyAccent(c)}">
+    <div class="row"><span class="tag">${esc(c.badge || "Ficha HY")}</span><span class="xs muted">${esc(c.specialty)}</span>${c.relevance ? `<div class="spacer"></div><span class="stars xs" title="Relevancia ${c.relevance} de 5">${"★".repeat(c.relevance)}${"☆".repeat(5-c.relevance)}</span>` : ""}</div>
     <h3 style="margin-top:8px;font-size:18px">${esc(c.title)}</h3>
     <div class="th">${c.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b>${esc(t.val)}</b></div>`).join("")}</div>
-    <div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(c.redFlag)}</div>
-    <div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(c.trap)}</div>${srcLine(c)}</div>`;
+    ${c.why ? `<div class="note pearl"><b>💡 Por qué es high-yield:</b> ${esc(c.why)}</div>` : ""}
+    ${c.redFlag ? `<div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(c.redFlag)}</div>` : ""}
+    ${c.trap ? `<div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(c.trap)}</div>` : ""}${srcLine(c)}</div>`;
 }
+// Estudio: se muestran los rótulos y se ocultan los valores hasta que intentas recordarlos
+function renderH(h){
+  $("#sessBody").innerHTML = `<div class="card hycard" style="border-top-color:${hyAccent(h)}">
+      <div class="row"><span class="tag">${esc(h.badge || "Ficha HY")}</span><span class="xs muted">${esc(h.specialty)}</span></div>
+      <h3 style="margin-top:8px;font-size:18px">${esc(h.title)}</h3>
+      <p class="xs muted" style="margin:6px 0 0">Intenta recordar cada dato antes de mostrar la ficha.</p>
+      <div class="th">${h.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b class="hidev">?</b></div>`).join("")}</div>
+      <div id="hBack"></div></div>
+    <div id="cBtns" style="margin-top:12px"><button class="btn primary block" id="flipBtn">Mostrar la ficha <kbd>espacio</kbd></button></div>`;
+  $("#flipBtn").onclick = ()=>flipH(h);
+}
+function flipH(h){
+  if (sess.state !== "ask") return; sess.state = "flip";
+  document.querySelectorAll("#sessBody .hidev").forEach((b,i)=>{ b.textContent = h.thresholds[i].val; b.classList.remove("hidev"); });
+  $("#hBack").innerHTML = `${h.why ? `<div class="note pearl" style="margin-bottom:8px"><b>💡 Por qué es high-yield:</b> ${esc(h.why)}</div>` : ""}${h.redFlag ? `<div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(h.redFlag)}</div>` : ""}
+    ${h.trap ? `<div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(h.trap)}</div>` : ""}
+    ${h.ctx && h.ctx.length >= 40 ? `<div class="ctx">“${esc(h.ctx.length > 300 ? h.ctx.slice(0,300) + "…" : h.ctx)}”</div>` : ""}${srcLine(h)}
+    <div style="font-size:13px;margin-top:8px"><button class="linkbtn" id="repBtnH">🚩 Reportar</button><div id="repBoxH"></div></div>`;
+  $("#repBtnH").onclick = ()=>openReportForm("h"+h.id, $("#repBoxH"));
+  $("#cBtns").innerHTML = `<div class="grid3">
+    <button class="btn" data-g="0" style="border-color:var(--bad)">✗ No la sabía <kbd>1</kbd></button>
+    <button class="btn" data-g="1" style="border-color:var(--warn)">~ Dudé <kbd>2</kbd></button>
+    <button class="btn" data-g="2" style="border-color:var(--ok)">✓ La sabía <kbd>3</kbd></button></div>`;
+  document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>gradeH(h, +b.dataset.g));
+}
+function gradeH(h, g){
+  if (sess.state !== "flip") return; sess.state = "done"; addTime();
+  grade("h"+h.id, g); logToday().c++; save();
+  sess.results.push({t:"h", id:h.id, ok:g===2});
+  sess.i++; renderItem();
+}
+
+// Editor de fichas (lector, datos clave, creación manual y revisión)
+function hyEditor(box, o){
+  o = Object.assign({title:"", badge:"", spec:"Medicina Interna", rows:[], redFlag:"", trap:"", src:null, page:0, ctx:"", showSrc:false, heading:"💎 Nueva ficha high-yield", onSave:null, flags:{}}, o);
+  box.innerHTML = `<div class="card stack hyed" style="border-color:var(--accent)">
+    <h4 style="margin:0">${esc(o.heading)}</h4>
+    <label class="fld">Título de la ficha<input type="text" class="eTitle" value="${esc(o.title)}" placeholder="p. ej. AAV2-GAD en Parkinson: ensayo fase II"></label>
+    <div class="grid2"><label class="fld">Etiqueta (opcional)<input type="text" class="eBadge" value="${esc(o.badge)}" placeholder="p. ej. Ensayo fase II, Umbral, Algoritmo"></label>
+      <label class="fld">Especialidad<select class="eSpec">${SPECS.map(x=>`<option ${x===o.spec?"selected":""}>${x}</option>`).join("")}</select></label></div>
+    <div><div class="fld">Datos clave: lo que tendrás que recordar</div><p class="xs muted" style="margin:2px 0 6px">A la izquierda qué es (se muestra al estudiar); a la derecha el dato (se oculta).</p><div class="eRows stack" style="gap:6px"></div>
+      <button class="btn ghost sm eAdd" style="margin-top:6px">➕ Agregar dato</button></div>
+    <label class="fld">🚩 Bandera roja (opcional)<textarea class="eRed" rows="2" placeholder="La señal de alarma o el hallazgo que no se te puede pasar">${esc(o.redFlag)}</textarea></label>
+    <label class="fld">⚠️ Trampa de examen (opcional)<textarea class="eTrap" rows="2" placeholder="El error típico o el distractor favorito">${esc(o.trap)}</textarea></label>
+    ${o.showSrc ? `<div class="grid2"><label class="fld">Fuente<select class="eSrc">${srcOptions(o.src||"")}</select></label><label class="fld">Página (opcional)<input type="number" class="ePage" min="1" value="${o.page||""}"></label></div>` : ""}
+    <div class="row"><button class="btn primary sm eSave">💎 Guardar ficha</button><button class="btn ghost sm eCancel">Cancelar</button></div></div>`;
+  const rowsBox = box.querySelector(".eRows");
+  const addRow = (label, val) => {
+    const r = document.createElement("div"); r.className = "erow";
+    r.innerHTML = `<input type="text" class="eL" placeholder="Qué es (p. ej. Mejoría UPDRS a 6 meses)"><input type="text" class="eV" placeholder="El dato (p. ej. 23.1 % vs 12.7 %)"><button class="xbtn" aria-label="Quitar este dato">✕</button>`;
+    r.querySelector(".eL").value = label || ""; r.querySelector(".eV").value = val || "";
+    r.querySelector(".xbtn").onclick = ()=>r.remove();
+    rowsBox.appendChild(r); return r;
+  };
+  (o.rows.length ? o.rows : [{}, {}]).forEach(x=>addRow(x.label, x.val));
+  box.querySelector(".eAdd").onclick = ()=>addRow().querySelector(".eL").focus();
+  box._addRow = (label, val, ctx) => { const empty = [...rowsBox.querySelectorAll(".erow")].find(r=>!r.querySelector(".eV").value.trim());
+    const r = empty || addRow(); if (label) r.querySelector(".eL").value = label; r.querySelector(".eV").value = val; if (ctx) o.ctx = (o.ctx ? o.ctx + " … " : "") + ctx;
+    r.querySelector(".eL").focus(); };
+  box.querySelector(".eCancel").onclick = ()=>{ box.innerHTML = ""; box._addRow = null; o.onCancel && o.onCancel(); };
+  box.querySelector(".eSave").onclick = ()=>{
+    const title = box.querySelector(".eTitle").value.trim();
+    const rows = [...rowsBox.querySelectorAll(".erow")].map(r=>({label: r.querySelector(".eL").value.trim(), val: r.querySelector(".eV").value.trim()})).filter(x=>x.label || x.val);
+    if (!title) return toast("Ponle un título a la ficha.");
+    if (!rows.length || rows.some(x=>!x.label || !x.val)) return toast("Cada dato necesita qué es y su valor.");
+    const spec = box.querySelector(".eSpec").value;
+    const h = Object.assign({id: "u"+(++S.seq), specialty: spec, title, badge: box.querySelector(".eBadge").value.trim(), accent: SPEC_COLOR[spec],
+      thresholds: rows, redFlag: box.querySelector(".eRed").value.trim(), trap: box.querySelector(".eTrap").value.trim(),
+      src: o.showSrc ? (box.querySelector(".eSrc").value || null) : o.src, page: o.showSrc ? (parseInt(box.querySelector(".ePage").value) || 0) : o.page, ctx: o.ctx || ""}, o.flags);
+    S.userH.push(h); rebuild(); save(); box.innerHTML = ""; box._addRow = null;
+    toast("Ficha guardada ✓ Entra a tu repaso espaciado."); refreshChips(); o.onSave && o.onSave(h);
+  };
+  setTimeout(()=>box.querySelector(o.title ? ".eL" : ".eTitle").focus({preventScroll:true}), 50);
+  box.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+// Pestaña High Yield
+let hySpec = null;
 function renderHY(){
-  const specs=[...new Set(HY_CARDS.map(c=>c.specialty))];
-  $("#hyFilters").innerHTML=[null,...specs].map(s=>`<button class="btn${hySpec===s?" on":""}" data-s="${s||""}">${s||"Todas"}</button>`).join("");
-  document.querySelectorAll("#hyFilters button").forEach(b=>b.onclick=()=>{hySpec=b.dataset.s||null;renderHY();});
-  $("#hyList").innerHTML = HY_CARDS.filter(c=>!hySpec||c.specialty===hySpec).map(hyCardHTML).join("");
+  const specs = SPECS.filter(s=>HYS.some(h=>h.specialty===s));
+  const due = HYS.filter(h=>isDue("h"+h.id)).length, mine = HYS.filter(h=>S.userH.includes(h)).length;
+  $("#hyTop").innerHTML = `<button class="btn primary" id="hyStudy">💎 Repasar fichas${due ? ` (${due} pendientes)` : ""}</button><button class="btn" data-go="new" id="hyNew">➕ Crear ficha</button>`;
+  $("#hyNew").onclick = ()=>{ newType = "h"; };
+  $("#hyStudy").onclick = ()=>startSession({label:"High Yield", tag:"norm", stages:[{name:"Fichas high-yield", items:pickHY(10, hySpec)}]});
+  $("#hyFilters").innerHTML = [null, ...specs].map(s=>`<button class="btn${hySpec===s?" on":""}" data-s="${s||""}">${s||"Todas"} (${HYS.filter(h=>!s||h.specialty===s).length})</button>`).join("");
+  document.querySelectorAll("#hyFilters button").forEach(b=>b.onclick=()=>{ hySpec = b.dataset.s || null; renderHY(); });
+  const list = HYS.filter(c=>!hySpec || c.specialty===hySpec).sort((a,b)=>(S.userH.includes(b)?1:0)-(S.userH.includes(a)?1:0));
+  $("#hyList").innerHTML = list.map(h=>{
+    const own = S.userH.includes(h), r = S.srs["h"+h.id];
+    return `<div>${hyCardHTML(h)}<div class="row xs muted" style="margin:6px 4px 0;gap:8px"><span>${!r ? "Nueva" : isDue("h"+h.id) ? "Toca repasar" : r.b>=3 ? "Dominada" : "En repaso"}${own ? " · creada por ti" : ""}</span><div class="spacer"></div>${own ? `<button class="linkbtn" data-hdel="${h.id}" style="color:var(--bad)">Eliminar</button>` : ""}</div></div>`;
+  }).join("") || `<p class="muted small">Aún no hay fichas en esta especialidad.</p>`;
+  document.querySelectorAll("[data-hdel]").forEach(b=>b.onclick=()=>{ if (!confirm("¿Eliminar esta ficha?")) return;
+    S.userH = S.userH.filter(h=>String(h.id)!==b.dataset.hdel); delete S.srs["h"+b.dataset.hdel]; rebuild(); save(); renderHY(); refreshChips(); });
 }
-$("#cardsAll").onclick=()=>startSession({label:"Tarjetas",tag:"norm",stages:[{name:"Tarjetas rápidas",items:pickCards(15)}]});
 
 // ===================================================================
 // SIMULACRO
@@ -1580,7 +1699,7 @@ function renderProg(){
 }
 $("#expBtn").onclick=()=>{ const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="medipulse-respaldo-"+todayKey()+".json"; a.click(); };
 $("#impFile").onchange=e=>{ const f=e.target.files[0]; if(!f) return; f.text().then(t=>{ try{ const d=JSON.parse(t); if(!d.srs||!d.log) throw 0; S=Object.assign(BLANK(),d); rebuild(); save(); applyTheme(); renderProg(); refreshChips(); toast("Respaldo importado ✓"); }catch(_){ toast("Archivo no válido"); } }); };
-$("#resetBtn").onclick=()=>{ if(confirm("¿Borrar tu progreso (racha, repasos, estadísticas)? Tus PDF y las preguntas generadas se conservan. No se puede deshacer.")){ S=Object.assign(BLANK(),{theme:S.theme,userQ:S.userQ,userC:S.userC,sources:S.sources,seq:S.seq,check:S.check,over:S.over,hidden:S.hidden,notes:S.notes,reports:S.reports,exam:S.exam,hints:S.hints,tpls:S.tpls}); save(); renderProg(); refreshChips(); toast("Progreso borrado"); } };
+$("#resetBtn").onclick=()=>{ if(confirm("¿Borrar tu progreso (racha, repasos, estadísticas)? Tus PDF y las preguntas generadas se conservan. No se puede deshacer.")){ S=Object.assign(BLANK(),{theme:S.theme,userQ:S.userQ,userC:S.userC,sources:S.sources,seq:S.seq,check:S.check,over:S.over,hidden:S.hidden,notes:S.notes,reports:S.reports,exam:S.exam,hints:S.hints,tpls:S.tpls,userH:S.userH}); save(); renderProg(); refreshChips(); toast("Progreso borrado"); } };
 
 // ===================================================================
 // BIBLIOTECA DE FUENTES
@@ -1706,10 +1825,10 @@ async function addPdf(f, openAfter, meta){
 }
 
 function itemsOfSource(id){
-  return [...QUESTIONS.filter(q=>q.src===id).map(q=>({t:"q",id:q.id})), ...FLASH.filter(c=>c.src===id).map(c=>({t:"c",id:c.id}))];
+  return [...QUESTIONS.filter(q=>q.src===id).map(q=>({t:"q",id:q.id})), ...HYS.filter(h=>h.src===id).map(h=>({t:"h",id:h.id})), ...FLASH.filter(c=>c.src===id).map(c=>({t:"c",id:c.id}))];
 }
 function newUserItems(){
-  return [...S.userQ.map(q=>({t:"q",id:q.id})), ...S.userC.map(c=>({t:"c",id:c.id}))].filter(it=>!S.srs[it.t+it.id]);
+  return [...S.userQ.map(q=>({t:"q",id:q.id})), ...S.userH.map(h=>({t:"h",id:h.id})), ...S.userC.map(c=>({t:"c",id:c.id}))].filter(it=>!S.srs[it.t+it.id] && !S.hidden[it.t+it.id]);
 }
 function studySource(id){
   const s = srcInfo(id), items = itemsOfSource(id);
@@ -1761,7 +1880,7 @@ function renderAiBox(){
 const MAX_AI_CHARS = 350000;
 const STOP = new Set(("a al ante bajo con contra de del desde durante e el en entre hacia hasta la las le les lo los mediante para por que se según sin sobre su sus tras un una unas unos y o u ni es son fue fueron ser está están como más menos muy también pero cuando donde porque cual cuales este esta estos estas ese esa esos esas aquel otro otra otros otras puede pueden entre the of and to in for with on by from at as is are was were be been this that these those an or not which their its it we our than into after before between during within without over under about also may can such these both each other more most than only per via vs").split(" "));
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-const TEMPLATE_DEFAULT = () => ({counts: {caso: 5, critica: 3, directa: 0, tarjeta: 5}, level: "residencia", emph: [], lang: "es", instr: "", label: ""});
+const TEMPLATE_DEFAULT = () => ({counts: {caso: 5, critica: 3, directa: 0, ficha: 3}, level: "residencia", emph: [], lang: "es", instr: "", label: ""});
 
 // Divide cada página en "cuerpo" y quita lo que no sirve para preguntas (referencias, afiliaciones, leyendas).
 function docInfo(id){
@@ -1847,9 +1966,9 @@ function renderGen(){
   $("#genCard").innerHTML = `
     <h3 style="font-size:16px">Taller de preguntas</h3>
     <div class="tabs3">
-      <button data-gt="read" class="${gen.tab==="read"?"on":""}"><b>📖 Leer y crear</b><span>Tú eliges la frase y qué preguntar. Gratis.</span></button>
-      <button data-gt="ai" class="${gen.tab==="ai"?"on":""}"><b>🤖 IA a tu medida</b><span>Tema, tipos, dificultad, enfoque.${getKey() ? "" : " Requiere clave."}</span></button>
-      <button data-gt="auto" class="${gen.tab==="auto"?"on":""}"><b>⚡ Sugerencias</b><span>Automáticas, sin internet. Revísalas.</span></button>
+      <button data-gt="read" class="${gen.tab==="read"?"on":""}"><b>📖 Leer y crear</b><span>Arma fichas HY con lo que selecciones. Gratis.</span></button>
+      <button data-gt="ai" class="${gen.tab==="ai"?"on":""}"><b>✨ IA</b><span>Fichas automáticas por relevancia, o a tu medida.${getKey() ? "" : " Requiere clave."}</span></button>
+      <button data-gt="auto" class="${gen.tab==="auto"?"on":""}"><b>⚡ Datos clave</b><span>Encuentra cifras y criterios para tu ficha. Sin internet.</span></button>
     </div>
     <div id="gBody" class="stack"></div>`;
   document.querySelectorAll("[data-gt]").forEach(b=>b.onclick=()=>{ gen.tab = b.dataset.gt; renderGen(); });
@@ -1894,13 +2013,23 @@ function selectedText(){
 const pagesLabel = sel => sel.nums.length > 1 && sel.nums.some((n,i)=>i && n !== sel.nums[i-1]+1) ? `págs. ${sel.nums.join(", ")}` : sel.nums.length > 1 ? `págs. ${sel.a}–${sel.b}` : `pág. ${sel.a}`;
 
 // ---------- 🤖 IA a tu medida ----------
-const QTYPES = [["caso","🩺 Casos clínicos","Viñeta tipo examen con 4 opciones"],["critica","🔬 Lectura crítica","Diseño, resultados, sesgos y aplicabilidad del estudio"],["directa","❓ Preguntas directas","Enunciado corto, sin caso clínico"],["tarjeta","🃏 Tarjetas","Pregunta corta y respuesta"]];
+const QTYPES = [["caso","🩺 Casos clínicos","Viñeta tipo examen con 4 opciones"],["critica","🔬 Lectura crítica","Diseño, resultados, sesgos y aplicabilidad del estudio"],["directa","❓ Preguntas directas","Enunciado corto, sin caso clínico"],["ficha","💎 Fichas high-yield","Título, datos clave, bandera roja y trampa"]];
 const LEVELS = [["basica","Básica","conceptos y definiciones"],["residencia","Examen de residencia","aplicación clínica y distractores plausibles"],["avanzada","Avanzada","subespecialidad: detalles finos, matices y controversias"]];
 const EMPH = [["fisio","Mecanismo y fisiopatología"],["dx","Diagnóstico"],["tx","Tratamiento y dosis"],["result","Resultados y cifras del estudio"],["safety","Seguridad y efectos adversos"],["design","Diseño, sesgos y validez"],["pearls","Perlas y trampas de examen"]];
 function renderAiTab(){
   const b = $("#gBody"), tpls = S.tpls || [];
   b.innerHTML = `
     ${getKey() ? "" : `<div class="warnbox small">Para generar con IA necesitas una clave de API. <button class="linkbtn" data-go="guide">Cómo conseguirla</button>. Mientras tanto, usa <b>📖 Leer y crear</b>.</div>`}
+    <div class="autobox stack">
+      <div><b>✨ Fichas automáticas</b><p class="xs muted" style="margin:4px 0 0">La IA lee el documento, decide qué es lo más relevante para tu examen y arma las fichas ordenadas por importancia, con el porqué de cada una. Tú solo revisas y guardas.</p></div>
+      <div class="grid2"><label class="fld">Qué leer<select id="aScope"><option value="all">Todo el documento (sin referencias)</option><option value="range">Las páginas o el tema de “Personalizar”</option></select></label>
+        <label class="fld">Cuántas fichas<select id="aCount"><option value="auto">La IA decide (recomendado)</option><option>5</option><option>10</option><option>15</option></select></label></div>
+      <label class="fld">Prioriza (opcional)<input type="text" id="aFocus" placeholder="p. ej. resultados de los ensayos y efectos adversos"></label>
+      <div id="aEst" class="xs muted"></div>
+      <button class="btn primary block" id="aGo" ${genBusy || !getKey() ? "disabled" : ""}>✨ Crear fichas automáticas</button>
+      <div id="aStatus" class="small"></div>
+    </div>
+    <details class="custom" id="gCustomBox" ${gen.customOpen ? "open" : ""}><summary>⚙️ Personalizar: tema, tipos de pregunta, dificultad, enfoque…</summary><div class="stack" style="margin-top:12px">
     ${tpls.length ? `<div class="row" style="gap:6px"><span class="xs muted">Mis plantillas:</span>${tpls.map((t,i)=>`<button class="chip2" data-tpl="${i}">${esc(t.name)}</button>`).join("")}</div>` : ""}
     ${topicBlock()}
     <div><div class="fld" style="margin-bottom:6px">¿Qué quieres que te pregunte? (cantidad de cada tipo)</div>
@@ -1915,7 +2044,7 @@ function renderAiTab(){
     <div class="row" style="gap:6px"><button class="btn ghost sm" id="gSaveTpl">💾 Guardar como plantilla</button>${tpls.length ? `<button class="btn ghost sm" id="gDelTpl">🗑 Borrar plantillas</button>` : ""}</div>
     <div id="gEst" class="xs muted"></div>
     <button class="btn primary block" id="gGo" ${genBusy || !getKey() ? "disabled" : ""}>Generar con IA</button>
-    <div id="gStatus" class="small"></div>`;
+    <div id="gStatus" class="small"></div></div></details>`;
   bindTopic(updEstimate);
   b.querySelectorAll("[data-cnt]").forEach(i=>i.oninput = ()=>{ gen.counts[i.dataset.cnt] = Math.max(0, Math.min(20, parseInt(i.value)||0)); updEstimate(); });
   b.querySelectorAll("[data-lv]").forEach(x=>x.onclick = ()=>{ gen.level = x.dataset.lv; b.querySelectorAll("[data-lv]").forEach(y=>y.classList.toggle("on", y===x)); });
@@ -1923,7 +2052,8 @@ function renderAiTab(){
   $("#gLang").onchange = ()=>{ gen.lang = $("#gLang").value; };
   $("#gLabel").oninput = ()=>{ gen.label = $("#gLabel").value; };
   $("#gInstr").oninput = ()=>{ gen.instr = $("#gInstr").value; };
-  b.querySelectorAll("[data-tpl]").forEach(x=>x.onclick = ()=>{ const t = S.tpls[+x.dataset.tpl]; Object.assign(gen, JSON.parse(JSON.stringify({counts: t.counts, level: t.level, emph: t.emph, lang: t.lang, instr: t.instr, label: t.label}))); renderAiTab(); toast(`Plantilla “${t.name}” aplicada`); });
+  b.querySelectorAll("[data-tpl]").forEach(x=>x.onclick = ()=>{ const t = S.tpls[+x.dataset.tpl]; Object.assign(gen, JSON.parse(JSON.stringify({counts: t.counts, level: t.level, emph: t.emph, lang: t.lang, instr: t.instr, label: t.label})));
+    if (gen.counts.ficha == null) { gen.counts.ficha = gen.counts.tarjeta || 0; delete gen.counts.tarjeta; } renderAiTab(); toast(`Plantilla “${t.name}” aplicada`); });
   $("#gSaveTpl").onclick = ()=>{
     const name = prompt("Nombre de la plantilla", gen.label || "Mi plantilla"); if (!name || !name.trim()) return;
     S.tpls = (S.tpls || []).filter(t=>t.name !== name.trim());
@@ -1932,7 +2062,52 @@ function renderAiTab(){
   };
   $("#gDelTpl") && ($("#gDelTpl").onclick = ()=>{ if (confirm("¿Borrar todas tus plantillas?")) { S.tpls = []; save(); renderAiTab(); } });
   $("#gGo").onclick = runGenerate;
+  bindAuto();
   updEstimate();
+}
+function autoSel(){
+  if (gen.aScope === "range") return selectedText();
+  const info = docInfo(curSrc); if (!info) return null;
+  const nums = [], pages = [];
+  info.pages.forEach((p,i)=>{ if (p.trim()) { nums.push(i+1); pages.push(p); } });
+  return nums.length ? {a: nums[0], b: nums[nums.length-1], nums, pages} : null;
+}
+function estAuto(){
+  const el = $("#aEst"); if (!el) return;
+  const sel = autoSel(); if (!sel) { el.textContent = ""; return; }
+  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
+  if (chars > MAX_AI_CHARS) { el.innerHTML = `<span style="color:var(--bad)">El documento es muy largo para leerlo completo de una vez. En “Qué leer” elige “Las páginas o el tema de Personalizar” y define un rango o un tema.</span>`; return; }
+  el.textContent = `${pagesLabel(sel)} · costo aprox. US$${(chars/3.5*4e-6 + 12*400*20e-6 + 6000*20e-6).toFixed(2)} (se cobra a tu cuenta de Anthropic).`;
+}
+function bindAuto(){
+  $("#aScope").value = gen.aScope || "all"; $("#aCount").value = gen.aCount || "auto"; $("#aFocus").value = gen.aFocus || "";
+  $("#aScope").onchange = ()=>{ gen.aScope = $("#aScope").value; if (gen.aScope === "range") { $("#gCustomBox").open = true; gen.customOpen = true; } estAuto(); };
+  $("#aCount").onchange = ()=>{ gen.aCount = $("#aCount").value; };
+  $("#aFocus").oninput = ()=>{ gen.aFocus = $("#aFocus").value; };
+  $("#gCustomBox").ontoggle = ()=>{ gen.customOpen = $("#gCustomBox").open; };
+  ["#gFrom","#gTo","#gTopic"].forEach(q=>{ const el = $(q); if (el) el.addEventListener("input", estAuto); });
+  $("#aGo").onclick = runAuto;
+  estAuto();
+}
+async function runAuto(){
+  if (genBusy) return;
+  const st = $("#aStatus"), s = cur();
+  if (!getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return go("lib"); }
+  const sel = autoSel();
+  if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
+  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
+  if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">El documento no tiene texto que se pueda leer.</span>`;
+  if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">El documento es muy largo: elige un rango o un tema en “Personalizar”.</span>`;
+  genBusy = true; $("#aGo").disabled = true;
+  try {
+    st.innerHTML = `<span class="spin"></span> Claude está leyendo las ${pagesLabel(sel)} y eligiendo lo más relevante para tu examen. Puede tardar 1–3 minutos; no cierres la app.`;
+    cands = await aiGenerate(sel, s.title, autoAsk({count: gen.aCount || "auto", focus: gen.aFocus || ""}));
+    st.innerHTML = cands.length ? "" : `<span style="color:var(--warn)">La IA no encontró información high-yield en ese texto.</span>`;
+  } catch(err) {
+    st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button>`;
+  } finally { genBusy = false; const b = $("#aGo"); if (b) b.disabled = false; }
+  renderReview();
+  if (cands && cands.length) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
 }
 function updEstimate(){
   const el = $("#gEst"); if (!el) return;
@@ -1941,21 +2116,23 @@ function updEstimate(){
   if (chars < 200) { el.innerHTML = `<span style="color:var(--warn)">Esas páginas casi no tienen texto seleccionable (¿PDF escaneado o solo imágenes?).</span>`; return; }
   if (gen.tab === "ai") {
     if (chars > MAX_AI_CHARS) { el.innerHTML = `<span style="color:var(--bad)">Es demasiado texto para una sola vez (${Math.round(chars/1000)} mil caracteres). Elige menos páginas o un tema más concreto.</span>`; return; }
-    const c = gen.counts, nq = c.caso + c.critica + c.directa, tin = Math.round(chars/3.5), cost = tin*4e-6 + (nq*700 + c.tarjeta*150)*20e-6 + 4000*20e-6;
-    el.textContent = `${pagesLabel(sel)} · ${nq} preguntas y ${c.tarjeta} tarjetas · costo aprox. US$${cost.toFixed(2)} (se cobra a tu cuenta de Anthropic).`;
+    const c = gen.counts, nq = c.caso + c.critica + c.directa, tin = Math.round(chars/3.5), cost = tin*4e-6 + (nq*700 + c.ficha*400)*20e-6 + 4000*20e-6;
+    el.textContent = `${pagesLabel(sel)} · ${nq} preguntas y ${c.ficha} fichas · costo aprox. US$${cost.toFixed(2)} (se cobra a tu cuenta de Anthropic).`;
   } else el.textContent = `${pagesLabel(sel)} · ${Math.round(chars/1000)} mil caracteres para analizar.`;
 }
 
 const GEN_SCHEMA = {
-  type:"object", additionalProperties:false, required:["questions","cards"],
+  type:"object", additionalProperties:false, required:["questions","fichas"],
   properties:{
     questions:{type:"array", items:{type:"object", additionalProperties:false,
       required:["qtype","specialty","topic","vignette","options","correct","whyCorrect","pearl","trap","page"],
       properties:{qtype:{type:"string", enum:["caso","critica","directa"]}, specialty:{type:"string", enum:SPECS}, topic:{type:"string"}, vignette:{type:"string"},
         options:{type:"array", items:{type:"string"}}, correct:{type:"integer"}, whyCorrect:{type:"string"},
         pearl:{type:"string"}, trap:{type:"string"}, page:{type:"integer"}}}},
-    cards:{type:"array", items:{type:"object", additionalProperties:false, required:["specialty","front","back","page"],
-      properties:{specialty:{type:"string", enum:SPECS}, front:{type:"string"}, back:{type:"string"}, page:{type:"integer"}}}}
+    fichas:{type:"array", items:{type:"object", additionalProperties:false, required:["specialty","title","badge","thresholds","redFlag","trap","relevance","why","page"],
+      properties:{specialty:{type:"string", enum:SPECS}, title:{type:"string"}, badge:{type:"string"},
+        thresholds:{type:"array", items:{type:"object", additionalProperties:false, required:["label","val"], properties:{label:{type:"string"}, val:{type:"string"}}}},
+        redFlag:{type:"string"}, trap:{type:"string"}, relevance:{type:"integer"}, why:{type:"string"}, page:{type:"integer"}}}}
   }
 };
 const GEN_SYSTEM = `Eres un profesor de medicina que prepara a médicos para el examen de residencia y para su práctica. Redactas preguntas a partir de un documento que te entrega el médico: puede ser una guía, un artículo original, un ensayo clínico, una revisión o sus apuntes.
@@ -1969,17 +2146,28 @@ Reglas:
   - "critica": pregunta de lectura crítica sobre el estudio del documento (diseño, población, intervención, desenlaces, resultados con sus cifras, sesgos, validez y aplicabilidad). El enunciado puede citar el estudio.
   - "directa": enunciado corto de conocimiento, sin caso clínico.
   El enunciado va en "vignette". Exactamente 4 opciones plausibles y una sola correcta; "correct" es el índice (0 a 3) de la correcta. Reparte la posición de la respuesta correcta. "whyCorrect" explica en 2 a 4 frases por qué es la correcta y por qué fallan las otras. "pearl" es el dato para memorizar. "trap" es el error típico. "topic" es el tema en pocas palabras.
-- Tarjetas: en "front" una pregunta corta y específica que se entienda sin leer el documento; en "back" la respuesta concreta, sin repetir la pregunta.
+- Fichas high-yield: "title" es el tema concreto de la ficha (que se entienda sin leer el documento); "badge" una etiqueta corta (p. ej. "Ensayo fase II", "Umbral", "Algoritmo"); "thresholds" de 2 a 4 datos clave, cada uno con "label" (qué es, corto) y "val" (el dato exacto: cifra, dosis, criterio, fármaco o resultado); "redFlag" la señal de alarma o el hallazgo que no se puede pasar por alto (vacío si no aplica); "trap" el error típico o el distractor favorito (vacío si no aplica); "relevance" de 1 a 5 según qué tan probable es que se pregunte en el examen o cambie la conducta clínica (5 = imprescindible); "why" una frase que explique por qué es high-yield.
+- Qué es high-yield: umbrales y puntos de corte, criterios diagnósticos, tratamiento de primera línea y dosis, contraindicaciones, banderas rojas, resultados principales de los estudios con sus cifras, y lo que cambió frente a la práctica o la guía anterior. No es high-yield: autores, financiación, detalles metodológicos menores, antecedentes históricos ni datos que no cambian decisiones.
 - No hagas preguntas sobre autores, revistas, financiación ni la estructura del documento, salvo que el médico lo pida.
 - "specialty" es la más cercana de la lista permitida.
 - Texto plano, sin markdown ni LaTeX.`;
+// Petición para que la IA elija por sí misma lo más relevante
+function autoAsk(o){
+  o = o || {};
+  const lang = gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos del documento tal como aparecen.";
+  let what;
+  if (o.fragment) what = `El médico seleccionó este fragmento de la pág. ${o.page}: «${o.fragment.slice(0, 1500)}».\nCrea 1 ficha high-yield centrada en ese fragmento; complétala con los datos relevantes de la misma página que lo expliquen o le den contexto. Si el fragmento no tiene nada relevante, usa lo más relevante de la página.`;
+  else if (o.page) what = `Analiza esta página y crea entre 1 y 4 fichas high-yield con lo más relevante, según cuánta información importante tenga (no rellenes).`;
+  else what = `Analiza todo el documento y decide qué información es high-yield. Crea ${o.count && o.count !== "auto" ? `${o.count} fichas high-yield (o menos si no hay suficiente información relevante)` : "entre 3 y 12 fichas high-yield, según cuánta información relevante tenga el documento (no rellenes)"}. Cada ficha agrupa datos de un mismo tema; ordénalas de mayor a menor relevancia.`;
+  return [what, "No generes preguntas (deja \"questions\" vacío).", o.focus && o.focus.trim() ? `El médico pide priorizar: ${o.focus.trim()}.` : "", lang].filter(Boolean).join("\n") + examLine();
+}
 function genAsk(){
   const c = gen.counts, lv = LEVELS.find(l=>l[0]===gen.level), em = EMPH.filter(e=>gen.emph.includes(e[0])).map(e=>e[1].toLowerCase());
   const lines = [
     gen.topic.trim() ? `Tema: ${gen.topic.trim()}. Pregunta solo sobre este tema.` : "Tema: el contenido de las páginas entregadas.",
     "Genera:",
     c.caso ? `- ${c.caso} preguntas con qtype "caso".` : "", c.critica ? `- ${c.critica} preguntas con qtype "critica".` : "", c.directa ? `- ${c.directa} preguntas con qtype "directa".` : "",
-    c.tarjeta ? `- ${c.tarjeta} tarjetas.` : "- Ninguna tarjeta (deja \"cards\" vacío).",
+    c.ficha ? `- ${c.ficha} fichas high-yield.` : "- Ninguna ficha (deja \"fichas\" vacío).",
     (c.caso + c.critica + c.directa) ? "" : "- Ninguna pregunta (deja \"questions\" vacío).",
     `Dificultad: ${lv[1]} (${lv[2]}).`,
     em.length ? `Enfoque: ${em.join(", ")}.` : "",
@@ -1988,7 +2176,7 @@ function genAsk(){
   ];
   return lines.filter(Boolean).join("\n") + examLine();
 }
-async function aiGenerate(sel, title){
+async function aiGenerate(sel, title, ask){
   const Anthropic = await loadSDK();
   const client = new Anthropic({apiKey: getKey(), dangerouslyAllowBrowser: true});
   const doc = sel.pages.map((p,i)=>`[pág. ${sel.nums[i]}]\n${p}`).join("\n\n");
@@ -2001,7 +2189,7 @@ async function aiGenerate(sel, title){
       fallbacks: "default",
       output_config: {effort: "medium", format: {type: "json_schema", schema: GEN_SCHEMA}},
       system: GEN_SYSTEM,
-      messages: [{role: "user", content: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>\n\n${genAsk()}`}]
+      messages: [{role: "user", content: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>\n\n${ask || genAsk()}`}]
     });
     msg = await stream.finalMessage();
   } catch(e) { throw apiErr(Anthropic, e); }
@@ -2014,27 +2202,13 @@ async function aiGenerate(sel, title){
   const lab = gen.label.trim(), withLab = t => lab ? (t ? `${lab} · ${t}` : lab) : t;
   const qs = (data.questions||[]).filter(q=>okStr(q.vignette) && Array.isArray(q.options) && q.options.length===4 && q.options.every(okStr) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<4)
     .map(q=>({kind:"q", on:true, qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", specialty: SPECS.includes(q.specialty)?q.specialty:"Medicina Interna", topic:withLab(q.topic||""), vignette:q.vignette, options:q.options, correct:q.correct, whyCorrect:q.whyCorrect||"", pearl:q.pearl||"", trap:q.trap||"", page:fixPage(q.page)}));
-  const cs = (data.cards||[]).filter(c=>okStr(c.front) && okStr(c.back))
-    .map(c=>({kind:"c", on:true, specialty: SPECS.includes(c.specialty)?c.specialty:"Medicina Interna", front:c.front, back:c.back, ctx:"", page:fixPage(c.page), ai:true}));
-  return [...qs, ...cs];
+  const hs = (data.fichas||[]).filter(h=>okStr(h.title) && Array.isArray(h.thresholds) && h.thresholds.length && h.thresholds.every(x=>x && okStr(x.label) && okStr(x.val)))
+    .map(h=>({kind:"h", on:true, specialty: SPECS.includes(h.specialty)?h.specialty:"Medicina Interna", title:withLab(h.title), badge:h.badge||"", thresholds:h.thresholds.slice(0,6).map(x=>({label:x.label, val:x.val})), redFlag:h.redFlag||"", trap:h.trap||"", relevance: Math.max(1, Math.min(5, parseInt(h.relevance)||3)), why: h.why||"", page:fixPage(h.page)}))
+    .sort((a,b)=>b.relevance-a.relevance);
+  return [...qs, ...hs];
 }
 
-// ---------- ⚡ Sugerencias automáticas ----------
-function renderAutoTab(){
-  $("#gBody").innerHTML = `
-    <p class="xs muted" style="margin:0">Busca frases con datos concretos (dosis, umbrales, porcentajes, “de elección”, definiciones) y oculta el dato. Funciona mejor con guías y resúmenes; en artículos científicos, <b>📖 Leer y crear</b> da tarjetas con más sentido.</p>
-    ${topicBlock()}
-    <div class="grid2"><label class="fld">Cuántas sugerencias<select id="gN">${[5,10,15,20,30].map(n=>`<option ${n===gen.n?"selected":""}>${n}</option>`).join("")}</select></label>
-      <label class="fld">Especialidad<select id="gSpec">${SPECS.map(x=>`<option ${x===gen.spec?"selected":""}>${x}</option>`).join("")}</select></label></div>
-    <div id="gEst" class="xs muted"></div>
-    <button class="btn primary block" id="gGo" ${genBusy?"disabled":""}>Sugerir tarjetas</button>
-    <div id="gStatus" class="small"></div>`;
-  bindTopic(updEstimate);
-  $("#gN").onchange = ()=>{ gen.n = +$("#gN").value; };
-  $("#gSpec").onchange = ()=>{ gen.spec = $("#gSpec").value; const s = cur(); s.spec = gen.spec; save(); };
-  $("#gGo").onclick = runGenerate;
-  updEstimate();
-}
+// ---------- ⚡ Datos clave: extracción local ----------
 const UNIT_RE = /(?:[<>≥≤]\s*=?\s*)?\d+(?:[.,]\d+)?(?:\s*(?:-|–|a|to)\s*\d+(?:[.,]\d+)?)?\s*(?:mg\/kg\/d[ií]a|mg\/kg|mg\/dL|mg\/dl|mEq\/L|mmol\/L|mL\/kg|ml\/kg|U\/kg|UI\/kg|g\/dL|mmHg|lpm|rpm|bpm|mcg|µg|mg|g|mL|ml|L|kg|%|°C|horas?|hours?|h|minutos?|minutes?|min|d[ií]as?|days?|semanas?|weeks?|meses|months?|años?|years?|cm|mm|UI|IU|U|vg|genomas? vectoriales|vector genomes|pacientes|patients|participantes|participants)(?![\p{L}\d])/iu;
 const TERM_RE = /(?:de elecci[oó]n|de primera l[ií]nea|el tratamiento inicial|el ant[ií]doto|el agente (?:causal )?m[aá]s (?:com[uú]n|frecuente)|la causa m[aá]s (?:com[uú]n|frecuente)|el est[aá]ndar de oro|el gold standard|first-line (?:treatment|therapy)|treatment of choice|the gold standard|the most common cause)\s+(?:es|son|consiste en|is|are|was|were)\s+(?:el |la |los |las |un |una |the |a |an )?([^,.;:()]{3,70})/i;
 const DEF_RE = /^(?:El |La |Los |Las |The )?([^,.;:()]{3,50}?)\s+(?:se define como|consiste en|se caracteriza por|is defined as|is characterized by|refers to)\s+(.{12,200})$/i;
@@ -2071,33 +2245,6 @@ function localGenerate(sel, n, spec, topic){
             .sort((a,b)=>b.score-a.score).slice(0, n).sort((a,b)=>a.page-b.page);
 }
 
-async function runGenerate(){
-  if (genBusy) return;
-  const st = $("#gStatus"), s = cur();
-  if (gen.tab === "ai" && !getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return go("lib"); }
-  const sel = selectedText();
-  if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
-  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
-  if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">Esas páginas no tienen texto que se pueda leer.</span>`;
-  if (gen.tab === "ai") {
-    if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">Demasiado texto: elige menos páginas o un tema más concreto.</span>`;
-    const c = gen.counts; if (!(c.caso + c.critica + c.directa + c.tarjeta)) return st.innerHTML = `<span style="color:var(--bad)">Pide al menos una pregunta o tarjeta.</span>`;
-  }
-  genBusy = true; $("#gGo").disabled = true;
-  try {
-    if (gen.tab === "auto") cands = localGenerate(sel, gen.n, gen.spec, gen.topic);
-    else {
-      st.innerHTML = `<span class="spin"></span> Claude está leyendo las ${pagesLabel(sel)}${gen.topic.trim() ? ` sobre “${esc(gen.topic.trim())}”` : ""} y redactando lo que pediste. Puede tardar 1–3 minutos; no cierres la app.`;
-      cands = await aiGenerate(sel, s.title);
-    }
-    st.innerHTML = "";
-  } catch(err) {
-    st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button>`;
-  } finally { genBusy = false; const b = $("#gGo"); if (b) b.disabled = false; }
-  renderReview();
-  if (cands) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
-}
-
 // ---------- 📖 Leer y crear ----------
 let rdSel = "";
 function markText(txt, words){
@@ -2124,17 +2271,21 @@ function renderReader(){
   gen.rdPage = Math.max(1, Math.min(gen.rdPage, total));
   const hits = gen.rdQuery.trim() ? topicPages(s.id, gen.rdQuery) : [];
   const pageTxt = r.pages[gen.rdPage-1] || "";
+  const building = !!($("#rdEditor") && $("#rdEditor")._addRow);
   $("#gBody").innerHTML = `
-    <p class="xs muted" style="margin:0">Lee el documento aquí. <b>Selecciona una frase</b> (en el celular, mantén presionado y arrastra) y elige qué crear con ella: tú decides qué preguntar y qué ocultar.</p>
+    <p class="xs muted" style="margin:0">Lee el documento aquí y arma tus <b>fichas high-yield</b>: selecciona una frase o una cifra (en el celular, mantén presionado y arrastra) y agrégala como dato de la ficha. Puedes juntar datos de varias páginas en la misma ficha.</p>
     <div class="row" style="gap:6px"><input type="text" id="rdQ" value="${esc(gen.rdQuery)}" placeholder="Buscar en el documento: p. ej. AAV, GDNF, ensayo fase II…" style="flex:1;min-width:0"></div>
     ${gen.rdQuery.trim() ? `<div class="chips">${hits.length ? hits.slice(0,15).map(h=>`<button class="chip2${h.page===gen.rdPage?" on":""}" data-rp="${h.page}">pág. ${h.page} · ${h.hits}</button>`).join("") : `<span class="xs muted">Sin resultados.</span>`}</div>` : ""}
     <div class="row" style="gap:6px"><button class="btn sm" id="rdPrev" ${gen.rdPage<=1?"disabled":""}>‹ Anterior</button><span class="small" style="flex:1;text-align:center">${s.kind==="text"?"Parte":"Página"} <b>${gen.rdPage}</b> de ${total}${info.refFrom < gen.rdPage ? " · referencias" : info.refFrom === gen.rdPage ? " · al final, referencias" : ""}</span><button class="btn sm" id="rdNext" ${gen.rdPage>=total?"disabled":""}>Siguiente ›</button></div>
     <div class="reader" id="rdText">${pageTxt.trim() ? hlText(pageTxt, gen.rdQuery) : `<p class="muted">Esta página no tiene texto seleccionable.</p>`}</div>
     <div class="selbar" id="rdBar" hidden>
       <div class="xs muted" id="rdSelTxt"></div>
-      <div class="row" style="gap:6px;margin-top:6px"><button class="btn primary sm" id="rdCard">🃏 Tarjeta</button><button class="btn sm" id="rdCloze">🧩 Completar</button><button class="btn sm" id="rdCase">🩺 Caso clínico</button><button class="btn ghost sm" id="rdX">✕</button></div>
+      <div class="row" style="gap:6px;margin-top:6px"><button class="btn primary sm" id="rdHY">💎 Nueva ficha</button><button class="btn sm" id="rdAdd" hidden>➕ Añadir a la ficha</button><button class="btn sm" id="rdAI">✨ Ficha con IA</button><button class="btn sm" id="rdCase">🩺 Caso clínico</button><button class="btn ghost sm" id="rdX">✕</button></div>
     </div>
-    <div id="rdEditor"></div>`;
+    <div class="row" style="gap:6px">${building ? "" : `<button class="btn ghost sm" id="rdBlank">💎 Empezar una ficha en blanco</button>`}<button class="btn sm" id="rdPageAI">✨ Fichas de esta página con IA</button></div>`;
+  // el editor vive fuera de #gBody para no perder la ficha al cambiar de página
+  if (!$("#rdEditor")) { const ed = document.createElement("div"); ed.id = "rdEditor"; $("#genCard").appendChild(ed); }
+  const refreshBar = ()=>{ const on = !!$("#rdEditor")._addRow; $("#rdAdd").hidden = !on; $("#rdHY").className = on ? "btn sm" : "btn primary sm"; if (on) $("#rdAdd").className = "btn primary sm"; };
   $("#rdQ").oninput = ()=>{ gen.rdQuery = $("#rdQ").value; clearTimeout(renderReader._t); renderReader._t = setTimeout(()=>{ const h = topicPages(s.id, gen.rdQuery); if (h.length && !h.some(x=>x.page===gen.rdPage)) gen.rdPage = h[0].page; renderReader(); const q = $("#rdQ"); q.focus(); q.setSelectionRange(q.value.length, q.value.length); }, 350); };
   document.querySelectorAll("[data-rp]").forEach(b=>b.onclick=()=>{ gen.rdPage = +b.dataset.rp; renderReader(); });
   $("#rdPrev").onclick = ()=>{ gen.rdPage--; renderReader(); };
@@ -2142,73 +2293,125 @@ function renderReader(){
   const box = $("#rdText");
   const check = ()=>{
     const sl = window.getSelection(); const t = sl && sl.rangeCount ? sl.toString().replace(/\s+/g," ").trim() : "";
-    if (t.length >= 2 && t.length <= 1200 && sl.anchorNode && box.contains(sl.anchorNode)) { rdSel = t; $("#rdBar").hidden = false; $("#rdSelTxt").textContent = "“" + (t.length > 160 ? t.slice(0,160) + "…" : t) + "”"; }
+    if (t.length >= 1 && t.length <= 1200 && sl.anchorNode && box.contains(sl.anchorNode)) { rdSel = t; $("#rdBar").hidden = false; refreshBar(); $("#rdSelTxt").textContent = "“" + (t.length > 160 ? t.slice(0,160) + "…" : t) + "”"; }
   };
   box.addEventListener("mouseup", check); box.addEventListener("touchend", ()=>setTimeout(check, 50)); box.addEventListener("keyup", check);
   document.onselectionchange = ()=>{ if (currentView === "src" && gen && gen.tab === "read" && $("#rdText")) { clearTimeout(document._selT); document._selT = setTimeout(check, 250); } };
-  $("#rdX").onclick = ()=>{ $("#rdBar").hidden = true; rdSel = ""; };
-  $("#rdCard").onclick = ()=>openCardEditor("card");
-  $("#rdCloze").onclick = ()=>openCardEditor("cloze");
+  const clearSel = ()=>{ $("#rdBar").hidden = true; rdSel = ""; try { window.getSelection().removeAllRanges(); } catch(e) {} };
+  $("#rdX").onclick = clearSel;
+  const ed = $("#rdEditor");
+  const startFicha = firstVal => hyEditor(ed, {title: gen.rdQuery.trim(), spec: gen.spec, src: s.id, page: gen.rdPage, ctx: firstVal || "",
+    rows: firstVal ? [{label: "", val: firstVal}, {}] : [], heading: `💎 Nueva ficha · ${s.kind==="text"?"parte":"pág."} ${gen.rdPage}`,
+    flags: {manual: true}, onSave: ()=>{ renderSrcItems(); renderReader(); }, onCancel: ()=>renderReader()});
+  $("#rdHY").onclick = ()=>{ const v = rdSel; clearSel(); startFicha(v); renderReaderBarOnly(); };
+  $("#rdAdd").onclick = ()=>{ const v = rdSel; clearSel(); ed._addRow("", v, v); toast("Dato agregado: escribe a la izquierda qué es"); };
   $("#rdCase").onclick = ()=>{ newPrefill = {why: rdSel, src: s.id, page: gen.rdPage}; newType = "q"; go("new"); };
-}
-// la oración completa que contiene la selección (para el modo completar)
-function sentenceAround(sel){
-  if (sel.length > 160) return sel;
-  const txt = recCache[curSrc].pages[gen.rdPage-1] || "";
-  // mismas reglas que las sugerencias: un salto de línea + mayúscula separa títulos y párrafos
-  const sents = txt.split(/\n(?=[A-ZÁÉÍÓÚÑ¿¡])/).flatMap(b=>b.replace(/\n/g," ").split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/)).map(s=>s.replace(/\s+/g," ").trim());
-  return sents.find(s=>s.includes(sel)) || sel;
-}
-function openCardEditor(mode){
-  const ed = $("#rdEditor"), s = cur(), sel = rdSel;
-  if (!sel) return;
-  const specSel = `<label class="fld">Especialidad<select id="ceSpec">${SPECS.map(x=>`<option ${x===gen.spec?"selected":""}>${x}</option>`).join("")}</select></label>`;
-  if (mode === "card") {
-    ed.innerHTML = `<div class="card stack" style="border-color:var(--accent)">
-      <h4 style="margin:0">🃏 Nueva tarjeta · ${s.kind==="text"?"parte":"pág."} ${gen.rdPage}</h4>
-      <label class="fld">Pregunta (frente)<textarea id="ceFront" rows="2" placeholder="Escribe la pregunta que quieres que te hagan"></textarea></label>
-      <label class="fld">Respuesta (reverso)<textarea id="ceBack" rows="3">${esc(sel)}</textarea></label>
-      ${specSel}
-      <div class="row"><button class="btn primary sm" id="ceSave">Guardar tarjeta</button><button class="btn ghost sm" id="ceCancel">Cancelar</button></div></div>`;
-    setTimeout(()=>$("#ceFront").focus(), 50);
-  } else {
-    const sent = sentenceAround(sel), words = sent.split(/\s+/);
-    const pre = new Set(); if (sel !== sent) { const sw = sel.split(/\s+/); let start = -1;
-      for (let i = 0; i <= words.length - sw.length; i++) if (sw.every((w,j)=>words[i+j].replace(/[.,;:()]/g,"") === w.replace(/[.,;:()]/g,""))) { start = i; break; }
-      if (start >= 0) sw.forEach((_,j)=>pre.add(start+j)); }
-    ed.innerHTML = `<div class="card stack" style="border-color:var(--accent)">
-      <h4 style="margin:0">🧩 Tarjeta para completar · ${s.kind==="text"?"parte":"pág."} ${gen.rdPage}</h4>
-      <p class="xs muted" style="margin:0">Toca las palabras que quieres ocultar. Puedes ocultar varias.</p>
-      <div class="wordpick" id="cePick">${words.map((w,i)=>`<button class="${pre.has(i)?"on":""}" data-w="${i}">${esc(w)}</button>`).join("")}</div>
-      <div class="note"><b>Vista previa:</b> <span id="cePrev"></span></div>
-      ${specSel}
-      <div class="row"><button class="btn primary sm" id="ceSave">Guardar tarjeta</button><button class="btn ghost sm" id="ceCancel">Cancelar</button></div></div>`;
-    const hidden = new Set(pre);
-    const build = ()=>{
-      const f = [], back = []; let gap = false;
-      words.forEach((w,i)=>{ if (hidden.has(i)) { if (!gap) f.push("_____"); back.push(w); gap = true; } else { if (gap && back.length) back.push("…"); f.push(w); gap = false; } });
-      const ans = back.join(" ").replace(/(\s…)+$/,"").replace(/\s…\s…/g," …").replace(/[.,;:]$/,"");
-      return {front: f.join(" "), back: ans};
-    };
-    const upd = ()=>{ const c = build(); $("#cePrev").textContent = hidden.size ? `${c.front}  →  ${c.back}` : "Elige al menos una palabra."; };
-    ed.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{ const i = +b.dataset.w; hidden.has(i) ? hidden.delete(i) : hidden.add(i); b.classList.toggle("on"); upd(); });
-    upd();
-    ed._build = ()=>hidden.size ? build() : null; ed._ctx = sent;
-  }
-  $("#ceCancel").onclick = ()=>{ ed.innerHTML = ""; };
-  $("#ceSave").onclick = ()=>{
-    let front, back, ctx = sel;
-    if (mode === "card") { front = $("#ceFront").value.trim(); back = $("#ceBack").value.trim(); if (!front || !back) return toast("Escribe la pregunta y la respuesta."); }
-    else { const c = ed._build(); if (!c) return toast("Toca al menos una palabra para ocultarla."); front = c.front; back = c.back; ctx = ed._ctx; }
-    gen.spec = $("#ceSpec").value;
-    S.userC.push({id: "u"+(++S.seq), specialty: gen.spec, front, back, ctx, src: s.id, page: gen.rdPage, manual: true});
-    rebuild(); save(); ed.innerHTML = ""; $("#rdBar").hidden = true; rdSel = ""; window.getSelection().removeAllRanges();
-    toast("Tarjeta guardada en tu repaso ✓"); renderSrcItems(); refreshChips();
+  $("#rdBlank") && ($("#rdBlank").onclick = ()=>{ startFicha(""); $("#rdBlank").remove(); });
+  const pageSel = ()=>{ const pg = gen.rdPage; return {a: pg, b: pg, nums: [pg], pages: [(info.pages[pg-1] || "").trim() ? info.pages[pg-1] : r.pages[pg-1]]}; };
+  $("#rdAI").onclick = async ()=>{
+    if (!getKey()) { toast("Para crear fichas con IA necesitas una clave de API."); return go("guide"); }
+    const frag = rdSel, pg = gen.rdPage; clearSel();
+    ed.innerHTML = `<div class="card small"><span class="spin"></span> Claude está armando la ficha con lo más relevante de ese fragmento…</div>`;
+    try {
+      const res = await aiGenerate(pageSel(), s.title, autoAsk({fragment: frag, page: pg}));
+      const h = res.find(x=>x.kind==="h"); if (!h) throw uerr("La IA no encontró datos relevantes en ese fragmento.");
+      hyEditor(ed, {title: h.title, badge: h.badge, spec: h.specialty, rows: h.thresholds, redFlag: h.redFlag, trap: h.trap, src: s.id, page: h.page || pg, ctx: frag,
+        heading: `✨ Ficha creada por la IA (relevancia ${"★".repeat(h.relevance)}) · revísala y guárdala`, flags: {ai: true, relevance: h.relevance, why: h.why},
+        onSave: ()=>{ renderSrcItems(); renderReader(); }, onCancel: ()=>renderReader()});
+      if (h.why) ed.querySelector(".hyed h4").insertAdjacentHTML("afterend", `<p class="xs" style="margin:0">💡 ${esc(h.why)}</p>`);
+    } catch(err) { ed.innerHTML = `<div class="card small" style="color:var(--bad)">${esc(err.userMsg || err.message)}</div>`; }
   };
-  ed.scrollIntoView({behavior: "smooth", block: "nearest"});
+  $("#rdPageAI").onclick = async ()=>{
+    if (!getKey()) { toast("Para crear fichas con IA necesitas una clave de API."); return go("guide"); }
+    if (genBusy) return; genBusy = true; const b = $("#rdPageAI"); b.disabled = true; b.innerHTML = `<span class="spin"></span> Analizando la página…`;
+    try { cands = await aiGenerate(pageSel(), s.title, autoAsk({page: true})); }
+    catch(err) { toast(err.userMsg || err.message); cands = null; }
+    finally { genBusy = false; }
+    renderReader(); renderReview();
+    if (cands && cands.length) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
+  };
+  function renderReaderBarOnly(){ const b = $("#rdBlank"); if (b) b.remove(); }
+}
+
+// ---------- ⚡ Datos clave (sin internet) ----------
+let facts = null;
+function renderAutoTab(){
+  $("#gBody").innerHTML = `
+    <p class="xs muted" style="margin:0">Encuentra en el documento las frases con datos concretos (cifras, dosis, umbrales, “de elección”, definiciones). Marca los que te sirvan, ajusta el texto y arma con ellos una ficha high-yield.</p>
+    ${topicBlock()}
+    <div class="grid2"><label class="fld">Cuántos datos buscar<select id="gN">${[5,10,15,20,30].map(n=>`<option ${n===gen.n?"selected":""}>${n}</option>`).join("")}</select></label>
+      <label class="fld">Especialidad<select id="gSpec">${SPECS.map(x=>`<option ${x===gen.spec?"selected":""}>${x}</option>`).join("")}</select></label></div>
+    <div id="gEst" class="xs muted"></div>
+    <button class="btn primary block" id="gGo" ${genBusy?"disabled":""}>Buscar datos clave</button>
+    <div id="gStatus" class="small"></div>
+    <div id="factList"></div>
+    <div id="autoEd"></div>`;
+  bindTopic(updEstimate);
+  $("#gN").onchange = ()=>{ gen.n = +$("#gN").value; };
+  $("#gSpec").onchange = ()=>{ gen.spec = $("#gSpec").value; const s = cur(); s.spec = gen.spec; save(); };
+  $("#gGo").onclick = runGenerate;
+  updEstimate(); renderFacts();
+}
+function shortLabel(front){
+  const k = front.indexOf("_____"); if (k < 0) return front.slice(0, 120);
+  const a = Math.max(0, k - 70), b = Math.min(front.length, k + 5 + 50);
+  return (a > 0 ? "…" : "") + front.slice(a, b).trim() + (b < front.length ? "…" : "");
+}
+function renderFacts(){
+  const box = $("#factList"); if (!box) return;
+  if (!facts) { box.innerHTML = ""; return; }
+  if (!facts.length) { box.innerHTML = `<p class="small" style="margin:0">No encontré datos concretos${gen.topic ? ` sobre “${esc(gen.topic)}”` : ""} en esas páginas. Prueba otro tema u otras páginas, o arma la ficha en <b>📖 Leer y crear</b>.</p>`; return; }
+  const n = facts.filter(f=>f.on).length;
+  box.innerHTML = `<div class="stack" style="gap:6px"><div class="row"><b class="small">Datos encontrados</b><div class="spacer"></div><span class="xs muted">${n} marcados</span></div>
+    ${facts.map((f,i)=>`<div class="cand ${f.on?"":"off"}" id="fact${i}"><input type="checkbox" data-fi="${i}" ${f.on?"checked":""} aria-label="Usar este dato">
+      <div class="stack" style="min-width:0;gap:6px"><div class="erow"><input type="text" data-fl="${i}" value="${esc(f.label)}" aria-label="Qué es"><input type="text" data-fv="${i}" value="${esc(f.val)}" aria-label="Dato"></div>
+      <div class="xs muted">pág. ${f.page} · “${esc(f.ctx.length > 180 ? f.ctx.slice(0,180) + "…" : f.ctx)}”</div></div></div>`).join("")}
+    <button class="btn primary block" id="factMake" ${n?"":"disabled"}>💎 Crear ficha con ${n} dato${n===1?"":"s"}</button></div>`;
+  box.querySelectorAll("[data-fi]").forEach(cb=>cb.onchange=()=>{ facts[+cb.dataset.fi].on = cb.checked; renderFacts(); });
+  box.querySelectorAll("[data-fl]").forEach(x=>x.oninput=()=>{ facts[+x.dataset.fl].label = x.value; });
+  box.querySelectorAll("[data-fv]").forEach(x=>x.oninput=()=>{ facts[+x.dataset.fv].val = x.value; });
+  $("#factMake").onclick = ()=>{
+    const sel = facts.filter(f=>f.on), s = cur();
+    hyEditor($("#autoEd"), {title: gen.topic.trim() || s.title, spec: gen.spec, src: s.id, page: sel[0].page, ctx: sel.map(f=>f.ctx).join(" … "),
+      rows: sel.map(f=>({label: f.label, val: f.val})), heading: "💎 Nueva ficha con los datos marcados", flags: {auto: true},
+      onSave: ()=>{ facts = facts.filter(f=>!f.on); renderFacts(); renderSrcItems(); }});
+  };
+}
+async function runGenerate(){
+  if (genBusy) return;
+  const st = $("#gStatus"), s = cur();
+  if (gen.tab === "ai" && !getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return go("lib"); }
+  const sel = selectedText();
+  if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
+  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
+  if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">Esas páginas no tienen texto que se pueda leer.</span>`;
+  if (gen.tab === "auto") {
+    facts = localGenerate(sel, gen.n, gen.spec, gen.topic).map(c=>({on: false, label: c.front.startsWith("…") || c.front.includes("_____") ? shortLabel(c.front) : c.front, val: c.back, ctx: c.ctx, page: c.page}));
+    renderFacts(); return;
+  }
+  if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">Demasiado texto: elige menos páginas o un tema más concreto.</span>`;
+  const c = gen.counts; if (!(c.caso + c.critica + c.directa + c.ficha)) return st.innerHTML = `<span style="color:var(--bad)">Pide al menos una pregunta o una ficha.</span>`;
+  genBusy = true; $("#gGo").disabled = true;
+  try {
+    st.innerHTML = `<span class="spin"></span> Claude está leyendo las ${pagesLabel(sel)}${gen.topic.trim() ? ` sobre “${esc(gen.topic.trim())}”` : ""} y redactando lo que pediste. Puede tardar 1–3 minutos; no cierres la app.`;
+    cands = await aiGenerate(sel, s.title);
+    st.innerHTML = "";
+  } catch(err) {
+    st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button>`;
+  } finally { genBusy = false; const b = $("#gGo"); if (b) b.disabled = false; }
+  renderReview();
+  if (cands) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 // ---------- Revisión antes de guardar ----------
+// Vista previa de una ficha propuesta, tal como se verá en la app
+const hyPrevHTML = c => `<div class="hyprev" style="border-top-color:${SPEC_COLOR[c.specialty]||"var(--accent)"}">
+  <div class="row"><span class="tag">${esc(c.badge || "Ficha HY")}</span><span class="xs muted">${esc(c.specialty)}</span>${c.relevance ? `<div class="spacer"></div><span class="stars xs" title="Relevancia ${c.relevance} de 5">${"★".repeat(c.relevance)}${"☆".repeat(5-c.relevance)}</span>` : ""}</div>
+  <h4 style="margin:6px 0 0;font-size:15.5px">${esc(c.title)}</h4>
+  <div class="th">${c.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b>${esc(t.val)}</b></div>`).join("")}</div>
+  ${c.why ? `<div class="note pearl"><b>💡 Por qué es high-yield:</b> ${esc(c.why)}</div>` : ""}
+  ${c.redFlag ? `<div class="note" style="border-color:var(--bad);margin-top:6px"><b>🚩</b> ${esc(c.redFlag)}</div>` : ""}
+  ${c.trap ? `<div class="note trap" style="margin-top:6px"><b>⚠️ Trampa:</b> ${esc(c.trap)}</div>` : ""}</div>`;
 const qtLabel = k => k==="critica" ? "🔬 Lectura crítica" : k==="directa" ? "❓ Pregunta directa" : "🩺 Caso";
 function renderReview(){
   const box = $("#reviewBox");
@@ -2217,8 +2420,18 @@ function renderReview(){
   const on = cands.filter(c=>c.on).length, hasAI = cands.some(c=>c.kind==="q" || c.ai);
   box.innerHTML = `<div class="card">
     <div class="row"><h3 style="font-size:16px">Revisa antes de guardar</h3><div class="spacer"></div><span class="xs muted" id="candCount">${on}/${cands.length} seleccionadas</span></div>
-    <p class="xs muted" style="margin:4px 0 6px">Desmarca lo que no sirva y corrige lo necesario.${hasAI ? " La IA puede equivocarse: compara con la página indicada." : ""}</p>
-    <div id="candList">${cands.map((c,i)=> c.kind==="c" ? `
+    <p class="xs muted" style="margin:4px 0 6px">Desmarca lo que no sirva y corrige lo que quieras.${hasAI ? " La IA puede equivocarse: compara con la página indicada." : ""}</p>
+    <div id="candList">${cands.map((c,i)=> c.kind==="h" ? `
+      <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
+        <div class="stack" style="min-width:0;gap:6px">
+          <div class="xs muted">💎 Ficha high-yield · pág. ${c.page}</div>
+          <div id="hp${i}">${hyPrevHTML(c)}</div>
+          <details class="custom"><summary>✏️ Editar esta ficha</summary><div class="stack" style="margin-top:10px;gap:6px">
+          <label class="fld">Título<input type="text" data-hf="${i}" data-k="title" value="${esc(c.title)}"></label>
+          ${c.thresholds.map((x,j)=>`<div class="erow two"><textarea rows="2" data-hr="${i}:${j}:label" aria-label="Qué es">${esc(x.label)}</textarea><textarea rows="2" data-hr="${i}:${j}:val" aria-label="Dato">${esc(x.val)}</textarea></div>`).join("")}
+          <label class="fld">🚩 Bandera roja<textarea data-hf="${i}" data-k="redFlag" rows="2">${esc(c.redFlag)}</textarea></label>
+          <label class="fld">⚠️ Trampa<textarea data-hf="${i}" data-k="trap" rows="2">${esc(c.trap)}</textarea></label></div></details>
+        </div></div>` : c.kind==="c" ? `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div class="stack" style="min-width:0">
           <label class="fld">Pregunta<textarea data-cf="${i}" data-k="front" rows="2">${esc(c.front)}</textarea></label>
@@ -2239,14 +2452,21 @@ function renderReview(){
     const n = cands.filter(c=>c.on).length; $("#candCount").textContent = `${n}/${cands.length} seleccionadas`; $("#candSave").textContent = `Guardar ${n} en el banco`;
   });
   box.querySelectorAll("[data-cf]").forEach(ta=>ta.oninput=()=>{ cands[+ta.dataset.cf][ta.dataset.k] = ta.value; });
+  box.querySelectorAll("[data-hf]").forEach(x=>x.oninput=()=>{ const i = +x.dataset.hf; cands[i][x.dataset.k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[i]); });
+  box.querySelectorAll("[data-hr]").forEach(x=>x.oninput=()=>{ const [i,j,k] = x.dataset.hr.split(":"); cands[+i].thresholds[+j][k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[+i]); });
   $("#candCancel").onclick = ()=>{ cands = null; renderReview(); };
   $("#candSave").onclick = saveCands;
 }
 function saveCands(){
-  const s = cur(); let nq = 0, nc = 0;
+  const s = cur(); let nq = 0, nc = 0, nh = 0;
   cands.filter(c=>c.on).forEach(c=>{
     const id = "u" + (++S.seq);
-    if (c.kind === "c") {
+    if (c.kind === "h") {
+      const rows = c.thresholds.map(x=>({label:x.label.trim(), val:x.val.trim()})).filter(x=>x.label && x.val);
+      if (!c.title.trim() || !rows.length) return;
+      S.userH.push({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), relevance:c.relevance||0, why:c.why||"", ctx:"", src:s.id, page:c.page, ai:true});
+      nh++;
+    } else if (c.kind === "c") {
       if (!c.front.trim() || !c.back.trim()) return;
       S.userC.push({id, specialty:c.specialty, front:c.front.trim(), back:c.back.trim(), ctx:c.ctx||"", src:s.id, page:c.page, ai:!!c.ai, auto:!c.ai});
       nc++;
@@ -2257,36 +2477,8 @@ function saveCands(){
     }
   });
   rebuild(); save(); cands = null;
-  toast(`Guardado: ${nq} casos y ${nc} tarjetas ✓ Ya están en tu repaso.`);
+  toast(`Guardado: ${[nq ? `${nq} pregunta${nq===1?"":"s"}` : "", nh ? `${nh} ficha${nh===1?"":"s"}` : ""].filter(Boolean).join(" y ") || "nada"} ✓ Ya está en tu repaso.`);
   renderSrc(); refreshChips();
-}
-
-function renderSrcItems(){
-  const s = cur(), qs = S.userQ.filter(q=>q.src===s.id && !S.hidden["q"+q.id]), cs = S.userC.filter(c=>c.src===s.id && !S.hidden["c"+c.id]);
-  const box = $("#srcItems");
-  if (!qs.length && !cs.length) { box.innerHTML = `<h3 style="font-size:16px">En tu banco</h3><p class="muted small" style="margin:6px 0 0">Todavía no hay preguntas de esta fuente.</p>`; return; }
-  const status = k => { const r = S.srs[k]; return !r ? "nueva" : isDue(k) ? "toca repasar" : r.b>=3 ? "dominada" : "en repaso"; };
-  box.innerHTML = `<div class="row"><h3 style="font-size:16px">En tu banco</h3><div class="spacer"></div><button class="btn primary" id="srcStudy">Estudiar esta fuente (${qs.length+cs.length})</button></div>
-    <div style="margin-top:8px">${[...qs.map(q=>({k:"q"+q.id, id:q.id, t:"🩺 "+(q.topic||"Caso clínico"), p:q.page, o:q})), ...cs.map(c=>({k:"c"+c.id, id:c.id, t:"🃏 "+c.front, p:c.page, o:c}))].map(x=>`
-      <div class="srcitem"><div style="flex:1;min-width:0" class="small">${esc(x.t)}<div class="xs muted">pág. ${x.p} · ${status(x.k)}${x.o.stale?' · <span style="color:var(--warn)">versión anterior</span>':""}${x.o.updated?" · actualizado":""}</div></div><button class="btn ghost xs" data-del="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}</div>`;
-  $("#srcStudy").onclick = ()=>studySource(s.id);
-  box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
-    const k = b.dataset.del, id = k.slice(1);
-    if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);
-    delete S.srs[k]; rebuild(); save(); renderSrcItems(); refreshChips();
-  });
-}
-async function deleteSource(id){
-  const s = S.sources.find(x=>x.id===id); if (!s) return;
-  const n = S.userQ.filter(q=>q.src===id).length + S.userC.filter(c=>c.src===id).length;
-  if (!confirm(`¿Eliminar “${s.title}”${n?` y sus ${n} preguntas/tarjetas`:""}? No se puede deshacer.`)) return;
-  S.userQ.filter(q=>q.src===id).forEach(q=>delete S.srs["q"+q.id]);
-  S.userC.filter(c=>c.src===id).forEach(c=>delete S.srs["c"+c.id]);
-  S.userQ = S.userQ.filter(q=>q.src!==id); S.userC = S.userC.filter(c=>c.src!==id);
-  S.sources = S.sources.filter(x=>x.id!==id);
-  rebuild(); save(); delete recCache[id];
-  try { await idb.del(id); } catch(e) {}
-  toast("Fuente eliminada"); go("lib");
 }
 
 
@@ -2432,7 +2624,7 @@ const safeUrl = u => /^https?:\/\/[^\s"'<>]+$/i.test(u || "") ? u : "";
 const searchUrl = s => "https://www.google.com/search?q=" + encodeURIComponent(s.t + " última versión guía actualización");
 function countItems(id){
   if (SRC_BY_ID[id]) return [...BUILTIN_Q.map(q=>"q"+q.id+"|"+q.src), ...BUILTIN_F.map(c=>"c"+c.id+"|"+c.src)].filter(k=>k.endsWith("|"+id) && !S.hidden[k.split("|")[0]]).length;
-  return S.userQ.filter(q=>q.src===id && !S.hidden["q"+q.id]).length + S.userC.filter(c=>c.src===id && !S.hidden["c"+c.id]).length;
+  return S.userQ.filter(q=>q.src===id && !S.hidden["q"+q.id]).length + S.userC.filter(c=>c.src===id && !S.hidden["c"+c.id]).length + S.userH.filter(h=>h.src===id && !S.hidden["h"+h.id]).length;
 }
 
 function renderVigCard(){
@@ -2691,7 +2883,7 @@ async function uploadNewVersion(f){
     const rec = {blob: new Blob([buf], {type: "application/pdf"}), pages};
     await idb.put(s.id, rec); recCache[s.id] = rec;
     s.pages = pages.length; s.chars = pages.reduce((a,p)=>a+p.length, 0); s.version = (s.version||1) + 1; s.updated = Date.now();
-    let n = 0; [...S.userQ, ...S.userC].forEach(o=>{ if (o.src===s.id && !S.hidden[(S.userQ.includes(o)?"q":"c")+o.id]) { o.stale = true; n++; } });
+    let n = 0; [["q",S.userQ],["c",S.userC],["h",S.userH]].forEach(([k,arr])=>arr.forEach(o=>{ if (o.src===s.id && !S.hidden[k+o.id]) { o.stale = true; n++; } }));
     S.check[s.id] = {at: Date.now(), by: "manual", status: "current", latest: null, changes: [], note: "Subiste la versión " + s.version + " de este PDF."};
     gen.from = 1; gen.to = Math.min(s.pages, 10);
     rebuild(); save();
@@ -2702,7 +2894,7 @@ async function uploadNewVersion(f){
 function renderSrcBanner(){
   const s = cur(), box = $("#srcBanner"); if (!s || !box) return;
   let html = "";
-  const stale = [...S.userQ, ...S.userC].filter(o=>o.src===s.id && o.stale && !S.hidden[(S.userQ.includes(o)?"q":"c")+o.id]).length;
+  const stale = [["q",S.userQ],["c",S.userC],["h",S.userH]].reduce((a,[k,arr])=>a + arr.filter(o=>o.src===s.id && o.stale && !S.hidden[k+o.id]).length, 0);
   if (stale) html += `<div class="card stack" style="border-color:var(--warn)">
       <p class="small" style="margin:0"><b>⚠ ${stale} ítem${stale===1?"":"s"} son de la versión anterior de este PDF.</b> ${getKey() ? `Claude puede compararlos con las págs. ${gen.from}–${gen.to} de la versión nueva (cambia el rango en la pestaña 🤖 del taller) y proponer correcciones.` : "Revísalos, o archívalos y genera preguntas nuevas."}</p>
       <div class="row" style="gap:6px">${getKey() ? `<button class="btn primary sm" id="stRev">Revisar con IA</button>` : ""}<button class="btn sm" id="stKeep">Mantener todos</button><button class="btn ghost sm" id="stArch" style="color:var(--bad)">Archivar todos</button></div></div>`;
@@ -2712,9 +2904,9 @@ function renderSrcBanner(){
   }
   box.innerHTML = html;
   $("#stRev") && ($("#stRev").onclick = ()=>reviewAffected(s.id, "doc", "src"));
-  $("#stKeep") && ($("#stKeep").onclick = ()=>{ [...S.userQ, ...S.userC].forEach(o=>{ if (o.src===s.id) delete o.stale; }); save(); renderSrc(); });
+  $("#stKeep") && ($("#stKeep").onclick = ()=>{ [...S.userQ, ...S.userC, ...S.userH].forEach(o=>{ if (o.src===s.id) delete o.stale; }); save(); renderSrc(); });
   $("#stArch") && ($("#stArch").onclick = ()=>{ if (!confirm("¿Archivar los ítems de la versión anterior? Dejarán de aparecer en tus repasos.")) return;
-    S.userQ.forEach(q=>{ if (q.src===s.id && q.stale) S.hidden["q"+q.id] = Date.now(); }); S.userC.forEach(c=>{ if (c.src===s.id && c.stale) S.hidden["c"+c.id] = Date.now(); });
+    [["q",S.userQ],["c",S.userC],["h",S.userH]].forEach(([k,arr])=>arr.forEach(o=>{ if (o.src===s.id && o.stale) S.hidden[k+o.id] = Date.now(); }));
     rebuild(); save(); renderSrc(); refreshChips(); });
   $("#oldArch") && ($("#oldArch").onclick = ()=>{
     BUILTIN_Q.forEach(q=>{ if (q.src===s.replaces) S.hidden["q"+q.id] = Date.now(); }); BUILTIN_F.forEach(c=>{ if (c.src===s.replaces) S.hidden["c"+c.id] = Date.now(); });
@@ -2780,8 +2972,8 @@ function openReportForm(key, box){
   };
   box.querySelector(".repCancel").onclick = ()=>{ box.innerHTML = ""; };
 }
-const itemByKey = k => k[0]==="q" ? qById(k.slice(1)) : cById(k.slice(1));
-const itemLabel = (k, x) => !x ? "(ítem archivado o eliminado)" : k[0]==="q" ? "🩺 " + (x.topic || "Caso clínico") : "🃏 " + x.front;
+const itemByKey = k => k[0]==="q" ? qById(k.slice(1)) : k[0]==="h" ? hyById(k.slice(1)) : cById(k.slice(1));
+const itemLabel = (k, x) => !x ? "(ítem archivado o eliminado)" : k[0]==="q" ? "🩺 " + (x.topic || "Caso clínico") : k[0]==="h" ? "💎 " + x.title : "🃏 " + x.front;
 function renderRepCard(){
   const open = S.reports.filter(r=>r.status==="open").length;
   $("#repCard").innerHTML = `<div class="row"><h3 style="font-size:16px">🚩 Reportes de preguntas</h3><div class="spacer"></div><button class="btn sm" data-go="rep">Ver</button></div>
@@ -2802,7 +2994,7 @@ function renderRep(){
       ${r.comment ? `<div class="xs" style="margin-top:4px">“${esc(r.comment)}”</div>` : ""}
       <div class="row" style="gap:6px;margin-top:8px">
         ${x ? `<button class="btn sm" data-rv="${r.id}">Ver</button>` : ""}
-        ${x && getKey() && r.status==="open" ? `<button class="btn primary sm" data-rai="${r.id}">Corregir con IA</button>` : ""}
+        ${x && getKey() && r.status==="open" && r.key[0]!=="h" ? `<button class="btn primary sm" data-rai="${r.id}">Corregir con IA</button>` : ""}
         ${x && r.status==="open" ? `<button class="btn ghost sm" data-rarch="${r.id}">Archivar ítem</button>` : ""}
         <button class="btn ghost sm" data-rst="${r.id}">${r.status==="open" ? "Marcar resuelto" : "Reabrir"}</button>
         <button class="btn ghost sm" data-rdel="${r.id}" style="color:var(--bad)">Borrar</button>
@@ -2940,22 +3132,6 @@ function renderDistill(){
     save(); renderDistill(); renderNotes(); toast("Ficha guardada ✓");
   };
 }
-function renderNotes(){
-  $("#mbeNotesN").textContent = S.notes.length;
-  $("#mbeNotes").innerHTML = S.notes.length ? S.notes.map(n=>`
-    <div class="srcitem"><div style="flex:1;min-width:0">
-      <div class="row xs" style="gap:6px"><span class="tag">${MBE[n.type] ? MBE[n.type].icon + " " + esc(MBE[n.type].name) : ""}</span><span class="muted">${esc(n.spec)} · ${fmtDate(n.at)}</span></div>
-      <div class="small" style="margin-top:4px"><b>${esc(n.title)}</b></div>
-      <dl class="notedl">${n.f.map((v,i)=>v?`<div><dt>${esc(n.labels[i])}</dt><dd>${esc(v)}</dd></div>`:"").join("")}</dl>
-      <div class="row" style="gap:6px;margin-top:6px">${n.cards ? `<span class="xs" style="color:var(--ok)">✓ ${n.cards} tarjetas en tu repaso</span>` : `<button class="btn sm" data-ncard="${n.id}">🃏 Crear tarjetas de repaso</button>`}<button class="btn ghost sm" data-ndel="${n.id}" style="color:var(--bad)">Borrar</button></div>
-    </div></div>`).join("") : `<p class="muted small" style="margin:0">Aún no tienes fichas. Destila lo que leas hoy y conviértelo en tarjetas.</p>`;
-  document.querySelectorAll("[data-ndel]").forEach(b=>b.onclick=()=>{ S.notes = S.notes.filter(n=>n.id!==b.dataset.ndel); save(); renderNotes(); });
-  document.querySelectorAll("[data-ncard]").forEach(b=>b.onclick=()=>{
-    const n = S.notes.find(x=>x.id===b.dataset.ncard); let k = 0;
-    n.f.forEach((v,i)=>{ if (!v) return; S.userC.push({id: "u"+(++S.seq), specialty: n.spec, front: `${n.title}: ${n.labels[i].toLowerCase()}`, back: v, ctx: "", src: null, manual: true, mbe: true}); k++; });
-    n.cards = k; rebuild(); save(); renderNotes(); toast(`${k} tarjetas agregadas a tu repaso ✓`);
-  });
-}
 function calcRR(){
   const cer = parseFloat($("#cCer").value), eer = parseFloat($("#cEer").value), out = $("#cOut");
   if (!(cer>0 && cer<=100 && eer>=0 && eer<=100)) { out.innerHTML = `<p class="xs muted" style="margin:0">Escribe porcentajes entre 0 y 100 (el del grupo control mayor que 0).</p>`; return; }
@@ -2983,58 +3159,6 @@ function srcOptions(sel){
   return `<option value="">Sin fuente</option><optgroup label="Tus fuentes">${S.sources.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.title)}</option>`).join("")}</optgroup>
     <optgroup label="Guías incluidas">${SOURCES.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.t.length>70?s.t.slice(0,70)+"…":s.t)}</option>`).join("")}</optgroup>`;
 }
-function renderNew(){
-  $("#newSeg").innerHTML = `<button data-nt="q" class="${newType==="q"?"on":""}"><b>🩺 Caso clínico</b><span>Viñeta con 4 opciones</span></button><button data-nt="c" class="${newType==="c"?"on":""}"><b>🃏 Tarjeta</b><span>Pregunta corta y respuesta</span></button>`;
-  document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ newType = b.dataset.nt; renderNew(); });
-  const specSel = `<label class="fld">Especialidad<select id="nSpec">${SPECS.map(s=>`<option>${s}</option>`).join("")}</select></label>`;
-  $("#newForm").innerHTML = newType==="q" ? `
-    <div class="grid2">${specSel}<label class="fld">Tema<input type="text" id="nTopic" placeholder="p. ej. Nefrología · Hiponatremia"></label></div>
-    <label class="fld">Caso clínico<textarea id="nVig" rows="4" placeholder="Mujer de 74 años con… Marca los datos clave entre [[dobles corchetes]] para que funcionen como pistas."></textarea></label>
-    ${[0,1,2,3].map(i=>`<div class="optin"><input type="radio" name="nCor" value="${i}" ${i===0?"checked":""} aria-label="Opción ${"ABCD"[i]} es la correcta"><input type="text" id="nOpt${i}" placeholder="Opción ${"ABCD"[i]}"></div>`).join("")}
-    <p class="xs muted" style="margin:0">Marca con el círculo la opción correcta.</p>
-    <label class="fld">Explicación<textarea id="nWhy" rows="2"></textarea></label>
-    <div class="grid2"><label class="fld">💎 Perla<textarea id="nPearl" rows="2"></textarea></label><label class="fld">⚠️ Trampa<textarea id="nTrap" rows="2"></textarea></label></div>
-    <div class="grid2"><label class="fld">Fuente<select id="nSrc">${srcOptions("")}</select></label><label class="fld">Página (opcional)<input type="number" id="nPage" min="1"></label></div>
-    <button class="btn primary block" id="nSave">➕ Agregar al banco</button>`
-  : `${specSel}
-    <label class="fld">Pregunta (frente)<textarea id="nFront" rows="2"></textarea></label>
-    <label class="fld">Respuesta (reverso)<textarea id="nBack" rows="2"></textarea></label>
-    <div class="grid2"><label class="fld">Fuente<select id="nSrc">${srcOptions("")}</select></label><label class="fld">Página (opcional)<input type="number" id="nPage" min="1"></label></div>
-    <button class="btn primary block" id="nSave">➕ Agregar al repaso</button>`;
-  $("#nSave").onclick = saveNew;
-  if (newPrefill && newType === "q") {
-    $("#nWhy").value = newPrefill.why || ""; $("#nSrc").value = newPrefill.src || ""; $("#nPage").value = newPrefill.page || "";
-    $("#nVig").placeholder = "Escribe el caso a partir de la frase que seleccionaste (ya está en la explicación). Marca los datos clave entre [[dobles corchetes]].";
-    newPrefill = null; setTimeout(()=>$("#nVig").focus(), 50);
-  }
-  renderMine();
-}
-function saveNew(){
-  const v = id => ($(id) ? $(id).value.trim() : ""), src = v("#nSrc") || null, page = parseInt(v("#nPage")) || 0;
-  if (newType === "q") {
-    const opts = [0,1,2,3].map(i=>v("#nOpt"+i)), cor = +document.querySelector('input[name="nCor"]:checked').value;
-    if (!v("#nVig") || opts.some(o=>!o)) return toast("Completa el caso y las 4 opciones.");
-    S.userQ.push({id: "u"+(++S.seq), specialty: v("#nSpec"), topic: v("#nTopic") || "Caso propio", difficulty: "Propia",
-      vignette: esc(v("#nVig")).replace(/\[\[([\s\S]+?)\]\]/g, "<span class='hy'>$1</span>"), options: opts, correct: cor,
-      whyCorrect: v("#nWhy"), pearl: v("#nPearl"), trap: v("#nTrap"), src, page, manual: true});
-  } else {
-    if (!v("#nFront") || !v("#nBack")) return toast("Completa el frente y el reverso.");
-    S.userC.push({id: "u"+(++S.seq), specialty: v("#nSpec"), front: v("#nFront"), back: v("#nBack"), ctx: "", src, page, manual: true});
-  }
-  rebuild(); save(); toast("Agregado a tu banco ✓ Entra al repaso como nuevo."); renderNew();
-}
-function renderMine(){
-  const qs = S.userQ.filter(q=>q.manual && !S.hidden["q"+q.id]), cs = S.userC.filter(c=>c.manual && !S.hidden["c"+c.id]);
-  $("#mineList").innerHTML = (qs.length || cs.length) ? `
-    <div class="row"><h3 style="font-size:16px">Creadas por ti (${qs.length+cs.length})</h3><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>
-    ${[...qs.map(q=>({k:"q"+q.id, t:"🩺 "+q.topic})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front}))].map(x=>`<div class="srcitem"><div class="small" style="flex:1;min-width:0;word-break:break-word">${esc(x.t)}</div><button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}`
-    : `<p class="muted small" style="margin:0">Lo que crees aquí entra a tu repaso espaciado y lo puedes compartir como pack.</p>`;
-  document.querySelectorAll("[data-mdel]").forEach(b=>b.onclick=()=>{ const k = b.dataset.mdel, id = k.slice(1);
-    if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);
-    delete S.srs[k]; rebuild(); save(); renderMine(); });
-  $("#mineExp") && ($("#mineExp").onclick = ()=>downloadPack(makePack("Mis preguntas", qs, cs, {})));
-}
-
 // ===================================================================
 // FUENTES DE TEXTO PEGADO
 // ===================================================================
@@ -3069,11 +3193,6 @@ function togglePaste(){
 // ===================================================================
 // PACKS DE ESTUDIO (JSON)
 // ===================================================================
-function makePack(title, qs, cs, meta){
-  return {format: "medipulse-pack", version: 1, title, org: meta.org || "", year: meta.year || "", created: todayKey(),
-    questions: qs.map(q=>({specialty: q.specialty, topic: q.topic || "", vignette: q.vignette, options: q.options, correct: q.correct, whyCorrect: q.whyCorrect || "", pearl: q.pearl || "", trap: q.trap || "", page: q.page || 0})),
-    cards: cs.map(c=>({specialty: c.specialty, front: c.front, back: c.back, ctx: c.ctx || "", page: c.page || 0}))};
-}
 function downloadPack(pack){
   if (!pack.questions.length && !pack.cards.length) return toast("No hay ítems para exportar.");
   const txt = JSON.stringify(pack);
@@ -3082,34 +3201,144 @@ function downloadPack(pack){
   const msg = `Pack descargado: ${pack.questions.length} casos y ${pack.cards.length} tarjetas`;
   try { navigator.clipboard.writeText(txt).then(()=>toast(msg + " · también copiado ✓"), ()=>toast(msg + " ✓")); } catch(e) { toast(msg + " ✓"); }
 }
-function exportSourcePack(id){
-  const s = S.sources.find(x=>x.id===id);
-  downloadPack(makePack(s.title, S.userQ.filter(q=>q.src===id && !S.hidden["q"+q.id]), S.userC.filter(c=>c.src===id && !S.hidden["c"+c.id]), s));
-}
 function sanitizeVig(v){
   const decoded = String(v).replace(/[\u0001\u0002]/g, "")
     .replace(/<span class=['"]hy['"]>([\s\S]*?)<\/span>/gi, "\u0001$1\u0002").replace(/<[^>]*>/g, "")
     .replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,"&");
   return esc(decoded).replace(/\u0001/g, "<span class='hy'>").replace(/\u0002/g, "</span>");
 }
-function importPack(p){
-  const str = (x, max) => typeof x === "string" ? x.trim().slice(0, max) : "";
-  if (!p || p.format !== "medipulse-pack" || (!Array.isArray(p.questions) && !Array.isArray(p.cards))) return toast("Ese archivo no es un pack de MediPulse.");
-  const spec = x => SPECS.includes(x) ? x : "Medicina Interna";
-  const qs = (p.questions || []).slice(0, 1000).filter(q=>q && str(q.vignette,1) && Array.isArray(q.options) && q.options.length===4 && q.options.every(o=>str(o,1)) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<4);
-  const cs = (p.cards || []).slice(0, 2000).filter(c=>c && str(c.front,1) && str(c.back,1));
-  if (!qs.length && !cs.length) return toast("El pack no tiene ítems válidos.");
-  const id = "k" + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
-  S.sources.push({id, title: str(p.title, 120) || "Pack importado", org: str(p.org, 80), year: parseInt(p.year) || "", pages: 0, chars: 0, added: Date.now(), spec: "Medicina Interna", kind: "pack"});
-  qs.forEach(q=>S.userQ.push({id: "u"+(++S.seq), specialty: spec(q.specialty), topic: str(q.topic,200) || "Caso del pack", difficulty: "Pack", vignette: sanitizeVig(str(q.vignette,5000)),
-    options: q.options.map(o=>str(o,600)), correct: q.correct, whyCorrect: str(q.whyCorrect,3000), pearl: str(q.pearl,1500), trap: str(q.trap,1500), src: id, page: parseInt(q.page) || 0, pack: true}));
-  cs.forEach(c=>S.userC.push({id: "u"+(++S.seq), specialty: spec(c.specialty), front: str(c.front,600), back: str(c.back,1500), ctx: str(c.ctx,1500), src: id, page: parseInt(c.page) || 0, pack: true}));
-  rebuild(); save(); toast(`Pack importado: ${qs.length} casos y ${cs.length} tarjetas ✓`); openSrc(id);
-}
 $("#packIn").onchange = e => { const f = e.target.files[0]; e.target.value = ""; if (!f) return;
   f.text().then(t=>{ try { importPack(JSON.parse(t)); } catch(err) { toast("El archivo no es un pack válido."); } }); };
 $("#pasteBtn").onclick = togglePaste;
 $("#diagBtn").onclick = startDiag;
+
+function renderNew(){
+  if (newType !== "q") newType = "h";
+  $("#newSeg").innerHTML = `<button data-nt="q" class="${newType==="q"?"on":""}"><b>🩺 Caso clínico</b><span>Viñeta con 4 opciones</span></button><button data-nt="h" class="${newType==="h"?"on":""}"><b>💎 Ficha high-yield</b><span>Datos clave, bandera roja y trampa</span></button>`;
+  document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ newType = b.dataset.nt; renderNew(); });
+  if (newType === "h") {
+    hyEditor($("#newForm"), {showSrc: true, heading: "💎 Nueva ficha high-yield", flags: {manual: true}, onSave: ()=>renderNew(), onCancel: ()=>go("tarjetas")});
+    $("#newForm").classList.remove("card"); renderMine(); return;
+  }
+  $("#newForm").classList.add("card");
+  const specSel = `<label class="fld">Especialidad<select id="nSpec">${SPECS.map(s=>`<option>${s}</option>`).join("")}</select></label>`;
+  $("#newForm").innerHTML = `
+    <div class="grid2">${specSel}<label class="fld">Tema<input type="text" id="nTopic" placeholder="p. ej. Nefrología · Hiponatremia"></label></div>
+    <label class="fld">Caso clínico<textarea id="nVig" rows="4" placeholder="Mujer de 74 años con… Marca los datos clave entre [[dobles corchetes]] para que funcionen como pistas."></textarea></label>
+    ${[0,1,2,3].map(i=>`<div class="optin"><input type="radio" name="nCor" value="${i}" ${i===0?"checked":""} aria-label="Opción ${"ABCD"[i]} es la correcta"><input type="text" id="nOpt${i}" placeholder="Opción ${"ABCD"[i]}"></div>`).join("")}
+    <p class="xs muted" style="margin:0">Marca con el círculo la opción correcta.</p>
+    <label class="fld">Explicación<textarea id="nWhy" rows="2"></textarea></label>
+    <div class="grid2"><label class="fld">💎 Perla<textarea id="nPearl" rows="2"></textarea></label><label class="fld">⚠️ Trampa<textarea id="nTrap" rows="2"></textarea></label></div>
+    <div class="grid2"><label class="fld">Fuente<select id="nSrc">${srcOptions("")}</select></label><label class="fld">Página (opcional)<input type="number" id="nPage" min="1"></label></div>
+    <button class="btn primary block" id="nSave">➕ Agregar al banco</button>`;
+  $("#nSave").onclick = saveNew;
+  if (newPrefill) {
+    $("#nWhy").value = newPrefill.why || ""; $("#nSrc").value = newPrefill.src || ""; $("#nPage").value = newPrefill.page || "";
+    $("#nVig").placeholder = "Escribe el caso a partir de la frase que seleccionaste (ya está en la explicación). Marca los datos clave entre [[dobles corchetes]].";
+    newPrefill = null; setTimeout(()=>$("#nVig").focus(), 50);
+  }
+  renderMine();
+}
+function saveNew(){
+  const v = id => ($(id) ? $(id).value.trim() : ""), src = v("#nSrc") || null, page = parseInt(v("#nPage")) || 0;
+  const opts = [0,1,2,3].map(i=>v("#nOpt"+i)), cor = +document.querySelector('input[name="nCor"]:checked').value;
+  if (!v("#nVig") || opts.some(o=>!o)) return toast("Completa el caso y las 4 opciones.");
+  S.userQ.push({id: "u"+(++S.seq), specialty: v("#nSpec"), topic: v("#nTopic") || "Caso propio", difficulty: "Propia",
+    vignette: esc(v("#nVig")).replace(/\[\[([\s\S]+?)\]\]/g, "<span class='hy'>$1</span>"), options: opts, correct: cor,
+    whyCorrect: v("#nWhy"), pearl: v("#nPearl"), trap: v("#nTrap"), src, page, manual: true});
+  rebuild(); save(); toast("Agregado a tu banco ✓ Entra al repaso como nuevo."); renderNew();
+}
+function renderMine(){
+  const qs = S.userQ.filter(q=>q.manual && !S.hidden["q"+q.id]), cs = S.userC.filter(c=>c.manual && !S.hidden["c"+c.id]), hs = S.userH.filter(h=>h.manual && !S.hidden["h"+h.id]);
+  const all = [...qs.map(q=>({k:"q"+q.id, t:"🩺 "+q.topic})), ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front}))];
+  $("#mineList").innerHTML = all.length ? `
+    <div class="row"><h3 style="font-size:16px">Creadas por ti (${all.length})</h3><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>
+    ${all.map(x=>`<div class="srcitem"><div class="small" style="flex:1;min-width:0;word-break:break-word">${esc(x.t)}</div><button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}`
+    : `<p class="muted small" style="margin:0">Lo que crees aquí entra a tu repaso espaciado y lo puedes compartir como pack.</p>`;
+  document.querySelectorAll("[data-mdel]").forEach(b=>b.onclick=()=>{ const k = b.dataset.mdel, id = k.slice(1);
+    if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else if (k[0]==="h") S.userH = S.userH.filter(h=>h.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);
+    delete S.srs[k]; rebuild(); save(); renderMine(); });
+  $("#mineExp") && ($("#mineExp").onclick = ()=>downloadPack(makePack("Mis preguntas y fichas", qs, cs, {}, hs)));
+}
+function renderNotes(){
+  $("#mbeNotesN").textContent = S.notes.length;
+  $("#mbeNotes").innerHTML = S.notes.length ? S.notes.map(n=>`
+    <div class="srcitem"><div style="flex:1;min-width:0">
+      <div class="row xs" style="gap:6px"><span class="tag">${MBE[n.type] ? MBE[n.type].icon + " " + esc(MBE[n.type].name) : ""}</span><span class="muted">${esc(n.spec)} · ${fmtDate(n.at)}</span></div>
+      <div class="small" style="margin-top:4px"><b>${esc(n.title)}</b></div>
+      <dl class="notedl">${n.f.map((v,i)=>v?`<div><dt>${esc(n.labels[i])}</dt><dd>${esc(v)}</dd></div>`:"").join("")}</dl>
+      <div class="row" style="gap:6px;margin-top:6px">${n.hy ? `<span class="xs" style="color:var(--ok)">✓ Ficha high-yield creada</span>` : n.cards ? `<span class="xs" style="color:var(--ok)">✓ ${n.cards} tarjetas en tu repaso</span>` : `<button class="btn sm" data-nhy="${n.id}">💎 Crear ficha high-yield</button>`}<button class="btn ghost sm" data-ndel="${n.id}" style="color:var(--bad)">Borrar</button></div>
+      <div id="nhyEd-${n.id}"></div>
+    </div></div>`).join("") : `<p class="muted small" style="margin:0">Aún no tienes fichas de lectura. Destila lo que leas hoy y conviértelo en una ficha high-yield.</p>`;
+  document.querySelectorAll("[data-ndel]").forEach(b=>b.onclick=()=>{ S.notes = S.notes.filter(n=>n.id!==b.dataset.ndel); save(); renderNotes(); });
+  document.querySelectorAll("[data-nhy]").forEach(b=>b.onclick=()=>{
+    const n = S.notes.find(x=>x.id===b.dataset.nhy);
+    hyEditor($("#nhyEd-"+n.id), {title: n.title, badge: MBE[n.type] ? MBE[n.type].name : "", spec: n.spec,
+      rows: n.f.slice(0,3).map((v,i)=>v ? {label: n.labels[i], val: v} : null).filter(Boolean), trap: n.f[3] || "",
+      heading: "💎 Ficha high-yield de esta lectura", flags: {manual: true, mbe: true}, onSave: ()=>{ n.hy = true; save(); renderNotes(); }});
+  });
+}
+
+// ---------- packs ----------
+function makePack(title, qs, cs, meta, hs){
+  hs = hs || [];
+  return {format: "medipulse-pack", version: 2, title, org: meta.org || "", year: meta.year || "", created: todayKey(),
+    questions: qs.map(q=>({qtype: q.qtype || "caso", specialty: q.specialty, topic: q.topic || "", vignette: q.vignette, options: q.options, correct: q.correct, whyCorrect: q.whyCorrect || "", pearl: q.pearl || "", trap: q.trap || "", page: q.page || 0})),
+    fichas: hs.map(h=>({specialty: h.specialty, title: h.title, badge: h.badge || "", thresholds: h.thresholds, redFlag: h.redFlag || "", trap: h.trap || "", ctx: h.ctx || "", page: h.page || 0})),
+    cards: cs.map(c=>({specialty: c.specialty, front: c.front, back: c.back, ctx: c.ctx || "", page: c.page || 0}))};
+}
+function exportSourcePack(id){
+  const s = S.sources.find(x=>x.id===id), vis = (k,o)=>o.src===id && !S.hidden[k+o.id];
+  downloadPack(makePack(s.title, S.userQ.filter(q=>vis("q",q)), S.userC.filter(c=>vis("c",c)), s, S.userH.filter(h=>vis("h",h))));
+}
+function importPack(p){
+  const str = (x, max) => typeof x === "string" ? x.trim().slice(0, max) : "";
+  if (!p || p.format !== "medipulse-pack" || (!Array.isArray(p.questions) && !Array.isArray(p.cards) && !Array.isArray(p.fichas))) return toast("Ese archivo no es un pack de MediPulse.");
+  const spec = x => SPECS.includes(x) ? x : "Medicina Interna";
+  const qs = (p.questions || []).slice(0, 1000).filter(q=>q && str(q.vignette,1) && Array.isArray(q.options) && q.options.length===4 && q.options.every(o=>str(o,1)) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<4);
+  const hs = (p.fichas || []).slice(0, 1000).filter(h=>h && str(h.title,1) && Array.isArray(h.thresholds) && h.thresholds.length && h.thresholds.length <= 10 && h.thresholds.every(t=>t && str(t.label,1) && str(t.val,1)));
+  const cs = (p.cards || []).slice(0, 2000).filter(c=>c && str(c.front,1) && str(c.back,1));
+  if (!qs.length && !cs.length && !hs.length) return toast("El pack no tiene ítems válidos.");
+  const id = "k" + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
+  S.sources.push({id, title: str(p.title, 120) || "Pack importado", org: str(p.org, 80), year: parseInt(p.year) || "", pages: 0, chars: 0, added: Date.now(), spec: "Medicina Interna", kind: "pack"});
+  qs.forEach(q=>S.userQ.push({id: "u"+(++S.seq), qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", specialty: spec(q.specialty), topic: str(q.topic,200) || "Caso del pack", difficulty: "Pack", vignette: sanitizeVig(str(q.vignette,5000)),
+    options: q.options.map(o=>str(o,600)), correct: q.correct, whyCorrect: str(q.whyCorrect,3000), pearl: str(q.pearl,1500), trap: str(q.trap,1500), src: id, page: parseInt(q.page) || 0, pack: true}));
+  hs.forEach(h=>{ const sp = spec(h.specialty); S.userH.push({id: "u"+(++S.seq), specialty: sp, title: str(h.title,200), badge: str(h.badge,60), accent: SPEC_COLOR[sp],
+    thresholds: h.thresholds.map(t=>({label: str(t.label,200), val: str(t.val,400)})), redFlag: str(h.redFlag,1000), trap: str(h.trap,1000), ctx: str(h.ctx,1500), src: id, page: parseInt(h.page) || 0, pack: true}); });
+  cs.forEach(c=>S.userC.push({id: "u"+(++S.seq), specialty: spec(c.specialty), front: str(c.front,600), back: str(c.back,1500), ctx: str(c.ctx,1500), src: id, page: parseInt(c.page) || 0, pack: true}));
+  rebuild(); save(); toast(`Pack importado: ${qs.length} casos, ${hs.length} fichas${cs.length ? ` y ${cs.length} tarjetas` : ""} ✓`); openSrc(id);
+}
+
+// ---------- ítems de una fuente ----------
+function renderSrcItems(){
+  const s = cur(), vis = (k,o)=>o.src===s.id && !S.hidden[k+o.id];
+  const qs = S.userQ.filter(q=>vis("q",q)), hs = S.userH.filter(h=>vis("h",h)), cs = S.userC.filter(c=>vis("c",c));
+  const box = $("#srcItems");
+  if (!qs.length && !hs.length && !cs.length) { box.innerHTML = `<h3 style="font-size:16px">En tu banco</h3><p class="muted small" style="margin:6px 0 0">Todavía no hay preguntas ni fichas de esta fuente.</p>`; return; }
+  const status = k => { const r = S.srs[k]; return !r ? "nueva" : isDue(k) ? "toca repasar" : r.b>=3 ? "dominada" : "en repaso"; };
+  const rows = [...qs.map(q=>({k:"q"+q.id, t:(q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) : "🩺") + " " + (q.topic||"Caso clínico"), p:q.page, o:q})),
+    ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title, p:h.page, o:h})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front, p:c.page, o:c}))];
+  box.innerHTML = `<div class="row"><h3 style="font-size:16px">En tu banco</h3><div class="spacer"></div><button class="btn primary" id="srcStudy">Estudiar esta fuente (${rows.length})</button></div>
+    <div style="margin-top:8px">${rows.map(x=>`
+      <div class="srcitem"><div style="flex:1;min-width:0" class="small">${esc(x.t)}<div class="xs muted">${x.p ? "pág. " + x.p + " · " : ""}${status(x.k)}${x.o.stale?' · <span style="color:var(--warn)">versión anterior</span>':""}${x.o.updated?" · actualizado":""}</div></div><button class="btn ghost xs" data-del="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}</div>`;
+  $("#srcStudy").onclick = ()=>studySource(s.id);
+  box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
+    const k = b.dataset.del, id = k.slice(1);
+    if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else if (k[0]==="h") S.userH = S.userH.filter(h=>h.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);
+    delete S.srs[k]; rebuild(); save(); renderSrcItems(); refreshChips();
+  });
+}
+async function deleteSource(id){
+  const s = S.sources.find(x=>x.id===id); if (!s) return;
+  const n = S.userQ.filter(q=>q.src===id).length + S.userC.filter(c=>c.src===id).length + S.userH.filter(h=>h.src===id).length;
+  if (!confirm(`¿Eliminar “${s.title}”${n?` y sus ${n} preguntas y fichas`:""}? No se puede deshacer.`)) return;
+  [["q",S.userQ],["c",S.userC],["h",S.userH]].forEach(([k,arr])=>arr.filter(o=>o.src===id).forEach(o=>delete S.srs[k+o.id]));
+  S.userQ = S.userQ.filter(q=>q.src!==id); S.userC = S.userC.filter(c=>c.src!==id); S.userH = S.userH.filter(h=>h.src!==id);
+  S.sources = S.sources.filter(x=>x.id!==id);
+  rebuild(); save(); delete recCache[id];
+  try { await idb.del(id); } catch(e) {}
+  toast("Fuente eliminada"); go("lib");
+}
 
 function renderGuide(){
   $("#gdToKey").onclick = ()=>{ go("lib"); const k = $("#keyIn") || $("#aiBox"); k && k.scrollIntoView({behavior:"smooth", block:"center"}); $("#keyIn") && $("#keyIn").focus({preventScroll:true}); };
