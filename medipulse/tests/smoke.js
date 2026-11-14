@@ -76,6 +76,17 @@ const check = (name, ok, extra) => { results.push({name, ok}); console.log(`${ok
     const views = ["hoy","banco","tarjetas","sim","mbe","lib","prog","new","rep","check","guide"], wide = [];
     for (const v of views) { await page.evaluate(v => go(v), v); if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)) wide.push(v); }
     check("Sin desplazamiento horizontal a 360 px", !wide.length, wide.join(", "));
+
+    // Versión de un solo archivo: se abre sola (sin css/, data/ ni js/ al lado), con estilos y sin errores
+    const os = require("os"), { build, OUT } = require("../tools/un-archivo.js"); build();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "mp-")), solo = path.join(dir, "index.html");
+    fs.copyFileSync(OUT, solo);
+    const p2 = await browser.newPage({viewport: {width: 360, height: 800}});
+    p2.on("pageerror", e => errors.push("un archivo: " + e.message));
+    await p2.goto("file://" + solo);
+    const ok = await p2.evaluate(() => QUESTIONS.length > 0 && getComputedStyle(document.querySelector(".view:not(.on)") || document.body).display === "none");
+    check("La versión de un solo archivo abre sola", ok);
+    await p2.close(); fs.rmSync(dir, {recursive: true});
   } catch (e) {
     check("Recorrido completo", false, e.message.split("\n")[0]);
   }

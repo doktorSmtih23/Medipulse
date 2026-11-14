@@ -45,6 +45,11 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `vendor/` | pdf.js 3.11.174 y `@anthropic-ai/sdk` 1.2.0 (no editar a mano) |
 | `sw.js` | Caché sin conexión |
 | `tests/smoke.js` | Prueba automática de los flujos principales |
+| `tools/un-archivo.js` | Genera `medipulse-un-archivo.html` (la app en un solo archivo, no se sube al repo) |
+
+### Versión de un solo archivo
+
+Para ver la app en un visor que abre un solo HTML (por ejemplo, el panel de archivos de Claude) o para pasarla completa a otra IA: `node tools/un-archivo.js` (o `--watch` para regenerarla con cada cambio). Ese archivo es una copia generada: **nunca se edita a mano** y los cambios que vengan sobre él se llevan a los módulos.
 
 ## Reglas de código
 
@@ -74,5 +79,5 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
    - [ ] Funciona sin internet (salvo IA) y en tema claro y oscuro.
    - [ ] Sin desplazamiento horizontal a 360 px.
    - [ ] No duplica algo que la app ya hace; si lo mejora, reemplaza la versión anterior.
-4. **Probar:** `node tests/smoke.js` (desde `medipulse/`) y probar a mano el flujo cambiado.
+4. **Probar:** `node tests/smoke.js` (desde `medipulse/`) y probar a mano el flujo cambiado. La prueba también regenera `medipulse-un-archivo.html`.
 5. **Subir `CACHE` en `sw.js`**, actualizar `README.md` y `MAPA.html` si cambia lo que ve el usuario, y abrir el PR explicando qué se tomó, qué se adaptó y qué se descartó.

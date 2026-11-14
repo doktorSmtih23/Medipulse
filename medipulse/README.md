@@ -9,6 +9,8 @@ La app está dividida por módulos (sin frameworks ni compilación): `index.html
 
 Prueba automática: `node tests/smoke.js` (requiere `npm install --no-save playwright` y `npx playwright install chromium` la primera vez).
 
+Versión de un solo archivo (para visores que abren un solo HTML o para compartirla): `node tools/un-archivo.js` genera `medipulse-un-archivo.html`; con `--watch` se regenera con cada cambio.
+
 ## Cómo funciona
 Al abrirla eliges cómo te sientes y la app arma la sesión:
 
