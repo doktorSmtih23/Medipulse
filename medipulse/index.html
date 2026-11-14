@@ -1617,13 +1617,34 @@ async function openPdf(id, page){
 
 // ---------- pdf.js (incluido en vendor/, funciona sin internet) ----------
 let pdfjsP = null;
-function loadPdfJs(){
-  return pdfjsP || (pdfjsP = new Promise((res,rej)=>{
-    const s = document.createElement("script"); s.src = "vendor/pdf.min.js";
-    s.onload = () => { pdfjsLib.GlobalWorkerOptions.workerSrc = "vendor/pdf.worker.min.js"; res(pdfjsLib); };
-    s.onerror = () => { pdfjsP = null; rej(new Error("no se pudo cargar el lector de PDF")); };
+// Lector de PDF: primero la copia incluida en la app (funciona sin internet); si no carga, una copia idéntica en un CDN.
+const PDFJS_SOURCES = [
+  {lib: "vendor/pdf.min.js", worker: "vendor/pdf.worker.min.js"},
+  {lib: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", worker: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"},
+  {lib: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js", worker: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js"}
+];
+function loadScript(src){
+  return new Promise((res, rej)=>{
+    const s = document.createElement("script"); s.src = src;
+    s.onload = ()=>res(); s.onerror = ()=>{ s.remove(); rej(new Error(src)); };
     document.head.appendChild(s);
-  }));
+  });
+}
+function loadPdfJs(){
+  return pdfjsP || (pdfjsP = (async ()=>{
+    const failed = [];
+    for (const src of PDFJS_SOURCES) {
+      try {
+        await loadScript(src.lib);
+        if (!window.pdfjsLib) throw new Error(src.lib + " (no definió pdfjsLib)");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = src.worker;
+        return pdfjsLib;
+      } catch(e) { failed.push(e.message); }
+    }
+    pdfjsP = null;
+    console.error("No cargó el lector de PDF desde:", failed);
+    throw new Error("no se pudo cargar el lector de PDF. Revisa tu conexión y recarga la página; si sigue igual, abre la app desde " + location.origin + "/checkerexam/medipulse/");
+  })());
 }
 async function extractPages(buf, onProg){
   const lib = await loadPdfJs();
@@ -1993,7 +2014,10 @@ const STALE_DAYS = 180;
 function uerr(msg, e){ const x = new Error((e && e.message) || msg); x.userMsg = msg; return x; }
 async function loadSDK(){
   try { return (await import("./vendor/anthropic-sdk.mjs")).default; }
-  catch(e) { throw uerr("No se pudo cargar el módulo de IA. Revisa tu conexión.", e); }
+  catch(e) {
+    try { return (await import("https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@1.2.0/+esm")).default; }
+    catch(e2) { throw uerr("No se pudo cargar el módulo de IA. Revisa tu conexión y recarga la página.", e2); }
+  }
 }
 function apiErr(A, e){
   if (e instanceof A.AuthenticationError) return uerr("La clave de API no es válida. Revísala en Fuentes.", e);
