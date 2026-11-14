@@ -23,6 +23,12 @@ Al abrirla eliges cómo te sientes y la app arma la sesión:
   - **Casos clínicos + tarjetas con IA** (opcional): usa la API de Claude con la clave de API del propio usuario. Solo usa información del PDF e indica la página de origen.
   - Todo pasa por una pantalla de revisión antes de entrar al banco, y cada ítem queda enlazado al PDF y a su página.
 
+- **Vigencia de las fuentes** (Fuentes → Vigencia):
+  - Con clave de API, Claude busca en la web si hay una versión más nueva de cada fuente (incluidas y PDFs propios) y resume qué cambió. Sin clave: enlace de búsqueda y marcado manual (vigente / desactualizada).
+  - **Actualizar ítems afectados:** Claude compara cada pregunta con la versión nueva, verifica en la web y propone corregir, archivar o mantener. Tú eliges qué aplicar; lo corregido vuelve al repaso como nuevo.
+  - **PDF propio:** "Subir versión nueva" reemplaza el PDF; las preguntas viejas quedan marcadas y se pueden revisar con IA contra el texto nuevo, mantener o archivar.
+  - En el estudio, cada ítem avisa si su fuente tiene una versión más nueva.
+
 Los datos se guardan solo en el dispositivo: el progreso en `localStorage` y los PDF en IndexedDB. El respaldo exportado no incluye los PDF ni la clave de API.
 
 ## Archivos de terceros (`vendor/`)
