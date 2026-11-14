@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mapa de MediPulse</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Layout: un mapa técnico en una columna ancha; cada sección es una "capa" de la app, de lo general (arquitectura) a lo específico (pendientes). */
+:root{
+  --bg:#f4f7f8; --panel:#ffffff; --sunk:#e8eef0; --ink:#0d1b22; --muted:#56666e; --line:#d3dde1;
+  --accent:#0891b2; --accent-soft:#dff3f8;
+  --lazy:#7c3aed; --lazy-soft:#efe9fe; --norm:#0891b2; --fire:#d9480f; --fire-soft:#ffeadb;
+  --ok:#0f8a5f; --ok-soft:#ddf5ea; --warn:#a15c00; --warn-soft:#fdf0d6; --bad:#c81e4a; --bad-soft:#fde4ea;
+  --f-display:"Space Grotesk",system-ui,sans-serif; --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a1418; --panel:#111e24; --sunk:#172830; --ink:#e6eef1; --muted:#93a6ae; --line:#24363e;
+  --accent:#2bc4e3; --accent-soft:#0d3440; --lazy:#a98bfa; --lazy-soft:#261d48; --norm:#2bc4e3; --fire:#ff8a4c; --fire-soft:#3d2112;
+  --ok:#3fd09a; --ok-soft:#0f3328; --warn:#f2b84b; --warn-soft:#3a2c0c; --bad:#ff6f91; --bad-soft:#401827; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0a1418; --panel:#111e24; --sunk:#172830; --ink:#e6eef1; --muted:#93a6ae; --line:#24363e;
+  --accent:#2bc4e3; --accent-soft:#0d3440; --lazy:#a98bfa; --lazy-soft:#261d48; --norm:#2bc4e3; --fire:#ff8a4c; --fire-soft:#3d2112;
+  --ok:#3fd09a; --ok-soft:#0f3328; --warn:#f2b84b; --warn-soft:#3a2c0c; --bad:#ff6f91; --bad-soft:#401827; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(30px,5vw,44px)}
+h2{font-size:24px}
+h3{font-size:16px}
+p{margin:0}
+.muted{color:var(--muted)}
+.eyebrow{font:600 11.5px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.mono{font-family:var(--f-mono)}
+.sec{display:flex;flex-direction:column;gap:16px}
+.sec>header{display:flex;flex-direction:column;gap:6px;max-width:70ch}
+
+/* cabecera */
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:end}
+.hero .lead{font-size:16.5px;max-width:58ch;margin-top:12px}
+.pulse{width:100%;height:46px;margin-top:18px;display:block}
+.pulse path{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font:700 28px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--muted)}
+.toc{display:flex;flex-wrap:wrap;gap:8px}
+.toc a{font:500 12.5px var(--f-mono);color:var(--ink);text-decoration:none;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 12px}
+.toc a:hover,.toc a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+
+/* arquitectura: capas */
+.layers{display:flex;flex-direction:column;gap:0}
+.layer{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.layer:last-child{border-bottom:1px solid var(--line)}
+.layer .lbl{display:flex;flex-direction:column;gap:4px}
+.layer .lbl b{font:600 15px var(--f-display)}
+.layer .lbl span{font-size:12.5px;color:var(--muted)}
+.boxes{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13.5px;min-width:0}
+.box small{display:block;color:var(--muted);font-size:12px}
+.box.opt{border-style:dashed}
+.box.key{border-color:var(--accent);background:var(--accent-soft)}
+
+/* navegación */
+.navmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.screen{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.screen .top{display:flex;align-items:center;gap:10px}
+.screen .ico{width:34px;height:34px;border-radius:9px;background:var(--sunk);display:grid;place-items:center;font-size:17px;flex:none}
+.screen ul{margin:0;padding-left:18px;font-size:13.5px}
+.screen li{margin:3px 0}
+.sub{border-top:1px dashed var(--line);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.sub .tag{align-self:flex-start}
+.tag{display:inline-block;font:600 11px/1.6 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;padding:1px 8px;border-radius:6px;background:var(--sunk);color:var(--muted)}
+.tag.ai{background:var(--accent-soft);color:var(--accent)}
+
+/* modos */
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mode{border-radius:14px;padding:16px;border:1.5px solid var(--line);background:var(--panel);display:flex;flex-direction:column;gap:8px}
+.mode.l{border-color:color-mix(in srgb,var(--lazy) 50%,var(--line));background:linear-gradient(180deg,var(--lazy-soft),var(--panel) 75%)}
+.mode.n{border-color:color-mix(in srgb,var(--norm) 50%,var(--line));background:linear-gradient(180deg,var(--accent-soft),var(--panel) 75%)}
+.mode.f{border-color:color-mix(in srgb,var(--fire) 50%,var(--line));background:linear-gradient(180deg,var(--fire-soft),var(--panel) 75%)}
+.mode .dur{font:700 13px var(--f-mono)}
+.mode.l .dur{color:var(--lazy)}.mode.n .dur{color:var(--norm)}.mode.f .dur{color:var(--fire)}
+.mode ol,.mode ul{margin:0;padding-left:18px;font-size:13.5px}
+
+/* repaso espaciado: escala de tiempo */
+.srs{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.boxes-srs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.bx{border-radius:10px;padding:10px 8px;text-align:center;background:var(--sunk)}
+.bx b{display:block;font:700 18px var(--f-display);font-variant-numeric:tabular-nums}
+.bx span{font:500 11.5px var(--f-mono);color:var(--muted)}
+.bx.c0{background:var(--bad-soft)}.bx.c5{background:var(--ok-soft)}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:13.5px}
+.rules div{border-left:3px solid var(--line);padding-left:10px}
+.rules .r0{border-color:var(--bad)}.rules .r1{border-color:var(--warn)}.rules .r2{border-color:var(--ok)}
+
+/* flujos */
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.step{flex:1 1 150px;display:flex;flex-direction:column;gap:4px;padding:6px 14px 6px 0;position:relative;min-width:0}
+.step+.step{padding-left:18px;border-left:1px solid var(--line)}
+.step b{font:600 14px var(--f-display)}
+.step span{font-size:12.8px;color:var(--muted)}
+.branch{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card ul{margin:0;padding-left:18px;font-size:13.5px}
+.card li{margin:3px 0}
+
+/* contenido */
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{text-align:left;padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;font:600 11.5px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+td.n{font-variant-numeric:tabular-nums;font-family:var(--f-mono)}
+.bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+tfoot td{font-weight:700}
+
+/* datos */
+.store{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.store .card h3{display:flex;gap:8px;align-items:center}
+
+/* estado */
+.status{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.chk{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:13.8px}
+.chk li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start}
+.chk .d{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;margin-top:2px}
+.chk .y{background:var(--ok-soft);color:var(--ok)}
+.chk .p{background:var(--warn-soft);color:var(--warn)}
+.chk .q{background:var(--accent-soft);color:var(--accent)}
+.commit{font:500 12px var(--f-mono);color:var(--muted)}
+.note{background:var(--warn-soft);border-radius:12px;padding:12px 14px;font-size:13.8px}
+
+@media (max-width:860px){
+  .hero,.navmap,.modes,.branch,.store,.status{grid-template-columns:1fr}
+  .layer{grid-template-columns:1fr;gap:8px}
+  .rules{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .boxes-srs{grid-template-columns:repeat(3,1fr)}
+  .step,.step+.step{flex-basis:100%;border-left:0;padding:10px 0;border-top:1px solid var(--line)}
+  .step:first-child{border-top:0}
+}
+@media (prefers-reduced-motion:no-preference){
+  .pulse path{stroke-dasharray:900;stroke-dashoffset:0;animation:draw 2.4s ease-out}
+  @keyframes draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ========== CABECERA ========== -->
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Estado al 14 nov. 2026 · rama claude/new-session-8n8aj8</div>
+      <h1 style="margin-top:10px">Mapa de MediPulse</h1>
+      <p class="lead muted">App de estudio para el examen de residencia médica que adapta la sesión a la energía del estudiante, repasa con repetición espaciada, convierte PDFs en preguntas y vigila que sus fuentes sigan vigentes.</p>
+      <svg class="pulse" viewBox="0 0 600 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 26 H170 L184 26 L192 10 L202 40 L212 4 L224 34 L232 26 H390 L402 26 L410 14 L418 34 L426 26 H600"/></svg>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>26</b><span>casos clínicos incluidos</span></div>
+      <div class="stat"><b>53</b><span>tarjetas rápidas</span></div>
+      <div class="stat"><b>6</b><span>fichas high-yield</span></div>
+      <div class="stat"><b>33</b><span>fuentes con vigencia revisada</span></div>
+    </div>
+  </section>
+
+  <nav class="toc" aria-label="Secciones">
+    <a href="#arquitectura">Arquitectura</a><a href="#pantallas">Pantallas</a><a href="#motor">Motor de estudio</a><a href="#fuentes">Fuentes y PDFs</a><a href="#vigencia">Vigencia</a><a href="#contenido">Contenido</a><a href="#datos">Datos</a><a href="#estado">Estado y pendientes</a>
+  </nav>
+
+  <!-- ========== ARQUITECTURA ========== -->
+  <section class="sec" id="arquitectura">
+    <header><span class="eyebrow">1 · Arquitectura</span><h2>Una app web que vive en el dispositivo</h2>
+      <p class="muted">Un solo archivo HTML sin servidor propio. Todo funciona sin internet excepto las funciones con IA, que llaman a la API de Claude con la clave del usuario.</p></header>
+    <div class="layers">
+      <div class="layer"><div class="lbl"><b>Acceso</b><span>cómo llega el usuario</span></div>
+        <div class="boxes"><div class="box">GitHub Pages<small>/checkerexam/medipulse/</small></div><div class="box">PWA instalable<small>“Agregar a pantalla de inicio”</small></div><div class="box">Service worker<small>caché sin conexión · v6</small></div></div></div>
+      <div class="layer"><div class="lbl"><b>Interfaz</b><span>medipulse/index.html</span></div>
+        <div class="boxes"><div class="box">HTML + CSS + JS sin frameworks<small>~177 KB, tema claro/oscuro, primero celular</small></div><div class="box">11 vistas<small>6 en la barra inferior + 5 internas</small></div><div class="box">Atajos de teclado<small>1–4, Enter, espacio</small></div></div></div>
+      <div class="layer"><div class="lbl"><b>Lógica</b><span>dentro del mismo archivo</span></div>
+        <div class="boxes"><div class="box">Motor de sesión<small>etapas, temporizador, retroalimentación</small></div><div class="box">Repaso espaciado<small>Leitner, 6 cajas</small></div><div class="box">Generador local<small>tarjetas de completar</small></div><div class="box">Vigencia<small>estados, revisión, correcciones</small></div></div></div>
+      <div class="layer"><div class="lbl"><b>Datos</b><span>solo en el dispositivo</span></div>
+        <div class="boxes"><div class="box">localStorage<small>progreso, banco propio, vigencia</small></div><div class="box">IndexedDB<small>PDFs y su texto</small></div><div class="box">Respaldo JSON<small>exportar / importar</small></div></div></div>
+      <div class="layer"><div class="lbl"><b>Librerías</b><span>incluidas en vendor/</span></div>
+        <div class="boxes"><div class="box">pdf.js 3.11.174<small>lee los PDF sin internet</small></div><div class="box">SDK de Anthropic 1.2.0<small>empaquetado para navegador</small></div></div></div>
+      <div class="layer"><div class="lbl"><b>Servicios externos</b><span>opcional</span></div>
+        <div class="boxes"><div class="box key opt">API de Claude · Opus 5.5<small>clave del usuario, respaldo automático de modelo</small></div><div class="box opt">Búsqueda web de Anthropic<small>solo para revisar vigencia</small></div></div></div>
+    </div>
+  </section>
+
+  <!-- ========== PANTALLAS ========== -->
+  <section class="sec" id="pantallas">
+    <header><span class="eyebrow">2 · Pantallas</span><h2>Seis pestañas y lo que hay detrás de cada una</h2></header>
+    <div class="navmap">
+      <article class="screen"><div class="top"><div class="ico">⌂</div><h3>Hoy</h3></div>
+        <ul><li>Elegir energía: Sin ganas · Normal · A tope</li><li>Resumen del día: minutos, casos, % de aciertos, tarjetas</li><li>Recomendación: repasos vencidos → racha → ítems nuevos de PDFs → tema débil</li><li>Perla del día</li></ul>
+        <div class="sub"><span class="tag">Internas</span><ul><li><b>Sin ganas:</b> 10 tarjetas, un caso o leer una ficha</li><li><b>Sesión:</b> preguntas, tarjetas, fichas y pausas entre bloques</li></ul></div></article>
+      <article class="screen"><div class="top"><div class="ico">🩺</div><h3>Casos</h3></div>
+        <ul><li>Filtro por especialidad (6)</li><li>Casos vistos y % de aciertos</li><li>Practicar 10 con explicación, perla, trampa y fuente</li><li>Solo los pendientes de repaso</li></ul></article>
+      <article class="screen"><div class="top"><div class="ico">🃏</div><h3>Fichas</h3></div>
+        <ul><li>6 fichas high-yield: umbrales, bandera roja y trampa</li><li>Filtro por especialidad</li><li>Repasar 15 tarjetas rápidas</li></ul></article>
+      <article class="screen"><div class="top"><div class="ico">⏱</div><h3>Simulacro</h3></div>
+        <ul><li>5, 10, 20 o todas las preguntas</li><li>72 s por pregunta, sin retroalimentación hasta el final</li><li>Revisión detallada con fuente</li><li>Historial de puntajes</li></ul></article>
+      <article class="screen"><div class="top"><div class="ico">📚</div><h3>Fuentes</h3></div>
+        <ul><li>Agregar PDFs</li><li>Tarjeta de vigencia</li><li>Clave de API</li><li>33 referencias, de la más nueva a la más antigua</li></ul>
+        <div class="sub"><span class="tag">Internas</span><ul><li><b>Detalle de fuente:</b> generar, revisar, banco, nueva versión</li><li><b>Vigencia:</b> revisar y actualizar</li><li><b>Guía de la clave:</b> 7 pasos, problemas y preguntas frecuentes</li></ul></div></article>
+      <article class="screen"><div class="top"><div class="ico">📈</div><h3>Progreso</h3></div>
+        <ul><li>Racha, horas, % de aciertos, ítems dominados</li><li>Dominio por especialidad</li><li>Mapa de calor de 5 semanas</li><li>Exportar, importar, borrar progreso</li></ul></article>
+    </div>
+  </section>
+
+  <!-- ========== MOTOR ========== -->
+  <section class="sec" id="motor">
+    <header><span class="eyebrow">3 · Motor de estudio</span><h2>La sesión se arma según la energía</h2>
+      <p class="muted">Cada modo usa el mismo motor: una sesión con una o varias partes, temporizador y registro de minutos. Lo que se responde alimenta el repaso espaciado.</p></header>
+    <div class="modes">
+      <article class="mode l"><span class="dur">≤ 5 MIN</span><h3>🛋️ Sin ganas</h3>
+        <ul><li>Elegir una: 10 tarjetas, un caso o leer una ficha</li><li>Cuenta para la racha</li><li>Al terminar ofrece “otros 5 minutos”</li></ul></article>
+      <article class="mode n"><span class="dur">25 MIN</span><h3>🙂 Normal</h3>
+        <ol><li>10 casos, dando prioridad al tema débil</li><li>8 tarjetas rápidas</li></ol></article>
+      <article class="mode f"><span class="dur">~90 MIN</span><h3>🔥 A tope</h3>
+        <ol><li>Repaso espaciado (vencidos)</li><li>Tema más débil (12 casos)</li><li>Simulacro mixto (15, cronometrado)</li><li>Cierre con 10 tarjetas</li></ol>
+        <span class="muted" style="font-size:12.5px">Pausa sugerida entre bloques.</span></article>
+    </div>
+    <div class="srs">
+      <h3>Repaso espaciado · próximo repaso según la caja</h3>
+      <div class="boxes-srs" role="list">
+        <div class="bx c0" role="listitem"><b>10 min</b><span>caja 0</span></div>
+        <div class="bx" role="listitem"><b>1 d</b><span>caja 1</span></div>
+        <div class="bx" role="listitem"><b>3 d</b><span>caja 2</span></div>
+        <div class="bx" role="listitem"><b>7 d</b><span>caja 3</span></div>
+        <div class="bx" role="listitem"><b>16 d</b><span>caja 4</span></div>
+        <div class="bx c5" role="listitem"><b>35 d</b><span>caja 5</span></div>
+      </div>
+      <div class="rules">
+        <div class="r0"><b>Fallé / no la sabía</b><br><span class="muted">vuelve a la caja 0 y reaparece en 10 min</span></div>
+        <div class="r1"><b>Dudé</b><br><span class="muted">se queda en su caja y vuelve mañana</span></div>
+        <div class="r2"><b>La sabía / correcta</b><br><span class="muted">sube una caja; desde la caja 3 cuenta como dominada</span></div>
+      </div>
+      <p class="muted" style="font-size:13.5px"><b style="color:var(--ink)">Orden al elegir preguntas:</b> vencidas → nunca vistas (primero las del tema débil) → las de cajas más bajas, mezcladas.</p>
+    </div>
+  </section>
+
+  <!-- ========== FUENTES ========== -->
+  <section class="sec" id="fuentes">
+    <header><span class="eyebrow">4 · Fuentes y PDFs</span><h2>De un PDF a preguntas en el repaso</h2></header>
+    <div class="flow">
+      <div class="step"><b>Subir PDF</b><span>pdf.js extrae el texto por página; se guarda en IndexedDB</span></div>
+      <div class="step"><b>Elegir páginas</b><span>rango, cantidad y especialidad; costo estimado si usa IA</span></div>
+      <div class="step"><b>Generar</b><span>sin IA: tarjetas de completar<br>con IA: casos + tarjetas</span></div>
+      <div class="step"><b>Revisar</b><span>marcar, editar o descartar antes de guardar</span></div>
+      <div class="step"><b>Banco</b><span>cada ítem enlaza al PDF y a la página</span></div>
+      <div class="step"><b>Repaso</b><span>entra al repaso espaciado y a la recomendación de “Hoy”</span></div>
+    </div>
+    <div class="branch">
+      <article class="card"><h3>🃏 Tarjetas de completar <span class="tag">gratis · sin internet</span></h3>
+        <ul><li>Busca frases con dosis y umbrales, “de elección”, “primera línea”, definiciones</li><li>Oculta el dato: “contraindicada si K⁺ > _____” → 5 mEq/L</li><li>Prioriza frases con palabras clave del examen</li></ul></article>
+      <article class="card"><h3>🤖 Casos + tarjetas con IA <span class="tag ai">clave de API</span></h3>
+        <ul><li>Viñeta, 4 opciones, explicación, perla y trampa</li><li>Usa solo el texto del PDF y cita la página</li><li>Salida con esquema JSON validado</li><li>Aprox. US$0.10–0.40 por tanda</li></ul></article>
+    </div>
+  </section>
+
+  <!-- ========== VIGENCIA ========== -->
+  <section class="sec" id="vigencia">
+    <header><span class="eyebrow">5 · Vigencia</span><h2>Revisar que las fuentes sigan al día y actualizar</h2></header>
+    <div class="flow">
+      <div class="step"><b>Revisar</b><span>con IA: búsqueda web por lotes de 5<br>sin clave: buscar y marcar a mano</span></div>
+      <div class="step"><b>Estado</b><span>vigente · versión nueva · sin confirmar · actualizada por ti · aviso ignorado</span></div>
+      <div class="step"><b>Actualizar</b><span>la IA propone corregir, archivar o mantener cada ítem</span></div>
+      <div class="step"><b>Aprobar</b><span>antes / después; lo corregido vuelve al repaso como nuevo</span></div>
+    </div>
+    <div class="branch">
+      <article class="card"><h3>Fuentes incluidas</h3>
+        <ul><li>33 guías y libros, actualizados a nov. 2026 (SSC 2026, AHA/ASA ACV 2026, ATLS 11, OMS/FIGO HPP 2025…)</li><li>9 marcadas como “antiguas pero vigentes” (p. ej. AAP bronquiolitis 2014)</li><li>Las correcciones se guardan como capa sobre el contenido original</li></ul></article>
+      <article class="card"><h3>PDFs propios</h3>
+        <ul><li>Datos: organización y año, para identificarlos</li><li>Subir versión nueva: las preguntas viejas quedan marcadas</li><li>Revisarlas con IA contra el PDF nuevo, mantenerlas o archivarlas</li><li>Avisos durante el estudio si la fuente cambió</li></ul></article>
+    </div>
+  </section>
+
+  <!-- ========== CONTENIDO ========== -->
+  <section class="sec" id="contenido">
+    <header><span class="eyebrow">6 · Contenido incluido</span><h2>Banco base por especialidad</h2>
+      <p class="muted">18 casos originales de la versión de Gemini (revisados) + 8 nuevos. Cada ítem cita su fuente.</p></header>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Especialidad</th><th>Casos</th><th>Tarjetas</th><th>Fichas</th><th style="width:34%">Proporción del banco</th></tr></thead>
+        <tbody>
+          <tr><td>Medicina Interna</td><td class="n">8</td><td class="n">14</td><td class="n">2</td><td><div class="bar"><i style="width:100%"></i></div></td></tr>
+          <tr><td>Urgencias</td><td class="n">4</td><td class="n">11</td><td class="n">1</td><td><div class="bar"><i style="width:66.7%"></i></div></td></tr>
+          <tr><td>Cirugía</td><td class="n">4</td><td class="n">9</td><td class="n">1</td><td><div class="bar"><i style="width:58.3%"></i></div></td></tr>
+          <tr><td>Pediatría</td><td class="n">4</td><td class="n">7</td><td class="n">1</td><td><div class="bar"><i style="width:50%"></i></div></td></tr>
+          <tr><td>Ginecología</td><td class="n">4</td><td class="n">7</td><td class="n">1</td><td><div class="bar"><i style="width:50%"></i></div></td></tr>
+          <tr><td>Salud Pública</td><td class="n">2</td><td class="n">5</td><td class="n">0</td><td><div class="bar"><i style="width:29.2%"></i></div></td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td class="n">26</td><td class="n">53</td><td class="n">6</td><td class="muted" style="font-weight:400">85 ítems</td></tr></tfoot>
+      </table>
+    </div>
+  </section>
+
+  <!-- ========== DATOS ========== -->
+  <section class="sec" id="datos">
+    <header><span class="eyebrow">7 · Datos y privacidad</span><h2>Qué se guarda y qué sale del dispositivo</h2></header>
+    <div class="store">
+      <article class="card"><h3>💾 En el dispositivo</h3>
+        <ul><li>Progreso: cajas de repaso, registro diario, simulacros</li><li>Banco propio, correcciones y archivados</li><li>Estados de vigencia</li><li>PDFs y su texto (IndexedDB)</li><li>Clave de API (aparte)</li></ul></article>
+      <article class="card"><h3>📦 En el respaldo JSON</h3>
+        <ul><li>Todo el progreso y el banco propio</li><li>Correcciones, archivados y vigencia</li><li><b>No</b> incluye los PDFs</li><li><b>No</b> incluye la clave de API</li></ul></article>
+      <article class="card"><h3>🌐 Se envía a Anthropic</h3>
+        <ul><li>Solo al usar funciones con IA</li><li>Texto de las páginas elegidas</li><li>Nombres de fuentes a revisar</li><li>Ítems a actualizar</li><li>Nunca el progreso ni las estadísticas</li></ul></article>
+    </div>
+  </section>
+
+  <!-- ========== ESTADO ========== -->
+  <section class="sec" id="estado">
+    <header><span class="eyebrow">8 · Estado y pendientes</span><h2>Dónde estamos</h2></header>
+    <div class="status">
+      <article class="card"><h3>Hecho</h3>
+        <ul class="chk">
+          <li><span class="d y">✓</span><span>Modos por energía, repaso espaciado, simulacro y progreso <span class="commit">16b1200</span></span></li>
+          <li><span class="d y">✓</span><span>Biblioteca de fuentes y generación desde PDF <span class="commit">0ef9893</span></span></li>
+          <li><span class="d y">✓</span><span>Fuentes actualizadas a las versiones vigentes <span class="commit">2f62d16</span></span></li>
+          <li><span class="d y">✓</span><span>Revisión y actualización de vigencia <span class="commit">039b66a</span></span></li>
+          <li><span class="d y">✓</span><span>Guía de la clave de API (en la app y en GUIA_CLAVE_API.md) <span class="commit">c01937f</span></span></li>
+          <li><span class="d y">✓</span><span>Probado en navegador con respuestas de la API simuladas, sin errores</span></li>
+        </ul></article>
+      <article class="card"><h3>Pendiente</h3>
+        <ul class="chk">
+          <li><span class="d q">?</span><span><b>Decidir el modelo de cobro.</b> Hoy cada usuario usa su propia clave. Propuesta: servidor (p. ej. Supabase) con tu clave, inicio de sesión, suscripción y créditos de IA. Esperando tus respuestas a las 7 preguntas.</span></li>
+          <li><span class="d p">!</span><span>Probar las funciones con IA con una clave real</span></li>
+          <li><span class="d p">!</span><span>Confirmar los nombres de menú de la Consola de Anthropic en la guía</span></li>
+          <li><span class="d p">!</span><span>Ampliar el banco (26 casos es poco para el examen)</span></li>
+          <li><span class="d p">!</span><span>Abrir PR a <span class="mono">main</span> para publicarlo en GitHub Pages</span></li>
+        </ul></article>
+    </div>
+    <p class="note">Si se implementa el servidor con suscripción, cambian las capas <b>Datos</b> (cuenta del usuario) y <b>Servicios externos</b> (la app llama a tu servidor, no directo a Anthropic), y se quita o esconde la guía de la clave.</p>
+  </section>
+
+</div>
+</body>
+</html>
