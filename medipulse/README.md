@@ -2,6 +2,8 @@
 
 App web instalable que funciona sin conexión. Es un solo archivo HTML, sin dependencias externas.
 
+Mapa estructural de la app (arquitectura, pantallas, motor de estudio, fuentes, vigencia, datos y pendientes): **[MAPA.html](MAPA.html)**.
+
 ## Cómo funciona
 Al abrirla eliges cómo te sientes y la app arma la sesión:
 
