@@ -1,0 +1,25 @@
+// ===================================================================
+// PROGRESO
+// ===================================================================
+function renderProg(){
+  const days=Object.values(S.log), tot=days.reduce((a,l)=>a+l.sec,0), q=days.reduce((a,l)=>a+l.q,0), ok=days.reduce((a,l)=>a+l.ok,0);
+  const mastered=Object.values(S.srs).filter(r=>r.b>=3).length;
+  $("#progKpis").innerHTML = `
+    <div class="kpi"><b>${streak()}</b><span>días de racha</span></div>
+    <div class="kpi"><b>${(tot/3600).toFixed(1)} h</b><span>estudiadas</span></div>
+    <div class="kpi"><b>${q?Math.round(ok/q*100)+"%":"—"}</b><span>aciertos en ${q} casos</span></div>
+    <div class="kpi"><b>${mastered}</b><span>ítems dominados (≥ 1 semana)</span></div>`;
+  const st=specStats();
+  $("#bars").innerHTML = SPECS.map(s=>{ const x=st[s], p=x.n?Math.round(x.ok/x.n*100):null;
+    const col = p==null?"var(--border)":p>=70?"var(--ok)":p>=50?"var(--warn)":"var(--bad)";
+    return `<button class="bar barbtn" data-bspec="${s}"><span>${s}</span><div class="track"><i style="width:${p??100}%;background:${col}"></i></div><b style="text-align:right">${p==null?"—":p+"%"}</b></button>`; }).join("");
+  document.querySelectorAll("[data-bspec]").forEach(b=>b.onclick=()=>{ const sp = b.dataset.bspec; startSession({label:sp, tag:"norm", stages:[{name:sp, items:pickQuestions(5,{spec:sp})}]}); });
+  const cells=[]; const now=new Date();
+  for(let i=34;i>=0;i--){ const d=new Date(now.getTime()-i*DAY), m=(S.log[todayKey(d)]?.sec||0)/60;
+    const a = m===0?0: m<10?.3: m<30?.55: m<60?.8:1;
+    cells.push(`<i title="${d.toLocaleDateString("es")}: ${Math.round(m)} min" style="${a?`background:color-mix(in srgb,var(--accent) ${a*100}%,var(--subtle))`:""}"></i>`); }
+  $("#heat").innerHTML=cells.join("");
+}
+$("#expBtn").onclick=()=>{ const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="medipulse-respaldo-"+todayKey()+".json"; a.click(); };
+$("#impFile").onchange=e=>{ const f=e.target.files[0]; if(!f) return; f.text().then(t=>{ try{ const d=JSON.parse(t); if(!d.srs||!d.log) throw 0; S=Object.assign(BLANK(),d); rebuild(); save(); applyTheme(); renderProg(); refreshChips(); toast("Respaldo importado ✓"); }catch(_){ toast("Archivo no válido"); } }); };
+$("#resetBtn").onclick=()=>{ if(confirm("¿Borrar tu progreso (racha, repasos, estadísticas)? Tus PDF y las preguntas generadas se conservan. No se puede deshacer.")){ S=Object.assign(BLANK(),{theme:S.theme,userQ:S.userQ,userC:S.userC,sources:S.sources,seq:S.seq,check:S.check,over:S.over,hidden:S.hidden,notes:S.notes,reports:S.reports,exam:S.exam,hints:S.hints,tpls:S.tpls,userH:S.userH}); save(); renderProg(); refreshChips(); toast("Progreso borrado"); } };

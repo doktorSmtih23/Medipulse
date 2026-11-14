@@ -183,13 +183,13 @@ tfoot td{font-weight:700}
   <!-- ========== ARQUITECTURA ========== -->
   <section class="sec" id="arquitectura">
     <header><span class="eyebrow">1 · Arquitectura</span><h2>Una app web que vive en el dispositivo</h2>
-      <p class="muted">Un solo archivo HTML sin servidor propio. Todo funciona sin internet excepto las funciones con IA, que llaman a la API de Claude con la clave del usuario.</p></header>
+      <p class="muted">HTML, CSS y JavaScript sin servidor propio, divididos por módulos (reglas en AGENTS.md). Todo funciona sin internet excepto las funciones con IA, que llaman a la API de Claude con la clave del usuario.</p></header>
     <div class="layers">
       <div class="layer"><div class="lbl"><b>Acceso</b><span>cómo llega el usuario</span></div>
         <div class="boxes"><div class="box">GitHub Pages<small>/checkerexam/medipulse/</small></div><div class="box">PWA instalable<small>“Agregar a pantalla de inicio”</small></div><div class="box">Service worker<small>caché sin conexión · v6</small></div></div></div>
-      <div class="layer"><div class="lbl"><b>Interfaz</b><span>medipulse/index.html</span></div>
-        <div class="boxes"><div class="box">HTML + CSS + JS sin frameworks<small>~177 KB, tema claro/oscuro, primero celular</small></div><div class="box">14 vistas<small>7 en la barra inferior + 7 internas</small></div><div class="box">Atajos de teclado<small>1–4, Enter, espacio</small></div></div></div>
-      <div class="layer"><div class="lbl"><b>Lógica</b><span>dentro del mismo archivo</span></div>
+      <div class="layer"><div class="lbl"><b>Interfaz</b><span>index.html + css/app.css</span></div>
+        <div class="boxes"><div class="box">HTML + CSS sin frameworks<small>tema claro/oscuro, primero celular</small></div><div class="box">14 vistas<small>7 en la barra inferior + 7 internas</small></div><div class="box">Atajos de teclado<small>1–4, Enter, espacio</small></div></div></div>
+      <div class="layer"><div class="lbl"><b>Lógica</b><span>js/: 17 módulos · data/: 5 archivos de contenido</span></div>
         <div class="boxes"><div class="box">Motor de sesión<small>etapas, temporizador, retroalimentación</small></div><div class="box">Repaso espaciado<small>Leitner, 6 cajas</small></div><div class="box">Generador local<small>tarjetas de completar</small></div><div class="box">Vigencia<small>estados, revisión, correcciones</small></div></div></div>
       <div class="layer"><div class="lbl"><b>Datos</b><span>solo en el dispositivo</span></div>
         <div class="boxes"><div class="box">localStorage<small>progreso, banco propio, vigencia</small></div><div class="box">IndexedDB<small>PDFs y su texto</small></div><div class="box">Respaldo JSON<small>exportar / importar</small></div></div></div>
