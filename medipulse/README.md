@@ -19,6 +19,11 @@ Al abrirla eliges cómo te sientes y la app arma la sesión:
 - **Progreso:** dominio por especialidad, mapa de calor de 5 semanas y exportar/importar respaldo JSON.
 - Funciona sin internet (service worker) y se puede instalar en el celular ("Agregar a pantalla de inicio").
 
+- **Laboratorio MBE:** cómo leer una guía, un ECA, un metaanálisis, un observacional o una revisión (método en 5 pasos, trampa, ejemplo real), destilador de lectura que crea tarjetas, y calculadoras de NNT y de prueba diagnóstica 2×2.
+- **Meta y diagnóstico:** examen objetivo del estudiante (también orienta a la IA) y diagnóstico rápido de 5 preguntas, una por área.
+- **Banco y simulacro:** filtros de fallos y sin responder, pistas, tachar opciones, marcar para revisar y mapa del simulacro.
+- **Reportes:** 🚩 en cada pregunta o tarjeta; se revisan en Fuentes → Reportes (corregir con IA o archivar).
+- **Crear y compartir:** preguntas y tarjetas a mano, fuentes de texto pegado y packs de estudio en JSON para compartir con colegas.
 - **Biblioteca de fuentes:** cada caso, tarjeta y ficha incluida cita su guía o libro de referencia (con enlace de búsqueda en PubMed). Puedes estudiar por fuente.
 - **Tus PDF → preguntas:** sube un PDF (guía, resumen, apuntes), elige un rango de páginas y genera:
   - **Tarjetas de completar** (sin internet y gratis): toma las frases con datos clave (dosis, umbrales, fármaco de elección, definiciones) y oculta el dato.
