@@ -249,7 +249,7 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
       </div>
       <div class="card">
         <details><summary style="cursor:pointer"><b style="font-size:16px">Referencias del contenido incluido</b> <span class="xs muted" id="bsCount"></span></summary>
-        <p class="muted xs" style="margin:8px 0 0">Guías y textos en los que se basan los casos, tarjetas y fichas de la app. Verifica siempre la versión vigente y la normativa de tu país.</p>
+        <p class="muted xs" style="margin:8px 0 0">Guías y textos en los que se basan los casos, tarjetas y fichas de la app, ordenados del más reciente al más antiguo. Vigencia revisada en <span id="bsChecked"></span>. Compara siempre con la normativa de tu país.</p>
         <div id="builtinSrc" style="margin-top:6px"></div></details>
       </div>
     </div>
@@ -322,13 +322,13 @@ const QUESTIONS_BASE = [
         vignette: "Mujer de 71 años ingresa por fiebre, disuria y confusión. PA 78/46 mmHg, FC 124 lpm, FR 28 rpm, T° 39.1°C, <span class='hy'>lactato sérico 4.4 mmol/L</span>. Ya recibió 30 mL/kg de cristaloides balanceados en la primera hora, pero persiste con <span class='hy'>PAM en 54 mmHg</span>. ¿Cuál es el siguiente paso inmediato?",
         options: [
           "Administrar un segundo bolo de 30 mL/kg de solución salina al 0.9%",
-          "Iniciar norepinefrina en infusión para meta de PAM ≥ 65 mmHg",
+          "Iniciar norepinefrina en infusión titulada a la PAM objetivo",
           "Iniciar dopamina como vasopresor de primera línea por vía periférica",
           "Indicar hidrocortisona 200 mg IV en bolo único antes de vasopresores"
         ],
         correct: 1,
-        whyCorrect: "Si tras la reanimación inicial con cristaloides (30 mL/kg) la PAM permanece < 65 mmHg, se define choque séptico y debe iniciarse norepinefrina de inmediato (primera línea) para mantener PAM ≥ 65 mmHg.",
-        pearl: "Choque séptico = Sepsis + vasopresor para PAM ≥ 65 mmHg + Lactato > 2 mmol/L tras reanimación hídrica.",
+        whyCorrect: "Si tras el bolo inicial de cristaloides persiste la hipotensión, se trata de choque séptico y se inicia norepinefrina (primera línea) sin esperar más bolos. La SSC 2026 sugiere en adultos ≥ 65 años, como esta paciente, una PAM objetivo inicial de 60–65 mmHg.",
+        pearl: "Choque séptico = sepsis + vasopresor para mantener la PAM + lactato > 2 mmol/L tras reanimación hídrica. SSC 2026: PAM ≥ 65 en general, 60–65 en ≥ 65 años.",
         trap: "Seguir encharcando al paciente con bolos repetidos sin iniciar norepinefrina empeora el edema pulmonar y la mortalidad."
       },
       {
@@ -464,7 +464,7 @@ const QUESTIONS_BASE = [
         ],
         correct: 1,
         whyCorrect: "Cuadro clínico clásico de neumotórax a tensión (choque obstructivo + ingurgitación yugular + ausencia de ruidos respiratorios + desviación traqueal contralateral). El diagnóstico es clínico y la descompresión es inmediata sin esperar radiografía.",
-        pearl: "Neumotórax a tensión: NUNCA se toma radiografía. Descompresión en 4°-5° EIC línea axilar anterior/media (adultos, ATLS 10ª ed.) o 2° EIC LMC.",
+        pearl: "Neumotórax a tensión: NUNCA se toma radiografía. Descompresión en 4°-5° EIC línea axilar anterior/media (adultos, ATLS) o 2° EIC LMC.",
         trap: "Pedir Rx de tórax o intubar con presión positiva sin descomprimir colapsa aún más el retorno venoso."
       },
       {
@@ -475,13 +475,13 @@ const QUESTIONS_BASE = [
         vignette: "Lactante de 10 meses (peso 9 kg) con diarrea acuosa abundante. Está <span class='hy'>irritable, con ojos hundidos, boca seca, bebe con avidez</span> y el pliegue cutáneo vuelve lentamente (< 2 s). Tolera vía oral. ¿Plan de hidratación?",
         options: [
           "Plan A: líquidos caseros a libre demanda y zinc",
-          "Plan B: Sales de Rehidratación Oral (SRO) de baja osmolaridad 50–100 mL/kg en 4 horas",
+          "Plan B: Sales de Rehidratación Oral (SRO) de baja osmolaridad ≈ 75 mL/kg en 4 horas",
           "Plan C: Bolo de lactato de Ringer 20 mL/kg IV inmediato",
           "Suspender lactancia materna y administrar loperamida"
         ],
         correct: 1,
-        whyCorrect: "Presenta deshidratación leve-moderada ('algún grado de deshidratación': irritable, ojos hundidos, bebe con avidez, pliegue lento). Si tolera la vía oral, se indica Plan B con SRO (50-100 mL/kg en 4 h) más suplementación con zinc.",
-        pearl: "Plan B = Deshidratación sin choque → SRO 50-100 mL/kg en 4 horas. Plan C = Choque o intolerancia oral severa → IV rápido.",
+        whyCorrect: "Presenta deshidratación leve-moderada ('algún grado de deshidratación': irritable, ojos hundidos, bebe con avidez, pliegue lento). Si tolera la vía oral, se indica Plan B con SRO de baja osmolaridad (≈ 75 mL/kg en 4 h según la OMS) más zinc. La guía OMS 2024 desaconseja antibióticos en la diarrea acuosa aguda.",
+        pearl: "Plan B = deshidratación sin choque → SRO ≈ 75 mL/kg en 4 h (otras guías usan 50–100 mL/kg). Plan C = choque o intolerancia oral grave → IV rápido.",
         trap: "Pasar directamente a líquidos IV en un niño que bebe con avidez o suspender la lactancia materna."
       },
       {
@@ -498,7 +498,7 @@ const QUESTIONS_BASE = [
         ],
         correct: 1,
         whyCorrect: "El útero blando/atónico sobre el ombligo es signo cardinal de atonía uterina (causa #1 de hemorragia posparto, ~70-80%). Se activa Código Rojo: masaje uterino, cristaloides tibios, oxitocina IV y ácido tranexámico (1 g IV en < 3 h).",
-        pearl: "Las 4 T de la HPP: Tono (70-80%), Trauma (20%), Tejido (10%), Trombina (<1%). Ácido tranexámico reduce mortalidad si se da en las primeras 3 horas.",
+        pearl: "Las 4 T de la HPP: Tono (70-80%), Trauma (20%), Tejido (10%), Trombina (<1%). OMS/FIGO 2025: diagnosticar con ≥ 500 mL, o ≥ 300 mL con signos vitales anormales, y aplicar el paquete MOTIVE (masaje, oxitócico, ácido tranexámico en < 3 h, líquidos IV, revisión del tracto genital, escalar).",
         trap: "Olvidar el ácido tranexámico temprano o buscar primero coagulopatía antes de tratar el tono."
       },
       {
@@ -682,43 +682,46 @@ const QUESTIONS_EXTRA = [
 const BUILTIN_Q = [...QUESTIONS_BASE, ...QUESTIONS_EXTRA];
 
 // Fuentes del contenido incluido
+// Fuentes del contenido incluido. Vigencia revisada en noviembre de 2026.
+// v: nota de vigencia que se muestra en la biblioteca (vacía = versión más reciente publicada).
+const SOURCES_CHECKED = "noviembre de 2026";
 const SOURCES = [
-  {id:"esc_acs",  t:"Guías ESC 2023 para el manejo de los síndromes coronarios agudos", r:"European Heart Journal, 2023", k:"guideline"},
-  {id:"ssc21",    t:"Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021", r:"Critical Care Medicine, 2021", k:"guideline"},
-  {id:"ada_cri",  t:"Hyperglycemic Crises in Adults With Diabetes: A Consensus Report (ADA/EASD/JBDS/AACE/DTS)", r:"Diabetes Care, 2024", k:"guideline"},
-  {id:"ada_soc",  t:"ADA Standards of Care in Diabetes—2025", r:"Diabetes Care, 2025", k:"guideline"},
-  {id:"acog_htn", t:"ACOG Practice Bulletin No. 222: Gestational Hypertension and Preeclampsia", r:"Obstetrics & Gynecology, 2020", k:"guideline"},
-  {id:"croup",    t:"Croup in children (Bjornson CL, Johnson DW)", r:"CMAJ, 2013", k:"article"},
-  {id:"tg18",     t:"Tokyo Guidelines 2018 (TG18): colecistitis y colangitis agudas", r:"J Hepatobiliary Pancreat Sci, 2018", k:"guideline"},
-  {id:"aha_acv",  t:"Guidelines for the Early Management of Patients With Acute Ischemic Stroke: 2019 Update (AHA/ASA)", r:"Stroke, 2019", k:"guideline"},
-  {id:"apap",     t:"Management of Acetaminophen Poisoning in the US and Canada: A Consensus Statement (Dart RC et al.)", r:"JAMA Network Open, 2023", k:"guideline"},
-  {id:"idsa_men", t:"IDSA Practice Guidelines for the Management of Bacterial Meningitis (Tunkel AR et al.)", r:"Clinical Infectious Diseases, 2004", k:"guideline"},
-  {id:"atls10",   t:"ATLS: Advanced Trauma Life Support, 10ª edición", r:"American College of Surgeons, 2018", k:"book"},
-  {id:"who_dia",  t:"El tratamiento de la diarrea: manual para médicos y otros profesionales sanitarios", r:"OMS, 2005", k:"book"},
-  {id:"who_hpp",  t:"Recomendaciones de la OMS para la prevención y el tratamiento de la hemorragia posparto (y actualización sobre ácido tranexámico, 2017)", r:"OMS, 2012", k:"guideline"},
-  {id:"ukka_k",   t:"Clinical Practice Guidelines: Treatment of Acute Hyperkalaemia in Adults", r:"UK Kidney Association, 2020", k:"guideline"},
-  {id:"wao_ana",  t:"World Allergy Organization Anaphylaxis Guidance 2020", r:"World Allergy Organization Journal, 2020", k:"guideline"},
-  {id:"wses_app", t:"Diagnosis and treatment of acute appendicitis: 2020 update of the WSES Jerusalem guidelines", r:"World Journal of Emergency Surgery, 2020", k:"guideline"},
-  {id:"esc_tep",  t:"Guías ESC 2019 para el diagnóstico y manejo de la embolia pulmonar aguda", r:"European Heart Journal, 2019", k:"guideline"},
-  {id:"aap_bq",   t:"AAP Clinical Practice Guideline: The Diagnosis, Management, and Prevention of Bronchiolitis", r:"Pediatrics, 2014", k:"guideline"},
-  {id:"acog_ect", t:"ACOG Practice Bulletin No. 193: Tubal Ectopic Pregnancy", r:"Obstetrics & Gynecology, 2018", k:"guideline"},
-  {id:"gordis",   t:"Gordis Epidemiología, 6ª edición (Celentano DD, Szklo M)", r:"Elsevier, 2019", k:"book"},
-  {id:"acc_fa",   t:"2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation", r:"Circulation, 2023", k:"guideline"},
-  {id:"aha_kaw",  t:"Diagnosis, Treatment, and Long-Term Management of Kawasaki Disease: AHA Scientific Statement", r:"Circulation, 2017", k:"guideline"},
-  {id:"eddl",     t:"Management of acute organophosphorus pesticide poisoning (Eddleston M et al.)", r:"The Lancet, 2008", k:"article"},
-  {id:"rcog_pp",  t:"RCOG Green-top Guideline No. 27a: Placenta Praevia and Placenta Accreta", r:"BJOG, 2018", k:"guideline"},
-  {id:"eu_hna",   t:"Clinical practice guideline on diagnosis and treatment of hyponatraemia (Spasovski G et al.)", r:"European Journal of Endocrinology, 2014", k:"guideline"},
-  {id:"aha_rcp",  t:"2020 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care", r:"Circulation, 2020", k:"guideline"},
-  {id:"goldf",    t:"Goldfrank's Toxicologic Emergencies, 11ª edición", r:"McGraw-Hill, 2019", k:"book"},
-  {id:"curb65",   t:"Defining community acquired pneumonia severity on presentation to hospital (Lim WS et al.)", r:"Thorax, 2003", k:"article"},
-  {id:"aap_fs",   t:"AAP Clinical Practice Guideline: Febrile Seizures", r:"Pediatrics, 2011", k:"guideline"},
-  {id:"aap_oma",  t:"AAP Clinical Practice Guideline: The Diagnosis and Management of Acute Otitis Media", r:"Pediatrics, 2013", k:"guideline"},
-  {id:"aap_bili", t:"AAP Clinical Practice Guideline Revision: Management of Hyperbilirubinemia in the Newborn ≥ 35 Weeks", r:"Pediatrics, 2022", k:"guideline"},
-  {id:"acog_cort",t:"ACOG Committee Opinion No. 713: Antenatal Corticosteroid Therapy for Fetal Maturation", r:"Obstetrics & Gynecology, 2017", k:"guideline"},
-  {id:"williams", t:"Williams Obstetricia, 26ª edición", r:"McGraw-Hill, 2022", k:"book"}
+  {id:"acc_acs",  t:"2025 ACC/AHA/ACEP/NAEMSP/SCAI Guideline for the Management of Patients With Acute Coronary Syndromes", r:"Circulation / JACC, 2025", y:2025, k:"guideline"},
+  {id:"ssc26",    t:"Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2026", r:"Critical Care Medicine, 2026", y:2026, k:"guideline"},
+  {id:"ada_cri",  t:"Hyperglycemic Crises in Adults With Diabetes: A Consensus Report (ADA/EASD/JBDS/AACE/DTS)", r:"Diabetes Care, 2024", y:2024, k:"guideline"},
+  {id:"ada_soc",  t:"ADA Standards of Care in Diabetes—2026", r:"Diabetes Care, 2026", y:2026, k:"guideline"},
+  {id:"acog_htn", t:"ACOG Practice Bulletin No. 222: Gestational Hypertension and Preeclampsia", r:"Obstetrics & Gynecology, 2020", y:2020, k:"guideline", v:"Sigue vigente (reafirmado); complementado por la actualización de ACOG 2024 sobre biomarcadores"},
+  {id:"cps_croup",t:"Acute management of croup in the emergency department (Canadian Paediatric Society, practice point)", r:"CPS, 2017 · actualizado en 2026", y:2026, k:"guideline"},
+  {id:"tg18",     t:"Tokyo Guidelines 2018 (TG18): colecistitis y colangitis agudas", r:"J Hepatobiliary Pancreat Sci, 2018", y:2018, k:"guideline", v:"Es la edición más reciente de las guías de Tokio"},
+  {id:"aha_acv",  t:"2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke (AHA/ASA)", r:"Stroke, 2026", y:2026, k:"guideline"},
+  {id:"apap",     t:"Management of Acetaminophen Poisoning in the US and Canada: A Consensus Statement (Dart RC et al.)", r:"JAMA Network Open, 2023", y:2023, k:"guideline"},
+  {id:"who_men",  t:"WHO guidelines on meningitis diagnosis, treatment and care", r:"OMS, 2025", y:2025, k:"guideline"},
+  {id:"atls11",   t:"ATLS: Advanced Trauma Life Support, 11ª edición", r:"American College of Surgeons, 2025", y:2025, k:"book"},
+  {id:"who_dia",  t:"Guideline on management of pneumonia and diarrhoea in children up to 10 years of age (y manual OMS de planes A/B/C de hidratación)", r:"OMS, 2024", y:2024, k:"guideline"},
+  {id:"who_hpp",  t:"WHO/FIGO/ICM consolidated guidelines for the prevention, diagnosis and treatment of postpartum haemorrhage", r:"OMS, 2025", y:2025, k:"guideline"},
+  {id:"ukka_k",   t:"UKKA Clinical Practice Guideline: Management of Hyperkalaemia in Adults", r:"UK Kidney Association, 2023 · actualizada en julio de 2026", y:2026, k:"guideline"},
+  {id:"ga2len",   t:"Anaphylaxis definition, overview, and clinical support tool: 2024 consensus report (GA²LEN)", r:"Journal of Allergy and Clinical Immunology, 2025", y:2025, k:"guideline"},
+  {id:"wses_app", t:"2025 WSES Jerusalem Guidelines on acute appendicitis (Podda M et al.)", r:"JAMA Surgery, 2026", y:2026, k:"guideline"},
+  {id:"aha_tep",  t:"2026 AHA/ACC Guideline for the Evaluation and Management of Acute Pulmonary Embolism in Adults", r:"Circulation, 2026", y:2026, k:"guideline"},
+  {id:"aap_bq",   t:"AAP Clinical Practice Guideline: The Diagnosis, Management, and Prevention of Bronchiolitis", r:"Pediatrics, 2014", y:2014, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
+  {id:"acog_ect", t:"ACOG Practice Bulletin No. 193: Tubal Ectopic Pregnancy", r:"Obstetrics & Gynecology, 2018 · reafirmado en 2025", y:2025, k:"guideline"},
+  {id:"gordis",   t:"Gordis Epidemiología, 7ª edición (Celentano DD, Szklo M, Farag Y)", r:"Elsevier, 2025", y:2025, k:"book"},
+  {id:"acc_fa",   t:"2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation", r:"Circulation, 2023", y:2023, k:"guideline", v:"Guía estadounidense vigente"},
+  {id:"esc_fa",   t:"Guías ESC 2024 para el manejo de la fibrilación auricular (ESC/EACTS)", r:"European Heart Journal, 2024", y:2024, k:"guideline"},
+  {id:"aha_kaw",  t:"Update on Diagnosis and Management of Kawasaki Disease: A Scientific Statement From the AHA", r:"Circulation, 2024", y:2024, k:"guideline"},
+  {id:"rcog_pp",  t:"RCOG Green-top Guideline No. 27a: Placenta Praevia and Placenta Accreta", r:"BJOG, 2018", y:2018, k:"guideline", v:"Sigue siendo la versión vigente del RCOG"},
+  {id:"eu_hna",   t:"Clinical practice guideline on diagnosis and treatment of hyponatraemia (ESE/ESICM/ERA-EDTA)", r:"European Journal of Endocrinology, 2014", y:2014, k:"guideline", v:"Antigua, pero sigue siendo la guía europea de referencia"},
+  {id:"aha_rcp",  t:"2025 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care", r:"Circulation, 2025", y:2025, k:"guideline"},
+  {id:"goldf",    t:"Goldfrank's Toxicologic Emergencies, 12ª edición", r:"McGraw-Hill", y:2024, k:"book"},
+  {id:"nice_nm",  t:"NICE guideline NG250: Pneumonia: diagnosis and management", r:"NICE, 2025", y:2025, k:"guideline"},
+  {id:"aap_fs",   t:"AAP Clinical Practice Guideline: Febrile Seizures", r:"Pediatrics, 2011", y:2011, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
+  {id:"aap_oma",  t:"AAP Clinical Practice Guideline: The Diagnosis and Management of Acute Otitis Media", r:"Pediatrics, 2013", y:2013, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
+  {id:"aap_bili", t:"AAP Clinical Practice Guideline Revision: Management of Hyperbilirubinemia in the Newborn ≥ 35 Weeks", r:"Pediatrics, 2022", y:2022, k:"guideline"},
+  {id:"acog_cort",t:"ACOG Committee Opinion No. 713: Antenatal Corticosteroid Therapy for Fetal Maturation", r:"Obstetrics & Gynecology, 2017 · con actualización focalizada", y:2017, k:"guideline", v:"Sigue vigente con actualizaciones focalizadas"},
+  {id:"williams", t:"Williams Obstetricia, 27ª edición", r:"McGraw-Hill", y:2025, k:"book"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
-const Q_SRC = {1:"esc_acs",2:"ssc21",3:"ada_cri",4:"acog_htn",5:"croup",6:"tg18",7:"aha_acv",8:"apap",9:"idsa_men",10:"atls10",11:"who_dia",12:"who_hpp",13:"ukka_k",14:"wao_ana",15:"wses_app",16:"esc_tep",17:"aap_bq",18:"acog_ect",19:"gordis",20:"gordis",21:"acc_fa",22:"aha_kaw",23:"eddl",24:"tg18",25:"rcog_pp",26:"eu_hna"};
+const Q_SRC = {1:"acc_acs",2:"ssc26",3:"ada_cri",4:"acog_htn",5:"cps_croup",6:"tg18",7:"aha_acv",8:"apap",9:"who_men",10:"atls11",11:"who_dia",12:"who_hpp",13:"ukka_k",14:"ga2len",15:"wses_app",16:"aha_tep",17:"aap_bq",18:"acog_ect",19:"gordis",20:"gordis",21:"acc_fa",22:"aha_kaw",23:"goldf",24:"tg18",25:"rcog_pp",26:"eu_hna"};
 BUILTIN_Q.forEach(q=>{ q.src = Q_SRC[q.id]; });
 let QUESTIONS = BUILTIN_Q;
 
@@ -810,7 +813,7 @@ const HY_CARDS = [
     ];
 
 // Tarjetas rápidas: frente → reverso (F_SRC = fuente de cada una, en orden)
-const F_SRC = ["aha_acv", "aha_acv", "ada_soc", "ada_soc", "eu_hna", "atls10", "acc_fa", "acc_fa", "curb65", "ukka_k", "ada_soc", "goldf", "goldf", "eddl", "apap", "goldf", "aha_rcp", "aha_rcp", "aha_rcp", "wao_ana", "ssc21", "atls10", "atls10", "atls10", "tg18", "tg18", "wses_app", "wses_app", "aap_bq", "croup", "aha_kaw", "aap_fs", "aap_bili", "who_dia", "aap_oma", "williams", "acog_htn", "acog_htn", "acog_cort", "rcog_pp", "who_hpp", "gordis", "gordis", "gordis", "gordis", "gordis"];
+const F_SRC = ["aha_acv", "aha_acv", "ada_soc", "ada_soc", "eu_hna", "atls11", "acc_fa", "esc_fa", "nice_nm", "ukka_k", "ada_soc", "goldf", "goldf", "goldf", "apap", "goldf", "aha_rcp", "aha_rcp", "aha_rcp", "ga2len", "ssc26", "atls11", "atls11", "atls11", "tg18", "tg18", "wses_app", "wses_app", "aap_bq", "cps_croup", "aha_kaw", "aap_fs", "aap_bili", "who_dia", "aap_oma", "williams", "acog_htn", "acog_htn", "acog_cort", "rcog_pp", "who_hpp", "gordis", "gordis", "gordis", "gordis", "gordis", "aha_acv", "aha_acv", "ssc26", "atls11", "who_hpp", "wses_app", "aha_tep"];
 const BUILTIN_F = [
   ["Medicina Interna","Meta de PA antes de trombolizar un ACV isquémico","< 185/110 mmHg"],
   ["Medicina Interna","Ventana para alteplasa IV en ACV isquémico","Hasta 4.5 h desde la última vez que se vio bien al paciente"],
@@ -819,8 +822,8 @@ const BUILTIN_F = [
   ["Medicina Interna","Velocidad máxima de corrección de Na⁺ en hiponatremia crónica","8–10 mEq/L en 24 h (riesgo de desmielinización osmótica)"],
   ["Medicina Interna","Tríada de Beck","Hipotensión + ingurgitación yugular + ruidos cardíacos apagados → taponamiento"],
   ["Medicina Interna","FA con inestabilidad hemodinámica","Cardioversión eléctrica sincronizada"],
-  ["Medicina Interna","CHA₂DS₂-VASc para anticoagular","≥ 2 en hombres · ≥ 3 en mujeres"],
-  ["Medicina Interna","CURB-65 que indica hospitalizar","≥ 2 (con ≥ 3 valorar UCI)"],
+  ["Medicina Interna","Umbral para anticoagular en FA","ESC 2024: CHA₂DS₂-VA ≥ 2 (ya no suma el sexo) · ACC/AHA 2023: CHA₂DS₂-VASc ≥ 2 en hombres, ≥ 3 en mujeres"],
+  ["Medicina Interna","CURB-65: riesgo y conducta","0–1 bajo (manejo ambulatorio) · 2 intermedio (valorar ingreso) · 3–5 alto (hospitalizar, valorar UCI)"],
   ["Medicina Interna","Primer paso en hiperkalemia con cambios en ECG","Gluconato de calcio 10 % IV (estabiliza membrana, no baja K⁺)"],
   ["Medicina Interna","Hipoglucemia en paciente consciente","15 g de carbohidrato oral, glucemia de control a los 15 min"],
   ["Urgencias","Antídoto de opioides","Naloxona"],
@@ -828,11 +831,11 @@ const BUILTIN_F = [
   ["Urgencias","Antídoto de organofosforados","Atropina (meta: secar secreciones) + pralidoxima"],
   ["Urgencias","Antídoto del paracetamol","N-acetilcisteína (ideal < 8 h)"],
   ["Urgencias","Antídoto de la metahemoglobinemia","Azul de metileno"],
-  ["Urgencias","Adrenalina en paro cardíaco del adulto","1 mg IV/IO cada 3–5 min"],
+  ["Urgencias","Adrenalina en paro cardíaco del adulto (AHA 2025)","1 mg cada 3–5 min, vía IV preferida sobre IO; en FV/TV sin pulso, después de que fallen las primeras descargas"],
   ["Urgencias","Ritmos desfibrilables","FV y TV sin pulso"],
   ["Urgencias","RCP de calidad en adulto: profundidad y frecuencia","5–6 cm · 100–120 compresiones/min"],
-  ["Urgencias","Adrenalina en anafilaxia (adulto)","0.3–0.5 mg IM en el muslo (1 mg/mL)"],
-  ["Urgencias","Choque séptico: vasopresor de primera línea","Norepinefrina, meta PAM ≥ 65 mmHg"],
+  ["Urgencias","Adrenalina en anafilaxia (adulto)","0.01 mg/kg IM (máx. 0.5 mg) en tercio medio del muslo; repetir cada 5–15 min si no responde"],
+  ["Urgencias","Choque séptico: vasopresor de primera línea","Norepinefrina; PAM objetivo ≥ 65 mmHg (60–65 en ≥ 65 años, SSC 2026)"],
   ["Cirugía","Glasgow que indica asegurar la vía aérea","≤ 8"],
   ["Cirugía","Regla de los 9 (adulto): tronco anterior","18 %"],
   ["Cirugía","Fórmula de Parkland","4 mL × kg × % SCQ (2° y 3°): la mitad en las primeras 8 h"],
@@ -845,7 +848,7 @@ const BUILTIN_F = [
   ["Pediatría","Kawasaki: tratamiento","IGIV 2 g/kg + AAS, idealmente antes del día 10"],
   ["Pediatría","Convulsión febril simple","6 m–5 años, generalizada, < 15 min, una sola en 24 h"],
   ["Pediatría","Ictericia neonatal en las primeras 24 h de vida","Siempre patológica"],
-  ["Pediatría","Plan B de hidratación","SRO 50–100 mL/kg en 4 h"],
+  ["Pediatría","Plan B de hidratación (OMS)","SRO de baja osmolaridad ≈ 75 mL/kg en 4 h + zinc"],
   ["Pediatría","Antibiótico de primera línea en otitis media aguda","Amoxicilina a dosis altas (80–90 mg/kg/día)"],
   ["Ginecología","Regla de Naegele","FUM + 7 días − 3 meses (+ 1 año)"],
   ["Ginecología","Dosis de impregnación de sulfato de Mg (Zuspan)","4 g IV en 15–20 min, luego 1 g/h"],
@@ -857,11 +860,18 @@ const BUILTIN_F = [
   ["Salud Pública","Prueba ideal para confirmar enfermedad","Alta especificidad (SpPin)"],
   ["Salud Pública","Fórmula del NNT","1 / reducción absoluta del riesgo"],
   ["Salud Pública","Medida de asociación en casos y controles","Odds ratio"],
-  ["Salud Pública","¿Qué cambia con la prevalencia: sensibilidad o VPP?","Los valores predictivos (VPP y VPN)"]
+  ["Salud Pública","¿Qué cambia con la prevalencia: sensibilidad o VPP?","Los valores predictivos (VPP y VPN)"],
+  ["Medicina Interna","Tenecteplasa en ACV isquémico: dosis","0.25 mg/kg IV en bolo (máx. 25 mg), alternativa a la alteplasa en < 4.5 h"],
+  ["Medicina Interna","PA durante y 24 h después de trombolizar un ACV","< 180/105 mmHg (bajar < 140 de sistólica no aporta beneficio)"],
+  ["Urgencias","Choque séptico en ≥ 65 años: PAM inicial objetivo (SSC 2026)","60–65 mmHg"],
+  ["Cirugía","ATLS 11ª ed.: secuencia de la evaluación primaria","xABCDE: la “x” es controlar primero la hemorragia exanguinante"],
+  ["Ginecología","Diagnóstico de hemorragia posparto (OMS/FIGO 2025)","Pérdida ≥ 500 mL, o ≥ 300 mL con signos vitales anormales; medir con bolsa colectora calibrada"],
+  ["Cirugía","Antibiótico tras apendicectomía por apendicitis complicada con buen control del foco (WSES 2025)","2–3 días"],
+  ["Medicina Interna","TEP de alto riesgo / evaluación multidisciplinaria (AHA/ACC 2026)","Activar el equipo PERT; HBPM preferida sobre heparina no fraccionada en la mayoría"]
 ].map((f,i)=>({id:i+1,specialty:f[0],front:f[1],back:f[2],src:F_SRC[i]}));
 let FLASH = BUILTIN_F;
 
-const HY_SRC = {hy1:"ssc21",hy2:"ada_cri",hy3:"acog_htn",hy4:"ukka_k",hy5:"croup",hy6:"atls10"};
+const HY_SRC = {hy1:"ssc26",hy2:"ada_cri",hy3:"acog_htn",hy4:"ukka_k",hy5:"cps_croup",hy6:"atls11"};
 HY_CARDS.forEach(h=>{ h.src = HY_SRC[h.id]; });
 
 const SPECS = ["Medicina Interna","Urgencias","Cirugía","Pediatría","Ginecología","Salud Pública"];
@@ -1403,10 +1413,10 @@ function renderLib(){
   document.querySelectorAll("[data-src]").forEach(b=>b.onclick=()=>openSrc(b.dataset.src));
   renderAiBox();
   const cnt = {}; [...BUILTIN_Q, ...BUILTIN_F, ...HY_CARDS].forEach(x=>{ if (x.src) cnt[x.src] = (cnt[x.src]||0) + 1; });
-  $("#bsCount").textContent = `(${SOURCES.length})`;
-  $("#builtinSrc").innerHTML = SOURCES.slice().sort((a,b)=>(cnt[b.id]||0)-(cnt[a.id]||0)).map(s=>`
+  $("#bsCount").textContent = `(${SOURCES.length})`; $("#bsChecked").textContent = SOURCES_CHECKED;
+  $("#builtinSrc").innerHTML = SOURCES.slice().sort((a,b)=>b.y-a.y || (cnt[b.id]||0)-(cnt[a.id]||0)).map(s=>`
     <div class="srcitem"><div class="ic">${s.k==="book"?"📕":s.k==="article"?"📰":"📋"}</div>
-      <div style="flex:1;min-width:0"><div class="small"><b>${esc(s.t)}</b></div><div class="xs muted">${esc(s.r)} · ${cnt[s.id]||0} ítems${s.k!=="book"?` · <a class="linkbtn" href="${pubmed(s.t)}" target="_blank" rel="noopener">PubMed</a>`:""}</div></div>
+      <div style="flex:1;min-width:0"><div class="small"><b>${esc(s.t)}</b></div><div class="xs muted">${esc(s.r)} · ${cnt[s.id]||0} ítems${s.k!=="book"?` · <a class="linkbtn" href="${pubmed(s.t)}" target="_blank" rel="noopener">PubMed</a>`:""}</div>${s.v?`<div class="xs" style="color:var(--warn);margin-top:2px">${esc(s.v)}</div>`:""}</div>
       <button class="btn" data-bsrc="${s.id}">Estudiar</button></div>`).join("");
   document.querySelectorAll("[data-bsrc]").forEach(b=>b.onclick=()=>studySource(b.dataset.bsrc));
 }
