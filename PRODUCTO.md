@@ -29,6 +29,11 @@ Es el mismo usuario en dos momentos: si MediPulse lo ayuda a entrar a la residen
 1. **La vigencia.** Ninguna alternativa (bancos de preguntas, Anki, resúmenes en PDF, grupos de WhatsApp) avisa cuando lo que estudiaste quedó desactualizado.
 2. **Estudiar desde el material propio, incluidas las notas a mano.** Muchos colegas todavía estudian con cuadernos, tarjetas de papel o GoodNotes. MediPulse debe poder importar esas notas (fotos o PDF exportados de GoodNotes) y convertirlas en fichas high-yield y preguntas.
 
+## Idioma
+MediPulse vende un método, y el método no depende del idioma.
+- **El material del usuario en cualquier idioma:** documentos, notas a mano o de GoodNotes, incluso mezclando idiomas (por ejemplo, español con términos en inglés). Las fichas y preguntas salen en el idioma que el usuario elija.
+- **La interfaz:** en español para la beta. Traducirla a otros idiomas está previsto para después; por eso los textos nuevos de la interfaz deben escribirse de forma que se puedan traducir sin reescribir la lógica.
+
 ## Qué NO es
 - **No vende contenido:** ni guías, ni resúmenes, ni bancos de preguntas propios. El contenido lo trae el usuario.
 - No reemplaza el juicio clínico; es una herramienta de estudio.
