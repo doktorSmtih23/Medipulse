@@ -645,6 +645,296 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c11",
+      "topic": "Neumología · TEP: dímero D ajustado por edad",
+      "difficulty": "Nivel 2",
+      "src": "tep26",
+      "vignette": "Mujer de <span class='hy'>82 años</span> con disnea de 2 días. FC 96 lpm, SatO₂ 94 %, sin signos de trombosis venosa. La probabilidad clínica de TEP es <span class='hy'>baja a intermedia (menor de 50 %)</span>. <span class='hy'>Dímero D 650 μg/L</span> (FEU). ¿Cuál es el siguiente paso diagnóstico?",
+      "options": [
+        "AngioTC de tórax, porque el dímero D supera 500 μg/L",
+        "Ninguno: el dímero está por debajo de su umbral ajustado por edad (820 μg/L) y se descarta el TEP sin imágenes",
+        "Gammagrafía de ventilación/perfusión",
+        "Ecocardiograma para confirmar o descartar el TEP"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con probabilidad clínica baja o intermedia (< 50 %), un dímero D por debajo del umbral ajustado por edad (edad × 10 μg/L desde los 50 años; aquí 820) excluye el TEP y la necesidad de imágenes. En ADJUST-PE, en mayores de 75 años, el umbral ajustado aumentó los pacientes en quienes se descartó el TEP de 6,4 % a 29,7 %, sin falsos negativos adicionales.",
+      "pearl": "Umbral ajustado = edad × 10 μg/L (desde los 50 años). A los 82 años: 820 μg/L.",
+      "trap": "Usar el corte fijo de 500 μg/L en un anciano: casi todos dan «positivo» y se piden angioTC innecesarias.",
+      "cita": [
+        {
+          "donde": "Evaluación clínica, recomendación 2 (2a, B-R)",
+          "texto": "In adult patients undergoing evaluation for PE and who have a low or intermediate clinical probability of PE (<50%) by risk assessment, an age-adjusted D-dimer value below the threshold (age × 10 μg/L for fibrinogen equivalent units assays) effectively excludes PE and the need for imaging."
+        },
+        {
+          "donde": "ADJUST-PE · Resumen, objetivo",
+          "texto": "To prospectively validate whether an age-adjusted D-dimer cutoff, defined as age × 10 in patients 50 years or older, is associated with an increased diagnostic yield of D-dimer in elderly patients with suspected PE."
+        },
+        {
+          "donde": "ADJUST-PE · Resumen, resultados",
+          "texto": "Among the 766 patients 75 years or older, of whom 673 had a nonhigh clinical probability, using the age-adjusted cutoff instead of the 500 μg/L cutoff increased the proportion of patients in whom PE could be excluded on the basis of D-dimer from 43 of 673 patients (6.4% [95% CI, 4.8%-8.5%) to 200 of 673 patients (29.7% [95% CI, 26.4%-33.3%), without any additional false-negative findings."
+        },
+        {
+          "donde": "ADJUST-PE · Resumen, resultados",
+          "texto": "The 3-month failure rate in patients with a D-dimer level higher than 500 μg/L but below the age-adjusted cutoff was 1 of 331 patients (0.3% [95% CI, 0.1%-1.7%])."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c12",
+      "topic": "Neumología · TEP: algoritmo YEARS",
+      "difficulty": "Nivel 2",
+      "src": "tep26",
+      "vignette": "Hombre de 45 años con dolor torácico pleurítico. <span class='hy'>Sin signos de trombosis venosa profunda, sin hemoptisis</span>, y el TEP <span class='hy'>no es el diagnóstico más probable</span>. <span class='hy'>Dímero D 800 μg/L</span>. Según el algoritmo YEARS, ¿cuál es la conducta diagnóstica?",
+      "options": [
+        "AngioTC de tórax: el dímero supera 500 μg/L",
+        "Gammagrafía V/Q",
+        "No necesita imágenes: sin criterios YEARS el umbral es 1000 μg/L",
+        "Ultrasonido venoso de miembros inferiores"
+      ],
+      "correct": 2,
+      "whyCorrect": "El algoritmo YEARS usa 3 criterios: signos de TVP, hemoptisis y TEP como diagnóstico más probable. Sin ninguno, el umbral del dímero D es 1000 μg/L; con 1 o más, es 500 μg/L. Con 800 μg/L y ningún criterio, no necesita imágenes para descartar el TEP.",
+      "pearl": "YEARS: 0 criterios → umbral 1000 μg/L; ≥ 1 criterio → 500 μg/L.",
+      "trap": "Aplicar siempre el corte de 500 μg/L sin mirar cuántos criterios YEARS tiene el paciente.",
+      "cita": [
+        {
+          "donde": "Evaluación clínica, recomendación 3 (2a, B-R)",
+          "texto": "In adult patients with suspected PE, the YEARS algorithm* can be useful to identify which patients do not need imaging to rule out a PE."
+        },
+        {
+          "donde": "Evaluación clínica, nota del algoritmo YEARS",
+          "texto": "YEARS algorithm: A D-dimer threshold of 500 μg/L in patients who have ≥1 of the following: 1) clinical signs of DVT; 2) hemoptysis; and/or 3) PE as the most likely diagnosis. A D-dimer threshold of 1000 μg/L is used for patients who have no YEARS criteria."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c13",
+      "topic": "Neumología · TEP: alta probabilidad",
+      "difficulty": "Nivel 1",
+      "src": "tep26",
+      "vignette": "Hombre de 60 años en el día 5 de una cirugía de cadera, con disnea súbita, <span class='hy'>pierna derecha edematosa y dolorosa</span>, FC 118 lpm y SatO₂ 89 %. PA 118/74 mmHg. La probabilidad clínica de TEP es <span class='hy'>alta (mayor de 50 %)</span>. ¿Cuál es el estudio diagnóstico indicado?",
+      "options": [
+        "Dímero D primero y decidir según el resultado",
+        "Ecocardiograma transtorácico",
+        "Ultrasonido venoso de miembros inferiores como única prueba",
+        "AngioTC de tórax"
+      ],
+      "correct": 3,
+      "whyCorrect": "Con probabilidad clínica alta (> 50 %) se indica imagen para confirmar o descartar el TEP; el dímero D se usa para excluir en probabilidad baja o intermedia. La angioTC es la imagen recomendada sobre la gammagrafía V/Q.",
+      "pearl": "El ecocardiograma no confirma ni descarta el TEP: sirve para valorar el ventrículo derecho cuando el TEP ya está confirmado.",
+      "trap": "Pedir dímero D en alta probabilidad: un resultado negativo no basta para descartar y retrasa el diagnóstico.",
+      "cita": [
+        {
+          "donde": "Pruebas diagnósticas, recomendación 1 (1, A)",
+          "texto": "In patients presenting with symptoms and signs suggestive of acute PE, imaging is recommended for those who are deemed high probability (>50% probability of PE) by a validated clinic risk prediction score or an elevated D-dimer level in order to confirm or exclude PE."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 3 (1, B-R)",
+          "texto": "In patients undergoing imaging evaluation, a CTPA is recommended in preference to a V/Q scan to confirm the diagnosis of acute PE."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 9 (3: sin beneficio, B-NR)",
+          "texto": "In patients with suspected acute PE, an echocardiogram is not recommended to confirm or refute the diagnosis of PE."
+        },
+        {
+          "donde": "Pruebas diagnósticas, sinopsis",
+          "texto": "Echocardiography is an inadequate test for the diagnosis of PE but is important in the assessment of RV function for symptomatic patients with confirmed acute PE."
+        },
+        {
+          "donde": "Evaluación clínica, recomendación 2 (2a, B-R)",
+          "texto": "In adult patients undergoing evaluation for PE and who have a low or intermediate clinical probability of PE (<50%) by risk assessment, an age-adjusted D-dimer value below the threshold (age × 10 μg/L for fibrinogen equivalent units assays) effectively excludes PE and the need for imaging."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c14",
+      "topic": "Neumología · TEP sin angioTC posible",
+      "difficulty": "Nivel 2",
+      "src": "tep26",
+      "vignette": "Mujer de 54 años con <span class='hy'>anafilaxia previa al contraste yodado</span>, sospecha de TEP, estable, y dímero D elevado. No se le puede hacer angioTC. ¿Cuál es el estudio diagnóstico de elección?",
+      "options": [
+        "Gammagrafía de ventilación/perfusión, idealmente con SPECT",
+        "AngioRM con contraste",
+        "Ecocardiograma transtorácico",
+        "Ultrasonido venoso: si es normal, se descarta el TEP"
+      ],
+      "correct": 0,
+      "whyCorrect": "Si no se puede hacer angioTC, es razonable la gammagrafía V/Q antes que la angioRM, por su mejor rendimiento diagnóstico; y la V/Q SPECT es preferible a la planar. El ecocardiograma no sirve para confirmar ni descartar el TEP.",
+      "pearl": "Una gammagrafía V/Q de alta probabilidad basta para diagnosticar TEP, igual que una angioTC positiva.",
+      "trap": "Elegir la angioRM porque «no usa yodo»: rinde menos que la V/Q para el diagnóstico.",
+      "cita": [
+        {
+          "donde": "Pruebas diagnósticas, recomendación 6 (2a, B-R)",
+          "texto": "In patients with suspected acute PE who cannot undergo a CTPA, it is reasonable to perform a V/Q scan in preference to contrast-enhanced magnetic resonance angiography (MRA) to improve the diagnostic yield."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 5 (2a, B-R)",
+          "texto": "In patients undergoing evaluation for PE, V/Q single-photon emission computed tomography (SPECT) is reasonable in preference to a planar V/Q scan as a diagnostic study."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 9 (3: sin beneficio, B-NR)",
+          "texto": "In patients with suspected acute PE, an echocardiogram is not recommended to confirm or refute the diagnosis of PE."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 2 (1, A)",
+          "texto": "In patients undergoing imaging evaluation for suspected PE, a positive CTPA or high probability ventilation/perfusion (V/Q) scan is sufficient to diagnose PE."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c15",
+      "topic": "Neumología · TEP en el embarazo",
+      "difficulty": "Nivel 3",
+      "src": "tep26",
+      "vignette": "Gestante de 28 semanas con disnea y taquicardia. Tiene <span class='hy'>criterios YEARS que sugieren TEP</span> y la <span class='hy'>radiografía de tórax es normal</span>. Requiere imagen. ¿Cuál es el estudio diagnóstico razonable?",
+      "options": [
+        "No hacer imágenes por el riesgo fetal y anticoagular empíricamente",
+        "Gammagrafía de perfusión de dosis baja, siempre",
+        "AngioTC de tórax de baja dosis de radiación",
+        "Ecocardiograma para confirmar el diagnóstico"
+      ],
+      "correct": 2,
+      "whyCorrect": "En la gestante sintomática con criterios YEARS sugestivos de TEP y radiografía normal, es razonable la angioTC de baja dosis de radiación sobre la gammagrafía de perfusión de dosis baja. Para decidir si necesita imágenes se pueden usar los criterios YEARS adaptados al embarazo.",
+      "pearl": "El TEP causa hasta el 11 % de las muertes relacionadas con el embarazo en Estados Unidos.",
+      "trap": "Evitar toda imagen por miedo a la radiación y dejar sin diagnóstico una causa principal de muerte materna.",
+      "cita": [
+        {
+          "donde": "Pruebas diagnósticas, recomendación 4 (2a, B-NR)",
+          "texto": "In pregnant patients presenting with symptoms, YEARS criteria suggestive of acute PE, and a normal chest x-ray, imaging evaluation with lowradiation dose CTPA is reasonable over low-dose perfusion scintigraphy."
+        },
+        {
+          "donde": "Evaluación clínica, recomendación 4 (2b, B-NR)",
+          "texto": "In pregnant adults, it may be reasonable to use pregnancy-adapted YEARS criteria to identify patients who do not need imaging for PE."
+        },
+        {
+          "donde": "Pruebas diagnósticas, texto de apoyo",
+          "texto": "Pregnancy is an acquired and independent risk factor for VTE, and PE accounts for up to 11% of pregnancy-related deaths in the United States."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c16",
+      "qtype": "directa",
+      "topic": "Cardiología · PRECISE-DAPT",
+      "difficulty": "Nivel 2",
+      "src": "precise_dapt",
+      "vignette": "Con el puntaje PRECISE-DAPT (edad, depuración de creatinina, hemoglobina, leucocitos y sangrado espontáneo previo), ¿desde qué valor se considera alto riesgo de sangrado, en el que la doble antiagregación larga aumenta el sangrado?",
+      "options": [
+        "≥ 10",
+        "≥ 25",
+        "≥ 40",
+        "≥ 50"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con PRECISE-DAPT ≥ 25 (alto riesgo de sangrado), la doble antiagregación larga aumentó el sangrado sin beneficio isquémico significativo; en riesgo menor no aumentó el sangrado y sí dio beneficio isquémico. Por eso, con ≥ 25 se puede considerar una doble antiagregación más corta (< 12 meses).",
+      "pearl": "Los 5 ítems de PRECISE-DAPT: edad, depuración de creatinina, hemoglobina, leucocitos y sangrado espontáneo previo.",
+      "trap": "Dar 12 o más meses de doble antiagregación a todos por igual, sin estimar el riesgo de sangrado.",
+      "cita": [
+        {
+          "donde": "Resumen, hallazgos",
+          "texto": "The PRECISE-DAPT score (age, creatinine clearance, haemoglobin, white-blood-cell count, and previous spontaneous bleeding) showed a c-index for out-of-hospital TIMI major or minor bleeding of 0·73 (95% CI 0·61–0·85) in the derivation cohort"
+        },
+        {
+          "donde": "Resumen, hallazgos",
+          "texto": "A longer DAPT duration significantly increased bleeding in patients at high risk (score ≥25), but not in those with lower risk profiles (pinteraction=0·007), and exerted a significant ischaemic benefit only in this latter group."
+        },
+        {
+          "donde": "Discusión",
+          "texto": "PRECISE-DAPT score showed potential to identify patients at high bleeding risk (score ≥25) who might benefit from a shortened (ie, <12 months) DAPT duration."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c17",
+      "topic": "Cardiología · Prasugrel: a quién no",
+      "difficulty": "Nivel 2",
+      "src": "triton",
+      "vignette": "Hombre de 66 años, 78 kg, con IAM sin elevación del ST y angioplastia programada. Tuvo un <span class='hy'>ataque isquémico transitorio hace 2 años</span>. ¿Qué inhibidor P2Y12 no debe usarse por este antecedente?",
+      "options": [
+        "Clopidogrel",
+        "Ticagrelor",
+        "Cangrelor",
+        "Prasugrel"
+      ],
+      "correct": 3,
+      "whyCorrect": "En TRITON-TIMI 38, los pacientes con ACV o AIT previo tuvieron daño clínico neto con prasugrel (HR 1,54). Los de 75 años o más y los de menos de 60 kg no tuvieron beneficio neto.",
+      "pearl": "Prasugrel: no en ACV/AIT previo; sin beneficio neto en ≥ 75 años o < 60 kg.",
+      "trap": "Elegir prasugrel por ser «más potente» sin revisar el antecedente cerebrovascular.",
+      "cita": [
+        {
+          "donde": "Resultados, beneficio clínico neto",
+          "texto": "patients who had a previous stroke or transient ischemic attack had net harm from prasugrel (hazard ratio, 1.54; 95% CI, 1.02 to 2.32; P = 0.04), patients 75 years of age or older had no net benefit from prasugrel (hazard ratio, 0.99; 95% CI, 0.81 to 1.21; P = 0.92), and patients weighing less than 60 kg had no net benefit from prasugrel (hazard ratio, 1.03; 95% CI, 0.69 to 1.53; P = 0.89)."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c18",
+      "qtype": "critica",
+      "topic": "Cardiología · Lectura crítica: TRITON-TIMI 38",
+      "difficulty": "Nivel 3",
+      "src": "triton",
+      "vignette": "En TRITON-TIMI 38 (13.608 pacientes con SCA y angioplastia programada), el desenlace primario ocurrió en <span class='hy'>12,1 % con clopidogrel y 9,9 % con prasugrel</span>; el sangrado mayor, en <span class='hy'>1,8 % y 2,4 %</span>. ¿Cuántos pacientes hay que tratar con prasugrel en vez de clopidogrel para evitar un evento, y cuántos para causar un sangrado mayor?",
+      "options": [
+        "NNT ≈ 10 y NNH ≈ 17",
+        "NNT ≈ 46 y NNH ≈ 167",
+        "NNT ≈ 81 y NNH ≈ 132",
+        "NNT ≈ 22 y NNH ≈ 60"
+      ],
+      "correct": 1,
+      "whyCorrect": "Reducción absoluta del riesgo: 12,1 − 9,9 = 2,2 % → NNT = 100/2,2 ≈ 46. Aumento absoluto del sangrado mayor: 2,4 − 1,8 = 0,6 % → NNH = 100/0,6 ≈ 167. La mortalidad total no difirió entre los grupos.",
+      "pearl": "NNT = 100 / reducción absoluta en %. No uses el HR (0,81) para calcularlo.",
+      "trap": "Calcular el NNT con la reducción relativa (19 %) en lugar de la absoluta (2,2 %).",
+      "cita": [
+        {
+          "donde": "Resumen, métodos",
+          "texto": "we randomly assigned 13,608 patients with moderate-to-high-risk acute coronary syndromes with scheduled percutaneous coronary intervention to receive prasugrel (a 60-mg loading dose and a 10-mg daily maintenance dose) or clopidogrel (a 300-mg loading dose and a 75-mg daily maintenance dose), for 6 to 15 months."
+        },
+        {
+          "donde": "Resumen, resultados",
+          "texto": "The primary efficacy end point occurred in 12.1% of patients receiving clopidogrel and 9.9% of patients receiving prasugrel (hazard ratio for prasugrel vs. clopidogrel, 0.81; 95% confidence interval [CI], 0.73 to 0.90; P<0.001)."
+        },
+        {
+          "donde": "Resumen, resultados",
+          "texto": "Major bleeding was observed in 2.4% of patients receiving prasugrel and in 1.8% of patients receiving clopidogrel (hazard ratio, 1.32; 95% CI, 1.03 to 1.68; P = 0.03)."
+        },
+        {
+          "donde": "Resumen, conclusiones",
+          "texto": "Overall mortality did not differ significantly between treatment groups."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c19",
+      "topic": "Cardiología · SCA con anticoagulación oral",
+      "difficulty": "Nivel 3",
+      "src": "acc_antiag26",
+      "vignette": "Mujer de 72 años con <span class='hy'>fibrilación auricular anticoagulada</span> que presenta un SCA tratado con angioplastia y stent. Recibe triple terapia (aspirina, clopidogrel y anticoagulante oral). ¿Qué conducta antitrombótica sigue?",
+      "options": [
+        "Mantener la triple terapia por 12 meses",
+        "Suspender el anticoagulante y dejar doble antiagregación",
+        "Suspender la aspirina tras 1 a 4 semanas y seguir con clopidogrel más anticoagulante oral",
+        "Cambiar clopidogrel por prasugrel para mayor protección"
+      ],
+      "correct": 2,
+      "whyCorrect": "En SCA que requiere anticoagulación oral, la aspirina se suspende tras 1 a 4 semanas de triple terapia, y se continúa un inhibidor P2Y12 (preferiblemente clopidogrel) más el anticoagulante oral, para reducir el sangrado.",
+      "pearl": "Con anticoagulante oral, el P2Y12 preferido es clopidogrel.",
+      "trap": "Prolongar la triple terapia «por seguridad»: multiplica el sangrado.",
+      "cita": [
+        {
+          "donde": "Tabla de recomendaciones: necesidad de anticoagulante oral (2025 ACC/AHA SCA, clase 1)",
+          "texto": "In patients with ACS who require oral anticoagulant therapy, aspirin should be discontinued after 1–4 wks of triple antithrombotic therapy, with continued use of a P2Y12 inhibitor (preferably clopidogrel) and an oral anticoagulant to reduce bleeding risk."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
   ],
   "fichas": [
@@ -1030,6 +1320,136 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Discusión, limitaciones",
           "texto": "The trial used a surrogate end point, and we did not follow the participants long enough to adequately measure differences among groups in cardiovascular outcomes or clinical kidney disease progression."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-f05",
+      "title": "TEP: cómo confirmarlo o descartarlo",
+      "badge": "AHA/ACC 2026",
+      "src": "tep26",
+      "thresholds": [
+        {
+          "label": "Probabilidad < 50 %",
+          "val": "Dímero D ajustado por edad (edad × 10 μg/L desde los 50 años)"
+        },
+        {
+          "label": "YEARS sin criterios",
+          "val": "Umbral de dímero D 1000 μg/L"
+        },
+        {
+          "label": "YEARS con ≥ 1 criterio",
+          "val": "Umbral 500 μg/L (TVP, hemoptisis, TEP más probable)"
+        },
+        {
+          "label": "Probabilidad > 50 %",
+          "val": "Imagen directa: angioTC (preferida sobre V/Q)"
+        },
+        {
+          "label": "No puede angioTC",
+          "val": "Gammagrafía V/Q (mejor SPECT) antes que angioRM"
+        },
+        {
+          "label": "Ecocardiograma",
+          "val": "No confirma ni descarta el TEP"
+        }
+      ],
+      "redFlag": "Gestante con criterios YEARS y radiografía normal: angioTC de baja dosis.",
+      "trap": "Corte fijo de 500 μg/L en ancianos: más angioTC innecesarias sin ganar seguridad.",
+      "cita": [
+        {
+          "donde": "Evaluación clínica, recomendación 2 (2a, B-R)",
+          "texto": "In adult patients undergoing evaluation for PE and who have a low or intermediate clinical probability of PE (<50%) by risk assessment, an age-adjusted D-dimer value below the threshold (age × 10 μg/L for fibrinogen equivalent units assays) effectively excludes PE and the need for imaging."
+        },
+        {
+          "donde": "Evaluación clínica, nota del algoritmo YEARS",
+          "texto": "YEARS algorithm: A D-dimer threshold of 500 μg/L in patients who have ≥1 of the following: 1) clinical signs of DVT; 2) hemoptysis; and/or 3) PE as the most likely diagnosis. A D-dimer threshold of 1000 μg/L is used for patients who have no YEARS criteria."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 1 (1, A)",
+          "texto": "In patients presenting with symptoms and signs suggestive of acute PE, imaging is recommended for those who are deemed high probability (>50% probability of PE) by a validated clinic risk prediction score or an elevated D-dimer level in order to confirm or exclude PE."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 3 (1, B-R)",
+          "texto": "In patients undergoing imaging evaluation, a CTPA is recommended in preference to a V/Q scan to confirm the diagnosis of acute PE."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 6 (2a, B-R)",
+          "texto": "In patients with suspected acute PE who cannot undergo a CTPA, it is reasonable to perform a V/Q scan in preference to contrast-enhanced magnetic resonance angiography (MRA) to improve the diagnostic yield."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 5 (2a, B-R)",
+          "texto": "In patients undergoing evaluation for PE, V/Q single-photon emission computed tomography (SPECT) is reasonable in preference to a planar V/Q scan as a diagnostic study."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 9 (3: sin beneficio, B-NR)",
+          "texto": "In patients with suspected acute PE, an echocardiogram is not recommended to confirm or refute the diagnosis of PE."
+        },
+        {
+          "donde": "Pruebas diagnósticas, recomendación 4 (2a, B-NR)",
+          "texto": "In pregnant patients presenting with symptoms, YEARS criteria suggestive of acute PE, and a normal chest x-ray, imaging evaluation with lowradiation dose CTPA is reasonable over low-dose perfusion scintigraphy."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-f06",
+      "title": "Doble antiagregación: elegir y dosificar el riesgo",
+      "badge": "Antiagregación",
+      "src": "acc_antiag26",
+      "thresholds": [
+        {
+          "label": "Prasugrel vs clopidogrel (SCA + ICP)",
+          "val": "Menos eventos (12,1 → 9,9 %), más sangrado mayor (1,8 → 2,4 %)"
+        },
+        {
+          "label": "Prasugrel: no usar",
+          "val": "ACV o AIT previo (daño neto)"
+        },
+        {
+          "label": "Prasugrel: sin beneficio neto",
+          "val": "≥ 75 años o < 60 kg"
+        },
+        {
+          "label": "PRECISE-DAPT ≥ 25",
+          "val": "Alto riesgo de sangrado: considerar doble antiagregación < 12 meses"
+        },
+        {
+          "label": "SCA + anticoagulante oral",
+          "val": "Aspirina solo 1–4 semanas; luego clopidogrel + anticoagulante"
+        },
+        {
+          "label": "Aspirina en prevención primaria",
+          "val": "No de rutina; solo en muy alto riesgo isquémico"
+        }
+      ],
+      "redFlag": "Triple terapia más allá de 4 semanas: el sangrado sube sin ganancia clara.",
+      "trap": "Elegir el antiagregante más potente sin estimar el riesgo de sangrado.",
+      "cita": [
+        {
+          "donde": "TRITON-TIMI 38 · Resumen, resultados",
+          "texto": "The primary efficacy end point occurred in 12.1% of patients receiving clopidogrel and 9.9% of patients receiving prasugrel (hazard ratio for prasugrel vs. clopidogrel, 0.81; 95% confidence interval [CI], 0.73 to 0.90; P<0.001)."
+        },
+        {
+          "donde": "TRITON-TIMI 38 · Resumen, resultados",
+          "texto": "Major bleeding was observed in 2.4% of patients receiving prasugrel and in 1.8% of patients receiving clopidogrel (hazard ratio, 1.32; 95% CI, 1.03 to 1.68; P = 0.03)."
+        },
+        {
+          "donde": "TRITON-TIMI 38 · Resultados, beneficio clínico neto",
+          "texto": "patients who had a previous stroke or transient ischemic attack had net harm from prasugrel (hazard ratio, 1.54; 95% CI, 1.02 to 2.32; P = 0.04), patients 75 years of age or older had no net benefit from prasugrel (hazard ratio, 0.99; 95% CI, 0.81 to 1.21; P = 0.92), and patients weighing less than 60 kg had no net benefit from prasugrel (hazard ratio, 1.03; 95% CI, 0.69 to 1.53; P = 0.89)."
+        },
+        {
+          "donde": "PRECISE-DAPT · Discusión",
+          "texto": "PRECISE-DAPT score showed potential to identify patients at high bleeding risk (score ≥25) who might benefit from a shortened (ie, <12 months) DAPT duration."
+        },
+        {
+          "donde": "Tabla de recomendaciones: necesidad de anticoagulante oral (2025 ACC/AHA SCA, clase 1)",
+          "texto": "In patients with ACS who require oral anticoagulant therapy, aspirin should be discontinued after 1–4 wks of triple antithrombotic therapy, with continued use of a P2Y12 inhibitor (preferably clopidogrel) and an oral anticoagulant to reduce bleeding risk."
+        },
+        {
+          "donde": "Resumen",
+          "texto": "Recent data do not support a benefit for primary prevention of ASCVD in unselected populations with routine aspirin use; consideration should be reserved for those at highest ischemic risk."
         }
       ],
       "verificado": "2026-11-15"
