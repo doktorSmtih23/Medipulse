@@ -70,13 +70,6 @@ El inicio de sesión solo se pide en la app publicada (https). En el computador 
 3. Escribe un correo no invitado: debe decir «Ese correo no está invitado a la beta».
 4. Elimina tu usuario en Supabase, abre la app con internet: debe pedir el correo de nuevo.
 
-## Política de tratamiento de datos (Ley 1581 de 2012)
-- La política está en `privacidad.html`. **Antes de invitar probadores, completa el punto 1** (nombre, identificación, ciudad y correo de contacto del responsable).
-- Para entrar, cada persona marca «Leí y acepto la política». Quien entra con el enlace de invitación la acepta en una pantalla antes de empezar.
-- **Prueba de la autorización:** queda en la cuenta de cada persona en Supabase. En **Authentication → Users**, abre el usuario y mira **raw user meta data**: `privacidad_version` y `privacidad_aceptada` (fecha y hora).
-- Si cambias la política, sube `PRIV_VERSION` en `js/cuenta.js` y la fecha en `privacidad.html`: la app la pide de nuevo a todos.
-- Si alguien pide que borren sus datos, elimínalo en **Users** y responde dentro de los plazos de la política (10 días hábiles las consultas, 15 los reclamos).
-
 ## Qué protege y qué no
 - **Protege:** que solo los invitados usen la app publicada y que se pueda quitar el acceso.
 - **No protege:** el código y el contenido incluido siguen siendo públicos en GitHub (el repositorio y GitHub Pages). Para cerrarlos haría falta un servidor que entregue la app solo a quien tiene sesión; eso se decide después de la beta, junto con el modelo de cobro.

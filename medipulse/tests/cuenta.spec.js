@@ -32,15 +32,11 @@ test("sin servidor configurado la app abre como siempre, sin pedir correo", asyn
 });
 
 test("una persona invitada entra con el código del correo y ve su sesión en Progreso", async ({ page }) => {
-  const llamadas = await conServidor(page, ruta => ruta.startsWith("otp") ? [200, {}] : ruta === "verify" ? [200, SESION("ana@ejemplo.com")] : ruta === "user" ? [200, {}] : [404, {}]);
+  const llamadas = await conServidor(page, ruta => ruta.startsWith("otp") ? [200, {}] : ruta === "verify" ? [200, SESION("ana@ejemplo.com")] : [404, {}]);
   await page.goto("/");
   await expect(page.locator("#loginGate")).toBeVisible();
   await expect(page.locator("nav.bottom")).toBeHidden();
   await page.fill("#lgMail", "Ana@Ejemplo.com ");
-  await page.click("#lgGo");
-  await expect(page.locator("#lgMsg")).toContainText("acepta la política");   // sin aceptar la política no se envía nada
-  expect(llamadas.length).toBe(0);
-  await page.check("#lgPriv");
   await page.click("#lgGo");
   await expect(page.locator("#lgCode")).toBeVisible();
   expect(llamadas[0].body).toEqual({email: "ana@ejemplo.com", create_user: false});   // no crea cuentas: solo invitados
@@ -50,8 +46,6 @@ test("una persona invitada entra con el código del correo y ve su sesión en Pr
   await page.click("#lgVer");
   await expect(page.locator("#loginGate")).toBeHidden();
   expect(llamadas[1].body).toEqual({type: "email", email: "ana@ejemplo.com", token: "123456"});
-  await expect.poll(() => llamadas.find(l => l.ruta === "user")).toBeTruthy();   // la aceptación queda en su cuenta
-  expect(llamadas.find(l => l.ruta === "user").body.data.privacidad_version).toBe("2026-11-15");
   await page.click("nav [data-go=prog]");
   await expect(page.locator("#cuentaBox")).toContainText("ana@ejemplo.com");
   await page.reload();   // la sesión queda guardada
@@ -62,7 +56,6 @@ test("un correo no invitado recibe un mensaje claro", async ({ page }) => {
   await conServidor(page, () => [422, {code: 422, error_code: "otp_disabled", msg: "Signups not allowed for otp"}]);
   await page.goto("/");
   await page.fill("#lgMail", "otro@ejemplo.com");
-  await page.check("#lgPriv");
   await page.click("#lgGo");
   await expect(page.locator("#lgMsg")).toContainText("no está invitado");
   await expect(page.locator("#lgCode")).toBeHidden();
@@ -70,12 +63,7 @@ test("un correo no invitado recibe un mensaje claro", async ({ page }) => {
 
 test("el enlace del correo abre la sesión y se borra de la dirección", async ({ page }) => {
   await conServidor(page, () => [200, SESION("ana@ejemplo.com")]);
-  await page.goto(`/#access_token=${token("ana@ejemplo.com")}&expires_in=3600&refresh_token=r1&token_type=bearer&type=invite`);
-  await expect(page.locator("#loginGate")).toContainText("Antes de empezar");   // llegó por la invitación: no pasó por la casilla
-  await page.click("#lgOk");
-  await expect(page.locator("#lgMsg")).toContainText("acepta la política");
-  await page.check("#lgPriv");
-  await page.click("#lgOk");
+  await page.goto(`/#access_token=${token("ana@ejemplo.com")}&expires_in=3600&refresh_token=r1&token_type=bearer&type=magiclink`);
   await expect(page.locator("#loginGate")).toBeHidden();
   expect(page.url()).not.toContain("access_token");
   expect(await page.evaluate(() => leerSesion().email)).toBe("ana@ejemplo.com");
@@ -98,7 +86,7 @@ test("si le quitaron el acceso, al renovar la sesión vuelve a pedir el correo s
 
 test("sin internet o con el servidor caído entra con la sesión guardada", async ({ page }) => {
   await conServidor(page, () => [503, {}]);
-  await page.addInitScript(t => { localStorage.setItem("medipulse_sesion", JSON.stringify({access: t, refresh: "r", email: "ana@ejemplo.com", exp: Date.now() - 1000})); localStorage.setItem("medipulse_privacidad", JSON.stringify({v: "2026-11-15", at: "2026-11-15T00:00:00Z", enviada: true})); }, token("ana@ejemplo.com"));
+  await page.addInitScript(t => localStorage.setItem("medipulse_sesion", JSON.stringify({access: t, refresh: "r", email: "ana@ejemplo.com", exp: Date.now() - 1000})), token("ana@ejemplo.com"));
   await page.goto("/");
   await page.waitForTimeout(300);
   await expect(page.locator("nav.bottom")).toBeVisible();
@@ -107,7 +95,7 @@ test("sin internet o con el servidor caído entra con la sesión guardada", asyn
 
 test("cerrar sesión vuelve a la pantalla de entrada y conserva los datos", async ({ page }) => {
   await conServidor(page, () => [204, {}]);
-  await page.addInitScript(t => { localStorage.setItem("medipulse_sesion", JSON.stringify({access: t, refresh: "r", email: "ana@ejemplo.com", exp: Date.now() + 36e5})); localStorage.setItem("medipulse_privacidad", JSON.stringify({v: "2026-11-15", at: "2026-11-15T00:00:00Z", enviada: true})); }, token("ana@ejemplo.com"));
+  await page.addInitScript(t => localStorage.setItem("medipulse_sesion", JSON.stringify({access: t, refresh: "r", email: "ana@ejemplo.com", exp: Date.now() + 36e5})), token("ana@ejemplo.com"));
   await page.goto("/");
   await page.evaluate(() => { S.userH.push({id: "u1", specialty: "Cirugía", title: "Mía", thresholds: [{label: "a", val: "b"}]}); save(); });
   await page.click("nav [data-go=prog]");
@@ -121,20 +109,4 @@ test("si por error se pone la clave secreta, no se usa", async ({ page }) => {
   errores = vigilarErrores(page, {ignorar: [/service_role/]});
   await page.goto("/");
   await expect(page.locator("#loginGate")).toBeHidden();
-});
-
-test("si la política cambia de versión, la pide de nuevo a quien ya tenía sesión", async ({ page }) => {
-  await conServidor(page, () => [200, {}]);
-  await page.addInitScript(t => { localStorage.setItem("medipulse_sesion", JSON.stringify({access: t, refresh: "r", email: "ana@ejemplo.com", exp: Date.now() + 36e5}));
-    localStorage.setItem("medipulse_privacidad", JSON.stringify({v: "2020-01-01", at: "2020-01-01T00:00:00Z", enviada: true})); }, token("ana@ejemplo.com"));
-  await page.goto("/");
-  await expect(page.locator("#loginGate")).toContainText("Antes de empezar");
-});
-
-test("la política de tratamiento de datos se abre desde la entrada y explica qué datos y derechos", async ({ page }) => {
-  await page.goto("/privacidad.html");
-  await expect(page.locator("h1")).toContainText("tratamiento de datos");
-  for (const t of ["Ley 1581", "Supabase", "Brevo", "No recibimos tus datos de estudio", "Superintendencia de Industria y Comercio", "10 días hábiles", "15 días hábiles"])
-    await expect(page.locator("main")).toContainText(t);
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

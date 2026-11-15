@@ -279,5 +279,3 @@ body.gated header.top, body.gated main, body.gated nav.bottom, body.gated .nueva
 .login-card{width:100%;max-width:420px}
 input[type=email]{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:8px 10px;width:100%}
 .login[hidden]{display:none}
-.lgpriv{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;line-height:1.4}
-.lgpriv input{width:18px;height:18px;flex:none;margin-top:1px;accent-color:var(--accent)}
