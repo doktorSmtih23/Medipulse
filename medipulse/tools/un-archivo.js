@@ -6,13 +6,15 @@
 //   node tools/un-archivo.js --watch    → lo vuelve a generar cada vez que cambia un módulo
 //
 // El archivo generado no se sube al repo (.gitignore): la fuente de verdad son los módulos.
-// También incluye pdf.js y el SDK de Claude (vendor/) para que el lector de PDF y la IA funcionen
-// en visores que no tienen la carpeta al lado.
+//   node tools/un-archivo.js --con-librerias  → incluye además pdf.js y el SDK de Claude (~2,8 MB),
+//                                               para usar PDF e IA sin internet
+// Sin esa opción, el lector de PDF y la IA se cargan desde internet.
 const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 const OUT = path.join(ROOT, "medipulse-un-archivo.html");
+const WITH_LIBS = process.argv.includes("--con-librerias");
 const read = p => fs.readFileSync(path.join(ROOT, p), "utf8");
 // Un "</script" dentro del código cerraría la etiqueta antes de tiempo.
 const safeJs = s => s.replace(/<\/script/gi, "<\\/script");
@@ -28,10 +30,12 @@ function build() {
     parts.push(src); return `<script>\n// ===== ${src} =====\n${safeJs(read(src))}</script>`;
   });
   // Librerías de vendor/ como texto: la app las carga desde aquí si no tiene la carpeta al lado.
-  const vend = [["vend-pdf", "vendor/pdf.min.js"], ["vend-pdfw", "vendor/pdf.worker.min.js"], ["vend-sdk", "vendor/anthropic-sdk.mjs"]]
+  // Solo con --con-librerias (pesa ~2,8 MB y algunos visores se cuelgan). Por defecto, la app las busca
+  // en internet (respaldos que ya tiene) y el archivo queda liviano.
+  const vend = !WITH_LIBS ? "" : [["vend-pdf", "vendor/pdf.min.js"], ["vend-pdfw", "vendor/pdf.worker.min.js"], ["vend-sdk", "vendor/anthropic-sdk.mjs"]]
     // en base64: así ningún "<!--" ni "</script" del código puede romper el HTML
     .map(([id, f]) => `<script type="text/plain" id="${id}">${fs.readFileSync(path.join(ROOT, f)).toString("base64")}</script>`).join("\n");
-  html = html.replace(/(<script>\n\/\/ ===== data\/)/, vend + "\n$1");
+  if (vend) html = html.replace(/(<script>\n\/\/ ===== data\/)/, vend + "\n$1");
   // Ícono incrustado; el manifiesto solo sirve en el sitio publicado.
   const icon = "data:image/svg+xml;base64," + Buffer.from(read("icon.svg")).toString("base64");
   html = html.replace(/href="icon\.svg"/g, `href="${icon}"`).replace(/<link rel="manifest"[^>]*>\n?/, "");

@@ -50,7 +50,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 
 ### Versión de un solo archivo
 
-Para ver la app en un visor que abre un solo HTML (por ejemplo, el panel de archivos de Claude) o para pasarla completa a otra IA: `node tools/un-archivo.js` (o `--watch` para regenerarla con cada cambio). Ese archivo es una copia generada: **nunca se edita a mano** y los cambios que vengan sobre él se llevan a los módulos.
+Para ver la app en un visor que abre un solo HTML (por ejemplo, el panel de archivos de Claude) o para pasarla completa a otra IA: `node tools/un-archivo.js` (o `--watch` para regenerarla con cada cambio; `--con-librerias` incluye además el lector de PDF y el SDK de IA para usarlos sin internet, pero pesa ~2,8 MB y algunos visores se cuelgan). Ese archivo es una copia generada: **nunca se edita a mano** y los cambios que vengan sobre él se llevan a los módulos.
 
 ## Reglas de código
 
