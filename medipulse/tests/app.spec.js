@@ -29,10 +29,10 @@ test.describe("Estudio", () => {
     expect(r.cita).toContain("Ver la cita textual");
     expect(r.cita).toContain("norepinephrine as the first-line agent");
   });
-  test("modo sin ganas: 3 tarjetas", async ({ page }) => {
-    await page.click("[data-mode=lazy]"); await page.click("[data-lazy=cards]");
+  test("modo sin ganas: 5 fichas rápidas", async ({ page }) => {
+    await page.click("[data-mode=lazy]"); await page.click("[data-lazy=fichas]");
     for (let i = 0; i < 3; i++) { await page.click("#flipBtn"); await page.click('[data-g="2"]'); }
-    expect(await page.evaluate(() => Object.keys(S.srs).filter(k => k[0] === "c").length)).toBe(3);
+    expect(await page.evaluate(() => Object.keys(S.srs).filter(k => k[0] === "h").length)).toBe(3);
   });
   test("caso clínico con pistas, tachar y explicación", async ({ page }) => {
     await page.click("nav [data-go=banco]"); await page.click("#pr10");
@@ -64,10 +64,38 @@ test.describe("Mi enfoque", () => {
   test("se guarda y propone práctica del tipo elegido", async ({ page }) => {
     await page.selectOption("#focusSel", "critica");
     expect(await page.evaluate(() => S.focus)).toBe("critica");
-    await page.click("#doFocus");
+    await expect(page.locator("#focusBox")).toContainText("preguntas en tu banco");
+    await page.click("#focGo");
     const tipos = await page.evaluate(() => sess.stages[0].items.map(i => qKind(qById(i.id))));
     expect(tipos.length).toBeGreaterThan(0);
     expect(new Set(tipos)).toEqual(new Set(["critica"]));
+    // en la pregunta: el tipo, que es tu enfoque, y el método
+    await expect(page.locator("#sessBody .tipo.mio")).toContainText("tu enfoque");
+    await page.click("#sessBody details.metodo summary");
+    await expect(page.locator("#sessBody details.metodo")).toContainText("Identifica el diseño");
+    await page.click("#opts .opt >> nth=0");
+    await expect(page.locator("#fbBox")).toContainText("Tu enfoque");
+  });
+  test("datos duros se practica con fichas high-yield", async ({ page }) => {
+    await page.selectOption("#focusSel", "datos");
+    await expect(page.locator("#focusBox")).toContainText("fichas HY");
+    await page.click("#focGo");
+    expect(await page.evaluate(() => sess.stages[0].items.filter(i => i.t === "h").length)).toBeGreaterThan(3);
+  });
+  test("si hay pocas preguntas de un tipo, lo dice y ofrece crearlas", async ({ page }) => {
+    await page.selectOption("#focusSel", "diagnostico");
+    await expect(page.locator("#focusBox")).toContainText("pocas preguntas de este tipo");
+    await expect(page.locator("#focusBox [data-go=apuntes]")).toBeVisible();
+  });
+  test("la IA arranca con las cantidades de tu enfoque", async ({ page }) => {
+    await page.selectOption("#focusSel", "critica");
+    expect(await page.evaluate(() => TEMPLATE_DEFAULT().counts.critica)).toBe(6);
+  });
+  test("Progreso muestra el acierto por tipo de pregunta y permite elegir el enfoque", async ({ page }) => {
+    await page.click("nav [data-go=prog]");
+    await expect(page.locator("#tipoBars .bar")).toHaveCount(4);
+    await page.click("[data-btipo=conducta]");
+    expect(await page.evaluate(() => S.focus)).toBe("conducta");
   });
   test("la IA recibe el enfoque", async ({ page }) => {
     await page.selectOption("#focusSel", "datos");
@@ -122,4 +150,12 @@ test("el aviso de versión nueva aparece una sola vez y ofrece actualizar", asyn
 test("la versión nueva se instala con archivos pedidos al servidor, no a la caché del navegador", async ({ request }) => {
   const sw = await (await request.get("/sw.js")).text();
   expect(sw).toContain('cache: "reload"');
+});
+
+test("modo a tope: ninguna pregunta se repite entre bloques", async ({ page }) => {
+  await page.goto("/");
+  await page.click("[data-mode=beast]");
+  const ids = await page.evaluate(() => sess.stages.flatMap(st => st.items.filter(i => i.t === "q").map(i => String(i.id))));
+  expect(ids.length).toBeGreaterThan(5);
+  expect(new Set(ids).size).toBe(ids.length);
 });

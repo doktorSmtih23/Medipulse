@@ -48,10 +48,11 @@ function renderQ(q, exam){
   const items = stage().items;
   $("#sessBody").innerHTML = `
     <div class="card">
-      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span><span class="muted">${q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) + " · " : ""}${esc(q.topic)}</span><div class="spacer"></div>
+      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span><span class="muted">${q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) + " · " : ""}${esc(q.topic)}</span>${exam ? "" : tipoChip(q)}<div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
       ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCD"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCD"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
+      ${exam ? "" : metodoPregunta(q)}
       <div id="fbBox"></div>
     </div>
     ${exam ? `<div class="row" style="margin-top:12px">${sess.i>0?'<button class="btn" id="prevBtn">← Anterior</button>':""}<div class="spacer"></div><button class="btn primary" id="nextBtn">${sess.i+1<items.length?"Siguiente →":"Terminar simulacro"}</button></div>
@@ -92,6 +93,7 @@ function answerQ(q, o, exam){
       <div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>
       <div class="note trap"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>
       ${srcLine(q)}
+      ${enfoqueTrasResponder(q)}
       <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button><div id="repBox"></div><div id="fixBox"></div></div>
       <button class="btn primary block" id="nextBtn">Siguiente →</button>
     </div>`;
@@ -196,14 +198,15 @@ function endSession(showSummary){
     <div class="grid3">
       <div class="kpi"><b>${mins}</b><span>min</span></div>
       <div class="kpi"><b>${q.length?qok+"/"+q.length:"—"}</b><span>casos</span></div>
-      <div class="kpi"><b>${c.length}</b><span>tarjetas/fichas</span></div>
+      <div class="kpi"><b>${c.length}</b><span>fichas</span></div>
     </div>
     ${s.diag ? diagSummary(q) : ""}
+    ${enfoqueResumen(s.results)}
     <p class="muted small" style="margin:0">🔥 Racha: <b>${streak()}</b> día${streak()===1?"":"s"}. ${s.lazy?"Lo difícil era empezar. ¿Y si haces otros 5 minutos ahora que ya entraste en ritmo?":"Lo que fallaste vuelve en tu repaso en el momento justo."}</p>
     ${s.lazy?'<button class="btn primary block" id="moreBtn">Otros 5 minutos 💪</button>':""}
     <button class="btn ${s.lazy?"ghost":"primary"} block" data-go="hoy">Volver a Hoy</button></div>`;
   $("#diagGo") && ($("#diagGo").onclick = ()=>{ const sp = $("#diagGo").dataset.spec; startSession({label:sp, tag:"norm", stages:[{name:sp, items:pickQuestions(5,{spec:sp})}]}); });
-  $("#moreBtn") && ($("#moreBtn").onclick=()=>startSession({label:"Sin ganas (+5)",tag:"lazy",lazy:true,stages:[{name:"5 casos rápidos",items:pickQuestions(3)},{name:"Tarjetas",items:pickCards(5)}]}));
+  $("#moreBtn") && ($("#moreBtn").onclick=()=>startSession({label:"Sin ganas (+5)",tag:"lazy",lazy:true,stages:[{name:"5 casos rápidos",items:pickQuestions(3)},{name:"Fichas",items:pickHY(3)}]}));
 }
 
 document.addEventListener("keydown", e=>{

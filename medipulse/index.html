@@ -32,10 +32,11 @@
         <p class="muted" style="margin:4px 0 0">¿Cómo está tu energía ahora? Elige y yo armo la sesión.</p>
         <label class="examsel">🎯 Mi enfoque<select id="focusSel" aria-label="Tipo de pregunta que quieres reforzar"></select></label>
         <p class="xs muted" id="focusDesc" style="margin:4px 0 0"></p>
+        <div id="focusBox"></div>
       </div>
       <div class="grid3 stackable">
         <button class="mode lazy" data-mode="lazy"><span class="em">🛋️</span><h3>Sin ganas</h3><p>5 minutos, cero presión. Una cosa pequeña y cuenta para tu racha.</p></button>
-        <button class="mode norm" data-mode="normal"><span class="em">🙂</span><h3>Normal</h3><p>25 min: 10 casos + repaso rápido de tarjetas.</p></button>
+        <button class="mode norm" data-mode="normal"><span class="em">🙂</span><h3>Normal</h3><p>25 min: 10 casos + fichas high-yield.</p></button>
         <button class="mode fire" data-mode="beast"><span class="em">🔥</span><h3>A tope</h3><p>Plan de ~90 min en bloques: repaso, tu tema débil y simulacro.</p></button>
       </div>
       <div class="grid3 stackable">
@@ -57,7 +58,7 @@
       <button class="btn ghost" data-go="hoy">← Volver</button>
       <div><span class="tag lazy">Modo sin ganas</span><h2 style="margin-top:8px">Elige lo más fácil para ti ahora</h2>
       <p class="muted small">Ninguna opción toma más de 5 minutos. Hacer algo, aunque sea poco, mantiene tu racha y tu memoria activas.</p></div>
-      <button class="mode lazy" data-lazy="cards"><span class="em">🃏</span><h3>10 tarjetas rápidas</h3><p>Pregunta corta → respuesta. Solo marcas si la sabías.</p></button>
+      <button class="mode lazy" data-lazy="fichas"><span class="em">💎</span><h3>5 fichas rápidas</h3><p>Intenta recordar el dato, voltea y marca si lo sabías.</p></button>
       <button class="mode lazy" data-lazy="one"><span class="em">🩺</span><h3>Un solo caso clínico</h3><p>Uno. Lees la explicación y listo.</p></button>
       <button class="mode lazy" data-lazy="read"><span class="em">📖</span><h3>Solo leer una ficha</h3><p>Sin responder nada: una ficha high-yield con umbrales y trampas.</p></button>
     </div>
@@ -323,6 +324,7 @@
       <h2>Tu progreso</h2>
       <div class="grid2" id="progKpis"></div>
       <div class="card"><h3 style="font-size:16px">Dominio por especialidad</h3><p class="muted xs" style="margin:4px 0 0">% de aciertos en casos clínicos. Gris = aún sin datos. Toca un área para practicarla.</p><div class="bars" id="bars"></div></div>
+      <div class="card"><h3 style="font-size:16px">Por tipo de pregunta</h3><p class="muted xs" style="margin:4px 0 0">% de aciertos según cómo pregunta el examen. 🎯 = tu enfoque. Toca uno para elegirlo como enfoque.</p><div class="bars" id="tipoBars"></div></div>
       <div class="card"><h3 style="font-size:16px">Últimas 5 semanas</h3><p class="muted xs" style="margin:4px 0 10px">Minutos de estudio por día.</p><div class="heat" id="heat"></div></div>
       <div class="card stack">
         <h3 style="font-size:16px">Tus datos</h3>
