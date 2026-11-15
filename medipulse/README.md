@@ -9,6 +9,8 @@ La app está dividida por módulos (sin frameworks ni compilación): `index.html
 
 Prueba automática: `node tests/smoke.js` (requiere `npm install --no-save playwright` y `npx playwright install chromium` la primera vez).
 
+Versión de un solo archivo (para visores que abren un solo HTML o para compartirla): `node tools/un-archivo.js` genera `medipulse-un-archivo.html`; con `--watch` se regenera con cada cambio.
+
 ## Cómo funciona
 Al abrirla eliges cómo te sientes y la app arma la sesión:
 
@@ -25,7 +27,8 @@ Al abrirla eliges cómo te sientes y la app arma la sesión:
 - Funciona sin internet (service worker) y se puede instalar en el celular ("Agregar a pantalla de inicio").
 
 - **Laboratorio MBE:** cómo leer una guía, un ECA, un metaanálisis, un observacional o una revisión (método en 5 pasos, trampa, ejemplo real), destilador de lectura que crea tarjetas, y calculadoras de NNT y de prueba diagnóstica 2×2.
-- **Meta y diagnóstico:** examen objetivo del estudiante (también orienta a la IA) y diagnóstico rápido de 5 preguntas, una por área.
+- **Enfoque y diagnóstico:** el estudiante elige qué tipo de pregunta reforzar (conducta clínica, diagnóstico, lectura crítica y MBE, datos duros o mixto). No depende de un examen en particular, porque los exámenes cambian sin aviso. El enfoque ordena las sesiones, orienta a la IA y propone práctica en **¿Qué estudiar hoy?**. Además, diagnóstico rápido de 5 preguntas, una por área.
+- **Analizar un documento** (en el detalle de cada PDF o desde MBE → Auditar un PDF): ver la página original, mapa por capítulos (por los títulos del documento o con IA) y tres análisis con IA que citan su página: **auditoría MBE** (veredicto, algoritmo, qué hacer y qué no, umbrales, qué cambió), **revisión de tema** (fisiopatología, cuadro típico y banderas rojas, algoritmo, diferenciales, perlas) y **pase de revista** (resumen de 60 s, conductas y preguntas del profesor). El resultado se puede convertir en ficha HY o en preguntas, siempre con revisión. Si la IA falla, se muestra el error: nunca un resultado de relleno.
 - **Banco y simulacro:** filtros de fallos y sin responder, pistas, tachar opciones, marcar para revisar y mapa del simulacro.
 - **Reportes:** 🚩 en cada pregunta o tarjeta; se revisan en Fuentes → Reportes (corregir con IA o archivar).
 - **Crear y compartir:** preguntas y tarjetas a mano, fuentes de texto pegado y packs de estudio en JSON para compartir con colegas.

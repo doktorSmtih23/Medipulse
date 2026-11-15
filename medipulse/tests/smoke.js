@@ -63,6 +63,15 @@ const check = (name, ok, extra) => { results.push({name, ok}); console.log(`${ok
     check("Ficha high-yield se estudia y califica", await page.evaluate(() => Object.keys(S.srs).some(k => k[0] === "h")));
     await page.click("#quitBtn");
 
+    // Enfoque por tipo de pregunta (reemplaza la meta por examen)
+    await page.selectOption("#focusSel", "critica");
+    check("Mi enfoque se guarda y propone práctica", await page.evaluate(() => S.focus === "critica") && await page.isVisible("#doFocus"));
+    await page.selectOption("#focusSel", "mixto");
+
+    // MBE: entrada para auditar un PDF
+    await page.click("nav [data-go=mbe]");
+    check("MBE ofrece auditar un PDF", await page.isVisible("#mbeDocs #mbeUp"));
+
     // MBE: calculadora
     await page.click("nav [data-go=mbe]"); await page.fill("#cCer", "16"); await page.fill("#cEer", "14.5");
     check("Calculadora NNT (16 % vs 14.5 % → 67)", (await page.textContent("#cOut")).includes("67"));
@@ -76,6 +85,17 @@ const check = (name, ok, extra) => { results.push({name, ok}); console.log(`${ok
     const views = ["hoy","banco","tarjetas","sim","mbe","lib","prog","new","rep","check","guide"], wide = [];
     for (const v of views) { await page.evaluate(v => go(v), v); if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)) wide.push(v); }
     check("Sin desplazamiento horizontal a 360 px", !wide.length, wide.join(", "));
+
+    // Versión de un solo archivo: se abre sola (sin css/, data/ ni js/ al lado), con estilos y sin errores
+    const os = require("os"), { build, OUT } = require("../tools/un-archivo.js"); build();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "mp-")), solo = path.join(dir, "index.html");
+    fs.copyFileSync(OUT, solo);
+    const p2 = await browser.newPage({viewport: {width: 360, height: 800}});
+    p2.on("pageerror", e => errors.push("un archivo: " + e.message));
+    await p2.goto("file://" + solo);
+    const ok = await p2.evaluate(() => QUESTIONS.length > 0 && getComputedStyle(document.querySelector(".view:not(.on)") || document.body).display === "none");
+    check("La versión de un solo archivo abre sola", ok);
+    await p2.close(); fs.rmSync(dir, {recursive: true});
   } catch (e) {
     check("Recorrido completo", false, e.message.split("\n")[0]);
   }

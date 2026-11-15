@@ -4,6 +4,8 @@
 const STALE_DAYS = 180;
 function uerr(msg, e){ const x = new Error((e && e.message) || msg); x.userMsg = msg; return x; }
 async function loadSDK(){
+  const inl = vendorUrl("vend-sdk");
+  if (inl) try { return (await import(inl)).default; } catch(e) {}
   try { return (await import(new URL("vendor/anthropic-sdk.mjs", document.baseURI).href)).default; }
   catch(e) {
     try { return (await import("https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk@1.2.0/+esm")).default; }
