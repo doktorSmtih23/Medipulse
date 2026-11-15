@@ -117,6 +117,18 @@ ${AN_RULES}`,
 "pitch": resumen oral que se pueda decir en 60 segundos. "checklist": conductas concretas para el turno. "questions": de 3 a 6 preguntas difíciles que haría el profesor, con su respuesta según el documento.
 ${AN_RULES}`
 };
+// Instrucciones y herramientas comunes a las tres tareas (así el documento se reutiliza desde la caché).
+const AN_ALL_TOOLS = [AN_TOOLS.audit, AN_TOOLS.tema, AN_TOOLS.revista];
+const AN_SHARED_SYSTEM = `Analizas documentos médicos para un médico. La tarea se indica al final del mensaje: sigue solo las instrucciones de esa tarea y entrega el resultado con su herramienta.
+
+[Tarea: ${AN_KINDS.audit.name} · herramienta report_audit]
+${AN_SYSTEM.audit}
+
+[Tarea: ${AN_KINDS.tema.name} · herramienta report_topic]
+${AN_SYSTEM.tema}
+
+[Tarea: ${AN_KINDS.revista.name} · herramienta report_rounds]
+${AN_SYSTEM.revista}`;
 
 // ---------- normalización (lo que llega de la IA o del almacenamiento) ----------
 const anStr = v => typeof v === "string" ? v.trim() : "";
@@ -159,7 +171,8 @@ function renderAnalysis(){
     <div class="${an.scope === "range" ? "grid2" : "stack"}"><label class="fld">Analizar<select id="anScope"><option value="all">Todo el documento</option>${chs.map((c,i)=>`<option value="c${i}" ${an.scope==="c"+i?"selected":""}>${esc(c.title.length > 40 ? c.title.slice(0,40) + "…" : c.title)}</option>`).join("")}<option value="range" ${an.scope==="range"?"selected":""}>Un rango de páginas</option></select></label>
       ${an.scope === "range" ? `<div class="grid2"><label class="fld">Desde<input type="number" id="anFrom" min="1" max="${s.pages}" value="${an.from}"></label><label class="fld">Hasta<input type="number" id="anTo" min="1" max="${s.pages}" value="${an.to}"></label></div>` : ""}</div>
     <div class="tabs3">${Object.entries(AN_KINDS).map(([kk,v])=>`<button data-ak="${kk}" class="${an.kind===kk?"on":""}"><b>${v.icon} ${v.name}</b><span>${v.desc}</span></button>`).join("")}</div>
-    ${key ? `<button class="btn primary block" id="anGo" ${an.busy?"disabled":""}>${an.busy === "run" ? `<span class="spin"></span> Analizando…` : `✨ ${k.name}${saved ? " (rehacer)" : ""}`}</button>`
+    ${key ? `<button class="btn primary block" id="anGo" ${an.busy?"disabled":""}>${an.busy === "run" ? `<span class="spin"></span> Analizando…` : `✨ ${k.name}${saved ? " (rehacer)" : ""}`}</button>
+      <p class="xs muted" style="margin:0;text-align:center">Costo estimado: ${anCostLine(s)}. Si haces otra tarea del mismo texto en unos minutos, cuesta menos.</p>`
           : `<div class="note"><b>Para estos análisis necesitas tu clave de IA.</b> Mientras tanto puedes leer, ver la página original y crear fichas a mano en el taller de abajo. <button class="linkbtn" data-go="guide">¿Cómo consigo una clave?</button></div>`}
     ${an.err ? `<p class="small" style="margin:0;color:var(--bad)">${esc(an.err)}</p>` : ""}
     <div id="anOut">${saved ? anResultHTML(an.kind, saved) : ""}</div>`;
@@ -220,13 +233,14 @@ function anJump(p){
 }
 
 // ---------- llamadas a la IA ----------
+function anCostLine(s){ let chars = 0; try { const sel = anSelection(s); chars = sel ? sel.text.length : 0; } catch(e) {} return aiEstimateLine(chars, {outTokens: 6000}); }
 async function runChapters(){
   const s = cur(), info = docInfo(s.id); if (!s || an.busy) return;
   an.busy = "map"; an.err = ""; renderAnalysis();
   const idx = info.pages.map((p,i)=>p.trim() ? `pág. ${i+1}: ${p.replace(/\s+/g, " ").slice(0, 320)}` : "").filter(Boolean).join("\n").slice(0, 60000);
   try {
     const r = await callForTool({system: `Eres un médico especialista. Con el inicio de cada página de un documento médico, decides qué tipo de documento es ("design") y lo divides en 3 a 8 capítulos clínicos reales con su rango de páginas ("from" y "to", según las marcas pág. N). No incluyas la bibliografía, los agradecimientos ni la información de los autores. "summary": qué decisión o pregunta clínica resuelve el capítulo, en una línea. Usa solo lo que aparece en el texto. Español neutro, sin markdown.`,
-      tools: [T_CHAPTERS], user: `<indice titulo="${s.title.replace(/"/g, "'")}">\n${idx}\n</indice>`}, "report_chapters");
+      tools: [T_CHAPTERS], user: `<indice titulo="${s.title.replace(/"/g, "'")}">\n${idx}\n</indice>`, light: true, label: "Mapa por capítulos"}, "report_chapters");
     // Se descartan los capítulos con páginas que no existen o al revés, en vez de "corregirlos".
     const chs = (Array.isArray(r.chapters) ? r.chapters : []).filter(c=>c && Number.isInteger(c.from) && Number.isInteger(c.to) && c.from >= 1 && c.from <= c.to && c.from <= s.pages)
       .map(c=>({title: anStr(c.title), from: c.from, to: Math.min(s.pages, c.to), summary: anStr(c.summary)})).filter(c=>c.title).slice(0, 10);
@@ -241,8 +255,12 @@ async function runAnalysis(){
   if (!sel || !sel.nums.length) { an.err = "Esas páginas no tienen texto."; return renderAnalysis(); }
   an.busy = "run"; an.err = ""; renderAnalysis();
   try {
-    const r = await callForTool({system: AN_SYSTEM[kind] + focusLine(), tools: [AN_TOOLS[kind]],
-      user: `<documento titulo="${s.title.replace(/"/g, "'")}">\n${sel.text}\n</documento>\n\nAnaliza: ${sel.label}.`}, AN_TOOLS[kind].name);
+    // Las tres tareas comparten instrucciones, herramientas y el bloque del documento (en caché):
+    // la segunda y la tercera del mismo texto pagan ~5–10 % de la lectura si se hacen en unos minutos.
+    const r = await callForTool({system: AN_SHARED_SYSTEM + focusLine(), tools: AN_ALL_TOOLS,
+      user: [{type: "text", text: `<documento titulo="${s.title.replace(/"/g, "'")}">\n${sel.text}\n</documento>`, cache_control: {type: "ephemeral"}},
+             {type: "text", text: `Tarea: ${AN_KINDS[kind].name}. Analiza: ${sel.label}. Entrega el resultado llamando a la herramienta ${AN_TOOLS[kind].name}.`}],
+      label: AN_KINDS[kind].name}, AN_TOOLS[kind].name);
     const data = anClean(kind, r);
     if (kind === "audit" && DESIGNS[data.design] && data.design !== "OTRO") s.design = data.design;
     s.an = Object.assign({}, s.an, {[kind]: {label: sel.label, nums: sel.nums, trimmed: sel.trimmed, at: Date.now(), data}});

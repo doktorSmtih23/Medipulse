@@ -179,14 +179,16 @@ function renderAiBox(){
   const k = getKey();
   $("#aiBox").innerHTML = k
     ? `<p class="small" style="margin:0">✓ Clave guardada en este dispositivo (termina en …${esc(k.slice(-4))}). Al generar desde un PDF puedes pedir <b>casos clínicos tipo examen</b> con explicación, perla y trampa.</p>
+       <div style="margin-top:10px">${aiLevelHTML()}</div>
        <div class="row" style="margin-top:10px"><button class="btn ghost" id="keyDel" style="color:var(--bad)">Quitar clave</button><button class="btn ghost sm" data-go="guide">📖 Guía y solución de problemas</button></div>`
     : `<p class="small" style="margin:0 0 10px">Sin IA, la app crea <b>tarjetas de completar</b> con las frases que tienen datos clave: gratis y sin internet. Con una clave de la API de Claude también genera <b>casos clínicos tipo examen</b>.</p>
        <label class="fld">Clave de API de Anthropic<input type="password" id="keyIn" placeholder="sk-ant-…" autocomplete="off"></label>
        <div class="row" style="margin-top:10px"><button class="btn primary" id="keySave">Guardar clave</button></div>
-       <p class="xs muted" style="margin:10px 0 0">Se guarda solo en este navegador y solo se envía a la API de Anthropic. Se paga aparte de Claude Pro/Max, por uso (unos centavos por acción).</p>
+       <p class="xs muted" style="margin:10px 0 0">Se guarda solo en este navegador y solo se envía a la API de Anthropic. Se paga aparte de Claude Pro/Max, por uso. Antes de cada acción la app muestra cuánto costará, aproximadamente.</p>
        <button class="btn sm" data-go="guide" style="margin-top:10px">📖 ¿No tienes clave? Guía paso a paso</button>`;
   $("#keySave") && ($("#keySave").onclick = ()=>{ const v = $("#keyIn").value.trim(); if (!/^sk-ant-/.test(v)) return toast("La clave debe empezar con sk-ant-"); setKey(v); renderAiBox(); toast(CAN_STORE ? "Clave guardada ✓" : "Clave lista para esta sesión. En la vista previa no se guarda al cerrar."); });
   $("#keyDel") && ($("#keyDel").onclick = ()=>{ if (confirm("¿Quitar la clave de este dispositivo?")) { setKey(""); renderAiBox(); } });
+  bindAiLevel(renderAiBox);
 }
 
 
