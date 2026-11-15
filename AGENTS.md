@@ -4,6 +4,8 @@ Este repositorio contiene **MediPulse** (`medipulse/`), una app web de estudio p
 
 > La raíz del repo también tiene una app Flutter antigua (`lib/`, `build/web/`, etc.). No se toca salvo que se pida explícitamente.
 
+**Antes de proponer una función, lee [PRODUCTO.md](PRODUCTO.md):** define para quién es MediPulse, qué promete, qué NO es y cómo decidir si algo entra.
+
 ## Principios
 
 1. **Una sola fuente de verdad:** este repositorio. Nada de versiones paralelas de la app completa: los cambios son incrementales, sobre los archivos existentes, y entran por pull request a `main`.
