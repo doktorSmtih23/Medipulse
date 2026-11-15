@@ -95,7 +95,7 @@ function loadPdfJs(){
     }
     pdfjsP = null;
     console.error("No cargó el lector de PDF desde:", failed);
-    throw new Error("no se pudo cargar el lector de PDF. Revisa tu conexión y recarga la página; si sigue igual, abre la app desde " + location.origin + "/checkerexam/medipulse/");
+    throw new Error("no se pudo cargar el lector de PDF. Revisa tu conexión y recarga la página; si sigue igual, abre la app desde " + APP_URL);
   })());
 }
 async function extractPages(buf, onProg){
