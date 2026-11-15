@@ -4,6 +4,9 @@
 const KEY = "medipulse_v2";
 const DAY = 864e5;
 const BOX_DAYS = [0, 1, 3, 7, 16, 35];
+// En algunos visores (por ejemplo, la vista previa de un solo archivo) el navegador bloquea el
+// almacenamiento. La app funciona igual, en memoria, y avisa que nada se guarda al cerrar.
+const CAN_STORE = (()=>{ try { localStorage.setItem("medipulse_t", "1"); localStorage.removeItem("medipulse_t"); return true; } catch(e) { return false; } })();
 const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, userQ:[], userC:[], sources:[], seq:0, check:{}, over:{}, hidden:{}, notes:[], reports:[], exam:"", focus:"mixto", hints:false, tpls:[], userH:[]});
 let S = BLANK();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}

@@ -2,8 +2,9 @@
 // BIBLIOTECA DE FUENTES
 // ===================================================================
 const KEY_API = "medipulse_api_key";
-function getKey(){ try { return localStorage.getItem(KEY_API) || ""; } catch(e) { return ""; } }
-function setKey(k){ try { k ? localStorage.setItem(KEY_API, k) : localStorage.removeItem(KEY_API); } catch(e) {} }
+let memKey = "";   // respaldo en memoria cuando el navegador no deja guardar
+function getKey(){ try { return localStorage.getItem(KEY_API) || memKey; } catch(e) { return memKey; } }
+function setKey(k){ memKey = k || ""; try { k ? localStorage.setItem(KEY_API, k) : localStorage.removeItem(KEY_API); } catch(e) {} }
 const pubmed = t => "https://pubmed.ncbi.nlm.nih.gov/?term=" + encodeURIComponent(t);
 
 function srcInfo(id){
@@ -33,11 +34,16 @@ function srcLine(item){
 const idb = (()=>{
   let dbp;
   const db = () => dbp || (dbp = new Promise((res,rej)=>{
-    const r = indexedDB.open("medipulse", 1);
+    let r; try { r = indexedDB.open("medipulse", 1); } catch(e) { dbp = null; return rej(e); }
     r.onupgradeneeded = () => r.result.createObjectStore("pdfs");
     r.onsuccess = () => res(r.result); r.onerror = () => { dbp = null; rej(r.error); };
   }));
-  const tx = async (mode, fn) => { const d = await db(); return new Promise((res,rej)=>{
+  const mem = new Map(); let useMem = false;
+  const memOp = (mode, fn) => { const s = {get: k=>({result: mem.get(k)}), put: (v,k)=>{ mem.set(k, v); return {}; }, delete: k=>{ mem.delete(k); return {}; }}; const r = fn(s); return Promise.resolve(r && r.result); };
+  const tx = async (mode, fn) => {
+    if (useMem) return memOp(mode, fn);
+    let d; try { d = await db(); } catch(e) { useMem = true; return memOp(mode, fn); }
+    return new Promise((res,rej)=>{
     const t = d.transaction("pdfs", mode), req = fn(t.objectStore("pdfs"));
     t.oncomplete = () => res(req && req.result); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error || new Error("Sin espacio de almacenamiento"));
   }); };
@@ -67,9 +73,18 @@ function loadScript(src){
     document.head.appendChild(s);
   });
 }
+// En la versión de un solo archivo, las librerías vienen dentro del HTML (<script type="text/plain" id="vend-…">).
+const vendorUrl = id => { const el = document.getElementById(id); if (!el) return "";
+  const bin = atob(el.textContent.trim()), bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return URL.createObjectURL(new Blob([bytes], {type: "text/javascript"})); };
 function loadPdfJs(){
   return pdfjsP || (pdfjsP = (async ()=>{
     const failed = [];
+    const inl = vendorUrl("vend-pdf");
+    if (inl) {
+      try { await loadScript(inl); pdfjsLib.GlobalWorkerOptions.workerSrc = vendorUrl("vend-pdfw"); return pdfjsLib; }
+      catch(e) { failed.push("copia incluida en el archivo"); }
+    }
     for (const src of PDFJS_SOURCES) {
       try {
         await loadScript(src.lib);
@@ -164,7 +179,7 @@ function renderAiBox(){
        <div class="row" style="margin-top:10px"><button class="btn primary" id="keySave">Guardar clave</button></div>
        <p class="xs muted" style="margin:10px 0 0">Se guarda solo en este navegador y solo se envía a la API de Anthropic. Se paga aparte de Claude Pro/Max, por uso (unos centavos por acción).</p>
        <button class="btn sm" data-go="guide" style="margin-top:10px">📖 ¿No tienes clave? Guía paso a paso</button>`;
-  $("#keySave") && ($("#keySave").onclick = ()=>{ const v = $("#keyIn").value.trim(); if (!/^sk-ant-/.test(v)) return toast("La clave debe empezar con sk-ant-"); setKey(v); renderAiBox(); toast("Clave guardada ✓"); });
+  $("#keySave") && ($("#keySave").onclick = ()=>{ const v = $("#keyIn").value.trim(); if (!/^sk-ant-/.test(v)) return toast("La clave debe empezar con sk-ant-"); setKey(v); renderAiBox(); toast(CAN_STORE ? "Clave guardada ✓" : "Clave lista para esta sesión. En la vista previa no se guarda al cerrar."); });
   $("#keyDel") && ($("#keyDel").onclick = ()=>{ if (confirm("¿Quitar la clave de este dispositivo?")) { setKey(""); renderAiBox(); } });
 }
 
