@@ -23,7 +23,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 |---|---|
 | `index.html` | Solo la estructura de las pantallas (vistas `v-*`) y la barra inferior |
 | `css/app.css` | Todos los estilos. Colores como variables (`--bg`, `--accent`…) con tema claro y oscuro |
-| `data/servidor.js` | Dirección y clave pública (anon/publishable) del servidor de la beta. Vacío = sin inicio de sesión. Nunca la clave secreta |
+| `data/servidor.js` | Dirección y clave pública (publishable) del servidor de la beta. Solo se activa en https fuera de `localhost`: en el computador y en las pruebas se entra sin correo. Nunca la clave secreta |
 | `data/especialidades.js` | `SPECS` y `SPEC_COLOR` |
 | `data/fuentes.js` | Referencias (`SOURCES`), vigencia y a qué caso corresponde cada una |
 | `data/contenido/registro.js` | Registro `MP_CONTENIDO` (se carga antes que las especialidades) |

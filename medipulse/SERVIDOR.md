@@ -62,6 +62,8 @@ const MP_SERVIDOR = {
 ```
 La clave publishable es pública por diseño (va en el navegador de todos). La seguridad está en que el registro está cerrado.
 
+El inicio de sesión solo se pide en la app publicada (https). En el computador (`localhost`), en las pruebas automáticas y en la vista previa de un solo archivo se entra sin correo.
+
 ## 8. Probar
 1. Invítate a ti mismo (paso 6) y abre el enlace: debes entrar directo.
 2. En otro navegador, escribe tu correo en la pantalla de entrada y usa el **código**.
