@@ -51,7 +51,7 @@ Una **demostración corta del método**: pocos casos y fichas de las 4 básicas 
 
 Consecuencias para el diseño:
 - **Cuidar el costo de cada acción con IA:** hacer con IA solo lo que aporta, sin IA lo que se puede (lectura, datos clave, repaso, simulacros), y avisar cuánto cuesta antes de usarla.
-- **Infraestructura mínima:** la app funciona en el dispositivo y sin internet; el servidor solo para lo indispensable.
+- **Infraestructura mínima:** la app funciona en el dispositivo y sin internet; el servidor solo para lo indispensable. En la beta, el servidor (Supabase, plan gratis) solo controla quién entra: los datos de estudio no salen del dispositivo.
 - **Sin funciones pensadas para cobrar más:** nada de muros de pago en lo básico del estudio.
 - El modelo exacto (por ejemplo, una suscripción baja que incluya los créditos de IA) se define después de la beta.
 
