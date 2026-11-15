@@ -20,6 +20,13 @@ const read = p => fs.readFileSync(path.join(ROOT, p), "utf8");
 const safeJs = s => s.replace(/<\/script/gi, "<\\/script");
 const safeCss = s => s.replace(/<\/style/gi, "<\\/style");
 
+// El contenido incluido (data/contenido/*.js) va en JSON sin sangrías: pesa bastante menos y es idéntico.
+function compactar(src, js) {
+  if (!/^data\/contenido\//.test(src)) return js;
+  return js.replace(/MP_CONTENIDO\.agregar\(([\s\S]*)\);\s*$/, (_, json) => {
+    try { return `MP_CONTENIDO.agregar(${JSON.stringify(JSON.parse(json))});\n`; } catch (e) { return _; }
+  });
+}
 function build() {
   let html = read("index.html");
   const parts = [];
@@ -27,7 +34,7 @@ function build() {
     parts.push(href); return `<style>\n${safeCss(read(href))}</style>`;
   });
   html = html.replace(/<script src="((?:data|js)\/[^"]+)"><\/script>/g, (_, src) => {
-    parts.push(src); return `<script>\n// ===== ${src} =====\n${safeJs(read(src))}</script>`;
+    parts.push(src); return `<script>\n// ===== ${src} =====\n${safeJs(compactar(src, read(src)))}</script>`;
   });
   // Librerías de vendor/ como texto: la app las carga desde aquí si no tiene la carpeta al lado.
   // Solo con --con-librerias (pesa ~2,8 MB y algunos visores se cuelgan). Por defecto, la app las busca
