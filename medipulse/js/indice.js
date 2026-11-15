@@ -91,7 +91,7 @@ async function buildIndice(s){
   save();
   return s.indice;
 }
-const IND_FUENTE = {pdf: "Índice del propio PDF.", numerado: "Secciones numeradas del documento.", titulos: "Detectado por los títulos del documento.", ia: "Creado con IA a partir del documento."};
+const IND_FUENTE = {apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", numerado: "Secciones numeradas del documento.", titulos: "Detectado por los títulos del documento.", ia: "Creado con IA a partir del documento."};
 
 // ---------- tema elegido ----------
 function temaActual(){

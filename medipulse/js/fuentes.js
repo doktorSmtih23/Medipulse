@@ -15,7 +15,7 @@ function srcInfo(id){
     return b;
   }
   const s = S.sources.find(x=>x.id===id);
-  return s ? {builtin:false, id:s.id, t:s.title, kind:s.kind||"pdf"} : null;
+  return s ? {builtin:false, id:s.id, t:s.title, kind:s.kind||"pdf", apunte:s.apunte} : null;
 }
 // Cita textual de la fuente (contenido incluido verificado): dónde está y qué dice, para comparar.
 function citaHtml(item){
@@ -32,8 +32,8 @@ function srcLine(item){
   if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${upd}${s.u?` · <a href="${esc(s.u)}" target="_blank" rel="noopener">abrir la guía</a>`:s.k!=="book"?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>` + citaHtml(item)
     + (st==="outdated" && !item.updated ? warn("Hay una versión más nueva de esta fuente; este dato podría haber cambiado. Revísalo en Fuentes → Vigencia.") : "") + marca;
   const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : "";
-  const pdf = s.kind==="pdf", where = item.page ? (s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";
-  return `<div class="srcline">${pdf?"📄":s.kind==="pack"?"📦":"📋"} <span>${esc(s.t)}${where}${how}${upd}${pdf?` · <button class="linkbtn" onclick="openPdf('${s.id}',${item.page||1})">abrir PDF</button>`:""}</span></div>`
+  const pdf = s.kind==="pdf", where = item.page ? (s.apunte ? ` · punto ${item.page}` : s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";
+  return `<div class="srcline">${pdf?"📄":s.kind==="pack"?"📦":s.apunte?"📓":"📋"} <span>${esc(s.t)}${where}${how}${upd}${pdf?` · <button class="linkbtn" onclick="openPdf('${s.id}',${item.page||1})">abrir PDF</button>`:""}</span></div>`
     + (item.stale ? warn("Viene de la versión anterior de este PDF.") : st==="outdated" ? warn("Hay una versión más nueva de este documento.") : "") + marca;
 }
 
@@ -135,7 +135,7 @@ async function addPdf(f, openAfter, meta){
     await idb.put(id, rec); recCache[id] = rec;
     S.sources.push(Object.assign({id, title: f.name.replace(/\.pdf$/i,""), pages: pages.length, chars, added: Date.now(), spec: "Medicina Interna"}, meta || {}));
     save(); prog.innerHTML = "";
-    toast(chars < pages.length*80 ? "PDF agregado, pero casi no tiene texto (¿es escaneado?)." : "PDF agregado ✓");
+    toast(chars < pages.length*80 ? "PDF agregado, pero casi no tiene texto (¿es escaneado o escrito a mano?)." : "PDF agregado ✓");
     if (openAfter) openSrc(id);
     return id;
   } catch(err) {
@@ -162,7 +162,8 @@ function renderLib(){
   $("#myDocs").innerHTML = docs.length
     ? `<h3 style="font-size:15px;margin:4px 0 0">Tus documentos</h3>` + docs.map(s=>{
         const nq = S.userQ.filter(q=>q.src===s.id).length, nc = S.userC.filter(c=>c.src===s.id).length;
-        return `<div class="srcitem"><div class="ic">📄</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${s.pages} págs · ${nq} casos · ${nc} tarjetas</div></div><button class="btn" data-src="${s.id}">Abrir</button></div>`;
+        const nh = S.userH.filter(h=>h.src===s.id).length, cuanto = s.apunte ? `${s.pages} puntos` : s.kind==="text" ? `${s.pages} parte${s.pages===1?"":"s"}` : s.kind==="pack" ? "pack" : `${s.pages} págs`;
+        return `<div class="srcitem"><div class="ic">${s.apunte?"📓":s.kind==="text"?"📋":s.kind==="pack"?"📦":"📄"}</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${cuanto} · ${nq} casos · ${nh} fichas${nc?` · ${nc} tarjetas`:""}</div></div><button class="btn" data-src="${s.id}">Abrir</button></div>`;
       }).join("")
     : `<p class="muted small" style="margin:0">Aún no tienes documentos. Empieza con el PDF de una guía de práctica clínica o con tus apuntes de una rotación.</p>`;
   document.querySelectorAll("[data-src]").forEach(b=>b.onclick=()=>openSrc(b.dataset.src));

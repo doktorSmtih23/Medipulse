@@ -23,4 +23,4 @@ function renderProg(){
 }
 $("#expBtn").onclick = () => exportBackup();
 $("#impFile").onchange = e => { const f = e.target.files[0]; e.target.value = ""; if (f) importBackup(f); };
-$("#resetBtn").onclick=()=>{ if(confirm("¿Borrar tu progreso (racha, repasos, estadísticas)? Tus PDF y las preguntas generadas se conservan. No se puede deshacer.")){ S=Object.assign(BLANK(),{theme:S.theme,userQ:S.userQ,userC:S.userC,sources:S.sources,seq:S.seq,check:S.check,over:S.over,hidden:S.hidden,notes:S.notes,reports:S.reports,exam:S.exam,focus:S.focus,hints:S.hints,tpls:S.tpls,userH:S.userH}); save(); renderProg(); refreshChips(); toast("Progreso borrado"); } };
+$("#resetBtn").onclick=()=>{ if(confirm("¿Borrar tu progreso (racha, repasos, estadísticas)? Tus PDF y las preguntas generadas se conservan. No se puede deshacer.")){ S=Object.assign(BLANK(),{theme:S.theme,userQ:S.userQ,userC:S.userC,sources:S.sources,seq:S.seq,check:S.check,over:S.over,hidden:S.hidden,notes:S.notes,reports:S.reports,exam:S.exam,focus:S.focus,hints:S.hints,tpls:S.tpls,userH:S.userH,apuntes:S.apuntes}); save(); renderProg(); refreshChips(); toast("Progreso borrado"); } };

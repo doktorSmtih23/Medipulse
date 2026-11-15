@@ -38,7 +38,8 @@
         <button class="mode norm" data-mode="normal"><span class="em">🙂</span><h3>Normal</h3><p>25 min: 10 casos + repaso rápido de tarjetas.</p></button>
         <button class="mode fire" data-mode="beast"><span class="em">🔥</span><h3>A tope</h3><p>Plan de ~90 min en bloques: repaso, tu tema débil y simulacro.</p></button>
       </div>
-      <div class="grid2">
+      <div class="grid3 stackable">
+        <button class="btn quick" data-go="apuntes">📓 Mis apuntes<small>Anota lo de hoy y vuélvelo fichas y preguntas</small></button>
         <button class="btn quick" id="diagBtn">🎯 Diagnóstico rápido<small>5 preguntas, una por área, para encontrar tu brecha antes de leer</small></button>
         <button class="btn quick" data-go="mbe">🔬 Leer un estudio o guía<small>Método de lectura crítica, ficha y calculadora NNT</small></button>
       </div>
@@ -115,7 +116,8 @@
       <div><h2>Biblioteca de fuentes</h2><p class="muted small" style="margin:4px 0 0">Sube tus PDF (guías, resúmenes, libros) y conviértelos en tarjetas y casos que entran a tu repaso espaciado. Cada pregunta indica de qué fuente y de qué página sale.</p></div>
       <div class="card stack">
         <label class="btn primary block center" style="display:block">➕ Agregar PDF<input type="file" id="pdfIn" accept="application/pdf" multiple hidden></label>
-        <div class="row" style="gap:8px"><button class="btn sm" id="pasteBtn">📋 Pegar texto</button><label class="btn sm">📥 Importar pack<input type="file" id="packIn" accept="application/json,.json" hidden></label></div>
+        <div class="row" style="gap:8px"><button class="btn sm" data-go="apuntes">📓 Mis apuntes</button><button class="btn sm" id="pasteBtn">📋 Pegar texto</button><label class="btn sm">📥 Importar pack<input type="file" id="packIn" accept="application/json,.json" hidden></label></div>
+        <p class="xs muted" style="margin:0">¿Notas a mano (cuaderno, GoodNotes, Notability)? La app no lee escritura a mano: escríbelas en <button class="linkbtn" data-go="apuntes">📓 Mis apuntes</button> o pega el texto.</p>
         <div id="pasteBox"></div>
         <div id="pdfProgress" class="small muted"></div>
         <div id="myDocs"></div>
@@ -288,6 +290,11 @@
     </div>
   </section>
 
+  <!-- ============ MIS APUNTES ============ -->
+  <section class="view" id="v-apuntes">
+    <div class="stack" id="apBox"></div>
+  </section>
+
   <!-- ============ CREAR PREGUNTAS ============ -->
   <section class="view" id="v-new">
     <div class="stack">
@@ -367,6 +374,7 @@
 <script src="js/crear-y-compartir.js"></script>
 <script src="js/datos.js"></script>
 <script src="js/corregir.js"></script>
+<script src="js/apuntes.js"></script>
 <script src="js/inicio.js"></script>
 </body>
 </html>
