@@ -13,6 +13,11 @@ const apDiaHoy = (d = new Date()) => `${AP_DIAS[d.getDay()]} ${d.getDate()} ${AP
 const apLibs = () => S.apuntes || (S.apuntes = []);
 const apLib = id => apLibs().find(l => l.id === id);
 const apId = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+// El área de la libreta es libre (Otorrino, Neurología, Urgencias…). Las fichas y preguntas van a una de
+// las especialidades de la app (para estadísticas y simulacros) y llevan el área como etiqueta.
+const apBase = lib => SPECS.includes(lib.spec) ? lib.spec : "Medicina Interna";
+const apEtiqueta = lib => SPECS.includes(lib.spec) ? "" : (lib.spec || "");
+const apAreasHTML = () => `<datalist id="apAreas">${[...new Set([...SPECS, ...apLibs().map(l => l.spec).filter(Boolean)])].map(a => `<option value="${esc(a)}">`).join("")}</datalist>`;
 const AP_VERIF = /\s*(?:\(\?\)|\?\?)/g, AP_HAY_VERIF = /\(\?\)|\?\?/;
 
 // ---------- atajos al escribir ----------
@@ -100,7 +105,7 @@ function apSync(lib){
   if (!pages.length) return null;
   let s = S.sources.find(x => x.id === lib.srcId);
   if (!s) { s = {id: apId("a"), added: Date.now(), kind: "text", apunte: lib.id}; S.sources.push(s); lib.srcId = s.id; }
-  Object.assign(s, {title: lib.title, spec: lib.spec, pages: pages.length, chars: pages.reduce((a, p) => a + p.length, 0), indice: {fuente: "apuntes", items}});
+  Object.assign(s, {title: lib.title, spec: apBase(lib), pages: pages.length, chars: pages.reduce((a, p) => a + p.length, 0), indice: {fuente: "apuntes", items}});
   const rec = {blob: null, pages};
   recCache[s.id] = rec; idb.put(s.id, rec).catch(() => {});
   save();
@@ -126,7 +131,7 @@ async function apIA(lib, pt, btn){
   const n = apParte(s, pt);
   genBusy = true; btn.disabled = true; btn.innerHTML = `<span class="spin"></span> Creando…`;
   try {
-    prepSrc(s.id, {tab: "ai", rdPage: n});
+    prepSrc(s.id, {tab: "ai", rdPage: n, label: apEtiqueta(lib)});
     const res = await aiGenerate({a: n, b: n, nums: [n], pages: [pt.text]}, lib.title, AP_ASK());
     if (!res.length) { toast("La IA no encontró qué preguntar en este punto."); return; }
     cands = res; go("src");
@@ -136,7 +141,7 @@ async function apIA(lib, pt, btn){
 }
 function apNuevaFicha(lib, pt, box){
   const s = apSync(lib), f = apFicha(pt.text);
-  hyEditor(box, {title: f.title, spec: lib.spec, rows: f.rows, src: s.id, page: apParte(s, pt), ctx: pt.text.replace(AP_VERIF, ""),
+  hyEditor(box, {title: f.title, badge: apEtiqueta(lib), spec: apBase(lib), rows: f.rows, src: s.id, page: apParte(s, pt), ctx: pt.text.replace(AP_VERIF, ""),
     heading: "💎 Ficha de tu apunte", flags: {manual: true, apLib: lib.id, apKey: pt.key},
     onSave: () => renderApuntes(), onCancel: () => { box.innerHTML = ""; }});
 }
@@ -179,7 +184,7 @@ function renderLibretas(){
     <div><h2>📓 Mis apuntes</h2><p class="muted small" style="margin:4px 0 0">Escribe aquí lo que antes anotabas en el cuaderno o en GoodNotes: una libreta por semana o rotación, una entrada por día y tus puntos numerados. Cada punto se vuelve ficha o preguntas con un toque.</p></div>
     <div class="card stack">
       <div class="grid2"><label class="fld">Nueva libreta<input type="text" id="apTitle" placeholder="p. ej. Semana 18 · Rotación de Pediatría"></label>
-        <label class="fld">Especialidad<select id="apSpec">${SPECS.map(s => `<option>${s}</option>`).join("")}</select></label></div>
+        <label class="fld">Área<input type="text" id="apSpec" list="apAreas" placeholder="p. ej. Pediatría, Otorrino, Neurología"></label>${apAreasHTML()}</div>
       <button class="btn primary" id="apNew">➕ Crear libreta</button></div>
     ${libs.length ? `<div class="row" style="gap:6px"><input type="search" id="apQ" value="${esc(apQuery)}" placeholder="Buscar en tus apuntes: p. ej. HINTS, Ramsay, salbutamol…" style="flex:1;min-width:0">
       ${nVerif ? `<button class="chip2${apSoloVerif ? " on" : ""}" id="apVf">⚠ Por verificar (${nVerif})</button>` : ""}</div>` : ""}
@@ -196,7 +201,7 @@ function renderLibretas(){
   }
   $("#apNew").onclick = () => {
     const title = $("#apTitle").value.trim() || `Semana del ${apDiaHoy()}`;
-    const lib = {id: apId("l"), title, spec: $("#apSpec").value, created: Date.now(), upd: Date.now(), entries: []};
+    const lib = {id: apId("l"), title, spec: $("#apSpec").value.trim() || "Medicina Interna", created: Date.now(), upd: Date.now(), entries: []};
     apLibs().push(lib); save(); apCur = lib.id; apNuevaEntrada(lib);
   };
   $("#apQ") && ($("#apQ").oninput = () => { apQuery = $("#apQ").value; clearTimeout(renderLibretas._t);
@@ -231,12 +236,23 @@ function renderLibreta(lib){
       return `<div class="card stack" data-ent="${e.id}"><div class="row"><b>${esc(e.day)}</b><div class="spacer"></div><button class="btn ghost sm" data-apedit>✏️ Escribir</button></div>
         ${ps.length ? ps.map((pt, i) => puntoHTML(lib, e, pt, base + i)).join("") : `<p class="muted small" style="margin:0">Vacía.</p>`}</div>`;
     }).join("") || `<p class="muted small" style="margin:0">La libreta está vacía. Toca <b>✏️ Escribir lo de hoy</b>.</p>`}
-    <div class="row" style="gap:6px"><button class="btn ghost sm" id="apRen">✏️ Cambiar nombre</button><button class="btn ghost sm" id="apDel" style="color:var(--bad)">Eliminar libreta</button></div>`;
+    <div id="apRenBox"></div>
+    <div class="row" style="gap:6px"><button class="btn ghost sm" id="apRen">✏️ Nombre y área</button><button class="btn ghost sm" id="apDel" style="color:var(--bad)">Eliminar libreta</button></div>`;
   bindPuntos($("#apBox"), lista);
   $("#apBack").onclick = () => { apSalirEdicion(lib); apCur = null; renderApuntes(); scrollTo(0, 0); };
   $("#apHoy").onclick = () => apNuevaEntrada(lib);
   $("#apStudy").onclick = () => { apSalirEdicion(lib); apEstudiar(lib); };
-  $("#apRen").onclick = () => { const t = prompt("Nombre de la libreta", lib.title); if (!t || !t.trim()) return; lib.title = t.trim(); lib.upd = Date.now(); save(); if (lib.srcId) apSync(lib); renderApuntes(); };
+  $("#apRen").onclick = () => {
+    const b = $("#apRenBox"); if (b.innerHTML) { b.innerHTML = ""; return; }
+    b.innerHTML = `<div class="card stack"><div class="grid2"><label class="fld">Nombre<input type="text" id="apRenT" value="${esc(lib.title)}"></label>
+      <label class="fld">Área<input type="text" id="apRenA" list="apAreas" value="${esc(lib.spec)}"></label>${apAreasHTML()}</div>
+      <p class="xs muted" style="margin:0">El área es libre. Si no es una de las especialidades de la app (${SPECS.join(", ")}), tus fichas y preguntas la llevan como etiqueta y cuentan en Medicina Interna para las estadísticas.</p>
+      <div class="row" style="gap:6px"><button class="btn primary sm" id="apRenOk">Guardar</button><button class="btn ghost sm" id="apRenX">Cancelar</button></div></div>`;
+    $("#apRenT").focus();
+    $("#apRenX").onclick = () => { b.innerHTML = ""; };
+    $("#apRenOk").onclick = () => { const t = $("#apRenT").value.trim(); if (!t) return toast("Ponle un nombre a la libreta.");
+      lib.title = t; lib.spec = $("#apRenA").value.trim() || lib.spec; lib.upd = Date.now(); save(); if (lib.srcId) apSync(lib); renderApuntes(); toast("Libreta actualizada ✓"); };
+  };
   $("#apDel").onclick = async () => {
     if (!confirm(`¿Eliminar la libreta «${lib.title}»? Las fichas y preguntas que ya creaste con ella se conservan. No se puede deshacer.`)) return;
     S.apuntes = apLibs().filter(l => l !== lib);
