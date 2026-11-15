@@ -38,6 +38,3 @@ const SOURCES = [
   {id:"williams", t:"Williams Obstetricia, 27ª edición", r:"McGraw-Hill", y:2025, k:"book"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
-const Q_SRC = {1:"acc_acs",2:"ssc26",3:"ada_cri",4:"acog_htn",5:"cps_croup",6:"tg18",7:"aha_acv",8:"apap",9:"who_men",10:"atls11",11:"who_dia",12:"who_hpp",13:"ukka_k",14:"ga2len",15:"wses_app",16:"aha_tep",17:"aap_bq",18:"acog_ect",19:"gordis",20:"gordis",21:"acc_fa",22:"aha_kaw",23:"goldf",24:"tg18",25:"rcog_pp",26:"eu_hna"};
-BUILTIN_Q.forEach(q=>{ q.src = Q_SRC[q.id]; });
-let QUESTIONS = BUILTIN_Q;

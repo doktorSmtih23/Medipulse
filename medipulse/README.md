@@ -59,10 +59,6 @@ Las funciones con IA usan la clave de API de Claude del propio usuario. Guía pa
 Se incluyen en el repo para que la app no dependa de ningún CDN y funcione sin conexión.
 
 ## Agregar contenido
-En `data/`:
-- `preguntas.js`: `QUESTIONS_BASE` / `QUESTIONS_EXTRA`: casos clínicos (`specialty`, `topic`, `vignette`, `options`, `correct`, `whyCorrect`, `pearl`, `trap`).
-- `tarjetas.js`: tarjetas `[especialidad, frente, reverso]` y su fuente en `F_SRC`.
-- `fichas-hy.js`: fichas con umbrales, bandera roja y trampa, y su fuente en `HY_SRC`.
-- `fuentes.js`: referencias (`SOURCES`) y la fuente de cada caso (`Q_SRC`).
+El contenido incluido (starter pack gratuito) está en `data/contenido/`, **un archivo por especialidad** con sus casos, fichas HY y tarjetas. Las referencias están en `data/fuentes.js`. El formato y las reglas (ids que nunca cambian, fuente obligatoria, revisión médica) están en [AGENTS.md → Contenido médico](../AGENTS.md#contenido-médico). `npm test` valida el contenido antes de publicarlo.
 
 Si cambias archivos, sube la versión de `CACHE` en `sw.js` para que los celulares descarguen la nueva versión.
