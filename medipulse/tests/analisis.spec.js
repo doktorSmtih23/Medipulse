@@ -32,41 +32,47 @@ test.beforeEach(async ({ page }) => {
 });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
-test("muestra la página original del PDF", async ({ page }) => {
-  await page.click("#anViewBtn");
-  await expect(page.locator("#pvBox canvas")).toBeVisible({timeout: 20_000});
+const irA = (page, k) => page.click(`#genCard [data-gt="${k}"]`);
+
+test("al abrir el PDF se ve la página real y el índice del documento", async ({ page }) => {
+  await expect(page.locator("#rdText .pdfpage canvas")).toBeVisible({timeout: 20_000});
+  await expect(page.locator("#genCard .indice")).toBeVisible();
+  await expect(page.locator(".ind-it").first()).toContainText("Todo el documento");
   expect(await sinDesborde(page)).toBe(true);
 });
 
-test("mapa por capítulos con IA descarta rangos imposibles", async ({ page }) => {
-  await page.click("#anMap");
-  await expect(page.locator(".chap b")).toHaveText(["Contexto clínico", "Ensayos clínicos y vectores"]);
+test("índice con IA: descarta rangos imposibles y cada tema es un alcance", async ({ page }) => {
+  await page.click("#indAI");
+  await expect(page.locator(".ind-it span")).toHaveText(["Todo el documento", "Contexto clínico", "Ensayos clínicos y vectores"]);
+  await page.click('[data-tema="1"]');
+  await expect(page.locator("#genCard")).toContainText("Tema: Ensayos clínicos y vectores");
 });
 
-test("auditoría: envía solo las páginas del capítulo, cita páginas válidas y escapa el HTML", async ({ page }) => {
-  await page.click("#anMap"); await expect(page.locator(".chap")).toHaveCount(2);
-  await page.click('[data-ch="1"]'); await page.click("#anGo");
+test("auditoría: envía solo las páginas del tema, cita páginas válidas y escapa el HTML", async ({ page }) => {
+  await page.click("#indAI"); await expect(page.locator(".ind-it")).toHaveCount(3);
+  await page.click('[data-tema="1"]'); await irA(page, "audit"); await page.click("#anGo");
   await expect(page.locator("#anOut .anres")).toBeVisible();
   const p = peticiones.at(-1), doc = p.messages[0].content[0];
   expect(doc.text.match(/\[pág\. \d+\]/g)).toEqual(["[pág. 2]"]);
   expect(doc.cache_control).toEqual({type: "ephemeral"});   // el documento se reutiliza desde la caché
   expect(p.tools.every(t => t.strict)).toBe(true);
   expect(p.model).toBe("claude-sonnet-5-5");                 // nivel Equilibrado por defecto
-  expect(peticiones[0].model).toBe("claude-haiku-5-5");      // el mapa de capítulos va con el modelo económico
+  expect(peticiones[0].model).toBe("claude-haiku-5-5");      // el índice con IA va con el modelo económico
   await expect(page.locator('#anOut [data-pg="99"]')).toHaveCount(0);
   await expect(page.locator("#anOut img")).toHaveCount(0);
   expect(await page.evaluate(() => window.__xss)).toBeUndefined();
   await expect(page.locator("#anOut h3")).toContainText("<img");   // se ve como texto, no se ejecuta
 });
 
-test("tocar una página citada abre el visor en esa página", async ({ page }) => {
-  await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
+test("tocar una página citada abre el PDF en esa página", async ({ page }) => {
+  await irA(page, "audit"); await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
   await page.click('#anOut [data-pg="3"] >> nth=0');
-  await expect(page.locator("#pvPage")).toHaveValue("3", {timeout: 20_000});
+  await expect(page.locator("#genCard")).toContainText("Página 3");
+  await expect(page.locator("#rdText .pdfpage canvas")).toBeVisible({timeout: 20_000});
 });
 
 test("convertir en ficha HY pasa por revisión y queda marcada como IA", async ({ page }) => {
-  await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
+  await irA(page, "audit"); await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
   await page.click("#anToHy");
   await expect(page.locator("#candList")).toBeVisible();
   expect(await page.evaluate(() => S.userH.length)).toBe(0);   // nada se guarda sin revisión
@@ -76,22 +82,22 @@ test("convertir en ficha HY pasa por revisión y queda marcada como IA", async (
 });
 
 test("revisión de tema y pase de revista", async ({ page }) => {
-  await page.click("[data-ak=tema]"); await page.click("#anGo");
+  await irA(page, "tema"); await page.click("#anGo");
   await expect(page.locator("#anOut h3")).toHaveText("Terapia génica en Parkinson");
-  await page.click("[data-ak=revista]"); await page.click("#anGo");
+  await irA(page, "revista"); await page.click("#anGo");
   await expect(page.locator("#anOut .anq")).toHaveCount(1);
   expect(await sinDesborde(page)).toBe(true);
 });
 
 test("si la IA falla, muestra el error y no inventa un resultado", async ({ page }) => {
   fallar = true;
-  await page.click("#anGo");
-  await expect(page.locator("#anCard")).toContainText("Error del servicio de IA");
+  await irA(page, "audit"); await page.click("#anGo");
+  await expect(page.locator("#genCard")).toContainText("Error del servicio de IA");
   await expect(page.locator("#anOut .anres")).toHaveCount(0);
 });
 
 test("privacidad: el encabezado y el pie con nombre y correo no llegan a la IA", async ({ page }) => {
-  await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
+  await irA(page, "audit"); await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
   const texto = peticiones.at(-1).messages[0].content.map(b => b.text).join("\n");
   expect(texto).toContain("AAV2-GAD");
   expect(texto.replace(/\s+/g, "")).not.toMatch(/prueba@correo\.com|Descargadopara|RevistadePrueba/);
@@ -99,17 +105,18 @@ test("privacidad: el encabezado y el pie con nombre y correo no llegan a la IA",
 });
 
 test("sin clave explica cómo conseguirla y no ofrece analizar", async ({ page }) => {
-  await page.evaluate(() => { localStorage.removeItem("medipulse_api_key"); setKey(""); renderAnalysis(); });
+  await page.evaluate(() => { localStorage.removeItem("medipulse_api_key"); setKey(""); gen.tab = "audit"; renderGen(); });
   await expect(page.locator("#anGo")).toHaveCount(0);
-  await expect(page.locator("#anCard")).toContainText("necesitas tu clave");
+  await expect(page.locator("#genCard")).toContainText("necesitas tu clave");
 });
 
 test("muestra el costo estimado, registra el real y respeta el nivel elegido", async ({ page }) => {
-  await expect(page.locator("#anCard")).toContainText("Costo estimado: ≈ US$");
+  await irA(page, "audit");
+  await expect(page.locator("#genCard")).toContainText("Costo estimado: ≈ US$");
   await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
   await expect(page.locator("#toast")).toContainText("≈ US$");
   expect(await page.evaluate(() => aiSpendMonth() > 0)).toBe(true);
-  await page.evaluate(() => { S.aiLevel = "max"; renderAnalysis(); });
+  await page.evaluate(() => { S.aiLevel = "max"; renderGen(); });
   const antes = peticiones.length;
   await page.click("#anGo");
   await expect.poll(() => peticiones.length).toBe(antes + 1);
@@ -120,7 +127,7 @@ test("muestra el costo estimado, registra el real y respeta el nivel elegido", a
 test("las tres tareas comparten instrucciones y herramientas para reutilizar la caché", async ({ page }) => {
   for (const k of ["audit", "tema", "revista"]) {
     const antes = peticiones.length;
-    await page.click(`[data-ak=${k}]`); await page.click("#anGo");
+    await irA(page, k); await page.click("#anGo");
     await expect.poll(() => peticiones.length).toBe(antes + 1);
     await expect(page.locator("#anGo")).toBeEnabled();
   }
@@ -133,8 +140,8 @@ test("detecta signos dañados en el texto del PDF, avisa y pide a la IA no adivi
   const r = await page.evaluate(() => [simbolosDanados(["Epidural hematoma ε30 mL", "ICP ω 22 mmHg y MAP ε80"]), simbolosDanados(["β-bloqueador y α2 normales", "valor ≥ 30 mL"])]);
   expect(r[0]).toMatchObject({n: 3, pags: [1, 2]});
   expect(r[1]).toBeNull();   // letras griegas reales y signos bien leídos no cuentan
-  await page.evaluate(() => { docInfo(cur().id).danados = simbolosDanados(["ε30", "ω 22", "ε80"]); renderAnalysis(); });
-  await expect(page.locator("#anCard .note.trap")).toContainText("símbolos que no se leyeron bien");
+  await page.evaluate(() => { docInfo(cur().id).danados = simbolosDanados(["ε30", "ω 22", "ε80"]); gen.tab = "audit"; renderGen(); });
+  await expect(page.locator("#genCard .note.trap")).toContainText("símbolos que no se leyeron bien");
   const antes = peticiones.length;
   await page.click("#anGo");
   await expect.poll(() => peticiones.length).toBe(antes + 1);

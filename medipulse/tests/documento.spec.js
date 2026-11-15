@@ -35,13 +35,13 @@ test("una marca de agua con letras espaciadas también se quita", async ({ page 
   expect(limpio).toEqual(["Texto."]);
 });
 
-test("PDF de prueba: capítulos sin IA, sin referencias y sin pie personal", async ({ page }) => {
+test("PDF de prueba: temas sin IA, sin referencias y sin pie personal", async ({ page }) => {
   await subirPdf(page);
   // el PDF de prueba sí trae el pie con el correo en cada página (si no, esta prueba no comprobaría nada)
   const crudo = await page.evaluate(() => recCache[cur().id].pages);
   expect(crudo.every(p => /prueba@correo\.com/.test(p.replace(/\s+/g, "")))).toBe(true);
   const d = await page.evaluate(() => { const s = cur(), i = docInfo(s.id), t = i.pages.join("\n");
-    return {caps: anChapters(s).length, refs: /Fearnley/.test(t), pie: /prueba@correo|Descargado para/.test(t), contenido: /AAV2-GAD/.test(t)}; });
+    return {caps: (indiceDeTitulos(s, i, s.pages) || []).length, refs: /Fearnley/.test(t), pie: /prueba@correo|Descargado para/.test(t), contenido: /AAV2-GAD/.test(t)}; });
   expect(d).toEqual({caps: expect.any(Number), refs: false, pie: false, contenido: true});
   expect(d.caps).toBeGreaterThanOrEqual(2);
 });

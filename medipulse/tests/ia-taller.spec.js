@@ -17,7 +17,7 @@ test.beforeEach(async ({ page }) => {
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
 test("fichas automáticas: ordenadas por relevancia, filtradas y revisadas antes de guardar", async ({ page }) => {
-  await page.click("#aGo");
+  await page.click('#genCard [data-gt="ai"]'); await page.click("#aGo");
   await expect(page.locator("#candList")).toBeVisible();
   // la ficha sin datos se descarta; la más relevante va primero
   await expect(page.locator("#candList [data-k=title]")).toHaveCount(2);
@@ -29,7 +29,7 @@ test("fichas automáticas: ordenadas por relevancia, filtradas y revisadas antes
 });
 
 test("la petición usa esquema JSON y no envía referencias ni datos personales", async ({ page }) => {
-  await page.click("#aGo"); await expect(page.locator("#candList")).toBeVisible();
+  await page.click('#genCard [data-gt="ai"]'); await page.click("#aGo"); await expect(page.locator("#candList")).toBeVisible();
   const p = peticiones[0], texto = p.messages[0].content.map(b => b.text).join("\n");
   expect(p.output_config.format.type).toBe("json_schema");
   expect(texto).toContain("23.1%");
