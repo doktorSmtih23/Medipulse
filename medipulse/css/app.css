@@ -253,3 +253,14 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
 .cropov{position:absolute;inset:0;z-index:5;cursor:crosshair;touch-action:none;background:rgba(0,0,0,.08)}
 .cropsel{position:absolute;display:none;border:2px dashed var(--accent);background:rgba(0,150,255,.12)}
 .itimg{display:block;max-width:100%;height:auto;border-radius:8px;border:1px solid var(--border);margin:8px 0;background:#fff}
+/* Índice del documento: temas (nivel 1) y subtemas (nivel 2) */
+.indice{display:flex;flex-direction:column;gap:2px;max-height:300px;overflow:auto;border:1px solid var(--border);border-radius:10px;padding:4px}
+.ind-it{display:flex;gap:8px;align-items:baseline;justify-content:space-between;text-align:left;background:none;border:0;border-radius:8px;padding:8px 10px;font:inherit;color:var(--text);cursor:pointer}
+.ind-it span{min-width:0;overflow-wrap:anywhere}
+.ind-it small{flex:none;color:var(--muted);font-size:12px}
+.ind-it.lvl1{font-weight:600}
+.ind-it.lvl2{padding-left:26px;font-size:14px}
+.ind-it:hover{background:var(--subtle)}
+.ind-it.on{background:var(--accent);color:#fff}.ind-it.on small{color:#fff}
+.tabs3.acc2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tabs3.acc4{grid-template-columns:repeat(2,minmax(0,1fr))}

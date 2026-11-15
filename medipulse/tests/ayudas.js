@@ -50,7 +50,7 @@ async function abrirConClave(page){
 async function subirPdf(page, archivo = PDF_PRUEBA){
   await page.click("nav [data-go=lib]");
   await page.setInputFiles("#pdfIn", archivo);
-  await expect(page.locator("#anCard")).toBeVisible({timeout: 30_000});
+  await expect(page.locator('#genCard [data-gt="read"]')).toBeVisible({timeout: 30_000});
 }
 
 // Sin desplazamiento horizontal en la pantalla actual.

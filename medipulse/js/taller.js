@@ -117,7 +117,8 @@ const cur = () => S.sources.find(x=>x.id===curSrc);
 function openSrc(id){
   curSrc = id; cands = null;
   const s = cur();
-  gen = Object.assign(TEMPLATE_DEFAULT(), {tab: getKey() ? "ai" : "read", from: 1, to: Math.max(1, Math.min(s.pages, 10)), pageSet: null, topic: "", spec: s.spec || "Medicina Interna", n: 10, rdPage: 1, rdQuery: ""});
+  gen = Object.assign(TEMPLATE_DEFAULT(), {tab: (anIntent && anIntent.id === id && anIntent.kind) || "read", tema: null, manual: null, from: 1, to: Math.max(1, Math.min(s.pages, 10)), pageSet: null, topic: "", spec: s.spec || "Medicina Interna", n: 10, rdPage: 1, rdQuery: ""});
+  anIntent = null;
   go("src");
 }
 async function renderSrc(){
@@ -142,59 +143,69 @@ async function renderSrc(){
   $("#genCard").hidden = false;
   $("#genCard").innerHTML = `<p class="small muted" style="margin:0"><span class="spin"></span> Preparando el documento…</p>`;
   try { await getRec(s.id); } catch(e) {}
-  if (curSrc === s.id && currentView === "src") { renderAnalysis(); renderGen(); }
+  if (curSrc === s.id && currentView === "src") { $("#anCard").hidden = true; renderGen(); }
 }
 
+// Una sola tarjeta: índice del documento (temas y subtemas) y qué hacer con el tema elegido.
+const ACCIONES = {
+  read: ["📖 Leer", "El PDF tal como es: selecciona, recorta o sube capturas."],
+  recs: ["⚡ Recomendaciones", "Lo que recomienda la guía en este tema, completo y con su clase."],
+  ai: ["💎 Fichas y preguntas", "La IA arma fichas y preguntas del tema."],
+  audit: ["🔬 Auditoría", "Veredicto, algoritmo, qué hacer y qué no, umbrales."],
+  tema: ["📖 Revisión de tema", "Fisiopatología, cuadro típico, banderas rojas, diferenciales."],
+  revista: ["🩺 Pase de revista", "Resumen de 60 s, conductas y preguntas del profesor."]
+};
+// Índice y selector de páginas: se redibujan solos cuando termina de cargarse el índice,
+// sin tocar el resto (así no se pierde una captura o una selección en curso).
+function indiceHTML(){
+  const s = cur(), ind = s.indice, items = ind ? ind.items : [];
+  return `
+      <div class="row"><b class="small">📑 Índice</b><div class="spacer"></div>${getKey() && s.kind !== "pack" ? `<button class="btn ghost sm" id="indAI" ${gen.indBusy?"disabled":""}>${gen.indBusy ? `<span class="spin"></span> Creando…` : items.length ? "✨ Rehacer con IA" : "✨ Crear con IA"}</button>` : ""}</div>
+      ${!ind ? `<p class="xs muted" style="margin:0"><span class="spin"></span> Buscando el índice…</p>` : `<div class="indice">
+        <button class="ind-it${gen.tema==null && !gen.manual?" on":""}" data-tema="-1"><span>Todo el documento</span></button>
+        ${items.map((x,i)=>`<button class="ind-it lvl${x.lvl}${gen.tema===i && !gen.manual?" on":""}" data-tema="${i}"><span>${esc(x.title)}</span><small>${x.from===x.to?`pág. ${x.from}`:`págs. ${x.from}–${x.to}`}</small></button>`).join("")}
+      </div>
+      <p class="xs muted" style="margin:0">${items.length ? IND_FUENTE[ind.fuente] + " Toca un tema para trabajar solo con él." : `No encontré un índice en este documento${getKey() ? "; puedes crearlo con IA (≈ US$0,01)" : ""}, o elige las páginas a mano.`}</p>`}
+      ${gen.indErr ? `<p class="small" style="margin:0;color:var(--bad)">${esc(gen.indErr)}</p>` : ""}
+      <details class="custom" ${gen.manual ? "open" : ""}><summary>Elegir páginas a mano</summary><div class="row" style="gap:6px;margin-top:8px;align-items:flex-end">
+        <label class="fld" style="flex:1">Desde<input type="number" id="manFrom" min="1" max="${s.pages}" value="${gen.manual ? gen.manual.from : 1}"></label>
+        <label class="fld" style="flex:1">Hasta<input type="number" id="manTo" min="1" max="${s.pages}" value="${gen.manual ? gen.manual.to : Math.min(s.pages, 5)}"></label>
+        <button class="btn sm" id="manGo">Usar</button></div></details>
+    `;
+}
+function bindIndice(){
+  const s = cur();
+  const elegir = v => { gen.tema = v; gen.manual = null; const x = temaActual(); gen.topic = x ? x.title : ""; if (x) gen.rdPage = x.from; renderGen(); };
+  document.querySelectorAll("[data-tema]").forEach(b=>b.onclick=()=>elegir(+b.dataset.tema < 0 ? null : +b.dataset.tema));
+  $("#manGo").onclick = ()=>{ const a = Math.max(1, Math.min(s.pages, +$("#manFrom").value || 1)), z = Math.max(a, Math.min(s.pages, +$("#manTo").value || a));
+    gen.manual = {from: a, to: z}; gen.tema = null; gen.topic = ""; gen.rdPage = a; renderGen(); };
+  $("#indAI") && ($("#indAI").onclick = runChapters);
+}
 function renderGen(){
   const s = cur(), info = docInfo(s.id);
   if (!info) { $("#genCard").innerHTML = `<p class="small" style="margin:0;color:var(--bad)">No encuentro el texto de esta fuente en este dispositivo. Vuelve a agregarla.</p>`; return; }
+  if (!s.indice && !gen.indCargando) { gen.indCargando = true; buildIndice(s).catch(()=>{}).then(()=>{ gen.indCargando = false; if (cur() === s && currentView === "src" && $("#indBox")) { $("#indBox").innerHTML = indiceHTML(); bindIndice(); } }); }
+  const t = temaActual(), sel = temaSel();
+  const est = s.design || detectDesign(info.pages.slice(0, 6).join(" "));
+  const chars = sel ? sel.pages.reduce((a, p)=>a + p.length, 0) : 0;
+  const btn = k => `<button data-gt="${k}" class="${gen.tab===k?"on":""}"><b>${ACCIONES[k][0]}</b><span>${ACCIONES[k][1]}</span></button>`;
   $("#genCard").innerHTML = `
-    <h3 style="font-size:16px">Taller de preguntas</h3>
-    <div class="tabs3">
-      <button data-gt="read" class="${gen.tab==="read"?"on":""}"><b>📖 Leer y crear</b><span>Arma fichas HY con lo que selecciones. Gratis.</span></button>
-      <button data-gt="ai" class="${gen.tab==="ai"?"on":""}"><b>✨ IA</b><span>Fichas automáticas por relevancia, o a tu medida.${getKey() ? "" : " Requiere clave."}</span></button>
-      <button data-gt="auto" class="${gen.tab==="auto"?"on":""}"><b>⚡ Datos clave</b><span>Encuentra cifras y criterios para tu ficha. Sin internet.</span></button>
-    </div>
+    <div class="row"><h3 style="font-size:16px">📚 Estudiar este documento</h3><div class="spacer"></div><span class="tag" title="${s.design ? "Según la IA" : "Estimado por palabras clave"}">${esc(DESIGNS[est] || DESIGNS.OTRO)}</span></div>
+    ${info.danados ? `<div class="note trap" role="note"><b>⚠️ Este PDF tiene símbolos que no se leyeron bien</b> (por ejemplo «${esc(info.danados.ejemplo)}»). Los signos ≥, ≤, &lt; o &gt; pueden salir cambiados: revisa las cifras con signos en la página original.</div>` : ""}
+    <div class="stack" style="gap:6px" id="indBox">${indiceHTML()}</div>
+    <div class="note" style="margin:0"><b>Tema:</b> ${esc(t ? t.title : "Todo el documento")}${sel ? ` · ${pagesLabel(sel)}` : ""}</div>
+    <div class="xs muted">Gratis</div>
+    <div class="tabs3 acc2">${btn("read")}${btn("recs")}</div>
+    <div class="xs muted">Con IA${getKey() ? ` · ${aiEstimateLine(Math.min(chars, AN_MAX_CHARS), {outTokens: 5000})} aprox. por acción` : " · requiere tu clave"}</div>
+    <div class="tabs3 acc4">${btn("ai")}${btn("audit")}${btn("tema")}${btn("revista")}</div>
     <div id="gBody" class="stack"></div>`;
+  bindIndice();
   document.querySelectorAll("[data-gt]").forEach(b=>b.onclick=()=>{ gen.tab = b.dataset.gt; renderGen(); });
-  ({read: renderReader, ai: renderAiTab, auto: renderAutoTab})[gen.tab]();
+  ({read: renderReader, recs: renderRecs, ai: renderAiTab, audit: ()=>renderAnTab("audit"), tema: ()=>renderAnTab("tema"), revista: ()=>renderAnTab("revista")})[gen.tab]();
 }
 
-// ---------- tema y páginas (compartido por IA y sugerencias) ----------
-function topicBlock(){
-  const s = cur(), info = docInfo(s.id);
-  const sugg = [...info.heads.map(h=>h.t), ...info.terms].filter((x,i,a)=>a.findIndex(y=>norm(y)===norm(x))===i).slice(0, 16);
-  return `
-    <label class="fld">¿Sobre qué tema del documento?<input type="text" id="gTopic" value="${esc(gen.topic)}" placeholder="p. ej. vectores AAV, resultados del ensayo fase II, efectos adversos…"></label>
-    ${sugg.length ? `<div class="chips">${sugg.map(x=>`<button class="chip2" data-sg="${esc(x)}">${esc(x)}</button>`).join("")}</div>` : ""}
-    <div id="gPagesInfo" class="xs"></div>
-    <div class="grid2"><label class="fld">Desde pág.<input type="number" id="gFrom" min="1" max="${s.pages}" value="${gen.from}"></label><label class="fld">Hasta pág.<input type="number" id="gTo" min="1" max="${s.pages}" value="${gen.to}"></label></div>`;
-}
-function bindTopic(after){
-  const upd = ()=>{
-    const s = cur(), hits = topicPages(s.id, gen.topic), box = $("#gPagesInfo");
-    if (!box) return;
-    if (gen.pageSet) box.innerHTML = `📌 Usando solo las págs. <b>${gen.pageSet.join(", ")}</b> (donde aparece el tema) · <button class="linkbtn" id="gUseRange">usar el rango</button>`;
-    else if (gen.topic.trim() && hits.length) box.innerHTML = `🔎 “${esc(gen.topic)}” aparece en las págs. ${hits.slice(0,12).map(h=>h.page).sort((a,b)=>a-b).join(", ")} · <button class="linkbtn" id="gUseHits">usar solo esas</button>`;
-    else if (gen.topic.trim()) box.innerHTML = `<span class="muted">No encontré “${esc(gen.topic)}” en el texto; se usará el rango de páginas.</span>`;
-    else box.innerHTML = "";
-    $("#gUseHits") && ($("#gUseHits").onclick = ()=>{ gen.pageSet = hits.slice(0,12).map(h=>h.page).sort((a,b)=>a-b); upd(); after && after(); });
-    $("#gUseRange") && ($("#gUseRange").onclick = ()=>{ gen.pageSet = null; upd(); after && after(); });
-  };
-  $("#gTopic").oninput = ()=>{ gen.topic = $("#gTopic").value; gen.pageSet = null; upd(); after && after(); };
-  document.querySelectorAll("[data-sg]").forEach(b=>b.onclick=()=>{ gen.topic = b.dataset.sg; $("#gTopic").value = gen.topic; gen.pageSet = null; upd(); after && after(); });
-  ["#gFrom","#gTo"].forEach(q=>$(q).oninput = ()=>{ gen.from = +$("#gFrom").value || 1; gen.to = +$("#gTo").value || 1; gen.pageSet = null; upd(); after && after(); });
-  upd();
-}
-function selectedText(){
-  const r = recCache[curSrc]; if (!r) return null;
-  const s = cur(), info = docInfo(curSrc);
-  let nums;
-  if (gen.pageSet && gen.pageSet.length) nums = gen.pageSet.filter(n=>n>=1 && n<=s.pages);
-  else { const a = Math.max(1, Math.min(gen.from, s.pages)), b = Math.max(a, Math.min(gen.to, s.pages)); nums = []; for (let i = a; i <= b; i++) nums.push(i); }
-  const pages = nums.map(n=>(info ? info.pages : r.pages)[n-1] || "");
-  return {a: nums[0], b: nums[nums.length-1], nums, pages};
-}
+// El texto con el que trabaja la IA es el del tema elegido en el índice (indice.js).
+const selectedText = () => temaSel();
 const pagesLabel = sel => sel.nums.length > 1 && sel.nums.some((n,i)=>i && n !== sel.nums[i-1]+1) ? `págs. ${sel.nums.join(", ")}` : sel.nums.length > 1 ? `págs. ${sel.a}–${sel.b}` : `pág. ${sel.a}`;
 
 // ---------- 🤖 IA a tu medida ----------
@@ -207,8 +218,7 @@ function renderAiTab(){
     ${getKey() ? "" : `<div class="warnbox small">Para generar con IA necesitas una clave de API. <button class="linkbtn" data-go="guide">Cómo conseguirla</button>. Mientras tanto, usa <b>📖 Leer y crear</b>.</div>`}
     <div class="autobox stack">
       <div><b>✨ Fichas automáticas</b><p class="xs muted" style="margin:4px 0 0">La IA lee el documento, decide qué es lo más relevante para tu examen y arma las fichas ordenadas por importancia, con el porqué de cada una. Tú solo revisas y guardas.</p></div>
-      <div class="grid2"><label class="fld">Qué leer<select id="aScope"><option value="all">Todo el documento (sin referencias)</option><option value="range">Las páginas o el tema de “Personalizar”</option></select></label>
-        <label class="fld">Cuántas fichas<select id="aCount"><option value="auto">La IA decide (recomendado)</option><option>5</option><option>10</option><option>15</option></select></label></div>
+      <div class="grid2"><label class="fld">Cuántas fichas<select id="aCount"><option value="auto">La IA decide (recomendado)</option><option>5</option><option>10</option><option>15</option></select></label></div>
       <label class="fld">Prioriza (opcional)<input type="text" id="aFocus" placeholder="p. ej. resultados de los ensayos y efectos adversos"></label>
       <div id="aEst" class="xs muted"></div>
       <button class="btn primary block" id="aGo" ${genBusy || !getKey() ? "disabled" : ""}>✨ Crear fichas automáticas</button>
@@ -216,7 +226,6 @@ function renderAiTab(){
     </div>
     <details class="custom" id="gCustomBox" ${gen.customOpen ? "open" : ""}><summary>⚙️ Personalizar: tema, tipos de pregunta, dificultad, enfoque…</summary><div class="stack" style="margin-top:12px">
     ${tpls.length ? `<div class="row" style="gap:6px"><span class="xs muted">Mis plantillas:</span>${tpls.map((t,i)=>`<button class="chip2" data-tpl="${i}">${esc(t.name)}</button>`).join("")}</div>` : ""}
-    ${topicBlock()}
     <div><div class="fld" style="margin-bottom:6px">¿Qué quieres que te pregunte? (cantidad de cada tipo)</div>
       <div class="qtypes">${QTYPES.map(([k,l,d])=>`<label class="qt"><span><b>${l}</b><small>${d}</small></span><input type="number" min="0" max="20" data-cnt="${k}" value="${gen.counts[k]}" aria-label="${l}"></label>`).join("")}</div></div>
     <div><div class="fld" style="margin-bottom:6px">Dificultad</div><div class="chips">${LEVELS.map(([k,l,d])=>`<button class="chip2${gen.level===k?" on":""}" data-lv="${k}" title="${d}">${l}</button>`).join("")}</div></div>
@@ -229,7 +238,6 @@ function renderAiTab(){
     <div class="row" style="gap:6px"><button class="btn ghost sm" id="gSaveTpl">💾 Guardar como plantilla</button>${tpls.length ? `<button class="btn ghost sm" id="gDelTpl">🗑 Borrar plantillas</button>` : ""}</div>
     <div id="gEst" class="xs muted"></div>
     <button class="btn primary block" id="gGo" ${genBusy || !getKey() ? "disabled" : ""}>Generar con IA</button>    <div id="gStatus" class="small"></div></div></details>`;
-  bindTopic(updEstimate);
   b.querySelectorAll("[data-cnt]").forEach(i=>i.oninput = ()=>{ gen.counts[i.dataset.cnt] = Math.max(0, Math.min(20, parseInt(i.value)||0)); updEstimate(); });
   b.querySelectorAll("[data-lv]").forEach(x=>x.onclick = ()=>{ gen.level = x.dataset.lv; b.querySelectorAll("[data-lv]").forEach(y=>y.classList.toggle("on", y===x)); });
   b.querySelectorAll("[data-em]").forEach(x=>x.onclick = ()=>{ const k = x.dataset.em, i = gen.emph.indexOf(k); i>=0 ? gen.emph.splice(i,1) : gen.emph.push(k); x.classList.toggle("on", i<0); });
@@ -249,27 +257,19 @@ function renderAiTab(){
   bindAuto();
   updEstimate();
 }
-function autoSel(){
-  if (gen.aScope === "range") return selectedText();
-  const info = docInfo(curSrc); if (!info) return null;
-  const nums = [], pages = [];
-  info.pages.forEach((p,i)=>{ if (p.trim()) { nums.push(i+1); pages.push(p); } });
-  return nums.length ? {a: nums[0], b: nums[nums.length-1], nums, pages} : null;
-}
+const autoSel = () => temaSel();
 function estAuto(){
   const el = $("#aEst"); if (!el) return;
   const sel = autoSel(); if (!sel) { el.textContent = ""; return; }
   const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
-  if (chars > MAX_AI_CHARS) { el.innerHTML = `<span style="color:var(--bad)">El documento es muy largo para leerlo completo de una vez. En “Qué leer” elige “Las páginas o el tema de Personalizar” y define un rango o un tema.</span>`; return; }
+  if (chars > MAX_AI_CHARS) { el.innerHTML = `<span style="color:var(--bad)">El documento es muy largo para leerlo completo de una vez. Elige un tema del índice.</span>`; return; }
   el.textContent = `${pagesLabel(sel)} · costo aprox. ${aiEstimateLine(chars, {outTokens: 12*400 + 6000})} (se cobra a tu cuenta de Anthropic).`;
 }
 function bindAuto(){
-  $("#aScope").value = gen.aScope || "all"; $("#aCount").value = gen.aCount || "auto"; $("#aFocus").value = gen.aFocus || "";
-  $("#aScope").onchange = ()=>{ gen.aScope = $("#aScope").value; if (gen.aScope === "range") { $("#gCustomBox").open = true; gen.customOpen = true; } estAuto(); };
+  $("#aCount").value = gen.aCount || "auto"; $("#aFocus").value = gen.aFocus || "";
   $("#aCount").onchange = ()=>{ gen.aCount = $("#aCount").value; };
   $("#aFocus").oninput = ()=>{ gen.aFocus = $("#aFocus").value; };
   $("#gCustomBox").ontoggle = ()=>{ gen.customOpen = $("#gCustomBox").open; };
-  ["#gFrom","#gTo","#gTopic"].forEach(q=>{ const el = $(q); if (el) el.addEventListener("input", estAuto); });
   $("#aGo").onclick = runAuto;
   estAuto();
 }
@@ -281,7 +281,7 @@ async function runAuto(){
   if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
   const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
   if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">El documento no tiene texto que se pueda leer.</span>`;
-  if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">El documento es muy largo: elige un rango o un tema en “Personalizar”.</span>`;
+  if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">Es demasiado texto: elige un tema del índice.</span>`;
   genBusy = true; $("#aGo").disabled = true;
   try {
     st.innerHTML = `<span class="spin"></span> Claude está leyendo las ${pagesLabel(sel)} y eligiendo lo más relevante para tu examen. Puede tardar 1–3 minutos; no cierres la app.`;
@@ -404,42 +404,10 @@ async function aiGenerate(sel, title, ask, imagen){
   return [...qs, ...hs];
 }
 
-// ---------- ⚡ Datos clave: extracción local ----------
-const UNIT_RE = /(?:[<>≥≤]\s*=?\s*)?\d+(?:[.,]\d+)?(?:\s*(?:-|–|a|to)\s*\d+(?:[.,]\d+)?)?\s*(?:mg\/kg\/d[ií]a|mg\/kg|mg\/dL|mg\/dl|mEq\/L|mmol\/L|mL\/kg|ml\/kg|U\/kg|UI\/kg|g\/dL|mmHg|lpm|rpm|bpm|mcg|µg|mg|g|mL|ml|L|kg|%|°C|horas?|hours?|h|minutos?|minutes?|min|d[ií]as?|days?|semanas?|weeks?|meses|months?|años?|years?|cm|mm|UI|IU|U|vg|genomas? vectoriales|vector genomes|pacientes|patients|participantes|participants)(?![\p{L}\d])/iu;
-const TERM_RE = /(?:de elecci[oó]n|de primera l[ií]nea|el tratamiento inicial|el ant[ií]doto|el agente (?:causal )?m[aá]s (?:com[uú]n|frecuente)|la causa m[aá]s (?:com[uú]n|frecuente)|el est[aá]ndar de oro|el gold standard|first-line (?:treatment|therapy)|treatment of choice|the gold standard|the most common cause)\s+(?:es|son|consiste en|is|are|was|were)\s+(?:el |la |los |las |un |una |the |a |an )?([^,.;:()]{3,70})/i;
-const DEF_RE = /^(?:El |La |Los |Las |The )?([^,.;:()]{3,50}?)\s+(?:se define como|consiste en|se caracteriza por|is defined as|is characterized by|refers to)\s+(.{12,200})$/i;
+// ---------- utilidades de texto (las usan las recomendaciones de indice.js) ----------
 const KEYW = /(primera l[ií]nea|de elecci[oó]n|tratamiento|diagn[oó]stic|contraindicad|est[aá]ndar de oro|gold standard|se define|causa m[aá]s|signo|criterio|indicad|ant[ií]doto|factor(?:es)? de riesgo|complicaci[oó]n|m[aá]s frecuente|patognom|meta|objetivo|dosis|umbral|sospech|urgencia|significant|improv|reduc|increas|efficacy|safety|adverse|primary (?:end ?point|outcome)|randomi[sz]ed|trial|ensayo|eficacia|seguridad|adverso|desenlace)/i;
 const JUNK = /(doi|https?:|www\.|©|copyright|e-?mail|@|received|accepted|published|correspond|affiliat|department of|university|universidad|hospital de|licen[cs]e|funding|conflict|et al\.?\s*\(|^fig(ure|ura)?\.?\s|^table|^tabla)/i;
 const cleanSent = s => s.replace(/\[\d+(?:[,–-]\s*\d+)*\]/g, "").replace(/\((?:\d+(?:[,–-]\s*\d+)*)\)/g, "").replace(/(\D)\d{1,3}(?:[,–-]\d{1,3})+(?=[\s.,;])/g, "$1").replace(/\s{2,}/g, " ").trim();
-function localGenerate(sel, n, spec, topic){
-  const tw = norm(topic||"").split(/[^a-z0-9ñ\-]+/).filter(w=>w.length>2 && !STOP.has(w));
-  const out = [];
-  sel.pages.forEach((txt, i)=>{
-    const page = sel.nums[i];
-    const sents = txt.split(/\n(?=[A-ZÁÉÍÓÚÑ¿¡])/).flatMap(b=>b.replace(/\n/g," ").split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ¿¡])/));
-    for (let s of sents) {
-      s = cleanSent(s);
-      if (s.length < 45 || s.length > 300 || JUNK.test(s)) continue;
-      if ((s.match(/\d/g)||[]).length > s.length*0.15) continue;   // tablas o listas de cifras
-      if (!/[a-záéíóúñ]{3}/.test(s) || (s.match(/[A-Z][a-z]+ [A-Z]{1,2}[,.]/g)||[]).length > 1) continue;   // listas de autores
-      const ns = norm(s), topicHits = tw.filter(w=>ns.includes(w)).length;
-      if (tw.length && !topicHits) continue;
-      let score = topicHits*3, ans = null, front = null;
-      const tm = s.match(TERM_RE), um = s.match(UNIT_RE), dm = s.replace(/\.$/,"").match(DEF_RE);
-      if (tm) { ans = tm[1].trim(); score += 4; }
-      else if (um && !/^(19|20)\d{2}$/.test(um[0].trim())) { ans = um[0].trim(); score += 3; }
-      else if (dm) { const term = dm[1].trim(); front = `${term[0].toUpperCase()+term.slice(1)}: ¿cómo se define o caracteriza?`; ans = dm[2].trim(); score += 2; }
-      if (!ans || ans.length < 2) continue;
-      if (KEYW.test(s)) score += 2;
-      if (s.length <= 200) score += 1;
-      if (!front) { const k = s.indexOf(ans); front = s.slice(0,k) + "_____" + s.slice(k+ans.length); }
-      out.push({kind:"c", on:true, front, back:ans, ctx:s, page, score, specialty:spec});
-    }
-  });
-  const seen = new Set();
-  return out.filter(c=>{ const k = c.ctx.slice(0,80); if (seen.has(k)) return false; seen.add(k); return true; })
-            .sort((a,b)=>b.score-a.score).slice(0, n).sort((a,b)=>a.page-b.page);
-}
 
 // ---------- 📖 Leer y crear ----------
 let rdSel = "";
@@ -550,49 +518,6 @@ function renderReader(){
 }
 
 // ---------- ⚡ Datos clave (sin internet) ----------
-let facts = null;
-function renderAutoTab(){
-  $("#gBody").innerHTML = `
-    <p class="xs muted" style="margin:0">Encuentra en el documento las frases con datos concretos (cifras, dosis, umbrales, “de elección”, definiciones). Marca los que te sirvan, ajusta el texto y arma con ellos una ficha high-yield.</p>
-    ${topicBlock()}
-    <div class="grid2"><label class="fld">Cuántos datos buscar<select id="gN">${[5,10,15,20,30].map(n=>`<option ${n===gen.n?"selected":""}>${n}</option>`).join("")}</select></label>
-      <label class="fld">Especialidad<select id="gSpec">${SPECS.map(x=>`<option ${x===gen.spec?"selected":""}>${x}</option>`).join("")}</select></label></div>
-    <div id="gEst" class="xs muted"></div>
-    <button class="btn primary block" id="gGo" ${genBusy?"disabled":""}>Buscar datos clave</button>
-    <div id="gStatus" class="small"></div>
-    <div id="factList"></div>
-    <div id="autoEd"></div>`;
-  bindTopic(updEstimate);
-  $("#gN").onchange = ()=>{ gen.n = +$("#gN").value; };
-  $("#gSpec").onchange = ()=>{ gen.spec = $("#gSpec").value; const s = cur(); s.spec = gen.spec; save(); };
-  $("#gGo").onclick = runGenerate;
-  updEstimate(); renderFacts();
-}
-function shortLabel(front){
-  const k = front.indexOf("_____"); if (k < 0) return front.slice(0, 120);
-  const a = Math.max(0, k - 70), b = Math.min(front.length, k + 5 + 50);
-  return (a > 0 ? "…" : "") + front.slice(a, b).trim() + (b < front.length ? "…" : "");
-}
-function renderFacts(){
-  const box = $("#factList"); if (!box) return;
-  if (!facts) { box.innerHTML = ""; return; }
-  if (!facts.length) { box.innerHTML = `<p class="small" style="margin:0">No encontré datos concretos${gen.topic ? ` sobre “${esc(gen.topic)}”` : ""} en esas páginas. Prueba otro tema u otras páginas, o arma la ficha en <b>📖 Leer y crear</b>.</p>`; return; }
-  const n = facts.filter(f=>f.on).length;
-  box.innerHTML = `<div class="stack" style="gap:6px"><div class="row"><b class="small">Datos encontrados</b><div class="spacer"></div><span class="xs muted">${n} marcados</span></div>
-    ${facts.map((f,i)=>`<div class="cand ${f.on?"":"off"}" id="fact${i}"><input type="checkbox" data-fi="${i}" ${f.on?"checked":""} aria-label="Usar este dato">
-      <div class="stack" style="min-width:0;gap:6px"><div class="erow"><input type="text" data-fl="${i}" value="${esc(f.label)}" aria-label="Qué es"><input type="text" data-fv="${i}" value="${esc(f.val)}" aria-label="Dato"></div>
-      <div class="xs muted">pág. ${f.page} · “${esc(f.ctx.length > 180 ? f.ctx.slice(0,180) + "…" : f.ctx)}”</div></div></div>`).join("")}
-    <button class="btn primary block" id="factMake" ${n?"":"disabled"}>💎 Crear ficha con ${n} dato${n===1?"":"s"}</button></div>`;
-  box.querySelectorAll("[data-fi]").forEach(cb=>cb.onchange=()=>{ facts[+cb.dataset.fi].on = cb.checked; renderFacts(); });
-  box.querySelectorAll("[data-fl]").forEach(x=>x.oninput=()=>{ facts[+x.dataset.fl].label = x.value; });
-  box.querySelectorAll("[data-fv]").forEach(x=>x.oninput=()=>{ facts[+x.dataset.fv].val = x.value; });
-  $("#factMake").onclick = ()=>{
-    const sel = facts.filter(f=>f.on), s = cur();
-    hyEditor($("#autoEd"), {title: gen.topic.trim() || s.title, spec: gen.spec, src: s.id, page: sel[0].page, ctx: sel.map(f=>f.ctx).join(" … "),
-      rows: sel.map(f=>({label: f.label, val: f.val})), heading: "💎 Nueva ficha con los datos marcados", flags: {auto: true},
-      onSave: ()=>{ facts = facts.filter(f=>!f.on); renderFacts(); renderSrcItems(); }});
-  };
-}
 async function runGenerate(){
   if (genBusy) return;
   const st = $("#gStatus"), s = cur();
@@ -601,10 +526,6 @@ async function runGenerate(){
   if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
   const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
   if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">Esas páginas no tienen texto que se pueda leer.</span>`;
-  if (gen.tab === "auto") {
-    facts = localGenerate(sel, gen.n, gen.spec, gen.topic).map(c=>({on: false, label: c.front.startsWith("…") || c.front.includes("_____") ? shortLabel(c.front) : c.front, val: c.back, ctx: c.ctx, page: c.page}));
-    renderFacts(); return;
-  }
   if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">Demasiado texto: elige menos páginas o un tema más concreto.</span>`;
   const c = gen.counts; if (!(c.caso + c.critica + c.directa + c.ficha)) return st.innerHTML = `<span style="color:var(--bad)">Pide al menos una pregunta o una ficha.</span>`;
   genBusy = true; $("#gGo").disabled = true;

@@ -63,7 +63,7 @@ test.describe("antes de guardar (revisión de lo generado con IA)", () => {
   test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
   test("la pregunta se puede editar, avisa el signo por verificar y guarda lo corregido", async ({ page }) => {
-    await page.click("#aGo");
+    await page.click('#genCard [data-gt="ai"]'); await page.click("#aGo");
     await expect(page.locator("#candList")).toBeVisible();
     await expect(page.locator("#candList .note.trap")).toContainText("signo por verificar");
     await page.click("#candList summary:has-text('Editar esta pregunta')");

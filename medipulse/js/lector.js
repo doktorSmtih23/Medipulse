@@ -46,8 +46,11 @@ function shrink(src, max = 1200){
 const fileToDataUrl = f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => rej(r.error); r.readAsDataURL(f); });
 
 // ---------- página real con capa de texto ----------
-let lectTask = null;
+// Si la pantalla se redibuja mientras una página se está dibujando, el resultado viejo se descarta
+// (cancelar el dibujo en pdf.js puede dejar colgado el siguiente sobre la misma página).
+let lectTurno = 0;
 async function renderPdfPage(box, srcId, pageNum, zoom){
+  const turno = ++lectTurno;
   box.innerHTML = `<p class="small muted" style="margin:12px"><span class="spin"></span> Cargando la página…</p>`;
   try {
     const doc = await anDoc(srcId), page = await doc.getPage(pageNum), lib = await loadPdfJs();
@@ -55,9 +58,8 @@ async function renderPdfPage(box, srcId, pageNum, zoom){
     const dpr = Math.min(window.devicePixelRatio || 1, 2), cv = document.createElement("canvas");
     cv.width = Math.floor(vp.width * dpr); cv.height = Math.floor(vp.height * dpr);
     cv.style.width = Math.floor(vp.width) + "px"; cv.style.height = Math.floor(vp.height) + "px";
-    if (lectTask) try { lectTask.cancel(); } catch(e) {}
-    lectTask = page.render({canvasContext: cv.getContext("2d"), viewport: vp, transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null});
-    await lectTask.promise; lectTask = null;
+    await page.render({canvasContext: cv.getContext("2d"), viewport: vp, transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null}).promise;
+    if (turno !== lectTurno || !box.isConnected) return null;
     const wrap = document.createElement("div");
     wrap.className = "pdfpage"; wrap.style.width = cv.style.width; wrap.style.height = cv.style.height;
     wrap.style.setProperty("--scale-factor", vp.scale);

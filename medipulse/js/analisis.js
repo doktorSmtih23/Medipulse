@@ -30,38 +30,15 @@ function detectDesign(text){
 let an = null, anIntent = null;
 const pdfDocs = {};
 function anReset(s){
-  an = {id: s.id, kind: (anIntent && anIntent.id === s.id && anIntent.kind) || "audit", scope: "all", from: 1, to: Math.min(s.pages, 10),
-        view: {on: false, page: 1, zoom: 1}, busy: "", err: ""};
+  an = {id: s.id, kind: "audit", busy: "", err: ""};
 }
 function openAnalysis(id, kind){ anIntent = {id, kind}; openSrc(id); }
 
-// ---------- páginas a analizar ----------
-function anChapters(s){
-  if (s.chapters && s.chapters.length) return s.chapters;
-  // Sin IA: capítulos a partir de los títulos detectados en el propio documento.
-  const info = docInfo(s.id); if (!info) return [];
-  // Primero las secciones principales (un título seguido de un subtítulo); si hay pocas, el primer título de cada página.
-  const all = (info.allHeads || info.heads).filter(h=>h.page <= (info.refFrom === Infinity ? s.pages : info.refFrom));
-  const top = all.filter(h=>h.lvl === 1);
-  let heads = (top.length >= 3 ? top : all.filter((h,i,a)=>a.findIndex(x=>x.page === h.page) === i)).slice().sort((a,b)=>a.page-b.page);
-  if (heads.length < 2) return [];
-  if (heads.length > 10) { const step = heads.length / 10; heads = Array.from({length: 10}, (_,i)=>heads[Math.floor(i*step)]); }
-  const last = Math.min(s.pages, info.refFrom === Infinity ? s.pages : info.refFrom);
-  // Un capítulo termina en la página donde empieza el siguiente (a veces comparten página).
-  return heads.map((h,i,a)=>({title: h.t, from: h.page, to: Math.max(h.page, a[i+1] ? a[i+1].page : last), summary: "", local: true}));
-}
+// ---------- páginas a analizar: las del tema elegido en el índice ----------
 function anSelection(s){
   const info = docInfo(s.id); if (!info) return null;
-  let nums = [], label;
-  if (an.scope === "range") {
-    const a = Math.max(1, Math.min(an.from, s.pages)), b = Math.max(a, Math.min(an.to, s.pages));
-    for (let i = a; i <= b; i++) nums.push(i);
-    label = a === b ? `pág. ${a}` : `págs. ${a}–${b}`;
-  } else if (an.scope.startsWith("c")) {
-    const c = anChapters(s)[+an.scope.slice(1)];
-    if (c) { for (let i = c.from; i <= c.to; i++) nums.push(i); label = `${c.title} (págs. ${c.from}–${c.to})`; }
-  }
-  if (!nums.length) { nums = info.pages.map((p,i)=>i+1).filter(n=>info.pages[n-1].trim()); label = "todo el documento"; }
+  const t = temaSel(); if (!t) return null;
+  let nums = t.nums.slice(); const label = t.title === "Todo el documento" ? "todo el documento" : `${t.title} (${pagesLabel(t)})`;
   nums = nums.filter(n=>(info.pages[n-1] || "").trim());
   // Si no cabe, prioriza las páginas con recomendaciones, cifras y algoritmos.
   let trimmed = false, total = nums.reduce((a,n)=>a + info.pages[n-1].length, 0);
@@ -151,105 +128,57 @@ function anClean(kind, d){
 }
 
 // ---------- tarjeta de análisis en el detalle de la fuente ----------
-function renderAnalysis(){
-  const s = cur(), box = $("#anCard");
-  if (!s || s.kind === "pack" || !docInfo(s.id)) { box.hidden = true; return; }
-  box.hidden = false;
+// El análisis se muestra dentro de «Estudiar este documento», sobre el tema elegido en el índice.
+function renderAnTab(kind){
+  const s = cur(); if (!s) return;
   if (!an || an.id !== s.id) anReset(s);
-  if (anIntent && anIntent.id === s.id && anIntent.kind) an.kind = anIntent.kind;
-  const chs = anChapters(s), k = AN_KINDS[an.kind], saved = s.an && s.an[an.kind], key = !!getKey(), info = docInfo(s.id);
-  const est = s.design || detectDesign(info.pages.slice(0, 6).join(" "));
-  box.innerHTML = `
-    <div class="row"><h3 style="font-size:16px">🧠 Analizar el documento</h3><div class="spacer"></div><span class="tag" title="${s.design ? "Según la IA" : "Estimado por palabras clave"}">${esc(DESIGNS[est] || DESIGNS.OTRO)}${s.design ? "" : " · estimado"}</span></div>
-    ${info.danados ? `<div class="note trap" role="note"><b>⚠️ Este PDF tiene símbolos que no se leyeron bien</b> (por ejemplo «${esc(info.danados.ejemplo)}»). Los signos ≥, ≤, &lt; o &gt; pueden salir cambiados en el análisis y en las fichas: revisa las cifras con signos en la página original.${info.danados.pags.map(pgBtn).join("")}</div>` : ""}
-    ${s.kind === "pdf" || !s.kind ? `<button class="btn sm" id="anViewBtn" style="align-self:flex-start">${an.view.on ? "Ocultar la página original" : "📄 Ver la página original aquí"}</button><div id="anView"${an.view.on ? "" : " hidden"}></div>` : ""}
-    <div class="stack" style="gap:6px">
-      <div class="row"><b class="small">🗺️ Mapa por capítulos</b><div class="spacer"></div>${key ? `<button class="btn ghost sm" id="anMap" ${an.busy?"disabled":""}>${an.busy === "map" ? `<span class="spin"></span> Creando…` : s.chapters && s.chapters.length ? "↻ Rehacer con IA" : "✨ Crear con IA"}</button>` : ""}</div>
-      ${chs.length ? `<div class="chaps">${chs.map((c,i)=>`<button class="chap${an.scope==="c"+i?" on":""}" data-ch="${i}"><b>${esc(c.title)}</b><span class="xs muted">págs. ${c.from}–${c.to}${c.summary ? " · " + esc(c.summary) : ""}</span></button>`).join("")}</div>
-        <p class="xs muted" style="margin:0">${chs[0].local ? "Detectados por los títulos del documento." : "Creados con IA a partir del documento."} Toca uno para analizar solo esas páginas.</p>`
-        : `<p class="xs muted" style="margin:0">${key ? "No encontré títulos claros. Crea el mapa con IA o elige un rango de páginas." : "No encontré títulos claros. Elige un rango de páginas."}</p>`}
-    </div>
-    <div class="${an.scope === "range" ? "grid2" : "stack"}"><label class="fld">Analizar<select id="anScope"><option value="all">Todo el documento</option>${chs.map((c,i)=>`<option value="c${i}" ${an.scope==="c"+i?"selected":""}>${esc(c.title.length > 40 ? c.title.slice(0,40) + "…" : c.title)}</option>`).join("")}<option value="range" ${an.scope==="range"?"selected":""}>Un rango de páginas</option></select></label>
-      ${an.scope === "range" ? `<div class="grid2"><label class="fld">Desde<input type="number" id="anFrom" min="1" max="${s.pages}" value="${an.from}"></label><label class="fld">Hasta<input type="number" id="anTo" min="1" max="${s.pages}" value="${an.to}"></label></div>` : ""}</div>
-    <div class="tabs3">${Object.entries(AN_KINDS).map(([kk,v])=>`<button data-ak="${kk}" class="${an.kind===kk?"on":""}"><b>${v.icon} ${v.name}</b><span>${v.desc}</span></button>`).join("")}</div>
+  an.kind = kind;
+  const k = AN_KINDS[kind], saved = s.an && s.an[kind], key = !!getKey();
+  $("#gBody").innerHTML = `<p class="xs muted" style="margin:0">${k.desc} Sobre el tema elegido; cada dato cita su página.</p>
     ${key ? `<button class="btn primary block" id="anGo" ${an.busy?"disabled":""}>${an.busy === "run" ? `<span class="spin"></span> Analizando…` : `✨ ${k.name}${saved ? " (rehacer)" : ""}`}</button>
       <p class="xs muted" style="margin:0;text-align:center">Costo estimado: ${anCostLine(s)}. Si haces otra tarea del mismo texto en unos minutos, cuesta menos.</p>`
-          : `<div class="note"><b>Para estos análisis necesitas tu clave de IA.</b> Mientras tanto puedes leer, ver la página original y crear fichas a mano en el taller de abajo. <button class="linkbtn" data-go="guide">¿Cómo consigo una clave?</button></div>`}
+          : `<div class="note"><b>Para estos análisis necesitas tu clave de IA.</b> Mientras tanto puedes leer el PDF y ver las recomendaciones. <button class="linkbtn" data-go="guide">¿Cómo consigo una clave?</button></div>`}
     ${an.err ? `<p class="small" style="margin:0;color:var(--bad)">${esc(an.err)}</p>` : ""}
-    <div id="anOut">${saved ? anResultHTML(an.kind, saved) : ""}</div>`;
-  box.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
-  $("#anViewBtn") && ($("#anViewBtn").onclick = ()=>{ an.view.on = !an.view.on; renderAnalysis(); });
-  if (an.view.on && $("#anView")) renderViewer();
-  $("#anMap") && ($("#anMap").onclick = runChapters);
-  box.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>{ an.scope = "c" + b.dataset.ch; const c = chs[+b.dataset.ch]; an.view.page = c.from; renderAnalysis(); });
-  $("#anScope").onchange = ()=>{ an.scope = $("#anScope").value; renderAnalysis(); };
-  ["#anFrom", "#anTo"].forEach(q=>$(q) && ($(q).onchange = ()=>{ an.from = +$("#anFrom").value || 1; an.to = +$("#anTo").value || an.from; }));
-  box.querySelectorAll("[data-ak]").forEach(b=>b.onclick=()=>{ an.kind = b.dataset.ak; an.err = ""; renderAnalysis(); });
+    <div id="anOut">${saved ? anResultHTML(kind, saved) : ""}</div>`;
+  $("#gBody").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
   $("#anGo") && ($("#anGo").onclick = runAnalysis);
   bindAnResult();
-  box.querySelectorAll(".note.trap [data-pg]").forEach(b=>b.onclick=()=>anJump(+b.dataset.pg));
-  if (anIntent && anIntent.id === s.id) { anIntent = null; box.scrollIntoView({behavior: "smooth", block: "start"}); }
+}
+function renderAnalysis(){
+  const c = $("#anCard"); if (c) c.hidden = true;
+  if (gen && AN_KINDS[gen.tab] && $("#gBody")) renderAnTab(gen.tab);
 }
 
-// ---------- visor de la página original (pdf.js, sin internet) ----------
+// ---------- documento pdf.js (lo usan el lector y el índice) ----------
 async function anDoc(id){
   if (pdfDocs[id]) return pdfDocs[id];
   const lib = await loadPdfJs(), r = await getRec(id);
   if (!r || !r.blob) throw new Error("El PDF no está guardado en este dispositivo.");
   return pdfDocs[id] = await lib.getDocument({data: new Uint8Array(await r.blob.arrayBuffer())}).promise;
 }
-let viewTask = null;
-async function renderViewer(){
-  const s = cur(), v = an.view, box = $("#anView"); if (!box) return;
-  v.page = Math.max(1, Math.min(v.page, s.pages));
-  box.innerHTML = `<div class="pdfbar"><button class="btn sm" id="pvPrev" ${v.page<=1?"disabled":""} aria-label="Página anterior">‹</button>
-      <label class="small">Pág. <input type="number" id="pvPage" min="1" max="${s.pages}" value="${v.page}" aria-label="Página"> de ${s.pages}</label>
-      <button class="btn sm" id="pvNext" ${v.page>=s.pages?"disabled":""} aria-label="Página siguiente">›</button><div class="spacer"></div>
-      <button class="btn sm" id="pvOut" aria-label="Alejar">−</button><button class="btn sm" id="pvIn" aria-label="Acercar">+</button></div>
-    <div class="pdfbox" id="pvBox"><p class="small muted" style="margin:12px"><span class="spin"></span> Cargando la página…</p></div>`;
-  const goPage = p => { v.page = p; renderViewer(); };
-  $("#pvPrev").onclick = ()=>goPage(v.page - 1); $("#pvNext").onclick = ()=>goPage(v.page + 1);
-  $("#pvPage").onchange = ()=>goPage(+$("#pvPage").value || 1);
-  $("#pvIn").onclick = ()=>{ v.zoom = Math.min(3, v.zoom + 0.25); renderViewer(); };
-  $("#pvOut").onclick = ()=>{ v.zoom = Math.max(0.5, v.zoom - 0.25); renderViewer(); };
-  try {
-    const doc = await anDoc(s.id), page = await doc.getPage(v.page), pv = $("#pvBox"); if (!pv) return;
-    const base = page.getViewport({scale: 1}), fit = (pv.clientWidth - 2) / base.width, vp = page.getViewport({scale: fit * v.zoom});
-    const dpr = Math.min(window.devicePixelRatio || 1, 2), cv = document.createElement("canvas");
-    cv.width = Math.floor(vp.width * dpr); cv.height = Math.floor(vp.height * dpr); cv.style.width = Math.floor(vp.width) + "px";
-    if (viewTask) try { viewTask.cancel(); } catch(e) {}
-    viewTask = page.render({canvasContext: cv.getContext("2d"), viewport: vp, transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null});
-    await viewTask.promise; viewTask = null;
-    if ($("#pvBox") === pv) { pv.innerHTML = ""; pv.appendChild(cv); }
-  } catch(e) {
-    if (e && e.name === "RenderingCancelledException") return;
-    const pv = $("#pvBox"); pv && (pv.innerHTML = `<p class="small" style="margin:12px;color:var(--bad)">No se pudo mostrar la página: ${esc(e && e.message || e)}</p>`);
-  }
-}
 // Salta a una página citada: en el visor si es un PDF; en el lector del taller si es texto pegado.
 function anJump(p){
   const s = cur(); if (!s) return;
-  if (s.kind === "text") { gen.tab = "read"; gen.rdPage = p; renderGen(); $("#genCard").scrollIntoView({behavior: "smooth", block: "start"}); return; }
-  an.view.on = true; an.view.page = p; renderAnalysis();
-  $("#anView") && $("#anView").scrollIntoView({behavior: "smooth", block: "start"});
+  gen.tab = "read"; gen.rdPage = p; renderGen(); $("#genCard").scrollIntoView({behavior: "smooth", block: "start"});
 }
 
 // ---------- llamadas a la IA ----------
 function anCostLine(s){ let chars = 0; try { const sel = anSelection(s); chars = sel ? sel.text.length : 0; } catch(e) {} return aiEstimateLine(chars, {outTokens: 6000}); }
 async function runChapters(){
-  const s = cur(), info = docInfo(s.id); if (!s || an.busy) return;
-  an.busy = "map"; an.err = ""; renderAnalysis();
+  const s = cur(), info = docInfo(s.id); if (!s || gen.indBusy) return;
+  gen.indBusy = true; gen.indErr = ""; renderGen();
   const idx = info.pages.map((p,i)=>p.trim() ? `pág. ${i+1}: ${p.replace(/\s+/g, " ").slice(0, 320)}` : "").filter(Boolean).join("\n").slice(0, 60000);
   try {
     const r = await callForTool({system: `Eres un médico especialista. Con el inicio de cada página de un documento médico, decides qué tipo de documento es ("design") y lo divides en 3 a 8 capítulos clínicos reales con su rango de páginas ("from" y "to", según las marcas pág. N). No incluyas la bibliografía, los agradecimientos ni la información de los autores. "summary": qué decisión o pregunta clínica resuelve el capítulo, en una línea. Usa solo lo que aparece en el texto. Español neutro, sin markdown.`,
-      tools: [T_CHAPTERS], user: `<indice titulo="${s.title.replace(/"/g, "'")}">\n${idx}\n</indice>`, light: true, label: "Mapa por capítulos"}, "report_chapters");
+      tools: [T_CHAPTERS], user: `<indice titulo="${s.title.replace(/"/g, "'")}">\n${idx}\n</indice>`, light: true, label: "Índice con IA"}, "report_chapters");
     // Se descartan los capítulos con páginas que no existen o al revés, en vez de "corregirlos".
     const chs = (Array.isArray(r.chapters) ? r.chapters : []).filter(c=>c && Number.isInteger(c.from) && Number.isInteger(c.to) && c.from >= 1 && c.from <= c.to && c.from <= s.pages)
       .map(c=>({title: anStr(c.title), from: c.from, to: Math.min(s.pages, c.to), summary: anStr(c.summary)})).filter(c=>c.title).slice(0, 10);
-    if (!chs.length) throw uerr("La IA no encontró capítulos en este documento. Elige un rango de páginas.");
-    s.chapters = chs; if (DESIGNS[r.design]) s.design = r.design; an.scope = "all"; save();
-  } catch(e) { an.err = e.userMsg || "No se pudo crear el mapa: " + (e.message || e); }
-  an.busy = ""; if (cur() === s) renderAnalysis();
+    if (!chs.length) throw uerr("La IA no encontró temas en este documento. Elige las páginas a mano.");
+    s.chapters = chs; s.indice = null; if (DESIGNS[r.design]) s.design = r.design; gen.tema = null; gen.manual = null; save();
+    await buildIndice(s);
+  } catch(e) { gen.indErr = e.userMsg || "No se pudo crear el índice: " + (e.message || e); }
+  gen.indBusy = false; if (cur() === s) renderGen();
 }
 async function runAnalysis(){
   const s = cur(); if (!s || an.busy) return;
@@ -315,10 +244,7 @@ function bindAnResult(){
   $("#anToHy") && ($("#anToHy").onclick = anToHy);
   $("#anToQ") && ($("#anToQ").onclick = ()=>{
     const s = cur(), saved = s.an[an.kind]; if (!saved) return;
-    const nums = saved.nums || [];
-    gen.tab = "ai"; gen.topic = an.kind === "tema" ? anClean("tema", saved.data).title : "";
-    if (nums.length && nums.length <= 40) { gen.pageSet = nums; gen.from = nums[0]; gen.to = nums[nums.length-1]; } else { gen.pageSet = null; gen.from = 1; gen.to = s.pages; }
-    renderGen(); $("#genCard").scrollIntoView({behavior: "smooth", block: "start"});
+    gen.tab = "ai"; renderGen(); $("#genCard").scrollIntoView({behavior: "smooth", block: "start"});
     toast("Elige el tipo y la cantidad de preguntas, y genera.");
   });
 }
