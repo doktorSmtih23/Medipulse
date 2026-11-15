@@ -79,3 +79,18 @@ test("al abrir una versión que se instaló con la app cerrada, avisa que se act
   await expect(page.locator("#toast")).toContainText("se actualizó");
   expect(await page.evaluate(() => localStorage.getItem("medipulse_version"))).toBe("medipulse-v9999");
 });
+
+test("las imágenes de fichas y preguntas viajan en la copia y se restauran al cargarla", async ({ page }) => {
+  const IMG = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ==";
+  await page.evaluate(async img => { const k = await imgPut(img); S.userH.push({id: "u1", specialty: "Cirugía", title: "Algoritmo", thresholds: [], img: k}); save(); }, IMG);
+  const [descarga] = await Promise.all([page.waitForEvent("download"), page.evaluate(() => exportBackup())]);
+  const copia = JSON.parse(require("fs").readFileSync(await descarga.path(), "utf8"));
+  const key = copia.userH[0].img;
+  expect(copia._imagenes[key]).toBe(IMG);
+  // otro dispositivo: sin la imagen guardada
+  await page.evaluate(async k => { imgMem.clear(); await idb.del(k); S = BLANK(); save(); }, key);
+  await page.click("nav [data-go=prog]");
+  await page.setInputFiles("#impFile", {name: "copia.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(copia))});
+  await expect.poll(() => page.evaluate(async k => { imgMem.clear(); return await imgGet(k); }, key)).toBe(IMG);
+  expect(await page.evaluate(() => "_imagenes" in S)).toBe(false);
+});

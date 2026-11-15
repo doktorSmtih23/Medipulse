@@ -12,6 +12,7 @@ async function imgPut(dataUrl){
   try { await idb.put(key, dataUrl); } catch(e) { toast("No se pudo guardar la imagen en este dispositivo."); }
   return key;
 }
+async function imgSet(key, dataUrl){ imgMem.set(key, dataUrl); try { await idb.put(key, dataUrl); } catch(e) {} }
 async function imgGet(key){
   if (imgMem.has(key)) return imgMem.get(key);
   let v = null; try { v = await idb.get(key); } catch(e) {}
