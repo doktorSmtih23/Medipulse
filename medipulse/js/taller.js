@@ -313,16 +313,30 @@ function updEstimate(){
   } else el.textContent = `${pagesLabel(sel)} · ${Math.round(chars/1000)} mil caracteres para analizar.`;
 }
 
+// ¿La cita está en el documento? Se comparan solo letras y números (el PDF parte palabras, cambia
+// espacios o intercala números de referencia). Si no está completa, basta con que aparezcan casi todos
+// sus tramos de 5 palabras.
+const soloLetras = t => String(t).toLowerCase().normalize("NFC").replace(/[^\p{L}\p{N}]/gu, "");
+function citaEnTexto(cita, texto){
+  const T = soloLetras(texto), c = soloLetras(cita);
+  if (c.length < 12) return false;
+  if (T.includes(c)) return true;
+  const w = String(cita).split(/\s+/).filter(Boolean); if (w.length < 6) return false;
+  const tramos = []; for (let i = 0; i + 5 <= w.length; i += 3) tramos.push(soloLetras(w.slice(i, i + 5).join(" ")));
+  return tramos.filter(t => T.includes(t)).length / tramos.length >= 0.8;
+}
+// Frases copiadas tal cual del documento que respaldan el ítem, con su página. La app comprueba que estén en el PDF.
+const CITAS_T = {type:"array", items:{type:"object", additionalProperties:false, required:["texto","page"], properties:{texto:{type:"string"}, page:{type:"integer"}}}};
 const GEN_SCHEMA = {
   type:"object", additionalProperties:false, required:["questions","fichas"],
   properties:{
     questions:{type:"array", items:{type:"object", additionalProperties:false,
-      required:["qtype","specialty","topic","vignette","options","correct","whyCorrect","pearl","trap","page"],
-      properties:{qtype:{type:"string", enum:["caso","critica","directa"]}, specialty:{type:"string", enum:SPECS}, topic:{type:"string"}, vignette:{type:"string"},
+      required:["qtype","specialty","area","topic","vignette","options","correct","whyCorrect","pearl","trap","page","citas"],
+      properties:{qtype:{type:"string", enum:["caso","critica","directa"]}, specialty:{type:"string", enum:SPECS}, area:{type:"string"}, topic:{type:"string"}, vignette:{type:"string"}, citas:CITAS_T,
         options:{type:"array", items:{type:"string"}}, correct:{type:"integer"}, whyCorrect:{type:"string"},
         pearl:{type:"string"}, trap:{type:"string"}, page:{type:"integer"}}}},
-    fichas:{type:"array", items:{type:"object", additionalProperties:false, required:["specialty","title","badge","thresholds","redFlag","trap","relevance","why","page"],
-      properties:{specialty:{type:"string", enum:SPECS}, title:{type:"string"}, badge:{type:"string"},
+    fichas:{type:"array", items:{type:"object", additionalProperties:false, required:["specialty","area","title","badge","thresholds","redFlag","trap","relevance","why","page","citas"],
+      properties:{specialty:{type:"string", enum:SPECS}, area:{type:"string"}, title:{type:"string"}, badge:{type:"string"}, citas:CITAS_T,
         thresholds:{type:"array", items:{type:"object", additionalProperties:false, required:["label","val"], properties:{label:{type:"string"}, val:{type:"string"}}}},
         redFlag:{type:"string"}, trap:{type:"string"}, relevance:{type:"integer"}, why:{type:"string"}, page:{type:"integer"}}}}
   }
@@ -341,7 +355,9 @@ Reglas:
 - Fichas high-yield: "title" es el tema concreto de la ficha (que se entienda sin leer el documento); "badge" una etiqueta corta (p. ej. "Ensayo fase II", "Umbral", "Algoritmo"); "thresholds" de 2 a 4 datos clave, cada uno con "label" (qué es, corto) y "val" (el dato exacto: cifra, dosis, criterio, fármaco o resultado); "redFlag" la señal de alarma o el hallazgo que no se puede pasar por alto (vacío si no aplica); "trap" el error típico o el distractor favorito (vacío si no aplica); "relevance" de 1 a 5 según qué tan probable es que se pregunte en el examen o cambie la conducta clínica (5 = imprescindible); "why" una frase que explique por qué es high-yield.
 - Qué es high-yield: umbrales y puntos de corte, criterios diagnósticos, tratamiento de primera línea y dosis, contraindicaciones, banderas rojas, resultados principales de los estudios con sus cifras, y lo que cambió frente a la práctica o la guía anterior. No es high-yield: autores, financiación, detalles metodológicos menores, antecedentes históricos ni datos que no cambian decisiones.
 - No hagas preguntas sobre autores, revistas, financiación ni la estructura del documento, salvo que el médico lo pida.
-- "specialty" es la más cercana de la lista permitida.
+- "specialty" es la más cercana de la lista permitida; "area" es la especialidad o subespecialidad real del tema (p. ej. Neurología, Psiquiatría, Infectología, Dermatología).
+- "citas": de 1 a 3 frases copiadas textualmente del documento, sin cambiar ni una palabra (máximo 300 caracteres cada una), que respalden los datos del ítem; cada una con su "page". Si el ítem junta datos de varias páginas, incluye una cita de cada página. "page" es la página principal.
+- "whyCorrect", "pearl", "trap", "why" y "redFlag" también deben salir del documento. Si el documento no menciona una trampa, una bandera roja o por qué algo es importante, deja ese campo vacío: no lo completes con conocimiento propio.
 - Texto plano, sin markdown ni LaTeX.`;
 // Petición para que la IA elija por sí misma lo más relevante
 function autoAsk(o){
@@ -404,12 +420,16 @@ async function aiGenerate(sel, title, ask, imagen){
   const txt = msg.content.filter(b=>b.type==="text").map(b=>b.text).join("");
   let data; try { data = JSON.parse(txt); } catch(e) { throw uerr("La respuesta de la IA no tuvo el formato esperado. Inténtalo de nuevo."); }
   const fixPage = p => sel.nums.includes(+p) ? +p : sel.nums[0];
+  const textoDoc = cur() && recCache[cur().id] ? recCache[cur().id].pages.join("\n") : sel.pages.join("\n");
+  const citas = x => (Array.isArray(x.citas) ? x.citas : []).filter(c => c && okStr(c.texto)).slice(0, 3)
+    .map(c => ({texto: c.texto.trim(), page: fixPage(c.page), ok: imagen ? null : citaEnTexto(c.texto, textoDoc)}));
+  const paginas = (x, cs) => [...new Set([fixPage(x.page), ...cs.map(c => c.page)])].sort((a, b) => a - b);
   const okStr = v => typeof v === "string" && v.trim().length > 0;
   const lab = gen.label.trim(), withLab = t => lab ? (t ? `${lab} · ${t}` : lab) : t;
   const qs = (data.questions||[]).filter(q=>okStr(q.vignette) && Array.isArray(q.options) && q.options.length===4 && q.options.every(okStr) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<4)
-    .map(q=>({kind:"q", on:true, qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", specialty: SPECS.includes(q.specialty)?q.specialty:"Medicina Interna", topic:withLab(q.topic||""), vignette:q.vignette, options:q.options, correct:q.correct, whyCorrect:q.whyCorrect||"", pearl:q.pearl||"", trap:q.trap||"", page:fixPage(q.page)}));
+    .map(q=>{ const cs = citas(q); return {kind:"q", on:true, qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", specialty: SPECS.includes(q.specialty)?q.specialty:"Medicina Interna", area: (q.area||"").trim(), topic:withLab(q.topic||""), vignette:q.vignette, options:q.options, correct:q.correct, whyCorrect:q.whyCorrect||"", pearl:q.pearl||"", trap:q.trap||"", page:fixPage(q.page), pages: paginas(q, cs), citas: cs}; });
   const hs = (data.fichas||[]).filter(h=>okStr(h.title) && Array.isArray(h.thresholds) && h.thresholds.length && h.thresholds.every(x=>x && okStr(x.label) && okStr(x.val)))
-    .map(h=>({kind:"h", on:true, specialty: SPECS.includes(h.specialty)?h.specialty:"Medicina Interna", title:withLab(h.title), badge:h.badge||"", thresholds:h.thresholds.slice(0,6).map(x=>({label:x.label, val:x.val})), redFlag:h.redFlag||"", trap:h.trap||"", relevance: Math.max(1, Math.min(5, parseInt(h.relevance)||3)), why: h.why||"", page:fixPage(h.page)}))
+    .map(h=>{ const cs = citas(h); return {kind:"h", on:true, specialty: SPECS.includes(h.specialty)?h.specialty:"Medicina Interna", area: (h.area||"").trim(), title:withLab(h.title), badge:h.badge||"", thresholds:h.thresholds.slice(0,6).map(x=>({label:x.label, val:x.val})), redFlag:h.redFlag||"", trap:h.trap||"", relevance: Math.max(1, Math.min(5, parseInt(h.relevance)||3)), why: h.why||"", page:fixPage(h.page), pages: paginas(h, cs), citas: cs}; })
     .sort((a,b)=>b.relevance-a.relevance);
   return [...qs, ...hs];
 }
@@ -568,12 +588,13 @@ function renderReview(){
   box.innerHTML = `<div class="card">
     <div class="row"><h3 style="font-size:16px">Revisa antes de guardar</h3><div class="spacer"></div><span class="xs muted" id="candCount">${on}/${cands.length} seleccionadas</span></div>
     <p class="xs muted" style="margin:4px 0 6px">Desmarca lo que no sirva y corrige lo que quieras.${hasAI ? " La IA puede equivocarse: compara con la página indicada." : ""}</p>
+    ${(n => n ? `<div class="note trap xs" style="margin:0 0 8px">⚠️ <b>${n} ítem${n===1?"":"s"}</b> con citas que no aparecen en el PDF: la IA pudo haber inventado o cambiado algo. Revísalos antes de guardar.</div>` : "")(cands.filter(c => (c.citas||[]).some(x => x.ok === false)).length)}
     <div id="candList">${cands.map((c,i)=> c.kind==="h" ? `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div class="stack" style="min-width:0;gap:6px">
-          <div class="xs muted">💎 Ficha high-yield · pág. ${c.page}</div>
+          <div class="xs muted">💎 Ficha high-yield · ${pagsTxt(c)}${c.area ? ` · Área: ${esc(c.area)}` : ""}</div>
           ${imgTag(c.img)}<div id="hp${i}">${hyPrevHTML(c)}</div>
-          ${marcaHTML(c)}
+          ${citasRevHTML(c)}${marcaHTML(c)}
           <details class="custom"><summary>✏️ Editar esta ficha</summary><div class="stack" style="margin-top:10px;gap:6px">
           ${specSelHTML(`data-hf="${i}" data-k="specialty"`, c.specialty)}
           <label class="fld">Título<input type="text" data-hf="${i}" data-k="title" value="${esc(c.title)}"></label>
@@ -589,11 +610,11 @@ function renderReview(){
         </div></div>` : `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div style="min-width:0">
-          <div class="xs muted">${qtLabel(c.qtype)} · ${esc(c.specialty)} · ${esc(c.topic)} · pág. ${c.page}</div>
+          <div class="xs muted">${qtLabel(c.qtype)} · ${esc(c.specialty)}${c.area ? ` (${esc(c.area)})` : ""} · ${esc(c.topic)} · ${pagsTxt(c)}</div>
           ${imgTag(c.img)}<p class="small" style="margin:6px 0">${esc(c.vignette)}</p>
           <ol type="A" class="small" style="margin:0;padding-left:22px">${c.options.map((o,j)=>`<li style="${j===c.correct?"color:var(--ok);font-weight:700":""}">${esc(o)}${j===c.correct?" ✓":""}</li>`).join("")}</ol>
           <p class="xs muted" style="margin:6px 0 0">${esc(c.whyCorrect)}</p>
-          ${marcaHTML(c)}
+          ${citasRevHTML(c)}${marcaHTML(c)}
           <details class="custom" style="margin-top:6px"><summary>✏️ Editar esta pregunta</summary><div data-qbox="${i}" style="margin-top:10px">${qEditHTML(c, true)}</div></details>
         </div></div>`).join("")}</div>
     <div class="row" style="margin-top:12px"><button class="btn ghost" id="candCancel">Descartar todo</button><div class="spacer"></div><button class="btn primary" id="candSave">Guardar ${on} en el banco</button></div>
@@ -610,8 +631,22 @@ function renderReview(){
   $("#candCancel").onclick = ()=>{ cands = null; renderReview(); };
   $("#candSave").onclick = saveCands;
 }
+const pagsTxt = c => c.pages && c.pages.length > 1 ? `págs. ${c.pages.join(", ")}` : `pág. ${c.page}`;
+// Las citas que la IA dice haber copiado del documento, con la comprobación automática.
+function citasRevHTML(c){
+  if (!c.citas || !c.citas.length) return c.kind === "q" || c.kind === "h" ? `<div class="xs" style="margin-top:6px;color:var(--warn)">⚠️ Sin cita del documento: compáralo con la página.</div>` : "";
+  return `<div class="citasrev">${c.citas.map(x => `<div class="xs"><span style="color:${x.ok === false ? "var(--bad)" : "var(--ok)"}">${x.ok === false ? "⚠️ No aparece en el PDF" : x.ok ? "✓ Está en el PDF" : "📍"}</span> · pág. ${x.page}: «${esc(x.texto)}»</div>`).join("")}</div>`;
+}
 function marcaHTML(c){
   return tieneMarca(c) ? `<div class="note trap xs" style="margin-top:6px">⚠️ Tiene un signo por verificar: en el PDF ese símbolo no se leyó bien. <button class="linkbtn" data-marca-pg="${c.page}">Ver pág. ${c.page}</button> y corrígelo antes de guardar.</div>` : "";
+}
+// Lo que se guarda además: área, páginas y citas (con aviso si no se encontraron en el PDF).
+function extrasIA(c){
+  const x = {};
+  if (c.area) x.area = c.area;
+  if (c.pages && c.pages.length > 1) x.pages = c.pages;
+  if (c.citas && c.citas.length) x.cita = c.citas.map(k => ({donde: `pág. ${k.page}${k.ok === false ? " · ⚠️ no se encontró en el PDF" : ""}`, texto: k.texto}));
+  return x;
 }
 function saveCands(){
   const sel = cands.filter(c=>c.on);
@@ -625,15 +660,15 @@ function saveCands(){
     if (c.kind === "h") {
       const rows = c.thresholds.map(x=>({label:x.label.trim(), val:x.val.trim()})).filter(x=>x.label && x.val);
       if (!c.title.trim() || !rows.length) return;
-      S.userH.push({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), relevance:c.relevance||0, why:c.why||"", ctx:"", src:s.id, page:c.page, ai:true, img:c.img||undefined});
+      S.userH.push(Object.assign({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), relevance:c.relevance||0, why:c.why||"", ctx:"", src:s.id, page:c.page, ai:true, img:c.img||undefined}, extrasIA(c)));
       nh++;
     } else if (c.kind === "c") {
       if (!c.front.trim() || !c.back.trim()) return;
       S.userC.push({id, specialty:c.specialty, front:c.front.trim(), back:c.back.trim(), ctx:c.ctx||"", src:s.id, page:c.page, ai:!!c.ai, auto:!c.ai});
       nc++;
     } else {
-      S.userQ.push({id, qtype:c.qtype||"caso", specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
-        whyCorrect:c.whyCorrect, pearl:c.pearl, trap:c.trap, src:s.id, page:c.page, ai:true, img:c.img||undefined});
+      S.userQ.push(Object.assign({id, qtype:c.qtype||"caso", specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
+        whyCorrect:c.whyCorrect, pearl:c.pearl, trap:c.trap, src:s.id, page:c.page, ai:true, img:c.img||undefined}, extrasIA(c)));
       nq++;
     }
   });

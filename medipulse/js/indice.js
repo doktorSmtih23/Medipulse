@@ -15,6 +15,7 @@ function tituloValido(t){
   t = (t || "").trim();
   if (t.length < 4 || t.length > 100 || IND_FUERA.test(t)) return false;
   if (ES_GLOSARIO(t)) return false;
+  if (/\d\s*%/.test(t)) return false;                                                       // rótulos de figuras («Rare (10%) Common»)
   if ((t.match(/\(/g) || []).length !== (t.match(/\)/g) || []).length) return false;   // «Brain Swelling (Medical» cortado
   if (/^[a-z]/.test(t)) return false;                                                     // «patients», «stroke»
   if (!/\s/.test(t) && t.length < 6) return false;
@@ -91,7 +92,7 @@ async function buildIndice(s){
   save();
   return s.indice;
 }
-const IND_FUENTE = {apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", numerado: "Secciones numeradas del documento.", titulos: "Detectado por los títulos del documento.", ia: "Creado con IA a partir del documento."};
+const IND_FUENTE = {apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", numerado: "Secciones numeradas del documento.", titulos: "Detectado por los títulos del documento: a veces confunde rótulos de figuras o tablas con secciones. Si no se parece al documento, usa ✨ Crear con IA.", ia: "Creado con IA a partir del documento."};
 
 // ---------- tema elegido ----------
 function temaActual(){

@@ -20,10 +20,12 @@ function detectDesign(text){
     GPC: n(/guia de practica clinica|clinical practice guideline|clase i\b|class i\b|clase iii|class iii|grade\b|nivel de evidencia|level of evidence|recomendacion/g) * 3,
     META: n(/meta-?anali|meta-?analys|systematic review|revision sistematica|prisma|heterogeneidad|heterogeneity|forest plot/g) * 2,
     ECA: n(/randomi[sz]ed|aleatoriz|placebo|double-blind|doble ciego|intention-to-treat|intencion de tratar|consort/g) * 2,
-    OBS: n(/cohort|casos y controles|case-control|transversal|cross-sectional|strobe/g) * 2
+    OBS: n(/cohort|casos y controles|case-control|transversal|cross-sectional|strobe/g) * 2,
+    REV: n(/\bprimer\b|\breview\b|narrative review|revision narrativa|\bcapitulo\b|\bchapter\b|this (?:review|primer)/g) * 3
   };
   const best = Object.entries(sc).sort((a,b)=>b[1]-a[1])[0];
-  return best[1] > 0 ? best[0] : "REV";
+  // Solo se afirma un diseño si las palabras clave son claras (una revisión cita metaanálisis y ensayos).
+  return best[1] >= 6 ? best[0] : "REV";
 }
 
 // ---------- estado ----------

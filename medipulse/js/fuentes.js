@@ -21,7 +21,7 @@ function srcInfo(id){
 function citaHtml(item){
   if (!Array.isArray(item.cita) || !item.cita.length) return "";
   const v = item.verificado ? ` · verificado el ${esc(item.verificado)}` : "";
-  const s = SRC_BY_ID[item.src], deQue = !s || s.k === "guideline" ? "de la guía" : s.k === "book" ? "del libro" : "del documento";
+  const s = SRC_BY_ID[item.src], deQue = !s ? "del documento" : s.k === "guideline" ? "de la guía" : s.k === "book" ? "del libro" : "del documento";
   return `<details class="cita"><summary>📍 Ver la cita textual ${deQue}${v}</summary>${item.cita.map(c => `<div class="cita-i"><b>${esc(c.donde)}</b><blockquote>“${esc(c.texto)}”</blockquote></div>`).join("")}</details>`;
 }
 function srcLine(item){
@@ -33,7 +33,7 @@ function srcLine(item){
   if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${upd}${s.u?` · <a href="${esc(s.u)}" target="_blank" rel="noopener">abrir la guía</a>`:s.k!=="book"?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>` + citaHtml(item)
     + (st==="outdated" && !item.updated ? warn("Hay una versión más nueva de esta fuente; este dato podría haber cambiado. Revísalo en Fuentes → Vigencia.") : "") + marca;
   const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : item.pack ? " · de un pack compartido, no revisado por MediPulse: verifícalo" : "";
-  const pdf = s.kind==="pdf", where = item.page ? (s.apunte ? ` · punto ${item.page}` : s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";
+  const pdf = s.kind==="pdf", where = item.pages && item.pages.length > 1 && !s.apunte && s.kind!=="text" ? ` · págs. ${item.pages.join(", ")}` : item.page ? (s.apunte ? ` · punto ${item.page}` : s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";
   return `<div class="srcline">${pdf?"📄":s.kind==="pack"?"📦":s.apunte?"📓":"📋"} <span>${esc(s.t)}${where}${how}${upd}${pdf?` · <button class="linkbtn" onclick="openPdf('${s.id}',${item.page||1})">abrir PDF</button>`:""}</span></div>`
     + (item.stale ? warn("Viene de la versión anterior de este PDF.") : st==="outdated" ? warn("Hay una versión más nueva de este documento.") : "") + marca;
 }

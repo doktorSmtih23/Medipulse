@@ -96,7 +96,9 @@ function hyEditor(box, o){
     S.userH.push(h); rebuild(); save(); box.innerHTML = ""; box._addRow = null;
     toast("Ficha guardada ✓ Entra a tu repaso espaciado."); refreshChips(); o.onSave && o.onSave(h);
   };
-  setTimeout(()=>box.querySelector(o.title ? ".eL" : ".eTitle").focus({preventScroll:true}), 50);
+  // Pone el cursor en el primer campo, salvo que el usuario ya esté escribiendo en el editor
+  // (en un celular lento, mover el cursor tarde le cambiaba de campo lo que estaba escribiendo).
+  setTimeout(()=>{ if (!box.contains(document.activeElement)) box.querySelector(o.title ? ".eL" : ".eTitle").focus({preventScroll:true}); }, 50);
   box.scrollIntoView({behavior:"smooth", block:"nearest"});
 }
 

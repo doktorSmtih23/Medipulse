@@ -7,27 +7,41 @@ let errores;
 test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); await page.click("nav [data-go=banco]"); });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
-test("filtros con cantidades, por tipo de pregunta y búsqueda; la lista se agrupa por tema", async ({ page }) => {
-  await expect(page.locator("#qFilters button >> nth=1")).toContainText(/Medicina Interna \d+/);
-  await page.click("#qTipos [data-qt=diagnostico]");
+test("selectores de especialidad, tipo y estado; la lista no muestra el tema ni la fuente", async ({ page }) => {
+  await expect(page.locator("#qSelSpec option >> nth=1")).toContainText(/Medicina Interna \(\d+\)/);
+  await page.selectOption("#qSelTipo", "diagnostico");
   const tipos = await page.$$eval("#qList [data-q1]", bs => bs.map(b => qKind(qById(b.dataset.q1))));
   expect(tipos.length).toBeGreaterThan(5);
   expect(new Set(tipos)).toEqual(new Set(["diagnostico"]));
-  await page.click("#qTipos [data-qt='']");
+  // sin pistas: ni el tema ni la fuente aparecen en la lista
+  const texto = await page.textContent("#qList");
+  expect(texto).not.toMatch(/Kawasaki|TEP|Tourette|Neumolog/);
+  await page.selectOption("#qSelTipo", "");
   await page.fill("#qQuery", "kawasaki");
-  // la búsqueda (espera 250 ms al escribir) mira el tema, el enunciado y la fuente
   await expect.poll(() => page.$$eval("#qList [data-q1]", bs => bs.length > 3 && bs.every(b => { const q = qById(b.dataset.q1); return /kawasaki/i.test(q.topic + q.vignette + (srcInfo(q.src) || {}).t); }))).toBe(true);
   expect(await sinDesborde(page)).toBe(true);
 });
 
-test("estudiar un caso o un tema desde la lista", async ({ page }) => {
-  await page.fill("#qQuery", "TEP");
+test("estudiar un caso o una especialidad desde la lista; el tema se ve solo al responder", async ({ page }) => {
+  await page.selectOption("#qSelSpec", "Pediatría");
   await page.locator("#qList [data-q1]").first().click();
   expect(await page.evaluate(() => sess.stages[0].items.length)).toBe(1);
+  const topic = await page.evaluate(() => qById(sess.stages[0].items[0].id).topic);
+  await expect(page.locator("#sessBody")).not.toContainText(topic);
+  await page.click("#opts .opt >> nth=0");
+  await expect(page.locator("#fbBox")).toContainText("Tema: " + topic);
   await page.click("#quitBtn");
   await page.click("nav [data-go=banco]");
   await page.locator("#qList [data-qg]").first().click();
   expect(await page.evaluate(() => sess.stages[0].items.length)).toBeGreaterThan(1);
+});
+
+test("corregir la especialidad de un caso desde el banco", async ({ page }) => {
+  await page.selectOption("#qSelSpec", "Medicina Interna");
+  const id = await page.locator("#qList [data-qe]").first().getAttribute("data-qe");
+  await page.click(`#qList [data-qe="${id}"]`);
+  await page.selectOption(`#qList [data-qesel="${id}"]`, "Pediatría");
+  expect(await page.evaluate(i => qById(i).specialty, id)).toBe("Pediatría");
 });
 
 test("pasar una pregunta no la califica y el resumen lo dice", async ({ page }) => {
