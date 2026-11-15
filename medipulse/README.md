@@ -7,6 +7,8 @@ Mapa estructural de la app (arquitectura, pantallas, motor de estudio, fuentes, 
 ## Estructura
 La app está dividida por módulos (sin frameworks ni compilación): `index.html` (pantallas), `css/app.css` (estilos), `data/` (contenido médico: casos, fuentes, fichas, tarjetas) y `js/` (un archivo por módulo). El detalle de cada archivo, las reglas y cómo integrar código hecho en otra IA están en **[../AGENTS.md](../AGENTS.md)**.
 
+Ver la app en tu computadora: desde `medipulse/`, `npm start` y abre http://localhost:8080/ (si el puerto está ocupado, usa el siguiente libre y lo indica). No abras `index.html` con doble clic: sin servidor se ve sin estilos.
+
 Pruebas automáticas (Playwright Test, sin API real ni internet): desde `medipulse/`, la primera vez `npm install` y `npx playwright install chromium`; después `npm test` (o `npm run test:ui` para verlas paso a paso). En VS Code, instala la extensión recomendada **Playwright Test for VSCode**: las pruebas aparecen en el panel de pruebas y se corren o depuran una por una. GitHub las corre solas en cada pull request.
 
 Versión de un solo archivo (para visores que abren un solo HTML o para compartirla): `node tools/un-archivo.js` genera `medipulse-un-archivo.html`; con `--watch` se regenera con cada cambio.
@@ -57,10 +59,6 @@ Las funciones con IA usan la clave de API de Claude del propio usuario. Guía pa
 Se incluyen en el repo para que la app no dependa de ningún CDN y funcione sin conexión.
 
 ## Agregar contenido
-En `data/`:
-- `preguntas.js`: `QUESTIONS_BASE` / `QUESTIONS_EXTRA`: casos clínicos (`specialty`, `topic`, `vignette`, `options`, `correct`, `whyCorrect`, `pearl`, `trap`).
-- `tarjetas.js`: tarjetas `[especialidad, frente, reverso]` y su fuente en `F_SRC`.
-- `fichas-hy.js`: fichas con umbrales, bandera roja y trampa, y su fuente en `HY_SRC`.
-- `fuentes.js`: referencias (`SOURCES`) y la fuente de cada caso (`Q_SRC`).
+El contenido incluido (starter pack gratuito) está en `data/contenido/`, **un archivo por especialidad** con sus casos, fichas HY y tarjetas. Las referencias están en `data/fuentes.js`. El formato y las reglas (ids que nunca cambian, fuente obligatoria, revisión médica) están en [AGENTS.md → Contenido médico](../AGENTS.md#contenido-médico). `npm test` valida el contenido antes de publicarlo.
 
 Si cambias archivos, sube la versión de `CACHE` en `sw.js` para que los celulares descarguen la nueva versión.

@@ -30,7 +30,10 @@ const SOURCES = [
   {id:"eu_hna",   t:"Clinical practice guideline on diagnosis and treatment of hyponatraemia (ESE/ESICM/ERA-EDTA)", r:"European Journal of Endocrinology, 2014", y:2014, k:"guideline", v:"Antigua, pero sigue siendo la guía europea de referencia"},
   {id:"aha_rcp",  t:"2025 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care", r:"Circulation, 2025", y:2025, k:"guideline"},
   {id:"goldf",    t:"Goldfrank's Toxicologic Emergencies, 12ª edición", r:"McGraw-Hill", y:2024, k:"book"},
-  {id:"nice_nm",  t:"NICE guideline NG250: Pneumonia: diagnosis and management", r:"NICE, 2025", y:2025, k:"guideline"},
+  {id:"nice_nm",  t:"NICE guideline NG250: Pneumonia: diagnosis and management", r:"NICE, 2025", y:2025, k:"guideline", u:"https://www.nice.org.uk/guidance/ng250"},
+  {id:"nice_fa",  t:"NICE guideline NG196: Atrial fibrillation: diagnosis and management", r:"NICE, 2021 · actualizada", y:2021, k:"guideline", u:"https://www.nice.org.uk/guidance/ng196"},
+  {id:"esc_ic26", t:"2026 ESC Guidelines for the management of heart failure", r:"European Heart Journal, 2026", y:2026, k:"guideline"},
+  {id:"rcuk_ana", t:"Emergency treatment of anaphylaxis: guidelines for healthcare providers (Resuscitation Council UK)", r:"RCUK, 2021", y:2021, k:"guideline", v:"Fecha de revisión prevista: mayo de 2026"},
   {id:"aap_fs",   t:"AAP Clinical Practice Guideline: Febrile Seizures", r:"Pediatrics, 2011", y:2011, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
   {id:"aap_oma",  t:"AAP Clinical Practice Guideline: The Diagnosis and Management of Acute Otitis Media", r:"Pediatrics, 2013", y:2013, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
   {id:"aap_bili", t:"AAP Clinical Practice Guideline Revision: Management of Hyperbilirubinemia in the Newborn ≥ 35 Weeks", r:"Pediatrics, 2022", y:2022, k:"guideline"},
@@ -38,6 +41,3 @@ const SOURCES = [
   {id:"williams", t:"Williams Obstetricia, 27ª edición", r:"McGraw-Hill", y:2025, k:"book"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
-const Q_SRC = {1:"acc_acs",2:"ssc26",3:"ada_cri",4:"acog_htn",5:"cps_croup",6:"tg18",7:"aha_acv",8:"apap",9:"who_men",10:"atls11",11:"who_dia",12:"who_hpp",13:"ukka_k",14:"ga2len",15:"wses_app",16:"aha_tep",17:"aap_bq",18:"acog_ect",19:"gordis",20:"gordis",21:"acc_fa",22:"aha_kaw",23:"goldf",24:"tg18",25:"rcog_pp",26:"eu_hna"};
-BUILTIN_Q.forEach(q=>{ q.src = Q_SRC[q.id]; });
-let QUESTIONS = BUILTIN_Q;

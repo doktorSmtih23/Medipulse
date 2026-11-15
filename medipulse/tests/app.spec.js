@@ -22,6 +22,13 @@ test.describe("Contenido", () => {
 });
 
 test.describe("Estudio", () => {
+  test("lo pendiente no se muestra y el caso verificado enseña su cita textual", async ({ page }) => {
+    const r = await page.evaluate(() => ({pend: [...BUILTIN_Q, ...HY_CARDS, ...BUILTIN_F].filter(x => x.estado === "pendiente").length,
+      cita: srcLine(BUILTIN_Q.find(q => q.id === 2))}));
+    expect(r.pend).toBe(0);
+    expect(r.cita).toContain("Ver la cita textual");
+    expect(r.cita).toContain("norepinephrine as the first-line agent");
+  });
   test("modo sin ganas: 3 tarjetas", async ({ page }) => {
     await page.click("[data-mode=lazy]"); await page.click("[data-lazy=cards]");
     for (let i = 0; i < 3; i++) { await page.click("#flipBtn"); await page.click('[data-g="2"]'); }
@@ -92,4 +99,12 @@ test("tema oscuro aplica sus colores", async ({ page }) => {
   const fondo = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
   await page.click("#themeBtn");
   expect(fondo).not.toBe(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+});
+
+test("lo creado con la antigua especialidad Urgencias pasa a Medicina Interna", async ({ page }) => {
+  await page.evaluate(() => {
+    localStorage.setItem("medipulse_v2", JSON.stringify({userQ: [{id: "u1", specialty: "Urgencias", topic: "Propio", vignette: "Caso", options: ["a","b","c","d"], correct: 0, whyCorrect: "x", pearl: "", trap: ""}], notes: [{id: "n1", spec: "Urgencias", title: "Nota", f: []}], seq: 1}));
+  });
+  await page.reload();
+  expect(await page.evaluate(() => [S.userQ[0].specialty, S.notes[0].spec, SPECS.includes("Urgencias")])).toEqual(["Medicina Interna", "Medicina Interna", false]);
 });

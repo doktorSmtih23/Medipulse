@@ -4,6 +4,8 @@ Este repositorio contiene **MediPulse** (`medipulse/`), una app web de estudio p
 
 > La raíz del repo también tiene una app Flutter antigua (`lib/`, `build/web/`, etc.). No se toca salvo que se pida explícitamente.
 
+**Antes de proponer una función, lee [PRODUCTO.md](PRODUCTO.md):** define para quién es MediPulse, qué promete, qué NO es y cómo decidir si algo entra.
+
 ## Principios
 
 1. **Una sola fuente de verdad:** este repositorio. Nada de versiones paralelas de la app completa: los cambios son incrementales, sobre los archivos existentes, y entran por pull request a `main`.
@@ -22,10 +24,10 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `index.html` | Solo la estructura de las pantallas (vistas `v-*`) y la barra inferior |
 | `css/app.css` | Todos los estilos. Colores como variables (`--bg`, `--accent`…) con tema claro y oscuro |
 | `data/especialidades.js` | `SPECS` y `SPEC_COLOR` |
-| `data/preguntas.js` | Casos clínicos incluidos (`QUESTIONS_BASE`, `QUESTIONS_EXTRA`) |
 | `data/fuentes.js` | Referencias (`SOURCES`), vigencia y a qué caso corresponde cada una |
-| `data/fichas-hy.js` | Fichas high-yield incluidas (`HY_CARDS`) y sus fuentes |
-| `data/tarjetas.js` | Tarjetas rápidas incluidas (`BUILTIN_F`) y sus fuentes |
+| `data/contenido/registro.js` | Registro `MP_CONTENIDO` (se carga antes que las especialidades) |
+| `data/contenido/<especialidad>.js` | **Contenido incluido de cada especialidad** (casos, fichas HY y tarjetas): `medicina-interna`, `cirugia`, `pediatria`, `ginecologia` (paquete `starter`, las 4 básicas) y `salud-publica` (módulo aparte). Una urgencia va en la especialidad del paciente |
+| `data/contenido/armar.js` | Junta todo en `BUILTIN_Q`, `HY_CARDS` y `BUILTIN_F` (va después de las especialidades) |
 | `js/estado.js` | Estado `S` (localStorage, clave `medipulse_v2`), repaso espaciado (`grade`, cajas Leitner), selección de ítems |
 | `js/ui.js` | Utilidades de interfaz (`$`, `esc`, `toast`, navegación `go`) |
 | `js/hoy.js` | Pantalla Hoy, modos por energía |
@@ -64,10 +66,30 @@ Para ver la app en un visor que abre un solo HTML (por ejemplo, el panel de arch
 
 ## Contenido médico
 
-- Formato de un caso: `specialty`, `topic`, `vignette` (puede marcar datos clave con `<span class='hy'>…</span>`), `options` (4), `correct` (0–3), `whyCorrect`, `pearl`, `trap`, y su fuente en `Q_SRC`.
-- Formato de una ficha HY: `title`, `badge`, `specialty`, `thresholds` (`[{label, val}]`), `redFlag`, `trap`, `src`.
-- Toda fuente nueva va en `SOURCES` con título, revista u organización y año reales. Si una guía tiene versión más nueva, se usa la nueva.
-- Cifras, dosis y umbrales se verifican contra la fuente antes de entrar al repo.
+El contenido incluido es una **demostración corta del método** (ver `PRODUCTO.md`): pocos casos y fichas por básica, todos verificados. Vive en `data/contenido/`, un archivo por especialidad, con este formato (JSON dentro de `MP_CONTENIDO.agregar({...})`):
+
+```js
+MP_CONTENIDO.agregar({
+  "especialidad": "Salud Pública",     // igual que en SPECS
+  "prefijo": "sp",                     // para los id nuevos
+  "paquete": "salud-publica",          // "starter" (las 4 básicas, versión gratuita) o el módulo al que pertenece
+  "actualizado": "2026-11-15",         // cámbialo cada vez que edites el archivo
+  "revision": "verificada",            // solo cuando todo lo visible del archivo tiene su cita textual
+  "casos":    [{ "id": "sp-c01", "topic": "…", "difficulty": "Nivel 2", "src": "gordis", "vignette": "…", "options": ["…","…","…","…"], "correct": 0, "whyCorrect": "…", "pearl": "…", "trap": "…" }],
+  "fichas":   [{ "id": "sp-f01", "title": "…", "badge": "…", "src": "gordis", "thresholds": [{ "label": "…", "val": "…" }], "redFlag": "…", "trap": "…" }],
+  "tarjetas": [{ "id": "sp-t01", "src": "gordis", "front": "…", "back": "…" }]
+});
+```
+
+Reglas:
+- **Los `id` nunca se cambian ni se reutilizan:** el progreso de cada usuario se guarda con ellos. Los ítems anteriores conservan su id numérico (casos 1–26, tarjetas 1–53) o `hy1`–`hy6`. Los nuevos usan `<prefijo>-c01`, `<prefijo>-f01` y `<prefijo>-t01`, y siguen la numeración del archivo. Para corregir un ítem, se edita su texto; si queda obsoleto, se reemplaza su contenido, sin borrar el id.
+- `src` es el `id` de una fuente de `data/fuentes.js`. Toda fuente nueva va ahí, con título, revista u organización y año reales. Si una guía tiene una versión más nueva, se usa la nueva.
+- `vignette` admite solo el resaltado `<span class='hy'>…</span>`; los signos `<` y `>` del texto se escriben `&lt;` y `&gt;`.
+- 4 opciones distintas y una sola correcta (`correct`, de 0 a 3). Reparte la posición de la correcta entre A, B, C y D.
+- Cifras, dosis y umbrales se verifican contra la fuente antes de entrar al repo, y un médico revisa cada especialidad antes de publicarla.
+- **Cita textual:** cada ítem lleva `"cita": [{ "donde": "Recomendación 1.8.1", "texto": "texto literal de la guía" }]` y `"verificado": "AAAA-MM-DD"`. La app la muestra en "Ver la cita textual de la guía"; revisar es comparar el dato con la cita. Solo fuentes de acceso gratuito.
+- **`"estado": "pendiente"`** saca un ítem de la app sin borrarlo (sin verificar o fuera de la demostración). Se conserva su id para no perder el progreso; al verificarlo se quita el campo.
+- `npm test` valida todo esto (`tests/contenido.spec.js`): formato, fuentes, ids repetidos o desaparecidos y posición de las respuestas.
 
 ## Cómo integrar código hecho en otra IA (por ejemplo, Gemini)
 
