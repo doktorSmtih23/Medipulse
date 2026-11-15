@@ -50,7 +50,7 @@ function renderQ(q, exam){
     <div class="card">
       <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span><span class="muted">${q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) + " · " : ""}${esc(q.topic)}</span><div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
-      <p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
+      ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCD"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCD"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
       <div id="fbBox"></div>
     </div>
@@ -162,7 +162,7 @@ function finishExam(timeUp){
     grade("q"+q.id, good?2:0); const l=logToday(); l.q++; if(good) l.ok++;
     sess.results.push({t:"q",id:q.id,ok:good});
     return `<details class="card" style="padding:12px 14px;margin-top:10px"><summary style="cursor:pointer"><b style="color:${good?"var(--ok)":"var(--bad)"}">${good?"✓":"✗"}</b> ${i+1}. ${esc(q.topic)}${sess.flags && sess.flags[sess.si+":"+i] ? " 🚩" : ""}</summary>
-      <p class="small" style="margin:10px 0">${q.vignette}</p>
+      ${imgTag(q.img)}<p class="small" style="margin:10px 0">${q.vignette}</p>
       <p class="small" style="margin:0">Tu respuesta: <b>${a==null?"(sin responder)":esc(q.options[a])}</b><br>Correcta: <b style="color:var(--ok)">${esc(q.options[q.correct])}</b></p>
       <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p><div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>${srcLine(q)}<div style="margin-top:6px"><button class="linkbtn xs" data-rep="q${q.id}">🚩 Reportar un error</button><div class="repslot"></div></div></details>`;
   });

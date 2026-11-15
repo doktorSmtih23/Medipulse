@@ -17,7 +17,7 @@ const hyAccent = h => h.accent || SPEC_COLOR[h.specialty] || "var(--accent)";
 function hyCardHTML(c){
   return `<div class="card hycard" style="border-top-color:${hyAccent(c)}">
     <div class="row"><span class="tag">${esc(c.badge || "Ficha HY")}</span><span class="xs muted">${esc(c.specialty)}</span>${c.relevance ? `<div class="spacer"></div><span class="stars xs" title="Relevancia ${c.relevance} de 5">${"★".repeat(c.relevance)}${"☆".repeat(5-c.relevance)}</span>` : ""}</div>
-    <h3 style="margin-top:8px;font-size:18px">${esc(c.title)}</h3>
+    <h3 style="margin-top:8px;font-size:18px">${esc(c.title)}</h3>${imgTag(c.img)}
     <div class="th">${c.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b>${esc(t.val)}</b></div>`).join("")}</div>
     ${c.why ? `<div class="note pearl"><b>💡 Por qué es high-yield:</b> ${esc(c.why)}</div>` : ""}
     ${c.redFlag ? `<div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(c.redFlag)}</div>` : ""}
@@ -27,7 +27,7 @@ function hyCardHTML(c){
 function renderH(h){
   $("#sessBody").innerHTML = `<div class="card hycard" style="border-top-color:${hyAccent(h)}">
       <div class="row"><span class="tag">${esc(h.badge || "Ficha HY")}</span><span class="xs muted">${esc(h.specialty)}</span></div>
-      <h3 style="margin-top:8px;font-size:18px">${esc(h.title)}</h3>
+      <h3 style="margin-top:8px;font-size:18px">${esc(h.title)}</h3>${imgTag(h.img)}
       <p class="xs muted" style="margin:6px 0 0">Intenta recordar cada dato antes de mostrar la ficha.</p>
       <div class="th">${h.thresholds.map(t=>`<div><span class="muted">${esc(t.label)}</span><b class="hidev">?</b></div>`).join("")}</div>
       <div id="hBack"></div></div>
@@ -60,7 +60,7 @@ function gradeH(h, g){
 function hyEditor(box, o){
   o = Object.assign({title:"", badge:"", spec:"Medicina Interna", rows:[], redFlag:"", trap:"", src:null, page:0, ctx:"", showSrc:false, heading:"💎 Nueva ficha high-yield", onSave:null, flags:{}}, o);
   box.innerHTML = `<div class="card stack hyed" style="border-color:var(--accent)">
-    <h4 style="margin:0">${esc(o.heading)}</h4>
+    <h4 style="margin:0">${esc(o.heading)}</h4>${o.flags && o.flags.img ? imgTag(o.flags.img) : ""}
     <label class="fld">Título de la ficha<input type="text" class="eTitle" value="${esc(o.title)}" placeholder="p. ej. AAV2-GAD en Parkinson: ensayo fase II"></label>
     <div class="grid2"><label class="fld">Etiqueta (opcional)<input type="text" class="eBadge" value="${esc(o.badge)}" placeholder="p. ej. Ensayo fase II, Umbral, Algoritmo"></label>
       <label class="fld">Especialidad<select class="eSpec">${SPECS.map(x=>`<option ${x===o.spec?"selected":""}>${x}</option>`).join("")}</select></label></div>
@@ -88,7 +88,7 @@ function hyEditor(box, o){
     const title = box.querySelector(".eTitle").value.trim();
     const rows = [...rowsBox.querySelectorAll(".erow")].map(r=>({label: r.querySelector(".eL").value.trim(), val: r.querySelector(".eV").value.trim()})).filter(x=>x.label || x.val);
     if (!title) return toast("Ponle un título a la ficha.");
-    if (!rows.length || rows.some(x=>!x.label || !x.val)) return toast("Cada dato necesita qué es y su valor.");
+    if ((!rows.length && !(o.flags && o.flags.img)) || rows.some(x=>!x.label || !x.val)) return toast("Cada dato necesita qué es y su valor.");
     const spec = box.querySelector(".eSpec").value;
     const h = Object.assign({id: "u"+(++S.seq), specialty: spec, title, badge: box.querySelector(".eBadge").value.trim(), accent: SPEC_COLOR[spec],
       thresholds: rows, redFlag: box.querySelector(".eRed").value.trim(), trap: box.querySelector(".eTrap").value.trim(),
