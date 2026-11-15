@@ -143,6 +143,42 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "cir-c01",
+      "topic": "Páncreas · Pancreatitis aguda",
+      "difficulty": "Nivel 2",
+      "src": "nice_pan",
+      "vignette": "Hombre de 52 años, bebedor social, con dolor epigástrico intenso irradiado a la espalda y vómitos desde hace 30 horas. Lipasa 6 veces el valor normal; la ecografía muestra colelitiasis. Al tercer día persiste con <span class='hy'>falla orgánica y criterios de pancreatitis grave</span>, sin fiebre ni signos de infección. ¿Qué indica la guía NICE?",
+      "options": [
+        "Iniciar meropenem profiláctico para evitar la infección de la necrosis",
+        "Ayuno estricto y nutrición parenteral total hasta que mejore el dolor",
+        "Nutrición enteral iniciada dentro de las 72 horas, sin antibiótico profiláctico",
+        "Atribuir el cuadro al alcohol y no estudiar otras causas"
+      ],
+      "correct": 2,
+      "whyCorrect": "En la pancreatitis aguda grave o moderadamente grave, NICE indica ofrecer nutrición enteral, iniciada dentro de las 72 horas del ingreso; la parenteral solo si la enteral falla o está contraindicada. No se ofrecen antimicrobianos profilácticos.",
+      "pearl": "Necrosis pancreática infectada o sospechada: abordaje endoscópico cuando sea anatómicamente posible; si no, percutáneo.",
+      "trap": "Dar antibiótico «profiláctico» en la pancreatitis grave sin infección: NICE lo desaconseja. Tampoco se asume que la causa es el alcohol solo porque el paciente bebe.",
+      "cita": [
+        {
+          "donde": "Recomendaciones 1.2.6 y 1.2.7",
+          "texto": "Offer enteral nutrition to anyone with severe or moderately severe acute pancreatitis. Start within 72 hours of presentation and aim to meet their nutritional requirements as soon as possible. · Offer anyone with severe or moderately severe acute pancreatitis parenteral nutrition only if enteral nutrition has failed or is contraindicated."
+        },
+        {
+          "donde": "Recomendación 1.2.3",
+          "texto": "Do not offer prophylactic antimicrobials to people with acute pancreatitis."
+        },
+        {
+          "donde": "Recomendaciones 1.2.8 y 1.2.9",
+          "texto": "Offer people with acute pancreatitis an endoscopic approach for managing infected or suspected infected pancreatic necrosis when anatomically possible. · Offer a percutaneous approach when an endoscopic approach is not anatomically possible."
+        },
+        {
+          "donde": "Recomendación 1.2.1",
+          "texto": "Do not assume that a person's acute pancreatitis is alcohol-related just because they drink alcohol."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
   ],
   "fichas": [
@@ -314,10 +350,16 @@ MP_CONTENIDO.agregar({
   "tarjetas": [
     {
       "id": 22,
-      "src": "atls11",
-      "front": "Glasgow que indica asegurar la vía aérea",
-      "back": "≤ 8",
-      "estado": "pendiente"
+      "src": "nice_tce",
+      "front": "Trauma craneoencefálico: Glasgow que obliga a intubar (NICE)",
+      "back": "≤ 8 (coma): intubar y ventilar de inmediato",
+      "cita": [
+        {
+          "donde": "Recomendación 1.8.8 [2003, modificada 2007]",
+          "texto": "Intubate and ventilate the person immediately when there is: coma, that is, they are not obeying commands, not speaking and not eye opening (a GCS score of 8 or less) · loss of protective laryngeal reflexes · ventilatory insufficiency, as judged by blood gases: hypoxaemia (PaO2 less than 13 kPa on oxygen) or hypercarbia (PaCO2 more than 6 kPa) · irregular respirations."
+        }
+      ],
+      "verificado": "2026-11-15"
     },
     {
       "id": 23,
@@ -408,6 +450,23 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Recomendación 1.5.4",
           "texto": "Use intravenous tranexamic acid as soon as possible in patients with major trauma and active or suspected active bleeding."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "cir-t02",
+      "src": "nice_pan",
+      "front": "Pancreatitis aguda grave: ¿antibiótico profiláctico? (NICE)",
+      "back": "No. Nutrición enteral dentro de las 72 h; parenteral solo si la enteral falla o está contraindicada",
+      "cita": [
+        {
+          "donde": "Recomendación 1.2.3",
+          "texto": "Do not offer prophylactic antimicrobials to people with acute pancreatitis."
+        },
+        {
+          "donde": "Recomendaciones 1.2.6 y 1.2.7",
+          "texto": "Offer enteral nutrition to anyone with severe or moderately severe acute pancreatitis. Start within 72 hours of presentation and aim to meet their nutritional requirements as soon as possible. · Offer anyone with severe or moderately severe acute pancreatitis parenteral nutrition only if enteral nutrition has failed or is contraindicated."
         }
       ],
       "verificado": "2026-11-15"
