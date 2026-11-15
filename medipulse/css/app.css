@@ -273,3 +273,9 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
 .aptx .apsub{padding-left:18px}
 .apv{color:var(--warn);font-weight:700}
 .apta{width:100%;font-size:15px;line-height:1.5;min-height:160px;resize:vertical}
+/* Inicio de sesión de la beta: mientras no hay sesión, solo se ve esta pantalla */
+body.gated header.top, body.gated main, body.gated nav.bottom, body.gated .nueva-version{display:none!important}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.login-card{width:100%;max-width:420px}
+input[type=email]{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:8px 10px;width:100%}
+.login[hidden]{display:none}

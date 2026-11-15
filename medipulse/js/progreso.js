@@ -20,6 +20,7 @@ function renderProg(){
     cells.push(`<i title="${d.toLocaleDateString("es")}: ${Math.round(m)} min" style="${a?`background:color-mix(in srgb,var(--accent) ${a*100}%,var(--subtle))`:""}"></i>`); }
   $("#heat").innerHTML=cells.join("");
   if (typeof renderBackupInfo === "function") renderBackupInfo();
+  if (typeof renderCuentaInfo === "function") renderCuentaInfo();
 }
 $("#expBtn").onclick = () => exportBackup();
 $("#impFile").onchange = e => { const f = e.target.files[0]; e.target.value = ""; if (f) importBackup(f); };

@@ -12,7 +12,7 @@ Este repositorio contiene **MediPulse** (`medipulse/`), una app web de estudio p
 2. **Un cambio, un módulo** cuando se pueda. Cada PR dice qué módulo toca y por qué.
 3. **Sin frameworks ni paso de compilación.** HTML, CSS y JavaScript planos, cargados con `<script src>` clásicos.
 4. **Funciona sin internet.** Nada de CDNs nuevos: las librerías van en `medipulse/vendor/`. Las únicas funciones que necesitan red son las de IA.
-5. **Los datos del usuario se quedan en su dispositivo** (`localStorage` e IndexedDB). No se envían a ningún servidor propio ni de terceros, salvo el texto que el usuario manda a la API de Claude al usar la IA.
+5. **Los datos del usuario se quedan en su dispositivo** (`localStorage` e IndexedDB). No se envían a ningún servidor propio ni de terceros, salvo el texto que el usuario manda a la API de Claude al usar la IA y, en la beta, **el correo con el que inicia sesión** (Supabase Auth, ver `medipulse/SERVIDOR.md`). La cuenta solo controla quién entra; no guarda datos de estudio.
 6. **Contenido médico verificable:** cada caso, tarjeta y ficha cita su fuente (`src`); no se inventan cifras; se usa la versión vigente de las guías.
 
 ## Estructura de `medipulse/`
@@ -23,6 +23,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 |---|---|
 | `index.html` | Solo la estructura de las pantallas (vistas `v-*`) y la barra inferior |
 | `css/app.css` | Todos los estilos. Colores como variables (`--bg`, `--accent`…) con tema claro y oscuro |
+| `data/servidor.js` | Dirección y clave pública (anon/publishable) del servidor de la beta. Vacío = sin inicio de sesión. Nunca la clave secreta |
 | `data/especialidades.js` | `SPECS` y `SPEC_COLOR` |
 | `data/fuentes.js` | Referencias (`SOURCES`), vigencia y a qué caso corresponde cada una |
 | `data/contenido/registro.js` | Registro `MP_CONTENIDO` (se carga antes que las especialidades) |
@@ -49,6 +50,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/lector.js` | Lector del PDF real en «Leer y crear»: página con pdf.js y capa de texto seleccionable, ✂️ recortar una zona, 📷 subir captura, imágenes guardadas en IndexedDB (`img:…`) y adjuntas a fichas y preguntas |
 | `js/corregir.js` | Corregir a mano preguntas y fichas: en la revisión antes de guardar y ya guardadas (✏️ Corregir). Lo incluido en la app se corrige en `S.over`; avisa los datos con «verificar el signo en el PDF» |
 | `js/apuntes.js` | 📓 Mis apuntes: libretas por semana o rotación, entradas por día y puntos numerados; atajos al escribir (`->` → →, `SatO2` → SatO₂), Enter sigue la numeración, `??` marca «por verificar». Cada punto → ficha a mano (`apFicha` separa título y datos) o preguntas con IA; la libreta se estudia como documento (`apSync`: fuente `kind:"text"` con `apunte`, un punto por parte y un tema por día). El área de la libreta es libre: si no es una de `SPECS`, los ítems van a Medicina Interna con el área como etiqueta |
+| `js/cuenta.js` | Inicio de sesión de la beta con Supabase Auth, sin librerías (`fetch` a `/auth/v1`): correo con enlace y código de 6 dígitos, solo invitados (`create_user: false`), sesión guardada en `medipulse_sesion`, entra sin internet con la sesión guardada y, si le quitan el acceso, vuelve a pedir el correo. Configuración: `SERVIDOR.md` |
 | `js/datos.js` | Proteger los datos: copia de seguridad (descargar/cargar/deshacer), recordatorio de copia, aviso de iPhone, alerta si no se pudo guardar, ítems archivados |
 | `js/inicio.js` | Arranque (va siempre al final) |
 | `vendor/` | pdf.js 3.11.174 y `@anthropic-ai/sdk` 1.2.0 (no editar a mano) |
