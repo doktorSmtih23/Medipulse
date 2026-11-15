@@ -50,7 +50,7 @@ test("el único estado permitido es \"pendiente\"", () => {
 
 test("en una especialidad verificada, todo lo visible trae su cita textual y la fecha de verificación", () => {
   const verificadas = C.esp.filter(e => e.revision === "verificada").map(e => e.especialidad);
-  expect(verificadas).toContain("Medicina Interna");
+  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía"]));
   const mal = ["casos", "fichas", "tarjetas"].flatMap(t => visibles(t)).filter(x => verificadas.includes(x._esp)).filter(x =>
     !Array.isArray(x.cita) || !x.cita.length || x.cita.some(c => !c.donde || !c.texto || c.texto.length < 20) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(x.verificado || "")).map(donde);
