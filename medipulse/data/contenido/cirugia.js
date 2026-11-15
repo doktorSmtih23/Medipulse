@@ -17,47 +17,84 @@ MP_CONTENIDO.agregar({
       "options": [
         "CPRE urgente antes de cualquier intervención quirúrgica",
         "Manejo ambulatorio con analgésicos y colecistectomía electiva en 3 meses",
-        "Antibioticoterapia IV + colecistectomía laparoscópica temprana (< 72 h)",
+        "Antibioticoterapia IV + colecistectomía laparoscópica temprana",
         "Colangiorresonancia obligatoria para descartar colangitis aguda"
       ],
       "correct": 2,
-      "whyCorrect": "Cumple criterios de Tokio para colecistitis aguda (Murphy +, fiebre/leucocitosis, engrosamiento parietal y líquido pericolecístico) sin signos de colangitis ni coledocolitiasis (bilirrubinas/FA normales). El tratamiento definitivo es colecistectomía laparoscópica temprana.",
-      "pearl": "Colecistitis aguda no complicada → Colecistectomía laparoscópica temprana (primeras 72 h) reduce estancia y complicaciones.",
-      "trap": "Pedir CPRE sin dilatación de vía biliar ni colestasis expone innecesariamente a pancreatitis post-CPRE."
+      "whyCorrect": "Tiene un signo local (Murphy), signos sistémicos (fiebre, leucocitosis) e imagen característica: colecistitis aguda definitiva según TG18, sin colestasis. Es leve (grado I) y la paciente tolera la cirugía, así que TG18 indica colecistectomía laparoscópica pronto tras el inicio.",
+      "pearl": "TG18 propone la cirugía temprana en quien la tolera, sin importar exactamente cuánto tiempo pasó desde el inicio (ya no exige el límite estricto de 72 h).",
+      "trap": "Diferir la colecistectomía varias semanas en una paciente que tolera la cirugía.",
+      "cita": [
+        {
+          "donde": "TG18, criterios diagnósticos de colecistitis aguda (tabla 1)",
+          "texto": "A. Local signs of inflammation etc. (1) Murphy’s sign, (2) RUQ mass/pain/tenderness B. Systemic signs of inflammation etc. (1) Fever, (2) elevated CRP, (3) elevated WBC count C. Imaging findings Imaging findings characteristic of acute cholecystitis Suspected diagnosis: one item in A + one item in B Definite diagnosis: one item in A + one item in B + C"
+        },
+        {
+          "donde": "TG18, algoritmo de manejo: grado I",
+          "texto": "Grade I (mild) AC: Lap-C should ideally be performed soon after onset if the CCI and ASA-PS scores suggest the patient can withstand surgery."
+        },
+        {
+          "donde": "TG18, algoritmo de manejo: pregunta 3 (recomendación 2, nivel B)",
+          "texto": "If a patient is deemed capable of withstanding surgery for AC, we propose early surgery regardless of exactly how much time has passed since onset."
+        }
+      ],
+      "verificado": "2026-11-15"
     },
     {
       "id": 10,
       "topic": "Trauma · Tórax",
       "difficulty": "Nivel 3",
-      "src": "atls11",
+      "src": "nice_tr",
       "vignette": "Joven sufre herida por arma blanca en hemitórax derecho. Llega con <span class='hy'>disnea severa, PA 70/40 mmHg, ingurgitación yugular, desviación traqueal a la izquierda y abolición del murmullo vesicular derecho</span>. ¿Acción inmediata?",
       "options": [
-        "Descompresión torácica inmediata (toracostomía con aguja o descompresión digital) seguida de tubo a tórax",
+        "Descompresión torácica inmediata (toracostomía abierta, o con aguja si no hay experiencia) seguida de tubo de tórax",
         "Solicitar radiografía de tórax portátil urgente para confirmar diagnóstico",
         "Pericardiocentesis subxifoidea guiada por ecografía",
         "Intubación orotraqueal con presión positiva antes de descomprimir el tórax"
       ],
       "correct": 0,
-      "whyCorrect": "Cuadro clínico clásico de neumotórax a tensión (choque obstructivo + ingurgitación yugular + ausencia de ruidos respiratorios + desviación traqueal contralateral). El diagnóstico es clínico y la descompresión es inmediata sin esperar radiografía.",
-      "pearl": "Neumotórax a tensión: NUNCA se toma radiografía. Descompresión en 4°-5° EIC línea axilar anterior/media (adultos, ATLS) o 2° EIC LMC.",
-      "trap": "Pedir Rx de tórax o intubar con presión positiva sin descomprimir colapsa aún más el retorno venoso."
+      "whyCorrect": "Es un neumotórax a tensión con inestabilidad hemodinámica (hipotensión, ingurgitación yugular, desviación traqueal y murmullo abolido). NICE indica descomprimir antes de cualquier imagen, con toracostomía abierta seguida de tubo de tórax.",
+      "pearl": "NICE: preferir la toracostomía abierta a la descompresión con aguja si hay experiencia, y vigilar la recurrencia después de descomprimir.",
+      "trap": "Pedir una radiografía antes de descomprimir a un paciente inestable.",
+      "cita": [
+        {
+          "donde": "Recomendación 1.4.1",
+          "texto": "In patients with tension pneumothorax, perform chest decompression before imaging only if they have either haemodynamic instability or severe respiratory compromise."
+        },
+        {
+          "donde": "Recomendación 1.4.2",
+          "texto": "Perform chest decompression using open thoracostomy followed by a chest drain in patients with tension pneumothorax."
+        },
+        {
+          "donde": "Recomendaciones 1.3.5 y 1.3.6 (prehospitalario)",
+          "texto": "Use open thoracostomy instead of needle decompression if the expertise is available, followed by a chest drain via the thoracostomy in patients who are breathing spontaneously. · Observe patients after chest decompression for signs of recurrence of the tension pneumothorax."
+        }
+      ],
+      "verificado": "2026-11-15"
     },
     {
       "id": 15,
       "topic": "Abdomen Agudo · Apendicitis",
       "difficulty": "Nivel 2",
       "src": "wses_app",
-      "vignette": "Hombre de 21 años con <span class='hy'>dolor periumbilical que migró a fosa ilíaca derecha</span> hace 14 horas, anorexia, náuseas, T° 37.9°C, Blumberg positivo y leucocitos 14.500/mm³ con neutrofilia. ¿Puntaje aproximado de Alvarado y conducta?",
+      "vignette": "Hombre de 21 años con <span class='hy'>dolor periumbilical que migró a fosa ilíaca derecha</span> hace 14 horas, anorexia, náuseas, T° 37.9°C, Blumberg positivo y leucocitos 14.500/mm³ con neutrofilia. ¿Conducta?",
       "options": [
-        "Alvarado bajo (≤ 3) · Alta con analgésicos",
-        "Alvarado intermedio · Colonoscopia diagnóstica",
-        "Manejo exclusivo con metronidazol oral ambulatorio",
-        "Alvarado alto (≥ 7) · Apendicectomía sin necesidad obligatoria de TAC en hombre joven típico"
+        "Alta con analgésicos, sin estudios",
+        "Colonoscopia diagnóstica",
+        "Metronidazol oral ambulatorio como única medida",
+        "Apendicectomía laparoscópica, que puede hacerse dentro de las primeras 24 horas"
       ],
       "correct": 3,
-      "whyCorrect": "Migración (1) + Anorexia (1) + Náuseas (1) + Dolor FID (2) + Rebote (1) + Fiebre (1) + Leucocitosis (2) + Desviación izquierda (1) = 9-10 puntos. En hombre joven con cuadro típico y Alvarado ≥ 7, la conducta es quirúrgica directa.",
-      "pearl": "Escala de Alvarado (MANTRELS): ≥ 7 alta probabilidad quirúrgica; 5-6 requiere imagen (ecografía o TAC).",
-      "trap": "Diferir la cirugía para pedir múltiples imágenes en un hombre joven con presentación clásica."
+      "whyCorrect": "Es un cuadro típico de apendicitis aguda. La WSES 2025 mantiene la apendicectomía laparoscópica como el abordaje quirúrgico estándar; en la apendicitis no complicada puede diferirse dentro de 24 horas sin más eventos adversos. Las escalas clínicas y la imagen mejoran la precisión diagnóstica.",
+      "pearl": "WSES 2025: en pacientes seleccionados con apendicitis no complicada, el manejo no operatorio con antibióticos es seguro y eficaz. En la complicada, antibiótico posoperatorio corto (2–3 días).",
+      "trap": "Prolongar el antibiótico posoperatorio en la apendicitis complicada: la WSES 2025 lo limita a 2–3 días.",
+      "cita": [
+        {
+          "donde": "Resumen, hallazgos clave",
+          "texto": "(1) clinical risk scores and imaging improve diagnostic accuracy and reduce negative appendectomy rates; (2) nonoperative management with antibiotics is safe and effective in selected patients with uncomplicated appendicitis, with recommendations tailored for specific populations; (3) appendectomy for uncomplicated appendicitis may be safely delayed within 24 hours without increased risk of adverse outcomes; (4) laparoscopic appendectomy remains the standard surgical approach; (5) postoperative antibiotic therapy should be limited to short courses (2-3 days) in complicated disease"
+        }
+      ],
+      "verificado": "2026-11-15"
     },
     {
       "id": 24,
@@ -72,34 +109,125 @@ MP_CONTENIDO.agregar({
         "Colangiorresonancia antes de cualquier tratamiento"
       ],
       "correct": 1,
-      "whyCorrect": "Tríada de Charcot más hipotensión y alteración de conciencia es la péntada de Reynolds: colangitis grave. Requiere reanimación, antibiótico IV y descompresión biliar urgente, idealmente por CPRE.",
-      "pearl": "Charcot: fiebre + ictericia + dolor en HCD. Reynolds: Charcot + choque + confusión.",
-      "trap": "Ir directo a colecistectomía: la urgencia es drenar la vía biliar, no quitar la vesícula."
+      "whyCorrect": "Es una colangitis aguda definitiva (fiebre, ictericia y dilatación biliar con litiasis) con alteración de la conciencia, que es disfunción neurológica: grado III (grave) según TG18. El tratamiento es soporte, antibiótico y drenaje biliar temprano; la CPRE drena la vía y trata la causa.",
+      "pearl": "La tríada de Charcot es muy específica pero poco sensible; TG18 no la usa como criterio diagnóstico. Antibiótico de 4 a 7 días una vez controlado el foco.",
+      "trap": "Ir directo a la colecistectomía: la urgencia es drenar la vía biliar, no quitar la vesícula.",
+      "cita": [
+        {
+          "donde": "TG18, criterios diagnósticos de colangitis aguda (tabla 2)",
+          "texto": "A. Systemic inflammation A-1. Fever and/or shaking chills A-2. Laboratory data: evidence of inflammatory response B. Cholestasis B-1. Jaundice B-2. Laboratory data: abnormal liver function tests C. Imaging C-1. Biliary dilatation C-2. Evidence of the etiology on imaging (stricture, stone, stent etc.) Suspected diagnosis: one item in A + one item in either B or C Definite diagnosis: one item in A, one item in B and one item in C"
+        },
+        {
+          "donde": "TG18, gravedad de la colangitis (tabla 4)",
+          "texto": "“Grade III” acute cholangitis is defined as acute cholangitis that is associated with the onset of dysfunction at least in any one of the following organs/systems: 1. Cardiovascular dysfunction: hypotension requiring dopamine ≥5 µg/kg per min, or any dose of norepinephrine 2. Neurological dysfunction: disturbance of consciousness 3. Respiratory dysfunction: PaO2/FiO2 ratio <300 …"
+        },
+        {
+          "donde": "TG18, gravedad de la colangitis",
+          "texto": "Early diagnosis, early biliary drainage and/or treatment for etiology, and antimicrobial administration are fundamental treatment for acute cholangitis classified not only “Grade III (severe)” and “Grade II (moderate)” but also “Grade I (mild)”."
+        },
+        {
+          "donde": "TG18, terapia antimicrobiana (recomendación 1, nivel C)",
+          "texto": "Once the source of infection is controlled, antimicrobial therapy for patients with acute cholangitis is recommended for the duration of 4 to 7 days."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
   ],
   "fichas": [
     {
       "id": "hy6",
-      "title": "Neumotórax a Tensión",
-      "badge": "ATLS Trauma",
-      "src": "atls11",
+      "title": "Neumotórax a tensión",
+      "badge": "NICE NG39",
+      "src": "nice_tr",
       "accent": "#f43f5e",
       "thresholds": [
         {
-          "label": "Diagnóstico",
-          "val": "100% Clínico"
+          "label": "Descomprimir antes de imagen",
+          "val": "Solo con inestabilidad o compromiso respiratorio grave"
         },
         {
-          "label": "Tríada",
-          "val": "Choque + IY + MV abolido"
+          "label": "Técnica",
+          "val": "Toracostomía abierta + tubo de tórax"
         },
         {
-          "label": "Acción",
-          "val": "Descompresión ya"
+          "label": "Con aguja",
+          "val": "Solo si no hay experiencia en toracostomía abierta"
+        },
+        {
+          "label": "Después",
+          "val": "Vigilar la recurrencia"
         }
       ],
-      "redFlag": "Hipotensión + ingurgitación yugular + desviación traqueal contralateral.",
-      "trap": "Solicitar radiografía de tórax para confirmar: el paciente muere en la sala de rayos X."
+      "redFlag": "Neumotórax a tensión con inestabilidad hemodinámica: descomprimir sin esperar imagen.",
+      "trap": "Descomprimir antes de la imagen a un paciente estable: NICE lo reserva para inestabilidad o compromiso respiratorio grave.",
+      "cita": [
+        {
+          "donde": "Recomendación 1.4.1",
+          "texto": "In patients with tension pneumothorax, perform chest decompression before imaging only if they have either haemodynamic instability or severe respiratory compromise."
+        },
+        {
+          "donde": "Recomendación 1.4.2",
+          "texto": "Perform chest decompression using open thoracostomy followed by a chest drain in patients with tension pneumothorax."
+        },
+        {
+          "donde": "Recomendaciones 1.3.5 y 1.3.6 (prehospitalario)",
+          "texto": "Use open thoracostomy instead of needle decompression if the expertise is available, followed by a chest drain via the thoracostomy in patients who are breathing spontaneously. · Observe patients after chest decompression for signs of recurrence of the tension pneumothorax."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "cir-f01",
+      "title": "Colangitis aguda (TG18)",
+      "badge": "Tokio 2018",
+      "src": "tg18",
+      "thresholds": [
+        {
+          "label": "Sospecha",
+          "val": "A (fiebre o inflamación) + B o C"
+        },
+        {
+          "label": "Definitiva",
+          "val": "A + B (ictericia o PFH alteradas) + C (dilatación o causa en imagen)"
+        },
+        {
+          "label": "Grado III",
+          "val": "Falla de un órgano: vasopresor, alteración de conciencia, PaO₂/FiO₂ < 300…"
+        },
+        {
+          "label": "Tratamiento",
+          "val": "Antibiótico + drenaje biliar temprano"
+        },
+        {
+          "label": "Antibiótico",
+          "val": "4–7 días tras controlar el foco"
+        }
+      ],
+      "redFlag": "Alteración de la conciencia o hipotensión que requiere vasopresor: colangitis grave (grado III).",
+      "trap": "Diagnosticar colangitis solo con la tríada de Charcot: es poco sensible.",
+      "cita": [
+        {
+          "donde": "TG18, criterios diagnósticos de colangitis aguda (tabla 2)",
+          "texto": "A. Systemic inflammation A-1. Fever and/or shaking chills A-2. Laboratory data: evidence of inflammatory response B. Cholestasis B-1. Jaundice B-2. Laboratory data: abnormal liver function tests C. Imaging C-1. Biliary dilatation C-2. Evidence of the etiology on imaging (stricture, stone, stent etc.) Suspected diagnosis: one item in A + one item in either B or C Definite diagnosis: one item in A, one item in B and one item in C"
+        },
+        {
+          "donde": "TG18, gravedad de la colangitis (tabla 4)",
+          "texto": "“Grade III” acute cholangitis is defined as acute cholangitis that is associated with the onset of dysfunction at least in any one of the following organs/systems: 1. Cardiovascular dysfunction: hypotension requiring dopamine ≥5 µg/kg per min, or any dose of norepinephrine 2. Neurological dysfunction: disturbance of consciousness 3. Respiratory dysfunction: PaO2/FiO2 ratio <300 …"
+        },
+        {
+          "donde": "TG18, gravedad de la colangitis",
+          "texto": "Early diagnosis, early biliary drainage and/or treatment for etiology, and antimicrobial administration are fundamental treatment for acute cholangitis classified not only “Grade III (severe)” and “Grade II (moderate)” but also “Grade I (mild)”."
+        },
+        {
+          "donde": "TG18, terapia antimicrobiana (recomendación 1, nivel C)",
+          "texto": "Once the source of infection is controlled, antimicrobial therapy for patients with acute cholangitis is recommended for the duration of 4 to 7 days."
+        },
+        {
+          "donde": "TG18, criterios diagnósticos de colangitis",
+          "texto": "Although Charcot’s triad provides highly specific diagnostic criteria, studies have reported its sensitivity to be on the order of 50 to 70%. … due to the low sensitivity, it is not applicable in using as diagnosis criteria for acute cholangitis."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
   ],
   "tarjetas": [
@@ -107,55 +235,96 @@ MP_CONTENIDO.agregar({
       "id": 22,
       "src": "atls11",
       "front": "Glasgow que indica asegurar la vía aérea",
-      "back": "≤ 8"
+      "back": "≤ 8",
+      "estado": "pendiente"
     },
     {
       "id": 23,
       "src": "atls11",
       "front": "Regla de los 9 (adulto): tronco anterior",
-      "back": "18 %"
+      "back": "18 %",
+      "estado": "pendiente"
     },
     {
       "id": 24,
       "src": "atls11",
       "front": "Fórmula de Parkland",
-      "back": "4 mL × kg × % SCQ (2° y 3°): la mitad en las primeras 8 h"
+      "back": "4 mL × kg × % SCQ (2° y 3°): la mitad en las primeras 8 h",
+      "estado": "pendiente"
     },
     {
       "id": 25,
       "src": "tg18",
-      "front": "Tríada de Charcot",
-      "back": "Fiebre + ictericia + dolor en HCD → colangitis"
+      "front": "Tríada de Charcot: ¿sirve para diagnosticar colangitis? (TG18)",
+      "back": "Es muy específica, pero su sensibilidad es baja (50–70 %); TG18 no la usa como criterio diagnóstico",
+      "cita": [
+        {
+          "donde": "TG18, criterios diagnósticos de colangitis",
+          "texto": "Although Charcot’s triad provides highly specific diagnostic criteria, studies have reported its sensitivity to be on the order of 50 to 70%. … due to the low sensitivity, it is not applicable in using as diagnosis criteria for acute cholangitis."
+        }
+      ],
+      "verificado": "2026-11-15"
     },
     {
       "id": 26,
       "src": "tg18",
       "front": "Péntada de Reynolds",
-      "back": "Charcot + hipotensión + alteración de conciencia"
+      "back": "Charcot + hipotensión + alteración de conciencia",
+      "estado": "pendiente"
     },
     {
       "id": 27,
       "src": "wses_app",
       "front": "Signo de Rovsing",
-      "back": "Dolor en FID al presionar la FII (apendicitis)"
+      "back": "Dolor en FID al presionar la FII (apendicitis)",
+      "estado": "pendiente"
     },
     {
       "id": 28,
       "src": "wses_app",
       "front": "Alvarado que sugiere cirugía",
-      "back": "≥ 7 puntos"
+      "back": "≥ 7 puntos",
+      "estado": "pendiente"
     },
     {
       "id": 50,
-      "src": "atls11",
-      "front": "ATLS 11ª ed.: secuencia de la evaluación primaria",
-      "back": "xABCDE: la “x” es controlar primero la hemorragia exanguinante"
+      "src": "nice_tr",
+      "front": "Trauma mayor: orden de la evaluación (NICE)",
+      "back": "<C>ABCDE: primero la hemorragia catastrófica; luego vía aérea con inmovilización espinal, respiración, circulación, déficit neurológico y exposición",
+      "cita": [
+        {
+          "donde": "Recomendación 1.8.1",
+          "texto": "Record the following in patients with major trauma in pre‑hospital settings: catastrophic haemorrhage · airway with in‑line spinal immobilisation · breathing · circulation · disability (neurological) · exposure and environment (<C>ABCDE)"
+        }
+      ],
+      "verificado": "2026-11-15"
     },
     {
       "id": 52,
       "src": "wses_app",
       "front": "Antibiótico tras apendicectomía por apendicitis complicada con buen control del foco (WSES 2025)",
-      "back": "2–3 días"
+      "back": "2–3 días",
+      "cita": [
+        {
+          "donde": "Resumen, hallazgos clave",
+          "texto": "(1) clinical risk scores and imaging improve diagnostic accuracy and reduce negative appendectomy rates; (2) nonoperative management with antibiotics is safe and effective in selected patients with uncomplicated appendicitis, with recommendations tailored for specific populations; (3) appendectomy for uncomplicated appendicitis may be safely delayed within 24 hours without increased risk of adverse outcomes; (4) laparoscopic appendectomy remains the standard surgical approach; (5) postoperative antibiotic therapy should be limited to short courses (2-3 days) in complicated disease"
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "cir-t01",
+      "src": "nice_tr",
+      "front": "Ácido tranexámico en trauma mayor (NICE)",
+      "back": "IV lo antes posible si hay sangrado activo o sospechado",
+      "cita": [
+        {
+          "donde": "Recomendación 1.5.4",
+          "texto": "Use intravenous tranexamic acid as soon as possible in patients with major trauma and active or suspected active bleeding."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
-  ]
+  ],
+  "revision": "verificada"
 });
