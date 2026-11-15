@@ -1,7 +1,7 @@
 // Caché sin conexión: sirve la app aunque no haya internet y la actualiza en segundo plano.
 // Sube la versión de CACHE cada vez que cambies algún archivo.
-const CACHE = "medipulse-v43";
-const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "css/app.css",
+const CACHE = "medipulse-v44";
+const FILES = ["./", "index.html", "privacidad.html", "manifest.webmanifest", "icon.svg", "css/app.css",
   "data/especialidades.js","data/fuentes.js","data/servidor.js","data/contenido/registro.js","data/contenido/medicina-interna.js","data/contenido/cirugia.js","data/contenido/pediatria.js","data/contenido/ginecologia.js","data/contenido/salud-publica.js","data/contenido/armar.js",
   "js/estado.js",
   "js/ui.js",

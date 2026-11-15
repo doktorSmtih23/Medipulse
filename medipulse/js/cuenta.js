@@ -8,7 +8,9 @@
 // quitaron el acceso, vuelve a pedir el correo.
 // Si data/servidor.js no tiene dirección, no se pide inicio de sesión.
 // ===================================================================
-const KEY_SESION = "medipulse_sesion";
+const KEY_SESION = "medipulse_sesion", KEY_PRIV = "medipulse_privacidad";
+// Versión de la política de tratamiento de datos (privacidad.html). Si cambia, se vuelve a pedir la aceptación.
+const PRIV_VERSION = "2026-11-15";
 let memSesion = null;
 
 // La clave secreta nunca debe ir en el navegador: si alguien la pone por error, no se usa.
@@ -27,8 +29,8 @@ function correoDelToken(t){ try { return JSON.parse(atob(t.split(".")[1].replace
 const desdeTokens = d => ({access: d.access_token, refresh: d.refresh_token, email: (d.user && d.user.email) || correoDelToken(d.access_token),
   exp: d.expires_at ? d.expires_at * 1000 : Date.now() + (+d.expires_in || 3600) * 1000});
 
-async function authApi(ruta, {body, token} = {}){
-  const r = await fetch(MP_SERVIDOR.url.replace(/\/+$/, "") + "/auth/v1/" + ruta, {method: "POST",
+async function authApi(ruta, {body, token, method = "POST"} = {}){
+  const r = await fetch(MP_SERVIDOR.url.replace(/\/+$/, "") + "/auth/v1/" + ruta, {method,
     headers: Object.assign({"apikey": MP_SERVIDOR.anon, "content-type": "application/json"}, token ? {authorization: "Bearer " + token} : {}),
     body: body ? JSON.stringify(body) : undefined});
   let d = null; try { d = await r.json(); } catch(e) {}
@@ -64,6 +66,7 @@ function mostrarLogin(msg){
     <div><h2>Beta de MediPulse</h2><p class="muted small" style="margin:4px 0 0">Entra con el correo con el que te invitaron. Te llega un correo con un enlace y un código.</p></div>
     ${msg ? `<div class="note" role="status">${esc(msg)}</div>` : ""}
     <label class="fld">Correo<input type="email" id="lgMail" autocomplete="email" inputmode="email" value="${esc(lgCorreo)}" placeholder="tu@correo.com"></label>
+    <label class="lgpriv"><input type="checkbox" id="lgPriv" ${privAceptada() ? "checked" : ""}> <span>Leí y acepto la <a href="privacidad.html" target="_blank" rel="noopener">política de tratamiento de datos</a>.</span></label>
     <button class="btn primary block" id="lgGo">Enviarme el correo</button>
     <div id="lgCode" hidden class="stack">
       <p class="small" style="margin:0">📬 Revisa tu correo (también la carpeta de spam). <b>Abre el enlace en este mismo dispositivo</b> o escribe aquí el código:</p>
@@ -78,6 +81,8 @@ function mostrarLogin(msg){
   const enviar = async () => {
     const c = $("#lgMail").value.trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)) { msgEl.textContent = "Escribe un correo válido."; return; }
+    if (!$("#lgPriv").checked) { msgEl.textContent = "Para entrar, lee y acepta la política de tratamiento de datos."; return; }
+    aceptarPriv(false);
     lgCorreo = c; go.disabled = true; go.innerHTML = `<span class="spin"></span> Enviando…`; msgEl.textContent = "";
     try {
       await authApi("otp?redirect_to=" + encodeURIComponent(location.origin + location.pathname), {body: {email: c, create_user: false}});
@@ -102,7 +107,39 @@ function mostrarLogin(msg){
 function ocultarLogin(){ document.body.classList.remove("gated"); const g = $("#loginGate"); g.hidden = true; g.innerHTML = ""; }
 function entrar(s){
   guardarSesion(s); ocultarLogin(); toast("Sesión iniciada ✓");
+  sincronizarPriv();
   if (currentView === "prog") renderProg();
+}
+
+// ---------- autorización de tratamiento de datos (Ley 1581 de 2012) ----------
+// Se guarda en el dispositivo y, para poder demostrarla, en la cuenta de Supabase de la persona
+// (user_metadata: versión y fecha). Si no se pudo enviar (sin internet), se reintenta al abrir la app.
+function leerPriv(){ try { return JSON.parse(localStorage.getItem(KEY_PRIV)) || null; } catch(e) { return null; } }
+const privAceptada = () => { const p = leerPriv(); return !!(p && p.v === PRIV_VERSION); };
+function aceptarPriv(enviada){
+  try { localStorage.setItem(KEY_PRIV, JSON.stringify({v: PRIV_VERSION, at: new Date().toISOString(), enviada: !!enviada})); } catch(e) {}
+}
+async function sincronizarPriv(){
+  const p = leerPriv(), s = leerSesion();
+  if (!p || p.v !== PRIV_VERSION || p.enviada || !s) return;
+  try {
+    await authApi("user", {method: "PUT", token: s.access, body: {data: {privacidad_version: p.v, privacidad_aceptada: p.at}}});
+    try { localStorage.setItem(KEY_PRIV, JSON.stringify(Object.assign(p, {enviada: true}))); } catch(e) {}
+  } catch(e) {}
+}
+// Quien entra con el enlace de invitación no pasó por la casilla: se le pide aquí, una sola vez.
+function mostrarConsentimiento(){
+  document.body.classList.add("gated");
+  const g = $("#loginGate"); g.hidden = false;
+  g.innerHTML = `<div class="card stack login-card">
+    <h2>Antes de empezar</h2>
+    <p class="small" style="margin:0">Para usar la beta de MediPulse guardamos solo tu correo, para dejarte entrar. Tu progreso, tus fichas y tus apuntes se quedan en este dispositivo.</p>
+    <label class="lgpriv"><input type="checkbox" id="lgPriv"> <span>Leí y acepto la <a href="privacidad.html" target="_blank" rel="noopener">política de tratamiento de datos</a>.</span></label>
+    <button class="btn primary block" id="lgOk">Continuar</button><div id="lgMsg" class="small" role="alert"></div></div>`;
+  $("#lgOk").onclick = () => {
+    if (!$("#lgPriv").checked) { $("#lgMsg").textContent = "Para continuar, lee y acepta la política."; return; }
+    aceptarPriv(false); ocultarLogin(); sincronizarPriv();
+  };
 }
 
 // ---------- sesión ----------
@@ -123,6 +160,8 @@ function iniciarCuenta(){
   if (del) { guardarSesion(del); toast("Sesión iniciada ✓"); }
   const s = leerSesion();
   if (!s) return mostrarLogin();
+  if (!privAceptada()) mostrarConsentimiento();
+  else if (navigator.onLine !== false) sincronizarPriv();
   if (navigator.onLine !== false && porVencer(s)) renovarSesion();
 }
 document.addEventListener("visibilitychange", () => {
@@ -141,6 +180,7 @@ function renderCuentaInfo(){
   const el = $("#cuentaBox"); if (!el) return;
   const s = cuentaActiva() && leerSesion();
   el.innerHTML = s ? `<div class="row" style="gap:8px"><span class="small">👤 Sesión de la beta: <b>${esc(s.email || "activa")}</b></span><div class="spacer"></div><button class="btn ghost sm" id="logoutBtn">Cerrar sesión</button></div>` : "";
+  el.insertAdjacentHTML("beforeend", `<p class="xs muted" style="margin:6px 0 0"><a href="privacidad.html" target="_blank" rel="noopener">Política de tratamiento de datos</a></p>`);
   $("#logoutBtn") && ($("#logoutBtn").onclick = cerrarSesion);
 }
 iniciarCuenta();
