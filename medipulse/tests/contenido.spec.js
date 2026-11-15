@@ -9,7 +9,7 @@ const IDS_HISTORICOS = {
   fichas: ["hy1", "hy2", "hy3", "hy4", "hy5", "hy6"],
   tarjetas: Array.from({length: 53}, (_, i) => i + 1)
 };
-const ARCHIVOS = ["medicina-interna", "urgencias", "cirugia", "pediatria", "ginecologia", "salud-publica"];
+const ARCHIVOS = ["medicina-interna", "cirugia", "pediatria", "ginecologia", "salud-publica"];
 
 let C;   // contenido tal como lo carga la app
 test.beforeAll(async ({ browser }) => {
@@ -30,6 +30,11 @@ test("hay un archivo por especialidad, sin repetir", () => {
   expect(new Set(C.esp.map(e => e.prefijo)).size).toBe(C.esp.length);
   expect(ARCHIVOS.length).toBe(C.specs.length);
   for (const e of C.esp) expect(e.actualizado, e.especialidad).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+});
+
+test("el starter pack son las 4 básicas y Salud Pública va aparte", () => {
+  const paq = Object.fromEntries(C.esp.map(e => [e.especialidad, e.paquete]));
+  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Salud Pública": "salud-publica"});
 });
 
 test("la app usa todo el contenido de los archivos", () => {

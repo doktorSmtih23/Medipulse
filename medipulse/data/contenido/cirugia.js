@@ -1,10 +1,11 @@
-// Cirugía: contenido incluido en la app (starter pack de la versión gratuita).
+// Cirugía: contenido incluido en la app · paquete "starter" (versión gratuita, una de las 4 básicas).
 // Cómo agregar o corregir contenido: AGENTS.md → "Contenido médico".
 // Los "id" nunca se cambian ni se reutilizan: el progreso de cada usuario se guarda con ellos.
 // Los nuevos usan el prefijo de la especialidad: cir-c01 (casos), cir-f01 (fichas), cir-t01 (tarjetas).
 MP_CONTENIDO.agregar({
   "especialidad": "Cirugía",
   "prefijo": "cir",
+  "paquete": "starter",
   "actualizado": "2026-11-15",
   "casos": [
     {

@@ -10,6 +10,10 @@ const CAN_STORE = (()=>{ try { localStorage.setItem("medipulse_t", "1"); localSt
 const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, userQ:[], userC:[], sources:[], seq:0, check:{}, over:{}, hidden:{}, notes:[], reports:[], exam:"", focus:"mixto", hints:false, tpls:[], userH:[]});
 let S = BLANK();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
+// "Urgencias" dejó de ser un área aparte (una urgencia va en la especialidad del paciente):
+// lo que el usuario creó con ella pasa a Medicina Interna.
+["userQ","userH","userC"].forEach(k=>(S[k]||[]).forEach(x=>{ if (x.specialty === "Urgencias") x.specialty = "Medicina Interna"; }));
+(S.notes||[]).forEach(n=>{ if (n.spec === "Urgencias") n.spec = "Medicina Interna"; });
 // Aplica las correcciones (S.over) a los ítems incluidos y quita los archivados (S.hidden).
 let HYS = [];
 function rebuild(){

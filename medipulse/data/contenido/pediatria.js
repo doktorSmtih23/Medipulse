@@ -1,10 +1,11 @@
-// Pediatría: contenido incluido en la app (starter pack de la versión gratuita).
+// Pediatría: contenido incluido en la app · paquete "starter" (versión gratuita, una de las 4 básicas).
 // Cómo agregar o corregir contenido: AGENTS.md → "Contenido médico".
 // Los "id" nunca se cambian ni se reutilizan: el progreso de cada usuario se guarda con ellos.
 // Los nuevos usan el prefijo de la especialidad: ped-c01 (casos), ped-f01 (fichas), ped-t01 (tarjetas).
 MP_CONTENIDO.agregar({
   "especialidad": "Pediatría",
   "prefijo": "ped",
+  "paquete": "starter",
   "actualizado": "2026-11-15",
   "casos": [
     {

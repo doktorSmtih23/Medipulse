@@ -93,3 +93,11 @@ test("tema oscuro aplica sus colores", async ({ page }) => {
   await page.click("#themeBtn");
   expect(fondo).not.toBe(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
 });
+
+test("lo creado con la antigua especialidad Urgencias pasa a Medicina Interna", async ({ page }) => {
+  await page.evaluate(() => {
+    localStorage.setItem("medipulse_v2", JSON.stringify({userQ: [{id: "u1", specialty: "Urgencias", topic: "Propio", vignette: "Caso", options: ["a","b","c","d"], correct: 0, whyCorrect: "x", pearl: "", trap: ""}], notes: [{id: "n1", spec: "Urgencias", title: "Nota", f: []}], seq: 1}));
+  });
+  await page.reload();
+  expect(await page.evaluate(() => [S.userQ[0].specialty, S.notes[0].spec, SPECS.includes("Urgencias")])).toEqual(["Medicina Interna", "Medicina Interna", false]);
+});

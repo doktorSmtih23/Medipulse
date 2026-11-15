@@ -24,7 +24,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `data/especialidades.js` | `SPECS` y `SPEC_COLOR` |
 | `data/fuentes.js` | Referencias (`SOURCES`), vigencia y a qué caso corresponde cada una |
 | `data/contenido/registro.js` | Registro `MP_CONTENIDO` (se carga antes que las especialidades) |
-| `data/contenido/<especialidad>.js` | **Contenido incluido de cada especialidad** (casos, fichas HY y tarjetas): `medicina-interna`, `urgencias`, `cirugia`, `pediatria`, `ginecologia`, `salud-publica` |
+| `data/contenido/<especialidad>.js` | **Contenido incluido de cada especialidad** (casos, fichas HY y tarjetas): `medicina-interna`, `cirugia`, `pediatria`, `ginecologia` (paquete `starter`, las 4 básicas) y `salud-publica` (módulo aparte). Una urgencia va en la especialidad del paciente |
 | `data/contenido/armar.js` | Junta todo en `BUILTIN_Q`, `HY_CARDS` y `BUILTIN_F` (va después de las especialidades) |
 | `js/estado.js` | Estado `S` (localStorage, clave `medipulse_v2`), repaso espaciado (`grade`, cajas Leitner), selección de ítems |
 | `js/ui.js` | Utilidades de interfaz (`$`, `esc`, `toast`, navegación `go`) |
@@ -70,6 +70,7 @@ El contenido incluido es el **starter pack de la versión gratuita**. Vive en `d
 MP_CONTENIDO.agregar({
   "especialidad": "Salud Pública",     // igual que en SPECS
   "prefijo": "sp",                     // para los id nuevos
+  "paquete": "salud-publica",          // "starter" (las 4 básicas, versión gratuita) o el módulo al que pertenece
   "actualizado": "2026-11-15",         // cámbialo cada vez que edites el archivo
   "casos":    [{ "id": "sp-c01", "topic": "…", "difficulty": "Nivel 2", "src": "gordis", "vignette": "…", "options": ["…","…","…","…"], "correct": 0, "whyCorrect": "…", "pearl": "…", "trap": "…" }],
   "fichas":   [{ "id": "sp-f01", "title": "…", "badge": "…", "src": "gordis", "thresholds": [{ "label": "…", "val": "…" }], "redFlag": "…", "trap": "…" }],
