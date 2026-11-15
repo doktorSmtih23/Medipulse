@@ -139,6 +139,179 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c01",
+      "topic": "Vasculitis · Kawasaki de alto riesgo",
+      "difficulty": "Nivel 3",
+      "src": "aha_kaw",
+      "vignette": "Lactante de <span class='hy'>4 meses</span> con 6 días de fiebre, conjuntivitis bilateral sin secreción, labios rojos y edema de manos y pies. Se diagnostica enfermedad de Kawasaki. El ecocardiograma muestra la descendente anterior con <span class='hy'>Z score 3,1</span>. ¿Tratamiento inicial?",
+      "options": [
+        "IGIV 2 g/kg sola y ecocardiograma al alta",
+        "Esperar 36 horas para ver si responde antes de decidir",
+        "IGIV 2 g/kg + aspirina, intensificada con un antiinflamatorio adyuvante (p. ej., corticoide)",
+        "Infliximab en lugar de IGIV"
+      ],
+      "correct": 2,
+      "whyCorrect": "Edad < 6 meses y Z score ≥ 2,5 al diagnóstico son rasgos de alto riesgo de aneurismas. A estos pacientes se les debe considerar intensificar el tratamiento primario: IGIV más un antiinflamatorio adyuvante (terapia dual). En el ensayo RAISE, IGIV más prednisolona redujo las anomalías coronarias frente a IGIV sola (3 % vs 23 %).",
+      "pearl": "Los menores de 6 meses tienen aneurismas coronarios en el 68 % de los casos: sospecha Kawasaki incompleto en todo lactante con fiebre prolongada.",
+      "trap": "Tratar igual que un Kawasaki de riesgo estándar y esperar a la resistencia para intensificar.",
+      "cita": [
+        {
+          "donde": "Puntos clave, diagnóstico (5)",
+          "texto": "substantial data indicate that right CA or left anterior descending Z score ≥2.5 at diagnosis and age <6 months are high-risk features in multiple racial and ethnic groups, and these patients should be considered for intensification of primary therapy."
+        },
+        {
+          "donde": "Puntos clave, tratamiento (1)",
+          "texto": "Intensification of primary therapy with adjunctive anti-inflammatory therapy (dual therapy) may benefit high-risk patients with KD."
+        },
+        {
+          "donde": "Tratamiento inicial",
+          "texto": "IVIg at 2 g/kg infused over 8 to 12 hours remains the standard of care for patients with acute KD to reduce inflammation."
+        },
+        {
+          "donde": "Tratamiento: corticosteroides (RAISE)",
+          "texto": "RAISE (Randomized Controlled Trial to Assess Immunoglobulin Plus Steroid Efficacy for Kawasaki Disease; https://www.umin.ac.jp/ctr; unique identifier: UMIN000000940) demonstrated that IVIg plus prednisolone (2 mg/kg per day) for 5 days followed by an oral taper resulted in a lower incidence of CA abnormalities than IVIg alone (4 patients [3%] versus 28 patients [23%]; risk difference, 0.20 [95% CI, 0.12–0.28]; P<0.0001)."
+        },
+        {
+          "donde": "Diagnóstico: riesgo por edad",
+          "texto": "Children <1 year of age are at higher risk of developing CAA than older patients, as documented in the prevalence of CAAs in patients between 6 and 12 months of age (40%) and those <6 months of age (68%)."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c02",
+      "topic": "Vasculitis · Kawasaki resistente a IGIV",
+      "difficulty": "Nivel 2",
+      "src": "aha_kaw",
+      "vignette": "Niño de 3 años con Kawasaki tratado con IGIV 2 g/kg y aspirina. <span class='hy'>40 horas después de terminar la infusión</span> sigue con fiebre de 39 °C. ¿Cómo se interpreta y qué haces?",
+      "options": [
+        "Es esperable: observar 72 horas más",
+        "Resistencia a la IGIV: dar tratamiento adicional, por ejemplo infliximab 10 mg/kg IV o una segunda dosis de IGIV",
+        "Subir la aspirina a dosis alta como único tratamiento",
+        "Fiebre por la IGIV: solo antipiréticos"
+      ],
+      "correct": 1,
+      "whyCorrect": "Fiebre persistente o que reaparece ≥ 36 horas después de terminar la IGIV define la resistencia, que aumenta el riesgo de aneurismas. Las opciones incluyen una segunda dosis de IGIV, infliximab o corticoides. En el ensayo KIDCARE, infliximab (10 mg/kg IV) frente a una segunda IGIV acortó la fiebre, redujo la necesidad de más tratamiento y la estancia.",
+      "pearl": "Tras la IGIV, la VSG sube por la propia inmunoglobulina: no sirve para seguir la inflamación.",
+      "trap": "Esperar más días: cada día de inflamación sin control aumenta el riesgo coronario.",
+      "cita": [
+        {
+          "donde": "Tratamiento inicial: definición de resistencia",
+          "texto": "Patients with persistent or recrudescent fever ≥36 hours after the completion of the initial IVIg infusion are defined as IVIg resistant."
+        },
+        {
+          "donde": "Tratamiento de la resistencia",
+          "texto": "These patients are at increased risk for developing CAA compared with those who respond to IVIg. Multiple anti-inflammatory therapies have been evaluated to varying degrees for treatment resistance, including corticosteroids, tumor necrosis factor α inhibitors (infliximab and etanercept), interleukin-1 inhibition (anakinra), and cyclosporine"
+        },
+        {
+          "donde": "Tratamiento de la resistencia: infliximab",
+          "texto": "The KIDCARE trial (Kawasaki Disease Comparative Effectiveness; https://www.clinicaltrials.gov; unique identifier: NCT03065244) compared infliximab (10 mg/ kg IV), a monoclonal antibody against tumor necrosis factor α, with a second IVIg infusion in IVIg-resistant patients. This study showed shorter duration of fever, reduced need for additional therapy, less severe anemia, and shorter hospitalization in the infliximab group."
+        },
+        {
+          "donde": "Tratamiento inicial: efectos de la IGIV",
+          "texto": "The erythrocyte sedimentation rate is increased after IVIg treatment; therefore, erythrocyte sedimentation rate is not a reliable marker of inflammation after IVIg infusion."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c03",
+      "topic": "Vasculitis · Kawasaki vs MIS-C",
+      "difficulty": "Nivel 2",
+      "src": "aha_kaw",
+      "vignette": "Niña de 9 años con 5 días de fiebre, <span class='hy'>dolor abdominal intenso, vómitos y diarrea</span>, cefalea e hipotensión. Plaquetas 98.000, linfopenia y troponina elevada. Ecocardiograma: <span class='hy'>función sistólica del ventrículo izquierdo disminuida y derrame pericárdico</span>, coronarias normales. Sin cambios en la mucosa oral. ¿Diagnóstico más probable?",
+      "options": [
+        "Enfermedad de Kawasaki completa",
+        "Escarlatina",
+        "Gastroenteritis con deshidratación",
+        "Síndrome inflamatorio multisistémico pediátrico (MIS-C)"
+      ],
+      "correct": 3,
+      "whyCorrect": "Los síntomas gastrointestinales prominentes, la cefalea, la trombocitopenia, la linfopenia, la troponina elevada y la disfunción ventricular con derrame pericárdico son más propios del MIS-C. El exantema, la conjuntivitis, los cambios de la mucosa oral y las alteraciones coronarias son más comunes en Kawasaki.",
+      "pearl": "El MIS-C entró al diagnóstico diferencial del Kawasaki desde 2020, aunque su frecuencia bajó mucho desde 2022.",
+      "trap": "Diagnosticar Kawasaki por la fiebre y la inflamación sin mirar el compromiso gastrointestinal y miocárdico.",
+      "cita": [
+        {
+          "donde": "Diagnóstico: diferencial con MIS-C",
+          "texto": "Certain clinical characteristics (eg, prominent gastrointestinal symptoms [abdominal pain, vomiting, diarrhea], headache), laboratory findings (eg, thrombocytopenia, lymphopenia, elevated troponin or BNP [B-type natriuretic peptide] levels), and cardiac findings (eg, decreased left ventricular systolic function, pericardial effusion) are more prominent in patients with MISC."
+        },
+        {
+          "donde": "Diagnóstico: diferencial con MIS-C",
+          "texto": "Rash, conjunctival injection, oral mucosal changes, and CA abnormalities are more common in patients with KD."
+        },
+        {
+          "donde": "Puntos clave, diagnóstico (4)",
+          "texto": "MIS-C should be added to the differential diagnosis of KD, although the prevalence of this condition has decreased markedly since 2022."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c04",
+      "qtype": "directa",
+      "topic": "Vasculitis · Kawasaki: vacunas tras IGIV",
+      "difficulty": "Nivel 1",
+      "src": "aha_kaw",
+      "vignette": "Un niño recibió IGIV por enfermedad de Kawasaki. ¿Cuánto tiempo deben diferirse las vacunas vivas (triple viral y varicela)?",
+      "options": [
+        "11 meses",
+        "1 mes",
+        "3 meses",
+        "6 meses"
+      ],
+      "correct": 0,
+      "whyCorrect": "Todas las vacunas vivas, incluidas sarampión, paperas, rubéola y varicela, se difieren 11 meses después de la IGIV, porque la inmunoglobulina puede reducir su eficacia.",
+      "pearl": "La IGIV puede reducir la eficacia de las vacunas vivas: por eso se difieren.",
+      "trap": "Aplicar la triple viral en el control de los 12 meses si recibió IGIV pocos meses antes.",
+      "cita": [
+        {
+          "donde": "Tratamiento inicial: efectos de la IGIV",
+          "texto": "All live vaccines, including measles, mumps, rubella, and varicella vaccines, should be deferred for 11 months after IVIg administration, as administered IVIg may reduce efficacy of those live vaccines."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c05",
+      "topic": "Vasculitis · Kawasaki con aneurisma gigante",
+      "difficulty": "Nivel 3",
+      "src": "aha_kaw",
+      "vignette": "Niño de 5 años con Kawasaki y aneurisma de la descendente anterior con <span class='hy'>Z score 12</span> (diámetro 8,5 mm). ¿Qué tratamiento antitrombótico corresponde?",
+      "options": [
+        "Aspirina en dosis baja más anticoagulación (warfarina, heparina de bajo peso molecular o anticoagulante oral directo)",
+        "Aspirina en dosis baja por 6 semanas y suspender",
+        "Clopidogrel solo",
+        "Ninguno si está asintomático"
+      ],
+      "correct": 0,
+      "whyCorrect": "Z score ≥ 10 o diámetro ≥ 8 mm es un aneurisma grande o gigante, con alto riesgo de trombosis. Requiere antiagregación (aspirina, o aspirina más clopidogrel) y anticoagulación con warfarina o heparina de bajo peso molecular; los anticoagulantes orales directos pueden ser una alternativa más cómoda y segura.",
+      "pearl": "El riesgo de infarto es máximo en los primeros 2 a 3 meses tras el inicio del Kawasaki.",
+      "trap": "Tratar un aneurisma gigante como si fuera solo dilatación: aspirina 6 semanas y alta.",
+      "cita": [
+        {
+          "donde": "Tabla 1: clasificación de las arterias coronarias por Z score",
+          "texto": "1. No involvement: always Z <2 2. Dilation only: 2 to <2.5 3. Small aneurysm: ≥2.5 to <5 4. Medium aneurysm: ≥5 to <10, and absolute dimension <8 mm 5. Large or giant aneurysm: ≥10 or absolute dimension ≥8 mm"
+        },
+        {
+          "donde": "Puntos clave, tratamiento (2)",
+          "texto": "Patients with large CAAs require antiplatelet and anticoagulation therapy."
+        },
+        {
+          "donde": "Tromboprofilaxis",
+          "texto": "Patients with large CAAs traditionally receive both antiplatelet medication (typically aspirin 81 mg daily or dual antiplatelet [aspirin and clopidogrel] agents) and anticoagulation with either warfarin or low molecular weight heparin (LMWH)."
+        },
+        {
+          "donde": "Puntos clave, tratamiento (4)",
+          "texto": "DOACs may provide a more convenient and safer alternative than warfarin or LMWH."
+        },
+        {
+          "donde": "Manejo del infarto",
+          "texto": "The risk of MI in patients with KD with CAA is highest in the first 2 to 3 months after KD onset."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
   ],
   "fichas": [
@@ -306,6 +479,116 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Seguimiento",
           "texto": "Patients with recurrence of fever in the week after discharge need to have an urgent echocardiogram unless there is a clear alternative diagnosis. In patients with no CA involvement during hospitalization, an echocardiogram is repeated within 1 to 2 weeks after discharge"
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-f03",
+      "title": "Kawasaki: coronarias por Z score",
+      "badge": "AHA 2024",
+      "src": "aha_kaw",
+      "thresholds": [
+        {
+          "label": "Sin compromiso",
+          "val": "Z < 2"
+        },
+        {
+          "label": "Solo dilatación",
+          "val": "Z 2 a < 2,5"
+        },
+        {
+          "label": "Aneurisma pequeño",
+          "val": "Z ≥ 2,5 a < 5"
+        },
+        {
+          "label": "Aneurisma mediano",
+          "val": "Z ≥ 5 a < 10 y < 8 mm"
+        },
+        {
+          "label": "Aneurisma grande o gigante",
+          "val": "Z ≥ 10 o ≥ 8 mm: antiagregación + anticoagulación"
+        }
+      ],
+      "redFlag": "El riesgo de infarto es máximo en los primeros 2 a 3 meses tras el inicio.",
+      "trap": "El Z score solo no define el daño de la pared: un aneurisma anatómico sí lo confirma.",
+      "cita": [
+        {
+          "donde": "Tabla 1: clasificación de las arterias coronarias por Z score",
+          "texto": "1. No involvement: always Z <2 2. Dilation only: 2 to <2.5 3. Small aneurysm: ≥2.5 to <5 4. Medium aneurysm: ≥5 to <10, and absolute dimension <8 mm 5. Large or giant aneurysm: ≥10 or absolute dimension ≥8 mm"
+        },
+        {
+          "donde": "Puntos clave, tratamiento (2)",
+          "texto": "Patients with large CAAs require antiplatelet and anticoagulation therapy."
+        },
+        {
+          "donde": "Manejo del infarto",
+          "texto": "The risk of MI in patients with KD with CAA is highest in the first 2 to 3 months after KD onset."
+        },
+        {
+          "donde": "Ecocardiografía",
+          "texto": "CA dilation does not exclude or confirm that the arterial wall has been damaged, whereas documentation of an anatomic aneurysm does."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-f04",
+      "title": "Kawasaki: alto riesgo y resistencia a IGIV",
+      "badge": "AHA 2024",
+      "src": "aha_kaw",
+      "thresholds": [
+        {
+          "label": "Alto riesgo al diagnóstico",
+          "val": "Edad < 6 meses o Z score ≥ 2,5"
+        },
+        {
+          "label": "Conducta en alto riesgo",
+          "val": "Intensificar: IGIV + antiinflamatorio adyuvante"
+        },
+        {
+          "label": "Resistencia a IGIV",
+          "val": "Fiebre ≥ 36 h después de terminar la infusión"
+        },
+        {
+          "label": "Tratamiento de la resistencia",
+          "val": "Infliximab 10 mg/kg IV, segunda IGIV o corticoides"
+        },
+        {
+          "label": "Vacunas vivas",
+          "val": "Diferir 11 meses tras la IGIV"
+        },
+        {
+          "label": "VSG tras IGIV",
+          "val": "No sirve para seguir la inflamación"
+        }
+      ],
+      "redFlag": "Lactante < 6 meses con fiebre prolongada: piensa en Kawasaki incompleto aunque falten criterios.",
+      "trap": "Esperar la resistencia para intensificar en un paciente que ya era de alto riesgo.",
+      "cita": [
+        {
+          "donde": "Puntos clave, diagnóstico (5)",
+          "texto": "substantial data indicate that right CA or left anterior descending Z score ≥2.5 at diagnosis and age <6 months are high-risk features in multiple racial and ethnic groups, and these patients should be considered for intensification of primary therapy."
+        },
+        {
+          "donde": "Puntos clave, tratamiento (1)",
+          "texto": "Intensification of primary therapy with adjunctive anti-inflammatory therapy (dual therapy) may benefit high-risk patients with KD."
+        },
+        {
+          "donde": "Tratamiento inicial: definición de resistencia",
+          "texto": "Patients with persistent or recrudescent fever ≥36 hours after the completion of the initial IVIg infusion are defined as IVIg resistant."
+        },
+        {
+          "donde": "Tratamiento de la resistencia: infliximab",
+          "texto": "The KIDCARE trial (Kawasaki Disease Comparative Effectiveness; https://www.clinicaltrials.gov; unique identifier: NCT03065244) compared infliximab (10 mg/ kg IV), a monoclonal antibody against tumor necrosis factor α, with a second IVIg infusion in IVIg-resistant patients. This study showed shorter duration of fever, reduced need for additional therapy, less severe anemia, and shorter hospitalization in the infliximab group."
+        },
+        {
+          "donde": "Tratamiento inicial: efectos de la IGIV",
+          "texto": "All live vaccines, including measles, mumps, rubella, and varicella vaccines, should be deferred for 11 months after IVIg administration, as administered IVIg may reduce efficacy of those live vaccines."
+        },
+        {
+          "donde": "Tratamiento inicial: efectos de la IGIV",
+          "texto": "The erythrocyte sedimentation rate is increased after IVIg treatment; therefore, erythrocyte sedimentation rate is not a reliable marker of inflammation after IVIg infusion."
         }
       ],
       "verificado": "2026-11-15"
