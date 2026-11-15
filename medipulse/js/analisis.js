@@ -40,10 +40,15 @@ function anChapters(s){
   if (s.chapters && s.chapters.length) return s.chapters;
   // Sin IA: capítulos a partir de los títulos detectados en el propio documento.
   const info = docInfo(s.id); if (!info) return [];
-  const heads = info.heads.slice().sort((a,b)=>a.page-b.page).filter((h,i,a)=>!i || h.page !== a[i-1].page);
+  // Primero las secciones principales (un título seguido de un subtítulo); si hay pocas, el primer título de cada página.
+  const all = (info.allHeads || info.heads).filter(h=>h.page <= (info.refFrom === Infinity ? s.pages : info.refFrom));
+  const top = all.filter(h=>h.lvl === 1);
+  let heads = (top.length >= 3 ? top : all.filter((h,i,a)=>a.findIndex(x=>x.page === h.page) === i)).slice().sort((a,b)=>a.page-b.page);
   if (heads.length < 2) return [];
+  if (heads.length > 10) { const step = heads.length / 10; heads = Array.from({length: 10}, (_,i)=>heads[Math.floor(i*step)]); }
   const last = Math.min(s.pages, info.refFrom === Infinity ? s.pages : info.refFrom);
-  return heads.slice(0, 10).map((h,i,a)=>({title: h.t, from: h.page, to: Math.max(h.page, (a[i+1] ? a[i+1].page - 1 : last)), summary: "", local: true}));
+  // Un capítulo termina en la página donde empieza el siguiente (a veces comparten página).
+  return heads.map((h,i,a)=>({title: h.t, from: h.page, to: Math.max(h.page, a[i+1] ? a[i+1].page : last), summary: "", local: true}));
 }
 function anSelection(s){
   const info = docInfo(s.id); if (!info) return null;
