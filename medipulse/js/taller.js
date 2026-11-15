@@ -43,6 +43,20 @@ function isProse(l){
   return l && l.trim().length >= 35 && w.filter(x=>/^[a-záéíóúñ(]/.test(x)).length / w.length >= 0.5;
 }
 // Divide cada página en "cuerpo" y quita lo que no sirve para preguntas (referencias, afiliaciones, leyendas).
+// Algunos PDF traen los signos mal codificados: ≥ sale como «ε», ≤ como «ω» o una flecha, y el texto
+// leído ya no dice lo mismo que la página. Se buscan esos caracteres pegados a una cifra o caracteres
+// imposibles (reemplazo o de uso privado). Con 3 o más casos se avisa y se pide a la IA no adivinar el signo.
+const SIMB_RARO = /[εωϵ↑↓↗↘↔](?=\s?\d)|[\uFFFD\uE000-\uF8FF]/g;
+function simbolosDanados(pages){
+  let n = 0, ejemplo = ""; const pags = [];
+  pages.forEach((p, i)=>{
+    const ms = [...(p || "").matchAll(SIMB_RARO)]; if (!ms.length) return;
+    n += ms.length; if (pags.length < 8) pags.push(i+1);
+    if (!ejemplo) { const m = ms[0]; ejemplo = p.slice(Math.max(0, m.index - 18), m.index + 8).replace(/\s+/g, " ").trim(); }
+  });
+  return n >= 3 ? {n, pags, ejemplo} : null;
+}
+const NOTA_SIMBOLOS = "Nota: en este documento algunos signos junto a las cifras están dañados (aparecen caracteres como ε, ω, ↓ o ↑ donde debería ir ≥, ≤, < o >). No adivines el signo: escribe la cifra y agrega «(verificar el signo en el PDF)».";
 function docInfo(id){
   const r = recCache[id]; if (!r) return null;
   if (r._info) return r._info;
@@ -86,7 +100,7 @@ function docInfo(id){
   });
   const terms = [...freq.entries()].filter(([k,v])=>v >= 3).sort((a,b)=>b[1]-a[1]).map(([k])=>k)
     .filter((k,i,arr)=>!arr.slice(0,i).some(o=>o.includes(k) || k.includes(o))).slice(0, 10);
-  r._info = {pages, clean, refFrom, heads: [...heads.values()].slice(0, 14), allHeads: [...heads.values()], terms};
+  r._info = {pages, clean, refFrom, heads: [...heads.values()].slice(0, 14), allHeads: [...heads.values()], terms, danados: simbolosDanados(pages)};
   return r._info;
 }
 function topicPages(id, topic){
@@ -360,7 +374,7 @@ async function aiGenerate(sel, title, ask){
       system: GEN_SYSTEM,
       messages: [{role: "user", content: [
         {type: "text", text: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>`, cache_control: {type: "ephemeral"}},
-        {type: "text", text: ask || genAsk()}]}]
+        {type: "text", text: (cur() && docInfo(cur().id) && docInfo(cur().id).danados ? NOTA_SIMBOLOS + "\n" : "") + (ask || genAsk())}]}]
     }, params));
     msg = await stream.finalMessage();
   } catch(e) { throw apiErr(Anthropic, e); }
