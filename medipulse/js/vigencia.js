@@ -197,9 +197,8 @@ function rowHTML(s){
 function renderChkList(){
   const all = allSources(), order = {outdated:0, unknown:1, none:2, dismissed:3, adopted:4, current:5};
   const sorted = all.slice().sort((a,b)=>order[srcState(a.id)] - order[srcState(b.id)]);
-  const archived = Object.keys(S.hidden).length;
   $("#chkList").innerHTML = `<h3 style="font-size:16px">Fuentes (${all.length})</h3>` + sorted.map(rowHTML).join("") +
-    (archived ? `<hr><div class="row small"><span>${archived} ítem${archived===1?"":"s"} archivado${archived===1?"":"s"}: no aparecen en tus repasos.</span><div class="spacer"></div><button class="btn sm" id="unhide">Restaurar</button></div>` : "");
+    hiddenListHTML();
   const L = $("#chkList");
   L.querySelectorAll("[data-cs]").forEach(cb=>cb.onchange=()=>{ cb.checked ? chkSel.add(cb.dataset.cs) : chkSel.delete(cb.dataset.cs); renderChkTop(); });
   L.querySelectorAll("[data-rev]").forEach(b=>b.onclick=()=>reviewAffected(b.dataset.rev, "web", "check"));
@@ -216,7 +215,7 @@ function renderChkList(){
     if (SRC_BY_ID[id]) { pendingNewFor = id; $("#newVerIn").click(); }
     else { openSrc(id); $("#verIn") && $("#verIn").click(); }
   });
-  $("#unhide") && ($("#unhide").onclick = ()=>{ if (confirm("¿Restaurar todos los ítems archivados a tu banco?")) { S.hidden = {}; rebuild(); save(); renderCheck(); refreshChips(); } });
+  bindHiddenList(renderCheck);
 }
 $("#newVerIn").onchange = async e => {
   const f = e.target.files[0]; e.target.value = ""; const id = pendingNewFor; pendingNewFor = null;

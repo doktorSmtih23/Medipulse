@@ -19,3 +19,16 @@ function avisoVersionNueva(){
   document.body.appendChild(d);
   $("#nuevaVersionBtn").onclick = () => location.reload();
 }
+// Si la versión nueva se instaló mientras la app estaba cerrada, no hubo aviso: se avisa al abrir.
+// La versión es el nombre de la caché del service worker (medipulse-vNN).
+function avisarSiSeActualizo(){
+  if (!CAN_STORE || !window.caches) return Promise.resolve();
+  return caches.keys().then(ks => {
+    const num = k => +((k.match(/^medipulse-v(\d+)$/) || [])[1] || 0);
+    const v = ks.filter(num).sort((a, b) => num(b) - num(a))[0]; if (!v) return;
+    let antes = null; try { antes = localStorage.getItem("medipulse_version"); } catch(e) {}
+    if (antes && num(v) > num(antes) && !$("#nuevaVersion")) toast("✓ MediPulse se actualizó a la versión más reciente.");
+    try { localStorage.setItem("medipulse_version", v); } catch(e) {}
+  }).catch(()=>{});
+}
+avisarSiSeActualizo();
