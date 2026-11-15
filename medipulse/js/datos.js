@@ -92,16 +92,18 @@ function hiddenLabel(k){
   const pools = {q: [...BUILTIN_Q, ...S.userQ], c: [...BUILTIN_F, ...S.userC], h: [...HY_CARDS, ...(S.userH || [])]};
   const x = (pools[t] || []).find(o => String(o.id) === id);
   const kind = {q: "Caso", c: "Tarjeta", h: "Ficha"}[t] || "Ítem";
+  if (t === "q" && x && typeof qSub === "function") return kind + ": " + x.topic;
   return kind + ": " + (x ? (x.topic || x.title || x.front || "sin título") : "ya no está en la app");
 }
-function hiddenListHTML(){
-  const keys = Object.keys(S.hidden);
+// pref: solo un tipo ("q" casos, "h" fichas…); sin pref, todos.
+function hiddenListHTML(pref){
+  const keys = Object.keys(S.hidden).filter(k => !pref || k[0] === pref);
   if (!keys.length) return "";
   return `<hr><details class="ocultos"><summary class="small">${keys.length} ítem${keys.length === 1 ? "" : "s"} archivado${keys.length === 1 ? "" : "s"}: no aparecen en tus repasos. Ver y restaurar</summary>
     <div class="stack" style="margin-top:8px;gap:6px">${keys.map(k => `<div class="row small" style="gap:8px"><span style="flex:1;min-width:0">${esc(hiddenLabel(k))}</span><button class="btn sm" data-unh="${esc(k)}">Restaurar</button></div>`).join("")}
     <div class="row"><div class="spacer"></div><button class="btn sm" id="unhide">Restaurar todos</button></div></div></details>`;
 }
-function bindHiddenList(after){
+function bindHiddenList(after, pref){
   document.querySelectorAll("[data-unh]").forEach(b => b.onclick = () => { delete S.hidden[b.dataset.unh]; rebuild(); save(); refreshChips(); toast("Ítem restaurado ✓"); after(); });
-  $("#unhide") && ($("#unhide").onclick = () => { if (confirm("¿Restaurar todos los ítems archivados a tu banco?")) { S.hidden = {}; rebuild(); save(); refreshChips(); after(); } });
+  $("#unhide") && ($("#unhide").onclick = () => { if (confirm("¿Restaurar todos los ítems archivados a tu banco?")) { Object.keys(S.hidden).filter(k => !pref || k[0] === pref).forEach(k => delete S.hidden[k]); rebuild(); save(); refreshChips(); after(); } });
 }

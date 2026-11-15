@@ -21,7 +21,8 @@ function srcInfo(id){
 function citaHtml(item){
   if (!Array.isArray(item.cita) || !item.cita.length) return "";
   const v = item.verificado ? ` · verificado el ${esc(item.verificado)}` : "";
-  return `<details class="cita"><summary>📍 Ver la cita textual de la guía${v}</summary>${item.cita.map(c => `<div class="cita-i"><b>${esc(c.donde)}</b><blockquote>“${esc(c.texto)}”</blockquote></div>`).join("")}</details>`;
+  const s = SRC_BY_ID[item.src], deQue = !s || s.k === "guideline" ? "de la guía" : s.k === "book" ? "del libro" : "del documento";
+  return `<details class="cita"><summary>📍 Ver la cita textual ${deQue}${v}</summary>${item.cita.map(c => `<div class="cita-i"><b>${esc(c.donde)}</b><blockquote>“${esc(c.texto)}”</blockquote></div>`).join("")}</details>`;
 }
 function srcLine(item){
   const s = srcInfo(item.src); if (!s) return "";

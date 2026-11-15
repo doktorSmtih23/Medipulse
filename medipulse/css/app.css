@@ -288,3 +288,12 @@ details.metodo summary{cursor:pointer;color:var(--accent);font-weight:600}
 details.metodo ol{margin:6px 0 0;padding-left:20px}
 details.metodo li{margin:3px 0}
 .srcline span,.cita-i b{overflow-wrap:anywhere}
+/* Banco de casos */
+.filters.wrap{flex-wrap:wrap;overflow:visible}
+.filters .cnt{font-size:12px;opacity:.75;font-weight:500}
+.qgrupo{border-top:1px solid var(--border);padding:8px 0}
+.qgrupo summary{cursor:pointer;padding:4px 0}
+.qrow{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px dashed var(--border)}
+.est{font-weight:600}.est.new{color:var(--accent)}.est.due{color:var(--warn)}.est.fail{color:var(--bad)}.est.ok{color:var(--ok)}
+.filters.wrap{gap:6px;padding:0;margin:0}
+.filters.wrap .btn{padding:5px 11px;font-size:13.5px;border-radius:999px;min-height:0}
