@@ -239,7 +239,7 @@ async function runCheck(){
       const parts = [];
       for (const s of batch) {
         let ex = "";
-        if (!s.builtin) { try { const r = await getRec(s.id); ex = r.pages.slice(0,2).join("\n").slice(0,1500); } catch(e) {} }
+        if (!s.builtin) { try { const r = await getRec(s.id); const info = docInfo(s.id); ex = (info ? info.clean : r.pages).slice(0,2).join("\n").slice(0,1500); } catch(e) {} }
         parts.push(`<fuente id="${s.id}">\nTítulo: ${s.t}\nReferencia: ${s.r}${ex ? `\nExtracto de las primeras páginas:\n${ex}` : ""}\n</fuente>`);
       }
       const input = await callForTool({

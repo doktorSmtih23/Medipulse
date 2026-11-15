@@ -63,6 +63,10 @@ const check = (name, ok, extra) => { results.push({name, ok}); console.log(`${ok
     check("Ficha high-yield se estudia y califica", await page.evaluate(() => Object.keys(S.srs).some(k => k[0] === "h")));
     await page.click("#quitBtn");
 
+    // Pies de página y marcas de agua (con datos personales) no llegan a la IA
+    const strip = await page.evaluate(() => stripRepeated([1,2,3,4,5,6].map(n => `${n%2 ? "Revista " + (100+n) + " www.revista.com Vol 7" : "www.revista.com Vol 7 " + (100+n)}\nTexto clínico ${["sobre sepsis","de la CAD","de preeclampsia","sobre hiperkalemia","del crup","del neumotórax"][n-1]}.\nDescargado para Dra. Ejemplo (ejemplo@correo.com) el 1 de enero.`)));
+    check("Quita encabezados, pies y marcas de agua", strip.every(p => !/revista\.com|correo|Descargado/.test(p) && /Texto clínico/.test(p)), JSON.stringify(strip[0]));
+
     // Enfoque por tipo de pregunta (reemplaza la meta por examen)
     await page.selectOption("#focusSel", "critica");
     check("Mi enfoque se guarda y propone práctica", await page.evaluate(() => S.focus === "critica") && await page.isVisible("#doFocus"));
