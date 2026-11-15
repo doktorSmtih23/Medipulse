@@ -108,3 +108,15 @@ test("lo creado con la antigua especialidad Urgencias pasa a Medicina Interna", 
   await page.reload();
   expect(await page.evaluate(() => [S.userQ[0].specialty, S.notes[0].spec, SPECS.includes("Urgencias")])).toEqual(["Medicina Interna", "Medicina Interna", false]);
 });
+
+test("el aviso de versión nueva aparece una sola vez y ofrece actualizar", async ({ page }) => {
+  await page.evaluate(() => { avisoVersionNueva(); avisoVersionNueva(); });
+  await expect(page.locator("#nuevaVersion")).toHaveCount(1);
+  await expect(page.locator("#nuevaVersionBtn")).toHaveText("Actualizar");
+  expect(await sinDesborde(page)).toBe(true);
+});
+
+test("la versión nueva se instala con archivos pedidos al servidor, no a la caché del navegador", async ({ request }) => {
+  const sw = await (await request.get("/sw.js")).text();
+  expect(sw).toContain('cache: "reload"');
+});

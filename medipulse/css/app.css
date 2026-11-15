@@ -240,3 +240,4 @@ kbd{font:12px ui-monospace,monospace;background:var(--subtle);border:1px solid v
 .anq{border:1px solid var(--border);border-radius:10px;padding:8px 10px}.anq summary{cursor:pointer;font-weight:600;font-size:13.5px}
 .anth .pgbtn{align-self:flex-start;margin:2px 0 0}
 .previewnote{margin:0 0 12px;padding:10px 12px;border-radius:12px;border:1px solid var(--warn);background:var(--warn-soft);font-size:13px}
+.nueva-version{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;background:var(--panel);border:1px solid var(--accent);border-radius:14px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.18);max-width:calc(100vw - 32px);font-size:14px}

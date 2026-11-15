@@ -2,7 +2,7 @@
 
 Este repositorio contiene **MediPulse** (`medipulse/`), una app web de estudio para el examen de residencia médica, publicada en GitHub Pages. Este archivo es la referencia común para cualquier IA o persona que cambie el código: léelo completo antes de hacer cambios.
 
-> La raíz del repo también tiene una app Flutter antigua (`lib/`, `build/web/`, etc.). No se toca salvo que se pida explícitamente.
+> La raíz del repo solo redirige a `medipulse/`. La app Flutter antigua (exam_checker_app) se eliminó; quedan `build/web/` y `web/` con un service worker que la desinstala de los dispositivos que la tenían. No los borres.
 
 **Antes de proponer una función, lee [PRODUCTO.md](PRODUCTO.md):** define para quién es MediPulse, qué promete, qué NO es y cómo decidir si algo entra.
 

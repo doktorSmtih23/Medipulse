@@ -1,6 +1,6 @@
 // Caché sin conexión: sirve la app aunque no haya internet y la actualiza en segundo plano.
 // Sube la versión de CACHE cada vez que cambies algún archivo.
-const CACHE = "medipulse-v21";
+const CACHE = "medipulse-v22";
 const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "css/app.css",
   "data/especialidades.js","data/fuentes.js","data/contenido/registro.js","data/contenido/medicina-interna.js","data/contenido/cirugia.js","data/contenido/pediatria.js","data/contenido/ginecologia.js","data/contenido/salud-publica.js","data/contenido/armar.js",
   "js/estado.js",
@@ -20,12 +20,14 @@ const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "css/app.
   "js/crear-y-compartir.js",
   "js/inicio.js",
   "vendor/pdf.min.js", "vendor/pdf.worker.min.js", "vendor/anthropic-sdk.mjs"];
-self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); self.skipWaiting(); });
+// Al instalar se piden los archivos al servidor, no a la caché HTTP del navegador:
+// si no, la versión nueva podría guardarse con archivos viejos.
+self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES.map(f => new Request(f, {cache: "reload"}))))); self.skipWaiting(); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k))))); self.clients.claim(); });
 self.addEventListener("fetch", e => {
   if (e.request.method !== "GET" || new URL(e.request.url).origin !== location.origin) return;
   e.respondWith(caches.match(e.request).then(hit => {
-    const net = fetch(e.request).then(r => { if (r.ok) { const copy = r.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); } return r; }).catch(() => hit);
+    const net = fetch(e.request.mode === "navigate" ? e.request : new Request(e.request, {cache: "no-cache"})).then(r => { if (r.ok) { const copy = r.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); } return r; }).catch(() => hit);
     return hit || net;
   }));
 });
