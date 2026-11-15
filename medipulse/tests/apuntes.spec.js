@@ -90,3 +90,15 @@ test("preguntas con IA de un punto: envía solo ese punto y abre la revisión", 
   await page.click("#candSave");
   expect(await page.evaluate(() => S.userQ[0].src === S.apuntes[0].srcId)).toBe(true);
 });
+
+test("el área de la libreta es libre y se edita; las fichas la llevan como etiqueta", async ({ page }) => {
+  await page.goto("/"); await conLibreta(page);
+  await page.click("#apRen");
+  await page.fill("#apRenA", "Otorrinolaringología");
+  await page.click("#apRenOk");
+  await expect(page.locator("#apBox")).toContainText("Otorrinolaringología");
+  await page.click(".appt >> nth=0 >> [data-apf]");
+  await expect(page.locator(".eBadge")).toHaveValue("Otorrinolaringología");
+  await page.click(".eSave");
+  expect(await page.evaluate(() => [S.userH[0].specialty, S.userH[0].badge])).toEqual(["Medicina Interna", "Otorrinolaringología"]);
+});
