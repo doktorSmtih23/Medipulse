@@ -4,7 +4,7 @@
 const KEY = "medipulse_v2";
 const DAY = 864e5;
 const BOX_DAYS = [0, 1, 3, 7, 16, 35];
-const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, userQ:[], userC:[], sources:[], seq:0, check:{}, over:{}, hidden:{}, notes:[], reports:[], exam:"", hints:false, tpls:[], userH:[]});
+const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, userQ:[], userC:[], sources:[], seq:0, check:{}, over:{}, hidden:{}, notes:[], reports:[], exam:"", focus:"mixto", hints:false, tpls:[], userH:[]});
 let S = BLANK();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
 // Aplica las correcciones (S.over) a los ítems incluidos y quita los archivados (S.hidden).
@@ -60,7 +60,8 @@ function pickQuestions(n, {spec=null, preferSpec=null}={}){
   let pool = QUESTIONS.filter(q=>!spec || q.specialty===spec);
   const due = pool.filter(q=>isDue("q"+q.id));
   const unseen = shuffle(pool.filter(q=>!S.srs["q"+q.id]));
-  if (preferSpec) unseen.sort((a,b)=>(b.specialty===preferSpec)-(a.specialty===preferSpec));
+  const fk = focusOf().k, fit = q => fk !== "mixto" && qKind(q) === fk;
+  unseen.sort((a,b)=>(preferSpec ? ((b.specialty===preferSpec)-(a.specialty===preferSpec))*2 : 0) + fit(b) - fit(a));
   const rest = pool.filter(q=>S.srs["q"+q.id] && !isDue("q"+q.id)).sort((a,b)=>S.srs["q"+a.id].b - S.srs["q"+b.id].b || S.srs["q"+a.id].due - S.srs["q"+b.id].due);
   const out=[]; for (const q of [...due,...unseen,...rest]) { if(!out.includes(q)) out.push(q); if(out.length>=n) break; }
   return shuffle(out).map(q=>({t:"q",id:q.id}));

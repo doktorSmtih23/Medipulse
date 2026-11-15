@@ -80,11 +80,11 @@ async function renderSrc(){
   $("#srcPack").onclick = ()=>exportSourcePack(s.id);
   if (s.kind==="text" || s.kind==="pack") { $("#srcOpen").hidden = true; $("#srcVer").hidden = true; }
   renderSrcBanner(); renderItemReview(); renderReview(); renderSrcItems();
-  if (s.kind==="pack") { $("#genCard").hidden = true; return; }
+  if (s.kind==="pack") { $("#genCard").hidden = true; $("#anCard").hidden = true; return; }
   $("#genCard").hidden = false;
   $("#genCard").innerHTML = `<p class="small muted" style="margin:0"><span class="spin"></span> Preparando el documento…</p>`;
   try { await getRec(s.id); } catch(e) {}
-  if (curSrc === s.id && currentView === "src") renderGen();
+  if (curSrc === s.id && currentView === "src") { renderAnalysis(); renderGen(); }
 }
 
 function renderGen(){
@@ -286,7 +286,7 @@ function autoAsk(o){
   if (o.fragment) what = `El médico seleccionó este fragmento de la pág. ${o.page}: «${o.fragment.slice(0, 1500)}».\nCrea 1 ficha high-yield centrada en ese fragmento; complétala con los datos relevantes de la misma página que lo expliquen o le den contexto. Si el fragmento no tiene nada relevante, usa lo más relevante de la página.`;
   else if (o.page) what = `Analiza esta página y crea entre 1 y 4 fichas high-yield con lo más relevante, según cuánta información importante tenga (no rellenes).`;
   else what = `Analiza todo el documento y decide qué información es high-yield. Crea ${o.count && o.count !== "auto" ? `${o.count} fichas high-yield (o menos si no hay suficiente información relevante)` : "entre 3 y 12 fichas high-yield, según cuánta información relevante tenga el documento (no rellenes)"}. Cada ficha agrupa datos de un mismo tema; ordénalas de mayor a menor relevancia.`;
-  return [what, "No generes preguntas (deja \"questions\" vacío).", o.focus && o.focus.trim() ? `El médico pide priorizar: ${o.focus.trim()}.` : "", lang].filter(Boolean).join("\n") + examLine();
+  return [what, "No generes preguntas (deja \"questions\" vacío).", o.focus && o.focus.trim() ? `El médico pide priorizar: ${o.focus.trim()}.` : "", lang].filter(Boolean).join("\n") + focusLine();
 }
 function genAsk(){
   const c = gen.counts, lv = LEVELS.find(l=>l[0]===gen.level), em = EMPH.filter(e=>gen.emph.includes(e[0])).map(e=>e[1].toLowerCase());
@@ -301,7 +301,7 @@ function genAsk(){
     gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos del documento (genes, vectores, fármacos, escalas) tal como aparecen.",
     gen.instr.trim() ? `Instrucciones del médico: ${gen.instr.trim()}` : ""
   ];
-  return lines.filter(Boolean).join("\n") + examLine();
+  return lines.filter(Boolean).join("\n") + focusLine();
 }
 async function aiGenerate(sel, title, ask){
   const Anthropic = await loadSDK();

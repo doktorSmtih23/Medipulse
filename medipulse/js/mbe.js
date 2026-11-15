@@ -97,7 +97,7 @@ function renderMbe(){
     <div class="mbeex"><div class="xs muted">📌 Ejemplo desglosado · ${esc(b.ex.src)}</div><h4>${esc(b.ex.title)}</h4>
       <dl>${b.ex.grid.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
       <div class="note pearl"><b>💡 Lo que cambia tu conducta:</b> ${esc(b.ex.take)}</div></div>`;
-  renderDistill(); renderNotes(); calcRR(); calcDx();
+  renderMbeDocs(); renderDistill(); renderNotes(); calcRR(); calcDx();
 }
 function renderDistill(){
   const b = MBE[mbeType];

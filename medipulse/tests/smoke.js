@@ -63,6 +63,15 @@ const check = (name, ok, extra) => { results.push({name, ok}); console.log(`${ok
     check("Ficha high-yield se estudia y califica", await page.evaluate(() => Object.keys(S.srs).some(k => k[0] === "h")));
     await page.click("#quitBtn");
 
+    // Enfoque por tipo de pregunta (reemplaza la meta por examen)
+    await page.selectOption("#focusSel", "critica");
+    check("Mi enfoque se guarda y propone práctica", await page.evaluate(() => S.focus === "critica") && await page.isVisible("#doFocus"));
+    await page.selectOption("#focusSel", "mixto");
+
+    // MBE: entrada para auditar un PDF
+    await page.click("nav [data-go=mbe]");
+    check("MBE ofrece auditar un PDF", await page.isVisible("#mbeDocs #mbeUp"));
+
     // MBE: calculadora
     await page.click("nav [data-go=mbe]"); await page.fill("#cCer", "16"); await page.fill("#cEer", "14.5");
     check("Calculadora NNT (16 % vs 14.5 % → 67)", (await page.textContent("#cOut")).includes("67"));

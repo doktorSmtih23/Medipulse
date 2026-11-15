@@ -29,7 +29,8 @@
       <div>
         <h1 style="font-size:24px" id="greet">Hola</h1>
         <p class="muted" style="margin:4px 0 0">¿Cómo está tu energía ahora? Elige y yo armo la sesión.</p>
-        <label class="examsel">🎯 Mi meta<select id="examSel" aria-label="Examen que preparas"></select></label>
+        <label class="examsel">🎯 Mi enfoque<select id="focusSel" aria-label="Tipo de pregunta que quieres reforzar"></select></label>
+        <p class="xs muted" id="focusDesc" style="margin:4px 0 0"></p>
       </div>
       <div class="grid3 stackable">
         <button class="mode lazy" data-mode="lazy"><span class="em">🛋️</span><h3>Sin ganas</h3><p>5 minutos, cero presión. Una cosa pequeña y cuenta para tu racha.</p></button>
@@ -42,6 +43,7 @@
       </div>
       <div class="card" id="todayCard"></div>
       <div class="card" id="suggestCard"></div>
+      <div class="card" id="directCard"></div>
       <div class="card" id="pearlCard"></div>
     </div>
   </section>
@@ -259,6 +261,7 @@
       <div id="srcHead"></div>
       <div id="srcBanner"></div>
       <div id="srcRev"></div>
+      <div class="card stack" id="anCard" hidden></div>
       <div class="card stack" id="genCard"></div>
       <div id="reviewBox"></div>
       <div class="card" id="srcItems"></div>
@@ -269,6 +272,7 @@
   <section class="view" id="v-mbe">
     <div class="stack">
       <div><h2>Laboratorio de lectura crítica</h2><p class="muted small" style="margin:4px 0 0">Cada tipo de documento se lee distinto. Elige qué vas a leer hoy: verás el método en 5 pasos, un ejemplo real desglosado y una ficha para destilarlo y convertirlo en tarjetas.</p></div>
+      <div class="card stack" id="mbeDocs"></div>
       <div class="filters" id="mbeTabs"></div>
       <div class="card stack" id="mbeGuide"></div>
       <div class="card stack"><h3 style="font-size:16px">✍️ Destilador de lectura</h3><p class="xs muted" style="margin:0">Resume lo que estás leyendo en 4 campos. Después conviértelo en una ficha high-yield.</p><div class="stack" id="mbeForm"></div></div>
@@ -347,6 +351,7 @@
 <script src="js/fuentes.js"></script>
 <script src="js/taller.js"></script>
 <script src="js/vigencia.js"></script>
+<script src="js/analisis.js"></script>
 <script src="js/perfil.js"></script>
 <script src="js/reportes.js"></script>
 <script src="js/mbe.js"></script>

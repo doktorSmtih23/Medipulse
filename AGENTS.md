@@ -37,7 +37,8 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/fuentes.js` | Biblioteca, PDFs (IndexedDB, pdf.js), clave de API y guía |
 | `js/taller.js` | Detalle de una fuente: taller de preguntas (lector, datos clave, IA), revisión y guardado |
 | `js/vigencia.js` | Llamadas a la API de Claude (`callForTool`, `apiErr`), revisión de vigencia y actualización de ítems |
-| `js/perfil.js` | Meta de examen y diagnóstico rápido |
+| `js/analisis.js` | Analizar un documento: visor de la página original, mapa por capítulos, auditoría MBE, revisión de tema y pase de revista |
+| `js/perfil.js` | Enfoque de estudio por tipo de pregunta (`FOCUS`, `qKind`, `focusLine`) y diagnóstico rápido |
 | `js/reportes.js` | Reportes de errores en preguntas |
 | `js/mbe.js` | Laboratorio de lectura crítica, destilador y calculadoras |
 | `js/crear-y-compartir.js` | Crear preguntas y fichas a mano, texto pegado y packs JSON |

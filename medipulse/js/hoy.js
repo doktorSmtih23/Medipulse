@@ -4,7 +4,7 @@
 function renderHoy(){
   const h = new Date().getHours();
   $("#greet").textContent = h<12 ? "Buenos días ☀️" : h<19 ? "Buenas tardes 👋" : "Buenas noches 🌙";
-  renderExamSel();
+  renderFocusSel();
   const l = logToday(), st = streak(), due = dueKeys().length;
   $("#todayCard").innerHTML = `
     <div class="row"><h3 style="font-size:16px">Hoy</h3><div class="spacer"></div>${l.sec>0||l.c>0||l.q>0?'<span class="tag" style="background:var(--ok-soft);color:var(--ok)">✓ Racha asegurada</span>':'<span class="tag">Aún sin estudiar</span>'}</div>
@@ -24,17 +24,35 @@ function renderHoy(){
   $("#doNew") && ($("#doNew").onclick = ()=>startSession({label:"Mis PDF",tag:"norm",stages:[{name:"Nuevo de tus fuentes",items:newUserItems().slice(0,15)}]}));
   $("#doOne") && ($("#doOne").onclick = ()=>startSession({label:"Mantener racha",tag:"lazy",stages:[{name:"Tarjetas",items:pickCards(3)}]}));
   $("#doWeak") && ($("#doWeak").onclick = ()=>startSession({label:"Tema débil",tag:"norm",stages:[{name:weak,items:pickQuestions(5,{spec:weak})}]}));
+  renderDirected();
   const day = Math.floor(Date.now()/DAY);
   const p = QUESTIONS[day % QUESTIONS.length];
   $("#pearlCard").innerHTML = `<div class="row"><span class="tag" style="background:var(--warn-soft);color:var(--warn)">Perla del día</span><span class="xs muted">${esc(p.topic)}</span></div><p style="margin:8px 0 0">${esc(p.pearl)}</p>`;
   refreshChips();
+}
+// ¿Qué estudiar hoy? Áreas ordenadas por precisión (las no exploradas primero) + práctica del enfoque elegido.
+function renderDirected(){
+  const st = specStats(), f = focusOf();
+  const rank = s => st[s].n < 3 ? -1 + st[s].seen/Math.max(1, st[s].total) : st[s].ok/st[s].n;
+  const top = SPECS.slice().sort((a,b)=>rank(a)-rank(b)).slice(0, 3);
+  const nFocus = f.k === "mixto" ? 0 : QUESTIONS.filter(q=>qKind(q)===f.k).length;
+  $("#directCard").innerHTML = `<h3 style="font-size:16px">🧭 ¿Qué estudiar hoy?</h3>
+    <p class="xs muted" style="margin:4px 0 8px">Primero lo que no has explorado y lo que más fallas.</p>
+    ${top.map(s=>{ const x = st[s], pct = x.n >= 3 ? Math.round(x.ok/x.n*100) : null;
+      return `<div class="row" style="margin-top:6px;gap:8px"><span class="dot" style="background:${SPEC_COLOR[s]}"></span><div style="flex:1;min-width:0"><b class="small">${esc(s)}</b><div class="xs muted">${pct===null ? `sin explorar · ${x.seen} de ${x.total} casos vistos` : `${pct} % de aciertos`}</div></div><button class="btn sm" data-dspec="${esc(s)}">5 casos</button></div>`; }).join("")}
+    ${nFocus ? `<button class="btn block" id="doFocus" style="margin-top:10px">${esc(f.t)}: ${Math.min(5, nFocus)} preguntas de tu enfoque</button>` : ""}`;
+  document.querySelectorAll("[data-dspec]").forEach(b=>b.onclick=()=>startSession({label:"Estudio dirigido",tag:"norm",stages:[{name:b.dataset.dspec,items:pickQuestions(5,{spec:b.dataset.dspec})}]}));
+  $("#doFocus") && ($("#doFocus").onclick = ()=>{
+    const items = shuffle(QUESTIONS.filter(q=>qKind(q)===f.k)).sort((a,b)=>(isDue("q"+b.id)-isDue("q"+a.id)) || (!S.srs["q"+b.id]) - (!S.srs["q"+a.id])).slice(0,5).map(q=>({t:"q",id:q.id}));
+    startSession({label:"Mi enfoque",tag:"norm",stages:[{name:f.t,items}]});
+  });
 }
 document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{
   const m=b.dataset.mode;
   if (m==="lazy") return go("lazy");
   if (m==="normal") return startSession({label:"Sesión normal",tag:"norm",limit:25*60,stages:[
     {name:"Casos clínicos",items:pickQuestions(10,{preferSpec:weakestSpec()})},
-    {name:"Fichas y tarjetas",items:[...pickHY(4), ...pickCards(4)]}]});
+    {name:"Fichas y tarjetas",items: focusOf().k==="datos" ? [...pickHY(6), ...pickCards(2)] : [...pickHY(4), ...pickCards(4)]}]});
   if (m==="beast") { const w=weakestSpec(); const due=dueKeys();
     return startSession({label:"Modo a tope",tag:"fire",stages:[
       {name:"Bloque 1 · Repaso espaciado", items: due.length? due.slice(0,15).map(k=>({t:k[0],id:k.slice(1)})) : pickCards(12)},
