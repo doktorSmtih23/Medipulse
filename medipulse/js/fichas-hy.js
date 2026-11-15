@@ -40,8 +40,9 @@ function flipH(h){
   $("#hBack").innerHTML = `${h.why ? `<div class="note pearl" style="margin-bottom:8px"><b>💡 Por qué es high-yield:</b> ${esc(h.why)}</div>` : ""}${h.redFlag ? `<div class="note" style="border-color:var(--bad)"><b>🚩 Bandera roja:</b> ${esc(h.redFlag)}</div>` : ""}
     ${h.trap ? `<div class="note trap" style="margin-top:8px;border-color:var(--warn)"><b>⚠️ Trampa:</b> ${esc(h.trap)}</div>` : ""}
     ${h.ctx && h.ctx.length >= 40 ? `<div class="ctx">“${esc(h.ctx.length > 300 ? h.ctx.slice(0,300) + "…" : h.ctx)}”</div>` : ""}${srcLine(h)}
-    <div style="font-size:13px;margin-top:8px"><button class="linkbtn" id="repBtnH">🚩 Reportar</button><div id="repBoxH"></div></div>`;
+    <div style="font-size:13px;margin-top:8px"><button class="linkbtn" id="repBtnH">🚩 Reportar</button> · <button class="linkbtn" id="fixBtnH">✏️ Corregir</button><div id="repBoxH"></div><div id="fixBoxH"></div></div>`;
   $("#repBtnH").onclick = ()=>openReportForm("h"+h.id, $("#repBoxH"));
+  $("#fixBtnH").onclick = ()=>openCorregir("h", h, $("#fixBoxH"));
   $("#cBtns").innerHTML = `<div class="grid3">
     <button class="btn" data-g="0" style="border-color:var(--bad)">✗ No la sabía <kbd>1</kbd></button>
     <button class="btn" data-g="1" style="border-color:var(--warn)">~ Dudé <kbd>2</kbd></button>

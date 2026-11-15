@@ -20,7 +20,7 @@ function rebuild(){
   const ov = (k,x) => S.over[k+x.id] ? Object.assign({}, x, S.over[k+x.id], {updated: S.over[k+x.id].upd}) : x;
   QUESTIONS = [...BUILTIN_Q.map(q=>ov("q",q)), ...S.userQ].filter(q=>!S.hidden["q"+q.id]);
   FLASH = [...BUILTIN_F.map(c=>ov("c",c)), ...S.userC].filter(c=>!S.hidden["c"+c.id]);
-  HYS = [...HY_CARDS, ...(S.userH || [])].filter(h=>!S.hidden["h"+h.id]);
+  HYS = [...HY_CARDS.map(h=>ov("h",h)), ...(S.userH || [])].filter(h=>!S.hidden["h"+h.id]);
 }
 rebuild();
 // Si guardar falla (almacenamiento lleno o bloqueado), se avisa en Hoy para que el usuario descargue su copia.

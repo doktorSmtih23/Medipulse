@@ -612,6 +612,7 @@ function renderReview(){
         <div class="stack" style="min-width:0;gap:6px">
           <div class="xs muted">💎 Ficha high-yield · pág. ${c.page}</div>
           <div id="hp${i}">${hyPrevHTML(c)}</div>
+          ${marcaHTML(c)}
           <details class="custom"><summary>✏️ Editar esta ficha</summary><div class="stack" style="margin-top:10px;gap:6px">
           <label class="fld">Título<input type="text" data-hf="${i}" data-k="title" value="${esc(c.title)}"></label>
           ${c.thresholds.map((x,j)=>`<div class="erow two"><textarea rows="2" data-hr="${i}:${j}:label" aria-label="Qué es">${esc(x.label)}</textarea><textarea rows="2" data-hr="${i}:${j}:val" aria-label="Dato">${esc(x.val)}</textarea></div>`).join("")}
@@ -630,6 +631,8 @@ function renderReview(){
           <p class="small" style="margin:6px 0">${esc(c.vignette)}</p>
           <ol type="A" class="small" style="margin:0;padding-left:22px">${c.options.map((o,j)=>`<li style="${j===c.correct?"color:var(--ok);font-weight:700":""}">${esc(o)}${j===c.correct?" ✓":""}</li>`).join("")}</ol>
           <p class="xs muted" style="margin:6px 0 0">${esc(c.whyCorrect)}</p>
+          ${marcaHTML(c)}
+          <details class="custom" style="margin-top:6px"><summary>✏️ Editar esta pregunta</summary><div data-qbox="${i}" style="margin-top:10px">${qEditHTML(c, true)}</div></details>
         </div></div>`).join("")}</div>
     <div class="row" style="margin-top:12px"><button class="btn ghost" id="candCancel">Descartar todo</button><div class="spacer"></div><button class="btn primary" id="candSave">Guardar ${on} en el banco</button></div>
   </div>`;
@@ -640,10 +643,20 @@ function renderReview(){
   box.querySelectorAll("[data-cf]").forEach(ta=>ta.oninput=()=>{ cands[+ta.dataset.cf][ta.dataset.k] = ta.value; });
   box.querySelectorAll("[data-hf]").forEach(x=>x.oninput=()=>{ const i = +x.dataset.hf; cands[i][x.dataset.k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[i]); });
   box.querySelectorAll("[data-hr]").forEach(x=>x.oninput=()=>{ const [i,j,k] = x.dataset.hr.split(":"); cands[+i].thresholds[+j][k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[+i]); });
+  box.querySelectorAll("[data-qbox]").forEach(qb=>qb.oninput = qb.onchange = ()=>{ Object.assign(cands[+qb.dataset.qbox], qEditRead(qb)); });
+  box.querySelectorAll("[data-marca-pg]").forEach(b=>b.onclick=()=>openPdf(cur().id, +b.dataset.marcaPg));
   $("#candCancel").onclick = ()=>{ cands = null; renderReview(); };
   $("#candSave").onclick = saveCands;
 }
+function marcaHTML(c){
+  return tieneMarca(c) ? `<div class="note trap xs" style="margin-top:6px">⚠️ Tiene un signo por verificar: en el PDF ese símbolo no se leyó bien. <button class="linkbtn" data-marca-pg="${c.page}">Ver pág. ${c.page}</button> y corrígelo antes de guardar.</div>` : "";
+}
 function saveCands(){
+  const sel = cands.filter(c=>c.on);
+  const malas = sel.filter(c=>c.kind==="q" && qEditError(c));
+  if (malas.length) return toast("Revisa la pregunta editada: " + qEditError(malas[0]));
+  const conMarca = sel.filter(tieneMarca).length;
+  if (conMarca && !confirm(`${conMarca} ${conMarca === 1 ? "ítem todavía dice" : "ítems todavía dicen"} «verificar el signo en el PDF». ¿Guardar igual? Después puedes corregirlos con ✏️ Corregir.`)) return;
   const s = cur(); let nq = 0, nc = 0, nh = 0;
   cands.filter(c=>c.on).forEach(c=>{
     const id = "u" + (++S.seq);

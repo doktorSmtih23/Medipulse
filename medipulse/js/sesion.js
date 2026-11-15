@@ -92,10 +92,11 @@ function answerQ(q, o, exam){
       <div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>
       <div class="note trap"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>
       ${srcLine(q)}
-      <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button><div id="repBox"></div></div>
+      <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button><div id="repBox"></div><div id="fixBox"></div></div>
       <button class="btn primary block" id="nextBtn">Siguiente →</button>
     </div>`;
   $("#repBtn").onclick = ()=>openReportForm("q"+q.id, $("#repBox"));
+  $("#fixBtn").onclick = ()=>openCorregir("q", q, $("#fixBox"));
   $("#nextBtn").onclick=()=>{ sess.i++; renderItem(); };
   $("#nextBtn").focus({preventScroll:true});
 }
