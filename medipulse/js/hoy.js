@@ -12,7 +12,7 @@ function renderHoy(){
     <div class="grid3" style="margin-top:12px">
       <div class="kpi"><b>${Math.round(l.sec/60)}</b><span>minutos</span></div>
       <div class="kpi"><b>${l.q}</b><span>casos${l.q?" · "+Math.round(l.ok/l.q*100)+"% ✓":""}</span></div>
-      <div class="kpi"><b>${l.c}</b><span>tarjetas</span></div>
+      <div class="kpi"><b>${l.c}</b><span>fichas</span></div>
     </div>`;
   const weak = weakestSpec();
   let sug;
