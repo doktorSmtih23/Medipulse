@@ -214,8 +214,7 @@ function renderAiTab(){
     <label class="fld">Instrucciones adicionales (opcional)<textarea id="gInstr" rows="3" placeholder="p. ej. “Pregúntame como en el examen de la UdeA”, “enfócate en los ensayos con AAV2-GAD”, “incluye una pregunta sobre por qué falló el ensayo fase III”">${esc(gen.instr)}</textarea></label>
     <div class="row" style="gap:6px"><button class="btn ghost sm" id="gSaveTpl">💾 Guardar como plantilla</button>${tpls.length ? `<button class="btn ghost sm" id="gDelTpl">🗑 Borrar plantillas</button>` : ""}</div>
     <div id="gEst" class="xs muted"></div>
-    <button class="btn primary block" id="gGo" ${genBusy || !getKey() ? "disabled" : ""}>Generar con IA</button>
-    <div id="gStatus" class="small"></div></div></details>`;
+    <button class="btn primary block" id="gGo" ${genBusy || !getKey() ? "disabled" : ""}>Generar con IA</button>    <div id="gStatus" class="small"></div></div></details>`;
   bindTopic(updEstimate);
   b.querySelectorAll("[data-cnt]").forEach(i=>i.oninput = ()=>{ gen.counts[i.dataset.cnt] = Math.max(0, Math.min(20, parseInt(i.value)||0)); updEstimate(); });
   b.querySelectorAll("[data-lv]").forEach(x=>x.onclick = ()=>{ gen.level = x.dataset.lv; b.querySelectorAll("[data-lv]").forEach(y=>y.classList.toggle("on", y===x)); });
@@ -248,7 +247,7 @@ function estAuto(){
   const sel = autoSel(); if (!sel) { el.textContent = ""; return; }
   const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
   if (chars > MAX_AI_CHARS) { el.innerHTML = `<span style="color:var(--bad)">El documento es muy largo para leerlo completo de una vez. En “Qué leer” elige “Las páginas o el tema de Personalizar” y define un rango o un tema.</span>`; return; }
-  el.textContent = `${pagesLabel(sel)} · costo aprox. US$${(chars/3.5*4e-6 + 12*400*20e-6 + 6000*20e-6).toFixed(2)} (se cobra a tu cuenta de Anthropic).`;
+  el.textContent = `${pagesLabel(sel)} · costo aprox. ${aiEstimateLine(chars, {outTokens: 12*400 + 6000})} (se cobra a tu cuenta de Anthropic).`;
 }
 function bindAuto(){
   $("#aScope").value = gen.aScope || "all"; $("#aCount").value = gen.aCount || "auto"; $("#aFocus").value = gen.aFocus || "";
@@ -287,8 +286,8 @@ function updEstimate(){
   if (chars < 200) { el.innerHTML = `<span style="color:var(--warn)">Esas páginas casi no tienen texto seleccionable (¿PDF escaneado o solo imágenes?).</span>`; return; }
   if (gen.tab === "ai") {
     if (chars > MAX_AI_CHARS) { el.innerHTML = `<span style="color:var(--bad)">Es demasiado texto para una sola vez (${Math.round(chars/1000)} mil caracteres). Elige menos páginas o un tema más concreto.</span>`; return; }
-    const c = gen.counts, nq = c.caso + c.critica + c.directa, tin = Math.round(chars/3.5), cost = tin*4e-6 + (nq*700 + c.ficha*400)*20e-6 + 4000*20e-6;
-    el.textContent = `${pagesLabel(sel)} · ${nq} preguntas y ${c.ficha} fichas · costo aprox. US$${cost.toFixed(2)} (se cobra a tu cuenta de Anthropic).`;
+    const c = gen.counts, nq = c.caso + c.critica + c.directa, est = aiEstimateLine(chars, {outTokens: nq*700 + c.ficha*400 + 4000});
+    el.textContent = `${pagesLabel(sel)} · ${nq} preguntas y ${c.ficha} fichas · costo aprox. ${est} (se cobra a tu cuenta de Anthropic).`;
   } else el.textContent = `${pagesLabel(sel)} · ${Math.round(chars/1000)} mil caracteres para analizar.`;
 }
 
@@ -352,18 +351,20 @@ async function aiGenerate(sel, title, ask){
   const client = new Anthropic({apiKey: getKey(), dangerouslyAllowBrowser: true});
   const doc = sel.pages.map((p,i)=>`[pág. ${sel.nums[i]}]\n${p}`).join("\n\n");
   let msg;
+  const {params, level} = aiParams();
   try {
-    const stream = client.beta.messages.stream({
-      model: "claude-opus-5-5",
+    // El documento va en un bloque guardado en caché: si se generan más ítems del mismo texto en unos minutos, se cobra ~5–10 % de la lectura.
+    const stream = client.beta.messages.stream(Object.assign({
       max_tokens: 32000,
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
       output_config: {effort: "medium", format: {type: "json_schema", schema: GEN_SCHEMA}},
       system: GEN_SYSTEM,
-      messages: [{role: "user", content: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>\n\n${ask || genAsk()}`}]
-    });
+      messages: [{role: "user", content: [
+        {type: "text", text: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>`, cache_control: {type: "ephemeral"}},
+        {type: "text", text: ask || genAsk()}]}]
+    }, params));
     msg = await stream.finalMessage();
   } catch(e) { throw apiErr(Anthropic, e); }
+  aiRecord(level, addUsage({}, msg.usage), "Generar con IA");
   if (msg.stop_reason === "refusal") throw uerr("La IA no procesó este texto. Prueba con otras páginas.");
   if (msg.stop_reason === "max_tokens") throw uerr("La respuesta quedó incompleta. Pide menos preguntas o menos páginas.");
   const txt = msg.content.filter(b=>b.type==="text").map(b=>b.text).join("");

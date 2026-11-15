@@ -30,7 +30,7 @@ test("fichas automáticas: ordenadas por relevancia, filtradas y revisadas antes
 
 test("la petición usa esquema JSON y no envía referencias ni datos personales", async ({ page }) => {
   await page.click("#aGo"); await expect(page.locator("#candList")).toBeVisible();
-  const p = peticiones[0], texto = p.messages[0].content;
+  const p = peticiones[0], texto = p.messages[0].content.map(b => b.text).join("\n");
   expect(p.output_config.format.type).toBe("json_schema");
   expect(texto).toContain("23.1%");
   expect(texto).not.toContain("Fearnley");

@@ -27,31 +27,34 @@ function apiErr(A, e){
 
 // Llama a Claude y devuelve el input de la herramienta `toolName` (resultado estructurado).
 // Maneja pause_turn de la búsqueda web reenviando la respuesta tal cual.
-async function callForTool({system, tools, user}, toolName){
+// El modelo depende del nivel elegido (ia-costo.js); el costo de toda la acción se registra al final.
+async function callForTool({system, tools, user, light = false, label = "IA"}, toolName){
   const A = await loadSDK();
   const client = new A({apiKey: getKey(), dangerouslyAllowBrowser: true});
-  const messages = [{role: "user", content: user}];
-  for (let turn = 0; turn < 5; turn++) {
-    let msg;
-    try {
-      msg = await client.beta.messages.stream({
-        model: "claude-opus-5-5",
-        max_tokens: 32000,
-        betas: ["server-side-fallback-2026-07-01"],
-        fallbacks: "default",
-        output_config: {effort: "medium"},
-        tool_choice: {type: "auto"},
-        system, tools, messages
-      }).finalMessage();
-    } catch(e) { throw apiErr(A, e); }
-    if (msg.stop_reason === "refusal") throw uerr("La IA no procesó esta solicitud.");
-    if (msg.stop_reason === "max_tokens") throw uerr("La respuesta quedó incompleta. Prueba con menos elementos a la vez.");
-    const tu = msg.content.find(b => b.type === "tool_use" && b.name === toolName);
-    if (tu && msg.stop_reason === "tool_use") return tu.input;
-    messages.push({role: "assistant", content: msg.content});
-    if (msg.stop_reason !== "pause_turn") messages.push({role: "user", content: `Entrega ahora tu resultado llamando a la herramienta ${toolName}.`});
-  }
-  throw uerr("La IA no entregó un resultado. Inténtalo de nuevo.");
+  const web = tools.some(t => t.type && t.type.startsWith("web_search"));
+  const {params, level} = aiParams({light, web});
+  const messages = [{role: "user", content: user}], usage = {};
+  try {
+    for (let turn = 0; turn < 5; turn++) {
+      let msg;
+      try {
+        msg = await client.beta.messages.stream(Object.assign({
+          max_tokens: 32000,
+          output_config: {effort: "medium"},
+          tool_choice: {type: "auto"},
+          system, tools, messages
+        }, params)).finalMessage();
+      } catch(e) { throw apiErr(A, e); }
+      addUsage(usage, msg.usage);
+      if (msg.stop_reason === "refusal") throw uerr("La IA no procesó esta solicitud.");
+      if (msg.stop_reason === "max_tokens") throw uerr("La respuesta quedó incompleta. Prueba con menos elementos a la vez.");
+      const tu = msg.content.find(b => b.type === "tool_use" && b.name === toolName);
+      if (tu && msg.stop_reason === "tool_use") return tu.input;
+      messages.push({role: "assistant", content: msg.content});
+      if (msg.stop_reason !== "pause_turn") messages.push({role: "user", content: `Entrega ahora tu resultado llamando a la herramienta ${toolName}.`});
+    }
+    throw uerr("La IA no entregó un resultado. Inténtalo de nuevo.");
+  } finally { if (usage.input_tokens || usage.output_tokens) aiRecord(level, usage, label); }
 }
 
 const T_SOURCES = {
@@ -244,7 +247,8 @@ async function runCheck(){
       const input = await callForTool({
         system: CHECK_SYSTEM,
         tools: [{type: "web_search_20260209", name: "web_search", max_uses: batch.length*3}, T_SOURCES],
-        user: `Fecha de hoy: ${todayKey()}.\n\n${parts.join("\n\n")}\n\nRevisa la vigencia de estas ${batch.length} fuentes.`
+        user: `Fecha de hoy: ${todayKey()}.\n\n${parts.join("\n\n")}\n\nRevisa la vigencia de estas ${batch.length} fuentes.`,
+        label: "Revisión de vigencia"
       }, "report_sources");
       const res = Array.isArray(input && input.results) ? input.results : [];
       for (const s of batch) {
@@ -313,7 +317,8 @@ async function runItemReview({items, ctx, mode, where, srcId, web, system, repId
       const input = await callForTool({
         system,
         tools: web ? [{type: "web_search_20260209", name: "web_search", max_uses: 8}, T_REVIEW] : [T_REVIEW],
-        user: `${ctx}\n\nÍtems a revisar (JSON):\n${JSON.stringify(batch.map(serItem), null, 1)}`
+        user: `${ctx}\n\nÍtems a revisar (JSON):\n${JSON.stringify(batch.map(serItem), null, 1)}`,
+        label: "Revisión de ítems"
       }, "report_item_review");
       const revs = Array.isArray(input && input.reviews) ? input.reviews : [];
       batch.forEach(it=>rows.push(normRow(it, revs.find(r=>r && r.key===it.key))));
