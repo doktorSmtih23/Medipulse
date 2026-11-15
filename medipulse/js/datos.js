@@ -18,21 +18,31 @@ function backupDue(){
 // Pide al navegador que no borre los datos de la app cuando falte espacio (si lo permite).
 try { if (CAN_STORE && navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(p => { if (!p) navigator.storage.persist(); }).catch(()=>{}); } catch(e) {}
 
-function exportBackup(){
+// Imágenes adjuntas a fichas y preguntas (recortes o capturas): van en la copia para no perderlas.
+function imagenesUsadas(){
+  const keys = new Set();
+  [...(S.userH || []), ...S.userQ, ...Object.values(S.over || {})].forEach(x => { if (x && typeof x.img === "string" && x.img.startsWith("img:")) keys.add(x.img); });
+  return [...keys];
+}
+async function exportBackup(){
   S.lastBackup = Date.now(); delete S.backupSnooze; save();
-  const b = new Blob([JSON.stringify(S, null, 1)], {type: "application/json"});
+  const imagenes = {};
+  for (const k of imagenesUsadas()) { const v = typeof imgGet === "function" ? await imgGet(k) : null; if (v) imagenes[k] = v; }
+  const b = new Blob([JSON.stringify(Object.keys(imagenes).length ? Object.assign({}, S, {_imagenes: imagenes}) : S, null, 1)], {type: "application/json"});
   const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "medipulse-respaldo-" + todayKey() + ".json"; a.click();
   toast("Copia descargada ✓ Guárdala fuera del dispositivo (correo o Drive).");
   renderDataWarn(); if (currentView === "prog") renderProg();
 }
 
 function importBackup(file){
-  return file.text().then(t => {
+  return file.text().then(async t => {
     let d;
     try { d = JSON.parse(t); if (!d || typeof d !== "object" || !d.srs || !d.log) throw 0; }
     catch(_) { toast("Archivo no válido: no es una copia de MediPulse."); return; }
     if (hasData() && !confirm(`Esto reemplaza tus datos actuales por los de la copia (${Object.keys(d.srs).length} ítems con repaso). Lo que tienes ahora se guarda aparte en este dispositivo por si quieres volver. ¿Continuar?`)) return;
     try { localStorage.setItem(KEY_ANTES, JSON.stringify(S)); } catch(e) {}
+    const imagenes = d._imagenes && typeof d._imagenes === "object" ? d._imagenes : {}; delete d._imagenes;
+    for (const [k, v] of Object.entries(imagenes)) if (/^img:/.test(k) && /^data:image\//.test(v)) await imgSet(k, v);
     S = Object.assign(BLANK(), d); rebuild(); save(); applyTheme(); refreshChips(); renderDataWarn(); renderProg();
     toast("Copia importada ✓");
   });

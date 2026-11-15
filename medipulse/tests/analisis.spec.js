@@ -127,3 +127,16 @@ test("las tres tareas comparten instrucciones y herramientas para reutilizar la 
   const prefijos = peticiones.slice(-3).map(p => JSON.stringify([p.system, p.tools, p.messages[0].content[0]]));
   expect(new Set(prefijos).size).toBe(1);
 });
+
+test("detecta signos dañados en el texto del PDF, avisa y pide a la IA no adivinarlos", async ({ page }) => {
+  // Como en el consenso de TCE: ≥ sale como «ε» y ≤ como «ω».
+  const r = await page.evaluate(() => [simbolosDanados(["Epidural hematoma ε30 mL", "ICP ω 22 mmHg y MAP ε80"]), simbolosDanados(["β-bloqueador y α2 normales", "valor ≥ 30 mL"])]);
+  expect(r[0]).toMatchObject({n: 3, pags: [1, 2]});
+  expect(r[1]).toBeNull();   // letras griegas reales y signos bien leídos no cuentan
+  await page.evaluate(() => { docInfo(cur().id).danados = simbolosDanados(["ε30", "ω 22", "ε80"]); renderAnalysis(); });
+  await expect(page.locator("#anCard .note.trap")).toContainText("símbolos que no se leyeron bien");
+  const antes = peticiones.length;
+  await page.click("#anGo");
+  await expect.poll(() => peticiones.length).toBe(antes + 1);
+  expect(peticiones.at(-1).messages[0].content.at(-1).text).toContain("No adivines el signo");
+});

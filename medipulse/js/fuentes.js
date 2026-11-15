@@ -27,13 +27,14 @@ function srcLine(item){
   const s = srcInfo(item.src); if (!s) return "";
   const st = srcState(item.src);
   const warn = msg => `<div class="srcline" style="color:var(--warn)">⚠ <span>${msg}</span></div>`;
-  const upd = item.updated ? " · ✓ actualizado a la versión nueva con IA, verifícalo" : "";
+  const upd = (item.updated ? " · ✓ actualizado a la versión nueva con IA, verifícalo" : "") + (item.edited ? " · ✏️ corregido por ti" : "");
+  const marca = typeof tieneMarca === "function" && tieneMarca(item) ? warn("Este ítem tiene un signo por verificar en el PDF. Compáralo con la página y corrígelo con ✏️ Corregir.") : "";
   if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${upd}${s.u?` · <a href="${esc(s.u)}" target="_blank" rel="noopener">abrir la guía</a>`:s.k!=="book"?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>` + citaHtml(item)
-    + (st==="outdated" && !item.updated ? warn("Hay una versión más nueva de esta fuente; este dato podría haber cambiado. Revísalo en Fuentes → Vigencia.") : "");
+    + (st==="outdated" && !item.updated ? warn("Hay una versión más nueva de esta fuente; este dato podría haber cambiado. Revísalo en Fuentes → Vigencia.") : "") + marca;
   const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : "";
   const pdf = s.kind==="pdf", where = item.page ? (s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";
   return `<div class="srcline">${pdf?"📄":s.kind==="pack"?"📦":"📋"} <span>${esc(s.t)}${where}${how}${upd}${pdf?` · <button class="linkbtn" onclick="openPdf('${s.id}',${item.page||1})">abrir PDF</button>`:""}</span></div>`
-    + (item.stale ? warn("Viene de la versión anterior de este PDF.") : st==="outdated" ? warn("Hay una versión más nueva de este documento.") : "");
+    + (item.stale ? warn("Viene de la versión anterior de este PDF.") : st==="outdated" ? warn("Hay una versión más nueva de este documento.") : "") + marca;
 }
 
 // ---------- IndexedDB: guarda los PDF y su texto ----------

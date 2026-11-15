@@ -43,6 +43,20 @@ function isProse(l){
   return l && l.trim().length >= 35 && w.filter(x=>/^[a-záéíóúñ(]/.test(x)).length / w.length >= 0.5;
 }
 // Divide cada página en "cuerpo" y quita lo que no sirve para preguntas (referencias, afiliaciones, leyendas).
+// Algunos PDF traen los signos mal codificados: ≥ sale como «ε», ≤ como «ω» o una flecha, y el texto
+// leído ya no dice lo mismo que la página. Se buscan esos caracteres pegados a una cifra o caracteres
+// imposibles (reemplazo o de uso privado). Con 3 o más casos se avisa y se pide a la IA no adivinar el signo.
+const SIMB_RARO = /[εωϵ↑↓↗↘↔](?=\s?\d)|[\uFFFD\uE000-\uF8FF]/g;
+function simbolosDanados(pages){
+  let n = 0, ejemplo = ""; const pags = [];
+  pages.forEach((p, i)=>{
+    const ms = [...(p || "").matchAll(SIMB_RARO)]; if (!ms.length) return;
+    n += ms.length; if (pags.length < 8) pags.push(i+1);
+    if (!ejemplo) { const m = ms[0]; ejemplo = p.slice(Math.max(0, m.index - 18), m.index + 8).replace(/\s+/g, " ").trim(); }
+  });
+  return n >= 3 ? {n, pags, ejemplo} : null;
+}
+const NOTA_SIMBOLOS = "Nota: en este documento algunos signos junto a las cifras están dañados (aparecen caracteres como ε, ω, ↓ o ↑ donde debería ir ≥, ≤, < o >). No adivines el signo: escribe la cifra y agrega «(verificar el signo en el PDF)».";
 function docInfo(id){
   const r = recCache[id]; if (!r) return null;
   if (r._info) return r._info;
@@ -86,7 +100,7 @@ function docInfo(id){
   });
   const terms = [...freq.entries()].filter(([k,v])=>v >= 3).sort((a,b)=>b[1]-a[1]).map(([k])=>k)
     .filter((k,i,arr)=>!arr.slice(0,i).some(o=>o.includes(k) || k.includes(o))).slice(0, 10);
-  r._info = {pages, clean, refFrom, heads: [...heads.values()].slice(0, 14), allHeads: [...heads.values()], terms};
+  r._info = {pages, clean, refFrom, heads: [...heads.values()].slice(0, 14), allHeads: [...heads.values()], terms, danados: simbolosDanados(pages)};
   return r._info;
 }
 function topicPages(id, topic){
@@ -346,7 +360,15 @@ function genAsk(){
   ];
   return lines.filter(Boolean).join("\n") + focusLine();
 }
-async function aiGenerate(sel, title, ask){
+// Preguntas y ficha a partir de una imagen (recorte de la página o captura subida).
+function aiGenerateImage(dataUrl, ctx){
+  const ask = [`El médico eligió esta imagen${ctx.page ? ` de la pág. ${ctx.page}` : ""} del documento: puede ser un algoritmo, una tabla, una gráfica o una figura.`,
+    "Crea 1 ficha high-yield con lo que muestra la imagen y hasta 2 preguntas (qtype \"caso\" o \"directa\") que evalúen entenderla y aplicarla; el estudiante verá la imagen junto a la pregunta.",
+    "Usa solo lo que se ve en la imagen. Si no tiene información médica útil, deja \"fichas\" y \"questions\" vacíos.",
+    gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos tal como aparecen."].join("\n") + focusLine();
+  return aiGenerate({nums: [ctx.page || 1], pages: [""]}, ctx.title || "", ask, dataUrl);
+}
+async function aiGenerate(sel, title, ask, imagen){
   const Anthropic = await loadSDK();
   const client = new Anthropic({apiKey: getKey(), dangerouslyAllowBrowser: true});
   const doc = sel.pages.map((p,i)=>`[pág. ${sel.nums[i]}]\n${p}`).join("\n\n");
@@ -358,13 +380,15 @@ async function aiGenerate(sel, title, ask){
       max_tokens: 32000,
       output_config: {effort: "medium", format: {type: "json_schema", schema: GEN_SCHEMA}},
       system: GEN_SYSTEM,
-      messages: [{role: "user", content: [
+      messages: [{role: "user", content: imagen ? [
+        {type: "image", source: {type: "base64", media_type: "image/jpeg", data: imagen.split(",")[1]}},
+        {type: "text", text: `Imagen tomada de «${title.replace(/"/g,"'")}».\n\n${ask}`}] : [
         {type: "text", text: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>`, cache_control: {type: "ephemeral"}},
-        {type: "text", text: ask || genAsk()}]}]
+        {type: "text", text: (cur() && docInfo(cur().id) && docInfo(cur().id).danados ? NOTA_SIMBOLOS + "\n" : "") + (ask || genAsk())}]}]
     }, params));
     msg = await stream.finalMessage();
   } catch(e) { throw apiErr(Anthropic, e); }
-  aiRecord(level, addUsage({}, msg.usage), "Generar con IA");
+  aiRecord(level, addUsage({}, msg.usage), imagen ? "Analizar imagen" : "Generar con IA");
   if (msg.stop_reason === "refusal") throw uerr("La IA no procesó este texto. Prueba con otras páginas.");
   if (msg.stop_reason === "max_tokens") throw uerr("La respuesta quedó incompleta. Pide menos preguntas o menos páginas.");
   const txt = msg.content.filter(b=>b.type==="text").map(b=>b.text).join("");
@@ -444,12 +468,16 @@ function renderReader(){
   const hits = gen.rdQuery.trim() ? topicPages(s.id, gen.rdQuery) : [];
   const pageTxt = r.pages[gen.rdPage-1] || "";
   const building = !!($("#rdEditor") && $("#rdEditor")._addRow);
+  const esPdf = s.kind === "pdf" || !s.kind;   // los PDF se leen como son; el texto pegado, como texto
   $("#gBody").innerHTML = `
-    <p class="xs muted" style="margin:0">Lee el documento aquí y arma tus <b>fichas high-yield</b>: selecciona una frase o una cifra (en el celular, mantén presionado y arrastra) y agrégala como dato de la ficha. Puedes juntar datos de varias páginas en la misma ficha.</p>
+    <p class="xs muted" style="margin:0">Lee el documento aquí y arma tus <b>fichas high-yield</b>: selecciona una frase o una cifra (en el celular, mantén presionado y arrastra) y agrégala como dato de la ficha. Puedes juntar datos de varias páginas en la misma ficha. Para un algoritmo, una tabla o una gráfica, usa <b>✂️ Recortar una zona</b> o <b>📷 Subir captura</b>.</p>
     <div class="row" style="gap:6px"><input type="text" id="rdQ" value="${esc(gen.rdQuery)}" placeholder="Buscar en el documento: p. ej. AAV, GDNF, ensayo fase II…" style="flex:1;min-width:0"></div>
     ${gen.rdQuery.trim() ? `<div class="chips">${hits.length ? hits.slice(0,15).map(h=>`<button class="chip2${h.page===gen.rdPage?" on":""}" data-rp="${h.page}">pág. ${h.page} · ${h.hits}</button>`).join("") : `<span class="xs muted">Sin resultados.</span>`}</div>` : ""}
     <div class="row" style="gap:6px"><button class="btn sm" id="rdPrev" ${gen.rdPage<=1?"disabled":""}>‹ Anterior</button><span class="small" style="flex:1;text-align:center">${s.kind==="text"?"Parte":"Página"} <b>${gen.rdPage}</b> de ${total}${info.refFrom < gen.rdPage ? " · referencias" : info.refFrom === gen.rdPage ? " · al final, referencias" : ""}</span><button class="btn sm" id="rdNext" ${gen.rdPage>=total?"disabled":""}>Siguiente ›</button></div>
-    <div class="reader" id="rdText">${pageTxt.trim() ? hlText(pageTxt, gen.rdQuery) : `<p class="muted">Esta página no tiene texto seleccionable.</p>`}</div>
+    <div class="row" style="gap:6px">${esPdf ? `<button class="btn sm" id="rdOut" aria-label="Alejar">−</button><button class="btn sm" id="rdIn" aria-label="Acercar">+</button><button class="btn sm" id="rdCrop">✂️ Recortar una zona</button>` : ""}<label class="btn sm" style="display:inline-block">📷 Subir captura<input type="file" id="rdImg" accept="image/*" hidden></label></div>
+    ${esPdf ? `<div class="pdfread" id="rdText"></div>`
+      : `<div class="reader" id="rdText">${pageTxt.trim() ? hlText(pageTxt, gen.rdQuery) : `<p class="muted">Esta página no tiene texto seleccionable.</p>`}</div>`}
+    <div id="rdCap"></div>
     <div class="selbar" id="rdBar" hidden>
       <div class="xs muted" id="rdSelTxt"></div>
       <div class="row" style="gap:6px;margin-top:6px"><button class="btn primary sm" id="rdHY">💎 Nueva ficha</button><button class="btn sm" id="rdAdd" hidden>➕ Añadir a la ficha</button><button class="btn sm" id="rdAI">✨ Ficha con IA</button><button class="btn sm" id="rdCase">🩺 Caso clínico</button><button class="btn ghost sm" id="rdX">✕</button></div>
@@ -462,9 +490,25 @@ function renderReader(){
   document.querySelectorAll("[data-rp]").forEach(b=>b.onclick=()=>{ gen.rdPage = +b.dataset.rp; renderReader(); });
   $("#rdPrev").onclick = ()=>{ gen.rdPage--; renderReader(); };
   $("#rdNext").onclick = ()=>{ gen.rdPage++; renderReader(); };
-  const box = $("#rdText");
+  const box = $("#rdText"), capCtx = {src: s.id, page: gen.rdPage, title: s.title};
+  let pagina = null;
+  if (esPdf) {
+    gen.rdZoom = gen.rdZoom || 1;
+    renderPdfPage(box, s.id, gen.rdPage, gen.rdZoom).then(r=>{ pagina = r; });
+    $("#rdIn").onclick = ()=>{ gen.rdZoom = Math.min(3, gen.rdZoom + 0.25); renderReader(); };
+    $("#rdOut").onclick = ()=>{ gen.rdZoom = Math.max(0.5, gen.rdZoom - 0.25); renderReader(); };
+    $("#rdCrop").onclick = ()=>{
+      if (!pagina) return toast("Espera a que cargue la página.");
+      toast("Arrastra sobre la página para marcar la zona.");
+      startCrop(pagina.wrap, pagina.canvas, url=>showCapture($("#rdCap"), url, capCtx));
+    };
+  }
+  $("#rdImg").onchange = async e=>{
+    const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+    try { showCapture($("#rdCap"), await shrink(await fileToDataUrl(f)), capCtx); } catch(err) { toast(err.message); }
+  };
   const check = ()=>{
-    const sl = window.getSelection(); const t = sl && sl.rangeCount ? sl.toString().replace(/\s+/g," ").trim() : "";
+    const sl = window.getSelection(); const t = sl && sl.rangeCount ? sl.toString().replace(/[\u0000-\u0008\u000E-\u001F\u007F\uFFFD]/g, "").replace(/\s+/g," ").trim() : "";   // sin caracteres de control (fuentes mal codificadas)
     if (t.length >= 1 && t.length <= 1200 && sl.anchorNode && box.contains(sl.anchorNode)) { rdSel = t; $("#rdBar").hidden = false; refreshBar(); $("#rdSelTxt").textContent = "“" + (t.length > 160 ? t.slice(0,160) + "…" : t) + "”"; }
   };
   box.addEventListener("mouseup", check); box.addEventListener("touchend", ()=>setTimeout(check, 50)); box.addEventListener("keyup", check);
@@ -597,7 +641,8 @@ function renderReview(){
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div class="stack" style="min-width:0;gap:6px">
           <div class="xs muted">💎 Ficha high-yield · pág. ${c.page}</div>
-          <div id="hp${i}">${hyPrevHTML(c)}</div>
+          ${imgTag(c.img)}<div id="hp${i}">${hyPrevHTML(c)}</div>
+          ${marcaHTML(c)}
           <details class="custom"><summary>✏️ Editar esta ficha</summary><div class="stack" style="margin-top:10px;gap:6px">
           <label class="fld">Título<input type="text" data-hf="${i}" data-k="title" value="${esc(c.title)}"></label>
           ${c.thresholds.map((x,j)=>`<div class="erow two"><textarea rows="2" data-hr="${i}:${j}:label" aria-label="Qué es">${esc(x.label)}</textarea><textarea rows="2" data-hr="${i}:${j}:val" aria-label="Dato">${esc(x.val)}</textarea></div>`).join("")}
@@ -613,9 +658,11 @@ function renderReview(){
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div style="min-width:0">
           <div class="xs muted">${qtLabel(c.qtype)} · ${esc(c.specialty)} · ${esc(c.topic)} · pág. ${c.page}</div>
-          <p class="small" style="margin:6px 0">${esc(c.vignette)}</p>
+          ${imgTag(c.img)}<p class="small" style="margin:6px 0">${esc(c.vignette)}</p>
           <ol type="A" class="small" style="margin:0;padding-left:22px">${c.options.map((o,j)=>`<li style="${j===c.correct?"color:var(--ok);font-weight:700":""}">${esc(o)}${j===c.correct?" ✓":""}</li>`).join("")}</ol>
           <p class="xs muted" style="margin:6px 0 0">${esc(c.whyCorrect)}</p>
+          ${marcaHTML(c)}
+          <details class="custom" style="margin-top:6px"><summary>✏️ Editar esta pregunta</summary><div data-qbox="${i}" style="margin-top:10px">${qEditHTML(c, true)}</div></details>
         </div></div>`).join("")}</div>
     <div class="row" style="margin-top:12px"><button class="btn ghost" id="candCancel">Descartar todo</button><div class="spacer"></div><button class="btn primary" id="candSave">Guardar ${on} en el banco</button></div>
   </div>`;
@@ -626,17 +673,27 @@ function renderReview(){
   box.querySelectorAll("[data-cf]").forEach(ta=>ta.oninput=()=>{ cands[+ta.dataset.cf][ta.dataset.k] = ta.value; });
   box.querySelectorAll("[data-hf]").forEach(x=>x.oninput=()=>{ const i = +x.dataset.hf; cands[i][x.dataset.k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[i]); });
   box.querySelectorAll("[data-hr]").forEach(x=>x.oninput=()=>{ const [i,j,k] = x.dataset.hr.split(":"); cands[+i].thresholds[+j][k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[+i]); });
+  box.querySelectorAll("[data-qbox]").forEach(qb=>qb.oninput = qb.onchange = ()=>{ Object.assign(cands[+qb.dataset.qbox], qEditRead(qb)); });
+  box.querySelectorAll("[data-marca-pg]").forEach(b=>b.onclick=()=>openPdf(cur().id, +b.dataset.marcaPg));
   $("#candCancel").onclick = ()=>{ cands = null; renderReview(); };
   $("#candSave").onclick = saveCands;
 }
+function marcaHTML(c){
+  return tieneMarca(c) ? `<div class="note trap xs" style="margin-top:6px">⚠️ Tiene un signo por verificar: en el PDF ese símbolo no se leyó bien. <button class="linkbtn" data-marca-pg="${c.page}">Ver pág. ${c.page}</button> y corrígelo antes de guardar.</div>` : "";
+}
 function saveCands(){
+  const sel = cands.filter(c=>c.on);
+  const malas = sel.filter(c=>c.kind==="q" && qEditError(c));
+  if (malas.length) return toast("Revisa la pregunta editada: " + qEditError(malas[0]));
+  const conMarca = sel.filter(tieneMarca).length;
+  if (conMarca && !confirm(`${conMarca} ${conMarca === 1 ? "ítem todavía dice" : "ítems todavía dicen"} «verificar el signo en el PDF». ¿Guardar igual? Después puedes corregirlos con ✏️ Corregir.`)) return;
   const s = cur(); let nq = 0, nc = 0, nh = 0;
   cands.filter(c=>c.on).forEach(c=>{
     const id = "u" + (++S.seq);
     if (c.kind === "h") {
       const rows = c.thresholds.map(x=>({label:x.label.trim(), val:x.val.trim()})).filter(x=>x.label && x.val);
       if (!c.title.trim() || !rows.length) return;
-      S.userH.push({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), relevance:c.relevance||0, why:c.why||"", ctx:"", src:s.id, page:c.page, ai:true});
+      S.userH.push({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), relevance:c.relevance||0, why:c.why||"", ctx:"", src:s.id, page:c.page, ai:true, img:c.img||undefined});
       nh++;
     } else if (c.kind === "c") {
       if (!c.front.trim() || !c.back.trim()) return;
@@ -644,7 +701,7 @@ function saveCands(){
       nc++;
     } else {
       S.userQ.push({id, qtype:c.qtype||"caso", specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
-        whyCorrect:c.whyCorrect, pearl:c.pearl, trap:c.trap, src:s.id, page:c.page, ai:true});
+        whyCorrect:c.whyCorrect, pearl:c.pearl, trap:c.trap, src:s.id, page:c.page, ai:true, img:c.img||undefined});
       nq++;
     }
   });

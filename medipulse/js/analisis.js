@@ -161,6 +161,7 @@ function renderAnalysis(){
   const est = s.design || detectDesign(info.pages.slice(0, 6).join(" "));
   box.innerHTML = `
     <div class="row"><h3 style="font-size:16px">🧠 Analizar el documento</h3><div class="spacer"></div><span class="tag" title="${s.design ? "Según la IA" : "Estimado por palabras clave"}">${esc(DESIGNS[est] || DESIGNS.OTRO)}${s.design ? "" : " · estimado"}</span></div>
+    ${info.danados ? `<div class="note trap" role="note"><b>⚠️ Este PDF tiene símbolos que no se leyeron bien</b> (por ejemplo «${esc(info.danados.ejemplo)}»). Los signos ≥, ≤, &lt; o &gt; pueden salir cambiados en el análisis y en las fichas: revisa las cifras con signos en la página original.${info.danados.pags.map(pgBtn).join("")}</div>` : ""}
     ${s.kind === "pdf" || !s.kind ? `<button class="btn sm" id="anViewBtn" style="align-self:flex-start">${an.view.on ? "Ocultar la página original" : "📄 Ver la página original aquí"}</button><div id="anView"${an.view.on ? "" : " hidden"}></div>` : ""}
     <div class="stack" style="gap:6px">
       <div class="row"><b class="small">🗺️ Mapa por capítulos</b><div class="spacer"></div>${key ? `<button class="btn ghost sm" id="anMap" ${an.busy?"disabled":""}>${an.busy === "map" ? `<span class="spin"></span> Creando…` : s.chapters && s.chapters.length ? "↻ Rehacer con IA" : "✨ Crear con IA"}</button>` : ""}</div>
@@ -186,6 +187,7 @@ function renderAnalysis(){
   box.querySelectorAll("[data-ak]").forEach(b=>b.onclick=()=>{ an.kind = b.dataset.ak; an.err = ""; renderAnalysis(); });
   $("#anGo") && ($("#anGo").onclick = runAnalysis);
   bindAnResult();
+  box.querySelectorAll(".note.trap [data-pg]").forEach(b=>b.onclick=()=>anJump(+b.dataset.pg));
   if (anIntent && anIntent.id === s.id) { anIntent = null; box.scrollIntoView({behavior: "smooth", block: "start"}); }
 }
 
@@ -259,7 +261,7 @@ async function runAnalysis(){
     // la segunda y la tercera del mismo texto pagan ~5–10 % de la lectura si se hacen en unos minutos.
     const r = await callForTool({system: AN_SHARED_SYSTEM + focusLine(), tools: AN_ALL_TOOLS,
       user: [{type: "text", text: `<documento titulo="${s.title.replace(/"/g, "'")}">\n${sel.text}\n</documento>`, cache_control: {type: "ephemeral"}},
-             {type: "text", text: `Tarea: ${AN_KINDS[kind].name}. Analiza: ${sel.label}. Entrega el resultado llamando a la herramienta ${AN_TOOLS[kind].name}.`}],
+             {type: "text", text: `${docInfo(s.id).danados ? NOTA_SIMBOLOS + "\n" : ""}Tarea: ${AN_KINDS[kind].name}. Analiza: ${sel.label}. Entrega el resultado llamando a la herramienta ${AN_TOOLS[kind].name}.`}],
       label: AN_KINDS[kind].name}, AN_TOOLS[kind].name);
     const data = anClean(kind, r);
     if (kind === "audit" && DESIGNS[data.design] && data.design !== "OTRO") s.design = data.design;

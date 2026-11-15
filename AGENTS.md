@@ -45,6 +45,8 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/mbe.js` | Laboratorio de lectura crítica, destilador y calculadoras |
 | `js/crear-y-compartir.js` | Crear preguntas y fichas a mano, texto pegado y packs JSON |
 | `js/ia-costo.js` | Costo de la IA: nivel (Calidad máxima / Equilibrado / Económico), modelo de cada llamada, estimación antes, costo real después y total del mes. Toda llamada a la API usa `aiParams()` y registra su uso con `aiRecord()` |
+| `js/lector.js` | Lector del PDF real en «Leer y crear»: página con pdf.js y capa de texto seleccionable, ✂️ recortar una zona, 📷 subir captura, imágenes guardadas en IndexedDB (`img:…`) y adjuntas a fichas y preguntas |
+| `js/corregir.js` | Corregir a mano preguntas y fichas: en la revisión antes de guardar y ya guardadas (✏️ Corregir). Lo incluido en la app se corrige en `S.over`; avisa los datos con «verificar el signo en el PDF» |
 | `js/datos.js` | Proteger los datos: copia de seguridad (descargar/cargar/deshacer), recordatorio de copia, aviso de iPhone, alerta si no se pudo guardar, ítems archivados |
 | `js/inicio.js` | Arranque (va siempre al final) |
 | `vendor/` | pdf.js 3.11.174 y `@anthropic-ai/sdk` 1.2.0 (no editar a mano) |
