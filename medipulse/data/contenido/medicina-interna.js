@@ -357,6 +357,294 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c03",
+      "topic": "Neumología · NAC ambulatoria",
+      "difficulty": "Nivel 1",
+      "src": "acin_nac26",
+      "vignette": "Hombre de 42 años, sin comorbilidades ni antibióticos en los últimos 90 días, con 3 días de tos productiva y fiebre. FC 104 lpm, <span class='hy'>FR 22 rpm</span>, PA 124/78 mmHg, <span class='hy'>SatO₂ 95 %</span> al aire ambiente, orientado. Crepitantes basales derechos y consolidación en la radiografía. <span class='hy'>CRB-65: 0</span>. ¿Conducta?",
+      "options": [
+        "Hospitalizar y ceftriaxona intravenosa",
+        "Levofloxacino 750 mg al día por vía oral",
+        "Amoxicilina 1 g cada 8 horas por vía oral, ambulatorio, por 5 días",
+        "Ceftriaxona más claritromicina en sala general"
+      ],
+      "correct": 2,
+      "whyCorrect": "Con CRB-65 de 0 a 1 el riesgo de muerte es bajo y se trata en casa, salvo hipoxemia o intolerancia a la vía oral. Sin factores de riesgo para SAMR ni Pseudomonas, la primera línea es oral: amoxicilina 1 g cada 8 horas (alternativas: claritromicina o doxiciclina). En la NAC no grave la duración es de 5 días en total, según la estabilidad clínica.",
+      "pearl": "La saturación < 90 % es criterio de hospitalización aunque el CURB-65 sea bajo.",
+      "trap": "Elegir una quinolona «por cobertura»: la guía colombiana pide evitarlas en NAC por resistencia y efectos adversos graves.",
+      "cita": [
+        {
+          "donde": "Anexo, Tarjeta 1: CURB-65 y lugar de atención",
+          "texto": "0-1 Bajo (< 1.5%) Ambulatorio (Considerar ingreso si hay hipoxemia o intolerancia oral) 2 Intermedio (9.2%) Hospitalización (Sala General o Estancia Corta) 3-5 Alto (22%) Hospitalización Urgente (Evaluar criterios de UCI)"
+        },
+        {
+          "donde": "Anexo, Tarjeta 1: nota",
+          "texto": "La saturación de oxígeno < 90% es criterio de hospitalización independiente del CURB-65."
+        },
+        {
+          "donde": "Recomendación 11 (fuerte, moderada calidad)",
+          "texto": "Recomendamos el uso de antibióticos orales como amoxicilina 1 g cada 8 horas, claritromicina 500 mg cada 12 horas (existen presentaciones que ofrecen la posibilidad de administrar 1g en una dosis única diaria), doxiciclina 100 mg cada 12 horas en pacientes adultos con diagnóstico de NAC que requieren manejo ambulatorio sin factores de riesgo para SAMR o P. aeruginosa."
+        },
+        {
+          "donde": "Recomendación 17.1 (fuerte, moderada calidad)",
+          "texto": "En pacientes adultos con diagnóstico de NAC no grave, recomendamos una duración de 5 días en total, teniendo en cuenta como criterio para la suspensión del tratamiento la estabilidad clínica."
+        },
+        {
+          "donde": "Punto de buena práctica (pregunta 12)",
+          "texto": "Evitar el uso de quinolonas en pacientes adultos con diagnóstico de NAC, debido a su impacto en la resistencia antimicrobiana y efectos adversos graves."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c04",
+      "topic": "Neumología · NAC hospitalizada",
+      "difficulty": "Nivel 2",
+      "src": "acin_nac26",
+      "vignette": "Mujer de 74 años con hipertensión, 4 días de fiebre y tos, ahora <span class='hy'>confusa</span>. FR 24 rpm, PA 112/70 mmHg, SatO₂ 93 %. Infiltrado en el lóbulo inferior izquierdo. <span class='hy'>CURB-65: 2</span>. Sin hospitalizaciones, antibióticos recientes ni cultivos previos con SAMR o Pseudomonas, y sin criterios de UCI. ¿Tratamiento empírico?",
+      "options": [
+        "Piperacilina-tazobactam más vancomicina",
+        "Ceftriaxona en monoterapia y ajustar según cultivos y pruebas moleculares",
+        "Moxifloxacino intravenoso",
+        "Amoxicilina oral y control en 48 horas en casa"
+      ],
+      "correct": 1,
+      "whyCorrect": "CURB-65 de 2 indica hospitalización en sala general. Sin gravedad y sin factores de riesgo para SAMR o P. aeruginosa, la guía recomienda un betalactámico en monoterapia (ampicilina/sulbactam o ceftriaxona) y ajustar con los resultados microbiológicos. El macrólido se agrega si una prueba molecular identifica un germen atípico o si la evolución es tórpida a las 48–72 horas.",
+      "pearl": "En sala general sin gravedad, el macrólido no va de rutina: se agrega ante evolución tórpida a las 48–72 horas o un atípico identificado.",
+      "trap": "Cubrir SAMR y Pseudomonas «por si acaso»: sin factores de riesgo no se da cobertura empírica para SAMR.",
+      "cita": [
+        {
+          "donde": "Anexo, Tarjeta 1: CURB-65 y lugar de atención",
+          "texto": "0-1 Bajo (< 1.5%) Ambulatorio (Considerar ingreso si hay hipoxemia o intolerancia oral) 2 Intermedio (9.2%) Hospitalización (Sala General o Estancia Corta) 3-5 Alto (22%) Hospitalización Urgente (Evaluar criterios de UCI)"
+        },
+        {
+          "donde": "Recomendación 12.1 (fuerte, moderada calidad)",
+          "texto": "Recomendamos la terapia empírica con un betalactámico como ampicilina/sulbactam o ceftriaxona en monoterapia en pacientes adultos con diagnóstico de NAC que requieren manejo intrahospitalario sin criterios de gravedad y sin factores de riesgo para SAMR o P. aeruginosa"
+        },
+        {
+          "donde": "Punto de buena práctica (pregunta 12)",
+          "texto": "En los pacientes con evolución clínica tórpida a las 48 a 72 horas de iniciado el tratamiento antibiótico se recomienda adicionar terapia empírica con macrólido"
+        },
+        {
+          "donde": "Punto de buena práctica (pregunta 14)",
+          "texto": "No dar cubrimiento de manera empírica para SAMR en pacientes sin factores de riesgo."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c05",
+      "topic": "Neumología · NAC grave",
+      "difficulty": "Nivel 3",
+      "src": "acin_nac26",
+      "vignette": "Hombre de 63 años con NAC: <span class='hy'>FR 34 rpm</span>, <span class='hy'>PaO₂/FiO₂ 220</span>, <span class='hy'>infiltrados multilobares</span>, confusión y BUN 28 mg/dL. PA 100/62 mmHg sin vasopresores. Sin factores de riesgo para SAMR ni Pseudomonas. Ingresa a la UCI. ¿Esquema antibiótico empírico?",
+      "options": [
+        "Ceftriaxona en monoterapia",
+        "Levofloxacino en monoterapia",
+        "Meropenem más vancomicina",
+        "Ceftriaxona (o ampicilina/sulbactam) más claritromicina"
+      ],
+      "correct": 3,
+      "whyCorrect": "Tiene 5 criterios menores de gravedad (FR ≥ 30, PaO₂/FiO₂ ≤ 250, infiltrados multilobares, confusión y BUN ≥ 20): con ≥ 3 menores se indica UCI. En NAC grave sin riesgo de SAMR o Pseudomonas, la guía recomienda un betalactámico más claritromicina, con hemocultivos tomados antes del antibiótico. En NAC grave se sugieren corticosteroides (hidrocortisona 200 mg IV al día por 7 días).",
+      "pearl": "Hidrocortisona en NAC grave: 200 mg IV al día por 7 días; se puede suspender el día 7 sin retiro progresivo.",
+      "trap": "Usar corticoides si la NAC es por influenza: ahí la guía sugiere no usarlos.",
+      "cita": [
+        {
+          "donde": "Anexo, Tarjeta 2: ingreso a UCI (IDSA/ATS modificados)",
+          "texto": "Se recomienda ingreso a UCI si cumple 1 Criterio Mayor o ≥ 3 Criterios Menores."
+        },
+        {
+          "donde": "Anexo, Tarjeta 2: criterios menores",
+          "texto": "Frecuencia respiratoria ≥ 30 rpm PaO2/FiO2 ≤ 250 Infiltrados multilobares Confusión / Desorientación Uremia (BUN ≥ 20 mg/dL)"
+        },
+        {
+          "donde": "Recomendación 13 (fuerte, moderada calidad)",
+          "texto": "Recomendamos la terapia con un betalactámico como ampicilina/sulbactam o ceftriaxona en combinación con claritromicina en adultos con diagnóstico de NAC grave."
+        },
+        {
+          "donde": "Recomendación 5.3 (fuerte, baja calidad)",
+          "texto": "Recomendamos en pacientes con diagnóstico de NAC grave tomar hemocultivos previos al inicio de antibióticos."
+        },
+        {
+          "donde": "Recomendación 18.2 (débil, moderada calidad)",
+          "texto": "En pacientes adultos con diagnóstico de NAC grave sugerimos la utilización de corticosteroides."
+        },
+        {
+          "donde": "Punto de buena práctica (pregunta 18)",
+          "texto": "En pacientes adultos con diagnóstico de NAC grave puede utilizarse hidrocortisona 200 mg intravenosos al día por un lapso de siete días."
+        },
+        {
+          "donde": "Recomendación 18.4 (débil, baja calidad)",
+          "texto": "Sugerimos la no utilización de corticosteroides en pacientes adultos con diagnóstico de NAC por influenza."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c06",
+      "topic": "Neumología · NAC e influenza",
+      "difficulty": "Nivel 2",
+      "src": "acin_nac26",
+      "vignette": "Mujer de 58 años hospitalizada por NAC no grave, con ceftriaxona. Lleva <span class='hy'>5 días de síntomas</span> y la PCR para <span class='hy'>influenza A es positiva</span>. Está estable. ¿Qué conducta agregas?",
+      "options": [
+        "Iniciar oseltamivir aunque hayan pasado más de 48 horas de síntomas",
+        "No dar antiviral: ya pasó la ventana de 48 horas",
+        "Suspender la ceftriaxona porque la causa es viral",
+        "Agregar metilprednisolona para reducir la inflamación"
+      ],
+      "correct": 0,
+      "whyCorrect": "En NAC con influenza confirmada, la guía recomienda antiviral (oseltamivir) independientemente del tiempo de evolución. En el paciente hospitalizado con virus positivo se mantienen los antibióticos empíricos por la alta probabilidad de coinfección bacteriana.",
+      "pearl": "En NAC por influenza no se sugieren corticosteroides.",
+      "trap": "Aplicar la «regla de las 48 horas» y no dar oseltamivir en la neumonía con influenza.",
+      "cita": [
+        {
+          "donde": "Recomendación 20 (fuerte, moderada calidad)",
+          "texto": "Recomendamos iniciar tratamiento antiviral, como oseltamivir, en pacientes adultos con diagnóstico de NAC con prueba positiva para influenza, independientemente del tiempo de evolución."
+        },
+        {
+          "donde": "Recomendación 21.3 (débil, muy baja calidad)",
+          "texto": "Sugerimos prescribir antibióticos empíricos en adultos hospitalizados con diagnóstico de NAC grave y no grave, y prueba positiva para virus respiratorio (excepto COVID-19), ante la alta probabilidad de coinfección bacteriana-viral."
+        },
+        {
+          "donde": "Recomendación 18.4 (débil, baja calidad)",
+          "texto": "Sugerimos la no utilización de corticosteroides en pacientes adultos con diagnóstico de NAC por influenza."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c07",
+      "qtype": "directa",
+      "topic": "Neumología · NAC: duración del antibiótico",
+      "difficulty": "Nivel 1",
+      "src": "acin_nac26",
+      "vignette": "Según la guía colombiana de NAC 2026, ¿cuánto debe durar el antibiótico en un adulto con NAC no grave que mejora y está clínicamente estable?",
+      "options": [
+        "3 días",
+        "7 días",
+        "10 días",
+        "5 días en total"
+      ],
+      "correct": 3,
+      "whyCorrect": "En NAC no grave se recomiendan 5 días en total, con la estabilidad clínica como criterio para suspender. En la NAC grave, la duración depende de la evolución, la microbiología y los biomarcadores.",
+      "pearl": "La procalcitonina sola no decide el inicio del antibiótico, pero con la evolución clínica ayuda a acortarlo.",
+      "trap": "Completar 7 a 10 días «por costumbre» en un paciente estable.",
+      "cita": [
+        {
+          "donde": "Recomendación 17.1 (fuerte, moderada calidad)",
+          "texto": "En pacientes adultos con diagnóstico de NAC no grave, recomendamos una duración de 5 días en total, teniendo en cuenta como criterio para la suspensión del tratamiento la estabilidad clínica."
+        },
+        {
+          "donde": "Recomendaciones 9.1 y 9.2",
+          "texto": "Recomendamos no usar procalcitonina sérica como criterio aislado para decidir el inicio de antibióticos en pacientes adultos con diagnóstico de NAC. · Sugerimos usar procalcitonina y la evolución clínica para reducir la duración del tratamiento antibiótico en pacientes adultos con diagnóstico de NAC."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c08",
+      "qtype": "directa",
+      "topic": "Neumología · NAC con derrame",
+      "difficulty": "Nivel 2",
+      "src": "acin_nac26",
+      "vignette": "En un adulto con NAC y derrame pleural, ¿a partir de qué tamaño en imágenes se sugiere toracocentesis diagnóstica temprana?",
+      "options": [
+        "≥ 5 mm",
+        "≥ 10 mm",
+        "≥ 20 mm",
+        "Solo si ocupa más de un tercio del hemitórax"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con derrame moderado o grande (≥ 10 mm en imágenes) se sugiere toracocentesis diagnóstica temprana para clasificarlo en no complicado o complicado/empiema y decidir el drenaje a tiempo.",
+      "pearl": "La TC de tórax no se usa de rutina para confirmar la NAC; se reserva para casos con radiografía negativa o dudosa y alta sospecha.",
+      "trap": "Esperar a que el derrame crezca o a que falle el antibiótico para puncionar.",
+      "cita": [
+        {
+          "donde": "Recomendación 8 (débil, baja calidad)",
+          "texto": "Sugerimos realizar toracocentesis diagnostica temprana en pacientes adultos con diagnóstico de NAC con derrame moderado/grande ≥10 mm en imágenes con el fin de clasificar el derrame en no complicado vs. complicado/empiema y decidir drenaje oportuno."
+        },
+        {
+          "donde": "Recomendación 3.1 (fuerte, moderada calidad)",
+          "texto": "Recomendamos no usar la tomografía computarizada de tórax de rutina para confirmar el diagnóstico de NAC."
+        },
+        {
+          "donde": "Recomendación 3.2 (débil, baja calidad)",
+          "texto": "Sugerimos reservar el uso de la TC para situaciones específicas, cuando la radiografía es negativa o equívoca, pero persiste una alta sospecha clínica de NAC"
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c09",
+      "qtype": "critica",
+      "topic": "Nefrología · Lectura crítica: CONFIDENCE",
+      "difficulty": "Nivel 3",
+      "src": "confidence",
+      "vignette": "El ensayo CONFIDENCE aleatorizó (1:1:1) a adultos con ERC, albuminuria y diabetes tipo 2, ya con IECA o ARA II, a finerenona, empagliflozina o ambas. El desenlace primario fue el <span class='hy'>cambio de la relación albúmina/creatinina urinaria a 180 días</span>. La combinación la redujo 29 % más que la finerenona y 32 % más que la empagliflozina (p menor de 0,001). ¿Cuál es la principal limitación para la práctica?",
+      "options": [
+        "No fue aleatorizado",
+        "El resultado no fue estadísticamente significativo",
+        "No tuvo un grupo de comparación activo",
+        "Usa un desenlace sustituto y un seguimiento corto: no demuestra menos falla renal ni menos eventos cardiovasculares"
+      ],
+      "correct": 3,
+      "whyCorrect": "Fue aleatorizado, doble ciego y con comparadores activos, y el resultado fue significativo. Pero la albuminuria es un desenlace sustituto, y los autores reconocen que el seguimiento no alcanzó para medir eventos cardiovasculares ni progresión clínica de la enfermedad renal.",
+      "pearl": "Un desenlace sustituto (albuminuria) sugiere beneficio; un desenlace clínico (diálisis, muerte, eventos CV) lo demuestra.",
+      "trap": "Leer «29 % menos albuminuria» como «29 % menos pacientes en diálisis».",
+      "cita": [
+        {
+          "donde": "Resumen, métodos",
+          "texto": "We randomly assigned participants with chronic kidney disease (estimated glomerular filtration rate [eGFR], 30 to 90 ml per minute per 1.73 m2 of body-surface area), albuminuria (a urinary albumin-to-creatinine ratio of 100 to ≤5000 [with albumin measured in milligrams and creatinine measured in grams]), and type 2 diabetes, who were already taking a renin–angiotensin system inhibitor, in a 1:1:1 ratio"
+        },
+        {
+          "donde": "Métodos, diseño",
+          "texto": "was a double-blind, randomized, active-controlled trial of finerenone alone, empagliflozin alone, or the combination of the two therapies"
+        },
+        {
+          "donde": "Resumen, métodos",
+          "texto": "The primary outcome was the relative change in the log-transformed mean urinary albumin-to-creatinine ratio from baseline to 180 days."
+        },
+        {
+          "donde": "Resumen, resultados",
+          "texto": "At day 180, the reduction in the urinary albumin-to-creatinine ratio with combination therapy was 29% greater than that with finerenone alone (least-squares mean ratio of the difference in the change from baseline, 0.71; 95% confidence interval [CI], 0.61 to 0.82; P<0.001) and 32% greater than that with empagliflozin alone (least-squares mean ratio of the difference in the change from baseline, 0.68; 95% CI, 0.59 to 0.79; P<0.001)."
+        },
+        {
+          "donde": "Discusión, limitaciones",
+          "texto": "The trial used a surrogate end point, and we did not follow the participants long enough to adequately measure differences among groups in cardiovascular outcomes or clinical kidney disease progression."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c10",
+      "qtype": "critica",
+      "topic": "Nefrología · Lectura crítica: interpretar el resultado",
+      "difficulty": "Nivel 3",
+      "src": "confidence",
+      "vignette": "En CONFIDENCE, la combinación de finerenona y empagliflozina frente a finerenona sola tuvo una <span class='hy'>razón de 0,71 (IC 95 % 0,61 a 0,82)</span> en el cambio de la relación albúmina/creatinina urinaria a 180 días. ¿Cómo se interpreta?",
+      "options": [
+        "La combinación redujo la albuminuria 29 % más que la finerenona sola, y el intervalo no incluye 1, así que es significativo",
+        "La combinación redujo un 29 % la progresión a diálisis",
+        "El intervalo incluye 0, así que la diferencia no es significativa",
+        "La combinación redujo la albuminuria en 0,71 mg/g en términos absolutos"
+      ],
+      "correct": 0,
+      "whyCorrect": "Una razón de 0,71 significa que el cambio con la combinación fue 29 % mayor (1 − 0,71). En una razón, el valor nulo es 1: como el IC 95 % (0,61 a 0,82) no incluye 1, la diferencia es estadísticamente significativa. Es un desenlace sustituto, no de diálisis.",
+      "pearl": "En razones (RR, OR, HR, razón de medias) el valor nulo es 1; en diferencias, es 0.",
+      "trap": "Buscar el 0 en el intervalo de una razón, o leer la razón como una diferencia absoluta.",
+      "cita": [
+        {
+          "donde": "Resumen, métodos",
+          "texto": "The primary outcome was the relative change in the log-transformed mean urinary albumin-to-creatinine ratio from baseline to 180 days."
+        },
+        {
+          "donde": "Resumen, resultados",
+          "texto": "At day 180, the reduction in the urinary albumin-to-creatinine ratio with combination therapy was 29% greater than that with finerenone alone (least-squares mean ratio of the difference in the change from baseline, 0.71; 95% confidence interval [CI], 0.61 to 0.82; P<0.001) and 32% greater than that with empagliflozin alone (least-squares mean ratio of the difference in the change from baseline, 0.68; 95% CI, 0.59 to 0.79; P<0.001)."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
   ],
   "fichas": [
@@ -559,6 +847,189 @@ MP_CONTENIDO.agregar({
         {
           "donde": "IC descompensada: diagnóstico",
           "texto": "NT-pro-BNP >5000 pg/mL indicates very high risk, and admission is generally recommended."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-f02",
+      "title": "NAC: dónde tratarla (Colombia 2026)",
+      "badge": "Guía ACIN 2026",
+      "src": "acin_nac26",
+      "thresholds": [
+        {
+          "label": "CURB-65 0–1",
+          "val": "Riesgo bajo (< 1,5 %): ambulatorio"
+        },
+        {
+          "label": "CURB-65 2",
+          "val": "Riesgo intermedio (9,2 %): hospitalización en sala"
+        },
+        {
+          "label": "CURB-65 3–5",
+          "val": "Riesgo alto (22 %): hospitalización urgente, evaluar UCI"
+        },
+        {
+          "label": "SatO₂ < 90 %",
+          "val": "Hospitalizar aunque el CURB-65 sea bajo"
+        },
+        {
+          "label": "Ingreso a UCI",
+          "val": "1 criterio mayor o ≥ 3 menores (IDSA/ATS)"
+        }
+      ],
+      "redFlag": "Hipotensión con vasopresores o insuficiencia respiratoria con ventilación mecánica: ingreso directo a UCI.",
+      "trap": "Decidir solo con el puntaje: el juicio clínico prevalece sobre la escala.",
+      "cita": [
+        {
+          "donde": "Anexo, Tarjeta 1: CURB-65 y lugar de atención",
+          "texto": "0-1 Bajo (< 1.5%) Ambulatorio (Considerar ingreso si hay hipoxemia o intolerancia oral) 2 Intermedio (9.2%) Hospitalización (Sala General o Estancia Corta) 3-5 Alto (22%) Hospitalización Urgente (Evaluar criterios de UCI)"
+        },
+        {
+          "donde": "Anexo, Tarjeta 1: nota",
+          "texto": "La saturación de oxígeno < 90% es criterio de hospitalización independiente del CURB-65."
+        },
+        {
+          "donde": "Anexo, Tarjeta 1: nota",
+          "texto": "Nota: el juicio clínico prevalece sobre la escala."
+        },
+        {
+          "donde": "Anexo, Tarjeta 2: ingreso a UCI (IDSA/ATS modificados)",
+          "texto": "Se recomienda ingreso a UCI si cumple 1 Criterio Mayor o ≥ 3 Criterios Menores."
+        },
+        {
+          "donde": "Recomendación 10.2 (fuerte, moderada calidad)",
+          "texto": "Recomendamos admisión directa a UCI en pacientes con hipotensión que requiere vasopresores o insuficiencia respiratoria que requiere ventilación mecánica."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-f03",
+      "title": "NAC: antibiótico empírico (Colombia 2026)",
+      "badge": "Guía ACIN 2026",
+      "src": "acin_nac26",
+      "thresholds": [
+        {
+          "label": "Ambulatoria",
+          "val": "Amoxicilina 1 g c/8 h VO (o claritromicina, o doxiciclina)"
+        },
+        {
+          "label": "Hospitalizada no grave",
+          "val": "Ampicilina/sulbactam o ceftriaxona en monoterapia"
+        },
+        {
+          "label": "Grave",
+          "val": "Betalactámico + claritromicina"
+        },
+        {
+          "label": "Riesgo de SAMR",
+          "val": "Vancomicina o linezolid; confirmar con cultivo o PCR"
+        },
+        {
+          "label": "Riesgo de P. aeruginosa",
+          "val": "Cefepime o piperacilina-tazobactam"
+        },
+        {
+          "label": "Duración (no grave)",
+          "val": "5 días en total, según estabilidad clínica"
+        }
+      ],
+      "redFlag": "Evolución tórpida a las 48–72 horas en sala: agregar un macrólido.",
+      "trap": "Quinolonas en NAC: la guía pide evitarlas por resistencia y efectos adversos graves.",
+      "cita": [
+        {
+          "donde": "Recomendación 11 (fuerte, moderada calidad)",
+          "texto": "Recomendamos el uso de antibióticos orales como amoxicilina 1 g cada 8 horas, claritromicina 500 mg cada 12 horas (existen presentaciones que ofrecen la posibilidad de administrar 1g en una dosis única diaria), doxiciclina 100 mg cada 12 horas en pacientes adultos con diagnóstico de NAC que requieren manejo ambulatorio sin factores de riesgo para SAMR o P. aeruginosa."
+        },
+        {
+          "donde": "Recomendación 12.1 (fuerte, moderada calidad)",
+          "texto": "Recomendamos la terapia empírica con un betalactámico como ampicilina/sulbactam o ceftriaxona en monoterapia en pacientes adultos con diagnóstico de NAC que requieren manejo intrahospitalario sin criterios de gravedad y sin factores de riesgo para SAMR o P. aeruginosa"
+        },
+        {
+          "donde": "Recomendación 13 (fuerte, moderada calidad)",
+          "texto": "Recomendamos la terapia con un betalactámico como ampicilina/sulbactam o ceftriaxona en combinación con claritromicina en adultos con diagnóstico de NAC grave."
+        },
+        {
+          "donde": "Recomendaciones 14.2 y 14.4 (fuertes, baja calidad)",
+          "texto": "Recomendamos iniciar tratamiento con vancomicina o linezolid, según disponibilidad y perfil clínico, realizar cultivo o PCR para confirmar o descartar la necesidad de continuar la terapia. · Recomendamos iniciar tratamiento con cefepime o piperacilina-tazobactam, según disponibilidad y perfil clínico, realizar cultivo o PCR para confirmar o descartar la necesidad de continuar la terapia."
+        },
+        {
+          "donde": "Recomendación 17.1 (fuerte, moderada calidad)",
+          "texto": "En pacientes adultos con diagnóstico de NAC no grave, recomendamos una duración de 5 días en total, teniendo en cuenta como criterio para la suspensión del tratamiento la estabilidad clínica."
+        },
+        {
+          "donde": "Punto de buena práctica (pregunta 12)",
+          "texto": "En los pacientes con evolución clínica tórpida a las 48 a 72 horas de iniciado el tratamiento antibiótico se recomienda adicionar terapia empírica con macrólido"
+        },
+        {
+          "donde": "Punto de buena práctica (pregunta 12)",
+          "texto": "Evitar el uso de quinolonas en pacientes adultos con diagnóstico de NAC, debido a su impacto en la resistencia antimicrobiana y efectos adversos graves."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-f04",
+      "title": "CONFIDENCE: finerenona + empagliflozina en ERC con DM2",
+      "badge": "Ensayo NEJM 2025",
+      "src": "confidence",
+      "thresholds": [
+        {
+          "label": "Población",
+          "val": "ERC (TFGe 30–90) con albuminuria y DM2, ya con IECA o ARA II"
+        },
+        {
+          "label": "Diseño",
+          "val": "Aleatorizado 1:1:1, doble ciego, comparador activo"
+        },
+        {
+          "label": "Desenlace primario",
+          "val": "Cambio de la albúmina/creatinina urinaria a 180 días (sustituto)"
+        },
+        {
+          "label": "Combinación vs finerenona",
+          "val": "29 % más reducción (razón 0,71; IC 95 % 0,61–0,82)"
+        },
+        {
+          "label": "Combinación vs empagliflozina",
+          "val": "32 % más reducción (razón 0,68; IC 95 % 0,59–0,79)"
+        },
+        {
+          "label": "Seguridad",
+          "val": "Poco frecuentes: hipotensión, lesión renal aguda e hiperpotasemia que obligaran a suspender"
+        }
+      ],
+      "redFlag": "La caída temprana de la TFGe fue mayor con la combinación, pero en su mayoría reversible al suspender.",
+      "trap": "Es un desenlace sustituto a 6 meses: no demuestra menos diálisis ni menos eventos cardiovasculares.",
+      "cita": [
+        {
+          "donde": "Resumen, métodos",
+          "texto": "We randomly assigned participants with chronic kidney disease (estimated glomerular filtration rate [eGFR], 30 to 90 ml per minute per 1.73 m2 of body-surface area), albuminuria (a urinary albumin-to-creatinine ratio of 100 to ≤5000 [with albumin measured in milligrams and creatinine measured in grams]), and type 2 diabetes, who were already taking a renin–angiotensin system inhibitor, in a 1:1:1 ratio"
+        },
+        {
+          "donde": "Métodos, diseño",
+          "texto": "was a double-blind, randomized, active-controlled trial of finerenone alone, empagliflozin alone, or the combination of the two therapies"
+        },
+        {
+          "donde": "Resumen, métodos",
+          "texto": "The primary outcome was the relative change in the log-transformed mean urinary albumin-to-creatinine ratio from baseline to 180 days."
+        },
+        {
+          "donde": "Resumen, resultados",
+          "texto": "At day 180, the reduction in the urinary albumin-to-creatinine ratio with combination therapy was 29% greater than that with finerenone alone (least-squares mean ratio of the difference in the change from baseline, 0.71; 95% confidence interval [CI], 0.61 to 0.82; P<0.001) and 32% greater than that with empagliflozin alone (least-squares mean ratio of the difference in the change from baseline, 0.68; 95% CI, 0.59 to 0.79; P<0.001)."
+        },
+        {
+          "donde": "Resumen, resultados",
+          "texto": "Symptomatic hypotension, acute kidney injury, and hyperkalemia leading to drug discontinuation were uncommon."
+        },
+        {
+          "donde": "Resultados, seguridad",
+          "texto": "Most of the early decline in the eGFR was reversible with drug discontinuation at 180 days."
+        },
+        {
+          "donde": "Discusión, limitaciones",
+          "texto": "The trial used a surrogate end point, and we did not follow the participants long enough to adequately measure differences among groups in cardiovascular outcomes or clinical kidney disease progression."
         }
       ],
       "verificado": "2026-11-15"

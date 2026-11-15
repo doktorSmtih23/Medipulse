@@ -57,10 +57,10 @@ test("en una especialidad verificada, todo lo visible trae su cita textual y la 
   expect(mal).toEqual([]);
 });
 
-test("la demostración de Medicina Interna es corta (máximo 8 casos y 5 fichas)", () => {
+test("la demostración de Medicina Interna es acotada (máximo 16 casos y 8 fichas)", () => {
   const mi = tipo => visibles(tipo).filter(x => x._esp === "Medicina Interna").length;
-  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(8);
-  expect(mi("fichas")).toBeLessThanOrEqual(5);
+  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(16);
+  expect(mi("fichas")).toBeLessThanOrEqual(8);
 });
 
 test("ningún id histórico desapareció (protege el progreso de los usuarios)", () => {

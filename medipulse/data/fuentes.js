@@ -30,6 +30,8 @@ const SOURCES = [
   {id:"eu_hna",   t:"Clinical practice guideline on diagnosis and treatment of hyponatraemia (ESE/ESICM/ERA-EDTA)", r:"European Journal of Endocrinology, 2014", y:2014, k:"guideline", v:"Antigua, pero sigue siendo la guía europea de referencia"},
   {id:"aha_rcp",  t:"2025 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care", r:"Circulation, 2025", y:2025, k:"guideline"},
   {id:"goldf",    t:"Goldfrank's Toxicologic Emergencies, 12ª edición", r:"McGraw-Hill", y:2024, k:"book"},
+  {id:"acin_nac26", t:"Guía de práctica clínica para el diagnóstico y tratamiento de la neumonía adquirida en la comunidad (Asociación Colombiana de Infectología)", r:"Infectio, 2026", y:2026, k:"guideline"},
+  {id:"confidence", t:"Finerenone with Empagliflozin in Chronic Kidney Disease and Type 2 Diabetes (ensayo CONFIDENCE, Agarwal R et al.)", r:"N Engl J Med, 2025", y:2025, k:"article"},
   {id:"nice_nm",  t:"NICE guideline NG250: Pneumonia: diagnosis and management", r:"NICE, 2025", y:2025, k:"guideline", u:"https://www.nice.org.uk/guidance/ng250"},
   {id:"nice_fa",  t:"NICE guideline NG196: Atrial fibrillation: diagnosis and management", r:"NICE, 2021 · actualizada", y:2021, k:"guideline", u:"https://www.nice.org.uk/guidance/ng196"},
   {id:"esc_ic26", t:"2026 ESC Guidelines for the management of heart failure", r:"European Heart Journal, 2026", y:2026, k:"guideline"},
