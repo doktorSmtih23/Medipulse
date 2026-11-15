@@ -23,6 +23,10 @@ function renderBanco(){
       ${due?`<button class="btn block" id="prDue">Solo los pendientes de repaso (${due})</button>`:""}
       <button class="btn ghost block" data-go="new">➕ Crear pregunta o ficha high-yield</button>
     </div>`;
+  // El banco incluido es una demostración: cuando se acaba, se dice y se sugiere qué hacer.
+  if (base.length && !nNew && qSt !== "fail") $("#qInfo").insertAdjacentHTML("beforeend", `<div class="note" style="margin-top:12px" id="qDone"><b>Ya respondiste los ${base.length} casos${qSpec ? ` de ${esc(qSpec)}` : ""}.</b> Lo incluido en MediPulse es una muestra del método; para seguir:
+    <div class="row" style="margin-top:8px;gap:6px">${nFail ? `<button class="btn sm primary" data-qs2="fail">❌ Repasar mis fallos (${nFail})</button>` : ""}<button class="btn sm" data-go="lib">📚 Crear desde tus PDF</button><button class="btn sm" data-go="apuntes">📓 Desde tus apuntes</button></div></div>`);
+  document.querySelectorAll("[data-qs2]").forEach(b=>b.onclick=()=>{ qSt = b.dataset.qs2; renderBanco(); });
   $("#pr10").onclick=()=>startSession({label:qSpec||"Práctica mixta",tag:"norm",stages:[{name:(qSpec||"Todas las especialidades")+(qSt==="fail"?" · mis fallos":qSt==="new"?" · sin responder":""),items: qSt==="all" ? pickQuestions(10,{spec:qSpec}) : shuffle(pool).slice(0,10).map(q=>({t:"q",id:q.id}))}]});
   $("#prDue") && ($("#prDue").onclick=()=>startSession({label:"Repaso",tag:"norm",stages:[{name:"Pendientes",items:pool.filter(q=>isDue("q"+q.id)).map(q=>({t:"q",id:q.id}))}]}));
 }

@@ -12,7 +12,10 @@ async function loadSDK(){
     catch(e2) { throw uerr("No se pudo cargar el módulo de IA. Revisa tu conexión y recarga la página.", e2); }
   }
 }
+const SIN_SALDO = /credit balance|insufficient (?:credit|funds)|billing|payment required/i;
 function apiErr(A, e){
+  const raw = (e && (e.error?.error?.message || e.message)) || "";
+  if (SIN_SALDO.test(raw) || (e && e.status === 402)) return uerr("Tu cuenta de Anthropic no tiene saldo. Recarga créditos en console.anthropic.com → Billing y vuelve a intentarlo; lo que tenías hecho en la app no se pierde.", e);
   if (e instanceof A.AuthenticationError) return uerr("La clave de API no es válida. Revísala en Fuentes.", e);
   if (e instanceof A.PermissionDeniedError) return uerr("Tu clave no tiene permiso para esta función o este modelo.", e);
   if (e instanceof A.RateLimitError) return uerr("Llegaste al límite de uso de la API. Espera un minuto e inténtalo de nuevo.", e);

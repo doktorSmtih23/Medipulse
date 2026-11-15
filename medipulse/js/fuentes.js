@@ -31,7 +31,7 @@ function srcLine(item){
   const marca = typeof tieneMarca === "function" && tieneMarca(item) ? warn("Este ítem tiene un signo por verificar en el PDF. Compáralo con la página y corrígelo con ✏️ Corregir.") : "";
   if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${upd}${s.u?` · <a href="${esc(s.u)}" target="_blank" rel="noopener">abrir la guía</a>`:s.k!=="book"?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>` + citaHtml(item)
     + (st==="outdated" && !item.updated ? warn("Hay una versión más nueva de esta fuente; este dato podría haber cambiado. Revísalo en Fuentes → Vigencia.") : "") + marca;
-  const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : "";
+  const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : item.pack ? " · de un pack compartido, no revisado por MediPulse: verifícalo" : "";
   const pdf = s.kind==="pdf", where = item.page ? (s.apunte ? ` · punto ${item.page}` : s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";
   return `<div class="srcline">${pdf?"📄":s.kind==="pack"?"📦":s.apunte?"📓":"📋"} <span>${esc(s.t)}${where}${how}${upd}${pdf?` · <button class="linkbtn" onclick="openPdf('${s.id}',${item.page||1})">abrir PDF</button>`:""}</span></div>`
     + (item.stale ? warn("Viene de la versión anterior de este PDF.") : st==="outdated" ? warn("Hay una versión más nueva de este documento.") : "") + marca;

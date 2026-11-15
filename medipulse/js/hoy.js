@@ -40,8 +40,10 @@ function renderDirected(){
   $("#directCard").innerHTML = `<h3 style="font-size:16px">🧭 ¿Qué estudiar hoy?</h3>
     <p class="xs muted" style="margin:4px 0 8px">Primero lo que no has explorado y lo que más fallas.</p>
     ${top.map(s=>{ const x = st[s], pct = x.n >= 3 ? Math.round(x.ok/x.n*100) : null;
-      return `<div class="row" style="margin-top:6px;gap:8px"><span class="dot" style="background:${SPEC_COLOR[s]}"></span><div style="flex:1;min-width:0"><b class="small">${esc(s)}</b><div class="xs muted">${pct===null ? `sin explorar · ${x.seen} de ${x.total} casos vistos` : `${pct} % de aciertos`}</div></div><button class="btn sm" data-dspec="${esc(s)}">5 casos</button></div>`; }).join("")}
+      const todo = x.total && x.seen >= x.total;   // ya vio todos los casos de esa área
+      return `<div class="row" style="margin-top:6px;gap:8px"><span class="dot" style="background:${SPEC_COLOR[s]}"></span><div style="flex:1;min-width:0"><b class="small">${esc(s)}</b><div class="xs muted">${pct===null ? `sin explorar · ${x.seen} de ${x.total} casos vistos` : `${pct} % de aciertos`}${todo ? ` · ya viste los ${x.total} casos` : ""}</div></div>${todo ? `<button class="btn sm" data-dbank="${esc(s)}">Ver opciones</button>` : `<button class="btn sm" data-dspec="${esc(s)}">5 casos</button>`}</div>`; }).join("")}
     ${nFocus ? `<button class="btn block" id="doFocus" style="margin-top:10px">${esc(f.t)}: ${Math.min(5, nFocus)} preguntas de tu enfoque</button>` : ""}`;
+  document.querySelectorAll("[data-dbank]").forEach(b=>b.onclick=()=>{ qSpec = b.dataset.dbank; qSt = "all"; go("banco"); });
   document.querySelectorAll("[data-dspec]").forEach(b=>b.onclick=()=>startSession({label:"Estudio dirigido",tag:"norm",stages:[{name:b.dataset.dspec,items:pickQuestions(5,{spec:b.dataset.dspec})}]}));
   $("#doFocus") && ($("#doFocus").onclick = ()=>{
     const items = shuffle(QUESTIONS.filter(q=>qKind(q)===f.k)).sort((a,b)=>(isDue("q"+b.id)-isDue("q"+a.id)) || (!S.srs["q"+b.id]) - (!S.srs["q"+a.id])).slice(0,5).map(q=>({t:"q",id:q.id}));
