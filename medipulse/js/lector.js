@@ -103,8 +103,9 @@ function showCapture(box, dataUrl, ctx){
     <div class="row"><b class="small">🖼️ Imagen${ctx.page ? ` · pág. ${ctx.page}` : ""}</b><div class="spacer"></div><button class="btn ghost sm" data-cap-x>✕</button></div>
     <img class="itimg" src="${dataUrl}" alt="Zona elegida">
     <div class="row" style="gap:6px"><button class="btn sm" data-cap-hy>💎 Ficha a mano con esta imagen</button>
-      ${getKey() ? `<button class="btn primary sm" data-cap-ai>✨ Preguntas y ficha con IA</button>` : ""}</div>
-    ${getKey() ? `<p class="xs muted" style="margin:0">Con IA: ${aiEstimateLine(0, {outTokens: 3500})} (la imagen cuenta como ~1.600 tokens). Útil para algoritmos, tablas y gráficas.</p>` : ""}
+      <button class="btn primary sm" data-cap-ai>✨ Preguntas y ficha con IA</button></div>
+    <p class="xs muted" style="margin:0">${getKey() ? `Con IA: ${aiEstimateLine(0, {outTokens: 3500})} (la imagen cuenta como ~1.600 tokens). Útil para algoritmos, tablas y gráficas.`
+      : `Con IA, la app arma una ficha y preguntas sobre lo que muestra la imagen. Requiere tu clave de IA, que se guarda en Fuentes.`}</p>
     <div data-cap-out></div></div>`;
   box.scrollIntoView({behavior: "smooth", block: "nearest"});
   box.querySelector("[data-cap-x]").onclick = () => { box.innerHTML = ""; };
@@ -115,6 +116,7 @@ function showCapture(box, dataUrl, ctx){
   };
   const ai = box.querySelector("[data-cap-ai]");
   ai && (ai.onclick = async () => {
+    if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); go("lib"); const k = $("#keyIn"); k && (k.scrollIntoView({behavior: "smooth", block: "center"}), k.focus({preventScroll: true})); return; }
     if (genBusy) return; genBusy = true; ai.disabled = true; ai.innerHTML = `<span class="spin"></span> Analizando la imagen…`;
     try {
       const key = await imgPut(dataUrl);

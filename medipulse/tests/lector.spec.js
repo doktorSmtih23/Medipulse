@@ -67,3 +67,13 @@ test("subir una captura y pedir preguntas a la IA: envía la imagen y la pregunt
   await page.click("#candSave");
   expect(await page.evaluate(() => S.userQ[0].img)).toMatch(/^img:/);
 });
+
+test("sin clave de IA el botón de la IA también aparece y lleva a guardar la clave", async ({ page }) => {
+  await page.evaluate(() => { setKey(""); });
+  await page.setInputFiles("#rdImg", {name: "captura.png", mimeType: "image/png", buffer: PNG});
+  await expect(page.locator("[data-cap-ai]")).toBeVisible();
+  await expect(page.locator("#rdCap")).toContainText("Requiere tu clave");
+  await page.click("[data-cap-ai]");
+  await expect(page.locator("#keyIn")).toBeVisible();
+  expect(peticiones.length).toBe(0);
+});
