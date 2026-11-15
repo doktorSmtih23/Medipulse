@@ -147,3 +147,10 @@ test("detecta signos dañados en el texto del PDF, avisa y pide a la IA no adivi
   await expect.poll(() => peticiones.length).toBe(antes + 1);
   expect(peticiones.at(-1).messages[0].content.at(-1).text).toContain("No adivines el signo");
 });
+
+test("con un texto largo avisa que tarda y que no hay que bloquear la pantalla", async ({ page }) => {
+  await expect(page.locator("#genCard")).not.toContainText("Texto largo");
+  await page.evaluate(() => { docInfo(cur().id).pages[1] += " x".repeat(30000); renderGen(); });
+  await expect(page.locator("#genCard")).toContainText("Texto largo");
+  await expect(page.locator("#genCard")).toContainText("no bloquees la pantalla");
+});

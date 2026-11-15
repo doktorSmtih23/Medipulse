@@ -56,6 +56,13 @@ function aiRecord(level, usage, label){
   toast(`${label}: ≈ US$${fmtUsd(c)}${w ? ` + ${w} búsqueda${w > 1 ? "s" : ""} web (se cobran aparte)` : ""}`);
   return c;
 }
+// Mantiene la pantalla encendida mientras la IA responde: si el celular se bloquea, el navegador
+// puede cortar la conexión y se pierde el resultado (y lo que costó). Si el navegador no lo permite, no pasa nada.
+async function pantallaEncendida(){
+  let lock = null;
+  try { if (navigator.wakeLock) lock = await navigator.wakeLock.request("screen"); } catch(e) {}
+  return () => { try { lock && lock.release(); } catch(e) {} };
+}
 function aiSpendMonth(){ return (S.aiSpend || {})[todayKey().slice(0, 7)] || 0; }
 
 // Selector de nivel (en Fuentes, junto a la clave).

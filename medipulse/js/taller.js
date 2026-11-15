@@ -4,7 +4,8 @@
 // ===================================================================
 // TALLER DE PREGUNTAS: leer y crear · IA a medida · sugerencias
 // ===================================================================
-const MAX_AI_CHARS = 350000;
+const MAX_AI_CHARS = 150000;
+const TEXTO_LARGO = 50000;   // desde aquí se avisa que con IA tarda y no hay que bloquear la pantalla
 const STOP = new Set(("a al ante bajo con contra de del desde durante e el en entre hacia hasta la las le les lo los mediante para por que se según sin sobre su sus tras un una unas unos y o u ni es son fue fueron ser está están como más menos muy también pero cuando donde porque cual cuales este esta estos estas ese esa esos esas aquel otro otra otros otras puede pueden entre the of and to in for with on by from at as is are was were be been this that these those an or not which their its it we our than into after before between during within without over under about also may can such these both each other more most than only per via vs").split(" "));
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 const TEMPLATE_DEFAULT = () => ({counts: {caso: 5, critica: 3, directa: 0, ficha: 3}, level: "residencia", emph: [], lang: "es", instr: "", label: ""});
@@ -197,6 +198,7 @@ function renderGen(){
     <div class="xs muted">Gratis</div>
     <div class="tabs3 acc2">${btn("read")}${btn("recs")}</div>
     <div class="xs muted">Con IA${getKey() ? ` · ${aiEstimateLine(Math.min(chars, AN_MAX_CHARS), {outTokens: 5000})} aprox. por acción` : " · requiere tu clave"}</div>
+    ${getKey() && chars > TEXTO_LARGO ? `<div class="note" style="margin:0">⏱️ <b>Texto largo</b> (${Math.round(chars/1000)} mil caracteres): con IA puede tardar 1–2 minutos y, mientras tanto, no bloquees la pantalla ni cambies de app. Para que sea más rápido y barato, elige un tema del índice.</div>` : ""}
     <div class="tabs3 acc4">${btn("ai")}${btn("audit")}${btn("tema")}${btn("revista")}</div>
     <div id="gBody" class="stack"></div>`;
   bindIndice();
@@ -374,6 +376,7 @@ async function aiGenerate(sel, title, ask, imagen){
   const doc = sel.pages.map((p,i)=>`[pág. ${sel.nums[i]}]\n${p}`).join("\n\n");
   let msg;
   const {params, level} = aiParams();
+  const soltar = await pantallaEncendida();
   try {
     // El documento va en un bloque guardado en caché: si se generan más ítems del mismo texto en unos minutos, se cobra ~5–10 % de la lectura.
     const stream = client.beta.messages.stream(Object.assign({
@@ -388,6 +391,7 @@ async function aiGenerate(sel, title, ask, imagen){
     }, params));
     msg = await stream.finalMessage();
   } catch(e) { throw apiErr(Anthropic, e); }
+  finally { soltar(); }
   aiRecord(level, addUsage({}, msg.usage), imagen ? "Analizar imagen" : "Generar con IA");
   if (msg.stop_reason === "refusal") throw uerr("La IA no procesó este texto. Prueba con otras páginas.");
   if (msg.stop_reason === "max_tokens") throw uerr("La respuesta quedó incompleta. Pide menos preguntas o menos páginas.");
