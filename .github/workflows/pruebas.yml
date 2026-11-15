@@ -1,0 +1,38 @@
+# Corre las pruebas de MediPulse en cada pull request y en cada cambio a main.
+# Si fallan, el PR lo muestra en rojo y adjunta el reporte con capturas.
+name: Pruebas de MediPulse
+
+on:
+  pull_request:
+    paths: ["medipulse/**", ".github/workflows/pruebas.yml"]
+  push:
+    branches: ["main"]
+    paths: ["medipulse/**", ".github/workflows/pruebas.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: medipulse
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: medipulse/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-de-pruebas
+          path: medipulse/test-results
+          retention-days: 7

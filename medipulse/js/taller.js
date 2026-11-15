@@ -13,6 +13,7 @@ const TEMPLATE_DEFAULT = () => ({counts: {caso: 5, critica: 3, directa: 0, ficha
 // (p. ej. "Descargado para <nombre> (<correo>)…" o "www.revista.com Vol 407 2242"). Así no se envían datos
 // personales a la IA ni ruido que no aporta. Los números se comparan como "#" para atrapar la numeración.
 const WATERMARK = /descargado para|downloaded (for|by)|uso personal exclusivamente|for personal use only|no se permiten otros usos|all rights reserved|todos los derechos reservados/i;
+const WATERMARK_NOSP = /descargadopara|downloadedfor|downloadedby|usopersonalexclusivamente|forpersonaluseonly|nosepermitenotrosusos/;
 function stripRepeated(pages){
   // Sin números ni signos: así "2241 www.revista.com Vol 407" y "www.revista.com Vol 407 2242" cuentan como la misma línea.
   const key = l => norm(l.trim()).replace(/[\d.,·:;()\[\]–-]+/g, " ").replace(/\s+/g, " ").trim();
@@ -20,7 +21,9 @@ function stripRepeated(pages){
   pages.forEach(p=>new Set(p.split("\n").map(key).filter(k=>k.length > 3)).forEach(k=>count.set(k, (count.get(k)||0) + 1)));
   const min = Math.max(3, Math.ceil(pages.length * 0.4));   // 40 %: algunos encabezados alternan entre páginas pares e impares
   const rep = pages.length >= 3 ? new Set([...count].filter(([k,n])=>n >= min).map(([k])=>k)) : new Set();
-  return pages.map(p=>p.split("\n").filter(l=>!rep.has(key(l)) && !WATERMARK.test(l)).join("\n").trim());
+  // La marca de agua también se reconoce si la letra pequeña sale espaciada ("D e s c a r g a d o").
+  const isMark = l => WATERMARK.test(l) || WATERMARK_NOSP.test(norm(l).replace(/\s+/g, ""));
+  return pages.map(p=>p.split("\n").filter(l=>!rep.has(key(l)) && !isMark(l)).join("\n").trim());
 }
 // ¿La línea parece un título de sección? (corta, sin punto final, sin pinta de autor o afiliación)
 function isHeading(l){
@@ -47,7 +50,8 @@ function docInfo(id){
   const clean = stripRepeated(r.pages);
   const pages = clean.map((p, i)=>{
     if (i+1 > refFrom) return "";
-    const m = p.match(/\n\s*(references|referencias|bibliograf[ií]a|bibliography|literature cited)\s*\n/i);
+    // "References" puede estar a mitad de página o en su primer renglón
+    const m = p.match(/(^|\n)\s*(references|referencias|bibliograf[ií]a|bibliography|literature cited)\s*(\n|$)/i);
     if (m && i > 0) { refFrom = i+1; return p.slice(0, m.index); }
     return p;
   });
