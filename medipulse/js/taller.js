@@ -4,7 +4,8 @@
 // ===================================================================
 // TALLER DE PREGUNTAS: leer y crear · IA a medida · sugerencias
 // ===================================================================
-const MAX_AI_CHARS = 350000;
+const MAX_AI_CHARS = 150000;
+const TEXTO_LARGO = 50000;   // desde aquí se avisa que con IA tarda y no hay que bloquear la pantalla
 const STOP = new Set(("a al ante bajo con contra de del desde durante e el en entre hacia hasta la las le les lo los mediante para por que se según sin sobre su sus tras un una unas unos y o u ni es son fue fueron ser está están como más menos muy también pero cuando donde porque cual cuales este esta estos estas ese esa esos esas aquel otro otra otros otras puede pueden entre the of and to in for with on by from at as is are was were be been this that these those an or not which their its it we our than into after before between during within without over under about also may can such these both each other more most than only per via vs").split(" "));
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 const TEMPLATE_DEFAULT = () => ({counts: {caso: 5, critica: 3, directa: 0, ficha: 3}, level: "residencia", emph: [], lang: "es", instr: "", label: ""});
@@ -114,20 +115,21 @@ function topicPages(id, topic){
 // ---------- estado del taller ----------
 let curSrc = null, gen = null, cands = null, genBusy = false;
 const cur = () => S.sources.find(x=>x.id===curSrc);
-function openSrc(id){
+// Deja lista una fuente para trabajar con ella (sin cambiar de pantalla); extra ajusta la pestaña, la página…
+function prepSrc(id, extra){
   curSrc = id; cands = null;
   const s = cur();
-  gen = Object.assign(TEMPLATE_DEFAULT(), {tab: (anIntent && anIntent.id === id && anIntent.kind) || "read", tema: null, manual: null, from: 1, to: Math.max(1, Math.min(s.pages, 10)), pageSet: null, topic: "", spec: s.spec || "Medicina Interna", n: 10, rdPage: 1, rdQuery: ""});
+  gen = Object.assign(TEMPLATE_DEFAULT(), {tab: (anIntent && anIntent.id === id && anIntent.kind) || "read", tema: null, manual: null, from: 1, to: Math.max(1, Math.min(s.pages, 10)), pageSet: null, topic: "", spec: s.spec || "Medicina Interna", n: 10, rdPage: 1, rdQuery: ""}, extra || {});
   anIntent = null;
-  go("src");
 }
+function openSrc(id){ prepSrc(id); go("src"); }
 async function renderSrc(){
   const s = cur(); if (!s) return go("lib");
   const c = S.check[s.id];
-  $("#srcHead").innerHTML = `<div class="row" style="gap:6px"><span class="tag">${s.kind==="text" ? `Texto pegado · ${s.pages} parte${s.pages===1?"":"s"}` : s.kind==="pack" ? "Pack importado" : `PDF · ${s.pages} págs · versión ${s.version||1}`}</span>${badge(srcState(s.id))}</div>
+  $("#srcHead").innerHTML = `<div class="row" style="gap:6px"><span class="tag">${s.apunte ? `📓 Tus apuntes · ${s.pages} punto${s.pages===1?"":"s"}` : s.kind==="text" ? `Texto pegado · ${s.pages} parte${s.pages===1?"":"s"}` : s.kind==="pack" ? "Pack importado" : `PDF · ${s.pages} págs · versión ${s.version||1}`}</span>${badge(srcState(s.id))}</div>
     <h2 style="margin-top:8px;word-break:break-word">${esc(s.title)}</h2>
     <div class="xs muted" style="margin-top:4px">${esc([s.org, s.year].filter(Boolean).join(", ") || "Sin organización ni año")}${s.updated?` · versión nueva subida el ${fmtDate(s.updated)}`:""}${c?` · vigencia revisada el ${fmtDate(c.at)}`:""}</div>
-    <div class="row" style="margin-top:10px;gap:6px"><button class="btn sm" id="srcOpen">📄 Abrir PDF</button><button class="btn sm" id="srcMeta">✏️ Datos</button><button class="btn sm" id="srcVer">⬆ Subir versión nueva</button>${getKey()?`<button class="btn sm" id="srcChk">🔎 ¿Hay versión más nueva?</button>`:""}<button class="btn sm" id="srcPack">📦 Exportar pack</button><button class="btn ghost sm" id="srcDel" style="color:var(--bad)">Eliminar</button></div>
+    <div class="row" style="margin-top:10px;gap:6px">${s.apunte ? `<button class="btn primary sm" id="srcLib">📓 Ir a la libreta</button>` : ""}<button class="btn sm" id="srcOpen">📄 Abrir PDF</button><button class="btn sm" id="srcMeta">✏️ Datos</button><button class="btn sm" id="srcVer">⬆ Subir versión nueva</button>${getKey()?`<button class="btn sm" id="srcChk">🔎 ¿Hay versión más nueva?</button>`:""}<button class="btn sm" id="srcPack">📦 Exportar pack</button><button class="btn ghost sm" id="srcDel" style="color:var(--bad)">Eliminar</button></div>
     <input type="file" id="verIn" accept="application/pdf" hidden>
     <div id="srcMetaForm"></div>`;
   $("#srcOpen").onclick = ()=>openPdf(s.id, 1);
@@ -138,6 +140,7 @@ async function renderSrc(){
   $("#srcDel").onclick = ()=>deleteSource(s.id);
   $("#srcPack").onclick = ()=>exportSourcePack(s.id);
   if (s.kind==="text" || s.kind==="pack") { $("#srcOpen").hidden = true; $("#srcVer").hidden = true; }
+  if (s.apunte) { $("#srcMeta").hidden = true; $("#srcLib").onclick = ()=>{ apCur = s.apunte; apEdit = null; go("apuntes"); }; }
   renderSrcBanner(); renderItemReview(); renderReview(); renderSrcItems();
   if (s.kind==="pack") { $("#genCard").hidden = true; $("#anCard").hidden = true; return; }
   $("#genCard").hidden = false;
@@ -197,6 +200,7 @@ function renderGen(){
     <div class="xs muted">Gratis</div>
     <div class="tabs3 acc2">${btn("read")}${btn("recs")}</div>
     <div class="xs muted">Con IA${getKey() ? ` · ${aiEstimateLine(Math.min(chars, AN_MAX_CHARS), {outTokens: 5000})} aprox. por acción` : " · requiere tu clave"}</div>
+    ${getKey() && chars > TEXTO_LARGO ? `<div class="note" style="margin:0">⏱️ <b>Texto largo</b> (${Math.round(chars/1000)} mil caracteres): con IA puede tardar 1–2 minutos y, mientras tanto, no bloquees la pantalla ni cambies de app. Para que sea más rápido y barato, elige un tema del índice.</div>` : ""}
     <div class="tabs3 acc4">${btn("ai")}${btn("audit")}${btn("tema")}${btn("revista")}</div>
     <div id="gBody" class="stack"></div>`;
   bindIndice();
@@ -364,7 +368,7 @@ function genAsk(){
 function aiGenerateImage(dataUrl, ctx){
   const ask = [`El médico eligió esta imagen${ctx.page ? ` de la pág. ${ctx.page}` : ""} del documento: puede ser un algoritmo, una tabla, una gráfica o una figura.`,
     "Crea 1 ficha high-yield con lo que muestra la imagen y hasta 2 preguntas (qtype \"caso\" o \"directa\") que evalúen entenderla y aplicarla; el estudiante verá la imagen junto a la pregunta.",
-    "Usa solo lo que se ve en la imagen. Si no tiene información médica útil, deja \"fichas\" y \"questions\" vacíos.",
+    "Usa solo lo que se ve en la imagen. Si no tiene información médica útil, o si es texto escrito a mano (apuntes, cuaderno, notas de tableta), no lo transcribas: deja \"fichas\" y \"questions\" vacíos.",
     gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos tal como aparecen."].join("\n") + focusLine();
   return aiGenerate({nums: [ctx.page || 1], pages: [""]}, ctx.title || "", ask, dataUrl);
 }
@@ -374,6 +378,7 @@ async function aiGenerate(sel, title, ask, imagen){
   const doc = sel.pages.map((p,i)=>`[pág. ${sel.nums[i]}]\n${p}`).join("\n\n");
   let msg;
   const {params, level} = aiParams();
+  const soltar = await pantallaEncendida();
   try {
     // El documento va en un bloque guardado en caché: si se generan más ítems del mismo texto en unos minutos, se cobra ~5–10 % de la lectura.
     const stream = client.beta.messages.stream(Object.assign({
@@ -388,6 +393,7 @@ async function aiGenerate(sel, title, ask, imagen){
     }, params));
     msg = await stream.finalMessage();
   } catch(e) { throw apiErr(Anthropic, e); }
+  finally { soltar(); }
   aiRecord(level, addUsage({}, msg.usage), imagen ? "Analizar imagen" : "Generar con IA");
   if (msg.stop_reason === "refusal") throw uerr("La IA no procesó este texto. Prueba con otras páginas.");
   if (msg.stop_reason === "max_tokens") throw uerr("La respuesta quedó incompleta. Pide menos preguntas o menos páginas.");
@@ -441,7 +447,7 @@ function renderReader(){
     <p class="xs muted" style="margin:0">Lee el documento aquí y arma tus <b>fichas high-yield</b>: selecciona una frase o una cifra (en el celular, mantén presionado y arrastra) y agrégala como dato de la ficha. Puedes juntar datos de varias páginas en la misma ficha. Para un algoritmo, una tabla o una gráfica, usa <b>✂️ Recortar una zona</b> o <b>📷 Subir captura</b>.</p>
     <div class="row" style="gap:6px"><input type="text" id="rdQ" value="${esc(gen.rdQuery)}" placeholder="Buscar en el documento: p. ej. AAV, GDNF, ensayo fase II…" style="flex:1;min-width:0"></div>
     ${gen.rdQuery.trim() ? `<div class="chips">${hits.length ? hits.slice(0,15).map(h=>`<button class="chip2${h.page===gen.rdPage?" on":""}" data-rp="${h.page}">pág. ${h.page} · ${h.hits}</button>`).join("") : `<span class="xs muted">Sin resultados.</span>`}</div>` : ""}
-    <div class="row" style="gap:6px"><button class="btn sm" id="rdPrev" ${gen.rdPage<=1?"disabled":""}>‹ Anterior</button><span class="small" style="flex:1;text-align:center">${s.kind==="text"?"Parte":"Página"} <b>${gen.rdPage}</b> de ${total}${info.refFrom < gen.rdPage ? " · referencias" : info.refFrom === gen.rdPage ? " · al final, referencias" : ""}</span><button class="btn sm" id="rdNext" ${gen.rdPage>=total?"disabled":""}>Siguiente ›</button></div>
+    <div class="row" style="gap:6px"><button class="btn sm" id="rdPrev" ${gen.rdPage<=1?"disabled":""}>‹ Anterior</button><span class="small" style="flex:1;text-align:center">${s.apunte?"Punto":s.kind==="text"?"Parte":"Página"} <b>${gen.rdPage}</b> de ${total}${info.refFrom < gen.rdPage ? " · referencias" : info.refFrom === gen.rdPage ? " · al final, referencias" : ""}</span><button class="btn sm" id="rdNext" ${gen.rdPage>=total?"disabled":""}>Siguiente ›</button></div>
     <div class="row" style="gap:6px">${esPdf ? `<button class="btn sm" id="rdOut" aria-label="Alejar">−</button><button class="btn sm" id="rdIn" aria-label="Acercar">+</button><button class="btn sm" id="rdCrop">✂️ Recortar una zona</button>` : ""}<label class="btn sm" style="display:inline-block">📷 Subir captura<input type="file" id="rdImg" accept="image/*" hidden></label></div>
     ${esPdf ? `<div class="pdfread" id="rdText"></div>`
       : `<div class="reader" id="rdText">${pageTxt.trim() ? hlText(pageTxt, gen.rdQuery) : `<p class="muted">Esta página no tiene texto seleccionable.</p>`}</div>`}
@@ -485,7 +491,7 @@ function renderReader(){
   $("#rdX").onclick = clearSel;
   const ed = $("#rdEditor");
   const startFicha = firstVal => hyEditor(ed, {title: gen.rdQuery.trim(), spec: gen.spec, src: s.id, page: gen.rdPage, ctx: firstVal || "",
-    rows: firstVal ? [{label: "", val: firstVal}, {}] : [], heading: `💎 Nueva ficha · ${s.kind==="text"?"parte":"pág."} ${gen.rdPage}`,
+    rows: firstVal ? [{label: "", val: firstVal}, {}] : [], heading: `💎 Nueva ficha · ${s.apunte?"punto":s.kind==="text"?"parte":"pág."} ${gen.rdPage}`,
     flags: {manual: true}, onSave: ()=>{ renderSrcItems(); renderReader(); }, onCancel: ()=>renderReader()});
   $("#rdHY").onclick = ()=>{ const v = rdSel; clearSel(); startFicha(v); renderReaderBarOnly(); };
   $("#rdAdd").onclick = ()=>{ const v = rdSel; clearSel(); ed._addRow("", v, v); toast("Dato agregado: escribe a la izquierda qué es"); };

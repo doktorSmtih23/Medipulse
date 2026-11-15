@@ -4,7 +4,7 @@
 // auditoría MBE, revisión de tema y pase de revista. Cada dato cita su página.
 // (Idea tomada de la versión de Gemini; adaptada a Claude, sin respaldo que invente contenido.)
 // ===================================================================
-const AN_MAX_CHARS = 160000;
+const AN_MAX_CHARS = 100000;   // ~28 mil tokens: más es lento (1–2 min) y en el celular la espera se puede cortar
 const AN_KINDS = {
   audit: {icon:"🔬", name:"Auditoría MBE", desc:"Veredicto, algoritmo, qué hacer y qué no, umbrales y qué cambió."},
   tema: {icon:"📖", name:"Revisión de tema", desc:"Fisiopatología, cuadro típico y banderas rojas, algoritmo y diferenciales."},

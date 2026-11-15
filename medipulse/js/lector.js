@@ -106,7 +106,7 @@ function showCapture(box, dataUrl, ctx){
     <img class="itimg" src="${dataUrl}" alt="Zona elegida">
     <div class="row" style="gap:6px"><button class="btn sm" data-cap-hy>💎 Ficha a mano con esta imagen</button>
       <button class="btn primary sm" data-cap-ai>✨ Preguntas y ficha con IA</button></div>
-    <p class="xs muted" style="margin:0">${getKey() ? `Con IA: ${aiEstimateLine(0, {outTokens: 3500})} (la imagen cuenta como ~1.600 tokens). Útil para algoritmos, tablas y gráficas.`
+    <p class="xs muted" style="margin:0">${getKey() ? `Con IA: ${aiEstimateLine(0, {outTokens: 3500})} (la imagen cuenta como ~1.600 tokens). Útil para algoritmos, tablas y gráficas impresos; no lee escritura a mano.`
       : `Con IA, la app arma una ficha y preguntas sobre lo que muestra la imagen. Requiere tu clave de IA, que se guarda en Fuentes.`}</p>
     <div data-cap-out></div></div>`;
   box.scrollIntoView({behavior: "smooth", block: "nearest"});
@@ -126,7 +126,7 @@ function showCapture(box, dataUrl, ctx){
       box.innerHTML = "";
       renderReview();
       if (cands.length) $("#reviewBox").scrollIntoView({behavior: "smooth", block: "start"});
-      else toast("La IA no encontró información útil en esa imagen.");
+      else toast("La IA no encontró información útil en esa imagen. Recuerda: no lee escritura a mano.");
     } catch(err) { toast(err.userMsg || err.message); ai.disabled = false; ai.textContent = "✨ Preguntas y ficha con IA"; }
     finally { genBusy = false; }
   });

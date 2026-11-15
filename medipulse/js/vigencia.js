@@ -34,6 +34,7 @@ async function callForTool({system, tools, user, light = false, label = "IA"}, t
   const web = tools.some(t => t.type && t.type.startsWith("web_search"));
   const {params, level} = aiParams({light, web});
   const messages = [{role: "user", content: user}], usage = {};
+  const soltar = await pantallaEncendida();
   try {
     for (let turn = 0; turn < 5; turn++) {
       let msg;
@@ -54,7 +55,7 @@ async function callForTool({system, tools, user, light = false, label = "IA"}, t
       if (msg.stop_reason !== "pause_turn") messages.push({role: "user", content: `Entrega ahora tu resultado llamando a la herramienta ${toolName}.`});
     }
     throw uerr("La IA no entregó un resultado. Inténtalo de nuevo.");
-  } finally { if (usage.input_tokens || usage.output_tokens) aiRecord(level, usage, label); }
+  } finally { soltar(); if (usage.input_tokens || usage.output_tokens) aiRecord(level, usage, label); }
 }
 
 const T_SOURCES = {
@@ -302,7 +303,7 @@ async function reviewAffected(srcId, mode, where){
     const sel = selectedText();
     if (!sel) return toast("No encuentro el PDF en este dispositivo.");
     const chars = sel.pages.reduce((a,p)=>a+p.length, 0);
-    if (chars > MAX_AI_CHARS) return toast("Demasiado texto: elige menos páginas en “Desde/Hasta pág.”.");
+    if (chars > MAX_AI_CHARS) return toast("Demasiado texto: elige un tema del índice del documento.");
     ctx = `<documento_version_nueva paginas="${sel.nums.join(",")}">\n${sel.pages.map((p,i)=>`[pág. ${sel.nums[i]}]\n${p}`).join("\n\n")}\n</documento_version_nueva>`;
   }
   return runItemReview({items, ctx, mode, where, srcId, web: mode==="web", system: mode==="web" ? REVIEW_SYSTEM_WEB : REVIEW_SYSTEM_DOC});

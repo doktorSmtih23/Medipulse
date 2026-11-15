@@ -35,6 +35,7 @@ Al abrirla eliges cómo te sientes y la app arma la sesión:
 - **Banco y simulacro:** filtros de fallos y sin responder, pistas, tachar opciones, marcar para revisar y mapa del simulacro.
 - **Reportes:** 🚩 en cada pregunta o tarjeta; se revisan en Fuentes → Reportes (corregir con IA o archivar).
 - **Crear y compartir:** preguntas y tarjetas a mano, fuentes de texto pegado y packs de estudio en JSON para compartir con colegas.
+- **📓 Mis apuntes:** libretas por semana o rotación con entradas por día; atajos al escribir, dictado del teclado, datos marcados «por verificar» y cada punto convertido en ficha o preguntas. La app no lee escritura a mano: los apuntes se escriben aquí o se pega el texto.
 - **Biblioteca de fuentes:** cada caso, tarjeta y ficha incluida cita su guía o libro de referencia (con enlace de búsqueda en PubMed). Puedes estudiar por fuente.
 - **Tus PDF → preguntas:** sube un PDF (guía, resumen, apuntes), elige un rango de páginas y genera:
   - **Tarjetas de completar** (sin internet y gratis): toma las frases con datos clave (dosis, umbrales, fármaco de elección, definiciones) y oculta el dato.

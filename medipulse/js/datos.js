@@ -8,7 +8,7 @@ const BACKUP_DAYS = 14, SNOOZE_DAYS = 3, KEY_ANTES = KEY + "_antes_de_importar";
 
 function isIOS(){ return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); }
 function isInstalled(){ return navigator.standalone === true || !!(window.matchMedia && matchMedia("(display-mode: standalone)").matches); }
-function hasData(){ return Object.keys(S.srs).length > 0 || S.userQ.length > 0 || S.userC.length > 0 || (S.userH || []).length > 0 || S.notes.length > 0 || S.sources.length > 0; }
+function hasData(){ return Object.keys(S.srs).length > 0 || S.userQ.length > 0 || S.userC.length > 0 || (S.userH || []).length > 0 || S.notes.length > 0 || S.sources.length > 0 || (S.apuntes || []).length > 0; }
 function backupDue(){
   if (!CAN_STORE || !hasData()) return false;
   if (S.backupSnooze && S.backupSnooze > Date.now()) return false;
