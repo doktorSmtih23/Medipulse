@@ -45,3 +45,11 @@ test("elegir páginas a mano sigue disponible", async ({ page }) => {
   await expect(page.locator("#genCard")).toContainText("Tema: Págs. 2–3");
   expect(await page.evaluate(() => temaSel().nums)).toEqual([2, 3]);
 });
+
+test("recomendaciones: la clase que queda al final del enunciado anterior pasa al siguiente (tablas AHA)", async ({ page }) => {
+  const r = await page.evaluate(() => buscarRecomendaciones({nums: [37], pages: [
+    "1 B-NR 1. In patients with AIS, blood glucose should be measured before starting thrombolysis. 2a C-LD 2. In patients with AIS and hypoglycemia (blood glucose < 60 mg/dL), it is reasonable to treat it promptly."]}));
+  expect(r.map(x => [x.clase, x.text, x.cifras])).toEqual([
+    ["COR 1 · LOE B-NR", "In patients with AIS, blood glucose should be measured before starting thrombolysis.", []],
+    ["COR 2a · LOE C-LD", "In patients with AIS and hypoglycemia (blood glucose < 60 mg/dL), it is reasonable to treat it promptly.", ["< 60 mg/dL"]]]);
+});

@@ -127,22 +127,27 @@ function buscarRecomendaciones(sel, max = 40){
   sel.pages.forEach((txt, i) => {
     const page = sel.nums[i], plano = lineas(txt);
     const partes = plano.split(/(?<=[.!?])\s+(?=(?:\d{1,2}\.\s)?[A-Z¿¡ÁÉÍÓÚÑ]|(?:1|2a|2b|3:)\s+[ABC])/);
-    let previo = "";
+    // En las tablas de las guías (AHA) la clase y el nivel a veces quedan al final del enunciado anterior,
+    // pegados al número del siguiente («… 2a C-LD 2.»): esa clase es del enunciado que sigue.
+    let pendiente = "";
+    const fmt = m => /^\d/.test(m[1]) ? `COR ${m[1]} · LOE ${m[2]}` : `Clase ${m[1]} · ${m[2]}`;
     for (let p of partes) {
-      const antes = previo; previo = p;
-      p = cleanSent(p).replace(/^\d{1,2}\.\s+/, "").replace(/\s+\d+(?:\.\d+)+\.?$/, "");   // sin numeración al inicio ni «3.1.1.» al final
-      if (p.length < 40 || p.length > 600 || JUNK.test(p)) continue;
-      if (/^[a-záéíóúñ(,;]/.test(p)) continue;   // continuación de una frase de la columna o página anterior
-      if ((p.match(/\d/g) || []).length > p.length * 0.2) continue;
-      const cifras = [...new Set((p.match(CIFRA_RE) || []).map(x => x.trim()))].filter(x => !/^(19|20)\d{2}$/.test(x)).slice(0, 4);
-      // La clase va justo antes del enunciado (a veces pegada a un título): se busca al inicio y se quita del texto.
-      let cm = p.slice(0, 120).match(CLASE_RE), texto = p;
-      if (cm) texto = p.slice(cm.index + cm[0].length).trim();
-      else cm = antes.slice(-40).match(CLASE_RE);
-      const clase = cm ? (/^\d/.test(cm[1]) ? `COR ${cm[1]} · LOE ${cm[2]}` : `Clase ${cm[1]} · ${cm[2]}`) : "";
+      p = cleanSent(p).replace(/\s+\d+(?:\.\d+)+\.?$/, "");   // sin «3.1.1.» al final
+      const heredada = pendiente; pendiente = "";
+      const fin = p.match(/(?:^|\s)(1|2a|2b|3:\s?(?:No Benefit|Harm)|III|IIb|IIa|I)\s+(A|B-R|B-NR|C-LD|C-EO|B|C)(?:\s+\d{1,2}\.?)?\s*$/);
+      if (fin) { pendiente = fmt(fin); p = p.slice(0, fin.index).trim(); }
+      p = p.replace(/^\d{1,2}\.\s+/, "");
+      // La clase justo antes del enunciado (a veces pegada a un título): se toma y se quita del texto.
+      let clase = heredada, texto = p;
+      const cm = p.slice(0, 120).match(CLASE_RE);
+      if (cm && !/[.!?]/.test(p.slice(0, cm.index))) { clase = fmt(cm); texto = p.slice(cm.index + cm[0].length).trim().replace(/^\d{1,2}\.\s+/, ""); }
+      if (texto.length < 40 || texto.length > 600 || JUNK.test(texto)) continue;
+      if (/^[a-záéíóúñ(,;]/.test(texto)) continue;   // continuación de una frase de la columna o página anterior
+      if ((texto.match(/\d/g) || []).length > texto.length * 0.2) continue;
+      const cifras = [...new Set((texto.match(CIFRA_RE) || []).map(x => x.trim()))].filter(x => !/^(19|20)\d{2}$/.test(x)).slice(0, 4);
       const item = {text: texto, page, cifras, clase, on: false};
-      if (REC_RE.test(p)) out.push(item);
-      else if (cifras.length && KEYW.test(p)) datos.push(item);
+      if (REC_RE.test(texto)) out.push(item);
+      else if (cifras.length && KEYW.test(texto)) datos.push(item);
     }
   });
   const unicos = arr => { const v = new Set(); return arr.filter(x => { const k = x.text.slice(0, 90); if (v.has(k)) return false; v.add(k); return true; }); };
