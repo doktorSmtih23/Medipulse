@@ -92,7 +92,7 @@ function answerQ(q, o, exam){
   document.querySelectorAll("#opts .opt").forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add("right"); else if(i===o) b.classList.add("wrong"); });
   $("#fbBox").innerHTML = `
     <div class="stack" style="margin-top:14px">
-      <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b></div>
+      <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b>${q.area ? ` · Área: ${esc(q.area)}` : ""}</div>
       <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
       <div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>
       <div class="note trap"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>

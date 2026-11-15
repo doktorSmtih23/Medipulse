@@ -301,3 +301,4 @@ details.metodo li{margin:3px 0}
 .qrow .row{gap:8px;flex-wrap:wrap;align-items:center}
 .qesp{gap:8px;padding:0 0 8px 0}
 .qesp select{width:auto;flex:1}
+.citasrev{margin-top:6px;display:flex;flex-direction:column;gap:3px;border-left:3px solid var(--border);padding-left:8px}
