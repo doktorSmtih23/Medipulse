@@ -312,6 +312,154 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c06",
+      "topic": "Neurología · Síndrome de Tourette",
+      "difficulty": "Nivel 1",
+      "src": "nrdp_ts",
+      "vignette": "Niño de 9 años con <span class='hy'>parpadeo, muecas y sacudidas del hombro</span>, y <span class='hy'>carraspeo</span> frecuente, varias veces al día, desde hace <span class='hy'>2 años</span>. Dice que antes de cada tic siente una «necesidad» que se alivia al hacerlo, y puede contenerlos un rato. ¿Cuál es el diagnóstico más probable?",
+      "options": [
+        "Trastorno de tics provisional",
+        "Trastorno de tics motor crónico",
+        "Síndrome de Tourette",
+        "Trastorno obsesivo-compulsivo"
+      ],
+      "correct": 2,
+      "whyCorrect": "El síndrome de Tourette requiere varios tics motores y al menos un tic fónico, que empiezan en el periodo del desarrollo (antes de los 18 años según el DSM-5-TR) y duran más de 1 año. La urgencia premonitoria y la supresión voluntaria son típicas de los tics.",
+      "pearl": "Ciclo «urgencia → tic → alivio»: romperlo es la base de la terapia conductual (CBIT).",
+      "trap": "Llamarlo trastorno de tics motor crónico: ese tiene solo tics motores o solo fónicos, no ambos.",
+      "cita": [
+        {
+          "donde": "Diagnóstico",
+          "texto": "Diagnosis of TS requires the presence of multiple motor tics and one or more phonic tics that begin during the developmental period and are present for more than 1 year"
+        },
+        {
+          "donde": "Diagnóstico",
+          "texto": "define TS as the presence of multiple motor tics and at least one vocal tic that begin during the developmental period (defined in the DSM-5-TR as prior to the age of 18 years) and occur multiple times a day."
+        },
+        {
+          "donde": "Diagnóstico",
+          "texto": "The term provisional tic disorder (PTD) is used in those with tics for less than 1 year, whereas chronic (persistent) tic disorder is used to refer to those with the presence of either motor or vocal tic (but not both) for more than 1 year"
+        },
+        {
+          "donde": "Características de los tics",
+          "texto": "The characteristic features of tics include a premonitory urge (like the sensations felt prior to a sneeze or itch) preceding the onset of the tic, voluntary suppression of tics with effort, suggestibility and sensitivity to potential environmental triggers."
+        },
+        {
+          "donde": "Fisiopatología de los tics",
+          "texto": "Increasing awareness of the premonitory urge and training aimed at breaking the urge–tic–relief cycle forms the basis of CBIT"
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c07",
+      "topic": "Neurología · Tics de menos de 1 año",
+      "difficulty": "Nivel 2",
+      "src": "nrdp_ts",
+      "vignette": "Niña de 7 años con <span class='hy'>parpadeo repetido y carraspeo</span> varias veces al día, que empezaron hace <span class='hy'>4 meses</span>. Examen neurológico normal. ¿Cuál es el diagnóstico más probable?",
+      "options": [
+        "Trastorno de tics provisional",
+        "Síndrome de Tourette",
+        "Trastorno de tics vocal crónico",
+        "Epilepsia de ausencias"
+      ],
+      "correct": 0,
+      "whyCorrect": "Con tics de menos de 1 año se usa el término trastorno de tics provisional. Para Tourette se necesitan más de 1 año de tics motores múltiples y al menos uno fónico; el trastorno de tics crónico (persistente) tiene solo motores o solo fónicos por más de 1 año.",
+      "pearl": "Lo que define la categoría es el tiempo (menos o más de 1 año) y el tipo de tics (motores, fónicos o ambos).",
+      "trap": "Diagnosticar Tourette antes de que los tics cumplan 1 año.",
+      "cita": [
+        {
+          "donde": "Diagnóstico",
+          "texto": "The term provisional tic disorder (PTD) is used in those with tics for less than 1 year, whereas chronic (persistent) tic disorder is used to refer to those with the presence of either motor or vocal tic (but not both) for more than 1 year"
+        },
+        {
+          "donde": "Diagnóstico",
+          "texto": "Diagnosis of TS requires the presence of multiple motor tics and one or more phonic tics that begin during the developmental period and are present for more than 1 year"
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c08",
+      "topic": "Neurología · Tourette: tratamiento",
+      "difficulty": "Nivel 2",
+      "src": "nrdp_ts",
+      "vignette": "Adolescente de 13 años con síndrome de Tourette cuyos tics le causan burlas en el colegio y afectan su desempeño. Sin comorbilidades graves. ¿Cuál es el tratamiento de primera línea?",
+      "options": [
+        "Haloperidol",
+        "Estimulación cerebral profunda",
+        "Aripiprazol",
+        "Terapia conductual: CBIT, reversión del hábito o exposición con prevención de respuesta"
+      ],
+      "correct": 3,
+      "whyCorrect": "Se recomiendan como primera línea 3 estrategias conductuales: CBIT, entrenamiento en reversión del hábito y exposición con prevención de respuesta, sin que una supere a las otras. Entre los medicamentos del segundo escalón, varios reportes ponen al aripiprazol como primera opción. La estimulación cerebral profunda queda para casos graves refractarios.",
+      "pearl": "CBIT entrena a reconocer la urgencia premonitoria y a romper el ciclo urgencia–tic–alivio.",
+      "trap": "Empezar con un antipsicótico típico antes de ofrecer terapia conductual.",
+      "cita": [
+        {
+          "donde": "Manejo",
+          "texto": "Three major behavioural strategies are recommended as first-line treatment for TS: CBIT, habit reversal training (HRT) and exposure with response prevention (ERP) therapy"
+        },
+        {
+          "donde": "Manejo: medicamentos",
+          "texto": "several reports have ranked aripiprazole as the first-line tier 2 treatment for TS"
+        },
+        {
+          "donde": "Manejo",
+          "texto": "in individuals with severe refractory TS, deep brain stimulation (DBS)"
+        },
+        {
+          "donde": "Fisiopatología de los tics",
+          "texto": "Increasing awareness of the premonitory urge and training aimed at breaking the urge–tic–relief cycle forms the basis of CBIT"
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c09",
+      "topic": "Dermatología · Tiña de la cabeza",
+      "difficulty": "Nivel 1",
+      "src": "afp_tinea",
+      "vignette": "Niño de 6 años con una placa redonda descamativa en el cuero cabelludo, con <span class='hy'>pelos quebrados y puntos negros</span>, de 6 semanas. Ya usó una crema antimicótica sin mejoría. ¿Conducta?",
+      "options": [
+        "Seguir con la crema antimicótica 4 semanas más",
+        "Terbinafina oral",
+        "Crema de clotrimazol con betametasona",
+        "Champú de ketoconazol como único tratamiento"
+      ],
+      "correct": 1,
+      "whyCorrect": "La tiña de la cabeza compromete el folículo piloso y necesita antimicótico oral: los tópicos no bastan. La terbinafina es la preferida, con cursos más cortos que la griseofulvina. Si el cuadro es típico, a menudo se trata sin pruebas.",
+      "pearl": "Kerion: tratarlo pronto para evitar cicatriz y alopecia permanente.",
+      "trap": "Usar una crema que combina antimicótico y corticoide: generalmente se deben evitar.",
+      "cita": [
+        {
+          "donde": "Tratamiento",
+          "texto": "Tinea corporis, tinea cruris, and tinea pedis generally respond to inexpensive topical antifungal agents, but oral antifungal agents may be indicated for patients with extensive disease, lack of response to topical treatment, immunocompromise, or hair follicle involvement (eg, tinea capitis)."
+        },
+        {
+          "donde": "Recomendaciones clave (A)",
+          "texto": "Terbinafine is preferred for the treatment of tinea capitis, with shorter treatment courses than griseofulvin."
+        },
+        {
+          "donde": "Tiña de la cabeza: pruebas",
+          "texto": "Tinea capitis is often treated empirically without diagnostic testing when the clinical presentation is typical."
+        },
+        {
+          "donde": "Tiña de la cabeza",
+          "texto": "Prompt treatment of kerion is critical to prevent scarring and permanent hair loss."
+        },
+        {
+          "donde": "Tiña de la cabeza",
+          "texto": "In the United States, tinea capitis is most common among Black children aged 3 to 9 years."
+        },
+        {
+          "donde": "Recomendaciones clave (C)",
+          "texto": "Combination antifungal-corticosteroid products, such as clotrimazole- betamethasone, generally should be avoided."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
   ],
   "fichas": [
@@ -589,6 +737,71 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Tratamiento inicial: efectos de la IGIV",
           "texto": "The erythrocyte sedimentation rate is increased after IVIg treatment; therefore, erythrocyte sedimentation rate is not a reliable marker of inflammation after IVIg infusion."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-f05",
+      "title": "Tics y síndrome de Tourette",
+      "badge": "Nat Rev Dis Primers 2026",
+      "src": "nrdp_ts",
+      "thresholds": [
+        {
+          "label": "Tourette",
+          "val": "Varios tics motores + ≥ 1 fónico, > 1 año, inicio < 18 años"
+        },
+        {
+          "label": "Tics crónicos (persistentes)",
+          "val": "Solo motores o solo fónicos, > 1 año"
+        },
+        {
+          "label": "Tics provisionales",
+          "val": "Menos de 1 año"
+        },
+        {
+          "label": "Rasgos de un tic",
+          "val": "Urgencia premonitoria, supresión voluntaria, sugestionabilidad"
+        },
+        {
+          "label": "Primera línea",
+          "val": "Terapia conductual: CBIT, reversión del hábito, exposición con prevención de respuesta"
+        },
+        {
+          "label": "Si se necesita medicamento",
+          "val": "Aripiprazol, primera opción del segundo escalón"
+        }
+      ],
+      "redFlag": "Tics graves y refractarios: valorar estimulación cerebral profunda en centro especializado.",
+      "trap": "Diagnosticar Tourette sin tic fónico o antes de 1 año de evolución.",
+      "cita": [
+        {
+          "donde": "Diagnóstico",
+          "texto": "Diagnosis of TS requires the presence of multiple motor tics and one or more phonic tics that begin during the developmental period and are present for more than 1 year"
+        },
+        {
+          "donde": "Diagnóstico",
+          "texto": "define TS as the presence of multiple motor tics and at least one vocal tic that begin during the developmental period (defined in the DSM-5-TR as prior to the age of 18 years) and occur multiple times a day."
+        },
+        {
+          "donde": "Diagnóstico",
+          "texto": "The term provisional tic disorder (PTD) is used in those with tics for less than 1 year, whereas chronic (persistent) tic disorder is used to refer to those with the presence of either motor or vocal tic (but not both) for more than 1 year"
+        },
+        {
+          "donde": "Características de los tics",
+          "texto": "The characteristic features of tics include a premonitory urge (like the sensations felt prior to a sneeze or itch) preceding the onset of the tic, voluntary suppression of tics with effort, suggestibility and sensitivity to potential environmental triggers."
+        },
+        {
+          "donde": "Manejo",
+          "texto": "Three major behavioural strategies are recommended as first-line treatment for TS: CBIT, habit reversal training (HRT) and exposure with response prevention (ERP) therapy"
+        },
+        {
+          "donde": "Manejo: medicamentos",
+          "texto": "several reports have ranked aripiprazole as the first-line tier 2 treatment for TS"
+        },
+        {
+          "donde": "Manejo",
+          "texto": "in individuals with severe refractory TS, deep brain stimulation (DBS)"
         }
       ],
       "verificado": "2026-11-15"

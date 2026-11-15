@@ -47,6 +47,8 @@ test("recortar una zona del PDF y crear una ficha a mano con la imagen", async (
   await page.fill("#rdCap .eTitle", "Algoritmo recortado");
   await page.fill("#rdCap .eL >> nth=0", "Paso 1"); await page.fill("#rdCap .eV >> nth=0", "Evaluar");
   await page.click("#rdCap .eSave");
+  // la imagen se guarda en IndexedDB antes de crear la ficha: se espera a que la ficha exista
+  await expect.poll(() => page.evaluate(() => !!S.userH.find(x => x.title === "Algoritmo recortado"))).toBe(true);
   const h = await page.evaluate(() => S.userH.find(x => x.title === "Algoritmo recortado"));
   expect(h.img).toMatch(/^img:/);
   // al estudiarla, la imagen aparece

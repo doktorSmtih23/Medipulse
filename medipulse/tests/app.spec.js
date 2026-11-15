@@ -83,6 +83,8 @@ test.describe("Mi enfoque", () => {
     expect(await page.evaluate(() => sess.stages[0].items.filter(i => i.t === "h").length)).toBeGreaterThan(3);
   });
   test("si hay pocas preguntas de un tipo, lo dice y ofrece crearlas", async ({ page }) => {
+    // se simula un banco con casi nada de diagnóstico archivando esas preguntas
+    await page.evaluate(() => { QUESTIONS.filter(q => qKind(q) === "diagnostico").slice(1).forEach(q => S.hidden["q" + q.id] = 1); rebuild(); });
     await page.selectOption("#focusSel", "diagnostico");
     await expect(page.locator("#focusBox")).toContainText("pocas preguntas de este tipo");
     await expect(page.locator("#focusBox [data-go=apuntes]")).toBeVisible();
