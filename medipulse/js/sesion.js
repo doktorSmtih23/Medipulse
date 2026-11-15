@@ -48,7 +48,7 @@ function renderQ(q, exam){
   const items = stage().items;
   $("#sessBody").innerHTML = `
     <div class="card">
-      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span><span class="muted">${exam && q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) + " · " : ""}${esc(q.topic)}</span>${exam ? "" : tipoChip(q)}<div class="spacer"></div>
+      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span>${exam ? (q.qtype && q.qtype!=="caso" ? `<span class="muted">${qtLabel(q.qtype)}</span>` : "") : tipoChip(q)}<div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
       ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCD"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCD"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
@@ -92,6 +92,7 @@ function answerQ(q, o, exam){
   document.querySelectorAll("#opts .opt").forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add("right"); else if(i===o) b.classList.add("wrong"); });
   $("#fbBox").innerHTML = `
     <div class="stack" style="margin-top:14px">
+      <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b></div>
       <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
       <div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>
       <div class="note trap"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>

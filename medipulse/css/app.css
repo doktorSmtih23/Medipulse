@@ -297,3 +297,7 @@ details.metodo li{margin:3px 0}
 .est{font-weight:600}.est.new{color:var(--accent)}.est.due{color:var(--warn)}.est.fail{color:var(--bad)}.est.ok{color:var(--ok)}
 .filters.wrap{gap:6px;padding:0;margin:0}
 .filters.wrap .btn{padding:5px 11px;font-size:13.5px;border-radius:999px;min-height:0}
+#qFiltros .fld{margin:0}
+.qrow .row{gap:8px;flex-wrap:wrap;align-items:center}
+.qesp{gap:8px;padding:0 0 8px 0}
+.qesp select{width:auto;flex:1}
