@@ -22,6 +22,13 @@ test.describe("Contenido", () => {
 });
 
 test.describe("Estudio", () => {
+  test("lo pendiente no se muestra y el caso verificado enseña su cita textual", async ({ page }) => {
+    const r = await page.evaluate(() => ({pend: [...BUILTIN_Q, ...HY_CARDS, ...BUILTIN_F].filter(x => x.estado === "pendiente").length,
+      cita: srcLine(BUILTIN_Q.find(q => q.id === 2))}));
+    expect(r.pend).toBe(0);
+    expect(r.cita).toContain("Ver la cita textual");
+    expect(r.cita).toContain("norepinephrine as the first-line agent");
+  });
   test("modo sin ganas: 3 tarjetas", async ({ page }) => {
     await page.click("[data-mode=lazy]"); await page.click("[data-lazy=cards]");
     for (let i = 0; i < 3; i++) { await page.click("#flipBtn"); await page.click('[data-g="2"]'); }

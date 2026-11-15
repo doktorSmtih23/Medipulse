@@ -17,12 +17,18 @@ function srcInfo(id){
   const s = S.sources.find(x=>x.id===id);
   return s ? {builtin:false, id:s.id, t:s.title, kind:s.kind||"pdf"} : null;
 }
+// Cita textual de la fuente (contenido incluido verificado): dónde está y qué dice, para comparar.
+function citaHtml(item){
+  if (!Array.isArray(item.cita) || !item.cita.length) return "";
+  const v = item.verificado ? ` · verificado el ${esc(item.verificado)}` : "";
+  return `<details class="cita"><summary>📍 Ver la cita textual de la guía${v}</summary>${item.cita.map(c => `<div class="cita-i"><b>${esc(c.donde)}</b><blockquote>“${esc(c.texto)}”</blockquote></div>`).join("")}</details>`;
+}
 function srcLine(item){
   const s = srcInfo(item.src); if (!s) return "";
   const st = srcState(item.src);
   const warn = msg => `<div class="srcline" style="color:var(--warn)">⚠ <span>${msg}</span></div>`;
   const upd = item.updated ? " · ✓ actualizado a la versión nueva con IA, verifícalo" : "";
-  if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${upd}${s.k!=="book"?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>`
+  if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${upd}${s.u?` · <a href="${esc(s.u)}" target="_blank" rel="noopener">abrir la guía</a>`:s.k!=="book"?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>` + citaHtml(item)
     + (st==="outdated" && !item.updated ? warn("Hay una versión más nueva de esta fuente; este dato podría haber cambiado. Revísalo en Fuentes → Vigencia.") : "");
   const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : "";
   const pdf = s.kind==="pdf", where = item.page ? (s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";

@@ -37,8 +37,30 @@ test("el starter pack son las 4 básicas y Salud Pública va aparte", () => {
   expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Salud Pública": "salud-publica"});
 });
 
-test("la app usa todo el contenido de los archivos", () => {
-  expect(C.total).toEqual({casos: todos("casos").length, fichas: todos("fichas").length, tarjetas: todos("tarjetas").length});
+const visibles = tipo => todos(tipo).filter(x => x.estado !== "pendiente");
+
+test("la app usa todo el contenido de los archivos, menos lo pendiente", () => {
+  expect(C.total).toEqual({casos: visibles("casos").length, fichas: visibles("fichas").length, tarjetas: visibles("tarjetas").length});
+});
+
+test("el único estado permitido es \"pendiente\"", () => {
+  const mal = ["casos", "fichas", "tarjetas"].flatMap(t => todos(t)).filter(x => x.estado !== undefined && x.estado !== "pendiente").map(donde);
+  expect(mal).toEqual([]);
+});
+
+test("en una especialidad verificada, todo lo visible trae su cita textual y la fecha de verificación", () => {
+  const verificadas = C.esp.filter(e => e.revision === "verificada").map(e => e.especialidad);
+  expect(verificadas).toContain("Medicina Interna");
+  const mal = ["casos", "fichas", "tarjetas"].flatMap(t => visibles(t)).filter(x => verificadas.includes(x._esp)).filter(x =>
+    !Array.isArray(x.cita) || !x.cita.length || x.cita.some(c => !c.donde || !c.texto || c.texto.length < 20) ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(x.verificado || "")).map(donde);
+  expect(mal).toEqual([]);
+});
+
+test("la demostración de Medicina Interna es corta (máximo 8 casos y 5 fichas)", () => {
+  const mi = tipo => visibles(tipo).filter(x => x._esp === "Medicina Interna").length;
+  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(8);
+  expect(mi("fichas")).toBeLessThanOrEqual(5);
 });
 
 test("ningún id histórico desapareció (protege el progreso de los usuarios)", () => {
@@ -82,7 +104,7 @@ test("el enunciado de un caso solo usa el resaltado permitido (<span class='hy'>
 
 test("las respuestas correctas no están siempre en la misma posición", () => {
   for (const e of C.esp) {
-    const pos = (e.casos || []).map(q => q.correct);
+    const pos = (e.casos || []).filter(q => q.estado !== "pendiente").map(q => q.correct);
     if (pos.length >= 5) expect(new Set(pos).size, `${e.especialidad}: respuestas correctas siempre en la misma letra`).toBeGreaterThan(1);
   }
 });

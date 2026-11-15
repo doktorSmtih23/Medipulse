@@ -66,7 +66,7 @@ Para ver la app en un visor que abre un solo HTML (por ejemplo, el panel de arch
 
 ## Contenido médico
 
-El contenido incluido es el **starter pack de la versión gratuita**. Vive en `data/contenido/`, un archivo por especialidad, con este formato (JSON dentro de `MP_CONTENIDO.agregar({...})`):
+El contenido incluido es una **demostración corta del método** (ver `PRODUCTO.md`): pocos casos y fichas por básica, todos verificados. Vive en `data/contenido/`, un archivo por especialidad, con este formato (JSON dentro de `MP_CONTENIDO.agregar({...})`):
 
 ```js
 MP_CONTENIDO.agregar({
@@ -74,6 +74,7 @@ MP_CONTENIDO.agregar({
   "prefijo": "sp",                     // para los id nuevos
   "paquete": "salud-publica",          // "starter" (las 4 básicas, versión gratuita) o el módulo al que pertenece
   "actualizado": "2026-11-15",         // cámbialo cada vez que edites el archivo
+  "revision": "verificada",            // solo cuando todo lo visible del archivo tiene su cita textual
   "casos":    [{ "id": "sp-c01", "topic": "…", "difficulty": "Nivel 2", "src": "gordis", "vignette": "…", "options": ["…","…","…","…"], "correct": 0, "whyCorrect": "…", "pearl": "…", "trap": "…" }],
   "fichas":   [{ "id": "sp-f01", "title": "…", "badge": "…", "src": "gordis", "thresholds": [{ "label": "…", "val": "…" }], "redFlag": "…", "trap": "…" }],
   "tarjetas": [{ "id": "sp-t01", "src": "gordis", "front": "…", "back": "…" }]
@@ -86,6 +87,8 @@ Reglas:
 - `vignette` admite solo el resaltado `<span class='hy'>…</span>`; los signos `<` y `>` del texto se escriben `&lt;` y `&gt;`.
 - 4 opciones distintas y una sola correcta (`correct`, de 0 a 3). Reparte la posición de la correcta entre A, B, C y D.
 - Cifras, dosis y umbrales se verifican contra la fuente antes de entrar al repo, y un médico revisa cada especialidad antes de publicarla.
+- **Cita textual:** cada ítem lleva `"cita": [{ "donde": "Recomendación 1.8.1", "texto": "texto literal de la guía" }]` y `"verificado": "AAAA-MM-DD"`. La app la muestra en "Ver la cita textual de la guía"; revisar es comparar el dato con la cita. Solo fuentes de acceso gratuito.
+- **`"estado": "pendiente"`** saca un ítem de la app sin borrarlo (sin verificar o fuera de la demostración). Se conserva su id para no perder el progreso; al verificarlo se quita el campo.
 - `npm test` valida todo esto (`tests/contenido.spec.js`): formato, fuentes, ids repetidos o desaparecidos y posición de las respuestas.
 
 ## Cómo integrar código hecho en otra IA (por ejemplo, Gemini)
