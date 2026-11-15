@@ -14,6 +14,10 @@ function renderProg(){
     const col = p==null?"var(--border)":p>=70?"var(--ok)":p>=50?"var(--warn)":"var(--bad)";
     return `<button class="bar barbtn" data-bspec="${s}"><span>${s}</span><div class="track"><i style="width:${p??100}%;background:${col}"></i></div><b style="text-align:right">${p==null?"—":p+"%"}</b></button>`; }).join("");
   document.querySelectorAll("[data-bspec]").forEach(b=>b.onclick=()=>{ const sp = b.dataset.bspec; startSession({label:sp, tag:"norm", stages:[{name:sp, items:pickQuestions(5,{spec:sp})}]}); });
+  const ts = tipoStats();
+  $("#tipoBars").innerHTML = FOCUS.slice(1).map(f=>{ const x = ts[f.k], p = pct(x), col = p==null?"var(--border)":p>=70?"var(--ok)":p>=50?"var(--warn)":"var(--bad)";
+    return `<button class="bar barbtn" data-btipo="${f.k}"><span>${esc(f.t)}${focusOf().k===f.k?" 🎯":""}</span><div class="track"><i style="width:${p??100}%;background:${col}"></i></div><b style="text-align:right">${p==null?"—":p+"%"}</b></button>`; }).join("");
+  document.querySelectorAll("[data-btipo]").forEach(b=>b.onclick=()=>{ S.focus = b.dataset.btipo; save(); toast("Enfoque: " + focusOf().t); renderProg(); });
   const cells=[]; const now=new Date();
   for(let i=34;i>=0;i--){ const d=new Date(now.getTime()-i*DAY), m=(S.log[todayKey(d)]?.sec||0)/60;
     const a = m===0?0: m<10?.3: m<30?.55: m<60?.8:1;

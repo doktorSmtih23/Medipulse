@@ -123,7 +123,7 @@ const AP_ASK = () => ["Es un apunte que el médico escribió durante su rotació
   "Crea 1 ficha high-yield con lo que dice el apunte y hasta 2 preguntas (qtype \"caso\" o \"directa\") que lo evalúen. Usa solo los datos del apunte, sin agregar otros.",
   "Si un dato del apunte contradice lo establecido en las guías o los textos de referencia vigentes, no lo uses como respuesta correcta: en el campo trap de la ficha escribe «REVISA TU APUNTE:» y explica en una frase qué dato parece incorrecto y por qué.",
   "Si el apunte no tiene información médica suficiente, deja \"fichas\" y \"questions\" vacíos.",
-  gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos tal como aparecen."].join("\n");
+  gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos tal como aparecen."].join("\n") + focusLine();
 async function apIA(lib, pt, btn){
   if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); go("lib"); const k = $("#keyIn"); k && k.focus(); return; }
   if (genBusy) return;

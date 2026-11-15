@@ -8,7 +8,10 @@ const MAX_AI_CHARS = 150000;
 const TEXTO_LARGO = 50000;   // desde aquí se avisa que con IA tarda y no hay que bloquear la pantalla
 const STOP = new Set(("a al ante bajo con contra de del desde durante e el en entre hacia hasta la las le les lo los mediante para por que se según sin sobre su sus tras un una unas unos y o u ni es son fue fueron ser está están como más menos muy también pero cuando donde porque cual cuales este esta estos estas ese esa esos esas aquel otro otra otros otras puede pueden entre the of and to in for with on by from at as is are was were be been this that these those an or not which their its it we our than into after before between during within without over under about also may can such these both each other more most than only per via vs").split(" "));
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-const TEMPLATE_DEFAULT = () => ({counts: {caso: 5, critica: 3, directa: 0, ficha: 3}, level: "residencia", emph: [], lang: "es", instr: "", label: ""});
+// Cantidades iniciales de cada tipo: dependen del enfoque del estudiante (perfil.js).
+const COUNTS_ENFOQUE = {conducta: {caso: 6, critica: 1, directa: 0, ficha: 3}, diagnostico: {caso: 6, critica: 1, directa: 0, ficha: 3},
+  critica: {caso: 2, critica: 6, directa: 0, ficha: 2}, datos: {caso: 2, critica: 0, directa: 5, ficha: 5}};
+const TEMPLATE_DEFAULT = () => ({counts: Object.assign({caso: 5, critica: 3, directa: 0, ficha: 3}, COUNTS_ENFOQUE[S.focus] || {}), level: "residencia", emph: [], lang: "es", instr: "", label: ""});
 
 // Quita encabezados, pies de página y marcas de agua: líneas que se repiten en la mayoría de las páginas
 // (p. ej. "Descargado para <nombre> (<correo>)…" o "www.revista.com Vol 407 2242"). Así no se envían datos
@@ -220,6 +223,7 @@ function renderAiTab(){
   const b = $("#gBody"), tpls = S.tpls || [];
   b.innerHTML = `
     ${getKey() ? "" : `<div class="warnbox small">Para generar con IA necesitas una clave de API. <button class="linkbtn" data-go="guide">Cómo conseguirla</button>. Mientras tanto, usa <b>📖 Leer y crear</b>.</div>`}
+    ${focusOf().k !== "mixto" ? `<p class="xs" style="margin:0">🎯 <b>Tu enfoque: ${esc(focusOf().t)}.</b> La IA prioriza ese tipo en todo lo que crea, y las cantidades de abajo ya vienen ajustadas. Cámbialo en Hoy.</p>` : ""}
     <div class="autobox stack">
       <div><b>✨ Fichas automáticas</b><p class="xs muted" style="margin:4px 0 0">La IA lee el documento, decide qué es lo más relevante para tu examen y arma las fichas ordenadas por importancia, con el porqué de cada una. Tú solo revisas y guardas.</p></div>
       <div class="grid2"><label class="fld">Cuántas fichas<select id="aCount"><option value="auto">La IA decide (recomendado)</option><option>5</option><option>10</option><option>15</option></select></label></div>
