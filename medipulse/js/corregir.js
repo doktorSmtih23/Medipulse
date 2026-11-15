@@ -11,9 +11,12 @@ const vigToText = v => String(v || "").replace(/<span class='hy'>([\s\S]*?)<\/sp
 const textToVig = t => esc(t).replace(/\[\[([\s\S]+?)\]\]/g, "<span class='hy'>$1</span>");
 
 let corrSeq = 0;
+// Especialidad: la IA a veces la asigna mal; se puede cambiar al revisar o al corregir.
+const specSelHTML = (attr, val) => `<label class="fld">Especialidad<select ${attr}>${SPECS.map(s => `<option ${s === val ? "selected" : ""}>${esc(s)}</option>`).join("")}</select></label>`;
 function qEditHTML(q, crudo){
   const n = "qeOk" + (++corrSeq);
   return `<div class="stack qedit" style="gap:6px">
+    ${specSelHTML('data-qe="specialty"', q.specialty)}
     <label class="fld">Enunciado<textarea rows="4" data-qe="vignette">${esc(crudo ? q.vignette : vigToText(q.vignette))}</textarea></label>
     <span class="xs muted">Marca la respuesta correcta:</span>
     ${q.options.map((o, j) => `<div class="row" style="gap:6px;align-items:center;flex-wrap:nowrap"><input type="radio" name="${n}" value="${j}" ${j === q.correct ? "checked" : ""} aria-label="Correcta: ${"ABCD"[j]}"><b>${"ABCD"[j]}</b><input type="text" data-qo="${j}" value="${esc(o)}" style="flex:1;min-width:0"></div>`).join("")}
@@ -35,6 +38,7 @@ function qEditError(v){
 }
 function hEditHTML(h){
   return `<div class="stack hedit" style="gap:6px">
+    ${specSelHTML('data-he="specialty"', h.specialty)}
     <label class="fld">Título<input type="text" data-he="title" value="${esc(h.title)}"></label>
     ${h.thresholds.map((x, j) => `<div class="erow two"><textarea rows="2" data-hl="${j}" aria-label="Qué es">${esc(x.label)}</textarea><textarea rows="2" data-hv="${j}" aria-label="Dato">${esc(x.val)}</textarea></div>`).join("")}
     <label class="fld">🚩 Bandera roja<textarea rows="2" data-he="redFlag">${esc(h.redFlag || "")}</textarea></label>
@@ -65,6 +69,7 @@ function openCorregir(kind, item, box, onDone){
     const v = kind === "q" ? qEditRead(box) : hEditRead(box), err = kind === "q" ? qEditError(v) : hEditError(v);
     if (err) return toast(err);
     if (kind === "q") v.vignette = textToVig(v.vignette);
+    if (kind === "h" && v.specialty) v.accent = SPEC_COLOR[v.specialty];
     v.edited = Date.now();
     const propio = (kind === "q" ? S.userQ : S.userH).find(x => String(x.id) === String(item.id));
     if (propio) Object.assign(propio, v);

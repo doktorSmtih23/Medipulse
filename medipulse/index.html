@@ -83,9 +83,12 @@
   <section class="view" id="v-banco">
     <div class="stack">
       <div><h2>Banco de casos</h2><p class="muted small" style="margin:4px 0 0">Practica por especialidad con explicación inmediata. Las que falles vuelven solas en tus repasos.</p></div>
-      <div class="filters" id="qFilters"></div>
-      <div class="filters" id="qStatus"></div>
+      <input type="search" id="qQuery" placeholder="Buscar: tema, fuente o palabra clave (p. ej. TEP, Kawasaki, NNT)" aria-label="Buscar casos">
+      <div class="filters wrap" id="qFilters"></div>
+      <div class="filters wrap" id="qStatus"></div>
+      <div class="filters wrap" id="qTipos"></div>
       <div class="card" id="qInfo"></div>
+      <div class="card" id="qList"></div>
     </div>
   </section>
 

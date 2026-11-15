@@ -575,6 +575,7 @@ function renderReview(){
           ${imgTag(c.img)}<div id="hp${i}">${hyPrevHTML(c)}</div>
           ${marcaHTML(c)}
           <details class="custom"><summary>✏️ Editar esta ficha</summary><div class="stack" style="margin-top:10px;gap:6px">
+          ${specSelHTML(`data-hf="${i}" data-k="specialty"`, c.specialty)}
           <label class="fld">Título<input type="text" data-hf="${i}" data-k="title" value="${esc(c.title)}"></label>
           ${c.thresholds.map((x,j)=>`<div class="erow two"><textarea rows="2" data-hr="${i}:${j}:label" aria-label="Qué es">${esc(x.label)}</textarea><textarea rows="2" data-hr="${i}:${j}:val" aria-label="Dato">${esc(x.val)}</textarea></div>`).join("")}
           <label class="fld">🚩 Bandera roja<textarea data-hf="${i}" data-k="redFlag" rows="2">${esc(c.redFlag)}</textarea></label>
@@ -602,7 +603,7 @@ function renderReview(){
     const n = cands.filter(c=>c.on).length; $("#candCount").textContent = `${n}/${cands.length} seleccionadas`; $("#candSave").textContent = `Guardar ${n} en el banco`;
   });
   box.querySelectorAll("[data-cf]").forEach(ta=>ta.oninput=()=>{ cands[+ta.dataset.cf][ta.dataset.k] = ta.value; });
-  box.querySelectorAll("[data-hf]").forEach(x=>x.oninput=()=>{ const i = +x.dataset.hf; cands[i][x.dataset.k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[i]); });
+  box.querySelectorAll("[data-hf]").forEach(x=>x.oninput=x.onchange=()=>{ const i = +x.dataset.hf; cands[i][x.dataset.k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[i]); });
   box.querySelectorAll("[data-hr]").forEach(x=>x.oninput=()=>{ const [i,j,k] = x.dataset.hr.split(":"); cands[+i].thresholds[+j][k] = x.value; $("#hp"+i).innerHTML = hyPrevHTML(cands[+i]); });
   box.querySelectorAll("[data-qbox]").forEach(qb=>qb.oninput = qb.onchange = ()=>{ Object.assign(cands[+qb.dataset.qbox], qEditRead(qb)); });
   box.querySelectorAll("[data-marca-pg]").forEach(b=>b.onclick=()=>openPdf(cur().id, +b.dataset.marcaPg));

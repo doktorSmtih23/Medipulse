@@ -48,12 +48,13 @@ function renderQ(q, exam){
   const items = stage().items;
   $("#sessBody").innerHTML = `
     <div class="card">
-      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span><span class="muted">${q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) + " · " : ""}${esc(q.topic)}</span>${exam ? "" : tipoChip(q)}<div class="spacer"></div>
+      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span><span class="muted">${exam && q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) + " · " : ""}${esc(q.topic)}</span>${exam ? "" : tipoChip(q)}<div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
       ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCD"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCD"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
       ${exam ? "" : metodoPregunta(q)}
       <div id="fbBox"></div>
+      ${exam ? "" : `<div class="row" id="skipRow" style="margin-top:10px"><div class="spacer"></div><button class="btn ghost sm" id="skipBtn">Pasar esta pregunta →</button></div>`}
     </div>
     ${exam ? `<div class="row" style="margin-top:12px">${sess.i>0?'<button class="btn" id="prevBtn">← Anterior</button>':""}<div class="spacer"></div><button class="btn primary" id="nextBtn">${sess.i+1<items.length?"Siguiente →":"Terminar simulacro"}</button></div>
       <div class="card" style="margin-top:12px;padding:14px"><div class="row xs muted"><b style="color:var(--text)">Mapa del simulacro</b><div class="spacer"></div><span>${items.filter((_,j)=>sess.answers[sess.si+":"+j]!=null).length}/${items.length} respondidas</span></div>
@@ -64,6 +65,8 @@ function renderQ(q, exam){
   document.querySelectorAll("#opts .xbtn").forEach(b=>b.onclick=()=>{ const i = +b.dataset.x, at = struck.indexOf(i);
     at>=0 ? struck.splice(at,1) : struck.push(i); b.parentElement.classList.toggle("struck", at<0); });
   $("#hintBtn") && ($("#hintBtn").onclick = ()=>{ S.hints = !S.hints; save(); renderQ(q, exam); });
+  // Pasar sin responder: no cuenta como fallo ni como acierto, y la pregunta sigue nueva o donde estaba en el repaso.
+  $("#skipBtn") && ($("#skipBtn").onclick = ()=>{ addTime(); sess.skipped = (sess.skipped||0) + 1; sess.i++; renderItem(); });
   $("#flagBtn") && ($("#flagBtn").onclick = ()=>{ sess.flags[k] = !sess.flags[k]; renderQ(q, exam); });
   if (exam) {
     $("#nextBtn").onclick = ()=>{
@@ -85,7 +88,7 @@ function answerQ(q, o, exam){
   grade("q"+q.id, ok?2:0);
   const l=logToday(); l.q++; if(ok) l.ok++; save();
   sess.results.push({t:"q",id:q.id,ok});
-  $("#opts").classList.add("done"); $(".vignette").classList.add("hints");
+  $("#opts").classList.add("done"); $(".vignette").classList.add("hints"); $("#skipRow") && $("#skipRow").remove();
   document.querySelectorAll("#opts .opt").forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add("right"); else if(i===o) b.classList.add("wrong"); });
   $("#fbBox").innerHTML = `
     <div class="stack" style="margin-top:14px">
@@ -94,11 +97,13 @@ function answerQ(q, o, exam){
       <div class="note trap"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>
       ${srcLine(q)}
       ${enfoqueTrasResponder(q)}
-      <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button><div id="repBox"></div><div id="fixBox"></div></div>
+      <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button> · <button class="linkbtn xs" id="archBtn">🗄️ Archivar este caso</button><div id="repBox"></div><div id="fixBox"></div></div>
       <button class="btn primary block" id="nextBtn">Siguiente →</button>
     </div>`;
   $("#repBtn").onclick = ()=>openReportForm("q"+q.id, $("#repBox"));
   $("#fixBtn").onclick = ()=>openCorregir("q", q, $("#fixBox"));
+  $("#archBtn").onclick = ()=>{ S.hidden["q"+q.id] = Date.now(); delete S.srs["q"+q.id]; rebuild(); save(); refreshChips();
+    $("#archBtn").replaceWith(Object.assign(document.createElement("span"), {className: "xs muted", textContent: "🗄️ Archivado: no volverá a salir. Lo restauras en Casos, al final de la lista."})); };
   $("#nextBtn").onclick=()=>{ sess.i++; renderItem(); };
   $("#nextBtn").focus({preventScroll:true});
 }
@@ -200,6 +205,7 @@ function endSession(showSummary){
       <div class="kpi"><b>${q.length?qok+"/"+q.length:"—"}</b><span>casos</span></div>
       <div class="kpi"><b>${c.length}</b><span>fichas</span></div>
     </div>
+    ${s.skipped ? `<p class="xs muted" style="margin:0">Pasaste ${s.skipped} pregunta${s.skipped===1?"":"s"} sin responder: siguen disponibles.</p>` : ""}
     ${s.diag ? diagSummary(q) : ""}
     ${enfoqueResumen(s.results)}
     <p class="muted small" style="margin:0">🔥 Racha: <b>${streak()}</b> día${streak()===1?"":"s"}. ${s.lazy?"Lo difícil era empezar. ¿Y si haces otros 5 minutos ahora que ya entraste en ritmo?":"Lo que fallaste vuelve en tu repaso en el momento justo."}</p>
