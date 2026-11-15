@@ -5,6 +5,7 @@ function renderHoy(){
   const h = new Date().getHours();
   $("#greet").textContent = h<12 ? "Buenos días ☀️" : h<19 ? "Buenas tardes 👋" : "Buenas noches 🌙";
   renderFocusSel();
+  if (typeof renderDataWarn === "function") renderDataWarn();
   const l = logToday(), st = streak(), due = dueKeys().length;
   $("#todayCard").innerHTML = `
     <div class="row"><h3 style="font-size:16px">Hoy</h3><div class="spacer"></div>${l.sec>0||l.c>0||l.q>0?'<span class="tag" style="background:var(--ok-soft);color:var(--ok)">✓ Racha asegurada</span>':'<span class="tag">Aún sin estudiar</span>'}</div>

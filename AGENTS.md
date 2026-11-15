@@ -35,7 +35,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/banco.js` | Banco de casos y filtros |
 | `js/fichas-hy.js` | Fichas high-yield: estudio, editor y pestaña High Yield |
 | `js/simulacro.js` | Configuración del simulacro |
-| `js/progreso.js` | Progreso, respaldo y borrado |
+| `js/progreso.js` | Progreso y borrado |
 | `js/fuentes.js` | Biblioteca, PDFs (IndexedDB, pdf.js), clave de API y guía |
 | `js/taller.js` | Detalle de una fuente: taller de preguntas (lector, datos clave, IA), revisión y guardado |
 | `js/vigencia.js` | Llamadas a la API de Claude (`callForTool`, `apiErr`), revisión de vigencia y actualización de ítems |
@@ -44,6 +44,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/reportes.js` | Reportes de errores en preguntas |
 | `js/mbe.js` | Laboratorio de lectura crítica, destilador y calculadoras |
 | `js/crear-y-compartir.js` | Crear preguntas y fichas a mano, texto pegado y packs JSON |
+| `js/datos.js` | Proteger los datos: copia de seguridad (descargar/cargar/deshacer), recordatorio de copia, aviso de iPhone, alerta si no se pudo guardar, ítems archivados |
 | `js/inicio.js` | Arranque (va siempre al final) |
 | `vendor/` | pdf.js 3.11.174 y `@anthropic-ai/sdk` 1.2.0 (no editar a mano) |
 | `sw.js` | Caché sin conexión |

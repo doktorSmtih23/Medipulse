@@ -51,9 +51,12 @@ test.describe("Estudio", () => {
   });
   test("crear ficha a mano", async ({ page }) => {
     await page.click("nav [data-go=tarjetas]"); await page.click("#hyNew");
+    // El formulario termina de armarse (y enfoca el título) unos milisegundos después de abrirse.
+    await expect(page.locator("#newForm .eTitle")).toBeFocused();
     await page.fill("#newForm .eTitle", "Prueba"); await page.fill("#newForm .eL >> nth=0", "Dato"); await page.fill("#newForm .eV >> nth=0", "Valor");
+    await expect(page.locator("#newForm .eTitle")).toHaveValue("Prueba");
     await page.click("#newForm .eSave");
-    expect(await page.evaluate(() => S.userH.some(h => h.title === "Prueba"))).toBe(true);
+    await expect.poll(() => page.evaluate(() => S.userH.some(h => h.title === "Prueba"))).toBe(true);
   });
 });
 

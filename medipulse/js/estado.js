@@ -23,7 +23,13 @@ function rebuild(){
   HYS = [...HY_CARDS, ...(S.userH || [])].filter(h=>!S.hidden["h"+h.id]);
 }
 rebuild();
-function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
+// Si guardar falla (almacenamiento lleno o bloqueado), se avisa en Hoy para que el usuario descargue su copia.
+let SAVE_FAILED = false;
+function save(){
+  let ok = true;
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) { ok = !CAN_STORE; }
+  if (SAVE_FAILED === ok) { SAVE_FAILED = !ok; if (typeof renderDataWarn === "function") renderDataWarn(); }
+}
 
 const todayKey = (d=new Date()) => new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
 function logToday(){ const k = todayKey(); return S.log[k] || (S.log[k] = {sec:0,q:0,ok:0,c:0}); }

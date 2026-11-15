@@ -26,6 +26,7 @@
   <!-- ============ HOY ============ -->
   <section class="view on" id="v-hoy">
     <div class="stack">
+      <div id="dataWarn"></div>
       <div>
         <h1 style="font-size:24px" id="greet">Hola</h1>
         <p class="muted" style="margin:4px 0 0">¿Cómo está tu energía ahora? Elige y yo armo la sesión.</p>
@@ -317,8 +318,9 @@
       <div class="card"><h3 style="font-size:16px">Últimas 5 semanas</h3><p class="muted xs" style="margin:4px 0 10px">Minutos de estudio por día.</p><div class="heat" id="heat"></div></div>
       <div class="card stack">
         <h3 style="font-size:16px">Tus datos</h3>
-        <p class="muted small" style="margin:0">Todo se guarda solo en este dispositivo. El respaldo incluye tu progreso y las preguntas que generaste, pero no los PDF ni tu clave de API.</p>
-        <div class="row"><button class="btn" id="expBtn">⬇ Exportar</button><label class="btn" style="display:inline-block">⬆ Importar<input type="file" id="impFile" accept="application/json" hidden></label><button class="btn ghost" id="resetBtn" style="color:var(--bad)">Borrar progreso</button></div>
+        <p class="muted small" style="margin:0">Todo se guarda solo en este dispositivo. La copia incluye tu progreso, fichas y preguntas, pero no los PDF ni tu clave de API. Guárdala fuera del dispositivo (correo o Drive).</p>
+        <p class="small" id="bkInfo" style="margin:0"></p>
+        <div class="row"><button class="btn" id="expBtn">⬇ Descargar copia</button><label class="btn" style="display:inline-block">⬆ Cargar copia<input type="file" id="impFile" accept="application/json" hidden></label><button class="btn ghost" id="resetBtn" style="color:var(--bad)">Borrar progreso</button></div>
       </div>
     </div>
   </section>
@@ -360,6 +362,7 @@
 <script src="js/reportes.js"></script>
 <script src="js/mbe.js"></script>
 <script src="js/crear-y-compartir.js"></script>
+<script src="js/datos.js"></script>
 <script src="js/inicio.js"></script>
 </body>
 </html>
