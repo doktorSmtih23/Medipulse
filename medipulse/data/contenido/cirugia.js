@@ -82,16 +82,28 @@ MP_CONTENIDO.agregar({
         "Alta con analgésicos, sin estudios",
         "Colonoscopia diagnóstica",
         "Metronidazol oral ambulatorio como única medida",
-        "Apendicectomía laparoscópica, que puede hacerse dentro de las primeras 24 horas"
+        "Apendicectomía laparoscópica dentro de las 24 horas del ingreso, con profilaxis antibiótica en dosis única"
       ],
       "correct": 3,
-      "whyCorrect": "Es un cuadro típico de apendicitis aguda. La WSES 2025 mantiene la apendicectomía laparoscópica como el abordaje quirúrgico estándar; en la apendicitis no complicada puede diferirse dentro de 24 horas sin más eventos adversos. Las escalas clínicas y la imagen mejoran la precisión diagnóstica.",
-      "pearl": "WSES 2025: en pacientes seleccionados con apendicitis no complicada, el manejo no operatorio con antibióticos es seguro y eficaz. En la complicada, antibiótico posoperatorio corto (2–3 días).",
-      "trap": "Prolongar el antibiótico posoperatorio en la apendicitis complicada: la WSES 2025 lo limita a 2–3 días.",
+      "whyCorrect": "Es un cuadro típico de apendicitis aguda no complicada. La WSES 2025 recomienda la apendicectomía laparoscópica dentro de las 24 horas del ingreso, con una sola dosis de antibiótico profiláctico antes de la cirugía y sin antibiótico posoperatorio.",
+      "pearl": "WSES 2025: el antibiótico sin cirugía es una alternativa en el adulto con apendicitis no complicada, con vigilancia clínica y decisión compartida. Para estratificar el riesgo recomienda las escalas AIR, AAS y PAS.",
+      "trap": "Dejar antibiótico después de operar una apendicitis no complicada: la WSES 2025 lo desaconseja.",
       "cita": [
         {
-          "donde": "Resumen, hallazgos clave",
-          "texto": "(1) clinical risk scores and imaging improve diagnostic accuracy and reduce negative appendectomy rates; (2) nonoperative management with antibiotics is safe and effective in selected patients with uncomplicated appendicitis, with recommendations tailored for specific populations; (3) appendectomy for uncomplicated appendicitis may be safely delayed within 24 hours without increased risk of adverse outcomes; (4) laparoscopic appendectomy remains the standard surgical approach; (5) postoperative antibiotic therapy should be limited to short courses (2-3 days) in complicated disease"
+          "donde": "Recomendación 9.1 (fuerte, certeza moderada)",
+          "texto": "We recommend performing laparoscopic appendectomy within 24 hours of hospital admission in adult patients with uncomplicated acute appendicitis who have been selected for surgical management."
+        },
+        {
+          "donde": "Recomendación 15.1 (fuerte, certeza moderada)",
+          "texto": "We recommend administering a single dose of preoperative prophylactic antibiotics to adult patients with uncomplicated acute appendicitis undergoing laparoscopic appendectomy to reduce the risk of surgical site infections and postoperative intra-abdominal abscess."
+        },
+        {
+          "donde": "Recomendación 17.1 (condicional, certeza baja)",
+          "texto": "In adult patients with uncomplicated acute appendicitis undergoing laparoscopic appendectomy, we suggest against administering postoperative antibiotics."
+        },
+        {
+          "donde": "Recomendación 5.1 (condicional, certeza moderada)",
+          "texto": "We suggest the use of antibiotics as an alternative to appendectomy for the treatment of uncomplicated appendicitis in adult patients, provided there is appropriate clinical monitoring and shared decision-making."
         }
       ],
       "verificado": "2026-11-15"
@@ -128,6 +140,42 @@ MP_CONTENIDO.agregar({
         {
           "donde": "TG18, terapia antimicrobiana (recomendación 1, nivel C)",
           "texto": "Once the source of infection is controlled, antimicrobial therapy for patients with acute cholangitis is recommended for the duration of 4 to 7 days."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "cir-c01",
+      "topic": "Páncreas · Pancreatitis aguda",
+      "difficulty": "Nivel 2",
+      "src": "nice_pan",
+      "vignette": "Hombre de 52 años, bebedor social, con dolor epigástrico intenso irradiado a la espalda y vómitos desde hace 30 horas. Lipasa 6 veces el valor normal; la ecografía muestra colelitiasis. Al tercer día persiste con <span class='hy'>falla orgánica y criterios de pancreatitis grave</span>, sin fiebre ni signos de infección. ¿Qué indica la guía NICE?",
+      "options": [
+        "Iniciar meropenem profiláctico para evitar la infección de la necrosis",
+        "Ayuno estricto y nutrición parenteral total hasta que mejore el dolor",
+        "Nutrición enteral iniciada dentro de las 72 horas, sin antibiótico profiláctico",
+        "Atribuir el cuadro al alcohol y no estudiar otras causas"
+      ],
+      "correct": 2,
+      "whyCorrect": "En la pancreatitis aguda grave o moderadamente grave, NICE indica ofrecer nutrición enteral, iniciada dentro de las 72 horas del ingreso; la parenteral solo si la enteral falla o está contraindicada. No se ofrecen antimicrobianos profilácticos.",
+      "pearl": "Necrosis pancreática infectada o sospechada: abordaje endoscópico cuando sea anatómicamente posible; si no, percutáneo.",
+      "trap": "Dar antibiótico «profiláctico» en la pancreatitis grave sin infección: NICE lo desaconseja. Tampoco se asume que la causa es el alcohol solo porque el paciente bebe.",
+      "cita": [
+        {
+          "donde": "Recomendaciones 1.2.6 y 1.2.7",
+          "texto": "Offer enteral nutrition to anyone with severe or moderately severe acute pancreatitis. Start within 72 hours of presentation and aim to meet their nutritional requirements as soon as possible. · Offer anyone with severe or moderately severe acute pancreatitis parenteral nutrition only if enteral nutrition has failed or is contraindicated."
+        },
+        {
+          "donde": "Recomendación 1.2.3",
+          "texto": "Do not offer prophylactic antimicrobials to people with acute pancreatitis."
+        },
+        {
+          "donde": "Recomendaciones 1.2.8 y 1.2.9",
+          "texto": "Offer people with acute pancreatitis an endoscopic approach for managing infected or suspected infected pancreatic necrosis when anatomically possible. · Offer a percutaneous approach when an endoscopic approach is not anatomically possible."
+        },
+        {
+          "donde": "Recomendación 1.2.1",
+          "texto": "Do not assume that a person's acute pancreatitis is alcohol-related just because they drink alcohol."
         }
       ],
       "verificado": "2026-11-15"
@@ -228,15 +276,90 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "cir-f02",
+      "title": "Apendicitis aguda (WSES 2025)",
+      "badge": "WSES 2025",
+      "src": "wses_app",
+      "thresholds": [
+        {
+          "label": "Escalas",
+          "val": "AIR, AAS y PAS (pediátrica)"
+        },
+        {
+          "label": "Imagen preferida (adulto)",
+          "val": "TC de baja dosis (< 2–3 mSv)"
+        },
+        {
+          "label": "No complicada operada",
+          "val": "Laparoscopia < 24 h; profilaxis única, sin antibiótico posoperatorio"
+        },
+        {
+          "label": "Complicada operada",
+          "val": "Antibiótico 2–3 días tras controlar el foco"
+        },
+        {
+          "label": "Absceso, < 35 años",
+          "val": "Apendicectomía laparoscópica temprana"
+        },
+        {
+          "label": "Absceso, ≥ 35 años",
+          "val": "Manejo no operatorio + apendicectomía de intervalo a las 6–12 semanas"
+        }
+      ],
+      "redFlag": "Absceso apendicular en mayores de 35 años: no operar de entrada; riesgo de neoplasia apendicular de hasta 14,3 %.",
+      "trap": "Dar antibiótico después de operar una apendicitis no complicada: la WSES 2025 lo desaconseja.",
+      "cita": [
+        {
+          "donde": "Recomendación 2 (condicional, certeza baja)",
+          "texto": "We suggest using risk stratification scores based on clinical and laboratory findings (AIR score, AAS, and PAS) to identify patients at low probability for acute appendicitis and to guide the need for further imaging or observation."
+        },
+        {
+          "donde": "Recomendación 3.1",
+          "texto": "Where available, low-dose CT (protocol <2-3 mSv) should be considered the preferred imaging modality."
+        },
+        {
+          "donde": "Recomendación 9.1 (fuerte, certeza moderada)",
+          "texto": "We recommend performing laparoscopic appendectomy within 24 hours of hospital admission in adult patients with uncomplicated acute appendicitis who have been selected for surgical management."
+        },
+        {
+          "donde": "Recomendación 15.1 (fuerte, certeza moderada)",
+          "texto": "We recommend administering a single dose of preoperative prophylactic antibiotics to adult patients with uncomplicated acute appendicitis undergoing laparoscopic appendectomy to reduce the risk of surgical site infections and postoperative intra-abdominal abscess."
+        },
+        {
+          "donde": "Recomendación 17.1 (condicional, certeza baja)",
+          "texto": "In adult patients with uncomplicated acute appendicitis undergoing laparoscopic appendectomy, we suggest against administering postoperative antibiotics."
+        },
+        {
+          "donde": "Recomendación 19.1 (condicional, certeza moderada)",
+          "texto": "We suggest using a short course of postoperative antibiotics (2-3 days) instead of a longer course (5-7 days) after adequate source control in adult patients with complicated acute appendicitis submitted to laparoscopic appendectomy."
+        },
+        {
+          "donde": "Recomendación 13.1 (condicional, certeza moderada)",
+          "texto": "We suggest early laparoscopic appendectomy in adult patients younger than 35 years with complicated acute appendicitis and periappendicular abscess. … Conversely, in patients aged 35 years or older, we suggest against early appendectomy because of the increased risk of underlying appendiceal neoplasm (up to 14.3%)."
+        },
+        {
+          "donde": "Recomendación 14.1 (fuerte, certeza moderada)",
+          "texto": "We recommend performing interval appendectomy between 6 and 12 weeks after initial nonoperative management in adult patients 35 years or older with complicated acute appendicitis and periappendicular abscess to reduce the risk of missed appendiceal neoplasm."
+        }
+      ],
+      "verificado": "2026-11-15"
     }
   ],
   "tarjetas": [
     {
       "id": 22,
-      "src": "atls11",
-      "front": "Glasgow que indica asegurar la vía aérea",
-      "back": "≤ 8",
-      "estado": "pendiente"
+      "src": "nice_tce",
+      "front": "Trauma craneoencefálico: Glasgow que obliga a intubar (NICE)",
+      "back": "≤ 8 (coma): intubar y ventilar de inmediato",
+      "cita": [
+        {
+          "donde": "Recomendación 1.8.8 [2003, modificada 2007]",
+          "texto": "Intubate and ventilate the person immediately when there is: coma, that is, they are not obeying commands, not speaking and not eye opening (a GCS score of 8 or less) · loss of protective laryngeal reflexes · ventilatory insufficiency, as judged by blood gases: hypoxaemia (PaO2 less than 13 kPa on oxygen) or hypercarbia (PaCO2 more than 6 kPa) · irregular respirations."
+        }
+      ],
+      "verificado": "2026-11-15"
     },
     {
       "id": 23,
@@ -282,9 +405,15 @@ MP_CONTENIDO.agregar({
     {
       "id": 28,
       "src": "wses_app",
-      "front": "Alvarado que sugiere cirugía",
-      "back": "≥ 7 puntos",
-      "estado": "pendiente"
+      "front": "Escalas de riesgo para apendicitis recomendadas por la WSES 2025",
+      "back": "AIR, AAS y PAS (pediátrica): identifican baja probabilidad y guían la necesidad de imagen",
+      "cita": [
+        {
+          "donde": "Recomendación 2 (condicional, certeza baja)",
+          "texto": "We suggest using risk stratification scores based on clinical and laboratory findings (AIR score, AAS, and PAS) to identify patients at low probability for acute appendicitis and to guide the need for further imaging or observation."
+        }
+      ],
+      "verificado": "2026-11-15"
     },
     {
       "id": 50,
@@ -306,8 +435,8 @@ MP_CONTENIDO.agregar({
       "back": "2–3 días",
       "cita": [
         {
-          "donde": "Resumen, hallazgos clave",
-          "texto": "(1) clinical risk scores and imaging improve diagnostic accuracy and reduce negative appendectomy rates; (2) nonoperative management with antibiotics is safe and effective in selected patients with uncomplicated appendicitis, with recommendations tailored for specific populations; (3) appendectomy for uncomplicated appendicitis may be safely delayed within 24 hours without increased risk of adverse outcomes; (4) laparoscopic appendectomy remains the standard surgical approach; (5) postoperative antibiotic therapy should be limited to short courses (2-3 days) in complicated disease"
+          "donde": "Recomendación 19.1 (condicional, certeza moderada)",
+          "texto": "We suggest using a short course of postoperative antibiotics (2-3 days) instead of a longer course (5-7 days) after adequate source control in adult patients with complicated acute appendicitis submitted to laparoscopic appendectomy."
         }
       ],
       "verificado": "2026-11-15"
@@ -321,6 +450,23 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Recomendación 1.5.4",
           "texto": "Use intravenous tranexamic acid as soon as possible in patients with major trauma and active or suspected active bleeding."
+        }
+      ],
+      "verificado": "2026-11-15"
+    },
+    {
+      "id": "cir-t02",
+      "src": "nice_pan",
+      "front": "Pancreatitis aguda grave: ¿antibiótico profiláctico? (NICE)",
+      "back": "No. Nutrición enteral dentro de las 72 h; parenteral solo si la enteral falla o está contraindicada",
+      "cita": [
+        {
+          "donde": "Recomendación 1.2.3",
+          "texto": "Do not offer prophylactic antimicrobials to people with acute pancreatitis."
+        },
+        {
+          "donde": "Recomendaciones 1.2.6 y 1.2.7",
+          "texto": "Offer enteral nutrition to anyone with severe or moderately severe acute pancreatitis. Start within 72 hours of presentation and aim to meet their nutritional requirements as soon as possible. · Offer anyone with severe or moderately severe acute pancreatitis parenteral nutrition only if enteral nutrition has failed or is contraindicated."
         }
       ],
       "verificado": "2026-11-15"

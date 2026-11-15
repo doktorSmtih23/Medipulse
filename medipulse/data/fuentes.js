@@ -43,6 +43,8 @@ const SOURCES = [
   {id:"nice_ip",  t:"NICE guideline NG235: Intrapartum care", r:"NICE, 2023 · actualizada en 2026", y:2026, k:"guideline", u:"https://www.nice.org.uk/guidance/ng235"},
   {id:"nice_ppt", t:"NICE guideline NG25: Preterm labour and birth", r:"NICE, 2015 · actualizada en 2022", y:2022, k:"guideline", u:"https://www.nice.org.uk/guidance/ng25"},
   {id:"nice_tr",  t:"NICE guideline NG39: Major trauma: assessment and initial management", r:"NICE, 2016", y:2016, k:"guideline", u:"https://www.nice.org.uk/guidance/ng39", v:"Sigue siendo la versión vigente de NICE"},
+  {id:"nice_tce", t:"NICE guideline NG232: Head injury: assessment and early management", r:"NICE, 2023", y:2023, k:"guideline", u:"https://www.nice.org.uk/guidance/ng232"},
+  {id:"nice_pan", t:"NICE guideline NG104: Pancreatitis", r:"NICE, 2018 · actualizada en 2020", y:2020, k:"guideline", u:"https://www.nice.org.uk/guidance/ng104"},
   {id:"rcuk_ana", t:"Emergency treatment of anaphylaxis: guidelines for healthcare providers (Resuscitation Council UK)", r:"RCUK, 2021", y:2021, k:"guideline", v:"Fecha de revisión prevista: mayo de 2026"},
   {id:"aap_fs",   t:"AAP Clinical Practice Guideline: Febrile Seizures", r:"Pediatrics, 2011", y:2011, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
   {id:"aap_oma",  t:"AAP Clinical Practice Guideline: The Diagnosis and Management of Acute Otitis Media", r:"Pediatrics, 2013", y:2013, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
