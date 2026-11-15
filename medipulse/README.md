@@ -7,6 +7,8 @@ Mapa estructural de la app (arquitectura, pantallas, motor de estudio, fuentes, 
 ## Estructura
 La app está dividida por módulos (sin frameworks ni compilación): `index.html` (pantallas), `css/app.css` (estilos), `data/` (contenido médico: casos, fuentes, fichas, tarjetas) y `js/` (un archivo por módulo). El detalle de cada archivo, las reglas y cómo integrar código hecho en otra IA están en **[../AGENTS.md](../AGENTS.md)**.
 
+Ver la app en tu computadora: desde `medipulse/`, `npm start` y abre http://localhost:8080/ (si el puerto está ocupado, usa el siguiente libre y lo indica). No abras `index.html` con doble clic: sin servidor se ve sin estilos.
+
 Pruebas automáticas (Playwright Test, sin API real ni internet): desde `medipulse/`, la primera vez `npm install` y `npx playwright install chromium`; después `npm test` (o `npm run test:ui` para verlas paso a paso). En VS Code, instala la extensión recomendada **Playwright Test for VSCode**: las pruebas aparecen en el panel de pruebas y se corren o depuran una por una. GitHub las corre solas en cada pull request.
 
 Versión de un solo archivo (para visores que abren un solo HTML o para compartirla): `node tools/un-archivo.js` genera `medipulse-un-archivo.html`; con `--watch` se regenera con cada cambio.
