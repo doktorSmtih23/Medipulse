@@ -1,7 +1,7 @@
 // ===================================================================
 // CREAR PREGUNTAS Y TARJETAS A MANO
 // ===================================================================
-let newType = "q";
+let newType = "e";
 function srcOptions(sel){
   return `<option value="">✍️ Elaboración propia (sin fuente publicada)</option><optgroup label="Tus fuentes">${S.sources.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.title)}</option>`).join("")}</optgroup>
     <optgroup label="Guías incluidas">${SOURCES.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.t.length>70?s.t.slice(0,70)+"…":s.t)}</option>`).join("")}</optgroup>`;
@@ -60,10 +60,11 @@ $("#pasteBtn").onclick = togglePaste;
 $("#diagBtn").onclick = startDiag;
 
 function renderNew(){
-  if (!["q", "h", "g", "i"].includes(newType)) newType = "h";
-  $("#newSeg").innerHTML = `<button data-nt="q" class="${newType==="q"?"on":""}"><b>🩺 Caso clínico</b><span>Viñeta con 4 o 5 opciones</span></button><button data-nt="h" class="${newType==="h"?"on":""}"><b>💎 Ficha high-yield</b><span>Datos clave, bandera roja y trampa</span></button><button data-nt="g" class="${newType==="g"?"on":""}"><b>🤖 Generar desde tu PDF</b><span>La IA de MediPulse crea casos y fichas</span></button><button data-nt="i" class="${newType==="i"?"on":""}"><b>📥 Pegar de otra IA</b><span>Gemini, ChatGPT u otro banco</span></button>`;
+  if (!["e", "q", "h", "g", "i"].includes(newType)) newType = "e";
+  $("#newSeg").innerHTML = `<button data-nt="e" class="${newType==="e"||newType==="q"?"on":""}"><b>✏️ Editar un caso</b><span>Hazlo más difícil o a tu estilo</span></button><button data-nt="h" class="${newType==="h"?"on":""}"><b>💎 Ficha high-yield</b><span>Datos clave, bandera roja y trampa</span></button><button data-nt="g" class="${newType==="g"?"on":""}"><b>🤖 Generar desde tu PDF</b><span>La IA de MediPulse crea casos y fichas</span></button><button data-nt="i" class="${newType==="i"?"on":""}"><b>📥 Pegar de otra IA</b><span>Gemini, ChatGPT u otro banco</span></button>`;
   document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ newType = b.dataset.nt; renderNew(); });
   if (newType === "i") { $("#newForm").classList.add("card"); renderImportar($("#newForm")); renderMine(); return; }
+  if (newType === "e") { $("#newForm").classList.add("card"); renderEditarCaso($("#newForm")); renderMine(); return; }
   if (newType === "g") { $("#newForm").classList.add("card"); renderGenerarPdf($("#newForm")); renderMine(); return; }
   if (newType === "h") {
     hyEditor($("#newForm"), {showSrc: true, heading: "💎 Nueva ficha high-yield", flags: {manual: true}, onSave: ()=>renderNew(), onCancel: ()=>go("tarjetas")});
@@ -72,6 +73,8 @@ function renderNew(){
   $("#newForm").classList.add("card");
   const specSel = `<label class="fld">Especialidad<select id="nSpec">${SPECS.map(s=>`<option>${s}</option>`).join("")}</select></label>`;
   $("#newForm").innerHTML = `
+    <div class="row" style="gap:8px"><button class="btn ghost sm" id="nVolver">← Editar un caso existente</button></div>
+    <b>✍️ Caso en blanco</b>
     <div class="grid2">${specSel}<label class="fld">Tipo de pregunta<select id="nTipo">${FOCUS.slice(1).map(f=>`<option value="${f.k}">${esc(f.t)}</option>`).join("")}</select></label></div>
     <label class="fld">Tema<input type="text" id="nTopic" placeholder="p. ej. Nefrología · Hiponatremia"></label>
     <label class="fld">Caso clínico<textarea id="nVig" rows="4" placeholder="Mujer de 74 años con… Marca los datos clave entre [[dobles corchetes]] para que funcionen como pistas."></textarea></label>
@@ -83,6 +86,7 @@ function renderNew(){
     <div class="grid2"><label class="fld">Fuente<select id="nSrc">${srcOptions("")}</select></label><label class="fld">Página (opcional)<input type="number" id="nPage" min="1"></label></div>
     <button class="btn primary block" id="nSave">➕ Agregar al banco</button>`;
   $("#nSave").onclick = saveNew;
+  $("#nVolver").onclick = () => { newType = "e"; renderNew(); };
   if (newPrefill) {
     $("#nWhy").value = newPrefill.why || ""; $("#nSrc").value = newPrefill.src || ""; $("#nPage").value = newPrefill.page || "";
     $("#nVig").placeholder = "Escribe el caso a partir de la frase que seleccionaste (ya está en la explicación). Marca los datos clave entre [[dobles corchetes]].";

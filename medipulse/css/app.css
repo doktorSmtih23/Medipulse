@@ -307,6 +307,8 @@ pre.prompt{white-space:pre-wrap;font-size:12px;background:var(--subtle);border-r
 .porop{border-left:3px solid var(--border);padding-left:8px}
 .porop.ok{border-color:var(--ok)}.porop.mia{border-color:var(--bad)}
 #newSeg{grid-template-columns:repeat(2,1fr)}
+.edideas{border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+.aibox{background:var(--subtle);border-radius:10px;padding:10px}
 .docrow{border-top:1px dashed var(--border);padding-top:8px}
 @media (max-width:560px){#newSeg button{padding:10px}#newSeg button span{font-size:12px}}
 .porop .xs{white-space:pre-line}
@@ -351,3 +353,5 @@ label.check>span{flex:1;min-width:0}
 .hyayuda{margin:0}
 .hyprevbox>summary{cursor:pointer;color:var(--accent);font-weight:600}
 .hyed .erow{background:var(--subtle);border-radius:12px;padding:6px}
+.edideas .chip2{white-space:normal;text-align:left;max-width:100%}
+.edopt{flex:1;min-width:0;resize:vertical;min-height:40px}

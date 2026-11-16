@@ -79,7 +79,8 @@ function hyEditor(box, o){
     <label class="fld">⚠️ Trampa: cómo te harán fallar en el examen<textarea class="eTrap" rows="3" placeholder="Paciente con insuficiencia cardiaca que recibe diuréticos: Light puede llamar exudado a un trasudado.">${esc(o.trap)}</textarea></label>
     ${o.showSrc ? `<div class="hysec"><span class="hynum">4</span><b>De dónde sale</b></div><div class="grid2"><label class="fld">Fuente<select class="eSrc">${srcOptions(o.src||"")}</select></label><label class="fld">Página (opcional)<input type="number" class="ePage" min="1" value="${o.page||""}"></label></div>` : ""}
     <details class="hyprevbox"><summary class="small">👁️ Así la verás al repasar</summary><div class="hyprev-in"></div></details>
-    <div class="row"><button class="btn primary sm eSave">💎 Guardar ficha</button><button class="btn ghost sm eCancel">Cancelar</button></div></div>`;
+    <div class="eRevBox"></div>
+    <div class="row"><button class="btn primary sm eSave">💎 Guardar ficha</button>${getKey() ? `<button class="btn sm eRev">🤖 Revisar mi ficha</button>` : ""}<button class="btn ghost sm eCancel">Cancelar</button></div></div>`;
   const rowsBox = box.querySelector(".eRows");
   const addRow = (label, val) => {
     const r = document.createElement("div"); r.className = "erow";
@@ -107,6 +108,25 @@ function hyEditor(box, o){
   box._addRow = (label, val, ctx) => { const empty = [...rowsBox.querySelectorAll(".erow")].find(r=>!r.querySelector(".eV").value.trim());
     const r = empty || addRow(); if (label) r.querySelector(".eL").value = label; r.querySelector(".eV").value = val; if (ctx) o.ctx = (o.ctx ? o.ctx + " … " : "") + ctx;
     r.querySelector(".eL").focus(); };
+  // Revisión con IA: señala datos dudosos o rótulos poco claros; no agrega contenido por su cuenta.
+  box.querySelector(".eRev") && (box.querySelector(".eRev").onclick = async ()=>{
+    const bt = box.querySelector(".eRev"), title = box.querySelector(".eTitle").value.trim();
+    const rows = [...rowsBox.querySelectorAll(".erow")].map(r=>({label: r.querySelector(".eL").value.trim(), val: r.querySelector(".eV").value.trim()})).filter(x=>x.label || x.val);
+    if (!title || !rows.length) return toast("Escribe el título y al menos un dato para revisarla.");
+    bt.disabled = true; bt.innerHTML = `<span class="spin"></span> Revisando…`;
+    try {
+      const r = await callForTool({system: `Eres un revisor de fichas de estudio para el examen de residencia médica. Una ficha tiene un título, datos (qué es → el dato exacto), una bandera roja y una trampa. Señala solo problemas reales:
+- "error": un dato médico incorrecto o desactualizado.
+- "ambigua": un dato impreciso (sin unidad, sin población o sin contexto) o un rótulo que no deja claro qué hay que recordar.
+- "pista": el rótulo ya contiene la respuesta.
+- "estilo": título demasiado general o datos que deberían ir en otra ficha.
+No propongas datos nuevos que la ficha no tenga. Si no hay problemas, "veredicto" es "bien". Máximo 6 observaciones, cada una en una frase concreta. Español neutro, sin markdown.`,
+        tools: [T_REVISION], light: true, label: "Revisar ficha",
+        user: `Título: ${title}\nDatos:\n${rows.map(x=>`- ${x.label} → ${x.val}`).join("\n")}\nBandera roja: ${box.querySelector(".eRed").value.trim()}\nTrampa: ${box.querySelector(".eTrap").value.trim()}`}, "report_revision");
+      box.querySelector(".eRevBox").innerHTML = revisionHTML({veredicto: r.veredicto === "bien" ? "bien" : "revisar", observaciones: (r.observaciones || []).filter(o => o && o.texto).slice(0, 6)});
+    } catch(e) { toast(e.userMsg || e.message); }
+    bt.disabled = false; bt.textContent = "🤖 Revisar mi ficha";
+  });
   box.querySelector(".eCancel").onclick = ()=>{ box.innerHTML = ""; box._addRow = null; o.onCancel && o.onCancel(); };
   box.querySelector(".eSave").onclick = ()=>{
     const title = box.querySelector(".eTitle").value.trim();

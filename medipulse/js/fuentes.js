@@ -25,6 +25,8 @@ function citaHtml(item){
   return `<details class="cita"><summary>📍 Ver la cita textual ${deQue}${v}</summary>${item.cita.map(c => `<div class="cita-i"><b>${esc(c.donde)}</b><blockquote>“${esc(c.texto)}”</blockquote></div>`).join("")}</details>`;
 }
 function srcLine(item){
+  // Versión editada por el usuario: se dice, y debajo va la fuente del caso original.
+  if (item.editada) return `<div class="srcline">✏️ <span>Versión editada por ti${item.ia ? " con ayuda de la IA" : ""}, basada en ${item.externa ? "una pregunta importada" : item.src && srcInfo(item.src) && srcInfo(item.src).builtin ? "un caso del banco de MediPulse" : "un caso"}. MediPulse no revisa los cambios; la responsabilidad es de quien los hizo.</span></div>` + srcLine(Object.assign({}, item, {editada: false, ia: false, manual: item.src ? item.manual : false}));
   const s = srcInfo(item.src);
   if (!s && item.externa) return `<div class="srcline">📥 <span>Material aportado por el usuario${item.fuenteTxt ? ` · fuente indicada: ${esc(item.fuenteTxt)}` : ""}${item.edited ? " · corregido por ti" : ""}. MediPulse no revisa ni audita este contenido; la responsabilidad es de quien lo aportó.</span></div>`;
   if (!s) return item.manual || item.propia ? `<div class="srcline">✍️ <span>Elaboración propia${item.edited ? " · corregido por ti" : ""}: no verificada por MediPulse; la responsabilidad del contenido es de quien la creó.</span></div>` : "";
