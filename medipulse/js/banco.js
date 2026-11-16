@@ -74,7 +74,7 @@ function renderBanco(){
     <p class="xs muted" style="margin:4px 0 6px">Sin el tema ni la fuente, para no darte pistas: los ves al responder. Si un caso quedó en la especialidad equivocada, corrígelo con 🏷️.</p>` + grupos.map(([s, qs]) => `
     <details class="qgrupo" ${abierto ? "open" : ""}><summary><span class="dot" style="background:${SPEC_COLOR[s]}"></span> <b>${esc(s)}</b> <span class="xs muted">${qs.length}</span></summary>
       <div style="margin-top:4px">${qs.map((q, i) => { const e = qEstado(q), id = esc(String(q.id)); return `<div class="qrow">
-        <div style="flex:1;min-width:0" class="row" ><b class="small">Caso ${i + 1}</b>${tipoChip(q)}<span class="xs est ${e.k}">${e.t}</span></div>
+        <div style="flex:1;min-width:0" class="row" ><b class="small">Caso ${i + 1}</b>${tipoChip(q)}${origenChip(q)}<span class="xs est ${e.k}">${e.t}</span></div>
         <button class="iconbtn" data-qe="${id}" aria-label="Cambiar la especialidad del caso ${i + 1}" title="Cambiar especialidad">🏷️</button>
         <button class="btn sm" data-q1="${id}">Estudiar</button></div>
         ${qEspOpen === String(q.id) ? `<div class="qesp row"><span class="xs">Mover a</span><select data-qesel="${id}">${SPECS.map(x => opt(x, x, x === q.specialty)).join("")}</select></div>` : ""}`; }).join("")}

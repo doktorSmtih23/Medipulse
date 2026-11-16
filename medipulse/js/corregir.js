@@ -20,7 +20,7 @@ function qEditHTML(q, crudo){
     <label class="fld">Tipo de pregunta<select data-qe="tipo">${FOCUS.slice(1).map(f => `<option value="${f.k}" ${qKind(q) === f.k ? "selected" : ""}>${esc(f.t)}</option>`).join("")}</select></label></div>
     <label class="fld">Enunciado<textarea rows="4" data-qe="vignette">${esc(crudo ? q.vignette : vigToText(q.vignette))}</textarea></label>
     <span class="xs muted">Marca la respuesta correcta:</span>
-    ${q.options.map((o, j) => `<div class="row" style="gap:6px;align-items:center;flex-wrap:nowrap"><input type="radio" name="${n}" value="${j}" ${j === q.correct ? "checked" : ""} aria-label="Correcta: ${"ABCD"[j]}"><b>${"ABCD"[j]}</b><input type="text" data-qo="${j}" value="${esc(o)}" style="flex:1;min-width:0"></div>`).join("")}
+    ${q.options.map((o, j) => `<div class="row" style="gap:6px;align-items:center;flex-wrap:nowrap"><input type="radio" name="${n}" value="${j}" ${j === q.correct ? "checked" : ""} aria-label="Correcta: ${"ABCDE"[j]}"><b>${"ABCDE"[j]}</b><input type="text" data-qo="${j}" value="${esc(o)}" style="flex:1;min-width:0"></div>`).join("")}
     <label class="fld">Explicación<textarea rows="3" data-qe="whyCorrect">${esc(q.whyCorrect || "")}</textarea></label>
     <label class="fld">💎 Perla<textarea rows="2" data-qe="pearl">${esc(q.pearl || "")}</textarea></label>
     <label class="fld">⚠️ Trampa<textarea rows="2" data-qe="trap">${esc(q.trap || "")}</textarea></label></div>`;
@@ -34,7 +34,8 @@ function qEditRead(box){
 function qEditError(v){
   if (!v.vignette) return "El enunciado no puede quedar vacío.";
   if (v.options.some(o => !o)) return "Las 4 opciones deben tener texto.";
-  if (new Set(v.options).size !== 4) return "Hay dos opciones iguales.";
+  if (v.options.length < 4 || v.options.length > 5) return "La pregunta debe tener 4 o 5 opciones.";
+  if (new Set(v.options).size !== v.options.length) return "Hay dos opciones iguales.";
   return "";
 }
 function hEditHTML(h){

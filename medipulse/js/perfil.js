@@ -81,6 +81,12 @@ function tipoChip(q){
   const k = qKind(q), mio = focusOf().k === k;
   return `<span class="tipo${mio ? " mio" : ""}">${esc(QMETODO[k].t)}${mio ? " · 🎯 tu enfoque" : ""}</span>`;
 }
+// Rótulo de origen para lo que aportó el usuario (no es una pista: no dice el tema).
+function origenChip(q){
+  if (q.externa) return `<span class="origen">📥 Importada por el usuario</span>`;
+  if (q.manual && !q.src) return `<span class="origen">✍️ Elaborada por el usuario</span>`;
+  return "";
+}
 function metodoPregunta(q){
   const k = qKind(q); if (focusOf().k !== k) return "";
   return `<details class="metodo"><summary>🎯 Cómo pensarla (tu enfoque)</summary>${metodoHTML(k)}</details>`;

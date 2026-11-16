@@ -60,9 +60,10 @@ $("#pasteBtn").onclick = togglePaste;
 $("#diagBtn").onclick = startDiag;
 
 function renderNew(){
-  if (newType !== "q") newType = "h";
-  $("#newSeg").innerHTML = `<button data-nt="q" class="${newType==="q"?"on":""}"><b>🩺 Caso clínico</b><span>Viñeta con 4 opciones</span></button><button data-nt="h" class="${newType==="h"?"on":""}"><b>💎 Ficha high-yield</b><span>Datos clave, bandera roja y trampa</span></button>`;
+  if (!["q", "h", "i"].includes(newType)) newType = "h";
+  $("#newSeg").innerHTML = `<button data-nt="q" class="${newType==="q"?"on":""}"><b>🩺 Caso clínico</b><span>Viñeta con 4 o 5 opciones</span></button><button data-nt="h" class="${newType==="h"?"on":""}"><b>💎 Ficha high-yield</b><span>Datos clave, bandera roja y trampa</span></button><button data-nt="i" class="${newType==="i"?"on":""}"><b>📥 Pegar de otra IA</b><span>Gemini, ChatGPT u otro banco</span></button>`;
   document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ newType = b.dataset.nt; renderNew(); });
+  if (newType === "i") { $("#newForm").classList.add("card"); renderImportar($("#newForm")); renderMine(); return; }
   if (newType === "h") {
     hyEditor($("#newForm"), {showSrc: true, heading: "💎 Nueva ficha high-yield", flags: {manual: true}, onSave: ()=>renderNew(), onCancel: ()=>go("tarjetas")});
     $("#newForm").classList.remove("card"); renderMine(); return;
@@ -73,8 +74,8 @@ function renderNew(){
     <div class="grid2">${specSel}<label class="fld">Tipo de pregunta<select id="nTipo">${FOCUS.slice(1).map(f=>`<option value="${f.k}">${esc(f.t)}</option>`).join("")}</select></label></div>
     <label class="fld">Tema<input type="text" id="nTopic" placeholder="p. ej. Nefrología · Hiponatremia"></label>
     <label class="fld">Caso clínico<textarea id="nVig" rows="4" placeholder="Mujer de 74 años con… Marca los datos clave entre [[dobles corchetes]] para que funcionen como pistas."></textarea></label>
-    ${[0,1,2,3].map(i=>`<div class="optin"><input type="radio" name="nCor" value="${i}" ${i===0?"checked":""} aria-label="Opción ${"ABCD"[i]} es la correcta"><input type="text" id="nOpt${i}" placeholder="Opción ${"ABCD"[i]}"></div>`).join("")}
-    <p class="xs muted" style="margin:0">Marca con el círculo la opción correcta.</p>
+    ${[0,1,2,3,4].map(i=>`<div class="optin"><input type="radio" name="nCor" value="${i}" ${i===0?"checked":""} aria-label="Opción ${"ABCDE"[i]} es la correcta"><input type="text" id="nOpt${i}" placeholder="Opción ${"ABCDE"[i]}${i===4?" (opcional)":""}"></div>`).join("")}
+    <p class="xs muted" style="margin:0">Marca con el círculo la opción correcta. La E es opcional, para los exámenes de 5 opciones.</p>
     <p class="xs muted" style="margin:0">Si la pregunta es tuya y no viene de una fuente publicada, deja la fuente en «✍️ Elaboración propia»: se mostrará así y la responsabilidad del contenido es de quien la creó.</p>
     <label class="fld">Explicación<textarea id="nWhy" rows="2"></textarea></label>
     <div class="grid2"><label class="fld">💎 Perla<textarea id="nPearl" rows="2"></textarea></label><label class="fld">⚠️ Trampa<textarea id="nTrap" rows="2"></textarea></label></div>
@@ -90,8 +91,10 @@ function renderNew(){
 }
 function saveNew(){
   const v = id => ($(id) ? $(id).value.trim() : ""), src = v("#nSrc") || null, page = parseInt(v("#nPage")) || 0;
-  const opts = [0,1,2,3].map(i=>v("#nOpt"+i)), cor = +document.querySelector('input[name="nCor"]:checked').value;
-  if (!v("#nVig") || opts.some(o=>!o)) return toast("Completa el caso y las 4 opciones.");
+  const opts = [0,1,2,3].map(i=>v("#nOpt"+i)).concat(v("#nOpt4") ? [v("#nOpt4")] : []), cor = +document.querySelector('input[name="nCor"]:checked').value;
+  if (!v("#nVig") || opts.some(o=>!o)) return toast("Completa el caso y al menos las opciones A a D.");
+  if (cor >= opts.length) return toast("Marcaste la opción E como correcta, pero está vacía.");
+  if (new Set(opts).size !== opts.length) return toast("Hay dos opciones iguales.");
   const tipo = v("#nTipo");
   S.userQ.push({id: "u"+(++S.seq), specialty: v("#nSpec"), tipo, qtype: tipo === "critica" ? "critica" : tipo === "datos" ? "directa" : "caso", topic: v("#nTopic") || "Caso propio", difficulty: "Propia",
     vignette: esc(v("#nVig")).replace(/\[\[([\s\S]+?)\]\]/g, "<span class='hy'>$1</span>"), options: opts, correct: cor,
@@ -100,7 +103,7 @@ function saveNew(){
 }
 function renderMine(){
   const qs = S.userQ.filter(q=>q.manual && !S.hidden["q"+q.id]), cs = S.userC.filter(c=>c.manual && !S.hidden["c"+c.id]), hs = S.userH.filter(h=>h.manual && !S.hidden["h"+h.id]);
-  const all = [...qs.map(q=>({k:"q"+q.id, t:"🩺 "+q.topic, d: `${q.specialty} · ${QMETODO[qKind(q)].t}`})), ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title, d: h.specialty})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front}))];
+  const all = [...qs.map(q=>({k:"q"+q.id, t:"🩺 "+q.topic, d: `${q.externa ? "📥 Importada · " : ""}${q.specialty} · ${QMETODO[qKind(q)].t}`})), ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title, d: h.specialty})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front}))];
   $("#mineList").innerHTML = all.length ? `
     <div class="row"><h3 style="font-size:16px">Creadas por ti (${all.length})</h3><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>
     ${all.map(x=>`<div><div class="srcitem"><div style="flex:1;min-width:0;word-break:break-word"><div class="small">${esc(x.t)}</div>${x.d ? `<div class="xs muted">${esc(x.d)}</div>` : ""}</div>${x.k[0] !== "c" ? `<button class="btn ghost sm" data-medit="${x.k}" aria-label="Corregir">✏️</button>` : ""}<button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div><div data-mbox="${x.k}"></div></div>`).join("")}`
@@ -128,7 +131,7 @@ function importPack(p){
   const str = (x, max) => typeof x === "string" ? x.trim().slice(0, max) : "";
   if (!p || p.format !== "medipulse-pack" || (!Array.isArray(p.questions) && !Array.isArray(p.cards) && !Array.isArray(p.fichas))) return toast("Ese archivo no es un pack de MediPulse.");
   const spec = x => SPECS.includes(x) ? x : "Medicina Interna";
-  const qs = (p.questions || []).slice(0, 1000).filter(q=>q && str(q.vignette,1) && Array.isArray(q.options) && q.options.length===4 && q.options.every(o=>str(o,1)) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<4);
+  const qs = (p.questions || []).slice(0, 1000).filter(q=>q && str(q.vignette,1) && Array.isArray(q.options) && (q.options.length===4 || q.options.length===5) && q.options.every(o=>str(o,1)) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<q.options.length);
   const hs = (p.fichas || []).slice(0, 1000).filter(h=>h && str(h.title,1) && Array.isArray(h.thresholds) && h.thresholds.length && h.thresholds.length <= 10 && h.thresholds.every(t=>t && str(t.label,1) && str(t.val,1)));
   const cs = (p.cards || []).slice(0, 2000).filter(c=>c && str(c.front,1) && str(c.back,1));
   if (!qs.length && !cs.length && !hs.length) return toast("El pack no tiene ítems válidos.");
