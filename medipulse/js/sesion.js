@@ -48,10 +48,10 @@ function renderQ(q, exam){
   const items = stage().items;
   $("#sessBody").innerHTML = `
     <div class="card">
-      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span>${exam ? (q.qtype && q.qtype!=="caso" ? `<span class="muted">${qtLabel(q.qtype)}</span>` : "") : tipoChip(q)}<div class="spacer"></div>
+      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span>${exam ? (q.qtype && q.qtype!=="caso" ? `<span class="muted">${qtLabel(q.qtype)}</span>` : "") : tipoChip(q)}${origenChip(q)}<div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
       ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
-      <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCD"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCD"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
+      <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCDE"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
       ${exam ? "" : metodoPregunta(q)}
       <div id="fbBox"></div>
       ${exam ? "" : `<div class="row" id="skipRow" style="margin-top:10px"><div class="spacer"></div><button class="btn ghost sm" id="skipBtn">Pasar esta pregunta →</button></div>`}
@@ -94,8 +94,9 @@ function answerQ(q, o, exam){
     <div class="stack" style="margin-top:14px">
       <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b>${q.area ? ` · Área: ${esc(q.area)}` : ""}</div>
       <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
-      <div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>
-      <div class="note trap"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>
+      ${porOpcionHTML(q, o)}
+      ${q.pearl ? `<div class="note pearl"><b>💎 ${q.externa ? "Dato clave" : "Perla"}:</b> ${esc(q.pearl)}</div>` : ""}
+      ${q.trap ? `<div class="note trap" style="white-space:pre-line"><b>⚠️ ${q.externa ? "Cómo evitar la trampa" : "Trampa"}:</b> ${esc(q.trap)}</div>` : ""}
       ${srcLine(q)}
       ${enfoqueTrasResponder(q)}
       <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button> · <button class="linkbtn xs" id="archBtn">🗄️ Archivar este caso</button><div id="repBox"></div><div id="fixBox"></div></div>
@@ -109,6 +110,12 @@ function answerQ(q, o, exam){
   $("#nextBtn").focus({preventScroll:true});
 }
 
+// Análisis de cada opción (preguntas importadas de otra IA o de otro banco): la que elegiste, abierta.
+function porOpcionHTML(q, elegida){
+  if (!Array.isArray(q.porOpcion) || !q.porOpcion.some(Boolean)) return "";
+  return `<details class="custom" open><summary>🔎 Análisis de cada opción</summary><div class="stack" style="gap:6px;margin-top:8px">${q.options.map((op, i) => !q.porOpcion[i] ? "" : `
+    <div class="small porop${i === q.correct ? " ok" : i === elegida ? " mia" : ""}"><b>${"ABCDE"[i]}) ${esc(op)}</b>${i === q.correct ? " ✓" : i === elegida ? " · tu respuesta" : ""}<div class="xs muted" style="margin-top:2px">${esc(q.porOpcion[i])}</div></div>`).join("")}</div></details>`;
+}
 function renderC(c){
   $("#sessBody").innerHTML = `
     <div class="card flash" id="flash">
@@ -221,7 +228,7 @@ document.addEventListener("keydown", e=>{
   const it = stage()?.items[sess.i];
   if (!it) { if(e.key==="Enter"){ $("#contBtn")?.click(); } return; }
   if (it.t==="q"){
-    if (/^[1-4]$/.test(e.key) && sess.state==="ask"){ document.querySelectorAll("#opts .opt")[+e.key-1]?.click(); }
+    if (/^[1-5]$/.test(e.key) && sess.state==="ask"){ document.querySelectorAll("#opts .opt")[+e.key-1]?.click(); }
     else if (e.key==="Enter"){ e.preventDefault(); $("#nextBtn")?.click(); }
   } else if (it.t==="c"){
     if ((e.key===" "||e.key==="Enter") && sess.state==="ask"){ e.preventDefault(); flipC(cById(it.id)); }

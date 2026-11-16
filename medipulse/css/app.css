@@ -302,3 +302,11 @@ details.metodo li{margin:3px 0}
 .qesp{gap:8px;padding:0 0 8px 0}
 .qesp select{width:auto;flex:1}
 .citasrev{margin-top:6px;display:flex;flex-direction:column;gap:3px;border-left:3px solid var(--border);padding-left:8px}
+/* Pegar de otra IA */
+pre.prompt{white-space:pre-wrap;font-size:12px;background:var(--subtle);border-radius:10px;padding:10px;margin:8px 0 0;max-height:240px;overflow:auto}
+.porop{border-left:3px solid var(--border);padding-left:8px}
+.porop.ok{border-color:var(--ok)}.porop.mia{border-color:var(--bad)}
+#newSeg{grid-template-columns:repeat(3,1fr)}
+@media (max-width:560px){#newSeg{grid-template-columns:1fr}}
+.porop .xs{white-space:pre-line}
+.origen{font-size:11.5px;border:1px dashed var(--warn);color:var(--warn);border-radius:999px;padding:1px 8px;white-space:nowrap}
