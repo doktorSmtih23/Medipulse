@@ -173,3 +173,40 @@ test.describe("arma tu práctica", () => {
     await expect(page.locator("#qVuln")).toContainText("Tu error más frecuente: 🔍 No vi un dato del caso");
   });
 });
+
+test.describe("auditoría a ciegas al final del modo examen", () => {
+  test("se marca la confianza sin ver el resultado; luego nota real, frágiles y errores con seguridad", async ({ page }) => {
+    await page.evaluate(() => startSession({label: "Simulacro", tag: "fire", stages: [{name: "x", exam: true, limit: 999, items: [{t: "q", id: 2}, {t: "q", id: 3}, {t: "q", id: 4}]}]}));
+    const r = await page.evaluate(() => [2, 3, 4].map(i => qById(i).correct));
+    const mal = c => (c + 1) % 4;
+    // 1: correcta y segura · 2: correcta al azar · 3: incorrecta y segura
+    await page.click(`#opts .opt >> nth=${r[0]}`); await page.click("#nextBtn");
+    await page.click(`#opts .opt >> nth=${r[1]}`); await page.click("#nextBtn");
+    await page.click(`#opts .opt >> nth=${mal(r[2])}`); await page.click("#nextBtn");
+    await page.click("#auditGo");
+    // a ciegas: no se ve cuál es la correcta ni el porcentaje
+    await expect(page.locator("#sessBody .opt.right")).toHaveCount(0);
+    await expect(page.locator("#sessBody .big")).toHaveCount(0);
+    await page.click('#confBtns [data-conf="seguro"]');
+    await page.keyboard.press("3");   // al azar
+    await page.click('#confBtns [data-conf="seguro"]');
+    await expect(page.locator("#sessBody")).toContainText("Nota real (solo aciertos seguros): 33 %");
+    await expect(page.locator("#sessBody .audtag.peligro")).toHaveCount(1);
+    await expect(page.locator("#sessBody .audtag.fragil")).toHaveCount(1);
+    // el acierto al azar no queda como dominado: vuelve mañana
+    const x = await page.evaluate(() => S.srs.q3);
+    expect(x.last).toBe(1); expect(x.b).toBe(0);
+    expect(await page.evaluate(() => S.resp.slice(-3).map(e => e.c))).toEqual(["seguro", "azar", "seguro"]);
+    // y en el banco aparece en el análisis
+    await page.click("#contBtn"); await page.click("#sessBody [data-go=hoy]"); await page.click("nav [data-go=banco]");
+    await page.evaluate(() => { QUESTIONS.slice(5, 12).forEach(q => S.srs["q" + q.id] = {b: 1, due: Date.now() + 9e9, n: 1, ok: 1, last: 2}); renderBanco(); });
+    await expect(page.locator("#qVuln")).toContainText("1 error con seguridad");
+  });
+
+  test("se puede ver el resultado sin auditar", async ({ page }) => {
+    await page.evaluate(() => startSession({label: "Simulacro", tag: "fire", stages: [{name: "x", exam: true, limit: 999, items: [{t: "q", id: 2}]}]}));
+    await page.click("#opts .opt >> nth=0"); await page.click("#nextBtn");
+    await page.click("#auditSkip");
+    await expect(page.locator("#sessBody .big")).toContainText("%");
+  });
+});

@@ -2,7 +2,8 @@
 // VULNERABILIDADES: la app no potencia errores, los evidencia. Con lo que respondes (S.srs) y el
 // registro de respuestas (S.resp: cada respuesta con su fecha y, si fallaste, el motivo que marcaste)
 // calcula dónde fallas por tipo de pregunta × especialidad, qué casos fallas una y otra vez y qué
-// patrón de error se repite. Todo se calcula en el dispositivo: no se envía a ningún lado.
+// patrón de error se repite. Incluye la auditoría a ciegas del modo examen: aciertos frágiles y errores
+// cometidos con seguridad. Todo se calcula en el dispositivo: no se envía a ningún lado.
 // ===================================================================
 const RESP_MAX = 5000;
 // Motivos de un fallo: un toque después de fallar. Cada uno trae la estrategia que lo corrige.
@@ -31,6 +32,48 @@ document.addEventListener("click", e => {
   box.querySelectorAll("[data-mot]").forEach(x => x.classList.toggle("on", x.dataset.mot === r.m));
 });
 
+// ---------- Auditoría a ciegas (al final del modo examen) ----------
+// Cómo respondió el usuario cada pregunta, marcado ANTES de saber si acertó.
+const CONFIANZA = [
+  {k: "seguro", t: "✅ Seguro", d: "Sé por qué es esa"},
+  {k: "dude", t: "🤔 Dudé", d: "Entre dos o más"},
+  {k: "azar", t: "🎲 Al azar", d: "Descarté y adiviné"},
+  {k: "nosabia", t: "❓ No lo sabía", d: "No conocía el tema"}
+];
+// Cruce de confianza y resultado: lo que de verdad dice cada respuesta.
+function clasifConfianza(ok, c){
+  if (!c) return null;
+  if (ok) return c === "seguro" ? {k: "solida", t: "✅ Sólida"} : {k: "fragil", t: "🍀 Acierto frágil", msg: "Acertaste sin certeza: no cuenta como dominada y vuelve mañana a tu repaso."};
+  return c === "seguro" ? {k: "peligro", t: "🚨 Error con seguridad", msg: "Lo más importante de corregir: respondiste convencido y estaba mal. Hay un concepto mal aprendido; revisa la explicación y la fuente."}
+    : {k: "vacio", t: "🕳️ Fallo reconocido", msg: "Sabías que no lo dominabas: es un vacío identificado, estúdialo antes de volver a practicarlo."};
+}
+function marcarConfianza(r, c){
+  r.c = c;
+  const e = S.resp && S.resp[r.ri]; if (e) e.c = c;
+  // Un acierto sin certeza no avanza en el repaso como si estuviera dominado: vuelve mañana.
+  const x = S.srs["q" + r.q.id];
+  if (r.good && c !== "seguro" && x && !r.ajustado) { x.b = Math.max(0, x.b - 1); x.due = Date.now() + DAY; x.last = 1; r.ajustado = true; }
+  save();
+}
+function auditoriaResumen(rs, total){
+  const aud = rs.filter(r => r.c); if (!aud.length) return "";
+  const cnt = {solida: 0, fragil: 0, peligro: 0, vacio: 0}; aud.forEach(r => cnt[clasifConfianza(r.good, r.c).k]++);
+  const real = Math.round(cnt.solida / total * 100);
+  return `<div class="audres">
+      <p class="small" style="margin:0">Nota real (solo aciertos seguros): <b>${real} %</b></p>
+      <div class="grid2" style="margin-top:8px;text-align:left">
+        <div class="kpi"><b>${cnt.solida}</b><span>✅ Sólidas</span></div>
+        <div class="kpi"><b>${cnt.fragil}</b><span>🍀 Aciertos frágiles</span></div>
+        <div class="kpi${cnt.peligro ? " alerta" : ""}"><b>${cnt.peligro}</b><span>🚨 Errores con seguridad</span></div>
+        <div class="kpi"><b>${cnt.vacio}</b><span>🕳️ Fallos reconocidos</span></div></div>
+      ${cnt.peligro ? `<p class="xs" style="margin:8px 0 0;color:var(--bad)">${cnt.peligro} error${cnt.peligro === 1 ? "" : "es"} con seguridad: son conceptos mal aprendidos, lo primero que debes corregir. Están marcados 🚨 abajo.</p>` : ""}
+      ${cnt.fragil ? `<p class="xs muted" style="margin:6px 0 0">${cnt.fragil === 1 ? "El acierto frágil no cuenta como dominado: vuelve" : `Los ${cnt.fragil} aciertos frágiles no cuentan como dominados: vuelven`} mañana a tu repaso.</p>` : ""}</div>`;
+}
+// Última confianza auditada de cada caso (para el análisis y para elegir casos).
+function ultimaAuditoria(){
+  const m = {}; (S.resp || []).forEach(r => { if (r.c) m[r.id] = clasifConfianza(r.ok, r.c).k; }); return m;
+}
+
 // Tasa suavizada: con pocas respuestas no salta a 0 % o 100 %.
 const tasa = x => (x.ok + 1) / (x.n + 2);
 function rendimiento(specs){
@@ -51,7 +94,9 @@ function rendimiento(specs){
   const ids = new Set(qs.map(q => String(q.id))), mot = {};
   (S.resp || []).forEach(r => { if (!r.ok && r.m && ids.has(r.id)) mot[r.m] = (mot[r.m] || 0) + 1; });
   const nMot = Object.values(mot).reduce((a, b) => a + b, 0);
-  return {tipo, esp, celda, general, repetidos, focos, mot, nMot, suficiente: n >= 8};
+  const aud = ultimaAuditoria(), audN = {fragil: 0, peligro: 0};
+  Object.entries(aud).forEach(([id, k]) => { if (ids.has(id) && audN[k] != null) audN[k]++; });
+  return {tipo, esp, celda, general, repetidos, focos, mot, nMot, aud, audN, suficiente: n >= 8};
 }
 
 // Elige los casos que más te cuestan: los de tus focos débiles (también los que no has visto, para
@@ -67,6 +112,8 @@ function elegirVulnerables(pool, n, rd){
       if (isDue("q" + q.id)) s += 0.6;
       if (r.b >= 3 && r.last === 2) s -= 1.2;   // ya dominado
     }
+    const au = rd.aud && rd.aud[String(q.id)];
+    if (au === "peligro") s += 1.5; else if (au === "fragil") s += 0.8;
     return s + Math.random() * 0.3;
   };
   return shuffle(pool.map(q => [score(q), q]).sort((a, b) => b[0] - a[0]).slice(0, n).map(x => x[1]));
@@ -100,6 +147,7 @@ function vulnHTML(specs){
     ${tipos.length ? `<details style="margin-top:10px"><summary class="small" style="cursor:pointer">Por tipo de pregunta y por especialidad</summary><div class="bars">
       ${tipos.map(f => barra(esc(QMETODO[f.k].t), rd.tipo[f.k])).join("")}
       ${SPECS.filter(s => rd.esp[s] && rd.esp[s].n >= 3).map(s => barra(esc(s), rd.esp[s], SPEC_COLOR[s])).join("")}</div></details>` : ""}
+    ${rd.audN.peligro || rd.audN.fragil ? `<p class="small" style="margin:10px 0 0">Según tus auditorías: ${rd.audN.peligro ? `<b>🚨 ${rd.audN.peligro} error${rd.audN.peligro === 1 ? "" : "es"} con seguridad</b>` : ""}${rd.audN.peligro && rd.audN.fragil ? " · " : ""}${rd.audN.fragil ? `<b>🍀 ${rd.audN.fragil} acierto${rd.audN.fragil === 1 ? "" : "s"} frágil${rd.audN.fragil === 1 ? "" : "es"}</b>` : ""}. Entran primero en «Mis vulnerabilidades».</p>` : ""}
     ${rd.repetidos.length ? `<p class="small" style="margin:10px 0 0">🔁 <b>${rd.repetidos.length} caso${rd.repetidos.length === 1 ? "" : "s"}</b> que fallaste dos veces o más: ahí hay un error que se repite.</p>` : ""}
     ${motTop.length ? `<div class="note trap" style="margin-top:10px"><b>Tu error más frecuente: ${esc(motTop[0].t)}</b> (${rd.mot[motTop[0].k]} de ${rd.nMot} fallos con motivo).<div class="small" style="margin-top:4px">${esc(motTop[0].tip)}</div></div>`
       : `<p class="xs muted" style="margin:10px 0 0">Cuando falles, marca el motivo (no lo sabía, no vi un dato, dudé entre dos, lo confundí): así la app encuentra el error que repites.</p>`}
