@@ -376,3 +376,8 @@ label.check>span{flex:1;min-width:0}
 .pleg{margin-top:6px}.pleg>summary{cursor:pointer;padding:6px 0}.pleg>summary b{color:var(--text)}.pleg-in{margin-top:4px}
 label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:0}label.fld.cantidad>*{margin-top:0}label.fld.cantidad input{width:84px;padding:6px 10px;font-size:15px;height:36px;border-radius:10px}
 .filtrosbox{margin-top:10px;border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--subtle)}.filtrosbox .fld{margin:0}
+.reloj{text-align:center;margin:6px 0}.reloj span{display:block;font-size:56px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:1px;color:var(--accent)}.reloj small{color:var(--muted);font-size:13px}
+.reloj.descanso span{color:var(--ok)}
+.consejo{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;justify-content:space-between;border-left:3px solid var(--accent);background:var(--subtle);border-radius:8px;padding:8px 10px}.consejo .btn{flex:none}
+.informe{border:1px solid var(--border);border-radius:12px;padding:10px}.informe ul{margin:4px 0 0;padding-left:18px}
+.consejo>span{flex:1 1 200px;min-width:0}

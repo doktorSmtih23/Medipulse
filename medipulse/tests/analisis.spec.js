@@ -82,9 +82,8 @@ test("convertir en ficha HY pasa por revisión y queda marcada como IA", async (
   expect(fichas).toEqual([{ai: true, page: 2}]);
 });
 
-test("revisión de tema y pase de revista", async ({ page }) => {
-  await irA(page, "tema"); await page.click("#anGo");
-  await expect(page.locator("#anOut h3")).toHaveText("Terapia génica en Parkinson");
+test("pase de revista; la revisión de tema ya no está entre las acciones del documento (pasó a la Sesión de estudio)", async ({ page }) => {
+  await expect(page.locator('#genCard [data-gt="tema"]')).toHaveCount(0);
   await irA(page, "revista"); await page.click("#anGo");
   await expect(page.locator("#anOut .anq")).toHaveCount(1);
   expect(await sinDesborde(page)).toBe(true);
@@ -126,14 +125,14 @@ test("muestra el costo estimado, registra el real y respeta el nivel elegido", a
 });
 
 test("cada tarea envía solo su herramienta (las tres juntas superan el límite de la API) y el documento en caché", async ({ page }) => {
-  for (const k of ["audit", "tema", "revista"]) {
+  for (const k of ["audit", "revista"]) {
     const antes = peticiones.length;
     await irA(page, k); await page.click("#anGo");
     await expect.poll(() => peticiones.length).toBe(antes + 1);
     await expect(page.locator("#anGo")).toBeEnabled();
   }
-  const ult = peticiones.slice(-3);
-  expect(ult.map(p => p.tools.map(t => t.name))).toEqual([["report_audit"], ["report_topic"], ["report_rounds"]]);
+  const ult = peticiones.slice(-2);
+  expect(ult.map(p => p.tools.map(t => t.name))).toEqual([["report_audit"], ["report_rounds"]]);
   expect(ult.every(p => p.messages[0].content[0].cache_control && p.messages[0].content[0].cache_control.type === "ephemeral")).toBe(true);
 });
 

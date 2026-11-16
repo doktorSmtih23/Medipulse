@@ -40,7 +40,8 @@ test.describe("Estudio", () => {
     await expect(page.locator("#fbBox .fb")).toBeVisible();
   });
   test("simulacro con marca y mapa termina y califica", async ({ page }) => {
-    await page.click("nav [data-go=sim]"); await page.click('[data-n="5"]'); await page.click("#simStart");
+    // el simulacro ahora se arma en el banco con «Modo examen»
+    await page.click("nav [data-go=banco]"); await page.check("#qExam"); await page.fill("#qN", "5"); await page.locator("#qN").dispatchEvent("change"); await page.click("#pr10");
     await page.click("#opts .opt >> nth=0"); await page.click("#flagBtn"); await page.click('.simmap [data-j="4"]'); await page.click("#nextBtn");
     await expect(page.locator("#sessBody .big")).toBeVisible();
   });
@@ -120,7 +121,7 @@ test.describe("MBE", () => {
 
 test("ninguna pantalla se desborda a 360 px", async ({ page }) => {
   const anchas = [];
-  for (const v of ["hoy", "banco", "tarjetas", "sim", "mbe", "lib", "prog", "new", "rep", "check", "guide", "instalar", "ahorro"]) {
+  for (const v of ["hoy", "banco", "tarjetas", "estudio", "mbe", "lib", "prog", "new", "rep", "check", "guide", "instalar", "ahorro"]) {
     await page.evaluate(v => go(v), v);
     if (!(await sinDesborde(page))) anchas.push(v);
   }
@@ -163,7 +164,7 @@ test("modo a tope: ninguna pregunta se repite entre bloques", async ({ page }) =
 });
 
 test("ninguna pantalla dice «tarjetas» (ahora son fichas); solo la tarjeta de crédito de la guía", async ({ page }) => {
-  for (const v of ["hoy", "banco", "tarjetas", "sim", "mbe", "lib", "prog", "new", "rep", "guide", "instalar", "ahorro"]) {
+  for (const v of ["hoy", "banco", "tarjetas", "estudio", "mbe", "lib", "prog", "new", "rep", "guide", "instalar", "ahorro"]) {
     await page.evaluate(v => go(v), v);
     const t = await page.evaluate(() => document.querySelector(".view.on").innerText.replace(/tarjeta de crédito|registra tu tarjeta/gi, ""));
     expect(t, `pantalla ${v}`).not.toMatch(/tarjeta/i);

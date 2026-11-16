@@ -83,6 +83,8 @@ const MBE = {
       take:"Cualquier revisión cabe en una ficha: fisiopatología clave + regla de decisión + estándar de oro + tratamiento de primera línea."},
     labels:["Fisiopatología y presentación típica", "Prueba inicial vs estándar de oro", "Tratamiento de primera línea (estable vs inestable)"]}
 };
+// La revisión de tema ya no es lectura crítica: su guía pasa a la Sesión de estudio (estudio.js).
+const GUIA_REV = MBE.REV; delete MBE.REV;
 let mbeType = "GPC";
 function renderMbe(){
   const b = MBE[mbeType];

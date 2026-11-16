@@ -219,7 +219,7 @@ function renderGen(){
     <div class="tabs3 acc2">${btn("read")}${btn("recs")}</div>
     <div class="xs muted">Con IA${getKey() ? ` · ${aiEstimateLine(Math.min(chars, AN_MAX_CHARS), {outTokens: 5000})} aprox. por acción · <button class="linkbtn" data-go="ahorro">💸 Cómo gastar menos</button>` : " · requiere tu clave"}</div>
     ${getKey() && chars > TEXTO_LARGO ? `<div class="note" style="margin:0">⏱️ <b>Texto largo</b> (${Math.round(chars/1000)} mil caracteres): con IA puede tardar 1–2 minutos y, mientras tanto, no bloquees la pantalla ni cambies de app. Para que sea más rápido y barato, elige un tema del índice.</div>` : ""}
-    <div class="tabs3 acc4">${btn("ai")}${btn("audit")}${btn("tema")}${btn("revista")}</div>
+    <div class="tabs3 acc4">${btn("ai")}${btn("audit")}${btn("revista")}</div>
     <div id="gBody" class="stack"></div>`;
   bindIndice();
   document.querySelectorAll("[data-gt]").forEach(b=>b.onclick=()=>{ gen.tab = b.dataset.gt; renderGen(); });
