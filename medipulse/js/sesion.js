@@ -101,11 +101,12 @@ function answerQ(q, o, exam){
       ${q.trap ? `<div class="note trap" style="white-space:pre-line"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>` : ""}
       ${srcLine(q)}
       ${enfoqueTrasResponder(q)}
-      <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button> · <button class="linkbtn xs" id="archBtn">🗄️ Archivar este caso</button><div id="repBox"></div><div id="fixBox"></div></div>
+      <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button> · <button class="linkbtn xs" id="verBtn">✏️ Hacer mi versión</button> · <button class="linkbtn xs" id="archBtn">🗄️ Archivar este caso</button><div id="repBox"></div><div id="fixBox"></div></div>
       <button class="btn primary block" id="nextBtn">Siguiente →</button>
     </div>`;
   $("#repBtn").onclick = ()=>openReportForm("q"+q.id, $("#repBox"));
   $("#fixBtn").onclick = ()=>openCorregir("q", q, $("#fixBox"));
+  $("#verBtn").onclick = ()=>{ if (confirmLeave()) { go("new"); editarCaso(q); } };
   $("#archBtn").onclick = ()=>{ S.hidden["q"+q.id] = Date.now(); delete S.srs["q"+q.id]; rebuild(); save(); refreshChips();
     $("#archBtn").replaceWith(Object.assign(document.createElement("span"), {className: "xs muted", textContent: "🗄️ Archivado: no volverá a salir. Lo restauras en Casos, al final de la lista."})); };
   $("#nextBtn").onclick=()=>{ sess.i++; renderItem(); };

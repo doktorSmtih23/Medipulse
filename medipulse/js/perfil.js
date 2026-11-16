@@ -83,6 +83,7 @@ function tipoChip(q){
 }
 // Rótulo de origen para lo que aportó el usuario (no es una pista: no dice el tema).
 function origenChip(q){
+  if (q.editada) return `<span class="origen">✏️ Editada por ti</span>`;
   if (q.externa) return `<span class="origen">📥 Importada por el usuario</span>`;
   if (q.manual && !q.src) return `<span class="origen">✍️ Elaborada por el usuario</span>`;
   return "";

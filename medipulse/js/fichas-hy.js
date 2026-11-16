@@ -57,32 +57,76 @@ function gradeH(h, g){
 }
 
 // Editor de fichas (lector, datos clave, creación manual y revisión)
+// Ejemplo que guía el editor: un mismo tema en todos los campos (criterios de Light, estables desde 1972).
+const HY_EJEMPLO = [["Proteínas pleura / suero", "> 0,5 → exudado"], ["LDH pleura / suero", "> 0,6 → exudado"], ["LDH pleural", "> 2/3 del límite normal sérico"]];
+const HY_BADGES = ["Criterios", "Umbral", "Dosis", "Primera línea", "Algoritmo", "Diagnóstico diferencial", "Bandera roja", "Ensayo clínico", "Epidemiología", "Escala"];
 function hyEditor(box, o){
   o = Object.assign({title:"", badge:"", spec:"Medicina Interna", rows:[], redFlag:"", trap:"", src:null, page:0, ctx:"", showSrc:false, heading:"💎 Nueva ficha high-yield", onSave:null, flags:{}}, o);
   box.innerHTML = `<div class="card stack hyed" style="border-color:var(--accent)">
-    <h4 style="margin:0">${esc(o.heading)}</h4>${o.flags && o.flags.img ? imgTag(o.flags.img) : ""}
-    <label class="fld">Título de la ficha<input type="text" class="eTitle" value="${esc(o.title)}" placeholder="p. ej. AAV2-GAD en Parkinson: ensayo fase II"></label>
-    <div class="grid2"><label class="fld">Etiqueta (opcional)<input type="text" class="eBadge" value="${esc(o.badge)}" placeholder="p. ej. Ensayo fase II, Umbral, Algoritmo"></label>
+    <div><h4 style="margin:0">${esc(o.heading)}</h4>
+      <p class="xs muted" style="margin:4px 0 0">Una ficha es un tema que quieres tener al instante. Al repasar verás el título y lo de la izquierda de cada dato; tendrás que recordar lo de la derecha.</p></div>${o.flags && o.flags.img ? imgTag(o.flags.img) : ""}
+    <div class="hysec"><span class="hynum">1</span><b>El tema</b></div>
+    <label class="fld">Título<input type="text" class="eTitle" value="${esc(o.title)}" placeholder="Derrame pleural: ¿exudado o trasudado?"></label>
+    <p class="xs muted hyayuda">Un tema concreto, como te lo preguntarían. Mejor «Derrame pleural: ¿exudado o trasudado?» que «Neumología».</p>
+    <div class="grid2"><label class="fld">Tipo de dato (opcional)<input type="text" class="eBadge" list="hyBadges" value="${esc(o.badge)}" placeholder="Criterios"><datalist id="hyBadges">${HY_BADGES.map(x => `<option value="${x}">`).join("")}</datalist></label>
       <label class="fld">Especialidad<select class="eSpec">${SPECS.map(x=>`<option ${x===o.spec?"selected":""}>${x}</option>`).join("")}</select></label></div>
-    <div><div class="fld">Datos clave: lo que tendrás que recordar</div><p class="xs muted" style="margin:2px 0 6px">A la izquierda qué es (se muestra al estudiar); a la derecha el dato (se oculta).</p><div class="eRows stack" style="gap:6px"></div>
-      <button class="btn ghost sm eAdd" style="margin-top:6px">➕ Agregar dato</button></div>
-    <label class="fld">🚩 Bandera roja (opcional)<textarea class="eRed" rows="2" placeholder="La señal de alarma o el hallazgo que no se te puede pasar">${esc(o.redFlag)}</textarea></label>
-    <label class="fld">⚠️ Trampa de examen (opcional)<textarea class="eTrap" rows="2" placeholder="El error típico o el distractor favorito">${esc(o.trap)}</textarea></label>
-    ${o.showSrc ? `<div class="grid2"><label class="fld">Fuente<select class="eSrc">${srcOptions(o.src||"")}</select></label><label class="fld">Página (opcional)<input type="number" class="ePage" min="1" value="${o.page||""}"></label></div>` : ""}
-    <div class="row"><button class="btn primary sm eSave">💎 Guardar ficha</button><button class="btn ghost sm eCancel">Cancelar</button></div></div>`;
+    <div class="hysec"><span class="hynum">2</span><b>Los datos clave</b></div>
+    <p class="xs muted hyayuda">Izquierda: <b>la pregunta que te harás</b> (se ve al repasar). Derecha: <b>la respuesta exacta</b>, con cifra y unidad (se oculta). Entre 2 y 5 datos.</p>
+    <div class="eRows stack" style="gap:6px"></div>
+    <button class="btn ghost sm eAdd" style="align-self:flex-start">➕ Agregar dato</button>
+    <div class="hysec"><span class="hynum">3</span><b>Para no fallar</b> <span class="xs muted">(opcional)</span></div>
+    <label class="fld">🚩 Bandera roja: lo que no puedes pasar por alto en el paciente<textarea class="eRed" rows="2" placeholder="Derrame paraneumónico con pH pleural &lt; 7,2: necesita drenaje con tubo de tórax.">${esc(o.redFlag)}</textarea></label>
+    <label class="fld">⚠️ Trampa: cómo te harán fallar en el examen<textarea class="eTrap" rows="3" placeholder="Paciente con insuficiencia cardiaca que recibe diuréticos: Light puede llamar exudado a un trasudado.">${esc(o.trap)}</textarea></label>
+    ${o.showSrc ? `<div class="hysec"><span class="hynum">4</span><b>De dónde sale</b></div><div class="grid2"><label class="fld">Fuente<select class="eSrc">${srcOptions(o.src||"")}</select></label><label class="fld">Página (opcional)<input type="number" class="ePage" min="1" value="${o.page||""}"></label></div>` : ""}
+    <details class="hyprevbox"><summary class="small">👁️ Así la verás al repasar</summary><div class="hyprev-in"></div></details>
+    <div class="eRevBox"></div>
+    <div class="row"><button class="btn primary sm eSave">💎 Guardar ficha</button>${getKey() ? `<button class="btn sm eRev">🤖 Revisar mi ficha</button>` : ""}<button class="btn ghost sm eCancel">Cancelar</button></div></div>`;
   const rowsBox = box.querySelector(".eRows");
   const addRow = (label, val) => {
     const r = document.createElement("div"); r.className = "erow";
-    r.innerHTML = `<input type="text" class="eL" placeholder="Qué es (p. ej. Mejoría UPDRS a 6 meses)"><input type="text" class="eV" placeholder="El dato (p. ej. 23.1 % vs 12.7 %)"><button class="xbtn" aria-label="Quitar este dato">✕</button>`;
+    const ej = HY_EJEMPLO[rowsBox.children.length] || ["Otra pregunta que te harás", "Su respuesta exacta"];
+    r.innerHTML = `<input type="text" class="eL" placeholder="${esc(ej[0])}" aria-label="Qué es"><input type="text" class="eV" placeholder="${esc(ej[1])}" aria-label="El dato"><button class="xbtn" aria-label="Quitar este dato">✕</button>`;
     r.querySelector(".eL").value = label || ""; r.querySelector(".eV").value = val || "";
     r.querySelector(".xbtn").onclick = ()=>r.remove();
     rowsBox.appendChild(r); return r;
   };
-  (o.rows.length ? o.rows : [{}, {}]).forEach(x=>addRow(x.label, x.val));
+  (o.rows.length ? o.rows : [{}, {}, {}]).forEach(x=>addRow(x.label, x.val));
+  // Vista previa del repaso: título y preguntas a la vista, respuestas ocultas.
+  const prev = () => {
+    const pb = box.querySelector(".hyprev-in"); if (!pb || !box.querySelector(".hyprevbox").open) return;
+    // Mientras el formulario está vacío se ve el ejemplo; apenas escribes, solo lo tuyo.
+    const tuyo = [...rowsBox.querySelectorAll(".erow")].map(r => r.querySelector(".eL").value.trim()).filter(Boolean);
+    const vacio = !box.querySelector(".eTitle").value.trim() && !tuyo.length;
+    const t = box.querySelector(".eTitle").value.trim() || (vacio ? box.querySelector(".eTitle").placeholder : "(sin título)");
+    const rs = vacio ? HY_EJEMPLO.map(x => x[0]) : tuyo.length ? tuyo : ["(escribe la pregunta de cada dato)"];
+    pb.innerHTML = `<div class="card hycard" style="margin-top:8px"><span class="tag">${esc(box.querySelector(".eBadge").value.trim() || "Ficha HY")}</span><h3 style="margin-top:8px;font-size:17px">${esc(t)}</h3>
+      <p class="xs muted" style="margin:2px 0 8px">Intenta recordar cada dato antes de mostrar la ficha.</p><div class="th">${rs.map(l => `<div><span class="muted">${esc(l)}</span><b>?</b></div>`).join("")}</div></div>`;
+  };
+  box.querySelector(".hyprevbox").ontoggle = prev;
+  box.addEventListener("input", prev);
   box.querySelector(".eAdd").onclick = ()=>addRow().querySelector(".eL").focus();
   box._addRow = (label, val, ctx) => { const empty = [...rowsBox.querySelectorAll(".erow")].find(r=>!r.querySelector(".eV").value.trim());
     const r = empty || addRow(); if (label) r.querySelector(".eL").value = label; r.querySelector(".eV").value = val; if (ctx) o.ctx = (o.ctx ? o.ctx + " … " : "") + ctx;
     r.querySelector(".eL").focus(); };
+  // Revisión con IA: señala datos dudosos o rótulos poco claros; no agrega contenido por su cuenta.
+  box.querySelector(".eRev") && (box.querySelector(".eRev").onclick = async ()=>{
+    const bt = box.querySelector(".eRev"), title = box.querySelector(".eTitle").value.trim();
+    const rows = [...rowsBox.querySelectorAll(".erow")].map(r=>({label: r.querySelector(".eL").value.trim(), val: r.querySelector(".eV").value.trim()})).filter(x=>x.label || x.val);
+    if (!title || !rows.length) return toast("Escribe el título y al menos un dato para revisarla.");
+    bt.disabled = true; bt.innerHTML = `<span class="spin"></span> Revisando…`;
+    try {
+      const r = await callForTool({system: `Eres un revisor de fichas de estudio para el examen de residencia médica. Una ficha tiene un título, datos (qué es → el dato exacto), una bandera roja y una trampa. Señala solo problemas reales:
+- "error": un dato médico incorrecto o desactualizado.
+- "ambigua": un dato impreciso (sin unidad, sin población o sin contexto) o un rótulo que no deja claro qué hay que recordar.
+- "pista": el rótulo ya contiene la respuesta.
+- "estilo": título demasiado general o datos que deberían ir en otra ficha.
+No propongas datos nuevos que la ficha no tenga. Si no hay problemas, "veredicto" es "bien". Máximo 6 observaciones, cada una en una frase concreta. Español neutro, sin markdown.`,
+        tools: [T_REVISION], light: true, label: "Revisar ficha",
+        user: `Título: ${title}\nDatos:\n${rows.map(x=>`- ${x.label} → ${x.val}`).join("\n")}\nBandera roja: ${box.querySelector(".eRed").value.trim()}\nTrampa: ${box.querySelector(".eTrap").value.trim()}`}, "report_revision");
+      box.querySelector(".eRevBox").innerHTML = revisionHTML({veredicto: r.veredicto === "bien" ? "bien" : "revisar", observaciones: (r.observaciones || []).filter(o => o && o.texto).slice(0, 6)});
+    } catch(e) { toast(e.userMsg || e.message); }
+    bt.disabled = false; bt.textContent = "🤖 Revisar mi ficha";
+  });
   box.querySelector(".eCancel").onclick = ()=>{ box.innerHTML = ""; box._addRow = null; o.onCancel && o.onCancel(); };
   box.querySelector(".eSave").onclick = ()=>{
     const title = box.querySelector(".eTitle").value.trim();

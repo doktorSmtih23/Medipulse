@@ -1,7 +1,7 @@
 // ===================================================================
 // CREAR PREGUNTAS Y TARJETAS A MANO
 // ===================================================================
-let newType = "q";
+let newType = "e";
 function srcOptions(sel){
   return `<option value="">✍️ Elaboración propia (sin fuente publicada)</option><optgroup label="Tus fuentes">${S.sources.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.title)}</option>`).join("")}</optgroup>
     <optgroup label="Guías incluidas">${SOURCES.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.t.length>70?s.t.slice(0,70)+"…":s.t)}</option>`).join("")}</optgroup>`;
@@ -60,10 +60,12 @@ $("#pasteBtn").onclick = togglePaste;
 $("#diagBtn").onclick = startDiag;
 
 function renderNew(){
-  if (!["q", "h", "i"].includes(newType)) newType = "h";
-  $("#newSeg").innerHTML = `<button data-nt="q" class="${newType==="q"?"on":""}"><b>🩺 Caso clínico</b><span>Viñeta con 4 o 5 opciones</span></button><button data-nt="h" class="${newType==="h"?"on":""}"><b>💎 Ficha high-yield</b><span>Datos clave, bandera roja y trampa</span></button><button data-nt="i" class="${newType==="i"?"on":""}"><b>📥 Pegar de otra IA</b><span>Gemini, ChatGPT u otro banco</span></button>`;
+  if (!["e", "q", "h", "g", "i"].includes(newType)) newType = "e";
+  $("#newSeg").innerHTML = `<button data-nt="e" class="${newType==="e"||newType==="q"?"on":""}"><b>✏️ Editar un caso</b><span>Hazlo más difícil o a tu estilo</span></button><button data-nt="h" class="${newType==="h"?"on":""}"><b>💎 Ficha high-yield</b><span>Datos clave, bandera roja y trampa</span></button><button data-nt="g" class="${newType==="g"?"on":""}"><b>🤖 Generar desde tu PDF</b><span>La IA de MediPulse crea casos y fichas</span></button><button data-nt="i" class="${newType==="i"?"on":""}"><b>📥 Pegar de otra IA</b><span>Gemini, ChatGPT u otro banco</span></button>`;
   document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ newType = b.dataset.nt; renderNew(); });
   if (newType === "i") { $("#newForm").classList.add("card"); renderImportar($("#newForm")); renderMine(); return; }
+  if (newType === "e") { $("#newForm").classList.add("card"); renderEditarCaso($("#newForm")); renderMine(); return; }
+  if (newType === "g") { $("#newForm").classList.add("card"); renderGenerarPdf($("#newForm")); renderMine(); return; }
   if (newType === "h") {
     hyEditor($("#newForm"), {showSrc: true, heading: "💎 Nueva ficha high-yield", flags: {manual: true}, onSave: ()=>renderNew(), onCancel: ()=>go("tarjetas")});
     $("#newForm").classList.remove("card"); renderMine(); return;
@@ -71,6 +73,8 @@ function renderNew(){
   $("#newForm").classList.add("card");
   const specSel = `<label class="fld">Especialidad<select id="nSpec">${SPECS.map(s=>`<option>${s}</option>`).join("")}</select></label>`;
   $("#newForm").innerHTML = `
+    <div class="row" style="gap:8px"><button class="btn ghost sm" id="nVolver">← Editar un caso existente</button></div>
+    <b>✍️ Caso en blanco</b>
     <div class="grid2">${specSel}<label class="fld">Tipo de pregunta<select id="nTipo">${FOCUS.slice(1).map(f=>`<option value="${f.k}">${esc(f.t)}</option>`).join("")}</select></label></div>
     <label class="fld">Tema<input type="text" id="nTopic" placeholder="p. ej. Nefrología · Hiponatremia"></label>
     <label class="fld">Caso clínico<textarea id="nVig" rows="4" placeholder="Mujer de 74 años con… Marca los datos clave entre [[dobles corchetes]] para que funcionen como pistas."></textarea></label>
@@ -82,6 +86,7 @@ function renderNew(){
     <div class="grid2"><label class="fld">Fuente<select id="nSrc">${srcOptions("")}</select></label><label class="fld">Página (opcional)<input type="number" id="nPage" min="1"></label></div>
     <button class="btn primary block" id="nSave">➕ Agregar al banco</button>`;
   $("#nSave").onclick = saveNew;
+  $("#nVolver").onclick = () => { newType = "e"; renderNew(); };
   if (newPrefill) {
     $("#nWhy").value = newPrefill.why || ""; $("#nSrc").value = newPrefill.src || ""; $("#nPage").value = newPrefill.page || "";
     $("#nVig").placeholder = "Escribe el caso a partir de la frase que seleccionaste (ya está en la explicación). Marca los datos clave entre [[dobles corchetes]].";
@@ -146,3 +151,28 @@ function importPack(p){
 }
 
 // ---------- ítems de una fuente ----------
+
+// ---------- 🤖 Generar desde tu PDF: atajo al taller con IA de una fuente ----------
+// Elige uno de tus documentos (o sube uno) y abre su taller con IA listo para crear casos y fichas.
+function generarDesde(id){ prepSrc(id, {tab: "ai", customOpen: true}); go("src"); }
+function renderGenerarPdf(box){
+  const docs = S.sources.filter(s => s.kind !== "pack").slice().sort((a, b) => (b.added || 0) - (a.added || 0));
+  const clave = !!getKey();
+  box.innerHTML = `<div class="stack">
+    <div><b>🤖 Casos y fichas con la IA de MediPulse</b><p class="xs muted" style="margin:4px 0 0">Elige el documento: la IA lee solo ese texto, crea casos tipo examen y fichas con la página de donde sale cada dato, y comprueba que las citas estén en el PDF. Tú revisas todo antes de guardar.</p></div>
+    ${clave ? "" : `<div class="note"><b>Necesitas tu clave de API de Claude</b> (se paga aparte, unos centavos de dólar por documento). <div class="row" style="gap:6px;margin-top:8px"><button class="btn sm primary" data-go="guide">Cómo conseguirla</button><button class="btn sm" data-nt2="i">📥 Sin clave: usa tu propia IA</button></div></div>`}
+    ${docs.length ? `<div class="stack" style="gap:6px">${docs.map(s => `<div class="row docrow" style="gap:8px;flex-wrap:nowrap"><span>${s.apunte ? "📓" : s.kind === "text" ? "📋" : "📄"}</span><div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(s.title)}</b><div class="xs muted">${s.apunte ? `${s.pages} puntos` : s.kind === "text" ? "texto pegado" : `${s.pages} págs`}</div></div><button class="btn sm${clave ? " primary" : ""}" data-gen="${esc(s.id)}">Crear</button></div>`).join("")}</div>`
+      : `<p class="small muted" style="margin:0">Aún no tienes documentos. Sube un PDF (una guía, una revisión, un capítulo) y la IA arma casos y fichas a partir de él.</p>`}
+    <label class="btn${docs.length ? "" : " primary"} block center" style="display:block">➕ Subir un PDF nuevo<input type="file" id="genPdfIn" accept="application/pdf" hidden></label>
+    <div id="genPdfProg" class="small muted"></div>
+  </div>`;
+  box.querySelectorAll("[data-gen]").forEach(b => b.onclick = () => generarDesde(b.dataset.gen));
+  box.querySelectorAll("[data-nt2]").forEach(b => b.onclick = () => { newType = b.dataset.nt2; renderNew(); });
+  $("#genPdfIn").onchange = async e => {
+    const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+    $("#genPdfProg").innerHTML = `<span class="spin"></span> Leyendo “${esc(f.name)}”…`;
+    const id = await addPdf(f, false);
+    $("#genPdfProg").innerHTML = "";
+    if (id) generarDesde(id);
+  };
+}
