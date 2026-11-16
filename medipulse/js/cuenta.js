@@ -60,7 +60,7 @@ function mostrarLogin(msg){
   document.body.classList.add("gated");
   const g = $("#loginGate"); g.hidden = false;
   g.innerHTML = `<div class="card stack login-card">
-    <div class="brand" style="font-size:20px"><svg viewBox="0 0 32 32" aria-hidden="true" width="28" height="28"><rect width="32" height="32" rx="8" fill="#0891b2"/><path d="M5 17h5l3-7 4 13 3-8 2 2h5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>MediPulse</div>
+    <div class="brand" style="font-size:20px"><img src="icon.svg" alt="" aria-hidden="true" width="28" height="28">MediPulse</div>
     <div><h2>Beta de MediPulse</h2><p class="muted small" style="margin:4px 0 0">Entra con el correo con el que te invitaron. Te llega un correo con un enlace y un código.</p></div>
     ${msg ? `<div class="note" role="status">${esc(msg)}</div>` : ""}
     <label class="fld">Correo<input type="email" id="lgMail" autocomplete="email" inputmode="email" value="${esc(lgCorreo)}" placeholder="tu@correo.com"></label>
@@ -73,7 +73,8 @@ function mostrarLogin(msg){
     </div>
     <div id="lgMsg" class="small" role="alert"></div>
     <p class="xs muted" style="margin:0">Solo usamos tu correo para dejarte entrar. Tu progreso, tus fichas y tus apuntes se quedan en este dispositivo.</p>
-    <p class="xs muted legal" style="margin:0">⚕️ MediPulse es una herramienta de estudio. No sustituye el juicio clínico.</p></div>`;
+    <p class="xs muted legal" style="margin:0">⚕️ MediPulse es una herramienta de estudio. No sustituye el juicio clínico.</p>
+    <p class="firma">Creado por ${esc(AUTOR)}</p></div>`;
   const msgEl = $("#lgMsg"), go = $("#lgGo");
   const enviar = async () => {
     const c = $("#lgMail").value.trim().toLowerCase();

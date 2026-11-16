@@ -1,7 +1,7 @@
 // Caché sin conexión: sirve la app aunque no haya internet y la actualiza en segundo plano.
 // Sube la versión de CACHE cada vez que cambies algún archivo.
-const CACHE = "medipulse-v63";
-const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "css/app.css",
+const CACHE = "medipulse-v67";
+const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png", "css/app.css",
   "data/especialidades.js","data/fuentes.js","data/servidor.js","data/contenido/registro.js","data/contenido/medicina-interna.js","data/contenido/cirugia.js","data/contenido/pediatria.js","data/contenido/ginecologia.js","data/contenido/salud-publica.js","data/contenido/armar.js",
   "js/estado.js",
   "js/ui.js",
@@ -25,6 +25,7 @@ const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "css/app.
   "js/corregir.js",
   "js/apuntes.js",
   "js/cuenta.js",
+  "js/instalar.js",
   "js/inicio.js",
   "vendor/pdf.min.js", "vendor/pdf.worker.min.js", "vendor/anthropic-sdk.mjs"];
 // Al instalar se piden los archivos al servidor, no a la caché HTTP del navegador:

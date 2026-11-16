@@ -45,7 +45,7 @@ function build() {
   if (vend) html = html.replace(/(<script>\n\/\/ ===== data\/)/, vend + "\n$1");
   // Ícono incrustado; el manifiesto solo sirve en el sitio publicado.
   const icon = "data:image/svg+xml;base64," + Buffer.from(read("icon.svg")).toString("base64");
-  html = html.replace(/href="icon\.svg"/g, `href="${icon}"`).replace(/<link rel="manifest"[^>]*>\n?/, "");
+  html = html.replace(/(href|src)="icon\.svg"/g, (m, a) => `${a}="${icon}"`).replace(/<link rel="manifest"[^>]*>\n?/, "");
   const left = html.match(/<(?:script src|link rel="stylesheet" href)="(?:css|data|js)\/[^"]+"/g);
   if (left) throw new Error("Quedaron archivos sin incluir: " + left.join(", "));
   html = html.replace("<head>", `<head>\n<!-- Archivo generado por tools/un-archivo.js a partir de los módulos. No lo edites: cambia los módulos y vuelve a generarlo. -->`);

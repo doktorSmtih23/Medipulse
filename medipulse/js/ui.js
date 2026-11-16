@@ -3,6 +3,8 @@
 // ===================================================================
 // Dirección pública de la app (si cambia el nombre del repositorio, se cambia solo aquí y en README/MAPA).
 const APP_URL = "https://doktorsmtih23.github.io/Medipulse/medipulse/";
+// Autor de MediPulse: firma en el inicio de sesión y al final de Progreso.
+const AUTOR = "Dr. Christian Smith";
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("on"),2600); }
@@ -16,8 +18,8 @@ function go(v){
   if (sess && v!=="sess" && !confirmLeave()) return;
   currentView = v;
   document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.id==="v-"+v));
-  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v || ((v==="src"||v==="check"||v==="guide"||v==="rep"||v==="apuntes") && b.dataset.go==="lib") || (v==="new" && b.dataset.go==="banco")));
-  ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, sim:renderSim, prog:renderProg, lib:renderLib, src:renderSrc, check:renderCheck, guide:renderGuide, mbe:renderMbe, new:renderNew, rep:renderRep, apuntes:renderApuntes})[v]?.();
+  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v || ((v==="src"||v==="check"||v==="guide"||v==="rep"||v==="apuntes") && b.dataset.go==="lib") || (v==="new" && b.dataset.go==="banco") || (v==="instalar" && b.dataset.go==="prog")));
+  ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, sim:renderSim, prog:renderProg, lib:renderLib, src:renderSrc, check:renderCheck, guide:renderGuide, mbe:renderMbe, new:renderNew, rep:renderRep, apuntes:renderApuntes, instalar:renderInstalar})[v]?.();
   scrollTo(0,0);
 }
 document.addEventListener("click", e=>{ const g=e.target.closest("[data-go]"); if(g) go(g.dataset.go); });

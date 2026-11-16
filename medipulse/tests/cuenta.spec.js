@@ -35,6 +35,7 @@ test("una persona invitada entra con el código del correo y ve su sesión en Pr
   const llamadas = await conServidor(page, ruta => ruta.startsWith("otp") ? [200, {}] : ruta === "verify" ? [200, SESION("ana@ejemplo.com")] : [404, {}]);
   await page.goto("/");
   await expect(page.locator("#loginGate")).toBeVisible();
+  await expect(page.locator("#loginGate .firma")).toHaveText("Creado por Dr. Christian Smith");
   await expect(page.locator("nav.bottom")).toBeHidden();
   await page.fill("#lgMail", "Ana@Ejemplo.com ");
   await page.click("#lgGo");
