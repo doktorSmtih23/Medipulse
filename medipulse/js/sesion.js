@@ -95,8 +95,8 @@ function answerQ(q, o, exam){
       <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b>${q.area ? ` · Área: ${esc(q.area)}` : ""}</div>
       <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
       ${porOpcionHTML(q, o)}
-      ${q.pearl ? `<div class="note pearl"><b>💎 ${q.externa ? "Dato clave" : "Perla"}:</b> ${esc(q.pearl)}</div>` : ""}
-      ${q.trap ? `<div class="note trap" style="white-space:pre-line"><b>⚠️ ${q.externa ? "Cómo evitar la trampa" : "Trampa"}:</b> ${esc(q.trap)}</div>` : ""}
+      ${q.pearl ? `<div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>` : ""}
+      ${q.trap ? `<div class="note trap" style="white-space:pre-line"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>` : ""}
       ${srcLine(q)}
       ${enfoqueTrasResponder(q)}
       <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button> · <button class="linkbtn xs" id="archBtn">🗄️ Archivar este caso</button><div id="repBox"></div><div id="fixBox"></div></div>

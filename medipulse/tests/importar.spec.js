@@ -85,10 +85,12 @@ Respuesta correcta: C
 Especialidad: Medicina Interna
 Tipo: Diagnóstico
 Tema: Disnea
-Dato clave: el dato
-Cómo evitar la trampa: la trampa
+Explicación: la explicación
+Perla: el dato
+Trampa: la trampa
 Fuente: Guía de prueba, ACIN, 2026 · pág. 12`)[0]);
-  expect([q.correct, q.specialty, q.tipo, q.topic, q.pearl, q.trap, q.fuenteTxt]).toEqual([2, "Medicina Interna", "diagnostico", "Disnea", "el dato", "la trampa", "Guía de prueba, ACIN, 2026 · pág. 12"]);
+  expect([q.correct, q.specialty, q.tipo, q.topic, q.fundamento, q.pearl, q.trap, q.fuenteTxt]).toEqual([2, "Medicina Interna", "diagnostico", "Disnea", "la explicación", "el dato", "la trampa", "Guía de prueba, ACIN, 2026 · pág. 12"]);
+  await expect(page.locator("pre.prompt >> nth=1")).toContainText("Perla:");
 });
 
 test("crear a mano admite una quinta opción opcional", async ({ page }) => {
@@ -118,4 +120,11 @@ test("preguntas primero y respuestas al final (otro formato de Gemini): las empa
     {n: 4, c: 1, fund: "El sistema de gradua", dato: "La presencia de sign", trampa: "Al evaluar algoritmo", spec: "", guion: false}]);
   // «diabetes de 10 años de evolución» no es la edad del paciente
   expect(await page.evaluate(() => [esPediatrico("Un hombre de 55 años, con diabetes de 10 años de evolución"), esPediatrico("Lactante de 4 meses")])).toEqual([false, true]);
+});
+
+test("formato con «Dato clave» y la explicación dentro de la opción correcta: se llena Explicación, Perla y Trampa", async ({ page }) => {
+  const texto = require("fs").readFileSync(require("path").join(__dirname, "fixtures/preguntas-inph-modo-a.txt"), "utf8");
+  const qs = await page.evaluate(t => organizarTexto(t).map(q => [q.correct, q.specialty, q.tipo, !!q.fundamento, !!q.pearl, !!q.trap, /pág/.test(q.fuenteTxt), q.fundamento.slice(0, 20)]), texto);
+  expect(qs.map(q => q.slice(0, 7))).toEqual([[2, "Medicina Interna", "conducta", true, true, true, true], [0, "Cirugía", "diagnostico", true, true, true, true], [0, "Salud Pública", "datos", true, true, true, true]]);
+  expect(qs[0][7]).toMatch(/^Es correcta porque/);
 });
