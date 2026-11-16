@@ -108,6 +108,7 @@ test("lo importado lleva el rótulo «Importada por el usuario» en la pregunta 
   await page.evaluate(i => startSession({label: "x", tag: "norm", stages: [{name: "x", items: [{t: "q", id: i}]}]}), id);
   await expect(page.locator("#sessBody .origen")).toContainText("Importada por el usuario");
   await page.click("#quitBtn"); await page.click("nav [data-go=banco]");
+  await page.evaluate(() => { PLEG.bqlista = true; PLEG["bq_Pediatría"] = true; });
   await page.click('#qSpecs [data-sp="Pediatría"]');
   await expect(page.locator("#qList .origen").first()).toContainText("Importada por el usuario");
 });

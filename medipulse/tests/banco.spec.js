@@ -4,11 +4,14 @@ const { test, expect } = require("@playwright/test");
 const { vigilarErrores, simularIA, abrirConClave, subirPdf, sinDesborde } = require("./ayudas");
 
 let errores;
-test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); await page.click("nav [data-go=banco]"); });
+test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/");
+  await page.evaluate(() => { PLEG.bqlista = true; });   // «Ver los casos» está plegada; aquí se usa abierta
+  await page.click("nav [data-go=banco]"); });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
 test("especialidades, tipo y estado; la lista no muestra el tema ni la fuente", async ({ page }) => {
   await expect(page.locator('#qSpecs [data-sp="Medicina Interna"]')).toContainText(/Medicina Interna \d+/);
+  await page.click('#qModo [data-modo="filtros"]');   // los filtros viven en «Con mis filtros»
   await page.selectOption("#qSelTipo", "diagnostico");
   const tipos = await page.$$eval("#qList [data-q1]", bs => bs.map(b => qKind(qById(b.dataset.q1))));
   expect(tipos.length).toBeGreaterThan(5);
@@ -213,4 +216,26 @@ test.describe("auditoría a ciegas al final del modo examen", () => {
     await page.click("#auditSkip");
     await expect(page.locator("#sessBody .big")).toContainText("%");
   });
+});
+
+test("con mis filtros: tema, tipo y estado junto a la cantidad; Empezar usa exactamente eso", async ({ page }) => {
+  await page.click('#qModo [data-modo="filtros"]');
+  await page.selectOption("#qSelTipo", "conducta");
+  await page.selectOption("#qSelSt", "new");
+  await page.fill("#qN", "3"); await page.locator("#qN").dispatchEvent("change");
+  await expect(page.locator("#pr10")).toContainText("3 casos");
+  await page.click("#pr10");
+  const r = await page.evaluate(() => sess.stages[0].items.map(it => [qKind(qById(it.id)), !!S.srs["q" + it.id]]));
+  expect(r.length).toBe(3);
+  expect(r.every(([k, visto]) => k === "conducta" && !visto)).toBe(true);
+});
+
+test("buscar por tema con mis filtros conserva el cursor y abre la lista con lo encontrado", async ({ page }) => {
+  await page.evaluate(() => { PLEG.bqlista = false; });
+  await page.click('#qModo [data-modo="filtros"]');
+  await page.locator("#qQuery").pressSequentially("tep", {delay: 60});
+  await expect(page.locator("#qQuery")).toBeFocused();
+  await expect(page.locator("#qQuery")).toHaveValue("tep");
+  await expect(page.locator('#qList [data-pleg="bqlista"]')).toHaveAttribute("open", "");
+  await expect.poll(() => page.$$eval("#qList details.qgrupo[open] [data-q1]", bs => bs.length)).toBeGreaterThan(2);
 });
