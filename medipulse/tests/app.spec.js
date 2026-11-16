@@ -120,7 +120,7 @@ test.describe("MBE", () => {
 
 test("ninguna pantalla se desborda a 360 px", async ({ page }) => {
   const anchas = [];
-  for (const v of ["hoy", "banco", "tarjetas", "sim", "mbe", "lib", "prog", "new", "rep", "check", "guide", "instalar"]) {
+  for (const v of ["hoy", "banco", "tarjetas", "sim", "mbe", "lib", "prog", "new", "rep", "check", "guide", "instalar", "ahorro"]) {
     await page.evaluate(v => go(v), v);
     if (!(await sinDesborde(page))) anchas.push(v);
   }

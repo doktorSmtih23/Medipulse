@@ -75,3 +75,19 @@ test("crear → generar desde tu PDF: sin clave ofrece la guía y tu propia IA; 
   await page.click('#newForm [data-gen="t1"]');
   expect(await page.evaluate(() => [window._abrio, window._vista])).toEqual([["t1", "ai", true], "src"]);
 });
+
+test("«En tu banco» de un documento: resumen a la vista y la lista plegada", async ({ page }) => {
+  await page.evaluate(() => { S.sources.push({id: "t9", title: "Doc", kind: "text", pages: 1, added: Date.now()});
+    for (let i = 0; i < 8; i++) S.userQ.push({id: "z" + i, src: "t9", specialty: "Pediatría", topic: "Tema " + i, vignette: "v", options: ["a", "b", "c", "d"], correct: 0, whyCorrect: "", pearl: "", trap: ""});
+    S.srs.qz0 = {b: 3, due: Date.now() + 9e9, n: 1, ok: 1, last: 2}; rebuild(); save(); curSrc = "t9";
+    document.querySelectorAll(".view").forEach(v => v.classList.toggle("on", v.id === "v-src")); renderSrcItems(); });
+  const box = page.locator("#srcItems");
+  await expect(box).toContainText("8 preguntas");
+  await expect(box).toContainText("7 nuevas · 1 dominadas");
+  await expect(box.locator("details.srclista")).not.toHaveAttribute("open", "");
+  await box.locator("details.srclista summary").click();
+  await expect(box.locator(".srcitem")).toHaveCount(8);
+  // al borrar uno, la lista sigue abierta
+  await box.locator("[data-del]").first().click();
+  await expect(box.locator("details.srclista")).toHaveAttribute("open", "");
+});

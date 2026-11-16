@@ -367,3 +367,7 @@ label.check>span{flex:1;min-width:0}
 .dif del+ins{margin-left:3px}
 .dif .antes{margin-bottom:6px}
 .dif .opcambio{border-left:3px solid var(--accent);padding-left:6px;margin:4px 0}
+.regla{display:flex;gap:10px;align-items:flex-start;border-top:1px dashed var(--border);padding-top:10px}
+.tabla{width:100%;border-collapse:collapse}.tabla td{padding:6px 4px;border-top:1px solid var(--border)}.tabla td:last-child{text-align:right;white-space:nowrap}
+.anhist{border:1px solid var(--border);border-radius:12px;padding:8px 10px}.anhist>summary{cursor:pointer}
+.srclista{margin-top:8px}.srclista>summary{cursor:pointer;color:var(--accent);font-weight:600}

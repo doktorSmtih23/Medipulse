@@ -217,7 +217,7 @@ function renderGen(){
     <div class="note" style="margin:0"><b>Tema:</b> ${esc(t ? t.title : "Todo el documento")}${sel ? ` · ${pagesLabel(sel)}` : ""}</div>
     <div class="xs muted">Gratis</div>
     <div class="tabs3 acc2">${btn("read")}${btn("recs")}</div>
-    <div class="xs muted">Con IA${getKey() ? ` · ${aiEstimateLine(Math.min(chars, AN_MAX_CHARS), {outTokens: 5000})} aprox. por acción` : " · requiere tu clave"}</div>
+    <div class="xs muted">Con IA${getKey() ? ` · ${aiEstimateLine(Math.min(chars, AN_MAX_CHARS), {outTokens: 5000})} aprox. por acción · <button class="linkbtn" data-go="ahorro">💸 Cómo gastar menos</button>` : " · requiere tu clave"}</div>
     ${getKey() && chars > TEXTO_LARGO ? `<div class="note" style="margin:0">⏱️ <b>Texto largo</b> (${Math.round(chars/1000)} mil caracteres): con IA puede tardar 1–2 minutos y, mientras tanto, no bloquees la pantalla ni cambies de app. Para que sea más rápido y barato, elige un tema del índice.</div>` : ""}
     <div class="tabs3 acc4">${btn("ai")}${btn("audit")}${btn("tema")}${btn("revista")}</div>
     <div id="gBody" class="stack"></div>`;
@@ -702,9 +702,16 @@ function renderSrcItems(){
   const status = k => { const r = S.srs[k]; return !r ? "nueva" : isDue(k) ? "toca repasar" : r.b>=3 ? "dominada" : "en repaso"; };
   const rows = [...qs.map(q=>({k:"q"+q.id, t:(q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) : "🩺") + " " + (q.topic||"Caso clínico"), p:q.page, o:q})),
     ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title, p:h.page, o:h})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front, p:c.page, o:c}))];
+  // Resumen a la vista y la lista plegada (con muchas preguntas era una lista larga).
+  const abierta = !!(box.querySelector("details.srclista") && box.querySelector("details.srclista").open);
+  const est = rows.map(x=>status(x.k)), cuenta = t => est.filter(e=>e===t).length;
+  const partes = [qs.length && `${qs.length} pregunta${qs.length===1?"":"s"}`, hs.length && `${hs.length} ficha${hs.length===1?"":"s"}`, cs.length && `${cs.length} tarjeta${cs.length===1?"":"s"}`].filter(Boolean).join(" · ");
+  const estados = [["nueva","nuevas"],["toca repasar","para repasar"],["en repaso","en repaso"],["dominada","dominadas"]].map(([k,t])=>cuenta(k) ? `${cuenta(k)} ${t}` : "").filter(Boolean).join(" · ");
   box.innerHTML = `<div class="row"><h3 style="font-size:16px">En tu banco</h3><div class="spacer"></div><button class="btn primary" id="srcStudy">Estudiar esta fuente (${rows.length})</button></div>
+    <p class="small" style="margin:6px 0 0">${partes}</p><p class="xs muted" style="margin:2px 0 0">${estados}</p>
+    <details class="srclista" ${abierta ? "open" : ""}><summary class="small">Ver la lista (${rows.length})</summary>
     <div style="margin-top:8px">${rows.map(x=>`
-      <div class="srcitem"><div style="flex:1;min-width:0" class="small">${esc(x.t)}<div class="xs muted">${x.p ? "pág. " + x.p + " · " : ""}${status(x.k)}${x.o.stale?' · <span style="color:var(--warn)">versión anterior</span>':""}${x.o.updated?" · actualizado":""}</div></div><button class="btn ghost xs" data-del="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}</div>`;
+      <div class="srcitem"><div style="flex:1;min-width:0" class="small">${esc(x.t)}<div class="xs muted">${x.p ? "pág. " + x.p + " · " : ""}${status(x.k)}${x.o.stale?' · <span style="color:var(--warn)">versión anterior</span>':""}${x.o.updated?" · actualizado":""}</div></div><button class="btn ghost xs" data-del="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}</div></details>`;
   $("#srcStudy").onclick = ()=>studySource(s.id);
   box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
     const k = b.dataset.del, id = k.slice(1);
@@ -716,7 +723,8 @@ function renderSrcItems(){
 async function deleteSource(id){
   const s = S.sources.find(x=>x.id===id); if (!s) return;
   const n = S.userQ.filter(q=>q.src===id).length + S.userC.filter(c=>c.src===id).length + S.userH.filter(h=>h.src===id).length;
-  if (!confirm(`¿Eliminar “${s.title}”${n?` y sus ${n} preguntas y fichas`:""}? No se puede deshacer.`)) return;
+  const na = s.anHist ? s.anHist.length : Object.keys(s.an || {}).length;
+  if (!confirm(`¿Eliminar “${s.title}”${n?` y sus ${n} preguntas y fichas`:""}${na ? `${n ? " y" : " y sus"} ${na} análisis (descárgalos antes si los quieres conservar)` : ""}? No se puede deshacer.`)) return;
   [["q",S.userQ],["c",S.userC],["h",S.userH]].forEach(([k,arr])=>arr.filter(o=>o.src===id).forEach(o=>delete S.srs[k+o.id]));
   S.userQ = S.userQ.filter(q=>q.src!==id); S.userC = S.userC.filter(c=>c.src!==id); S.userH = S.userH.filter(h=>h.src!==id);
   S.sources = S.sources.filter(x=>x.id!==id);

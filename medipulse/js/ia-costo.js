@@ -69,7 +69,7 @@ function aiSpendMonth(){ return (S.aiSpend || {})[todayKey().slice(0, 7)] || 0; 
 function aiLevelHTML(){
   return `<label class="fld">Nivel de la IA<select id="aiLevelSel">${Object.entries(AI_LEVELS).map(([k, L]) =>
     `<option value="${k}" ${aiLevel() === k ? "selected" : ""}>${L.name} · ${L.mname}</option>`).join("")}</select></label>
-    <p class="xs muted" style="margin:6px 0 0">Equilibrado cuesta la mitad que Calidad máxima; Económico, unas 40 veces menos, con más riesgo de errores. Gastado este mes: <b>≈ US$${fmtUsd(aiSpendMonth())}</b> (estimado; el valor exacto está en tu cuenta de Anthropic).</p>`;
+    <p class="xs muted" style="margin:6px 0 0">Equilibrado cuesta la mitad que Calidad máxima; Económico, unas 40 veces menos, con más riesgo de errores. Gastado este mes: <b>≈ US$${fmtUsd(aiSpendMonth())}</b> (estimado; el valor exacto está en tu cuenta de Anthropic). <button class="linkbtn" data-go="ahorro">💸 Cómo gastar menos</button></p>`;
 }
 function bindAiLevel(after){
   $("#aiLevelSel") && ($("#aiLevelSel").onchange = () => { S.aiLevel = $("#aiLevelSel").value; save(); toast("Nivel de la IA: " + AI_LEVELS[aiLevel()].name); after && after(); });

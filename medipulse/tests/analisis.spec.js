@@ -154,3 +154,50 @@ test("con un texto largo avisa que tarda y que no hay que bloquear la pantalla",
   await expect(page.locator("#genCard")).toContainText("Texto largo");
   await expect(page.locator("#genCard")).toContainText("no bloquees la pantalla");
 });
+
+test.describe("guardar los análisis", () => {
+  test("repetir no borra el anterior: queda en el historial, se puede ver y borrar", async ({ page }) => {
+    await irA(page, "audit"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await page.click("#anGo");
+    await expect(page.locator(".anhist summary")).toContainText("análisis anteriores de este documento (1)");
+    expect(await page.evaluate(() => cur().anHist.length)).toBe(2);
+    await page.click(".anhist summary"); await page.click(".anhist [data-anver]");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await page.click(".anhist summary"); await page.locator(".anhist [data-andel]").first().click();
+    expect(await page.evaluate(() => cur().anHist.length)).toBe(1);
+  });
+
+  test("descargar: un archivo limpio con el documento, el tema, las páginas como texto y el aviso de IA", async ({ page }) => {
+    await irA(page, "audit"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    const [dl] = await Promise.all([page.waitForEvent("download"), page.click("#anDl")]);
+    expect(dl.suggestedFilename()).toMatch(/^MediPulse - Auditoria MBE - .+\.html$/);
+    const html = require("fs").readFileSync(await dl.path(), "utf8");
+    expect(html).toContain("Generado con IA en MediPulse");
+    expect(html).toContain("(pág. 2)");
+    expect(html).not.toContain("<button");
+    expect(html).not.toContain("<img src=x");   // el texto de la IA sigue escapado
+  });
+
+  test("guardar como PDF abre el diálogo de impresión con el análisis", async ({ page }) => {
+    await irA(page, "audit"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await page.click("#anPdf");
+    const f = page.locator("iframe[aria-hidden=true]");
+    await expect(f).toHaveCount(1);
+    expect(await f.getAttribute("srcdoc")).toContain("Auditoría MBE");
+  });
+
+  test("«Mis análisis» en MBE los reúne todos y abre el elegido", async ({ page }) => {
+    await irA(page, "audit"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await irA(page, "revista"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await page.click("nav [data-go=mbe]");
+    await expect(page.locator("#mbeDocs")).toContainText("Mis análisis (2)");
+    await page.locator('#mbeDocs [data-misan$="audit"], #mbeDocs [data-misan*="|audit|"]').first().click();
+    await expect(page.locator('#genCard [data-gt="audit"]')).toHaveClass(/on/);
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+  });
+});

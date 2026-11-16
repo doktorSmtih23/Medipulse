@@ -63,3 +63,18 @@ test("la firma del autor aparece al final de Progreso", async ({ page }) => {
   await page.goto("/"); await page.click("nav [data-go=prog]");
   await expect(page.locator("#firmaProg")).toHaveText("MediPulse · Creado por Dr. Christian Smith");
 });
+
+test("guía «Gasta menos con la IA»: cómo se cobra, ejemplos con el nivel elegido y 7 reglas; se llega desde Fuentes", async ({ page }) => {
+  errores = vigilarErrores(page);
+  await page.goto("/");
+  await page.evaluate(() => { localStorage.setItem("medipulse_api_key", "sk-ant-prueba"); });
+  await page.reload(); await page.click("nav [data-go=lib]");
+  await page.click("#aiBox [data-go=ahorro]");
+  await expect(page.locator("#ahorroBox")).toContainText("vuelve a leer el texto que le envías");
+  await expect(page.locator("#ahorroBox .tabla tr")).toHaveCount(3);
+  await expect(page.locator("#ahorroBox .regla")).toHaveCount(7);
+  // el tema corto cuesta menos que la guía larga
+  const usd = await page.$$eval("#ahorroBox .tabla td b", bs => bs.map(b => parseFloat(b.textContent.replace(/[^\d,]/g, "").replace(",", "."))));
+  expect(usd[0]).toBeLessThan(usd[2]);
+  expect(await sinDesborde(page)).toBe(true);
+});
