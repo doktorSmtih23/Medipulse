@@ -187,10 +187,21 @@ function bindIndice(){
     gen.manual = {from: a, to: z}; gen.tema = null; gen.topic = ""; gen.rdPage = a; renderGen(); };
   $("#indAI") && ($("#indAI").onclick = runChapters);
 }
+// Redibuja solo el índice cuando termina de calcularse, sin cerrar «Elegir páginas a mano» ni borrar
+// lo que el usuario ya escribió ahí (si no, la sección se cerraba en medio de la escritura).
+function refrescarIndice(){
+  const box = $("#indBox"), d = box.querySelector("details"), abierto = d && d.open;
+  const desde = $("#manFrom") && $("#manFrom").value, hasta = $("#manTo") && $("#manTo").value, foco = document.activeElement && document.activeElement.id;
+  box.innerHTML = indiceHTML(); bindIndice();
+  if (abierto) box.querySelector("details").open = true;
+  if (desde != null) $("#manFrom").value = desde;
+  if (hasta != null) $("#manTo").value = hasta;
+  if (foco && /^man(From|To)$/.test(foco)) $("#" + foco).focus({preventScroll: true});
+}
 function renderGen(){
   const s = cur(), info = docInfo(s.id);
   if (!info) { $("#genCard").innerHTML = `<p class="small" style="margin:0;color:var(--bad)">No encuentro el texto de esta fuente en este dispositivo. Vuelve a agregarla.</p>`; return; }
-  if (!s.indice && !gen.indCargando) { gen.indCargando = true; buildIndice(s).catch(()=>{}).then(()=>{ gen.indCargando = false; if (cur() === s && currentView === "src" && $("#indBox")) { $("#indBox").innerHTML = indiceHTML(); bindIndice(); } }); }
+  if (!s.indice && !gen.indCargando) { gen.indCargando = true; buildIndice(s).catch(()=>{}).then(()=>{ gen.indCargando = false; if (cur() === s && currentView === "src" && $("#indBox")) refrescarIndice(); }); }
   const t = temaActual(), sel = temaSel();
   const est = s.design || detectDesign(info.pages.slice(0, 6).join(" "));
   const chars = sel ? sel.pages.reduce((a, p)=>a + p.length, 0) : 0;
