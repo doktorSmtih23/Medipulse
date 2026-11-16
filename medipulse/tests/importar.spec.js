@@ -66,8 +66,11 @@ Tipo: Datos duros`;
 test("el prompt usa la fuente que da el usuario; también se puede copiar solo el formato para una skill", async ({ page }) => {
   await page.click("summary:has-text('Prompt para tu IA')");
   await expect(page.locator("pre.prompt >> nth=0")).toContainText("Usa SOLO la información del documento que te di");
-  await expect(page.locator("pre.prompt >> nth=0")).toContainText("Antes de escribir cualquier pregunta, hazme estas preguntas");
-  await expect(page.locator("pre.prompt >> nth=0")).toContainText("Pídeme que adjunte el PDF o que pegue el texto");
+  const prompt = page.locator("pre.prompt >> nth=0");
+  await expect(prompt).toContainText("Pídeme solo la fuente: que suba el PDF, pegue el texto o mande una foto");
+  await expect(prompt).toContainText("Identifica tú el título del documento");
+  await expect(prompt).toContainText("mapa conceptual");
+  await expect(prompt).toContainText("recomiéndame 4");
   await expect(page.locator("pre.prompt >> nth=1")).toContainText("Respuesta correcta: [letra]");
   await expect(page.locator("[data-copiar=prompt]")).toBeVisible();
   await expect(page.locator("[data-copiar=formato]")).toBeVisible();

@@ -30,20 +30,23 @@ Opción D: ...
 Dato clave: [el dato que define la respuesta]
 Cómo evitar la trampa: [el error típico y cómo no caer]
 Fuente: [nombre del documento que te di, organización y año] · [página o sección de donde sale]`;
-// Prompt completo: el usuario solo lo pega. Su IA le pregunta primero por la fuente (PDF o texto de
-// una fuente verificada), el tema y cuántas preguntas, y solo usa ese documento.
-const PROMPT_IA = `Eres un profesor que prepara a médicos para el examen de residencia. Vas a escribir preguntas tipo examen a partir de una fuente verificada que yo te daré.
+// Prompt completo: el usuario solo lo pega. Su IA le pide la fuente (PDF, texto o foto), saca sola el
+// título y el año, presenta el mapa conceptual y solo entonces pregunta qué preguntas quiere.
+const PROMPT_IA = `Eres un profesor que prepara a médicos para el examen de residencia. Vas a convertir en preguntas tipo examen una fuente que yo te daré.
 
-Antes de escribir cualquier pregunta, hazme estas preguntas, todas juntas en un solo mensaje, y espera mis respuestas:
-1. ¿Cuál es la fuente? Pídeme que adjunte el PDF o que pegue el texto de la guía, artículo o capítulo.
-2. ¿Cómo se llama ese documento, de qué organización o revista es y de qué año?
-3. ¿Sobre qué tema o sección del documento quiero las preguntas?
-4. ¿Cuántas preguntas quiero y de qué tipo (conducta, diagnóstico, lectura crítica o datos duros)?
-5. ¿Mi examen usa 4 o 5 opciones?
+Paso 1. Pídeme solo la fuente: que suba el PDF, pegue el texto o mande una foto de lo que quiero convertir en preguntas. No me pidas nada más todavía.
 
-No escribas preguntas hasta que te haya dado la fuente.
+Paso 2. Cuando te la dé:
+- Identifica tú el título del documento, la organización o revista y el año (si no aparecen, dilo).
+- Preséntame un mapa conceptual del documento: los temas y subtemas, con su página o sección.
 
-Reglas para las preguntas:
+Paso 3. Después del mapa, pregúntame todo junto en un solo mensaje:
+- Sobre qué temas del mapa quiero las preguntas.
+- Cuántas preguntas quiero.
+- De qué tipo: conducta, diagnóstico, lectura crítica o datos duros.
+- Si quiero 4 o 5 opciones (recomiéndame 4).
+
+Paso 4. Escribe las preguntas con estas reglas:
 - Usa SOLO la información del documento que te di. No agregues datos de otras fuentes ni de tu memoria; si el documento no alcanza para una pregunta, no la hagas y dímelo.
 - Cada pregunta y cada explicación deben poder verificarse en el documento: indica la página o sección de donde sale.
 - Una sola respuesta correcta, y reparte la letra correcta entre todas las opciones.
@@ -167,7 +170,7 @@ function renderImportar(box){
       <textarea id="impTxt" rows="9" placeholder="Pega aquí la pregunta completa, con sus opciones y su explicación…"></textarea>
       <div class="row" style="gap:6px"><button class="btn primary" id="impGo">🧩 Organizar</button></div>
       <details class="custom"><summary>📋 Prompt para tu IA: preguntas desde tu fuente, listas para pegar aquí</summary><div class="stack" style="margin-top:8px">
-        <p class="xs muted" style="margin:0"><b>Con tu fuente:</b> copia este prompt y pégalo en Gemini, ChatGPT u otra IA, sin cambiar nada. Tu IA te preguntará primero cuál es la fuente (adjuntas el PDF o pegas el texto), el tema y cuántas preguntas quieres. Usará solo ese documento y dirá la página de cada pregunta.</p>
+        <p class="xs muted" style="margin:0"><b>Con tu fuente:</b> copia este prompt y pégalo en Gemini, ChatGPT u otra IA, sin cambiar nada. Tu IA te pedirá la fuente (el PDF, el texto o una foto), sacará sola el título y el año, te mostrará el mapa conceptual y luego te preguntará qué temas, cuántas preguntas, de qué tipo y si quieres 4 o 5 opciones. Usará solo ese documento y dirá la página de cada pregunta.</p>
         <button class="btn sm" data-copiar="prompt">📋 Copiar el prompt completo</button>
         <pre class="prompt">${esc(PROMPT_IA)}</pre>
         <p class="xs muted" style="margin:0"><b>¿Ya tienes una skill o un prompt propio</b> (por ejemplo, uno que arma un mapa conceptual del documento y luego hace preguntas)? No lo cambies: agrega al final solo este bloque de formato.</p>
