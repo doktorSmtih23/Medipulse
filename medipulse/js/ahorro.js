@@ -7,7 +7,7 @@ function renderAhorro(){
   const box = $("#ahorroBox"); if (!box) return;
   const L = AI_LEVELS[aiLevel()], gen = {outTokens: 5 * 700 + 3 * 400 + 4000};
   const ej = [["Un tema de 3 páginas", 9000], ["Un artículo de 15 páginas", 80000], ["Una guía de 40 páginas", 150000]];
-  const fila = (t, c) => `<tr><td>${t}</td><td><b>≈ US$${fmtUsd(aiEstimate(c, gen))}</b></td></tr>`;
+  const fila = (t, c) => `<tr><td>${t}</td><td><b>≈ ${usd(aiEstimate(c, gen))}</b></td></tr>`;
   const regla = (n, t, d) => `<div class="regla"><span class="pnum">${n}</span><div><b>${t}</b><div class="small muted" style="margin-top:2px">${d}</div></div></div>`;
   box.innerHTML = `
     <div class="card stack">
@@ -30,7 +30,7 @@ function renderAhorro(){
     <div class="card stack">
       <h3 style="font-size:16px">Ten el gasto bajo control</h3>
       <ul class="small" style="margin:0;padding-left:18px">
-        <li>Gastado este mes en este dispositivo: <b>≈ US$${fmtUsd(aiSpendMonth())}</b>. El valor exacto está en tu cuenta de Anthropic.</li>
+        <li>Gastado este mes en este dispositivo: <b>≈ ${usd(aiSpendMonth())}</b>. El valor exacto está en tu cuenta de Anthropic.</li>
         <li>En tu cuenta de Anthropic (console.anthropic.com) puedes <b>fijar un límite de gasto mensual</b>: al llegar a él, la IA deja de responder hasta el mes siguiente.</li>
         <li>Recarga poco saldo al principio, por ejemplo US$5, y mira cuánto te dura.</li>
         <li>Los PDF escaneados (fotos de páginas) no tienen texto: la IA no puede leerlos y gastarías en vano. Si la app avisa «casi no tiene texto», busca la versión digital.</li>

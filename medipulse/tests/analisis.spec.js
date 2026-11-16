@@ -114,7 +114,7 @@ test("muestra el costo estimado, registra el real y respeta el nivel elegido", a
   await irA(page, "audit");
   await expect(page.locator("#genCard")).toContainText("Costo estimado: ≈ US$");
   await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
-  await expect(page.locator("#toast")).toContainText("≈ US$");
+  await expect(page.locator("#toast")).toContainText(/≈ (menos de )?US\$/);
   expect(await page.evaluate(() => aiSpendMonth() > 0)).toBe(true);
   await page.evaluate(() => { S.aiLevel = "max"; renderGen(); });
   const antes = peticiones.length;
