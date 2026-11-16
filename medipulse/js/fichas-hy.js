@@ -137,6 +137,7 @@ No propongas datos nuevos que la ficha no tenga. Si no hay problemas, "veredicto
     const h = Object.assign({id: "u"+(++S.seq), specialty: spec, title, badge: box.querySelector(".eBadge").value.trim(), accent: SPEC_COLOR[spec],
       thresholds: rows, redFlag: box.querySelector(".eRed").value.trim(), trap: box.querySelector(".eTrap").value.trim(),
       src: o.showSrc ? (box.querySelector(".eSrc").value || null) : o.src, page: o.showSrc ? (parseInt(box.querySelector(".ePage").value) || 0) : o.page, ctx: o.ctx || ""}, o.flags);
+    if (!dupConfirmar(h, "h")) return;
     S.userH.push(h); rebuild(); save(); box.innerHTML = ""; box._addRow = null;
     toast("Ficha guardada ✓ Entra a tu repaso espaciado."); refreshChips(); o.onSave && o.onSave(h);
   };
@@ -184,10 +185,10 @@ function renderHY(){
   $("#hySelSpec").onchange = e => { hySpec = e.target.value || null; renderHY(); };
   $("#hySelArea") && ($("#hySelArea").onchange = e => { hyArea = e.target.value; renderHY(); });
   $("#hySelEst").onchange = e => { hyEst = e.target.value; renderHY(); };
-  const abierto = !!(hySpec || hyArea || hyEst || txt);
+  const abierto = !!txt;   // plegadas salvo que se esté buscando
   const grupos = SPECS.map(s => [s, list.filter(h => h.specialty === s)]).filter(([, hs]) => hs.length);
   $("#hyList").innerHTML = list.length ? grupos.map(([s, hs]) => `
-    <details class="qgrupo card" ${abierto || grupos.length === 1 ? "open" : ""}><summary><span class="dot" style="background:${SPEC_COLOR[s]}"></span> <b>${esc(s)}</b> <span class="xs muted">${hs.length}</span></summary>
+    <details class="qgrupo card" data-pleg="hy_${esc(s)}" ${abierto || PLEG["hy_" + s] ? "open" : ""}><summary><span class="dot" style="background:${SPEC_COLOR[s]}"></span> <b>${esc(s)}</b> <span class="xs muted">${hs.length}</span></summary>
       ${hs.map(h => { const e = hyEstado(h), id = esc(String(h.id)); return `<details class="hyrow" data-hid="${id}"><summary>
         <div style="min-width:0"><b class="small">${esc(h.title)}</b>
           <div class="row xs" style="gap:6px;margin-top:3px">${h.badge ? `<span class="tipo">${esc(h.badge)}</span>` : ""}${h.area ? `<span class="muted">${esc(h.area)}</span>` : ""}${h.relevance ? `<span class="stars" title="Relevancia ${h.relevance} de 5">${"★".repeat(h.relevance)}</span>` : ""}<span class="est ${e.k}">${e.t}</span>${mia(h) ? `<span class="muted">· tuya</span>` : ""}</div></div></summary>

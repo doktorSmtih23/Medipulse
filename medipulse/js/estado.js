@@ -14,6 +14,14 @@ try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.
 // lo que el usuario creó con ella pasa a Medicina Interna.
 ["userQ","userH","userC"].forEach(k=>(S[k]||[]).forEach(x=>{ if (x.specialty === "Urgencias") x.specialty = "Medicina Interna"; }));
 (S.notes||[]).forEach(n=>{ if (n.spec === "Urgencias") n.spec = "Medicina Interna"; });
+// «Salud Pública» pasó a llamarse «Epidemiología y Estadística»: se renombra en todo lo guardado.
+{ const V = "Salud Pública", N = "Epidemiología y Estadística", c = x => x === V ? N : x;
+  ["userQ","userH","userC"].forEach(k=>(S[k]||[]).forEach(x=>{ x.specialty = c(x.specialty); }));
+  (S.notes||[]).forEach(n=>{ n.spec = c(n.spec); });
+  (S.apuntes||[]).forEach(l=>{ l.spec = c(l.spec); });
+  (S.sources||[]).forEach(s=>{ s.spec = c(s.spec); });
+  Object.values(S.over||{}).forEach(o=>{ if (o && o.specialty) o.specialty = c(o.specialty); });
+  if (S.prac && Array.isArray(S.prac.specs)) S.prac.specs = S.prac.specs.map(c); }
 // Aplica las correcciones (S.over) a los ítems incluidos y quita los archivados (S.hidden).
 let HYS = [];
 function rebuild(){

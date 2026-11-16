@@ -32,9 +32,9 @@ test("hay un archivo por especialidad, sin repetir", () => {
   for (const e of C.esp) expect(e.actualizado, e.especialidad).toMatch(/^\d{4}-\d{2}-\d{2}$/);
 });
 
-test("el starter pack son las 4 básicas y Salud Pública va aparte", () => {
+test("el starter pack son las 4 básicas y Epidemiología y Estadística va aparte", () => {
   const paq = Object.fromEntries(C.esp.map(e => [e.especialidad, e.paquete]));
-  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Salud Pública": "salud-publica"});
+  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Epidemiología y Estadística": "salud-publica"});
 });
 
 const visibles = tipo => todos(tipo).filter(x => x.estado !== "pendiente");

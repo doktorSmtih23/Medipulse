@@ -28,6 +28,7 @@ test.beforeEach(async ({ page }) => {
     return (t.match(/herramienta (report_\w+)/) || [])[1] || body.tools[0].name; };
   peticiones = await simularIA(page, body => fallar ? {status: 500} : {tool: pedida(body), input: RESPUESTAS[pedida(body)]});
   await abrirConClave(page);
+  await page.evaluate(() => { PLEG.indice = true; });   // el índice está plegado; aquí se usa abierto
   await subirPdf(page);
 });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
@@ -114,7 +115,7 @@ test("muestra el costo estimado, registra el real y respeta el nivel elegido", a
   await irA(page, "audit");
   await expect(page.locator("#genCard")).toContainText("Costo estimado: ≈ US$");
   await page.click("#anGo"); await expect(page.locator("#anOut .anres")).toBeVisible();
-  await expect(page.locator("#toast")).toContainText("≈ US$");
+  await expect(page.locator("#toast")).toContainText(/≈ (menos de )?US\$/);
   expect(await page.evaluate(() => aiSpendMonth() > 0)).toBe(true);
   await page.evaluate(() => { S.aiLevel = "max"; renderGen(); });
   const antes = peticiones.length;
@@ -124,15 +125,16 @@ test("muestra el costo estimado, registra el real y respeta el nivel elegido", a
   expect(peticiones.at(-1).fallbacks).toBe("default");
 });
 
-test("las tres tareas comparten instrucciones y herramientas para reutilizar la caché", async ({ page }) => {
+test("cada tarea envía solo su herramienta (las tres juntas superan el límite de la API) y el documento en caché", async ({ page }) => {
   for (const k of ["audit", "tema", "revista"]) {
     const antes = peticiones.length;
     await irA(page, k); await page.click("#anGo");
     await expect.poll(() => peticiones.length).toBe(antes + 1);
     await expect(page.locator("#anGo")).toBeEnabled();
   }
-  const prefijos = peticiones.slice(-3).map(p => JSON.stringify([p.system, p.tools, p.messages[0].content[0]]));
-  expect(new Set(prefijos).size).toBe(1);
+  const ult = peticiones.slice(-3);
+  expect(ult.map(p => p.tools.map(t => t.name))).toEqual([["report_audit"], ["report_topic"], ["report_rounds"]]);
+  expect(ult.every(p => p.messages[0].content[0].cache_control && p.messages[0].content[0].cache_control.type === "ephemeral")).toBe(true);
 });
 
 test("detecta signos dañados en el texto del PDF, avisa y pide a la IA no adivinarlos", async ({ page }) => {
@@ -153,4 +155,52 @@ test("con un texto largo avisa que tarda y que no hay que bloquear la pantalla",
   await page.evaluate(() => { docInfo(cur().id).pages[1] += " x".repeat(30000); renderGen(); });
   await expect(page.locator("#genCard")).toContainText("Texto largo");
   await expect(page.locator("#genCard")).toContainText("no bloquees la pantalla");
+});
+
+test.describe("guardar los análisis", () => {
+  test("repetir no borra el anterior: queda en el historial, se puede ver y borrar", async ({ page }) => {
+    await irA(page, "audit"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await page.click("#anGo");
+    await expect(page.locator(".anhist summary")).toContainText("análisis anteriores de este documento (1)");
+    expect(await page.evaluate(() => cur().anHist.length)).toBe(2);
+    await page.click(".anhist summary"); await page.click(".anhist [data-anver]");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await page.click(".anhist summary"); await page.locator(".anhist [data-andel]").first().click();
+    expect(await page.evaluate(() => cur().anHist.length)).toBe(1);
+  });
+
+  test("descargar: un archivo limpio con el documento, el tema, las páginas como texto y el aviso de IA", async ({ page }) => {
+    await irA(page, "audit"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    const [dl] = await Promise.all([page.waitForEvent("download"), page.click("#anDl")]);
+    expect(dl.suggestedFilename()).toMatch(/^MediPulse - Auditoria MBE - .+\.html$/);
+    const html = require("fs").readFileSync(await dl.path(), "utf8");
+    expect(html).toContain("Generado con IA en MediPulse");
+    expect(html).toContain("(pág. 2)");
+    expect(html).not.toContain("<button");
+    expect(html).not.toContain("<img src=x");   // el texto de la IA sigue escapado
+  });
+
+  test("guardar como PDF abre el diálogo de impresión con el análisis", async ({ page }) => {
+    await irA(page, "audit"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await page.click("#anPdf");
+    const f = page.locator("iframe[aria-hidden=true]");
+    await expect(f).toHaveCount(1);
+    expect(await f.getAttribute("srcdoc")).toContain("Auditoría MBE");
+  });
+
+  test("«Mis análisis» en MBE los reúne todos y abre el elegido", async ({ page }) => {
+    await irA(page, "audit"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await irA(page, "revista"); await page.click("#anGo");
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+    await page.click("nav [data-go=mbe]");
+    await expect(page.locator('#mbeDocs [data-pleg="misan"] summary')).toContainText("Mis análisis 2");
+    await page.click('#mbeDocs [data-pleg="misan"] summary');
+    await page.locator('#mbeDocs [data-misan$="audit"], #mbeDocs [data-misan*="|audit|"]').first().click();
+    await expect(page.locator('#genCard [data-gt="audit"]')).toHaveClass(/on/);
+    await expect(page.locator("#anOut .anres")).toBeVisible();
+  });
 });

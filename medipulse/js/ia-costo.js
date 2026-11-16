@@ -25,6 +25,8 @@ function aiParams({light = false, web = false} = {}){
 }
 
 const fmtUsd = c => c < 0.01 ? "menos de 0,01" : c.toFixed(2).replace(".", ",");
+// Con el símbolo: «US$0,14» o «menos de US$0,01».
+const usd = c => c < 0.01 ? "menos de US$0,01" : "US$" + fmtUsd(c);
 
 // Estimación antes de usar la IA: el texto que se envía y una respuesta típica.
 function aiEstimate(chars, {light = false, web = false, outTokens = 5000} = {}){
@@ -33,7 +35,7 @@ function aiEstimate(chars, {light = false, web = false, outTokens = 5000} = {}){
 }
 function aiEstimateLine(chars, opts){
   const lv = aiParams(opts || {}).level;
-  return `≈ US$${fmtUsd(aiEstimate(chars, opts))} · ${AI_LEVELS[lv].name}`;
+  return `≈ ${usd(aiEstimate(chars, opts))} · ${AI_LEVELS[lv].name}`;
 }
 
 // Suma el uso de varias respuestas (una acción puede tener varias vueltas).
@@ -53,7 +55,7 @@ function aiRecord(level, usage, label){
   const c = aiCost(level, usage), m = todayKey().slice(0, 7);
   S.aiSpend = S.aiSpend || {}; S.aiSpend[m] = (S.aiSpend[m] || 0) + c; save();
   const w = usage.web || 0;
-  toast(`${label}: ≈ US$${fmtUsd(c)}${w ? ` + ${w} búsqueda${w > 1 ? "s" : ""} web (se cobran aparte)` : ""}`);
+  toast(`${label}: ≈ ${usd(c)}${w ? ` + ${w} búsqueda${w > 1 ? "s" : ""} web (se cobran aparte)` : ""}`);
   return c;
 }
 // Mantiene la pantalla encendida mientras la IA responde: si el celular se bloquea, el navegador
@@ -69,7 +71,7 @@ function aiSpendMonth(){ return (S.aiSpend || {})[todayKey().slice(0, 7)] || 0; 
 function aiLevelHTML(){
   return `<label class="fld">Nivel de la IA<select id="aiLevelSel">${Object.entries(AI_LEVELS).map(([k, L]) =>
     `<option value="${k}" ${aiLevel() === k ? "selected" : ""}>${L.name} · ${L.mname}</option>`).join("")}</select></label>
-    <p class="xs muted" style="margin:6px 0 0">Equilibrado cuesta la mitad que Calidad máxima; Económico, unas 40 veces menos, con más riesgo de errores. Gastado este mes: <b>≈ US$${fmtUsd(aiSpendMonth())}</b> (estimado; el valor exacto está en tu cuenta de Anthropic).</p>`;
+    <p class="xs muted" style="margin:6px 0 0">Equilibrado cuesta la mitad que Calidad máxima; Económico, unas 40 veces menos, con más riesgo de errores. Gastado este mes: <b>≈ ${usd(aiSpendMonth())}</b> (estimado; el valor exacto está en tu cuenta de Anthropic). <button class="linkbtn" data-go="ahorro">💸 Cómo gastar menos</button></p>`;
 }
 function bindAiLevel(after){
   $("#aiLevelSel") && ($("#aiLevelSel").onchange = () => { S.aiLevel = $("#aiLevelSel").value; save(); toast("Nivel de la IA: " + AI_LEVELS[aiLevel()].name); after && after(); });

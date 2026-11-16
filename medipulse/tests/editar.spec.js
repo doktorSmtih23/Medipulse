@@ -12,11 +12,12 @@ test("Crear abre «Editar un caso»: primero las respondidas y aviso antes de ve
   await page.goto("/"); await responder(page, [2]);
   await page.evaluate(() => go("new"));
   await expect(page.locator('#newSeg [data-nt="e"]')).toHaveClass(/on/);
-  await expect(page.locator("#newForm")).toContainText("Ya respondidas (1)");
+  await expect(page.locator('#newForm [data-pleg="edresp"] summary')).toContainText("Ya respondidas 1");
+  await page.click('#newForm [data-pleg="edresp"] summary');
   await expect(page.locator("#newForm")).toContainText(await page.evaluate(() => qById(2).topic));
   // una sin responder: avisa y no muestra el tema
-  await page.locator("#newForm details summary").click();
-  const sin = page.locator("#newForm details [data-ed]").first();
+  await page.click('#newForm [data-pleg="edsin"] summary');
+  const sin = page.locator('#newForm [data-pleg="edsin"] [data-ed]').first();
   await sin.click();
   await expect(page.locator("#newForm")).toContainText("vas a ver la respuesta");
   await page.locator("#newForm [data-edy]").click();

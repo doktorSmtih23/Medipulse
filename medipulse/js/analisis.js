@@ -34,7 +34,15 @@ const pdfDocs = {};
 function anReset(s){
   an = {id: s.id, kind: "audit", busy: "", err: ""};
 }
-function openAnalysis(id, kind){ anIntent = {id, kind}; openSrc(id); }
+function openAnalysis(id, kind, ver){ anIntent = {id, kind}; anVerPend = ver || null; openSrc(id); }
+// Historial: cada análisis queda guardado (antes solo el último de cada tipo). s.an[tipo] sigue siendo el más reciente.
+let anVerPend = null;
+const anCuando = at => `${fmtDate(at)}, ${new Date(at).toLocaleTimeString("es", {hour: "2-digit", minute: "2-digit"})}`;
+const AN_HIST_MAX = 40;
+function anHist(s){
+  if (!s.anHist) s.anHist = Object.entries(s.an || {}).map(([kind, v]) => Object.assign({id: "a" + v.at, kind}, v)).sort((a, b) => a.at - b.at);
+  return s.anHist;
+}
 
 // ---------- páginas a analizar: las del tema elegido en el índice ----------
 function anSelection(s){
@@ -97,7 +105,8 @@ ${AN_RULES}`,
 ${AN_RULES}`
 };
 // Instrucciones y herramientas comunes a las tres tareas (así el documento se reutiliza desde la caché).
-const AN_ALL_TOOLS = [AN_TOOLS.audit, AN_TOOLS.tema, AN_TOOLS.revista];
+// Cada tarea envía solo su herramienta: las tres juntas, con formato estricto, superan el límite de la API
+// («The compiled grammar is too large»).
 const AN_SHARED_SYSTEM = `Analizas documentos médicos para un médico. La tarea se indica al final del mensaje: sigue solo las instrucciones de esa tarea y entrega el resultado con su herramienta.
 
 [Tarea: ${AN_KINDS.audit.name} · herramienta report_audit]
@@ -135,16 +144,25 @@ function renderAnTab(kind){
   const s = cur(); if (!s) return;
   if (!an || an.id !== s.id) anReset(s);
   an.kind = kind;
-  const k = AN_KINDS[kind], saved = s.an && s.an[kind], key = !!getKey();
+  if (anVerPend) { if (anHist(s).some(x => x.id === anVerPend)) an.ver = anVerPend; anVerPend = null; }
+  const previos = anHist(s).filter(x => x.kind === kind).slice().reverse();
+  const elegido = an.ver && previos.find(x => x.id === an.ver);
+  const k = AN_KINDS[kind], saved = elegido || (s.an && s.an[kind]), key = !!getKey();
+  const otros = previos.filter(x => x.at !== (saved && saved.at));
   $("#gBody").innerHTML = `<p class="xs muted" style="margin:0">${k.desc} Sobre el tema elegido; cada dato cita su página.</p>
     ${key ? `<button class="btn primary block" id="anGo" ${an.busy?"disabled":""}>${an.busy === "run" ? `<span class="spin"></span> Analizando…` : `✨ ${k.name}${saved ? " (rehacer)" : ""}`}</button>
-      <p class="xs muted" style="margin:0;text-align:center">Costo estimado: ${anCostLine(s)}. Si haces otra tarea del mismo texto en unos minutos, cuesta menos.</p>`
+      <p class="xs muted" style="margin:0;text-align:center">Costo estimado: ${anCostLine(s)}. Si la repites sobre el mismo texto en unos minutos, cuesta menos.</p>`
           : `<div class="note"><b>Para estos análisis necesitas tu clave de IA.</b> Mientras tanto puedes leer el PDF y ver las recomendaciones. <button class="linkbtn" data-go="guide">¿Cómo consigo una clave?</button></div>`}
     ${an.err ? `<p class="small" style="margin:0;color:var(--bad)">${esc(an.err)}</p>` : ""}
-    <div id="anOut">${saved ? anResultHTML(kind, saved) : ""}</div>`;
+    <div id="anOut">${saved ? anResultHTML(kind, saved) : ""}</div>
+    ${otros.length ? `<details class="anhist"><summary class="small"><b>🕘 ${k.name}: análisis anteriores de este documento (${otros.length})</b></summary>
+      ${otros.map(x => `<div class="qrow"><div style="flex:1;min-width:0"><b class="small">${esc(x.label)}</b><div class="xs muted">${anCuando(x.at)}</div></div><button class="btn sm" data-anver="${x.id}">Ver</button><button class="iconbtn" data-andel="${x.id}" aria-label="Borrar este análisis" title="Borrar">🗑</button></div>`).join("")}</details>` : ""}`;
   $("#gBody").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
   $("#anGo") && ($("#anGo").onclick = runAnalysis);
-  bindAnResult();
+  $("#gBody").querySelectorAll("[data-anver]").forEach(b => b.onclick = () => { an.ver = b.dataset.anver; renderAnTab(kind); $("#anOut").scrollIntoView({behavior: "smooth", block: "start"}); });
+  $("#gBody").querySelectorAll("[data-andel]").forEach(b => b.onclick = () => { if (!confirm("¿Borrar este análisis? No se puede deshacer.")) return;
+    s.anHist = anHist(s).filter(x => x.id !== b.dataset.andel); save(); renderAnTab(kind); });
+  bindAnResult(saved);
 }
 function renderAnalysis(){
   const c = $("#anCard"); if (c) c.hidden = true;
@@ -188,16 +206,17 @@ async function runAnalysis(){
   if (!sel || !sel.nums.length) { an.err = "Esas páginas no tienen texto."; return renderAnalysis(); }
   an.busy = "run"; an.err = ""; renderAnalysis();
   try {
-    // Las tres tareas comparten instrucciones, herramientas y el bloque del documento (en caché):
-    // la segunda y la tercera del mismo texto pagan ~5–10 % de la lectura si se hacen en unos minutos.
-    const r = await callForTool({system: AN_SHARED_SYSTEM + focusLine(), tools: AN_ALL_TOOLS,
+    // El documento va en caché: repetir la misma tarea sobre el mismo texto en unos minutos paga ~10 % de la lectura.
+    const r = await callForTool({system: AN_SHARED_SYSTEM + focusLine(), tools: [AN_TOOLS[kind]],
       user: [{type: "text", text: `<documento titulo="${s.title.replace(/"/g, "'")}">\n${sel.text}\n</documento>`, cache_control: {type: "ephemeral"}},
              {type: "text", text: `${docInfo(s.id).danados ? NOTA_SIMBOLOS + "\n" : ""}Tarea: ${AN_KINDS[kind].name}. Analiza: ${sel.label}. Entrega el resultado llamando a la herramienta ${AN_TOOLS[kind].name}.`}],
       label: AN_KINDS[kind].name}, AN_TOOLS[kind].name);
     const data = anClean(kind, r);
     if (kind === "audit" && DESIGNS[data.design] && data.design !== "OTRO") s.design = data.design;
-    s.an = Object.assign({}, s.an, {[kind]: {label: sel.label, nums: sel.nums, trimmed: sel.trimmed, at: Date.now(), data}});
-    save();
+    const nuevo = {label: sel.label, nums: sel.nums, trimmed: sel.trimmed, at: Date.now(), data};
+    s.an = Object.assign({}, s.an, {[kind]: nuevo});
+    const h = anHist(s); h.push(Object.assign({id: "a" + nuevo.at, kind}, nuevo)); if (h.length > AN_HIST_MAX) h.splice(0, h.length - AN_HIST_MAX);
+    an.ver = null; save();
   } catch(e) { an.err = e.userMsg || "No se pudo analizar: " + (e.message || e); }
   an.busy = ""; if (cur() === s) { an.kind = kind; renderAnalysis(); }
 }
@@ -239,10 +258,12 @@ function anResultHTML(kind, saved){
       ${d.questions.length ? `<div class="stack" style="gap:6px"><b class="small">🔥 Preguntas del profesor</b>${d.questions.map((x,i)=>`<details class="anq"><summary>${i+1}. ${esc(x.q)}</summary><p class="small" style="margin:6px 0 0">${esc(x.a)}${pgBtn(x.page)}</p></details>`).join("")}</div>` : ""}`;
   }
   return `<div class="stack anres">${head}${body}
-    <div class="row" style="gap:6px;flex-wrap:wrap"><button class="btn sm" id="anToHy">💎 Convertir en ficha HY</button><button class="btn sm" id="anToQ">✨ Crear preguntas de estas páginas</button></div></div>`;
+    <div class="row" style="gap:6px;flex-wrap:wrap"><button class="btn sm primary" id="anPdf">🖨️ Guardar como PDF</button><button class="btn sm" id="anDl">⬇ Descargar</button><button class="btn sm" id="anToHy">💎 Convertir en ficha HY</button><button class="btn sm" id="anToQ">✨ Crear preguntas de estas páginas</button></div></div>`;
 }
-function bindAnResult(){
+function bindAnResult(saved){
   document.querySelectorAll("#anOut [data-pg]").forEach(b=>b.onclick=()=>anJump(+b.dataset.pg));
+  $("#anPdf") && ($("#anPdf").onclick = ()=>anImprimir(cur(), an.kind, saved));
+  $("#anDl") && ($("#anDl").onclick = ()=>anDescargar(cur(), an.kind, saved));
   $("#anToHy") && ($("#anToHy").onclick = anToHy);
   $("#anToQ") && ($("#anToQ").onclick = ()=>{
     const s = cur(), saved = s.an[an.kind]; if (!saved) return;
@@ -284,8 +305,10 @@ function renderMbeDocs(){
   const docs = S.sources.filter(s=>s.kind !== "pack").slice().reverse();
   box.innerHTML = `<h3 style="font-size:16px">🧠 Auditar un PDF</h3>
     <p class="xs muted" style="margin:0">Sube una guía o un artículo, o elige uno de tu biblioteca. Verás el veredicto, el algoritmo, qué hacer y qué no, y los umbrales, cada uno con su página.</p>
-    ${docs.length ? docs.slice(0, 6).map(s=>`<div class="srcitem"><div class="ic">📄</div><div style="flex:1;min-width:0"><b class="small" style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${s.pages} págs${s.an ? " · " + Object.keys(s.an).map(k=>AN_KINDS[k] ? AN_KINDS[k].icon : "").join(" ") : ""}</div></div><button class="btn sm" data-aud="${esc(s.id)}">Analizar</button></div>`).join("") : ""}
+    ${docs.length ? plegable("mbedocs", `<b class="small">Elegir de tu biblioteca</b> <span class="xs muted">${docs.length}</span>`, docs.slice(0, 12).map(s=>`<div class="srcitem"><div class="ic">📄</div><div style="flex:1;min-width:0"><b class="small" style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${s.pages} págs${s.an ? " · " + Object.keys(s.an).map(k=>AN_KINDS[k] ? AN_KINDS[k].icon : "").join(" ") : ""}</div></div><button class="btn sm" data-aud="${esc(s.id)}">Analizar</button></div>`).join("")) : ""}
     <button class="btn" id="mbeUp">➕ Subir un PDF</button><input type="file" id="mbeIn" accept="application/pdf" hidden><div id="mbeUpMsg" class="xs"></div>`;
+  box.insertAdjacentHTML("beforeend", misAnalisisHTML());
+  box.querySelectorAll("[data-misan]").forEach(b=>b.onclick=()=>{ const [id, kind, ver] = b.dataset.misan.split("|"); openAnalysis(id, kind, ver); });
   box.querySelectorAll("[data-aud]").forEach(b=>b.onclick=()=>openAnalysis(b.dataset.aud, "audit"));
   $("#mbeUp").onclick = ()=>$("#mbeIn").click();
   $("#mbeIn").onchange = async e=>{
@@ -294,4 +317,66 @@ function renderMbeDocs(){
     const id = await addPdf(f, false);
     if (id) openAnalysis(id, "audit"); else $("#mbeUpMsg").innerHTML = `<span style="color:var(--bad)">${$("#pdfProgress").innerHTML || "No se pudo leer el PDF."}</span>`;
   };
+}
+
+// ---------- sacar el análisis de la app: PDF (imprimir) o archivo ----------
+// Un documento limpio, sin botones: título del documento, tipo de análisis, tema, fecha, páginas citadas
+// como texto y el aviso de que lo generó la IA. Se abre igual sin internet y sin MediPulse.
+function anExportHTML(s, kind, saved){
+  const k = AN_KINDS[kind];
+  let cuerpo = anResultHTML(kind, saved)
+    .replace(/<button class="pgbtn" data-pg="(\d+)">pág\. \d+<\/button>/g, '<span class="pg">(pág. $1)</span>')
+    .replace(/<div class="row" style="gap:6px;flex-wrap:wrap"><button class="btn sm primary" id="anPdf">[\s\S]*?<\/div><\/div>$/, "</div>")
+    .replace(/<details class="anq">/g, '<details class="anq" open>')
+    .replace(/<div class="xs muted">[^<]*?·[\s\S]*?<\/div>\s*/, "")   // el encabezado ya va arriba
+    .replace("Toca la página citada para comprobar cada dato.", "Verifica cada dato en la página citada del documento.");
+  const titulo = `${k.name} · ${s.title}`;
+  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(titulo)}</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#13233f;background:#fff;max-width:760px;margin:24px auto;padding:0 18px;line-height:1.45;font-size:14px}
+h1{font-size:20px;margin:0 0 4px}h3{font-size:16px;margin:8px 0}.meta{color:#5b6475;font-size:12.5px;margin-bottom:14px}
+.note{border-left:4px solid #0891b2;background:#f1f5f9;border-radius:8px;padding:8px 10px;margin:8px 0}.note.pearl{border-color:#d97706}
+.tag{display:inline-block;border:1px solid #cbd5e1;border-radius:999px;padding:1px 8px;font-size:12px}
+.ancols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}.anbox{border:1px solid #cbd5e1;border-radius:10px;padding:8px 10px}
+.anbox.ok{border-color:#059669;background:#ecfdf5}.anbox.bad{border-color:#e11d48;background:#fff1f2}
+.anth{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:6px}.anth div{background:#f1f5f9;border-radius:8px;padding:6px 8px;display:flex;flex-direction:column}
+.ansteps li{margin:5px 0}.ansteps b{display:block;color:#0891b2;font-size:12.5px}ul{padding-left:18px}li{margin:3px 0}
+.anq{border:1px solid #cbd5e1;border-radius:8px;padding:6px 8px;margin:6px 0}.anq summary{font-weight:600}
+.pg{color:#0891b2;font-size:11.5px;font-weight:600;white-space:nowrap}.xs{font-size:12px}.muted{color:#5b6475}.small{font-size:13.5px}
+.pie{margin-top:18px;border-top:1px solid #cbd5e1;padding-top:8px;color:#5b6475;font-size:11.5px}
+@media print{body{margin:0}.anbox,.anth div,.note,.anq{break-inside:avoid}}
+@media (max-width:560px){.ancols{grid-template-columns:1fr}}
+</style></head><body>
+<h1>${esc(k.icon + " " + k.name)}</h1>
+<div class="meta"><b>${esc(s.title)}</b>${s.org || s.year ? ` · ${esc([s.org, s.year].filter(Boolean).join(", "))}` : ""}<br>${esc(saved.label)} · ${esc(fmtDate(saved.at))}</div>
+${cuerpo}
+<div class="pie">Generado con IA en MediPulse a partir del documento: verifica cada dato en la página citada. No sustituye el juicio clínico ni las guías de tu institución.</div>
+</body></html>`;
+}
+// Nombre del archivo sin tildes ni símbolos: con caracteres no ASCII algunos navegadores lo bajan como «download».
+const anNombre = (s, kind) => `MediPulse - ${AN_KINDS[kind].name} - ${s.title}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x20-\x7e]+/g, "").replace(/[\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 120);
+function anDescargar(s, kind, saved){
+  if (!s || !saved) return;
+  const url = URL.createObjectURL(new Blob([anExportHTML(s, kind, saved)], {type: "text/html"}));
+  const a = Object.assign(document.createElement("a"), {href: url, download: anNombre(s, kind) + ".html"});
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+  toast("Descargado ✓ Ábrelo en cualquier navegador; también se puede imprimir desde ahí.");
+}
+// Imprimir en un marco oculto: el navegador ofrece «Guardar como PDF».
+function anImprimir(s, kind, saved){
+  if (!s || !saved) return;
+  const f = document.createElement("iframe");
+  f.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0";
+  f.setAttribute("aria-hidden", "true");
+  f.onload = () => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch(e) { anDescargar(s, kind, saved); } setTimeout(() => f.remove(), 60000); };
+  f.srcdoc = anExportHTML(s, kind, saved);
+  document.body.appendChild(f);
+  toast("Elige «Guardar como PDF» en el diálogo de impresión.");
+}
+// «Mis análisis»: todos los análisis guardados, de todos los documentos (en MBE).
+function misAnalisisHTML(){
+  const todos = S.sources.filter(s => s.kind !== "pack").flatMap(s => anHist(s).map(x => ({s, x}))).sort((a, b) => b.x.at - a.x.at);
+  if (!todos.length) return "";
+  return plegable("misan", `<b class="small">📚 Mis análisis</b> <span class="xs muted">${todos.length}</span>`, `${todos.slice(0, 12).map(({s, x}) => `<div class="qrow"><span>${AN_KINDS[x.kind] ? AN_KINDS[x.kind].icon : "📄"}</span><div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(s.title)}</b><div class="xs muted">${esc(AN_KINDS[x.kind] ? AN_KINDS[x.kind].name : "")} · ${esc(x.label)} · ${anCuando(x.at)}</div></div><button class="btn sm" data-misan="${esc(s.id)}|${x.kind}|${x.id}">Abrir</button></div>`).join("")}
+    ${todos.length > 12 ? `<p class="xs muted" style="margin:6px 0 0">Y ${todos.length - 12} más: ábrelos desde su documento.</p>` : ""}`);
 }

@@ -85,12 +85,7 @@
       <div><h2>Banco de casos</h2><p class="muted small" style="margin:4px 0 0">Arma tu práctica y descubre dónde fallas y por qué. Lo que falles vuelve solo en tus repasos.</p></div>
       <div class="card" id="qInfo"></div>
       <div class="card" id="qVuln"></div>
-      <div class="card stack">
-        <h3 style="font-size:16px">Explorar el banco</h3>
-        <input type="search" id="qQuery" placeholder="Buscar: tema, fuente o palabra clave (p. ej. TEP, Kawasaki, NNT)" aria-label="Buscar casos">
-        <div class="grid2" id="qFiltros"></div>
-        <div id="qList"></div>
-      </div>
+      <div class="card" id="qList"></div>
     </div>
   </section>
 
@@ -149,6 +144,14 @@
       <button class="btn ghost" data-go="prog" style="align-self:flex-start">← Progreso</button>
       <div><h2>Instalar en tu celular</h2><p class="muted small" style="margin:4px 0 0">MediPulse no se descarga de una tienda: se agrega a la pantalla de inicio desde el navegador y queda como una app más, con su ícono.</p></div>
       <div id="instBox" class="stack"></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-ahorro">
+    <div class="stack">
+      <button class="btn ghost" data-go="lib" style="align-self:flex-start">← Fuentes</button>
+      <div><h2>💸 Gasta menos con la IA</h2><p class="muted small" style="margin:4px 0 0">La IA se paga con tu clave de API, por uso. Con estas reglas obtienes lo mismo por menos.</p></div>
+      <div id="ahorroBox" class="stack"></div>
     </div>
   </section>
 
@@ -386,6 +389,7 @@
 <script src="js/progreso.js"></script>
 <script src="js/fuentes.js"></script>
 <script src="js/ia-costo.js"></script>
+<script src="js/ahorro.js"></script>
 <script src="js/taller.js"></script>
 <script src="js/vigencia.js"></script>
 <script src="js/analisis.js"></script>
@@ -397,6 +401,7 @@
 <script src="js/crear-y-compartir.js"></script>
 <script src="js/importar.js"></script>
 <script src="js/editar.js"></script>
+<script src="js/duplicados.js"></script>
 <script src="js/datos.js"></script>
 <script src="js/corregir.js"></script>
 <script src="js/apuntes.js"></script>

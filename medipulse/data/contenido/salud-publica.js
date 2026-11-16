@@ -1,9 +1,9 @@
-// Salud Pública: contenido incluido en la app · paquete "salud-publica" (módulo aparte: epidemiología y estadística).
+// Epidemiología y Estadística (antes «Salud Pública»): contenido incluido en la app · paquete "salud-publica" (módulo aparte: epidemiología y estadística).
 // Cómo agregar o corregir contenido: AGENTS.md → "Contenido médico".
 // Los "id" nunca se cambian ni se reutilizan: el progreso de cada usuario se guarda con ellos.
 // Los nuevos usan el prefijo de la especialidad: sp-c01 (casos), sp-f01 (fichas), sp-t01 (tarjetas).
 MP_CONTENIDO.agregar({
-  "especialidad": "Salud Pública",
+  "especialidad": "Epidemiología y Estadística",
   "prefijo": "sp",
   "paquete": "salud-publica",
   "actualizado": "2026-11-15",

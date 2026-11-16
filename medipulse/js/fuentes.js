@@ -175,11 +175,11 @@ function studySource(id){
 function renderLib(){
   const docs = S.sources.slice().reverse();
   $("#myDocs").innerHTML = docs.length
-    ? `<h3 style="font-size:15px;margin:4px 0 0">Tus documentos</h3>` + docs.map(s=>{
+    ? plegable("docs", `<b>Tus documentos</b> <span class="xs muted">${docs.length}</span>`, docs.map(s=>{
         const nq = S.userQ.filter(q=>q.src===s.id).length, nc = S.userC.filter(c=>c.src===s.id).length;
         const nh = S.userH.filter(h=>h.src===s.id).length, cuanto = s.apunte ? `${s.pages} puntos` : s.kind==="text" ? `${s.pages} parte${s.pages===1?"":"s"}` : s.kind==="pack" ? "pack" : `${s.pages} págs`;
         return `<div class="srcitem"><div class="ic">${s.apunte?"📓":s.kind==="text"?"📋":s.kind==="pack"?"📦":"📄"}</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${cuanto} · ${nq} casos · ${nh} fichas${nc?` · ${nc} tarjetas`:""}</div></div><button class="btn" data-src="${s.id}">Abrir</button></div>`;
-      }).join("")
+      }).join(""))
     : `<p class="muted small" style="margin:0">Aún no tienes documentos. Empieza con el PDF de una guía de práctica clínica o con tus apuntes de una rotación.</p>`;
   document.querySelectorAll("[data-src]").forEach(b=>b.onclick=()=>openSrc(b.dataset.src));
   renderAiBox(); renderVigCard(); renderRepCard();

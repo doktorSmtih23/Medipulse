@@ -4,11 +4,14 @@ const { test, expect } = require("@playwright/test");
 const { vigilarErrores, simularIA, abrirConClave, subirPdf, sinDesborde } = require("./ayudas");
 
 let errores;
-test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); await page.click("nav [data-go=banco]"); });
+test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/");
+  await page.evaluate(() => { PLEG.bqlista = true; });   // «Ver los casos» está plegada; aquí se usa abierta
+  await page.click("nav [data-go=banco]"); });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
 test("especialidades, tipo y estado; la lista no muestra el tema ni la fuente", async ({ page }) => {
   await expect(page.locator('#qSpecs [data-sp="Medicina Interna"]')).toContainText(/Medicina Interna \d+/);
+  await page.click('#qModo [data-modo="filtros"]');   // los filtros viven en «Con mis filtros»
   await page.selectOption("#qSelTipo", "diagnostico");
   const tipos = await page.$$eval("#qList [data-q1]", bs => bs.map(b => qKind(qById(b.dataset.q1))));
   expect(tipos.length).toBeGreaterThan(5);
@@ -24,6 +27,7 @@ test("especialidades, tipo y estado; la lista no muestra el tema ni la fuente", 
 
 test("estudiar un caso o una especialidad desde la lista; el tema se ve solo al responder", async ({ page }) => {
   await page.click('#qSpecs [data-sp="Pediatría"]');
+  await page.locator("#qList details.qgrupo summary").first().click();   // la lista está plegada
   await page.locator("#qList [data-q1]").first().click();
   expect(await page.evaluate(() => sess.stages[0].items.length)).toBe(1);
   const topic = await page.evaluate(() => qById(sess.stages[0].items[0].id).topic);
@@ -32,12 +36,14 @@ test("estudiar un caso o una especialidad desde la lista; el tema se ve solo al 
   await expect(page.locator("#fbBox")).toContainText("Tema: " + topic);
   await page.click("#quitBtn");
   await page.click("nav [data-go=banco]");
+  if (!(await page.locator("#qList [data-qg]").first().isVisible())) await page.locator("#qList details.qgrupo summary").first().click();
   await page.locator("#qList [data-qg]").first().click();
   expect(await page.evaluate(() => sess.stages[0].items.length)).toBeGreaterThan(1);
 });
 
 test("corregir la especialidad de un caso desde el banco", async ({ page }) => {
   await page.click('#qSpecs [data-sp="Medicina Interna"]');
+  await page.locator("#qList details.qgrupo summary").first().click();
   const id = await page.locator("#qList [data-qe]").first().getAttribute("data-qe");
   await page.click(`#qList [data-qe="${id}"]`);
   await page.selectOption(`#qList [data-qesel="${id}"]`, "Pediatría");
@@ -110,6 +116,7 @@ test("crear un caso propio: especialidad, tipo de pregunta y fuente «elaboraci�
   expect(q[2]).toContain("Elaboración propia");
   expect(q[2]).toContain("responsabilidad del contenido es de quien la creó");
   // corregirlo desde «Creadas por ti»
+  await page.click('#mineList [data-pleg="mias"] summary');   // «Creadas por ti» está plegada
   await page.click("#mineList [data-medit]");
   await page.selectOption("#mineList [data-qe=specialty]", "Medicina Interna");
   await page.selectOption("#mineList [data-qe=tipo]", "conducta");
@@ -209,4 +216,38 @@ test.describe("auditoría a ciegas al final del modo examen", () => {
     await page.click("#auditSkip");
     await expect(page.locator("#sessBody .big")).toContainText("%");
   });
+});
+
+test("con mis filtros: tema, tipo y estado junto a la cantidad; Empezar usa exactamente eso", async ({ page }) => {
+  await page.click('#qModo [data-modo="filtros"]');
+  await page.selectOption("#qSelTipo", "conducta");
+  await page.selectOption("#qSelSt", "new");
+  await page.fill("#qN", "3"); await page.locator("#qN").dispatchEvent("change");
+  await expect(page.locator("#pr10")).toContainText("3 casos");
+  await page.click("#pr10");
+  const r = await page.evaluate(() => sess.stages[0].items.map(it => [qKind(qById(it.id)), !!S.srs["q" + it.id]]));
+  expect(r.length).toBe(3);
+  expect(r.every(([k, visto]) => k === "conducta" && !visto)).toBe(true);
+});
+
+test("buscar por tema con mis filtros conserva el cursor y abre la lista con lo encontrado", async ({ page }) => {
+  await page.evaluate(() => { PLEG.bqlista = false; });
+  await page.click('#qModo [data-modo="filtros"]');
+  await page.locator("#qQuery").pressSequentially("tep", {delay: 60});
+  await expect(page.locator("#qQuery")).toBeFocused();
+  await expect(page.locator("#qQuery")).toHaveValue("tep");
+  await expect(page.locator('#qList [data-pleg="bqlista"]')).toHaveAttribute("open", "");
+  await expect.poll(() => page.$$eval("#qList details.qgrupo[open] [data-q1]", bs => bs.length)).toBeGreaterThan(2);
+});
+
+test("«Salud Pública» pasó a «Epidemiología y Estadística», también en lo guardado y en lo que llega de otras IA", async ({ page }) => {
+  await page.evaluate(() => { const d = JSON.parse(localStorage.getItem("medipulse_v2") || "{}");
+    d.userQ = [{id: "u1", specialty: "Salud Pública", topic: "NNT", vignette: "v", options: ["a", "b", "c", "d"], correct: 0, whyCorrect: "", pearl: "", trap: ""}];
+    d.prac = {specs: ["Salud Pública"], modo: "azar", n: 20, examen: false}; localStorage.setItem("medipulse_v2", JSON.stringify(d)); });
+  await page.reload();
+  const r = await page.evaluate(() => [SPECS.at(-1), qById("u1").specialty, S.prac.specs, specCanon("Salud publica"), specCanon("Bioestadística"), specCanon("Pediatría")]);
+  expect(r).toEqual(["Epidemiología y Estadística", "Epidemiología y Estadística", ["Epidemiología y Estadística"], "Epidemiología y Estadística", "Epidemiología y Estadística", "Pediatría"]);
+  await page.click("nav [data-go=banco]");
+  await expect(page.locator('#qSpecs [data-sp="Epidemiología y Estadística"]')).toHaveClass(/on/);
+  expect(await sinDesborde(page)).toBe(true);
 });

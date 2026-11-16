@@ -18,7 +18,7 @@ C) ...
 D) ...
 (E) ..., solo si el examen usa 5 opciones)
 Respuesta correcta: [letra]
-Especialidad: [Medicina Interna | Pediatría | Ginecología | Cirugía | Salud Pública]
+Especialidad: [Medicina Interna | Pediatría | Ginecología | Cirugía | Epidemiología y Estadística]
 Tipo: [Conducta | Diagnóstico | Lectura crítica | Datos duros]
 Tema: [tema en pocas palabras]
 Análisis de las opciones:
@@ -94,7 +94,7 @@ function leerSecciones(lineas, i, q, buf){
       // Lo que va después de los dos puntos del encabezado («DATO CLAVE QUE DEFINÍA LA RESPUESTA: …»)
       const resto = l.includes(":") ? l.slice(l.indexOf(":") + 1).trim() : "";
       if (sec === "resp") { const m = resto.match(/^\(?([A-E])\b/i); if (m) q.correct = L.indexOf(m[1].toUpperCase()); }
-      else if (sec === "esp") q.specialty = SPECS.find(s => norm(resto).includes(norm(s))) || q.specialty;
+      else if (sec === "esp") { const c = specCanon(resto); q.specialty = SPECS.includes(c) ? c : SPECS.find(s => norm(resto).includes(norm(s))) || q.specialty; }
       else if (sec === "tipo") q.tipo = (TIPOS_TXT.find(([re]) => re.test(resto)) || [])[1] || q.tipo;
       else if (sec === "tema") q.topic = resto;
       else if (sec === "fuente") q.fuenteTxt = resto;
@@ -201,7 +201,7 @@ function renderImpCands(){
   const box = $("#impOut");
   box.innerHTML = `<h3 style="font-size:16px;margin:4px 0 0">Así quedó organizado (${impCands.length})</h3>
     <p class="xs muted" style="margin:0">Confirma que cada parte quedó en su lugar. MediPulse guarda las preguntas tal como vienen, <b>sin revisar ni auditar su contenido</b>: la responsabilidad del material es de quien lo aporta.</p>` + impCands.map((q, k) => `
-    <div class="card stack impq" data-k="${k}">
+    <div class="card stack impq" data-k="${k}">${dupAvisoHTML(impDup(q, k), "q").replace(" La desmarqué; márcala si de verdad la quieres.", " Al guardar te pregunto si la incluyes.")}
       <div class="grid2">${specSelHTML(`data-if="specialty"`, q.specialty || "Medicina Interna")}
         <label class="fld">Tipo de pregunta<select data-if="tipo">${FOCUS.slice(1).map(f => `<option value="${f.k}" ${q.tipo === f.k ? "selected" : ""}>${esc(f.t)}</option>`).join("")}</select></label></div>
       <label class="fld">Tema (se ve después de responder y sirve para buscarla)<input type="text" data-if="topic" value="${esc(q.topic)}" placeholder="p. ej. Pubertad precoz central"></label>
@@ -229,17 +229,21 @@ function renderImpCands(){
   });
   $("#impSave").onclick = guardarImportadas;
 }
+// Parecido con el banco y con las anteriores de lo pegado.
+const impDup = (q, k) => dupBuscar(q, "q", {extra: impCands.slice(0, k)});
 function guardarImportadas(){
   const mala = impCands.findIndex(q => impErr(q));
   if (mala >= 0) return toast(`Pregunta ${mala + 1}: ${impErr(impCands[mala])}`);
-  impCands.forEach(q => {
-    const spec = SPECS.includes(q.specialty) ? q.specialty : "Medicina Interna";
+  const rep = impCands.filter((q, k) => { const d = impDup(q, k); return d && d.nivel === "repetida"; });
+  const lista = rep.length && !confirm(`${rep.length === 1 ? "1 pregunta parece repetida" : `${rep.length} preguntas parecen repetidas`} de lo que ya tienes.\n\nAceptar: guardarlas también.\nCancelar: guardar solo las demás.`) ? impCands.filter(q => !rep.includes(q)) : impCands;
+  lista.forEach(q => {
+    const spec = SPECS.includes(specCanon(q.specialty)) ? specCanon(q.specialty) : "Medicina Interna";
     S.userQ.push({id: "u" + (++S.seq), specialty: spec, tipo: q.tipo, qtype: q.tipo === "critica" ? "critica" : q.tipo === "datos" ? "directa" : "caso",
       topic: (q.topic || "Pregunta importada").trim(), difficulty: "Importada", vignette: textToVig(q.vignette), options: q.options.map(o => o.trim()), correct: q.correct,
       // con análisis por opción, la explicación ya está ahí (no se repite arriba)
       whyCorrect: (q.fundamento || (q.porOpcion.some(Boolean) ? "" : q.porOpcion[q.correct] || "")).trim(), porOpcion: q.porOpcion.some(Boolean) ? q.porOpcion.map(t => t.trim()) : undefined,
       pearl: q.pearl.trim(), trap: q.trap.trim(), src: q.src || null, page: 0, manual: true, externa: true, fuenteTxt: q.fuenteTxt || undefined});
   });
-  const n = impCands.length; impCands = null;
+  const n = lista.length; impCands = null;
   rebuild(); save(); refreshChips(); toast(`${n === 1 ? "Pregunta guardada" : `${n} preguntas guardadas`} ✓ Entran a tu repaso.`); renderNew();
 }

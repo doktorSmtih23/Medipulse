@@ -171,10 +171,10 @@ function indiceHTML(){
   const s = cur(), ind = s.indice, items = ind ? ind.items : [];
   return `
       <div class="row"><b class="small">📑 Índice</b><div class="spacer"></div>${getKey() && s.kind !== "pack" ? `<button class="btn ghost sm" id="indAI" ${gen.indBusy?"disabled":""}>${gen.indBusy ? `<span class="spin"></span> Creando…` : items.length ? "✨ Rehacer con IA" : "✨ Crear con IA"}</button>` : ""}</div>
-      ${!ind ? `<p class="xs muted" style="margin:0"><span class="spin"></span> Buscando el índice…</p>` : `<div class="indice">
+      ${!ind ? `<p class="xs muted" style="margin:0"><span class="spin"></span> Buscando el índice…</p>` : plegable("indice", `<b class="small">Elegir un tema</b> <span class="xs muted">${items.length ? `${items.length} temas` : "todo el documento"}</span>`, `<div class="indice">
         <button class="ind-it${gen.tema==null && !gen.manual?" on":""}" data-tema="-1"><span>Todo el documento</span></button>
         ${items.map((x,i)=>`<button class="ind-it lvl${x.lvl}${gen.tema===i && !gen.manual?" on":""}" data-tema="${i}"><span>${esc(x.title)}</span><small>${x.from===x.to?`pág. ${x.from}`:`págs. ${x.from}–${x.to}`}</small></button>`).join("")}
-      </div>
+      </div>`) + `
       <p class="xs muted" style="margin:0">${items.length ? IND_FUENTE[ind.fuente] + " Toca un tema para trabajar solo con él." : `No encontré un índice en este documento${getKey() ? "; puedes crearlo con IA (≈ US$0,01)" : ""}, o elige las páginas a mano.`}</p>`}
       ${gen.indErr ? `<p class="small" style="margin:0;color:var(--bad)">${esc(gen.indErr)}</p>` : ""}
       <details class="custom" ${gen.manual ? "open" : ""}><summary>Elegir páginas a mano</summary><div class="row" style="gap:6px;margin-top:8px;align-items:flex-end">
@@ -194,10 +194,10 @@ function bindIndice(){
 // Redibuja solo el índice cuando termina de calcularse, sin cerrar «Elegir páginas a mano» ni borrar
 // lo que el usuario ya escribió ahí (si no, la sección se cerraba en medio de la escritura).
 function refrescarIndice(){
-  const box = $("#indBox"), d = box.querySelector("details"), abierto = d && d.open;
+  const box = $("#indBox"), d = box.querySelector("details.custom"), abierto = d && d.open;
   const desde = $("#manFrom") && $("#manFrom").value, hasta = $("#manTo") && $("#manTo").value, foco = document.activeElement && document.activeElement.id;
   box.innerHTML = indiceHTML(); bindIndice();
-  if (abierto) box.querySelector("details").open = true;
+  if (abierto) box.querySelector("details.custom").open = true;
   if (desde != null) $("#manFrom").value = desde;
   if (hasta != null) $("#manTo").value = hasta;
   if (foco && /^man(From|To)$/.test(foco)) $("#" + foco).focus({preventScroll: true});
@@ -217,7 +217,7 @@ function renderGen(){
     <div class="note" style="margin:0"><b>Tema:</b> ${esc(t ? t.title : "Todo el documento")}${sel ? ` · ${pagesLabel(sel)}` : ""}</div>
     <div class="xs muted">Gratis</div>
     <div class="tabs3 acc2">${btn("read")}${btn("recs")}</div>
-    <div class="xs muted">Con IA${getKey() ? ` · ${aiEstimateLine(Math.min(chars, AN_MAX_CHARS), {outTokens: 5000})} aprox. por acción` : " · requiere tu clave"}</div>
+    <div class="xs muted">Con IA${getKey() ? ` · ${aiEstimateLine(Math.min(chars, AN_MAX_CHARS), {outTokens: 5000})} aprox. por acción · <button class="linkbtn" data-go="ahorro">💸 Cómo gastar menos</button>` : " · requiere tu clave"}</div>
     ${getKey() && chars > TEXTO_LARGO ? `<div class="note" style="margin:0">⏱️ <b>Texto largo</b> (${Math.round(chars/1000)} mil caracteres): con IA puede tardar 1–2 minutos y, mientras tanto, no bloquees la pantalla ni cambies de app. Para que sea más rápido y barato, elige un tema del índice.</div>` : ""}
     <div class="tabs3 acc4">${btn("ai")}${btn("audit")}${btn("tema")}${btn("revista")}</div>
     <div id="gBody" class="stack"></div>`;
@@ -422,9 +422,9 @@ async function aiGenerate(sel, title, ask, imagen){
       system: GEN_SYSTEM,
       messages: [{role: "user", content: imagen ? [
         {type: "image", source: {type: "base64", media_type: "image/jpeg", data: imagen.split(",")[1]}},
-        {type: "text", text: `Imagen tomada de «${title.replace(/"/g,"'")}».\n\n${ask}`}] : [
+        {type: "text", text: `Imagen tomada de «${title.replace(/"/g,"'")}».\n\n${ask}${cur() ? dupYaExiste(cur().id) : ""}`}] : [
         {type: "text", text: `<documento titulo="${title.replace(/"/g,"'")}">\n${doc}\n</documento>`, cache_control: {type: "ephemeral"}},
-        {type: "text", text: (cur() && docInfo(cur().id) && docInfo(cur().id).danados ? NOTA_SIMBOLOS + "\n" : "") + (ask || genAsk())}]}]
+        {type: "text", text: (cur() && docInfo(cur().id) && docInfo(cur().id).danados ? NOTA_SIMBOLOS + "\n" : "") + (ask || genAsk()) + (cur() ? dupYaExiste(cur().id) : "")}]}]
     }, params));
     msg = await stream.finalMessage();
   } catch(e) { throw apiErr(Anthropic, e); }
@@ -599,17 +599,23 @@ function renderReview(){
   const box = $("#reviewBox");
   if (!cands) { box.innerHTML = ""; return; }
   if (!cands.length) { box.innerHTML = `<div class="card"><p class="small" style="margin:0">No encontré frases útiles${gen && gen.topic ? ` sobre “${esc(gen.topic)}”` : ""} en esas páginas. Prueba otro tema u otras páginas, o crea tus tarjetas en <b>📖 Leer y crear</b>.</p></div>`; return; }
+  // Repetidas: se comparan con el banco y con las anteriores de esta misma tanda (una sola vez).
+  cands.forEach((c, i) => { if (c._dup !== undefined || c.kind === "c") return;
+    const k = c.kind === "h" ? "h" : "q";
+    c._dup = dupBuscar(c, k, {extra: cands.slice(0, i).filter(x => (x.kind === "h" ? "h" : "q") === k && x.on)}) || null;
+    if (c._dup && c._dup.nivel === "repetida") c.on = false; });
   const on = cands.filter(c=>c.on).length, hasAI = cands.some(c=>c.kind==="q" || c.ai);
   box.innerHTML = `<div class="card">
     <div class="row"><h3 style="font-size:16px">Revisa antes de guardar</h3><div class="spacer"></div><span class="xs muted" id="candCount">${on}/${cands.length} seleccionadas</span></div>
     <p class="xs muted" style="margin:4px 0 6px">Desmarca lo que no sirva y corrige lo que quieras.${hasAI ? " La IA puede equivocarse: compara con la página indicada." : ""}</p>
+    ${(n => n ? `<div class="note xs" style="margin:0 0 8px">🔁 <b>${n} ítem${n===1?"":"s"}</b> ${n===1?"parece repetido":"parecen repetidos"} de lo que ya tienes en el banco: ${n===1?"lo dejé desmarcado":"los dejé desmarcados"}.</div>` : "")(cands.filter(c => c._dup && c._dup.nivel === "repetida").length)}
     ${(n => n ? `<div class="note trap xs" style="margin:0 0 8px">⚠️ <b>${n} ítem${n===1?"":"s"}</b> con citas que no aparecen en el PDF: la IA pudo haber inventado o cambiado algo. Revísalos antes de guardar.</div>` : "")(cands.filter(c => (c.citas||[]).some(x => x.ok === false)).length)}
     <div id="candList">${cands.map((c,i)=> c.kind==="h" ? `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div class="stack" style="min-width:0;gap:6px">
-          <div class="xs muted">💎 Ficha high-yield · ${pagsTxt(c)}${c.area ? ` · Área: ${esc(c.area)}` : ""}</div>
-          ${imgTag(c.img)}<div id="hp${i}">${hyPrevHTML(c)}</div>
-          ${citasRevHTML(c)}${marcaHTML(c)}
+          <div class="xs muted">💎 Ficha high-yield · ${pagsTxt(c)}${c.area ? ` · Área: ${esc(c.area)}` : ""}</div>${dupAvisoHTML(c._dup, "h")}
+          ${dupPliega(c, `${imgTag(c.img)}<div id="hp${i}">${hyPrevHTML(c)}</div>
+          ${citasRevHTML(c)}${marcaHTML(c)}`)}
           <details class="custom"><summary>✏️ Editar esta ficha</summary><div class="stack" style="margin-top:10px;gap:6px">
           ${specSelHTML(`data-hf="${i}" data-k="specialty"`, c.specialty)}
           <label class="fld">Título<input type="text" data-hf="${i}" data-k="title" value="${esc(c.title)}"></label>
@@ -625,11 +631,11 @@ function renderReview(){
         </div></div>` : `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div style="min-width:0">
-          <div class="xs muted">${qtLabel(c.qtype)} · ${esc(c.specialty)}${c.area ? ` (${esc(c.area)})` : ""} · ${esc(c.topic)} · ${pagsTxt(c)}</div>
-          ${imgTag(c.img)}<p class="small" style="margin:6px 0">${esc(c.vignette)}</p>
+          <div class="xs muted">${qtLabel(c.qtype)} · ${esc(c.specialty)}${c.area ? ` (${esc(c.area)})` : ""} · ${esc(c.topic)} · ${pagsTxt(c)}</div>${dupAvisoHTML(c._dup, "q")}
+          ${dupPliega(c, `${imgTag(c.img)}<p class="small" style="margin:6px 0">${esc(c.vignette)}</p>
           <ol type="A" class="small" style="margin:0;padding-left:22px">${c.options.map((o,j)=>`<li style="${j===c.correct?"color:var(--ok);font-weight:700":""}">${esc(o)}${j===c.correct?" ✓":""}</li>`).join("")}</ol>
           <p class="xs muted" style="margin:6px 0 0">${esc(c.whyCorrect)}</p>
-          ${citasRevHTML(c)}${marcaHTML(c)}
+          ${citasRevHTML(c)}${marcaHTML(c)}`)}
           <details class="custom" style="margin-top:6px"><summary>✏️ Editar esta pregunta</summary><div data-qbox="${i}" style="margin-top:10px">${qEditHTML(c, true)}</div></details>
         </div></div>`).join("")}</div>
     <div class="row" style="margin-top:12px"><button class="btn ghost" id="candCancel">Descartar todo</button><div class="spacer"></div><button class="btn primary" id="candSave">Guardar ${on} en el banco</button></div>
@@ -702,9 +708,16 @@ function renderSrcItems(){
   const status = k => { const r = S.srs[k]; return !r ? "nueva" : isDue(k) ? "toca repasar" : r.b>=3 ? "dominada" : "en repaso"; };
   const rows = [...qs.map(q=>({k:"q"+q.id, t:(q.qtype && q.qtype!=="caso" ? qtLabel(q.qtype) : "🩺") + " " + (q.topic||"Caso clínico"), p:q.page, o:q})),
     ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title, p:h.page, o:h})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front, p:c.page, o:c}))];
+  // Resumen a la vista y la lista plegada (con muchas preguntas era una lista larga).
+  const abierta = !!(box.querySelector("details.srclista") && box.querySelector("details.srclista").open);
+  const est = rows.map(x=>status(x.k)), cuenta = t => est.filter(e=>e===t).length;
+  const partes = [qs.length && `${qs.length} pregunta${qs.length===1?"":"s"}`, hs.length && `${hs.length} ficha${hs.length===1?"":"s"}`, cs.length && `${cs.length} tarjeta${cs.length===1?"":"s"}`].filter(Boolean).join(" · ");
+  const estados = [["nueva","nuevas"],["toca repasar","para repasar"],["en repaso","en repaso"],["dominada","dominadas"]].map(([k,t])=>cuenta(k) ? `${cuenta(k)} ${t}` : "").filter(Boolean).join(" · ");
   box.innerHTML = `<div class="row"><h3 style="font-size:16px">En tu banco</h3><div class="spacer"></div><button class="btn primary" id="srcStudy">Estudiar esta fuente (${rows.length})</button></div>
+    <p class="small" style="margin:6px 0 0">${partes}</p><p class="xs muted" style="margin:2px 0 0">${estados}</p>
+    <details class="srclista" ${abierta ? "open" : ""}><summary class="small">Ver la lista (${rows.length})</summary>
     <div style="margin-top:8px">${rows.map(x=>`
-      <div class="srcitem"><div style="flex:1;min-width:0" class="small">${esc(x.t)}<div class="xs muted">${x.p ? "pág. " + x.p + " · " : ""}${status(x.k)}${x.o.stale?' · <span style="color:var(--warn)">versión anterior</span>':""}${x.o.updated?" · actualizado":""}</div></div><button class="btn ghost xs" data-del="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}</div>`;
+      <div class="srcitem"><div style="flex:1;min-width:0" class="small">${esc(x.t)}<div class="xs muted">${x.p ? "pág. " + x.p + " · " : ""}${status(x.k)}${x.o.stale?' · <span style="color:var(--warn)">versión anterior</span>':""}${x.o.updated?" · actualizado":""}</div></div><button class="btn ghost xs" data-del="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}</div></details>`;
   $("#srcStudy").onclick = ()=>studySource(s.id);
   box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
     const k = b.dataset.del, id = k.slice(1);
@@ -716,7 +729,8 @@ function renderSrcItems(){
 async function deleteSource(id){
   const s = S.sources.find(x=>x.id===id); if (!s) return;
   const n = S.userQ.filter(q=>q.src===id).length + S.userC.filter(c=>c.src===id).length + S.userH.filter(h=>h.src===id).length;
-  if (!confirm(`¿Eliminar “${s.title}”${n?` y sus ${n} preguntas y fichas`:""}? No se puede deshacer.`)) return;
+  const na = s.anHist ? s.anHist.length : Object.keys(s.an || {}).length;
+  if (!confirm(`¿Eliminar “${s.title}”${n?` y sus ${n} preguntas y fichas`:""}${na ? `${n ? " y" : " y sus"} ${na} análisis (descárgalos antes si los quieres conservar)` : ""}? No se puede deshacer.`)) return;
   [["q",S.userQ],["c",S.userC],["h",S.userH]].forEach(([k,arr])=>arr.filter(o=>o.src===id).forEach(o=>delete S.srs[k+o.id]));
   S.userQ = S.userQ.filter(q=>q.src!==id); S.userC = S.userC.filter(c=>c.src!==id); S.userH = S.userH.filter(h=>h.src!==id);
   S.sources = S.sources.filter(x=>x.id!==id);
