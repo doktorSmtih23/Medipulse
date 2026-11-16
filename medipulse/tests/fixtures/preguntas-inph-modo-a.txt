@@ -1,0 +1,66 @@
+¡Claro! Con el parámetro de Modo A ya establecido para generar preguntas sobre el **Tema 5 (Tratamiento y Complicaciones)** del documento *"Idiopathic Normal Pressure Hydrocephalus: A Review"* (JAMA, 2026), aquí tienes las preguntas tipo examen de alto rigor.
+
+Se han diseñado aplicando las técnicas de distracción avanzada solicitadas (Nivel 3).
+
+---
+
+Pregunta 1
+Un paciente masculino de 72 años con diagnóstico reciente de hidrocefalia de presión normal idiopática (iNPH) avalado por clínica y resonancia magnética, presenta una respuesta favorable y objetiva tras un drenaje lumbar extendido. Durante la junta interdisciplinaria para definir la conducta a seguir, se discute el antecedente de enfermedad de Alzheimer leve concomitante en el paciente. La familia pregunta si, dada esta comorbilidad, el manejo quirúrgico está indicado y qué expectativas reales deben tener. Con base en la revisión de JAMA (2026), ¿cuál de las siguientes opciones describe correctamente la conducta médica apropiada y su justificación?
+A) El paciente no es candidato a cirugía de derivación; la presencia de enfermedad de Alzheimer, incluso en etapa leve, es una contraindicación formal debido a que los desenlaces posquirúrgicos empeoran, por lo que se prefiere el manejo conservador con punciones lumbares seriadas.
+B) Se debe indicar la cirugía de derivación; sin embargo, es mandatorio explicar a la familia que la mejoría esperada se limitará exclusivamente a la continencia urinaria y a los síntomas cognitivos, sin impacto en la alteración de la marcha.
+C) Se debe indicar la cirugía de derivación (ej. ventriculoperitoneal); el paciente puede beneficiarse significativamente con mejoras en la marcha y el equilibrio, aunque se debe advertir que la mejoría cognitiva podría ser menor o menos duradera que en pacientes sin Alzheimer.
+D) Se debe diferir la cirugía y prescribir una prueba con acetazolamida (250 mg dos veces al día) durante 3 meses; si hay mejoría sintomática, se autoriza la derivación, ya que el Alzheimer reduce la tasa de respuesta y requiere terapia farmacológica previa.
+Respuesta correcta: C
+Especialidad: Medicina Interna
+Tipo: Conducta
+Tema: Tratamiento de iNPH en poblaciones especiales
+Análisis de las opciones:
+Opción A: Parece plausible plantear que la demencia limite los beneficios quirúrgicos, pero es incorrecta porque el artículo establece claramente que enfermedades comórbidas como el Alzheimer no excluyen el beneficio del tratamiento y no deben usarse como única razón para diferir la evaluación y manejo quirúrgico.
+Opción B: Es incorrecta porque invierte completamente las expectativas de respuesta; en pacientes con iNPH y Alzheimer, la mejoría cognitiva es la que suele ser menor, mientras que la marcha y el equilibrio son los componentes que con mayor frecuencia mejoran tras la derivación.
+Opción C: Es correcta porque la guía indica que la derivación es el tratamiento de primera línea y que, aunque los pacientes con Alzheimer comórbido pueden tener mejorías cognitivas más pequeñas o menos duraderas, frecuentemente mejoran en marcha y equilibrio, siendo fundamental comunicar estas expectativas realistas antes de la cirugía.
+Opción D: Utiliza la técnica de *Trampa conceptual o de interpretación de datos*. Parece plausible intentar un manejo farmacológico puente, pero es incorrecta porque el artículo indica que no hay medicamentos efectivos para tratar la iNPH y que un ensayo reciente con acetazolamida no mostró mejoría en la marcha, asociándose además a una alta tasa de eventos adversos.
+Dato clave: La enfermedad de Alzheimer concomitante en pacientes con iNPH no impide el beneficio de la derivación (especialmente sobre la marcha), pero requiere un manejo realista de las expectativas sobre la mejoría cognitiva.
+Cómo evitar la trampa: Recordar que la derivación quirúrgica es el pilar del tratamiento y que las comorbilidades neurodegenerativas (Alzheimer, Parkinson) modifican el pronóstico (mejoría cognitiva menor), pero *no* contraindican el procedimiento, ya que la marcha suele mejorar significativamente.
+Fuente: Idiopathic Normal Pressure Hydrocephalus.pdf, JAMA, 2026 · Special Populations, pág. E10
+
+---
+
+Pregunta 2
+Una mujer de 75 años es llevada al servicio de urgencias por su hija debido a un cuadro de 24 horas de evolución consistente en cefalea intensa que empeora marcadamente al ponerse de pie, asociada a mareos y letargo. Como antecedente de importancia, hace 3 semanas se le diagnosticó iNPH y se le colocó una derivación ventriculoperitoneal. Al ingreso, no se documenta fiebre ni signos de infección en la herida quirúrgica. Con base en la sintomatología y el tiempo de evolución posquirúrgica, ¿cuál es la complicación más probable de la derivación y qué hallazgo imageneológico respaldaría este diagnóstico?
+A) Sobredrenaje; se espera encontrar colecciones de líquido subdural (higromas o hematomas) en la tomografía computarizada (TC) de cráneo.
+B) Subdrenaje; se espera documentar una re-expansión ventricular (índice de Evans >0.30) en la TC de cráneo, indicando reaparición de la hidrocefalia.
+C) Infección de la derivación; la TC de cráneo suele ser normal en las fases iniciales, pero el diagnóstico se confirma mediante cultivo de líquido cefalorraquídeo.
+D) Malfuncionamiento por obstrucción; se espera encontrar una desconexión o doblez del catéter ventricular en las imágenes de control.
+Respuesta correcta: A
+Especialidad: Cirugía
+Tipo: Diagnóstico
+Tema: Complicaciones de la derivación en iNPH
+Análisis de las opciones:
+Opción A: Es correcta. El cuadro clínico de cefaleas de nueva aparición o posturales y mareos es la presentación clásica del *sobredrenaje* (ocurre en aprox. 10% de los pacientes). Este sobredrenaje puede conducir al desarrollo de colecciones de líquidos subdurales (higromas o hematomas subdurales), que son detectables en una TC de cráneo.
+Opción B: Utiliza la técnica de *Dato clínico disonante oculto*. Aunque el paciente tiene antecedente reciente de iNPH, la cefalea postural severa y el mareo no son los síntomas típicos del subdrenaje. El subdrenaje (20%-30% de los casos) se manifiesta por la persistencia, recurrencia o empeoramiento de los síntomas clásicos de iNPH (marcha, cognitivos, urinarios).
+Opción C: Parece plausible como complicación quirúrgica, pero es incorrecta porque la paciente no presenta fiebre, eritema ni drenaje de la herida, que son los hallazgos típicos (junto con dolor abdominal) de una infección de la derivación, la cual suele ocurrir entre 2 y 6 meses después de la colocación (y es infrecuente, <1%-2%).
+Opción D: Es incorrecta porque un malfuncionamiento por obstrucción (que causa subdrenaje) llevaría a una recurrencia progresiva de los síntomas de la iNPH tras un periodo inicial de mejoría, no al cuadro agudo de hipotensión intracraneal (cefalea postural) descrito.
+Dato clave: El sobredrenaje tras una derivación por iNPH se presenta con cefaleas de nueva aparición o posturales, mareos, o colecciones de líquido subdural (higromas o hematomas).
+Cómo evitar la trampa: Asociar el síntoma de "cefalea postural" (hipotensión intracraneal) con la complicación de "sobredrenaje" y la posible tracción de venas puente que genera hematomas/higromas subdurales.
+Fuente: Idiopathic Normal Pressure Hydrocephalus.pdf, JAMA, 2026 · Adverse Events Associated With Shunting, pág. E9
+
+---
+
+Pregunta 3
+Durante la consulta de valoración prequirúrgica, usted asesora a un paciente de 78 años y a su familia sobre el pronóstico y las expectativas de recuperación tras la cirugía de derivación para el tratamiento de su hidrocefalia de presión normal idiopática (iNPH). El paciente ha experimentado un deterioro progresivo en la marcha, urgencia urinaria y lentitud cognitiva durante los últimos 8 meses. De acuerdo con los datos consolidados en la literatura y metaanálisis revisados en JAMA (2026), ¿cuál de las siguientes afirmaciones describe de manera precisa las tasas de respuesta sintomática esperadas después de la cirugía de derivación?
+A) La velocidad y longitud del paso en la marcha mejoran en aproximadamente un 70% a 90% de los pacientes, mientras que la urgencia urinaria y el deterioro cognitivo muestran una mejoría en aproximadamente el 50% al 70%.
+B) La urgencia y la incontinencia urinaria son los síntomas más sensibles al tratamiento y mejoran en más del 90% de los casos, seguidos por la marcha (70%) y el déficit cognitivo (menos del 30%).
+C) La mejoría sintomática es uniforme y global; se espera que todos los componentes de la tríada clínica de Hakim-Adams mejoren simultáneamente en un 80% a 85% de los pacientes.
+D) El deterioro cognitivo muestra la mejor tasa de recuperación (80%-90%) tras la cirugía, mientras que las alteraciones de la marcha, al ser las primeras en instaurarse, solo logran reversibilidad en un 40% a 50% de los pacientes.
+Respuesta correcta: A
+Especialidad: Salud Pública
+Tipo: Datos duros
+Tema: Tasas de mejoría sintomática tras la derivación
+Análisis de las opciones:
+Opción A: Es correcta. El documento establece que la alteración de la marcha es el síntoma que responde de manera más consistente, con mejoras en el 70% al 90% de los pacientes (72% en el metaanálisis citado). Las mejoras cognitivas y urinarias ocurren en aproximadamente el 50% al 70% de los casos (54% y 55%, respectivamente, en el metaanálisis).
+Opción B: Utiliza la técnica de *Trampa estadística o de interpretación de datos*. Asigna erróneamente la tasa de éxito más alta a los síntomas urinarios y subestima drásticamente la recuperación cognitiva esperada.
+Opción C: Utiliza la técnica de *Dato clínico disonante*. Falla al afirmar que la mejoría es uniforme para todos los síntomas, contrariando la evidencia que muestra una clara variabilidad pronóstica entre el componente motor y los componentes urinario/cognitivo.
+Opción D: Utiliza la técnica de *Trampa estadística o de interpretación de datos*, invirtiendo las proporciones de éxito al atribuir la mayor respuesta al deterioro cognitivo y la menor a la marcha. La alteración de la marcha (el síntoma más temprano y prevalente) es precisamente el que mejor responde a la derivación.
+Dato clave: Después de la derivación, la marcha mejora en aproximadamente el 70% al 90% de los pacientes con iNPH; los síntomas urinarios y cognitivos mejoran en aproximadamente el 50% al 70%.
+Cómo evitar la trampa: Memorizar la jerarquía de respuesta terapéutica en iNPH: la marcha (primer síntoma en aparecer y el más común) es el componente con la tasa de mejoría más alta y consistente tras la cirugía.
+Fuente: Idiopathic Normal Pressure Hydrocephalus.pdf, JAMA, 2026 · Surgical Shunting / Box, págs. E4, E9

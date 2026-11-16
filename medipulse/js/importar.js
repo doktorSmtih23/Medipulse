@@ -27,8 +27,9 @@ Opción B: ...
 Opción C: ...
 Opción D: ...
 (Opción E: ..., si la hay)
-Dato clave: [el dato que define la respuesta]
-Cómo evitar la trampa: [el error típico y cómo no caer]
+Explicación: [por qué la respuesta correcta es la correcta]
+Perla: [el dato clave que define la respuesta]
+Trampa: [el error típico y cómo no caer]
 Fuente: [nombre del documento que te di, organización y año] · [página o sección de donde sale]`;
 // Prompt completo: el usuario solo lo pega. Su IA le pide la fuente (PDF, texto o foto), saca sola el
 // título y el año, presenta el mapa conceptual y solo entonces pregunta qué preguntas quiere.
@@ -60,10 +61,11 @@ const L = "ABCDE";
 const OPC_RE = /^\s*\(?([A-Ea-e])\s*[).:\-–]\s+(.+)$/;
 // Encabezados de las secciones que siguen a las opciones (análisis, dato clave, cómo evitar…).
 const SECC = [
+  // Mismos campos que el banco: Explicación, Perla, Trampa (y sus sinónimos habituales).
+  ["fund", /^(?:fundamento|explicaci[oó]n\s*:|justificaci[oó]n\s*:)/i],
   ["analisis", /^(?:identificaci[oó]n de t[eé]cnicas|an[aá]lisis de (?:las |cada )?opci|explicaci[oó]n|justificaci[oó]n)/i],
-  ["fund", /^fundamento/i],
-  ["dato", /^dato clave/i],
-  ["evitar", /^c[oó]mo evitar/i],
+  ["dato", /^(?:dato clave|perla\s*:)/i],
+  ["evitar", /^(?:c[oó]mo evitar|trampa\s*:)/i],
   ["fuente", /^fuente\s*:/i],
   ["resp", /^respuesta(?: correcta)?\s*[:=]/i],
   ["result", /^resultado\s*:/i],
@@ -74,7 +76,7 @@ const TIPOS_TXT = [[/conducta|manejo|tratamiento/i, "conducta"], [/diagn/i, "dia
 const CORRECTA_RE = /respuesta correcta[^\n]*?\bopci[oó]n\s+\(?([A-E])\b|\b(?:la )?(?:respuesta|opci[oó]n) correcta es (?:la )?(?:opci[oó]n )?\(?([A-E])\b/i;
 const SEPARA_RE = /^\s*(?:-{3,}|={3,}|_{3,}|(?:pregunta|caso)\s*(?:n[°º.]?\s*)?\d+\s*[.:)]?)\s*$/im;
 const tieneOpciones = b => b.split("\n").some(l => /^\s*\(?[Aa]\s*[).:\-–]\s+/.test(l)) && b.split("\n").filter(l => OPC_RE.test(l)).length >= 4;
-const pareceRespuesta = b => /opci[oó]n\s+\(?[A-E]\b|respuesta correcta|dato clave|c[oó]mo evitar|fundamento/i.test(b);
+const pareceRespuesta = b => /opci[oó]n\s+\(?[A-E]\b|respuesta correcta|dato clave|c[oó]mo evitar|fundamento|^(?:perla|trampa|explicaci[oó]n)\s*:/im.test(b);
 
 function partirBloques(texto){
   return limpiarMd(texto).split(SEPARA_RE).map(b => b.trim()).filter(tieneOpciones);
@@ -113,6 +115,8 @@ function cerrar(q, buf){
   if (q.correct < 0) q.correct = q.porOpcion.findIndex(t => /respuesta correcta|\(correcta\)|por qu[eé] es correcta|es la (?:opci[oó]n )?correcta/i.test(t) && !/por qu[eé] es incorrecta/i.test(t));
   // Análisis de cada opción, legible: sin el nombre de la opción repetido y cada «Por qué…» en su línea.
   q.porOpcion = q.porOpcion.map(t => t.replace(/^\([^)]*\)\s*[-–:]?\s*/, "").replace(/^[-–]\s*/, "").replace(/\s*[-–]?\s*(Por qu[eé] (?:parece|es|no)\b)/gi, "\n$1").trim());
+  // Sin sección «Explicación»: la justificación es el análisis de la opción correcta («Es correcta porque…»).
+  if (!q.fundamento && q.correct >= 0 && q.porOpcion[q.correct]) q.fundamento = q.porOpcion[q.correct].replace(/^(?:ninguna identificada[^.]*\.\s*)?(?:\(?respuesta correcta\)?\.?\s*)?/i, "").trim();
   return q;
 }
 function parsearPregunta(bloque){
@@ -205,9 +209,9 @@ function renderImpCands(){
       <div class="xs muted">Marca la correcta${q.options.length > 4 ? ` · tiene ${q.options.length} opciones; si quieres dejarla en 4, quita una incorrecta con ✕` : ""}:</div>
       ${q.options.map((o, j) => `<div class="stack" style="gap:2px"><div class="row" style="gap:6px;flex-wrap:nowrap;align-items:center"><input type="radio" name="impC${k}" value="${j}" ${j === q.correct ? "checked" : ""} aria-label="Correcta: ${L[j]}"><b>${L[j]}</b><input type="text" data-io="${j}" value="${esc(o)}" style="flex:1;min-width:0">${q.options.length > 4 ? `<button class="xbtn" data-ix="${j}" aria-label="Quitar la opción ${L[j]}">✕</button>` : ""}</div>
         ${q.porOpcion[j] ? `<p class="xs muted" style="margin:0 0 0 28px">${esc(q.porOpcion[j]).slice(0, 400)}${q.porOpcion[j].length > 400 ? "…" : ""}</p>` : ""}</div>`).join("")}
-      <label class="fld">Fundamento de la respuesta<textarea rows="3" data-if="fundamento">${esc(q.fundamento || "")}</textarea></label>
-      <label class="fld">💎 Dato clave<textarea rows="2" data-if="pearl">${esc(q.pearl)}</textarea></label>
-      <label class="fld">⚠️ Cómo evitar la trampa<textarea rows="3" data-if="trap">${esc(q.trap)}</textarea></label>
+      <label class="fld">Explicación<textarea rows="3" data-if="fundamento">${esc(q.fundamento || "")}</textarea></label>
+      <div class="grid2"><label class="fld">💎 Perla<textarea rows="3" data-if="pearl">${esc(q.pearl)}</textarea></label>
+      <label class="fld">⚠️ Trampa<textarea rows="3" data-if="trap">${esc(q.trap)}</textarea></label></div>
       <label class="fld">Fuente<select data-if="src">${srcOptions("")}</select></label>
       ${q.fuenteTxt ? `<p class="xs muted" style="margin:0">Fuente indicada en el texto: «${esc(q.fuenteTxt)}».</p>` : ""}
       <p class="xs" style="margin:0;color:var(--bad)" data-ierr>${esc(impErr(q) || "")}</p>
