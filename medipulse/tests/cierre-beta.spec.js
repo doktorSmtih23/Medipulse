@@ -25,7 +25,7 @@ test("si la cuenta de Anthropic no tiene saldo, lo dice en español y qué hacer
 
 test("cuando se acaban los casos de un área, lo dice y propone qué hacer", async ({ page }) => {
   await page.goto("/");
-  await page.evaluate(() => { QUESTIONS.filter(q => q.specialty === "Pediatría").forEach(q => S.srs["q" + q.id] = {b: 0, due: Date.now() + 9e9, n: 1, ok: 0, last: 0}); save(); qSpec = "Pediatría"; go("banco"); });
+  await page.evaluate(() => { QUESTIONS.filter(q => q.specialty === "Pediatría").forEach(q => S.srs["q" + q.id] = {b: 0, due: Date.now() + 9e9, n: 1, ok: 0, last: 0}); S.prac.specs = ["Pediatría"]; save(); go("banco"); });
   await expect(page.locator("#qDone")).toContainText("Ya respondiste los");
   await expect(page.locator("#qDone [data-go=apuntes]")).toBeVisible();
 });

@@ -7,8 +7,8 @@ let errores;
 test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); await page.click("nav [data-go=banco]"); });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
-test("selectores de especialidad, tipo y estado; la lista no muestra el tema ni la fuente", async ({ page }) => {
-  await expect(page.locator("#qSelSpec option >> nth=1")).toContainText(/Medicina Interna \(\d+\)/);
+test("especialidades, tipo y estado; la lista no muestra el tema ni la fuente", async ({ page }) => {
+  await expect(page.locator('#qSpecs [data-sp="Medicina Interna"]')).toContainText(/Medicina Interna \d+/);
   await page.selectOption("#qSelTipo", "diagnostico");
   const tipos = await page.$$eval("#qList [data-q1]", bs => bs.map(b => qKind(qById(b.dataset.q1))));
   expect(tipos.length).toBeGreaterThan(5);
@@ -23,7 +23,7 @@ test("selectores de especialidad, tipo y estado; la lista no muestra el tema ni 
 });
 
 test("estudiar un caso o una especialidad desde la lista; el tema se ve solo al responder", async ({ page }) => {
-  await page.selectOption("#qSelSpec", "Pediatría");
+  await page.click('#qSpecs [data-sp="Pediatría"]');
   await page.locator("#qList [data-q1]").first().click();
   expect(await page.evaluate(() => sess.stages[0].items.length)).toBe(1);
   const topic = await page.evaluate(() => qById(sess.stages[0].items[0].id).topic);
@@ -37,7 +37,7 @@ test("estudiar un caso o una especialidad desde la lista; el tema se ve solo al 
 });
 
 test("corregir la especialidad de un caso desde el banco", async ({ page }) => {
-  await page.selectOption("#qSelSpec", "Medicina Interna");
+  await page.click('#qSpecs [data-sp="Medicina Interna"]');
   const id = await page.locator("#qList [data-qe]").first().getAttribute("data-qe");
   await page.click(`#qList [data-qe="${id}"]`);
   await page.selectOption(`#qList [data-qesel="${id}"]`, "Pediatría");
@@ -122,4 +122,54 @@ test("el tipo de pregunta de un caso incluido se puede corregir", async ({ page 
   await page.selectOption("#tbox [data-qe=tipo]", "datos");
   await page.click("#tbox [data-corr-save]");
   expect(await page.evaluate(() => qKind(qById(2)))).toBe("datos");
+});
+
+test.describe("arma tu práctica", () => {
+  test("varias especialidades y la cantidad que el usuario quiera (máximo 100)", async ({ page }) => {
+    await page.click('#qSpecs [data-sp="Pediatría"]');
+    await page.click('#qSpecs [data-sp="Medicina Interna"]');
+    await page.fill("#qN", "7"); await page.locator("#qN").dispatchEvent("change");
+    await page.click("#pr10");
+    const specs = await page.evaluate(() => sess.stages[0].items.map(it => qById(it.id).specialty));
+    expect(specs.length).toBe(7);
+    expect(specs.every(s => ["Pediatría", "Medicina Interna"].includes(s))).toBe(true);
+    await page.click("#quitBtn"); await page.click("nav [data-go=banco]");
+    await page.fill("#qN", "500"); await page.locator("#qN").dispatchEvent("change");
+    expect(await page.evaluate(() => S.prac.n)).toBe(100);
+    expect(await sinDesborde(page)).toBe(true);
+  });
+
+  test("al azar reparte entre especialidades; modo examen es un simulacro con tiempo", async ({ page }) => {
+    await page.fill("#qN", "10"); await page.locator("#qN").dispatchEvent("change");
+    await page.check("#qExam");
+    await expect(page.locator("#pr10")).toContainText("Empezar simulacro");
+    await page.click("#pr10");
+    const r = await page.evaluate(() => [sess.stages[0].exam, sess.stages[0].limit, new Set(sess.stages[0].items.map(it => qById(it.id).specialty)).size]);
+    expect(r[0]).toBe(true); expect(r[1]).toBe(720); expect(r[2]).toBeGreaterThan(2);
+  });
+
+  test("mis vulnerabilidades: detecta el tipo de pregunta que fallas y elige esos casos", async ({ page }) => {
+    // Falla todas las de conducta y acierta todas las demás
+    await page.evaluate(() => { QUESTIONS.forEach(q => { const malo = qKind(q) === "conducta";
+      S.srs["q" + q.id] = {b: malo ? 0 : 3, due: Date.now() + 9e9, n: 2, ok: malo ? 0 : 2, last: malo ? 0 : 2}; }); save(); renderBanco(); });
+    await expect(page.locator("#qVuln")).toContainText("Conducta en");
+    await expect(page.locator("#qVuln")).toContainText("fallaste dos veces o más");
+    await page.click('#qModo [data-modo="vuln"]');
+    await page.fill("#qN", "10"); await page.locator("#qN").dispatchEvent("change");
+    await page.click("#pr10");
+    const tipos = await page.evaluate(() => sess.stages[0].items.map(it => qKind(qById(it.id))));
+    expect(tipos.filter(t => t === "conducta").length).toBeGreaterThanOrEqual(8);
+  });
+
+  test("al fallar se marca el motivo y aparece como patrón de error", async ({ page }) => {
+    await page.evaluate(() => startSession({label: "x", tag: "norm", stages: [{name: "x", items: [{t: "q", id: 2}]}]}));
+    const mala = await page.evaluate(() => (qById(2).correct + 1) % qById(2).options.length);
+    await page.click(`#opts .opt >> nth=${mala}`);
+    await page.click('#fbBox [data-mot="dato"]');
+    expect(await page.evaluate(() => S.resp.at(-1))).toMatchObject({id: "2", ok: false, m: "dato"});
+    await page.click("#nextBtn");
+    await page.click("#sessBody [data-go=hoy]"); await page.click("nav [data-go=banco]");
+    await page.evaluate(() => { QUESTIONS.slice(0, 8).forEach(q => S.srs["q" + q.id] = S.srs["q" + q.id] || {b: 1, due: Date.now() + 9e9, n: 1, ok: 1, last: 2}); renderBanco(); });
+    await expect(page.locator("#qVuln")).toContainText("Tu error más frecuente: 🔍 No vi un dato del caso");
+  });
 });

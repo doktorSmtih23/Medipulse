@@ -310,3 +310,14 @@ pre.prompt{white-space:pre-wrap;font-size:12px;background:var(--subtle);border-r
 @media (max-width:560px){#newSeg{grid-template-columns:1fr}}
 .porop .xs{white-space:pre-line}
 .origen{font-size:11.5px;border:1px dashed var(--warn);color:var(--warn);border-radius:999px;padding:1px 8px;white-space:nowrap}
+
+/* Banco: arma tu práctica y vulnerabilidades */
+.seg.seg3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:640px){.seg.seg3{grid-template-columns:1fr}}
+.chip2 .cnt{font-size:11.5px;opacity:.75;font-weight:500}
+.chip2:disabled{opacity:.45}
+.foco{border-left:3px solid var(--bad);padding:4px 0 4px 10px}
+.motivos{margin-top:4px}
+label.check{flex-wrap:nowrap;cursor:pointer}
+label.check input{margin-top:3px;flex:none}
+label.check>span{flex:1;min-width:0}

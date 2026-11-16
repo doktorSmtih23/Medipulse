@@ -82,11 +82,15 @@
   <!-- ============ PREGUNTAS ============ -->
   <section class="view" id="v-banco">
     <div class="stack">
-      <div><h2>Banco de casos</h2><p class="muted small" style="margin:4px 0 0">Practica por especialidad con explicación inmediata. Las que falles vuelven solas en tus repasos.</p></div>
-      <input type="search" id="qQuery" placeholder="Buscar: tema, fuente o palabra clave (p. ej. TEP, Kawasaki, NNT)" aria-label="Buscar casos">
-      <div class="grid3 stackable" id="qFiltros"></div>
+      <div><h2>Banco de casos</h2><p class="muted small" style="margin:4px 0 0">Arma tu práctica y descubre dónde fallas y por qué. Lo que falles vuelve solo en tus repasos.</p></div>
       <div class="card" id="qInfo"></div>
-      <div class="card" id="qList"></div>
+      <div class="card" id="qVuln"></div>
+      <div class="card stack">
+        <h3 style="font-size:16px">Explorar el banco</h3>
+        <input type="search" id="qQuery" placeholder="Buscar: tema, fuente o palabra clave (p. ej. TEP, Kawasaki, NNT)" aria-label="Buscar casos">
+        <div class="grid2" id="qFiltros"></div>
+        <div id="qList"></div>
+      </div>
     </div>
   </section>
 
@@ -366,6 +370,7 @@
 <script src="js/hoy.js"></script>
 <script src="js/sesion.js"></script>
 <script src="js/banco.js"></script>
+<script src="js/vulnerabilidades.js"></script>
 <script src="js/fichas-hy.js"></script>
 <script src="js/simulacro.js"></script>
 <script src="js/progreso.js"></script>

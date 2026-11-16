@@ -33,7 +33,8 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/ui.js` | Utilidades de interfaz (`$`, `esc`, `toast`, navegación `go`) |
 | `js/hoy.js` | Pantalla Hoy, modos por energía |
 | `js/sesion.js` | Motor de sesión: casos, tarjetas, simulacro, resumen, atajos |
-| `js/banco.js` | Banco de casos y filtros |
+| `js/banco.js` | Banco de casos: «Arma tu práctica» (varias especialidades, 1 a 100 casos, al azar / mis vulnerabilidades / con filtros, modo examen) y «Explorar el banco» (búsqueda, tipo, estado, lista sin tema ni fuente) |
+| `js/vulnerabilidades.js` | Registro de respuestas (`S.resp`, con el motivo del fallo que marca el usuario), rendimiento por tipo × especialidad, casos que se fallan una y otra vez, patrón de error y elección de casos por vulnerabilidad (`elegirVulnerables`) o al azar balanceado (`elegirAlAzar`). Todo se calcula en el dispositivo |
 | `js/fichas-hy.js` | Fichas high-yield: estudio, editor y pestaña High Yield |
 | `js/simulacro.js` | Configuración del simulacro |
 | `js/progreso.js` | Progreso y borrado |

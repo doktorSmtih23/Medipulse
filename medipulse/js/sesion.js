@@ -86,14 +86,16 @@ function answerQ(q, o, exam){
   sess.state="fb"; addTime();
   const ok = o===q.correct;
   grade("q"+q.id, ok?2:0);
-  const l=logToday(); l.q++; if(ok) l.ok++; save();
-  sess.results.push({t:"q",id:q.id,ok});
+  const l=logToday(); l.q++; if(ok) l.ok++;
+  const ri = registrarRespuesta(q, o, ok, false); save();
+  sess.results.push({t:"q",id:q.id,ok,ri});
   $("#opts").classList.add("done"); $(".vignette").classList.add("hints"); $("#skipRow") && $("#skipRow").remove();
   document.querySelectorAll("#opts .opt").forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add("right"); else if(i===o) b.classList.add("wrong"); });
   $("#fbBox").innerHTML = `
     <div class="stack" style="margin-top:14px">
       <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b>${q.area ? ` · Área: ${esc(q.area)}` : ""}</div>
       <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
+      ${ok ? "" : motivoHTML(ri)}
       ${porOpcionHTML(q, o)}
       ${q.pearl ? `<div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>` : ""}
       ${q.trap ? `<div class="note trap" style="white-space:pre-line"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>` : ""}
@@ -175,11 +177,12 @@ function finishExam(timeUp){
   const rows = st.items.map((it,i)=>{
     const q=qById(it.id), a=sess.answers[sess.si+":"+i], good=a===q.correct; if(good) ok++;
     grade("q"+q.id, good?2:0); const l=logToday(); l.q++; if(good) l.ok++;
-    sess.results.push({t:"q",id:q.id,ok:good});
+    const ri = registrarRespuesta(q, a, good, true);
+    sess.results.push({t:"q",id:q.id,ok:good,ri});
     return `<details class="card" style="padding:12px 14px;margin-top:10px"><summary style="cursor:pointer"><b style="color:${good?"var(--ok)":"var(--bad)"}">${good?"✓":"✗"}</b> ${i+1}. ${esc(q.topic)}${sess.flags && sess.flags[sess.si+":"+i] ? " 🚩" : ""}</summary>
       ${imgTag(q.img)}<p class="small" style="margin:10px 0">${q.vignette}</p>
       <p class="small" style="margin:0">Tu respuesta: <b>${a==null?"(sin responder)":esc(q.options[a])}</b><br>Correcta: <b style="color:var(--ok)">${esc(q.options[q.correct])}</b></p>
-      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p><div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>${srcLine(q)}<div style="margin-top:6px"><button class="linkbtn xs" data-rep="q${q.id}">🚩 Reportar un error</button><div class="repslot"></div></div></details>`;
+      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p>${good ? "" : motivoHTML(ri)}<div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>${srcLine(q)}<div style="margin-top:6px"><button class="linkbtn xs" data-rep="q${q.id}">🚩 Reportar un error</button><div class="repslot"></div></div></details>`;
   });
   const pct=Math.round(ok/st.items.length*100);
   S.sims.push({d:Date.now(),n:st.items.length,ok}); save();
@@ -216,6 +219,7 @@ function endSession(showSummary){
     ${s.skipped ? `<p class="xs muted" style="margin:0">Pasaste ${s.skipped} pregunta${s.skipped===1?"":"s"} sin responder: siguen disponibles.</p>` : ""}
     ${s.diag ? diagSummary(q) : ""}
     ${enfoqueResumen(s.results)}
+    ${vulnResumen(s.results)}
     <p class="muted small" style="margin:0">🔥 Racha: <b>${streak()}</b> día${streak()===1?"":"s"}. ${s.lazy?"Lo difícil era empezar. ¿Y si haces otros 5 minutos ahora que ya entraste en ritmo?":"Lo que fallaste vuelve en tu repaso en el momento justo."}</p>
     ${s.lazy?'<button class="btn primary block" id="moreBtn">Otros 5 minutos 💪</button>':""}
     <button class="btn ${s.lazy?"ghost":"primary"} block" data-go="hoy">Volver a Hoy</button></div>`;
