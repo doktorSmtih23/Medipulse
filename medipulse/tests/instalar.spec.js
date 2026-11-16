@@ -57,3 +57,9 @@ test("íconos PNG para instalar (Android) y para la pantalla de inicio del iPhon
   expect(apple).toMatch(/\.png$/);
   expect((await request.get("/" + apple)).ok()).toBe(true);
 });
+
+test("la firma del autor aparece al final de Progreso", async ({ page }) => {
+  errores = vigilarErrores(page);
+  await page.goto("/"); await page.click("nav [data-go=prog]");
+  await expect(page.locator("#firmaProg")).toHaveText("MediPulse · Creado por Dr. Christian Smith");
+});

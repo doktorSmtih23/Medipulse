@@ -3,6 +3,8 @@
 // ===================================================================
 // Dirección pública de la app (si cambia el nombre del repositorio, se cambia solo aquí y en README/MAPA).
 const APP_URL = "https://doktorsmtih23.github.io/Medipulse/medipulse/";
+// Autor de MediPulse: firma en el inicio de sesión y al final de Progreso.
+const AUTOR = "Dr. Christian Smith";
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("on"),2600); }
