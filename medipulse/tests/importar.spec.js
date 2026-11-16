@@ -63,10 +63,32 @@ Tipo: Datos duros`;
   expect(qs.map(q => [q.correct, q.specialty, q.tipo, q.topic])).toEqual([[1, "Medicina Interna", "diagnostico", "Infección urinaria baja"], [0, "", "datos", ""]]);
 });
 
-test("el prompt para la otra IA se puede ver y copiar", async ({ page }) => {
-  await page.click("#impOut ~ *, details.custom summary:has-text('prompt')").catch(() => {});
-  await expect(page.locator("pre.prompt")).toContainText("Respuesta correcta: [letra]");
-  await expect(page.locator("#impPrompt")).toBeVisible();
+test("el prompt usa la fuente que da el usuario; también se puede copiar solo el formato para una skill", async ({ page }) => {
+  await page.click("summary:has-text('Prompt para tu IA')");
+  await expect(page.locator("pre.prompt >> nth=0")).toContainText("Usa SOLO la información del documento que te di");
+  const prompt = page.locator("pre.prompt >> nth=0");
+  await expect(prompt).toContainText("Pídeme solo la fuente: que suba el PDF, pegue el texto o mande una foto");
+  await expect(prompt).toContainText("Identifica tú el título del documento");
+  await expect(prompt).toContainText("mapa conceptual");
+  await expect(prompt).toContainText("recomiéndame 4");
+  await expect(page.locator("pre.prompt >> nth=1")).toContainText("Respuesta correcta: [letra]");
+  await expect(page.locator("[data-copiar=prompt]")).toBeVisible();
+  await expect(page.locator("[data-copiar=formato]")).toBeVisible();
+  // lo que devuelve la IA con ese formato se lee completo, con su fuente y página
+  const q = await page.evaluate(() => organizarTexto(`Pregunta 1
+Mujer de 40 años con disnea. ¿Diagnóstico más probable?
+A) Uno
+B) Dos
+C) Tres
+D) Cuatro
+Respuesta correcta: C
+Especialidad: Medicina Interna
+Tipo: Diagnóstico
+Tema: Disnea
+Dato clave: el dato
+Cómo evitar la trampa: la trampa
+Fuente: Guía de prueba, ACIN, 2026 · pág. 12`)[0]);
+  expect([q.correct, q.specialty, q.tipo, q.topic, q.pearl, q.trap, q.fuenteTxt]).toEqual([2, "Medicina Interna", "diagnostico", "Disnea", "el dato", "la trampa", "Guía de prueba, ACIN, 2026 · pág. 12"]);
 });
 
 test("crear a mano admite una quinta opción opcional", async ({ page }) => {
@@ -86,4 +108,14 @@ test("lo importado lleva el rótulo «Importada por el usuario» en la pregunta 
   await page.click("#quitBtn"); await page.click("nav [data-go=banco]");
   await page.selectOption("#qSelSpec", "Pediatría");
   await expect(page.locator("#qList .origen").first()).toContainText("Importada por el usuario");
+});
+
+test("preguntas primero y respuestas al final (otro formato de Gemini): las empareja en orden", async ({ page }) => {
+  const texto = fs.readFileSync(path.join(__dirname, "fixtures", "preguntas-respuestas-al-final.txt"), "utf8");
+  const qs = await page.evaluate(t => organizarTexto(t).map(q => ({n: q.options.length, c: q.correct, fund: q.fundamento.slice(0, 20), dato: q.pearl.slice(0, 20), trampa: q.trap.slice(0, 20), spec: q.specialty, guion: /-\nPor qu/.test(q.porOpcion.join("\n"))})), texto);
+  expect(qs).toEqual([
+    {n: 4, c: 1, fund: "De acuerdo con el ar", dato: "Los estudios neurofi", trampa: "Recuerda siempre qué", spec: "", guion: false},
+    {n: 4, c: 1, fund: "El sistema de gradua", dato: "La presencia de sign", trampa: "Al evaluar algoritmo", spec: "", guion: false}]);
+  // «diabetes de 10 años de evolución» no es la edad del paciente
+  expect(await page.evaluate(() => [esPediatrico("Un hombre de 55 años, con diabetes de 10 años de evolución"), esPediatrico("Lactante de 4 meses")])).toEqual([false, true]);
 });
