@@ -15,6 +15,34 @@ Este repositorio contiene **MediPulse** (`medipulse/`), una app web de estudio p
 5. **Los datos del usuario se quedan en su dispositivo** (`localStorage` e IndexedDB). No se envían a ningún servidor propio ni de terceros, salvo el texto que el usuario manda a la API de Claude al usar la IA y, en la beta, **el correo con el que inicia sesión** (Supabase Auth, ver `medipulse/SERVIDOR.md`). La cuenta solo controla quién entra; no guarda datos de estudio.
 6. **Contenido médico verificable:** cada caso, tarjeta y ficha cita su fuente (`src`); no se inventan cifras; se usa la versión vigente de las guías.
 
+## Cómo trabaja el autor (léelo antes de proponer o entregar)
+
+El autor es médico, no programador: prueba la app como usuario real y decide el producto. Estas reglas salen de sus pruebas y valen para cualquier IA que trabaje aquí.
+
+**Antes de abrir un pull request**
+- Muestra **capturas** de cómo se ve el cambio en el celular (390 px de ancho) y espera su visto bueno. No abras el PR sin ellas.
+- Corre todas las pruebas (`npm test`) y di cuántas pasan. Cada hallazgo del autor se vuelve una prueba automática.
+- Cuenta lo hecho y lo que falta, en español claro, sin jerga técnica. Si algo no se pudo verificar, dilo.
+
+**Interfaz**
+- **Pantallas limpias:** nada de listas largas a la vista. Toda lista va plegada con `plegable()` (título y número) y se abre con un toque.
+- Los controles van **donde se usan**: un filtro debe estar junto al botón que lo usa y a la cantidad, no en otra tarjeta.
+- Cuida el espaciado: un campo nunca pegado a su texto.
+- En el texto: «fichas», no «tarjetas»; «Epidemiología y Estadística», no «Salud Pública».
+
+**Funciones**
+- **Toda función debe servir también sin IA.** Lo que dependa de la IA debe tener un camino sin clave (guías, ideas, edición a mano, «Pegar de otra IA»). Pruébala siempre sin clave.
+- **Nada se guarda sin mostrar qué cambió:** comparar con el original, aceptar cambio por cambio y no guardar copias iguales ni repetidas.
+- **Lo que se edita o crea se puede probar** antes de guardarlo, sin que cuente en el progreso.
+- **No dar pistas antes de responder:** ni el tema ni la fuente en las listas de casos sin responder (sesgo de anclaje).
+- **MediPulse no audita lo que aporta el usuario:** se rotula («Importada», «Editada por ti», «Elaboración propia») y se aclara que la responsabilidad es de quien lo aporta.
+- **La app evidencia vulnerabilidades**, no vende contenido: prioriza que el usuario vea dónde y por qué falla.
+
+**Al trabajar con él**
+- Sé directo y honesto; si algo que dijiste era incorrecto, corrígelo aunque nadie lo haya notado.
+- Si manda varios hallazgos a la vez, anótalos todos y al final di cuáles quedaron hechos.
+- Lo pendiente se anota en la lista de trabajo antes de la beta.
+
 ## Estructura de `medipulse/`
 
 Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparten variables globales: lo que declara un archivo lo usan los siguientes. **Si agregas un archivo, respeta el orden y añádelo también a `FILES` en `sw.js`.**

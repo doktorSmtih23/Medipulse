@@ -3,7 +3,9 @@
 // ===================================================================
 let sess = null, tick = null;
 function confirmLeave(){ if(!sess) return true; if(confirm("¿Salir de la sesión? Lo que ya respondiste queda guardado.")){ endSession(false); return true; } return false; }
-$("#quitBtn").onclick = ()=>{ if(confirmLeave()) go("hoy"); };
+$("#quitBtn").onclick = ()=>{ if (sess && sess.prueba) return terminarPrueba(); if(confirmLeave()) go("hoy"); };
+// Probar una versión editada: sin calificar ni registrar nada; al terminar se vuelve al editor tal como estaba.
+function terminarPrueba(){ if (sess) endSession(false); PRUEBA_Q = null; newType = "e"; go("new"); }
 
 function startSession(cfg){
   cfg.stages = cfg.stages.filter(s=>s.items.length);
@@ -47,6 +49,7 @@ function renderQ(q, exam){
   const struck = sess.struck[k] || (sess.struck[k] = []), flagged = !!sess.flags[k], hints = !exam && S.hints;
   const items = stage().items;
   $("#sessBody").innerHTML = `
+    ${sess.prueba ? `<div class="note" style="margin-bottom:10px"><b>▶ Probando tu versión</b> tal como la verá quien la responda. No se guarda ni cuenta en tu progreso.</div>` : ""}
     <div class="card">
       <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span>${exam ? (q.qtype && q.qtype!=="caso" ? `<span class="muted">${qtLabel(q.qtype)}</span>` : "") : tipoChip(q)}${origenChip(q)}<div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
@@ -54,7 +57,7 @@ function renderQ(q, exam){
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCDE"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
       ${exam ? "" : metodoPregunta(q)}
       <div id="fbBox"></div>
-      ${exam ? "" : `<div class="row" id="skipRow" style="margin-top:10px"><div class="spacer"></div><button class="btn ghost sm" id="skipBtn">Pasar esta pregunta →</button></div>`}
+      ${exam || sess.prueba ? "" : `<div class="row" id="skipRow" style="margin-top:10px"><div class="spacer"></div><button class="btn ghost sm" id="skipBtn">Pasar esta pregunta →</button></div>`}
     </div>
     ${exam ? `<div class="row" style="margin-top:12px">${sess.i>0?'<button class="btn" id="prevBtn">← Anterior</button>':""}<div class="spacer"></div><button class="btn primary" id="nextBtn">${sess.i+1<items.length?"Siguiente →":"Terminar simulacro"}</button></div>
       <div class="card" style="margin-top:12px;padding:14px"><div class="row xs muted"><b style="color:var(--text)">Mapa del simulacro</b><div class="spacer"></div><span>${items.filter((_,j)=>sess.answers[sess.si+":"+j]!=null).length}/${items.length} respondidas</span></div>
@@ -83,33 +86,35 @@ function answerQ(q, o, exam){
   if (sess.state!=="ask") return;
   if (exam){ sess.answers[sess.si+":"+sess.i]=o; document.querySelectorAll("#opts .opt").forEach((b,i)=>b.classList.toggle("sel",i===o));
     const m = document.querySelector('.simmap [data-j="'+sess.i+'"]'); m && m.classList.add("ans"); return; }
-  sess.state="fb"; addTime();
-  const ok = o===q.correct;
-  grade("q"+q.id, ok?2:0);
-  const l=logToday(); l.q++; if(ok) l.ok++;
-  const ri = registrarRespuesta(q, o, ok, false); save();
+  sess.state="fb";
+  const ok = o===q.correct, prueba = !!sess.prueba;
+  let ri = null;
+  if (!prueba) { addTime(); grade("q"+q.id, ok?2:0);
+    const l=logToday(); l.q++; if(ok) l.ok++;
+    ri = registrarRespuesta(q, o, ok, false); save(); }
   sess.results.push({t:"q",id:q.id,ok,ri});
   $("#opts").classList.add("done"); $(".vignette").classList.add("hints"); $("#skipRow") && $("#skipRow").remove();
   document.querySelectorAll("#opts .opt").forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add("right"); else if(i===o) b.classList.add("wrong"); });
   $("#fbBox").innerHTML = `
     <div class="stack" style="margin-top:14px">
       <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b>${q.area ? ` · Área: ${esc(q.area)}` : ""}</div>
-      <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
-      ${ok ? "" : motivoHTML(ri)}
+      <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":prueba?"✗ Incorrecto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
+      ${ok || prueba ? "" : motivoHTML(ri)}
       ${porOpcionHTML(q, o)}
       ${q.pearl ? `<div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>` : ""}
       ${q.trap ? `<div class="note trap" style="white-space:pre-line"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>` : ""}
       ${srcLine(q)}
       ${enfoqueTrasResponder(q)}
-      <div><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button> · <button class="linkbtn xs" id="verBtn">✏️ Hacer mi versión</button> · <button class="linkbtn xs" id="archBtn">🗄️ Archivar este caso</button><div id="repBox"></div><div id="fixBox"></div></div>
-      <button class="btn primary block" id="nextBtn">Siguiente →</button>
+      ${prueba ? `<div class="note xs" style="margin:0">▶ Era una prueba de tu versión: no se guardó ni cuenta en tu progreso.</div>` : ""}
+      <div ${prueba ? "hidden" : ""}><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button> · <button class="linkbtn xs" id="verBtn">✏️ Hacer mi versión</button> · <button class="linkbtn xs" id="archBtn">🗄️ Archivar este caso</button><div id="repBox"></div><div id="fixBox"></div></div>
+      <button class="btn primary block" id="nextBtn">${prueba ? "← Volver a editar" : "Siguiente →"}</button>
     </div>`;
   $("#repBtn").onclick = ()=>openReportForm("q"+q.id, $("#repBox"));
   $("#fixBtn").onclick = ()=>openCorregir("q", q, $("#fixBox"));
   $("#verBtn").onclick = ()=>{ if (confirmLeave()) { go("new"); editarCaso(q); } };
   $("#archBtn").onclick = ()=>{ S.hidden["q"+q.id] = Date.now(); delete S.srs["q"+q.id]; rebuild(); save(); refreshChips();
     $("#archBtn").replaceWith(Object.assign(document.createElement("span"), {className: "xs muted", textContent: "🗄️ Archivado: no volverá a salir. Lo restauras en Casos, al final de la lista."})); };
-  $("#nextBtn").onclick=()=>{ sess.i++; renderItem(); };
+  $("#nextBtn").onclick=()=>{ if (prueba) return terminarPrueba(); sess.i++; renderItem(); };
   $("#nextBtn").focus({preventScroll:true});
 }
 
@@ -241,7 +246,7 @@ function examResults(){
 }
 
 function endSession(showSummary){
-  if(!sess) return; addTime(); clearInterval(tick);
+  if(!sess) return; if (!sess.prueba) addTime(); clearInterval(tick);
   const s=sess; sess=null; refreshChips();
   if (!showSummary) return;
   const q=s.results.filter(r=>r.t==="q"), c=s.results.filter(r=>r.t!=="q");
