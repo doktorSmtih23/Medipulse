@@ -7,9 +7,8 @@
 // ===================================================================
 let impCands = null;
 
-const PROMPT_IA = `Eres un profesor que prepara a médicos para el examen de residencia. Escribe preguntas tipo examen sobre: [TEMA]
-Usa guías y estudios vigentes; no inventes cifras. Usa 4 opciones (o 5, si mi examen usa 5), una sola correcta, y reparte la letra correcta entre todas.
-Entrega cada pregunta EXACTAMENTE con este formato, en texto plano (sin negritas, tablas ni fórmulas):
+// Bloque de formato: lo que la app lee perfecto. Se puede pegar al final de una skill propia.
+const FORMATO_IA = `Al final, entrega cada pregunta también en este formato para MediPulse, en texto plano (sin negritas, tablas ni fórmulas), separadas por una línea que diga ---
 
 Pregunta 1
 [Caso clínico breve: edad, sexo, cuadro y datos clave.] ¿[Pregunta]?
@@ -30,9 +29,26 @@ Opción D: ...
 (Opción E: ..., si la hay)
 Dato clave: [el dato que define la respuesta]
 Cómo evitar la trampa: [el error típico y cómo no caer]
-Fuente: [guía o artículo y año]
+Fuente: [nombre del documento que te di, organización y año] · [página o sección de donde sale]`;
+// Prompt completo: el usuario solo lo pega. Su IA le pregunta primero por la fuente (PDF o texto de
+// una fuente verificada), el tema y cuántas preguntas, y solo usa ese documento.
+const PROMPT_IA = `Eres un profesor que prepara a médicos para el examen de residencia. Vas a escribir preguntas tipo examen a partir de una fuente verificada que yo te daré.
 
-Separa cada pregunta con una línea que diga ---`;
+Antes de escribir cualquier pregunta, hazme estas preguntas, todas juntas en un solo mensaje, y espera mis respuestas:
+1. ¿Cuál es la fuente? Pídeme que adjunte el PDF o que pegue el texto de la guía, artículo o capítulo.
+2. ¿Cómo se llama ese documento, de qué organización o revista es y de qué año?
+3. ¿Sobre qué tema o sección del documento quiero las preguntas?
+4. ¿Cuántas preguntas quiero y de qué tipo (conducta, diagnóstico, lectura crítica o datos duros)?
+5. ¿Mi examen usa 4 o 5 opciones?
+
+No escribas preguntas hasta que te haya dado la fuente.
+
+Reglas para las preguntas:
+- Usa SOLO la información del documento que te di. No agregues datos de otras fuentes ni de tu memoria; si el documento no alcanza para una pregunta, no la hagas y dímelo.
+- Cada pregunta y cada explicación deben poder verificarse en el documento: indica la página o sección de donde sale.
+- Una sola respuesta correcta, y reparte la letra correcta entre todas las opciones.
+
+${FORMATO_IA.replace(/^Al final, entrega cada pregunta también en este formato para MediPulse/, "Entrega cada pregunta EXACTAMENTE en este formato")}`;
 
 // ---------- lectura del texto ----------
 const limpiarMd = t => String(t || "").replace(/\r/g, "").replace(/\*\*|__|`/g, "").replace(/\$([^$\n]*)\$/g, "$1").replace(/\\\(|\\\)/g, "")
@@ -149,12 +165,20 @@ function renderImportar(box){
     <div class="stack">
       <p class="small" style="margin:0">¿Tienes preguntas que te hizo otra IA (Gemini, ChatGPT…) sueltas en el chat? Pégalas aquí tal cual, una o varias: la app separa el caso, las opciones, la respuesta, el análisis de cada opción, el dato clave y cómo evitar la trampa. Es gratis: no usa IA.</p>
       <textarea id="impTxt" rows="9" placeholder="Pega aquí la pregunta completa, con sus opciones y su explicación…"></textarea>
-      <div class="row" style="gap:6px"><button class="btn primary" id="impGo">🧩 Organizar</button><button class="btn" id="impPrompt">📋 Copiar el prompt para tu IA</button></div>
-      <details class="custom"><summary>¿Qué es el prompt?</summary><p class="xs muted" style="margin:8px 0 0">Son las instrucciones para que tu IA entregue las preguntas en el formato que la app lee perfecto (4 opciones, respuesta, análisis de cada opción, dato clave, trampa y fuente). Pégalo en Gemini o ChatGPT, cambia [TEMA] por lo que quieras estudiar, o agrégalo al final de tu skill.</p>
-        <pre class="prompt">${esc(PROMPT_IA)}</pre></details>
+      <div class="row" style="gap:6px"><button class="btn primary" id="impGo">🧩 Organizar</button></div>
+      <details class="custom"><summary>📋 Prompt para tu IA: preguntas desde tu fuente, listas para pegar aquí</summary><div class="stack" style="margin-top:8px">
+        <p class="xs muted" style="margin:0"><b>Con tu fuente:</b> copia este prompt y pégalo en Gemini, ChatGPT u otra IA, sin cambiar nada. Tu IA te preguntará primero cuál es la fuente (adjuntas el PDF o pegas el texto), el tema y cuántas preguntas quieres. Usará solo ese documento y dirá la página de cada pregunta.</p>
+        <button class="btn sm" data-copiar="prompt">📋 Copiar el prompt completo</button>
+        <pre class="prompt">${esc(PROMPT_IA)}</pre>
+        <p class="xs muted" style="margin:0"><b>¿Ya tienes una skill o un prompt propio</b> (por ejemplo, uno que arma un mapa conceptual del documento y luego hace preguntas)? No lo cambies: agrega al final solo este bloque de formato.</p>
+        <button class="btn sm" data-copiar="formato">📋 Copiar solo el formato</button>
+        <pre class="prompt">${esc(FORMATO_IA)}</pre></div></details>
       <div id="impOut" class="stack"></div>
     </div>`;
-  $("#impPrompt").onclick = () => { try { navigator.clipboard.writeText(PROMPT_IA).then(() => toast("Prompt copiado ✓ Pégalo en tu IA"), () => toast("Ábrelo en «¿Qué es el prompt?» y cópialo a mano")); } catch(e) { toast("Ábrelo en «¿Qué es el prompt?» y cópialo a mano"); } };
+  box.querySelectorAll("[data-copiar]").forEach(b => b.onclick = () => {
+    const txt = b.dataset.copiar === "formato" ? FORMATO_IA : PROMPT_IA, ok = b.dataset.copiar === "formato" ? "Formato copiado ✓ Pégalo al final de tu skill" : "Prompt copiado ✓ Pégalo en tu IA con tu documento";
+    try { navigator.clipboard.writeText(txt).then(() => toast(ok), () => toast("Selecciona el texto de abajo y cópialo a mano")); } catch(e) { toast("Selecciona el texto de abajo y cópialo a mano"); }
+  });
   $("#impGo").onclick = () => {
     impCands = organizarTexto($("#impTxt").value).filter(q => q.vignette && q.options.length >= 4);
     if (!impCands.length) { $("#impOut").innerHTML = `<p class="small" style="margin:0;color:var(--bad)">No encontré una pregunta con al menos 4 opciones: A), B), C) y D). Revisa que cada opción empiece con su letra.</p>`; return; }

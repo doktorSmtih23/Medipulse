@@ -63,10 +63,29 @@ Tipo: Datos duros`;
   expect(qs.map(q => [q.correct, q.specialty, q.tipo, q.topic])).toEqual([[1, "Medicina Interna", "diagnostico", "Infección urinaria baja"], [0, "", "datos", ""]]);
 });
 
-test("el prompt para la otra IA se puede ver y copiar", async ({ page }) => {
-  await page.click("#impOut ~ *, details.custom summary:has-text('prompt')").catch(() => {});
-  await expect(page.locator("pre.prompt")).toContainText("Respuesta correcta: [letra]");
-  await expect(page.locator("#impPrompt")).toBeVisible();
+test("el prompt usa la fuente que da el usuario; también se puede copiar solo el formato para una skill", async ({ page }) => {
+  await page.click("summary:has-text('Prompt para tu IA')");
+  await expect(page.locator("pre.prompt >> nth=0")).toContainText("Usa SOLO la información del documento que te di");
+  await expect(page.locator("pre.prompt >> nth=0")).toContainText("Antes de escribir cualquier pregunta, hazme estas preguntas");
+  await expect(page.locator("pre.prompt >> nth=0")).toContainText("Pídeme que adjunte el PDF o que pegue el texto");
+  await expect(page.locator("pre.prompt >> nth=1")).toContainText("Respuesta correcta: [letra]");
+  await expect(page.locator("[data-copiar=prompt]")).toBeVisible();
+  await expect(page.locator("[data-copiar=formato]")).toBeVisible();
+  // lo que devuelve la IA con ese formato se lee completo, con su fuente y página
+  const q = await page.evaluate(() => organizarTexto(`Pregunta 1
+Mujer de 40 años con disnea. ¿Diagnóstico más probable?
+A) Uno
+B) Dos
+C) Tres
+D) Cuatro
+Respuesta correcta: C
+Especialidad: Medicina Interna
+Tipo: Diagnóstico
+Tema: Disnea
+Dato clave: el dato
+Cómo evitar la trampa: la trampa
+Fuente: Guía de prueba, ACIN, 2026 · pág. 12`)[0]);
+  expect([q.correct, q.specialty, q.tipo, q.topic, q.pearl, q.trap, q.fuenteTxt]).toEqual([2, "Medicina Interna", "diagnostico", "Disnea", "el dato", "la trampa", "Guía de prueba, ACIN, 2026 · pág. 12"]);
 });
 
 test("crear a mano admite una quinta opción opcional", async ({ page }) => {
