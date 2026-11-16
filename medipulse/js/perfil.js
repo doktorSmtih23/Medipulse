@@ -13,6 +13,7 @@ const FOCUS = [
 const focusOf = () => FOCUS.find(f=>f.k===S.focus) || FOCUS[0];
 // Tipo de una pregunta: el que trae (las generadas) o el que se deduce del tema y de la pregunta final.
 function qKind(q){
+  if (q.tipo && QMETODO[q.tipo]) return q.tipo;   // elegido o corregido por el usuario
   if (q.qtype === "critica") return "critica";
   if (q.qtype === "directa") return "datos";
   if (/epidemiolog|bioestad|lectura cr[ií]tica/i.test(q.topic || "")) return "critica";

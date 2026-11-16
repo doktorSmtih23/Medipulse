@@ -667,7 +667,7 @@ function saveCands(){
       S.userC.push({id, specialty:c.specialty, front:c.front.trim(), back:c.back.trim(), ctx:c.ctx||"", src:s.id, page:c.page, ai:!!c.ai, auto:!c.ai});
       nc++;
     } else {
-      S.userQ.push(Object.assign({id, qtype:c.qtype||"caso", specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
+      S.userQ.push(Object.assign({id, qtype:c.qtype||"caso", tipo:c.tipo||undefined, specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
         whyCorrect:c.whyCorrect, pearl:c.pearl, trap:c.trap, src:s.id, page:c.page, ai:true, img:c.img||undefined}, extrasIA(c)));
       nq++;
     }

@@ -3,7 +3,7 @@
 // ===================================================================
 let newType = "q";
 function srcOptions(sel){
-  return `<option value="">Sin fuente</option><optgroup label="Tus fuentes">${S.sources.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.title)}</option>`).join("")}</optgroup>
+  return `<option value="">✍️ Elaboración propia (sin fuente publicada)</option><optgroup label="Tus fuentes">${S.sources.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.title)}</option>`).join("")}</optgroup>
     <optgroup label="Guías incluidas">${SOURCES.map(s=>`<option value="${s.id}" ${sel===s.id?"selected":""}>${esc(s.t.length>70?s.t.slice(0,70)+"…":s.t)}</option>`).join("")}</optgroup>`;
 }
 // ===================================================================
@@ -70,10 +70,12 @@ function renderNew(){
   $("#newForm").classList.add("card");
   const specSel = `<label class="fld">Especialidad<select id="nSpec">${SPECS.map(s=>`<option>${s}</option>`).join("")}</select></label>`;
   $("#newForm").innerHTML = `
-    <div class="grid2">${specSel}<label class="fld">Tema<input type="text" id="nTopic" placeholder="p. ej. Nefrología · Hiponatremia"></label></div>
+    <div class="grid2">${specSel}<label class="fld">Tipo de pregunta<select id="nTipo">${FOCUS.slice(1).map(f=>`<option value="${f.k}">${esc(f.t)}</option>`).join("")}</select></label></div>
+    <label class="fld">Tema<input type="text" id="nTopic" placeholder="p. ej. Nefrología · Hiponatremia"></label>
     <label class="fld">Caso clínico<textarea id="nVig" rows="4" placeholder="Mujer de 74 años con… Marca los datos clave entre [[dobles corchetes]] para que funcionen como pistas."></textarea></label>
     ${[0,1,2,3].map(i=>`<div class="optin"><input type="radio" name="nCor" value="${i}" ${i===0?"checked":""} aria-label="Opción ${"ABCD"[i]} es la correcta"><input type="text" id="nOpt${i}" placeholder="Opción ${"ABCD"[i]}"></div>`).join("")}
     <p class="xs muted" style="margin:0">Marca con el círculo la opción correcta.</p>
+    <p class="xs muted" style="margin:0">Si la pregunta es tuya y no viene de una fuente publicada, deja la fuente en «✍️ Elaboración propia»: se mostrará así y la responsabilidad del contenido es de quien la creó.</p>
     <label class="fld">Explicación<textarea id="nWhy" rows="2"></textarea></label>
     <div class="grid2"><label class="fld">💎 Perla<textarea id="nPearl" rows="2"></textarea></label><label class="fld">⚠️ Trampa<textarea id="nTrap" rows="2"></textarea></label></div>
     <div class="grid2"><label class="fld">Fuente<select id="nSrc">${srcOptions("")}</select></label><label class="fld">Página (opcional)<input type="number" id="nPage" min="1"></label></div>
@@ -90,21 +92,24 @@ function saveNew(){
   const v = id => ($(id) ? $(id).value.trim() : ""), src = v("#nSrc") || null, page = parseInt(v("#nPage")) || 0;
   const opts = [0,1,2,3].map(i=>v("#nOpt"+i)), cor = +document.querySelector('input[name="nCor"]:checked').value;
   if (!v("#nVig") || opts.some(o=>!o)) return toast("Completa el caso y las 4 opciones.");
-  S.userQ.push({id: "u"+(++S.seq), specialty: v("#nSpec"), topic: v("#nTopic") || "Caso propio", difficulty: "Propia",
+  const tipo = v("#nTipo");
+  S.userQ.push({id: "u"+(++S.seq), specialty: v("#nSpec"), tipo, qtype: tipo === "critica" ? "critica" : tipo === "datos" ? "directa" : "caso", topic: v("#nTopic") || "Caso propio", difficulty: "Propia",
     vignette: esc(v("#nVig")).replace(/\[\[([\s\S]+?)\]\]/g, "<span class='hy'>$1</span>"), options: opts, correct: cor,
     whyCorrect: v("#nWhy"), pearl: v("#nPearl"), trap: v("#nTrap"), src, page, manual: true});
   rebuild(); save(); toast("Agregado a tu banco ✓ Entra al repaso como nuevo."); renderNew();
 }
 function renderMine(){
   const qs = S.userQ.filter(q=>q.manual && !S.hidden["q"+q.id]), cs = S.userC.filter(c=>c.manual && !S.hidden["c"+c.id]), hs = S.userH.filter(h=>h.manual && !S.hidden["h"+h.id]);
-  const all = [...qs.map(q=>({k:"q"+q.id, t:"🩺 "+q.topic})), ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front}))];
+  const all = [...qs.map(q=>({k:"q"+q.id, t:"🩺 "+q.topic, d: `${q.specialty} · ${QMETODO[qKind(q)].t}`})), ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title, d: h.specialty})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front}))];
   $("#mineList").innerHTML = all.length ? `
     <div class="row"><h3 style="font-size:16px">Creadas por ti (${all.length})</h3><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>
-    ${all.map(x=>`<div class="srcitem"><div class="small" style="flex:1;min-width:0;word-break:break-word">${esc(x.t)}</div><button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}`
+    ${all.map(x=>`<div><div class="srcitem"><div style="flex:1;min-width:0;word-break:break-word"><div class="small">${esc(x.t)}</div>${x.d ? `<div class="xs muted">${esc(x.d)}</div>` : ""}</div>${x.k[0] !== "c" ? `<button class="btn ghost sm" data-medit="${x.k}" aria-label="Corregir">✏️</button>` : ""}<button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div><div data-mbox="${x.k}"></div></div>`).join("")}`
     : `<p class="muted small" style="margin:0">Lo que crees aquí entra a tu repaso espaciado y lo puedes compartir como pack.</p>`;
   document.querySelectorAll("[data-mdel]").forEach(b=>b.onclick=()=>{ const k = b.dataset.mdel, id = k.slice(1);
     if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else if (k[0]==="h") S.userH = S.userH.filter(h=>h.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);
     delete S.srs[k]; rebuild(); save(); renderMine(); });
+  document.querySelectorAll("[data-medit]").forEach(b=>b.onclick=()=>{ const k = b.dataset.medit, id = k.slice(1);
+    openCorregir(k[0], k[0]==="q" ? qById(id) : hyById(id), document.querySelector(`[data-mbox="${k}"]`), ()=>renderMine()); });
   $("#mineExp") && ($("#mineExp").onclick = ()=>downloadPack(makePack("Mis preguntas y fichas", qs, cs, {}, hs)));
 }
 // ---------- packs ----------

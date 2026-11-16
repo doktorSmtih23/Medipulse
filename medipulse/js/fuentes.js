@@ -25,7 +25,8 @@ function citaHtml(item){
   return `<details class="cita"><summary>📍 Ver la cita textual ${deQue}${v}</summary>${item.cita.map(c => `<div class="cita-i"><b>${esc(c.donde)}</b><blockquote>“${esc(c.texto)}”</blockquote></div>`).join("")}</details>`;
 }
 function srcLine(item){
-  const s = srcInfo(item.src); if (!s) return "";
+  const s = srcInfo(item.src);
+  if (!s) return item.manual || item.propia ? `<div class="srcline">✍️ <span>Elaboración propia${item.edited ? " · corregido por ti" : ""}: no verificada por MediPulse; la responsabilidad del contenido es de quien la creó.</span></div>` : "";
   const st = srcState(item.src);
   const warn = msg => `<div class="srcline" style="color:var(--warn)">⚠ <span>${msg}</span></div>`;
   const upd = (item.updated ? " · ✓ actualizado a la versión nueva con IA, verifícalo" : "") + (item.edited ? " · ✏️ corregido por ti" : "");

@@ -96,3 +96,30 @@ test.describe("al revisar lo generado con IA", () => {
     expect(await page.evaluate(() => [S.userQ[0].specialty, S.userH[0].specialty])).toEqual(["Pediatría", "Pediatría"]);
   });
 });
+
+test("crear un caso propio: especialidad, tipo de pregunta y fuente «elaboración propia»; luego corregirlo", async ({ page }) => {
+  await page.evaluate(() => { newType = "q"; go("new"); });
+  await page.selectOption("#nSpec", "Pediatría");
+  await page.selectOption("#nTipo", "diagnostico");
+  await page.fill("#nVig", "Niño de 4 años con fiebre y exantema. ¿Diagnóstico más probable?");
+  for (const [i, t] of ["Sarampión", "Varicela", "Rubéola", "Escarlatina"].entries()) await page.fill(`#nOpt${i}`, t);
+  await expect(page.locator("#nSrc option >> nth=0")).toContainText("Elaboración propia");
+  await page.click("#nSave");
+  const q = await page.evaluate(() => { const q = S.userQ.at(-1); return [q.specialty, qKind(q), srcLine(q)]; });
+  expect(q.slice(0, 2)).toEqual(["Pediatría", "diagnostico"]);
+  expect(q[2]).toContain("Elaboración propia");
+  expect(q[2]).toContain("responsabilidad del contenido es de quien la creó");
+  // corregirlo desde «Creadas por ti»
+  await page.click("#mineList [data-medit]");
+  await page.selectOption("#mineList [data-qe=specialty]", "Medicina Interna");
+  await page.selectOption("#mineList [data-qe=tipo]", "conducta");
+  await page.click("#mineList [data-corr-save]");
+  expect(await page.evaluate(() => { const q = S.userQ.at(-1); return [q.specialty, qKind(q)]; })).toEqual(["Medicina Interna", "conducta"]);
+});
+
+test("el tipo de pregunta de un caso incluido se puede corregir", async ({ page }) => {
+  await page.evaluate(() => { const b = document.createElement("div"); b.id = "tbox"; document.body.appendChild(b); openCorregir("q", qById(2), b); });
+  await page.selectOption("#tbox [data-qe=tipo]", "datos");
+  await page.click("#tbox [data-corr-save]");
+  expect(await page.evaluate(() => qKind(qById(2)))).toBe("datos");
+});
