@@ -5,7 +5,7 @@
 // se muestran primero las ya respondidas y se avisa antes de ver la respuesta de otra.
 // Con IA (clave del usuario): «🤖 Hazla más difícil» y «🤖 Revisar mi versión».
 // ===================================================================
-let edQ = "", edSpec = "", edOrigen = "", edBase = null, edAviso = null, edMas = false;
+let edQ = "", edSpec = "", edOrigen = "", edBase = null, edAviso = null, edMas = false, edGuardada = null;
 // Cada idea dice qué cambiar y dónde (para editar a mano) y sirve de instrucción para la IA.
 const ED_IDEAS = [
   {k: "pista", t: "🙈 Quita el dato que delata la respuesta", campo: "#edfVig", guia: "En el caso, busca el dato más específico, el que solo encaja con la respuesta, y quítalo o cámbialo por uno menos obvio. Los que están entre [[ ]] son los que hoy se resaltan como pistas."},
@@ -32,7 +32,10 @@ function renderEditarCaso(box){
       ${edAviso === String(q.id) ? `<div class="note" style="margin:6px 0">Al editarlo vas a ver la respuesta, y ya no te servirá para practicar. ¿Lo respondes primero?
         <div class="row" style="gap:6px;margin-top:8px"><button class="btn sm primary" data-edr="${id}">Responderlo primero</button><button class="btn sm ghost" data-edy="${id}">Editar igual</button></div></div>` : ""}`; };
   const lim = edMas ? 200 : 25;
+  const guardada = edGuardada && qById(edGuardada);
   box.innerHTML = `<div class="stack">
+    ${guardada ? `<div class="note" style="margin:0;border-left-color:var(--ok)"><b>✓ Tu versión quedó guardada</b> («${esc(guardada.topic || "Caso editado")}»). Ya está en tu banco y en tu repaso.
+      <div class="row" style="gap:6px;margin-top:8px"><button class="btn sm primary" id="edEstudiar">▶ Estudiarla ahora</button><button class="btn sm ghost" id="edOk">Editar otro caso</button></div></div>` : ""}
     <div><b>✏️ Edita un caso: hazlo más difícil o a tu estilo</b><p class="xs muted" style="margin:4px 0 0">Elige una pregunta del banco, una importada o una tuya. Se guarda como <b>tu versión</b>; el original no cambia.</p></div>
     <input type="search" id="edQ" placeholder="Buscar: tema o palabra clave" aria-label="Buscar casos para editar">
     <div class="grid2"><label class="fld">Especialidad<select id="edSpec">${opt("", "Todas", !edSpec)}${SPECS.map(s => opt(s, s, edSpec === s)).join("")}</select></label>
@@ -46,6 +49,8 @@ function renderEditarCaso(box){
   $("#edOri").onchange = e => { edOrigen = e.target.value; renderEditarCaso(box); };
   box.querySelectorAll("[data-edmas]").forEach(b => b.onclick = () => { edMas = true; renderEditarCaso(box); });
   $("#edBlanco").onclick = () => { newType = "q"; renderNew(); };
+  $("#edEstudiar") && ($("#edEstudiar").onclick = () => { const q = qById(edGuardada); edGuardada = null; estudiarCasos([q], "Tu versión"); });
+  $("#edOk") && ($("#edOk").onclick = () => { edGuardada = null; renderEditarCaso(box); });
   box.querySelectorAll("[data-ed]").forEach(b => b.onclick = () => {
     const q = qById(b.dataset.ed);
     if (!S.srs["q" + q.id]) { edAviso = edAviso === String(q.id) ? null : String(q.id); return renderEditarCaso(box); }
@@ -103,7 +108,7 @@ function renderEditor(box){
     <div class="grid2"><label class="fld">💎 Perla<textarea id="edfPearl" rows="2">${esc(v.pearl)}</textarea></label><label class="fld">⚠️ Trampa<textarea id="edfTrap" rows="2">${esc(v.trap)}</textarea></label></div>
     ${edBase.revision ? revisionHTML(edBase.revision) : ""}
     ${edBase.confirmar ? confirmarHTML(edBase.confirmar) : `
-    <div class="row" style="gap:6px"><button class="btn primary" id="edSave">Ver mis cambios y guardar →</button>${clave ? `<button class="btn" id="edRev">🤖 Revisar mi versión</button>` : ""}<button class="btn ghost" id="edCancel">Cancelar</button></div>`}
+    <div class="row" style="gap:6px"><button class="btn primary" id="edSave">Ver mis cambios y guardar →</button><button class="btn" id="edProbar">▶ Probar mi versión</button>${clave ? `<button class="btn" id="edRev">🤖 Revisar mi versión</button>` : ""}<button class="btn ghost" id="edCancel">Cancelar</button></div>`}
     <p class="small" style="margin:0;color:var(--bad)" id="edErr" role="alert"></p></div>`;
   $("#edVolver").onclick = () => { edBase = null; renderEditarCaso(box); };
   $("#edCancel") && ($("#edCancel").onclick = () => { edBase = null; renderEditarCaso(box); });
@@ -122,6 +127,7 @@ function renderEditor(box){
   $("#edIA").onclick = () => hacerMasDificil(box);
   $("#edRev") && ($("#edRev").onclick = () => revisarVersion(box));
   $("#edSave") && ($("#edSave").onclick = () => revisarCambios(box));
+  $("#edProbar") && ($("#edProbar").onclick = () => probarVersion(box));
   bindConfirmar(box);
 }
 function irCampo(box, k){
@@ -176,7 +182,7 @@ function confirmarHTML(cs){
     ${cs.map((c, j) => `<label class="cambio${c.ok ? "" : " no"}"><span class="row" style="gap:8px;flex-wrap:nowrap"><input type="checkbox" data-cok="${j}" ${c.ok ? "checked" : ""}><b class="small">${esc(c.label)}</b></span>
       <div class="dif small">${c.k === "opciones" ? difOpciones(c.antes, c.despues) : difLegible(c.antes, c.despues)}</div></label>`).join("")}
     <label class="row check" style="gap:8px"><input type="checkbox" id="edOcultar"><span class="small">Ocultar el original en mis prácticas (lo restauras desde la lista de archivados)</span></label>
-    <div class="row" style="gap:6px"><button class="btn primary" id="edConfirm" ${n ? "" : "disabled"}>💾 Guardar mi versión (${n} cambio${n === 1 ? "" : "s"})</button><button class="btn ghost" id="edSeguir">← Seguir editando</button></div></div>`;
+    <div class="row" style="gap:6px"><button class="btn primary" id="edConfirm" ${n ? "" : "disabled"}>💾 Guardar mi versión (${n} cambio${n === 1 ? "" : "s"})</button><button class="btn" id="edProbar">▶ Probar</button><button class="btn ghost" id="edSeguir">← Seguir editando</button></div></div>`;
 }
 function bindConfirmar(box){
   if (!edBase.confirmar) return;
@@ -226,8 +232,17 @@ function guardarVersion(box){
   S.userQ.push(nueva);
   if ($("#edOcultar") && $("#edOcultar").checked) S.hidden["q" + q.id] = Date.now();
   rebuild(); save(); refreshChips();
-  edBase = null; toast(`Tu versión quedó guardada con ${acept.size} cambio${acept.size === 1 ? "" : "s"} ✓`);
+  edBase = null; edGuardada = nueva.id; toast(`Tu versión quedó guardada con ${acept.size} cambio${acept.size === 1 ? "" : "s"} ✓`);
   renderNew();
+}
+// Probar la versión sin guardarla: se responde como en una práctica y se vuelve al editor.
+function probarVersion(box){
+  const v = edLeer(box), q = qById(edBase.id), err = qEditError(v) || (v.correct >= v.options.length ? "Marca cuál es la respuesta correcta." : "");
+  if (err) { $("#edErr").textContent = err; return; }
+  PRUEBA_Q = {id: "prueba", specialty: v.specialty, tipo: v.tipo, topic: v.topic || q.topic, vignette: textToVig(v.vignette), options: v.options.slice(), correct: v.correct,
+    whyCorrect: v.whyCorrect, pearl: v.pearl, trap: v.trap, porOpcion: v.porOpcion && v.porOpcion.length === v.options.length ? v.porOpcion.slice() : undefined,
+    src: q.src || null, page: q.page || 0, externa: q.externa || undefined, manual: true, editada: true, baseId: String(q.id), ia: edBase.ia || undefined};
+  startSession({label: "Prueba", tag: "norm", prueba: true, stages: [{name: "Tu versión", items: [{t: "q", id: "prueba"}]}]});
 }
 
 // ---------- IA ----------

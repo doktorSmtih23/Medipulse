@@ -73,7 +73,9 @@ function streak(){
   return n;
 }
 const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
-const qById = id => QUESTIONS.find(q=>String(q.id)===String(id));
+// Pregunta de prueba (una versión editada que todavía no se guarda): se responde sin tocar el banco ni el progreso.
+let PRUEBA_Q = null;
+const qById = id => PRUEBA_Q && String(id) === String(PRUEBA_Q.id) ? PRUEBA_Q : QUESTIONS.find(q=>String(q.id)===String(id));
 const cById = id => FLASH.find(c=>String(c.id)===String(id));
 
 // Arma una cola: primero lo vencido, luego lo no visto (priorizando un tema), luego lo más débil.

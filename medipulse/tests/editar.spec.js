@@ -140,3 +140,37 @@ test.describe("cambios: nada igual al original y cada cambio se acepta", () => {
     await expect(page.locator("#edfTipo")).toHaveValue("conducta");
   });
 });
+
+test.describe("probar la versión antes de guardarla", () => {
+  test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); await responder(page, [2]); await page.evaluate(() => { go("new"); editarCaso(qById(2)); }); });
+
+  test("se responde como en una práctica, sin guardar nada ni contar en el progreso, y vuelve al editor intacto", async ({ page }) => {
+    await page.fill("#edfVig", "Versión de prueba del caso.");
+    const antes = await page.evaluate(() => [S.userQ.length, (S.resp || []).length, JSON.stringify(S.srs), JSON.stringify(S.log)]);
+    await page.click("#edProbar");
+    await expect(page.locator("#sessBody")).toContainText("Probando tu versión");
+    await expect(page.locator("#sessBody .vignette")).toContainText("Versión de prueba del caso.");
+    await expect(page.locator("#skipBtn")).toHaveCount(0);
+    await page.click("#opts .opt >> nth=0");
+    await expect(page.locator("#fbBox")).toContainText("no se guardó ni cuenta en tu progreso");
+    await page.click("#nextBtn");
+    await expect(page.locator("#edfVig")).toHaveValue("Versión de prueba del caso.");
+    expect(await page.evaluate(() => [S.userQ.length, (S.resp || []).length, JSON.stringify(S.srs), JSON.stringify(S.log)])).toEqual(antes);
+    expect(await page.evaluate(() => [PRUEBA_Q, !!qById("prueba")])).toEqual([null, false]);
+  });
+
+  test("salir con ✕ también vuelve al editor sin preguntar", async ({ page }) => {
+    await page.fill("#edfTopic", "Tema probado");
+    await page.click("#edProbar");
+    await page.click("#quitBtn");
+    await expect(page.locator("#edfTopic")).toHaveValue("Tema probado");
+  });
+
+  test("al guardar, «Estudiarla ahora» abre tu versión", async ({ page }) => {
+    await page.fill("#edfTopic", "Mi versión guardada");
+    await page.click("#edSave"); await page.click("#edConfirm");
+    await expect(page.locator("#newForm")).toContainText("Tu versión quedó guardada");
+    await page.click("#edEstudiar");
+    expect(await page.evaluate(() => qById(sess.stages[0].items[0].id).topic)).toBe("Mi versión guardada");
+  });
+});
