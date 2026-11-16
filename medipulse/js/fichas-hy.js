@@ -102,21 +102,67 @@ function hyEditor(box, o){
   box.scrollIntoView({behavior:"smooth", block:"nearest"});
 }
 
-// Pestaña High Yield
-let hySpec = null;
+// Pestaña High Yield: buscador, filtros (especialidad, área, estado) y lista compacta por especialidad.
+// Cada ficha se abre con un toque; «Repasar» usa lo filtrado (primero lo pendiente y lo más relevante).
+let hySpec = null, hyArea = "", hyEst = "", hyQ = "";
+function hyEstado(h){
+  const r = S.srs["h"+h.id];
+  if (!r) return {k: "new", t: "Nueva"};
+  if (isDue("h"+h.id)) return {k: "due", t: "Toca repasar"};
+  return r.b >= 3 ? {k: "ok", t: "Dominada"} : {k: "rev", t: "En repaso"};
+}
+function hyCoincide(h, txt){
+  if (!txt) return true;
+  const s = srcInfo(h.src) || {};
+  const t = norm([h.title, h.badge, h.area, h.specialty, h.redFlag, h.trap, ...(h.thresholds || []).map(x => x.label + " " + x.val), s.t || ""].join(" "));
+  return txt.split(/\s+/).every(w => t.includes(w));
+}
 function renderHY(){
-  const specs = SPECS.filter(s=>HYS.some(h=>h.specialty===s));
-  const due = HYS.filter(h=>isDue("h"+h.id)).length, mine = HYS.filter(h=>S.userH.includes(h)).length;
-  $("#hyTop").innerHTML = `<button class="btn primary" id="hyStudy">💎 Repasar fichas${due ? ` (${due} pendientes)` : ""}</button><button class="btn" data-go="new" id="hyNew">➕ Crear ficha</button>`;
+  const txt = norm(hyQ.trim()), mia = h => S.userH.includes(h);
+  const enEst = h => !hyEst || (hyEst === "mine" ? mia(h) : hyEstado(h).k === hyEst);
+  const base = HYS.filter(h => (!hySpec || h.specialty === hySpec) && (!hyArea || h.area === hyArea) && hyCoincide(h, txt));
+  const list = base.filter(enEst).sort((a, b) => (b.relevance || 3) - (a.relevance || 3));
+  const due = list.filter(h => isDue("h"+h.id)).length;
+  const areas = [...new Set(HYS.filter(h => !hySpec || h.specialty === hySpec).map(h => h.area).filter(Boolean))].sort();
+  if (hyArea && !areas.includes(hyArea)) hyArea = "";
+  const cnt = f => base.filter(f).length, opt = (v, l, on) => `<option value="${esc(v)}" ${on ? "selected" : ""}>${esc(l)}</option>`;
+  $("#hyTop").innerHTML = `<button class="btn primary" id="hyStudy" ${list.length ? "" : "disabled"}>💎 Repasar ${Math.min(10, list.length)} fichas${due ? ` (${due} pendientes)` : ""}</button><button class="btn" data-go="new" id="hyNew">➕ Crear ficha</button>`;
   $("#hyNew").onclick = ()=>{ newType = "h"; };
-  $("#hyStudy").onclick = ()=>startSession({label:"High Yield", tag:"norm", stages:[{name:"Fichas high-yield", items:pickHY(10, hySpec)}]});
-  $("#hyFilters").innerHTML = [null, ...specs].map(s=>`<button class="btn${hySpec===s?" on":""}" data-s="${s||""}">${s||"Todas"} (${HYS.filter(h=>!s||h.specialty===s).length})</button>`).join("");
-  document.querySelectorAll("#hyFilters button").forEach(b=>b.onclick=()=>{ hySpec = b.dataset.s || null; renderHY(); });
-  const list = HYS.filter(c=>!hySpec || c.specialty===hySpec).sort((a,b)=>(S.userH.includes(b)?1:0)-(S.userH.includes(a)?1:0));
-  $("#hyList").innerHTML = list.map(h=>{
-    const own = S.userH.includes(h), r = S.srs["h"+h.id];
-    return `<div>${hyCardHTML(h)}<div class="row xs muted" style="margin:6px 4px 0;gap:8px"><span>${!r ? "Nueva" : isDue("h"+h.id) ? "Toca repasar" : r.b>=3 ? "Dominada" : "En repaso"}${own ? " · creada por ti" : ""}</span><div class="spacer"></div>${own ? `<button class="linkbtn" data-hdel="${h.id}" style="color:var(--bad)">Eliminar</button>` : ""}</div></div>`;
-  }).join("") || `<p class="muted small">Aún no hay fichas en esta especialidad.</p>`;
-  document.querySelectorAll("[data-hdel]").forEach(b=>b.onclick=()=>{ if (!confirm("¿Eliminar esta ficha?")) return;
-    S.userH = S.userH.filter(h=>String(h.id)!==b.dataset.hdel); delete S.srs["h"+b.dataset.hdel]; rebuild(); save(); renderHY(); refreshChips(); });
+  $("#hyStudy").onclick = ()=>startSession({label:"High Yield", tag:"norm", stages:[{name:"Fichas high-yield", items:ordenHY(list).slice(0, 10)}]});
+  const qPrev = $("#hyQ"), foco = qPrev && document.activeElement === qPrev;
+  $("#hyFilters").innerHTML = `<input type="search" id="hyQ" placeholder="Buscar: tema, dato, área o fuente (p. ej. NMDAR, dosis)" aria-label="Buscar fichas" style="grid-column:1/-1">
+    <label class="fld">Especialidad<select id="hySelSpec">${opt("", `Todas (${HYS.length})`, !hySpec)}${SPECS.filter(s => HYS.some(h => h.specialty === s)).map(s => opt(s, `${s} (${HYS.filter(h => h.specialty === s).length})`, hySpec === s)).join("")}</select></label>
+    ${areas.length ? `<label class="fld">Área<select id="hySelArea">${opt("", "Todas las áreas", !hyArea)}${areas.map(a => opt(a, a, hyArea === a)).join("")}</select></label>` : ""}
+    <label class="fld">Estado<select id="hySelEst">${opt("", `Todas (${base.length})`, !hyEst)}${opt("new", `Nuevas (${cnt(h => !S.srs["h"+h.id])})`, hyEst === "new")}${opt("due", `Toca repasar (${cnt(h => isDue("h"+h.id))})`, hyEst === "due")}${opt("rev", `En repaso (${cnt(h => hyEstado(h).k === "rev")})`, hyEst === "rev")}${opt("ok", `Dominadas (${cnt(h => hyEstado(h).k === "ok")})`, hyEst === "ok")}${opt("mine", `Creadas por ti (${cnt(mia)})`, hyEst === "mine")}</select></label>`;
+  const q = $("#hyQ"); q.value = hyQ;
+  if (foco) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); }
+  q.oninput = () => { hyQ = q.value; clearTimeout(renderHY._t); renderHY._t = setTimeout(renderHY, 250); };
+  $("#hySelSpec").onchange = e => { hySpec = e.target.value || null; renderHY(); };
+  $("#hySelArea") && ($("#hySelArea").onchange = e => { hyArea = e.target.value; renderHY(); });
+  $("#hySelEst").onchange = e => { hyEst = e.target.value; renderHY(); };
+  const abierto = !!(hySpec || hyArea || hyEst || txt);
+  const grupos = SPECS.map(s => [s, list.filter(h => h.specialty === s)]).filter(([, hs]) => hs.length);
+  $("#hyList").innerHTML = list.length ? grupos.map(([s, hs]) => `
+    <details class="qgrupo card" ${abierto || grupos.length === 1 ? "open" : ""}><summary><span class="dot" style="background:${SPEC_COLOR[s]}"></span> <b>${esc(s)}</b> <span class="xs muted">${hs.length}</span></summary>
+      ${hs.map(h => { const e = hyEstado(h), id = esc(String(h.id)); return `<details class="hyrow" data-hid="${id}"><summary>
+        <div style="min-width:0"><b class="small">${esc(h.title)}</b>
+          <div class="row xs" style="gap:6px;margin-top:3px">${h.badge ? `<span class="tipo">${esc(h.badge)}</span>` : ""}${h.area ? `<span class="muted">${esc(h.area)}</span>` : ""}${h.relevance ? `<span class="stars" title="Relevancia ${h.relevance} de 5">${"★".repeat(h.relevance)}</span>` : ""}<span class="est ${e.k}">${e.t}</span>${mia(h) ? `<span class="muted">· tuya</span>` : ""}</div></div></summary>
+        <div class="hybody"></div></details>`; }).join("")}</details>`).join("")
+    : `<p class="muted small">No hay fichas con esos filtros.</p>`;
+  // El contenido de cada ficha se arma al abrirla (con muchas fichas, la lista queda liviana).
+  document.querySelectorAll("#hyList .hyrow").forEach(d => d.ontoggle = () => {
+    if (!d.open || d.dataset.ok) return; d.dataset.ok = 1;
+    const h = hyById(d.dataset.hid);
+    d.querySelector(".hybody").innerHTML = hyCardHTML(h) + `<div class="row xs" style="margin:6px 4px 0;gap:10px"><button class="linkbtn" data-h1="${esc(String(h.id))}">💎 Repasar esta</button><div class="spacer"></div>${mia(h) ? `<button class="linkbtn" data-hdel="${esc(String(h.id))}" style="color:var(--bad)">Eliminar</button>` : ""}</div>`;
+    d.querySelectorAll("[data-h1]").forEach(b => b.onclick = () => startSession({label:"High Yield", tag:"norm", stages:[{name: h.title, items:[{t:"h", id:h.id}]}]}));
+    d.querySelectorAll("[data-hdel]").forEach(b => b.onclick = () => { if (!confirm("¿Eliminar esta ficha?")) return;
+      S.userH = S.userH.filter(x => String(x.id) !== b.dataset.hdel); delete S.srs["h"+b.dataset.hdel]; rebuild(); save(); renderHY(); refreshChips(); });
+  });
+}
+// Orden para repasar: lo pendiente, luego lo nuevo más relevante, luego lo menos sabido.
+function ordenHY(pool){
+  const due = pool.filter(h=>isDue("h"+h.id));
+  const unseen = shuffle(pool.filter(h=>!S.srs["h"+h.id])).sort((a,b)=>(b.relevance||3)-(a.relevance||3));
+  const rest = shuffle(pool.filter(h=>S.srs["h"+h.id] && !isDue("h"+h.id))).sort((a,b)=>S.srs["h"+a.id].b - S.srs["h"+b.id].b);
+  return [...due, ...unseen, ...rest].map(h=>({t:"h", id:h.id}));
 }

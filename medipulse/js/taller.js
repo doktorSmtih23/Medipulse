@@ -90,7 +90,11 @@ function docInfo(id){
       if (!lvl) return;
       const t = l.replace(/^\d+(\.\d+)*\.?\s+/, "");
       if (st && (norm(t).includes(st.slice(0,30)) || st.includes(norm(t)) && t.length > 25)) return;   // el título del documento
-      const k = norm(t); if (!heads.has(k)) heads.set(k, {t, page: i+1, lvl});
+      // La portada de algunas revistas trae la lista de secciones («Sections: Introduction, Epidemiology…»):
+      // si el título vuelve a aparecer más adelante, vale esa página.
+      const k = norm(t), prev = heads.get(k);
+      if (!prev) heads.set(k, {t, page: i+1, lvl});
+      else if (prev.page === 1 && i > 0) { heads.delete(k); heads.set(k, {t, page: i+1, lvl}); }
     });
   });
   // términos frecuentes (palabras y pares) como temas sugeridos
