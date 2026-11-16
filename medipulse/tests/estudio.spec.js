@@ -106,6 +106,7 @@ test("con un documento: al recordar se puede comparar con la revisión de tema d
   const id = await page.evaluate(() => S.sources.at(-1).id);
   await page.selectOption("#estDoc", id);
   await expect(page.locator("#estTema")).not.toHaveValue("");   // el tema se llena con el título del documento
+  await page.uncheck("#estGuiaIA");
   await page.click("#estGo");
   if (await page.locator("#estSaltar").count()) await page.click("#estSaltar");
   await page.click("#estLeer"); await terminarBloque(page);
@@ -113,4 +114,49 @@ test("con un documento: al recordar se puede comparar con la revisión de tema d
   await page.click("#estIA");
   await expect(page.locator("#estBox")).toContainText("Bandera Y");
   expect(peticiones.at(-1).tools.map(t => t.name)).toEqual(["report_topic"]);
+});
+
+test.describe("preguntas de búsqueda activa", () => {
+  test("sin IA: mis preguntas se ven antes y durante la lectura, se responden de memoria y se autoevalúan al cerrar", async ({ page }) => {
+    errores = vigilarErrores(page); await page.goto("/");
+    await page.click("nav [data-go=estudio]");
+    await page.fill("#estTema", "Tema sin casos xyz");
+    await page.fill("#estMias", "¿Cuál es el criterio diagnóstico?\n¿Cuál es la primera línea?");
+    await page.click("#estGo");
+    await expect(page.locator("#estBox")).toContainText("Lee buscando la respuesta a estas preguntas");
+    await page.click("#estLeer");
+    await expect(page.locator('[data-pleg="estbusca"]')).toContainText("¿Cuál es la primera línea?");
+    await terminarBloque(page);
+    await page.fill('[data-gm="0"]', "Fiebre de 5 días");
+    await page.fill("#estRec", "Un punto"); await page.click("#estComp"); await page.click("#estCerrar");
+    await page.click('[data-ga="0:si"]'); await page.click('[data-ga="1:no"]');
+    await page.click("#estGuardar");
+    expect(await page.evaluate(() => S.estudio.ses.at(-1).guia)).toEqual({n: 2, respondidas: 1, si: 1, medio: 0, no: 1, ia: false});
+  });
+
+  test("con IA y documento: la IA las diseña desde el documento; al cerrar se ve la respuesta con su página y se hace ficha", async ({ page }) => {
+    errores = vigilarErrores(page);
+    const peticiones = await simularIA(page, () => ({tool: "report_preguntas", input: {preguntas: [
+      {pregunta: "¿Qué hallazgo define el caso?", concepto: "diagnóstico", respuesta: "El hallazgo X", page: 1},
+      {pregunta: "¿Cuál es la primera línea?", concepto: "tratamiento", respuesta: "El fármaco Y", page: 2}]}}));
+    await abrirConClave(page); await subirPdf(page);
+    await page.click("nav [data-go=estudio]");
+    await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
+    await expect(page.locator("#estTema")).not.toHaveValue("");
+    await page.click("#estGo");
+    await expect(page.locator("#estBox")).toContainText("¿Qué hallazgo define el caso?");
+    const p = peticiones.at(-1);
+    expect(p.tools.map(t => t.name)).toEqual(["report_preguntas"]);
+    expect(p.messages[0].content[0].text).toContain("<documento");
+    expect(p.system).toContain("tomada SOLO del documento");
+    if (await page.locator("#estSaltar").count()) await page.click("#estSaltar");
+    await page.click("#estLeer"); await terminarBloque(page);
+    await page.fill("#estRec", "Algo"); await page.click("#estComp"); await page.click("#estCerrar");
+    await page.locator('[data-pleg="gr1"] summary').click();
+    await expect(page.locator('[data-pleg="gr1"]')).toContainText("El fármaco Y");
+    await expect(page.locator('[data-pleg="gr1"] summary')).toContainText("pág. 2");
+    await page.click("#estFichaGuia");
+    await expect(page.locator("#estFichaGuiaBox .eL >> nth=1")).toHaveValue("¿Cuál es la primera línea?");
+    await expect(page.locator("#estFichaGuiaBox .eV >> nth=1")).toHaveValue("El fármaco Y");
+  });
 });
