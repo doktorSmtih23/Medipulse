@@ -189,11 +189,11 @@ function renderLibretas(){
     ${libs.length ? `<div class="row" style="gap:6px"><input type="search" id="apQ" value="${esc(apQuery)}" placeholder="Buscar en tus apuntes: p. ej. HINTS, Ramsay, salbutamol…" style="flex:1;min-width:0">
       ${nVerif ? `<button class="chip2${apSoloVerif ? " on" : ""}" id="apVf">⚠ Por verificar (${nVerif})</button>` : ""}</div>` : ""}
     <div id="apRes" class="stack"></div>
-    ${filtrar ? "" : libs.map(l => { const pts = l.entries.flatMap(e => apPuntos(e.text)), v = pts.filter(p => p.verif).length;
+    ${filtrar ? "" : libs.length ? `<div class="card">${plegable("libretas", `<b>Tus libretas</b> <span class="xs muted">${libs.length}</span>`, libs.map(l => { const pts = l.entries.flatMap(e => apPuntos(e.text)), v = pts.filter(p => p.verif).length;
       return `<div class="card apcard"><div class="ic">📓</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(l.title)}</b>
         <div class="xs muted">${esc(l.spec)} · ${l.entries.length} entrada${l.entries.length === 1 ? "" : "s"} · ${pts.length} punto${pts.length === 1 ? "" : "s"}${v ? ` · <span style="color:var(--warn)">⚠ ${v} por verificar</span>` : ""}${l.upd ? ` · ${fmtDate(l.upd)}` : ""}</div></div>
-        <button class="btn" data-apopen="${l.id}">Abrir</button></div>`; }).join("")
-      || `<p class="muted small" style="margin:0">Aún no tienes libretas. Crea la de esta semana y escribe lo de hoy.</p>`}`;
+        <button class="btn" data-apopen="${l.id}">Abrir</button></div>`; }).join(""))}</div>`
+      : `<p class="muted small" style="margin:0">Aún no tienes libretas. Crea la de esta semana y escribe lo de hoy.</p>`}`;
   if (filtrar) {
     $("#apRes").innerHTML = res.length ? `<p class="xs muted" style="margin:0">${res.length} punto${res.length === 1 ? "" : "s"}</p>` + res.map((x, i) => puntoHTML(x.lib, x.e, x.pt, i, true)).join("")
       : `<p class="muted small" style="margin:0">Sin resultados.</p>`;

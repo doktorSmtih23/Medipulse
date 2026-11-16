@@ -105,7 +105,8 @@ ${AN_RULES}`,
 ${AN_RULES}`
 };
 // Instrucciones y herramientas comunes a las tres tareas (así el documento se reutiliza desde la caché).
-const AN_ALL_TOOLS = [AN_TOOLS.audit, AN_TOOLS.tema, AN_TOOLS.revista];
+// Cada tarea envía solo su herramienta: las tres juntas, con formato estricto, superan el límite de la API
+// («The compiled grammar is too large»).
 const AN_SHARED_SYSTEM = `Analizas documentos médicos para un médico. La tarea se indica al final del mensaje: sigue solo las instrucciones de esa tarea y entrega el resultado con su herramienta.
 
 [Tarea: ${AN_KINDS.audit.name} · herramienta report_audit]
@@ -150,7 +151,7 @@ function renderAnTab(kind){
   const otros = previos.filter(x => x.at !== (saved && saved.at));
   $("#gBody").innerHTML = `<p class="xs muted" style="margin:0">${k.desc} Sobre el tema elegido; cada dato cita su página.</p>
     ${key ? `<button class="btn primary block" id="anGo" ${an.busy?"disabled":""}>${an.busy === "run" ? `<span class="spin"></span> Analizando…` : `✨ ${k.name}${saved ? " (rehacer)" : ""}`}</button>
-      <p class="xs muted" style="margin:0;text-align:center">Costo estimado: ${anCostLine(s)}. Si haces otra tarea del mismo texto en unos minutos, cuesta menos.</p>`
+      <p class="xs muted" style="margin:0;text-align:center">Costo estimado: ${anCostLine(s)}. Si la repites sobre el mismo texto en unos minutos, cuesta menos.</p>`
           : `<div class="note"><b>Para estos análisis necesitas tu clave de IA.</b> Mientras tanto puedes leer el PDF y ver las recomendaciones. <button class="linkbtn" data-go="guide">¿Cómo consigo una clave?</button></div>`}
     ${an.err ? `<p class="small" style="margin:0;color:var(--bad)">${esc(an.err)}</p>` : ""}
     <div id="anOut">${saved ? anResultHTML(kind, saved) : ""}</div>
@@ -205,9 +206,8 @@ async function runAnalysis(){
   if (!sel || !sel.nums.length) { an.err = "Esas páginas no tienen texto."; return renderAnalysis(); }
   an.busy = "run"; an.err = ""; renderAnalysis();
   try {
-    // Las tres tareas comparten instrucciones, herramientas y el bloque del documento (en caché):
-    // la segunda y la tercera del mismo texto pagan ~5–10 % de la lectura si se hacen en unos minutos.
-    const r = await callForTool({system: AN_SHARED_SYSTEM + focusLine(), tools: AN_ALL_TOOLS,
+    // El documento va en caché: repetir la misma tarea sobre el mismo texto en unos minutos paga ~10 % de la lectura.
+    const r = await callForTool({system: AN_SHARED_SYSTEM + focusLine(), tools: [AN_TOOLS[kind]],
       user: [{type: "text", text: `<documento titulo="${s.title.replace(/"/g, "'")}">\n${sel.text}\n</documento>`, cache_control: {type: "ephemeral"}},
              {type: "text", text: `${docInfo(s.id).danados ? NOTA_SIMBOLOS + "\n" : ""}Tarea: ${AN_KINDS[kind].name}. Analiza: ${sel.label}. Entrega el resultado llamando a la herramienta ${AN_TOOLS[kind].name}.`}],
       label: AN_KINDS[kind].name}, AN_TOOLS[kind].name);
@@ -305,7 +305,7 @@ function renderMbeDocs(){
   const docs = S.sources.filter(s=>s.kind !== "pack").slice().reverse();
   box.innerHTML = `<h3 style="font-size:16px">🧠 Auditar un PDF</h3>
     <p class="xs muted" style="margin:0">Sube una guía o un artículo, o elige uno de tu biblioteca. Verás el veredicto, el algoritmo, qué hacer y qué no, y los umbrales, cada uno con su página.</p>
-    ${docs.length ? docs.slice(0, 6).map(s=>`<div class="srcitem"><div class="ic">📄</div><div style="flex:1;min-width:0"><b class="small" style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${s.pages} págs${s.an ? " · " + Object.keys(s.an).map(k=>AN_KINDS[k] ? AN_KINDS[k].icon : "").join(" ") : ""}</div></div><button class="btn sm" data-aud="${esc(s.id)}">Analizar</button></div>`).join("") : ""}
+    ${docs.length ? plegable("mbedocs", `<b class="small">Elegir de tu biblioteca</b> <span class="xs muted">${docs.length}</span>`, docs.slice(0, 12).map(s=>`<div class="srcitem"><div class="ic">📄</div><div style="flex:1;min-width:0"><b class="small" style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${s.pages} págs${s.an ? " · " + Object.keys(s.an).map(k=>AN_KINDS[k] ? AN_KINDS[k].icon : "").join(" ") : ""}</div></div><button class="btn sm" data-aud="${esc(s.id)}">Analizar</button></div>`).join("")) : ""}
     <button class="btn" id="mbeUp">➕ Subir un PDF</button><input type="file" id="mbeIn" accept="application/pdf" hidden><div id="mbeUpMsg" class="xs"></div>`;
   box.insertAdjacentHTML("beforeend", misAnalisisHTML());
   box.querySelectorAll("[data-misan]").forEach(b=>b.onclick=()=>{ const [id, kind, ver] = b.dataset.misan.split("|"); openAnalysis(id, kind, ver); });
@@ -377,7 +377,6 @@ function anImprimir(s, kind, saved){
 function misAnalisisHTML(){
   const todos = S.sources.filter(s => s.kind !== "pack").flatMap(s => anHist(s).map(x => ({s, x}))).sort((a, b) => b.x.at - a.x.at);
   if (!todos.length) return "";
-  return `<div class="stack" style="gap:0;margin-top:10px"><b class="small">📚 Mis análisis (${todos.length})</b>
-    ${todos.slice(0, 12).map(({s, x}) => `<div class="qrow"><span>${AN_KINDS[x.kind] ? AN_KINDS[x.kind].icon : "📄"}</span><div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(s.title)}</b><div class="xs muted">${esc(AN_KINDS[x.kind] ? AN_KINDS[x.kind].name : "")} · ${esc(x.label)} · ${anCuando(x.at)}</div></div><button class="btn sm" data-misan="${esc(s.id)}|${x.kind}|${x.id}">Abrir</button></div>`).join("")}
-    ${todos.length > 12 ? `<p class="xs muted" style="margin:6px 0 0">Y ${todos.length - 12} más: ábrelos desde su documento.</p>` : ""}</div>`;
+  return plegable("misan", `<b class="small">📚 Mis análisis</b> <span class="xs muted">${todos.length}</span>`, `${todos.slice(0, 12).map(({s, x}) => `<div class="qrow"><span>${AN_KINDS[x.kind] ? AN_KINDS[x.kind].icon : "📄"}</span><div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(s.title)}</b><div class="xs muted">${esc(AN_KINDS[x.kind] ? AN_KINDS[x.kind].name : "")} · ${esc(x.label)} · ${anCuando(x.at)}</div></div><button class="btn sm" data-misan="${esc(s.id)}|${x.kind}|${x.id}">Abrir</button></div>`).join("")}
+    ${todos.length > 12 ? `<p class="xs muted" style="margin:6px 0 0">Y ${todos.length - 12} más: ábrelos desde su documento.</p>` : ""}`);
 }

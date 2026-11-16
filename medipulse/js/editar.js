@@ -37,15 +37,14 @@ function renderEditarCaso(box){
     <input type="search" id="edQ" placeholder="Buscar: tema o palabra clave" aria-label="Buscar casos para editar">
     <div class="grid2"><label class="fld">Especialidad<select id="edSpec">${opt("", "Todas", !edSpec)}${SPECS.map(s => opt(s, s, edSpec === s)).join("")}</select></label>
       <label class="fld">Origen<select id="edOri">${opt("", "Todas", !edOrigen)}${opt("banco", "Del banco de MediPulse", edOrigen === "banco")}${opt("importada", "Importadas", edOrigen === "importada")}${opt("mia", "Creadas o editadas por ti", edOrigen === "mia")}</select></label></div>
-    <div><b class="small">Ya respondidas (${resp.length})</b>${resp.length ? resp.slice(0, lim).map(q => fila(q, true)).join("") : `<p class="xs muted" style="margin:4px 0 0">Aún no has respondido casos con estos filtros. Lo ideal es editar los que ya respondiste: así no te arruinas la pregunta.</p>`}</div>
-    ${sin.length ? `<details ${edAviso ? "open" : ""}><summary class="small" style="cursor:pointer"><b>Sin responder (${sin.length})</b> <span class="xs muted">· sin el tema, para no darte pistas</span></summary>${sin.slice(0, lim).map(q => fila(q, false)).join("")}</details>` : ""}
-    ${!edMas && Math.max(resp.length, sin.length) > lim ? `<button class="btn ghost sm" id="edMas">Ver más</button>` : ""}
+    ${resp.length ? plegable("edresp", `<b class="small">Ya respondidas</b> <span class="xs muted">${resp.length}</span>`, resp.slice(0, lim).map(q => fila(q, true)).join("") + (!edMas && resp.length > lim ? `<button class="btn ghost sm" data-edmas>Ver más</button>` : "")) : `<p class="xs muted" style="margin:0">Aún no has respondido casos con estos filtros. Lo ideal es editar los que ya respondiste: así no te arruinas la pregunta.</p>`}
+    ${sin.length ? (edAviso ? (PLEG.edsin = true, "") : "") + plegable("edsin", `<b class="small">Sin responder</b> <span class="xs muted">${sin.length} · sin el tema, para no darte pistas</span>`, sin.slice(0, lim).map(q => fila(q, false)).join("") + (!edMas && sin.length > lim ? `<button class="btn ghost sm" data-edmas>Ver más</button>` : "")) : ""}
     <p class="xs muted" style="margin:0">¿Un caso que viste en tu rotación? <button class="linkbtn" id="edBlanco">✍️ Empieza en blanco</button></p></div>`;
   const q0 = $("#edQ"); q0.value = edQ;
   q0.oninput = () => { edQ = q0.value; clearTimeout(renderEditarCaso._t); renderEditarCaso._t = setTimeout(() => { renderEditarCaso(box); const n = $("#edQ"); n.focus(); n.setSelectionRange(n.value.length, n.value.length); }, 250); };
   $("#edSpec").onchange = e => { edSpec = e.target.value; renderEditarCaso(box); };
   $("#edOri").onchange = e => { edOrigen = e.target.value; renderEditarCaso(box); };
-  $("#edMas") && ($("#edMas").onclick = () => { edMas = true; renderEditarCaso(box); });
+  box.querySelectorAll("[data-edmas]").forEach(b => b.onclick = () => { edMas = true; renderEditarCaso(box); });
   $("#edBlanco").onclick = () => { newType = "q"; renderNew(); };
   box.querySelectorAll("[data-ed]").forEach(b => b.onclick = () => {
     const q = qById(b.dataset.ed);
@@ -216,6 +215,7 @@ function guardarVersion(box){
   const fin = {specialty: f("specialty"), tipo: f("tipo"), topic: f("topic"), vignette: f("vignette"), options: op ? v.options : o.options, correct: op ? v.correct : o.correct,
     whyCorrect: f("whyCorrect"), pearl: f("pearl"), trap: f("trap")};
   const err = qEditError(fin); if (err) { $("#edErr").textContent = err; return; }
+  if (!dupConfirmar(fin, "q", {excluir: [String(q.id), String(q.baseId || "")]})) return;
   // El análisis por opción vale si las opciones son las del original o si lo rehízo la IA para las nuevas.
   const porOpcion = !op ? o.porOpcion : edBase.ia && v.porOpcion && v.porOpcion.length === v.options.length ? v.porOpcion : null;
   const nueva = {id: "u" + (++S.seq), specialty: fin.specialty, tipo: fin.tipo, qtype: fin.tipo === "critica" ? "critica" : fin.tipo === "datos" ? "directa" : "caso",

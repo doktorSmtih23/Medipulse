@@ -101,6 +101,7 @@ function saveNew(){
   if (cor >= opts.length) return toast("Marcaste la opción E como correcta, pero está vacía.");
   if (new Set(opts).size !== opts.length) return toast("Hay dos opciones iguales.");
   const tipo = v("#nTipo");
+  if (!dupConfirmar({topic: v("#nTopic"), vignette: v("#nVig"), options: opts, correct: cor}, "q")) return;
   S.userQ.push({id: "u"+(++S.seq), specialty: v("#nSpec"), tipo, qtype: tipo === "critica" ? "critica" : tipo === "datos" ? "directa" : "caso", topic: v("#nTopic") || "Caso propio", difficulty: "Propia",
     vignette: esc(v("#nVig")).replace(/\[\[([\s\S]+?)\]\]/g, "<span class='hy'>$1</span>"), options: opts, correct: cor,
     whyCorrect: v("#nWhy"), pearl: v("#nPearl"), trap: v("#nTrap"), src, page, manual: true});
@@ -110,8 +111,7 @@ function renderMine(){
   const qs = S.userQ.filter(q=>q.manual && !S.hidden["q"+q.id]), cs = S.userC.filter(c=>c.manual && !S.hidden["c"+c.id]), hs = S.userH.filter(h=>h.manual && !S.hidden["h"+h.id]);
   const all = [...qs.map(q=>({k:"q"+q.id, t:"🩺 "+q.topic, d: `${q.externa ? "📥 Importada · " : ""}${q.specialty} · ${QMETODO[qKind(q)].t}`})), ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title, d: h.specialty})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front}))];
   $("#mineList").innerHTML = all.length ? `
-    <div class="row"><h3 style="font-size:16px">Creadas por ti (${all.length})</h3><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>
-    ${all.map(x=>`<div><div class="srcitem"><div style="flex:1;min-width:0;word-break:break-word"><div class="small">${esc(x.t)}</div>${x.d ? `<div class="xs muted">${esc(x.d)}</div>` : ""}</div>${x.k[0] !== "c" ? `<button class="btn ghost sm" data-medit="${x.k}" aria-label="Corregir">✏️</button>` : ""}<button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div><div data-mbox="${x.k}"></div></div>`).join("")}`
+    ${plegable("mias", `<b>Creadas por ti</b> <span class="xs muted">${all.length}</span>`, `<div class="row" style="margin:6px 0"><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>${all.map(x=>`<div><div class="srcitem"><div style="flex:1;min-width:0;word-break:break-word"><div class="small">${esc(x.t)}</div>${x.d ? `<div class="xs muted">${esc(x.d)}</div>` : ""}</div>${x.k[0] !== "c" ? `<button class="btn ghost sm" data-medit="${x.k}" aria-label="Corregir">✏️</button>` : ""}<button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div><div data-mbox="${x.k}"></div></div>`).join("")}`)}`
     : `<p class="muted small" style="margin:0">Lo que crees aquí entra a tu repaso espaciado y lo puedes compartir como pack.</p>`;
   document.querySelectorAll("[data-mdel]").forEach(b=>b.onclick=()=>{ const k = b.dataset.mdel, id = k.slice(1);
     if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else if (k[0]==="h") S.userH = S.userH.filter(h=>h.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);

@@ -24,6 +24,7 @@ test("especialidades, tipo y estado; la lista no muestra el tema ni la fuente", 
 
 test("estudiar un caso o una especialidad desde la lista; el tema se ve solo al responder", async ({ page }) => {
   await page.click('#qSpecs [data-sp="Pediatría"]');
+  await page.locator("#qList details.qgrupo summary").first().click();   // la lista está plegada
   await page.locator("#qList [data-q1]").first().click();
   expect(await page.evaluate(() => sess.stages[0].items.length)).toBe(1);
   const topic = await page.evaluate(() => qById(sess.stages[0].items[0].id).topic);
@@ -32,12 +33,14 @@ test("estudiar un caso o una especialidad desde la lista; el tema se ve solo al 
   await expect(page.locator("#fbBox")).toContainText("Tema: " + topic);
   await page.click("#quitBtn");
   await page.click("nav [data-go=banco]");
+  if (!(await page.locator("#qList [data-qg]").first().isVisible())) await page.locator("#qList details.qgrupo summary").first().click();
   await page.locator("#qList [data-qg]").first().click();
   expect(await page.evaluate(() => sess.stages[0].items.length)).toBeGreaterThan(1);
 });
 
 test("corregir la especialidad de un caso desde el banco", async ({ page }) => {
   await page.click('#qSpecs [data-sp="Medicina Interna"]');
+  await page.locator("#qList details.qgrupo summary").first().click();
   const id = await page.locator("#qList [data-qe]").first().getAttribute("data-qe");
   await page.click(`#qList [data-qe="${id}"]`);
   await page.selectOption(`#qList [data-qesel="${id}"]`, "Pediatría");
@@ -110,6 +113,7 @@ test("crear un caso propio: especialidad, tipo de pregunta y fuente «elaboraci�
   expect(q[2]).toContain("Elaboración propia");
   expect(q[2]).toContain("responsabilidad del contenido es de quien la creó");
   // corregirlo desde «Creadas por ti»
+  await page.click('#mineList [data-pleg="mias"] summary');   // «Creadas por ti» está plegada
   await page.click("#mineList [data-medit]");
   await page.selectOption("#mineList [data-qe=specialty]", "Medicina Interna");
   await page.selectOption("#mineList [data-qe=tipo]", "conducta");

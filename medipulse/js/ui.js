@@ -13,6 +13,14 @@ $("#themeBtn").onclick = () => {
   const dark = S.theme ? S.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
   S.theme = dark ? "light" : "dark"; save(); applyTheme();
 };
+// Listas plegadas: la pantalla queda limpia y cada lista se abre con un toque. Se recuerda si el
+// usuario la abrió, para que siga abierta al redibujar la pantalla.
+const PLEG = {};
+function plegable(id, resumen, cuerpo, abierta = false){
+  const open = id in PLEG ? PLEG[id] : abierta;
+  return `<details class="pleg" data-pleg="${id}" ${open ? "open" : ""}><summary>${resumen}</summary><div class="pleg-in">${cuerpo}</div></details>`;
+}
+document.addEventListener("toggle", e => { const d = e.target; if (d && d.dataset && d.dataset.pleg) PLEG[d.dataset.pleg] = d.open; }, true);
 let currentView = "hoy";
 function go(v){
   if (sess && v!=="sess" && !confirmLeave()) return;

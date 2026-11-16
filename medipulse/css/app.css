@@ -371,3 +371,7 @@ label.check>span{flex:1;min-width:0}
 .tabla{width:100%;border-collapse:collapse}.tabla td{padding:6px 4px;border-top:1px solid var(--border)}.tabla td:last-child{text-align:right;white-space:nowrap}
 .anhist{border:1px solid var(--border);border-radius:12px;padding:8px 10px}.anhist>summary{cursor:pointer}
 .srclista{margin-top:8px}.srclista>summary{cursor:pointer;color:var(--accent);font-weight:600}
+.dupaviso{font-size:12.5px;border-radius:8px;padding:6px 8px;margin:4px 0;background:var(--subtle);border-left:3px solid var(--accent)}
+.dupaviso.repetida{background:var(--warn-soft);border-left-color:var(--warn)}
+.pleg{margin-top:6px}.pleg>summary{cursor:pointer;padding:6px 0}.pleg>summary b{color:var(--text)}.pleg-in{margin-top:4px}
+label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:0}label.fld.cantidad>*{margin-top:0}label.fld.cantidad input{width:84px;padding:6px 10px;font-size:15px;height:36px;border-radius:10px}

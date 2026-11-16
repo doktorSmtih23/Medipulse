@@ -21,7 +21,7 @@ function renderAhorro(){
       <h3 style="font-size:16px">7 reglas para gastar menos</h3>
       ${regla(1, "Elige un tema del índice antes de usar la IA", "Se envían solo esas páginas, no el documento entero. En documentos largos es lo que más ahorra (mira la tabla), y el resultado sale más enfocado.")}
       ${regla(2, "Pide lo que vas a usar, y todo junto", "Cada caso que la IA escribe se paga: pide la cantidad que de verdad vas a estudiar. Y pídelos juntos en «⚙️ Personalizar»: cinco generaciones de 2 casos leen el documento cinco veces.")}
-      ${regla(3, "Haz las acciones seguidas, en menos de 5 minutos", "El documento queda guardado unos minutos en la memoria de la IA y la segunda lectura cuesta unas 10 veces menos. Sirve al repetir la misma acción sobre el mismo texto y entre Auditoría MBE, Revisión del tema y Pase de revista.")}
+      ${regla(3, "Haz las acciones seguidas, en menos de 5 minutos", "El documento queda guardado unos minutos en la memoria de la IA y la segunda lectura cuesta unas 10 veces menos. Sirve al repetir la misma acción sobre el mismo texto.")}
       ${regla(4, "Corrige a mano en vez de volver a generar", "Si a una pregunta le falta algo, edítala (✏️) al revisar o después. Regenerar vuelve a leer todo el documento.")}
       ${regla(5, "Usa el nivel según la tarea", "Equilibrado sirve para el día a día y cuesta la mitad que Calidad máxima. Calidad máxima, para documentos difíciles o cuando la calidad no te convence. Económico cuesta unas 40 veces menos, pero se equivoca más: revisa con más cuidado.")}
       ${regla(6, "Lo que no lee el documento cuesta centavos", "«🤖 Hazla más difícil», «Revisar mi versión» y «Revisar mi ficha» solo envían la pregunta o la ficha, no el PDF.")}

@@ -30,7 +30,7 @@ ${REVIEW_RULES}`;
 function renderRep(){
   const list = S.reports.slice().sort((a,b)=>(a.status==="open"?0:1)-(b.status==="open"?0:1) || b.at-a.at);
   const stTag = s => s==="open" ? `<span class="tag" style="color:var(--warn);background:var(--warn-soft)">Abierto</span>` : s==="fixed" ? `<span class="tag" style="color:var(--ok);background:var(--ok-soft)">Corregido</span>` : `<span class="tag">Resuelto</span>`;
-  $("#repList").innerHTML = list.length ? list.map(r=>{
+  const fila = r=>{
     const x = itemByKey(r.key);
     return `<div class="srcitem"><div style="flex:1;min-width:0">
       <div class="small" style="word-break:break-word"><b>${esc(itemLabel(r.key, x))}</b></div>
@@ -43,7 +43,12 @@ function renderRep(){
         <button class="btn ghost sm" data-rst="${r.id}">${r.status==="open" ? "Marcar resuelto" : "Reabrir"}</button>
         <button class="btn ghost sm" data-rdel="${r.id}" style="color:var(--bad)">Borrar</button>
       </div></div></div>`;
-  }).join("") : `<p class="muted small" style="margin:0">No hay reportes todavía.</p>`;
+  };
+  // Plegados por estado: abiertos y resueltos.
+  const ab = list.filter(r=>r.status==="open"), ce = list.filter(r=>r.status!=="open");
+  $("#repList").innerHTML = list.length ? (ab.length ? plegable("repab", `<b>Abiertos</b> <span class="xs muted">${ab.length}</span>`, ab.map(fila).join("")) : "")
+    + (ce.length ? plegable("repce", `<b>Resueltos o archivados</b> <span class="xs muted">${ce.length}</span>`, ce.map(fila).join("")) : "")
+    : `<p class="muted small" style="margin:0">No hay reportes todavía.</p>`;
   const R = id => S.reports.find(r=>r.id===id), L = $("#repList");
   L.querySelectorAll("[data-rv]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rv); startSession({label:"Reporte", tag:"norm", stages:[{name:"Ítem reportado", items:[{t:r.key[0], id:r.key.slice(1)}]}]}); });
   L.querySelectorAll("[data-rst]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rst); r.status = r.status==="open" ? "done" : "open"; save(); renderRep(); });

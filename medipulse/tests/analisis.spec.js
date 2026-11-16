@@ -28,6 +28,7 @@ test.beforeEach(async ({ page }) => {
     return (t.match(/herramienta (report_\w+)/) || [])[1] || body.tools[0].name; };
   peticiones = await simularIA(page, body => fallar ? {status: 500} : {tool: pedida(body), input: RESPUESTAS[pedida(body)]});
   await abrirConClave(page);
+  await page.evaluate(() => { PLEG.indice = true; });   // el índice está plegado; aquí se usa abierto
   await subirPdf(page);
 });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
@@ -124,15 +125,16 @@ test("muestra el costo estimado, registra el real y respeta el nivel elegido", a
   expect(peticiones.at(-1).fallbacks).toBe("default");
 });
 
-test("las tres tareas comparten instrucciones y herramientas para reutilizar la caché", async ({ page }) => {
+test("cada tarea envía solo su herramienta (las tres juntas superan el límite de la API) y el documento en caché", async ({ page }) => {
   for (const k of ["audit", "tema", "revista"]) {
     const antes = peticiones.length;
     await irA(page, k); await page.click("#anGo");
     await expect.poll(() => peticiones.length).toBe(antes + 1);
     await expect(page.locator("#anGo")).toBeEnabled();
   }
-  const prefijos = peticiones.slice(-3).map(p => JSON.stringify([p.system, p.tools, p.messages[0].content[0]]));
-  expect(new Set(prefijos).size).toBe(1);
+  const ult = peticiones.slice(-3);
+  expect(ult.map(p => p.tools.map(t => t.name))).toEqual([["report_audit"], ["report_topic"], ["report_rounds"]]);
+  expect(ult.every(p => p.messages[0].content[0].cache_control && p.messages[0].content[0].cache_control.type === "ephemeral")).toBe(true);
 });
 
 test("detecta signos dañados en el texto del PDF, avisa y pide a la IA no adivinarlos", async ({ page }) => {
@@ -195,7 +197,8 @@ test.describe("guardar los análisis", () => {
     await irA(page, "revista"); await page.click("#anGo");
     await expect(page.locator("#anOut .anres")).toBeVisible();
     await page.click("nav [data-go=mbe]");
-    await expect(page.locator("#mbeDocs")).toContainText("Mis análisis (2)");
+    await expect(page.locator('#mbeDocs [data-pleg="misan"] summary')).toContainText("Mis análisis 2");
+    await page.click('#mbeDocs [data-pleg="misan"] summary');
     await page.locator('#mbeDocs [data-misan$="audit"], #mbeDocs [data-misan*="|audit|"]').first().click();
     await expect(page.locator('#genCard [data-gt="audit"]')).toHaveClass(/on/);
     await expect(page.locator("#anOut .anres")).toBeVisible();
