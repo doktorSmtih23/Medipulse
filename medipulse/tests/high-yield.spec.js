@@ -1,0 +1,53 @@
+// Pestaña High Yield (fichas-hy.js): lista compacta con buscador y filtros, y lo que ayuda a crear fichas
+// desde un PDF: índice por títulos sin celdas de tablas y nombre de la fuente desde los metadatos.
+const { test, expect } = require("@playwright/test");
+const { vigilarErrores, sinDesborde } = require("./ayudas");
+
+let errores;
+test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); });
+test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
+
+test("la lista es compacta: cada ficha se abre con un toque", async ({ page }) => {
+  await page.click("nav [data-go=tarjetas]");
+  const n = await page.evaluate(() => HYS.length);
+  await expect(page.locator("#hyList .hyrow")).toHaveCount(n);
+  await expect(page.locator("#hyList .hycard")).toHaveCount(0);
+  await page.locator("#hyList .qgrupo > summary").first().click();
+  await page.locator("#hyList .hyrow summary").first().click();
+  await expect(page.locator("#hyList .hycard")).toHaveCount(1);
+  expect(await sinDesborde(page)).toBe(true);
+});
+
+test("buscar, filtrar por especialidad, área y estado; repasar usa lo filtrado", async ({ page }) => {
+  await page.evaluate(() => { S.userH.push({id: "u1", specialty: "Medicina Interna", area: "Neurología", title: "Encefalitis anti-NMDAR", badge: "Fenotipo", thresholds: [{label: "Tumor", val: "Teratoma ovárico"}], redFlag: "", trap: "", relevance: 5},
+    {id: "u2", specialty: "Medicina Interna", area: "Infectología", title: "Neumonía grave", badge: "", thresholds: [{label: "a", val: "b"}], redFlag: "", trap: "", relevance: 3}); rebuild(); save(); });
+  await page.click("nav [data-go=tarjetas]");
+  await page.fill("#hyQ", "teratoma");
+  await expect(page.locator("#hyList .hyrow")).toHaveCount(1);
+  await expect(page.locator("#hyQ")).toBeFocused();
+  await page.fill("#hyQ", "");
+  await page.selectOption("#hySelSpec", "Medicina Interna");
+  await page.selectOption("#hySelArea", "Infectología");
+  await expect(page.locator("#hyList .hyrow")).toHaveCount(1);
+  await page.selectOption("#hySelArea", "");
+  await page.selectOption("#hySelEst", "mine");
+  await expect(page.locator("#hyList .hyrow")).toHaveCount(2);
+  await page.click("#hyStudy");
+  expect(await page.evaluate(() => sess.stages[0].items.map(it => it.id).sort())).toEqual(["u1", "u2"]);
+});
+
+test("índice por títulos: descarta celdas de tablas y ordena las secciones principales", async ({ page }) => {
+  const r = await page.evaluate(() => ["Possible 4–5", "Non-PNS ≤3", "Antigen Neurological phenotype Systemic tumour Antibody assay a,b", "Tr on IF–IB, DNER on CBA. d",
+    "CBA (CSF more sensitive than serum)", "Clinical level a High-risk phenotypes 3", "Antibody testing", "Second-line and third-line immunotherapies", "Type 2 diabetes and stroke"].map(tituloValido));
+  expect(r).toEqual([false, false, false, false, false, false, true, true, true]);
+  const items = await page.evaluate(() => indiceDeTitulos({}, {allHeads: [
+    {t: "Epidemiology", page: 2, lvl: 2}, {t: "Definition and incidence", page: 2, lvl: 2}, {t: "Introduction", page: 2, lvl: 2},
+    {t: "Mechanisms/pathophysiology", page: 5, lvl: 2}, {t: "Diagnostic criteria", page: 9, lvl: 2}, {t: "Antibody testing", page: 11, lvl: 2}, {t: "Management", page: 11, lvl: 2}]}, 15));
+  expect(items.map(x => x.lvl + " " + x.title)).toEqual(["1 Introduction", "1 Epidemiology", "2 Definition and incidence", "1 Mechanisms/pathophysiology", "1 Diagnostic criteria", "2 Antibody testing", "1 Management"]);
+});
+
+test("el nombre de la fuente usa el título del PDF cuando el archivo tiene un nombre genérico", async ({ page }) => {
+  const r = await page.evaluate(() => [tituloFuente("ae.pdf", "Autoimmune encephalitis"), tituloFuente("1-s2.0-S0140673624012345-main.pdf", "Stroke"),
+    tituloFuente("Autoimmune_encephalitis_.pdf", "Otro"), tituloFuente("download.pdf", "Microsoft Word - guia.docx")]);
+  expect(r).toEqual(["Autoimmune encephalitis", "Stroke", "Autoimmune encephalitis", "download"]);
+});

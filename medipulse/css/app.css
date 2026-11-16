@@ -326,3 +326,12 @@ label.check>span{flex:1;min-width:0}
 .audtag.fragil{background:var(--warn-soft);color:var(--warn)}
 .audres{text-align:left}
 #confBtns .btn{text-align:left;white-space:normal}
+.hyrow{border-top:1px dashed var(--border);padding:8px 0}
+.hyrow>summary{cursor:pointer;list-style:none;display:flex;gap:8px;align-items:flex-start}
+.hyrow>summary::-webkit-details-marker{display:none}
+.hyrow>summary::before{content:"▸";color:var(--muted);margin-top:1px}
+.hyrow[open]>summary::before{content:"▾"}
+.hyrow .hybody{margin-top:8px}
+#hyFilters .fld{margin:0}
+#hyList .qgrupo{padding:12px 14px}
+.est.rev{color:var(--muted)}

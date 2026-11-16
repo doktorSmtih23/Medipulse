@@ -118,7 +118,17 @@ async function extractPages(buf, onProg){
     pages.push(s.replace(/[ \t]+/g," ").replace(/(\p{L})-\s*\n\s*(\p{Ll})/gu,"$1$2").replace(/\s*\n\s*/g,"\n").trim());
     onProg && onProg(i, doc.numPages);
   }
+  // Título que trae el propio PDF (metadatos), para cuando el nombre del archivo no dice nada.
+  try { const m = await doc.getMetadata(); pages.titulo = String(m && m.info && m.info.Title || "").trim(); } catch(e) {}
   return pages;
+}
+// Nombre de la fuente: el del archivo, legible; si es genérico («download (3)», «1-s2.0-S0140…», «ae»),
+// el título de los metadatos del PDF.
+function tituloFuente(archivo, meta){
+  const n = archivo.replace(/\.pdf$/i, "").replace(/[_]+/g, " ").replace(/\s+/g, " ").trim();
+  const generico = n.length < 8 || /^(doc|document|download|descarga|file|archivo|articulo|article|untitled|sin t[ií]tulo|scan)/i.test(n) || (n.match(/\d/g) || []).length > n.length / 3;
+  const okMeta = meta && meta.length >= 6 && meta.length <= 200 && !/^(microsoft|untitled|document|sin t[ií]tulo)|\.(docx?|pdf|indd)$/i.test(meta);
+  return generico && okMeta ? meta : n || archivo;
 }
 
 $("#pdfIn").onchange = async e => {
@@ -136,7 +146,7 @@ async function addPdf(f, openAfter, meta){
     const id = "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
     const rec = {blob: new Blob([buf], {type:"application/pdf"}), pages};
     await idb.put(id, rec); recCache[id] = rec;
-    S.sources.push(Object.assign({id, title: f.name.replace(/\.pdf$/i,""), pages: pages.length, chars, added: Date.now(), spec: "Medicina Interna"}, meta || {}));
+    S.sources.push(Object.assign({id, title: tituloFuente(f.name, pages.titulo), pages: pages.length, chars, added: Date.now(), spec: "Medicina Interna"}, meta || {}));
     save(); prog.innerHTML = "";
     toast(chars < pages.length*80 ? "PDF agregado, pero casi no tiene texto (¿es escaneado o escrito a mano?)." : "PDF agregado ✓");
     if (openAfter) openSrc(id);

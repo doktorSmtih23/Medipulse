@@ -35,7 +35,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/sesion.js` | Motor de sesión: casos, tarjetas, simulacro, resumen, atajos |
 | `js/banco.js` | Banco de casos: «Arma tu práctica» (varias especialidades, 1 a 100 casos, al azar / mis vulnerabilidades / con filtros, modo examen) y «Explorar el banco» (búsqueda, tipo, estado, lista sin tema ni fuente) |
 | `js/vulnerabilidades.js` | Registro de respuestas (`S.resp`, con el motivo del fallo que marca el usuario), rendimiento por tipo × especialidad, casos que se fallan una y otra vez, patrón de error auditoría a ciegas del modo examen (`CONFIANZA`, `marcarConfianza`: un acierto sin certeza vuelve mañana al repaso; nota real, aciertos frágiles y errores con seguridad) y elección de casos por vulnerabilidad (`elegirVulnerables`) o al azar balanceado (`elegirAlAzar`). Todo se calcula en el dispositivo |
-| `js/fichas-hy.js` | Fichas high-yield: estudio, editor y pestaña High Yield |
+| `js/fichas-hy.js` | Fichas high-yield: estudio, editor y pestaña High Yield (buscador, filtros por especialidad, área y estado, lista compacta que abre cada ficha con un toque; «Repasar» usa lo filtrado) |
 | `js/simulacro.js` | Configuración del simulacro |
 | `js/progreso.js` | Progreso y borrado |
 | `js/fuentes.js` | Biblioteca, PDFs (IndexedDB, pdf.js), clave de API y guía |

@@ -19,8 +19,14 @@ function tituloValido(t){
   if ((t.match(/\(/g) || []).length !== (t.match(/\)/g) || []).length) return false;   // «Brain Swelling (Medical» cortado
   if (/^[a-z]/.test(t)) return false;                                                     // «patients», «stroke»
   if (!/\s/.test(t) && t.length < 6) return false;
+  // Celdas y encabezados de tablas: terminan en una cifra, un rango, un signo o letras de nota al pie
+  // («Possible 4–5», «Non-PNS ≤3», «Antibody assay a,b», «on CBA. d»), o llevan un paréntesis explicativo largo.
+  if (/\s[≤≥<>~]?\d+(?:[–\-]\d+)?\s*$|[\s.][a-e](?:,[a-e])*$/.test(t)) return false;
+  if (/\(([^)]*\s){3,}[^)]*\)/.test(t) || /\bthan\b|\bque\b/.test(t)) return false;
   return true;
 }
+// Secciones principales habituales de artículos y revisiones: siempre son temas de primer nivel.
+const SECC_PRINCIPAL = /^(introduc|background|antecedentes|epidemiolog|mechanism|pathophysiolog|fisiopatolog|diagnos|management|treatment|tratamiento|manejo|prognos|pron[oó]stic|quality of life|calidad de vida|outlook|perspectiva|methods|m[eé]todos|results|resultados|discussion|discusi[oó]n|conclusi|prevention|prevenci|clinical (?:features|presentation)|presentaci[oó]n cl[ií]nica|summary)/i;
 // Agrega a cada entrada la página donde termina: justo donde empieza la siguiente del mismo nivel o superior.
 function conHasta(items, last){
   return items.map((it, i) => {
@@ -70,7 +76,15 @@ function indiceNumerado(info, last){
 function indiceDeTitulos(s, info, last){
   const all = (info.allHeads || info.heads || []).filter(h => h.page <= last && tituloValido(h.t)).sort((a, b) => a.page - b.page);
   const top = all.filter(h => h.lvl === 1);
-  let items = (top.length >= 3 ? all : all.filter((h, i, a) => a.findIndex(x => x.page === h.page) === i))
+  const principales = all.filter(h => SECC_PRINCIPAL.test(h.t) && h.t.split(/\s+/).length <= 5).length;
+  let items;
+  if (principales >= 3) {
+    items = all.map(h => ({title: h.t, from: h.page, lvl: SECC_PRINCIPAL.test(h.t) && h.t.split(/\s+/).length <= 5 ? 1 : 2}));
+    // A dos columnas, la introducción puede leerse después de la sección siguiente de la misma página: va primero.
+    const intro = items.findIndex(x => x.lvl === 1 && /^(introduc|background|antecedentes)/i.test(x.title));
+    if (intro > 0) { const x = items[intro], k = items.findIndex(y => y.from === x.from); if (k >= 0 && k < intro) { items.splice(intro, 1); items.splice(k, 0, x); } }
+  }
+  else items = (top.length >= 3 ? all : all.filter((h, i, a) => a.findIndex(x => x.page === h.page) === i))
     .map(h => ({title: h.t, from: h.page, lvl: top.length >= 3 ? h.lvl : 1}));
   if (items.length > 40) items = items.filter(x => x.lvl === 1);
   return items.length >= 2 ? items : null;
