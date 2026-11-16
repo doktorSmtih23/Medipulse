@@ -87,3 +87,13 @@ test("lo importado lleva el rótulo «Importada por el usuario» en la pregunta 
   await page.selectOption("#qSelSpec", "Pediatría");
   await expect(page.locator("#qList .origen").first()).toContainText("Importada por el usuario");
 });
+
+test("preguntas primero y respuestas al final (otro formato de Gemini): las empareja en orden", async ({ page }) => {
+  const texto = fs.readFileSync(path.join(__dirname, "fixtures", "preguntas-respuestas-al-final.txt"), "utf8");
+  const qs = await page.evaluate(t => organizarTexto(t).map(q => ({n: q.options.length, c: q.correct, fund: q.fundamento.slice(0, 20), dato: q.pearl.slice(0, 20), trampa: q.trap.slice(0, 20), spec: q.specialty, guion: /-\nPor qu/.test(q.porOpcion.join("\n"))})), texto);
+  expect(qs).toEqual([
+    {n: 4, c: 1, fund: "De acuerdo con el ar", dato: "Los estudios neurofi", trampa: "Recuerda siempre qué", spec: "", guion: false},
+    {n: 4, c: 1, fund: "El sistema de gradua", dato: "La presencia de sign", trampa: "Al evaluar algoritmo", spec: "", guion: false}]);
+  // «diabetes de 10 años de evolución» no es la edad del paciente
+  expect(await page.evaluate(() => [esPediatrico("Un hombre de 55 años, con diabetes de 10 años de evolución"), esPediatrico("Lactante de 4 meses")])).toEqual([false, true]);
+});

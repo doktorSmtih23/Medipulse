@@ -36,22 +36,65 @@ Separa cada pregunta con una línea que diga ---`;
 
 // ---------- lectura del texto ----------
 const limpiarMd = t => String(t || "").replace(/\r/g, "").replace(/\*\*|__|`/g, "").replace(/\$([^$\n]*)\$/g, "$1").replace(/\\\(|\\\)/g, "")
-  .replace(/^[ \t]*[*•·]\s+/gm, "").replace(/^#+\s*/gm, "").replace(/[ \t]+$/gm, "");
+  .replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s.,;:)]|$)/gm, "$1$2").replace(/^[ \t]*[*•·]\s+/gm, "").replace(/^[ \t]*[-–]\s+(?=opci[oó]n\b|por qu[eé]\b)/gim, "").replace(/^#+\s*/gm, "").replace(/[ \t]+$/gm, "");
 const L = "ABCDE";
 const OPC_RE = /^\s*\(?([A-Ea-e])\s*[).:\-–]\s+(.+)$/;
 // Encabezados de las secciones que siguen a las opciones (análisis, dato clave, cómo evitar…).
 const SECC = [
-  ["analisis", /^(?:identificaci[oó]n de t[eé]cnicas|an[aá]lisis de (?:las )?opciones|explicaci[oó]n|justificaci[oó]n)/i],
+  ["analisis", /^(?:identificaci[oó]n de t[eé]cnicas|an[aá]lisis de (?:las |cada )?opci|explicaci[oó]n|justificaci[oó]n)/i],
+  ["fund", /^fundamento/i],
   ["dato", /^dato clave/i],
   ["evitar", /^c[oó]mo evitar/i],
   ["fuente", /^fuente\s*:/i],
   ["resp", /^respuesta(?: correcta)?\s*[:=]/i],
+  ["result", /^resultado\s*:/i],
   ["esp", /^especialidad\s*:/i], ["tipo", /^tipo(?: de pregunta)?\s*:/i], ["tema", /^tema\s*:/i]
 ];
 const TIPOS_TXT = [[/conducta|manejo|tratamiento/i, "conducta"], [/diagn/i, "diagnostico"], [/cr[ií]tica|mbe|estad/i, "critica"], [/dato|cifra|umbral|dosis/i, "datos"]];
+// «La respuesta correcta … es la opción B», «la correcta es B», «Respuesta: B»
+const CORRECTA_RE = /respuesta correcta[^\n]*?\bopci[oó]n\s+\(?([A-E])\b|\b(?:la )?(?:respuesta|opci[oó]n) correcta es (?:la )?(?:opci[oó]n )?\(?([A-E])\b/i;
+const SEPARA_RE = /^\s*(?:-{3,}|={3,}|_{3,}|(?:pregunta|caso)\s*(?:n[°º.]?\s*)?\d+\s*[.:)]?)\s*$/im;
+const tieneOpciones = b => b.split("\n").some(l => /^\s*\(?[Aa]\s*[).:\-–]\s+/.test(l)) && b.split("\n").filter(l => OPC_RE.test(l)).length >= 4;
+const pareceRespuesta = b => /opci[oó]n\s+\(?[A-E]\b|respuesta correcta|dato clave|c[oó]mo evitar|fundamento/i.test(b);
 
 function partirBloques(texto){
-  return limpiarMd(texto).split(/^\s*(?:-{3,}|={3,}|_{3,}|(?:pregunta|caso)\s*(?:n[°º.]?\s*)?\d+\s*[.:)]?)\s*$/im).map(b => b.trim()).filter(b => b.split("\n").some(l => OPC_RE.test(l)));
+  return limpiarMd(texto).split(SEPARA_RE).map(b => b.trim()).filter(tieneOpciones);
+}
+// Lee las secciones que siguen a las opciones (o un bloque de respuestas aparte) y las guarda en q.
+function leerSecciones(lineas, i, q, buf){
+  let sec = null, opc = -1;
+  for (; i < lineas.length; i++) {
+    const l = lineas[i].trim(); if (!l) continue;
+    const cm = q.correct < 0 && l.match(CORRECTA_RE); if (cm) q.correct = L.indexOf((cm[1] || cm[2]).toUpperCase());
+    const hit = SECC.find(([, re]) => re.test(l));
+    const mo = l.match(/^opci[oó]n\s+\(?([A-E])\)?\b\s*[:.)\-–]?\s*(.*)$/i);
+    if (hit) {
+      sec = hit[0]; opc = -1;
+      // Lo que va después de los dos puntos del encabezado («DATO CLAVE QUE DEFINÍA LA RESPUESTA: …»)
+      const resto = l.includes(":") ? l.slice(l.indexOf(":") + 1).trim() : "";
+      if (sec === "resp") { const m = resto.match(/^\(?([A-E])\b/i); if (m) q.correct = L.indexOf(m[1].toUpperCase()); }
+      else if (sec === "esp") q.specialty = SPECS.find(s => norm(resto).includes(norm(s))) || q.specialty;
+      else if (sec === "tipo") q.tipo = (TIPOS_TXT.find(([re]) => re.test(resto)) || [])[1] || q.tipo;
+      else if (sec === "tema") q.topic = resto;
+      else if (sec === "fuente") q.fuenteTxt = resto;
+      else if ((sec === "dato" || sec === "evitar" || sec === "fund") && resto) buf[sec].push(resto);
+      continue;
+    }
+    if (mo) { opc = L.indexOf(mo[1].toUpperCase()); sec = "opcion"; if (opc < q.porOpcion.length && mo[2]) q.porOpcion[opc] = mo[2].trim(); continue; }
+    if (sec === "opcion" && opc >= 0 && opc < q.porOpcion.length) q.porOpcion[opc] = (q.porOpcion[opc] + " " + l).trim();
+    else if (sec === "dato" || sec === "evitar" || sec === "fund") buf[sec].push(l);
+    else if (sec === "fuente") q.fuenteTxt = (q.fuenteTxt + " " + l).trim();
+  }
+}
+function cerrar(q, buf){
+  if (buf.dato.length) q.pearl = buf.dato.join(" ").trim();
+  if (buf.evitar.length) q.trap = buf.evitar.join("\n").trim();
+  if (buf.fund.length) q.fundamento = buf.fund.join(" ").trim();
+  // Respuesta correcta marcada dentro del análisis («(Respuesta correcta)», «es la opción correcta»)
+  if (q.correct < 0) q.correct = q.porOpcion.findIndex(t => /respuesta correcta|\(correcta\)|por qu[eé] es correcta|es la (?:opci[oó]n )?correcta/i.test(t) && !/por qu[eé] es incorrecta/i.test(t));
+  // Análisis de cada opción, legible: sin el nombre de la opción repetido y cada «Por qué…» en su línea.
+  q.porOpcion = q.porOpcion.map(t => t.replace(/^\([^)]*\)\s*[-–:]?\s*/, "").replace(/^[-–]\s*/, "").replace(/\s*[-–]?\s*(Por qu[eé] (?:parece|es|no)\b)/gi, "\n$1").trim());
+  return q;
 }
 function parsearPregunta(bloque){
   const lineas = bloque.split("\n");
@@ -64,43 +107,40 @@ function parsearPregunta(bloque){
     const m = lineas[i].match(OPC_RE);
     if (m && m[1].toUpperCase() === L[options.length]) { options.push(m[2].trim()); continue; }
     if (!lineas[i].trim()) { if (options.length >= 2) { const sig = lineas.slice(i + 1).find(x => x.trim()); if (!sig || !OPC_RE.test(sig)) break; } continue; }
-    if (options.length && !SECC.some(([, re]) => re.test(lineas[i].trim())) && !/^opci[oó]n\s+[A-E]\b/i.test(lineas[i].trim())) { options[options.length - 1] += " " + lineas[i].trim(); continue; }
+    if (options.length && !SECC.some(([, re]) => re.test(lineas[i].trim())) && !/^opci[oó]n\s+[A-E]\b/i.test(lineas[i].trim()) && !pareceEncabezado(lineas[i])) { options[options.length - 1] += " " + lineas[i].trim(); continue; }
     break;
   }
-  const q = {vignette, options, correct: -1, porOpcion: options.map(() => ""), pearl: "", trap: "", topic: "", specialty: "", tipo: "", fuenteTxt: ""};
-  // Lo que sigue: secciones y el análisis por opción
-  let sec = null, opc = -1; const buf = {dato: [], evitar: []};
-  for (; i < lineas.length; i++) {
-    const l = lineas[i].trim(); if (!l) continue;
-    const hit = SECC.find(([, re]) => re.test(l));
-    const mo = l.match(/^opci[oó]n\s+\(?([A-E])\)?\b\s*[:.)\-–]?\s*(.*)$/i);
-    if (hit) {
-      sec = hit[0]; opc = -1;
-      // Lo que va después de los dos puntos del encabezado («DATO CLAVE QUE DEFINÍA LA RESPUESTA: …»)
-      const resto = l.includes(":") ? l.slice(l.indexOf(":") + 1).trim() : "";
-      if (sec === "resp") { const m = resto.match(/^\(?([A-E])\b/i); if (m) q.correct = L.indexOf(m[1].toUpperCase()); }
-      else if (sec === "esp") q.specialty = SPECS.find(s => norm(resto).includes(norm(s))) || "";
-      else if (sec === "tipo") q.tipo = (TIPOS_TXT.find(([re]) => re.test(resto)) || [])[1] || "";
-      else if (sec === "tema") q.topic = resto;
-      else if (sec === "fuente") q.fuenteTxt = resto;
-      else if ((sec === "dato" || sec === "evitar") && resto) buf[sec].push(resto);
-      continue;
-    }
-    if (mo) { opc = L.indexOf(mo[1].toUpperCase()); sec = "opcion"; if (opc < q.porOpcion.length && mo[2]) q.porOpcion[opc] = mo[2].trim(); continue; }
-    if (sec === "opcion" && opc >= 0 && opc < q.porOpcion.length) q.porOpcion[opc] = (q.porOpcion[opc] + " " + l).trim();
-    else if (sec === "dato" || sec === "evitar") buf[sec].push(l);
-    else if (sec === "fuente") q.fuenteTxt = (q.fuenteTxt + " " + l).trim();
-  }
-  q.pearl = buf.dato.join(" ").trim(); q.trap = buf.evitar.join("\n").trim();
-  // Respuesta correcta marcada dentro del análisis («(Respuesta correcta)», «Por qué es correcta»)
-  if (q.correct < 0) q.correct = q.porOpcion.findIndex(t => /respuesta correcta|\(correcta\)|por qu[eé] es correcta|es la correcta/i.test(t) && !/por qu[eé] es incorrecta/i.test(t));
-  // Análisis de cada opción, legible: sin el nombre de la opción repetido y cada «Por qué…» en su línea.
-  q.porOpcion = q.porOpcion.map(t => t.replace(/^\([^)]*\)\s*[-–:]?\s*/, "").replace(/\s*(Por qu[eé] (?:parece|es|no)\b)/gi, "\n$1").trim());
+  const q = {vignette, options, correct: -1, porOpcion: options.map(() => ""), pearl: "", trap: "", fundamento: "", topic: "", specialty: "", tipo: "", fuenteTxt: ""};
+  const buf = {dato: [], evitar: [], fund: []};
+  leerSecciones(lineas, i, q, buf);
+  cerrar(q, buf);
   // Especialidad sugerida por el caso, si la IA no la dijo (el usuario la confirma al revisar)
   if (!q.specialty) q.specialty = /\b(gestante|embarazada|puérpera|puerpera|semanas de gestaci|primigesta|multigesta)\b/i.test(q.vignette) ? "Ginecología"
-    : /\b(lactante|recién nacid|recien nacid|neonat|niñ[oa]|escolar|preescolar|adolescente de 1[0-7])\b|\b([0-9]|1[0-4]) (?:años|meses)\b/i.test(q.vignette) ? "Pediatría" : "";
+    : esPediatrico(q.vignette) ? "Pediatría" : "";
   if (!q.tipo) q.tipo = qKind({vignette: q.vignette, topic: q.topic});
   return q;
+}
+// ¿El paciente es un niño? Por la palabra o por su edad al inicio del caso («de 7 años»), no por la
+// duración de una enfermedad («diabetes de 10 años de evolución»).
+function esPediatrico(v){
+  if (/\b(lactante|recién nacid|recien nacid|neonat|niñ[oa]s?|escolar|preescolar)\b/i.test(v)) return true;
+  const m = String(v).slice(0, 160).match(/\b(\d{1,2})\s*(años|meses|días|dias|semanas)\b(?!\s+de\s+(?:evoluci|duraci|diagn|tratamiento))/i);
+  return !!m && (/^(meses|días|dias|semanas)$/i.test(m[2]) || +m[1] < 15);
+}
+// Un título en mayúsculas («RESPUESTAS Y JUSTIFICACIÓN») no es parte de la última opción.
+const pareceEncabezado = l => /^[^a-záéíóúñ]{6,}$/.test(l.trim()) || /^respuestas?\b/i.test(l.trim());
+// Todo el texto: las preguntas y, si las respuestas vienen aparte (al final), se emparejan en orden.
+function organizarTexto(texto){
+  const bloques = limpiarMd(texto).split(SEPARA_RE).map(b => b.trim()).filter(Boolean);
+  const qs = [], resp = [];
+  bloques.forEach(b => { if (tieneOpciones(b)) qs.push(parsearPregunta(b)); else if (pareceRespuesta(b)) resp.push(b); });
+  const sinAnalisis = qs.filter(q => q && !q.porOpcion.some(Boolean) && !q.pearl && !q.trap);
+  resp.forEach((b, k) => {
+    const q = sinAnalisis[k]; if (!q) return;
+    const buf = {dato: [], evitar: [], fund: []};
+    leerSecciones(b.split("\n"), 0, q, buf); cerrar(q, buf);
+  });
+  return qs.filter(Boolean);
 }
 
 // ---------- pantalla ----------
@@ -116,8 +156,7 @@ function renderImportar(box){
     </div>`;
   $("#impPrompt").onclick = () => { try { navigator.clipboard.writeText(PROMPT_IA).then(() => toast("Prompt copiado ✓ Pégalo en tu IA"), () => toast("Ábrelo en «¿Qué es el prompt?» y cópialo a mano")); } catch(e) { toast("Ábrelo en «¿Qué es el prompt?» y cópialo a mano"); } };
   $("#impGo").onclick = () => {
-    const bloques = partirBloques($("#impTxt").value);
-    impCands = bloques.map(parsearPregunta).filter(q => q && q.vignette && q.options.length >= 4);
+    impCands = organizarTexto($("#impTxt").value).filter(q => q.vignette && q.options.length >= 4);
     if (!impCands.length) { $("#impOut").innerHTML = `<p class="small" style="margin:0;color:var(--bad)">No encontré una pregunta con al menos 4 opciones: A), B), C) y D). Revisa que cada opción empiece con su letra.</p>`; return; }
     renderImpCands();
   };
@@ -139,6 +178,7 @@ function renderImpCands(){
       <div class="xs muted">Marca la correcta${q.options.length > 4 ? ` · tiene ${q.options.length} opciones; si quieres dejarla en 4, quita una incorrecta con ✕` : ""}:</div>
       ${q.options.map((o, j) => `<div class="stack" style="gap:2px"><div class="row" style="gap:6px;flex-wrap:nowrap;align-items:center"><input type="radio" name="impC${k}" value="${j}" ${j === q.correct ? "checked" : ""} aria-label="Correcta: ${L[j]}"><b>${L[j]}</b><input type="text" data-io="${j}" value="${esc(o)}" style="flex:1;min-width:0">${q.options.length > 4 ? `<button class="xbtn" data-ix="${j}" aria-label="Quitar la opción ${L[j]}">✕</button>` : ""}</div>
         ${q.porOpcion[j] ? `<p class="xs muted" style="margin:0 0 0 28px">${esc(q.porOpcion[j]).slice(0, 400)}${q.porOpcion[j].length > 400 ? "…" : ""}</p>` : ""}</div>`).join("")}
+      <label class="fld">Fundamento de la respuesta<textarea rows="3" data-if="fundamento">${esc(q.fundamento || "")}</textarea></label>
       <label class="fld">💎 Dato clave<textarea rows="2" data-if="pearl">${esc(q.pearl)}</textarea></label>
       <label class="fld">⚠️ Cómo evitar la trampa<textarea rows="3" data-if="trap">${esc(q.trap)}</textarea></label>
       <label class="fld">Fuente<select data-if="src">${srcOptions("")}</select></label>
@@ -166,7 +206,7 @@ function guardarImportadas(){
     S.userQ.push({id: "u" + (++S.seq), specialty: spec, tipo: q.tipo, qtype: q.tipo === "critica" ? "critica" : q.tipo === "datos" ? "directa" : "caso",
       topic: (q.topic || "Pregunta importada").trim(), difficulty: "Importada", vignette: textToVig(q.vignette), options: q.options.map(o => o.trim()), correct: q.correct,
       // con análisis por opción, la explicación ya está ahí (no se repite arriba)
-      whyCorrect: q.porOpcion.some(Boolean) ? "" : (q.porOpcion[q.correct] || "").trim(), porOpcion: q.porOpcion.some(Boolean) ? q.porOpcion.map(t => t.trim()) : undefined,
+      whyCorrect: (q.fundamento || (q.porOpcion.some(Boolean) ? "" : q.porOpcion[q.correct] || "")).trim(), porOpcion: q.porOpcion.some(Boolean) ? q.porOpcion.map(t => t.trim()) : undefined,
       pearl: q.pearl.trim(), trap: q.trap.trim(), src: q.src || null, page: 0, manual: true, externa: true, fuenteTxt: q.fuenteTxt || undefined});
   });
   const n = impCands.length; impCands = null;
