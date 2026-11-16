@@ -51,3 +51,27 @@ test("el nombre de la fuente usa el título del PDF cuando el archivo tiene un n
     tituloFuente("Autoimmune_encephalitis_.pdf", "Otro"), tituloFuente("download.pdf", "Microsoft Word - guia.docx")]);
   expect(r).toEqual(["Autoimmune encephalitis", "Stroke", "Autoimmune encephalitis", "download"]);
 });
+
+test("editor de ficha: ejemplo guía en todos los campos y vista previa del repaso con lo que escribes", async ({ page }) => {
+  await page.evaluate(() => { newType = "h"; go("new"); });
+  await expect(page.locator(".eTitle")).toHaveAttribute("placeholder", /exudado o trasudado/);
+  await expect(page.locator(".eL")).toHaveCount(3);
+  await expect(page.locator(".eL >> nth=0")).toHaveAttribute("placeholder", "Proteínas pleura / suero");
+  await page.click(".hyprevbox summary");
+  await expect(page.locator(".hyprev-in")).toContainText("Proteínas pleura / suero");   // vacío: muestra el ejemplo
+  await page.fill(".eTitle", "Hiponatremia"); await page.fill(".eL >> nth=0", "Velocidad máxima de corrección");
+  await expect(page.locator(".hyprev-in")).toContainText("Velocidad máxima de corrección");
+  await expect(page.locator(".hyprev-in")).not.toContainText("Proteínas pleura");
+  await expect(page.locator(".hyprev-in .th b").first()).toHaveText("?");
+});
+
+test("crear → generar desde tu PDF: sin clave ofrece la guía y tu propia IA; con un documento abre su taller con IA", async ({ page }) => {
+  await page.evaluate(() => { newType = "g"; go("new"); });
+  await expect(page.locator("#newForm")).toContainText("Necesitas tu clave de API");
+  await page.click("#newForm [data-nt2=i]");
+  await expect(page.locator("#newForm")).toContainText("Prompt para tu IA");
+  await page.evaluate(() => { S.sources.push({id: "t1", title: "Guía de prueba", kind: "text", pages: 2, added: Date.now()}); newType = "g"; go("new"); });
+  await page.evaluate(() => { window._abrio = null; prepSrc = (id, extra) => { window._abrio = [id, extra.tab, extra.customOpen]; }; go = v => { window._vista = v; }; });
+  await page.click('#newForm [data-gen="t1"]');
+  expect(await page.evaluate(() => [window._abrio, window._vista])).toEqual([["t1", "ai", true], "src"]);
+});
