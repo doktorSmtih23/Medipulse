@@ -16,7 +16,8 @@ const specSelHTML = (attr, val) => `<label class="fld">Especialidad<select ${att
 function qEditHTML(q, crudo){
   const n = "qeOk" + (++corrSeq);
   return `<div class="stack qedit" style="gap:6px">
-    ${specSelHTML('data-qe="specialty"', q.specialty)}
+    <div class="grid2">${specSelHTML('data-qe="specialty"', q.specialty)}
+    <label class="fld">Tipo de pregunta<select data-qe="tipo">${FOCUS.slice(1).map(f => `<option value="${f.k}" ${qKind(q) === f.k ? "selected" : ""}>${esc(f.t)}</option>`).join("")}</select></label></div>
     <label class="fld">Enunciado<textarea rows="4" data-qe="vignette">${esc(crudo ? q.vignette : vigToText(q.vignette))}</textarea></label>
     <span class="xs muted">Marca la respuesta correcta:</span>
     ${q.options.map((o, j) => `<div class="row" style="gap:6px;align-items:center;flex-wrap:nowrap"><input type="radio" name="${n}" value="${j}" ${j === q.correct ? "checked" : ""} aria-label="Correcta: ${"ABCD"[j]}"><b>${"ABCD"[j]}</b><input type="text" data-qo="${j}" value="${esc(o)}" style="flex:1;min-width:0"></div>`).join("")}

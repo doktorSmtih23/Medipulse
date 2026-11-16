@@ -53,3 +53,11 @@ test("recomendaciones: la clase que queda al final del enunciado anterior pasa a
     ["COR 1 · LOE B-NR", "In patients with AIS, blood glucose should be measured before starting thrombolysis.", []],
     ["COR 2a · LOE C-LD", "In patients with AIS and hypoglycemia (blood glucose < 60 mg/dL), it is reasonable to treat it promptly.", ["< 60 mg/dL"]]]);
 });
+
+test("si el índice termina de cargar mientras se eligen páginas a mano, no se cierra ni borra lo escrito", async ({ page }) => {
+  await page.click("#genCard summary:has-text('Elegir páginas a mano')");
+  await page.fill("#manFrom", "2");
+  await page.evaluate(() => refrescarIndice());   // como si el índice terminara justo ahora
+  await expect(page.locator("#manTo")).toBeVisible();
+  await expect(page.locator("#manFrom")).toHaveValue("2");
+});
