@@ -178,7 +178,7 @@ function renderLib(){
     ? plegable("docs", `<b>Tus documentos</b> <span class="xs muted">${docs.length}</span>`, docs.map(s=>{
         const nq = S.userQ.filter(q=>q.src===s.id).length, nc = S.userC.filter(c=>c.src===s.id).length;
         const nh = S.userH.filter(h=>h.src===s.id).length, cuanto = s.apunte ? `${s.pages} puntos` : s.kind==="text" ? `${s.pages} parte${s.pages===1?"":"s"}` : s.kind==="pack" ? "pack" : `${s.pages} págs`;
-        return `<div class="srcitem"><div class="ic">${s.apunte?"📓":s.kind==="text"?"📋":s.kind==="pack"?"📦":"📄"}</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${cuanto} · ${nq} casos · ${nh} fichas${nc?` · ${nc} tarjetas`:""}</div></div><button class="btn" data-src="${s.id}">Abrir</button></div>`;
+        return `<div class="srcitem"><div class="ic">${s.apunte?"📓":s.kind==="text"?"📋":s.kind==="pack"?"📦":"📄"}</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${cuanto} · ${nq} casos · ${nh} fichas${nc?` · ${nc} repasos rápidos`:""}</div></div><button class="btn" data-src="${s.id}">Abrir</button></div>`;
       }).join(""))
     : `<p class="muted small" style="margin:0">Aún no tienes documentos. Empieza con el PDF de una guía de práctica clínica o con tus apuntes de una rotación.</p>`;
   document.querySelectorAll("[data-src]").forEach(b=>b.onclick=()=>openSrc(b.dataset.src));
@@ -198,7 +198,7 @@ function renderAiBox(){
     ? `<p class="small" style="margin:0">✓ Clave guardada en este dispositivo (termina en …${esc(k.slice(-4))}). Al generar desde un PDF puedes pedir <b>casos clínicos tipo examen</b> con explicación, perla y trampa.</p>
        <div style="margin-top:10px">${aiLevelHTML()}</div>
        <div class="row" style="margin-top:10px"><button class="btn ghost" id="keyDel" style="color:var(--bad)">Quitar clave</button><button class="btn ghost sm" data-go="guide">📖 Guía y solución de problemas</button></div>`
-    : `<p class="small" style="margin:0 0 10px">Sin IA, la app crea <b>tarjetas de completar</b> con las frases que tienen datos clave: gratis y sin internet. Con una clave de la API de Claude también genera <b>casos clínicos tipo examen</b>.</p>
+    : `<p class="small" style="margin:0 0 10px">Sin IA puedes leer tus PDF, crear fichas a mano y ver las recomendaciones de la guía: gratis y sin internet. Con una clave de la API de Claude, la app además genera <b>fichas y casos clínicos tipo examen</b>.</p>
        <label class="fld">Clave de API de Anthropic<input type="password" id="keyIn" placeholder="sk-ant-…" autocomplete="off"></label>
        <div class="row" style="margin-top:10px"><button class="btn primary" id="keySave">Guardar clave</button></div>
        <p class="xs muted" style="margin:10px 0 0">Se guarda solo en este navegador y solo se envía a la API de Anthropic. Se paga aparte de Claude Pro/Max, por uso. Antes de cada acción la app muestra cuánto costará, aproximadamente.</p>

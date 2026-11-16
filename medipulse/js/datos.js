@@ -93,7 +93,7 @@ function hiddenLabel(k){
   const t = k[0], id = k.slice(1);
   const pools = {q: [...BUILTIN_Q, ...S.userQ], c: [...BUILTIN_F, ...S.userC], h: [...HY_CARDS, ...(S.userH || [])]};
   const x = (pools[t] || []).find(o => String(o.id) === id);
-  const kind = {q: "Caso", c: "Tarjeta", h: "Ficha"}[t] || "Ítem";
+  const kind = {q: "Caso", c: "Repaso rápido", h: "Ficha"}[t] || "Ítem";
   if (t === "q" && x && typeof qSub === "function") return kind + ": " + x.topic;
   return kind + ": " + (x ? (x.topic || x.title || x.front || "sin título") : "ya no está en la app");
 }

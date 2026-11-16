@@ -99,6 +99,14 @@
     </div>
   </section>
 
+  <!-- ============ SESIÓN DE ESTUDIO ============ -->
+  <section class="view" id="v-estudio">
+    <div class="stack">
+      <div><h2>Sesión de estudio</h2><p class="muted small" style="margin:4px 0 0">Estudia un tema con método: recuerda antes de leer, lee por bloques con descanso, escribe de memoria lo que aprendiste y mide cuánto mejoraste.</p></div>
+      <div id="estBox" class="stack"></div>
+    </div>
+  </section>
+
   <!-- ============ SIMULACRO ============ -->
   <section class="view" id="v-sim">
     <div class="stack">
@@ -115,7 +123,7 @@
   <!-- ============ FUENTES ============ -->
   <section class="view" id="v-lib">
     <div class="stack">
-      <div><h2>Biblioteca de fuentes</h2><p class="muted small" style="margin:4px 0 0">Sube tus PDF (guías, resúmenes, libros) y conviértelos en tarjetas y casos que entran a tu repaso espaciado. Cada pregunta indica de qué fuente y de qué página sale.</p></div>
+      <div><h2>Biblioteca de fuentes</h2><p class="muted small" style="margin:4px 0 0">Sube tus PDF (guías, resúmenes, libros) y conviértelos en fichas high-yield y casos que entran a tu repaso espaciado. Cada pregunta indica de qué fuente y de qué página sale.</p></div>
       <div class="card stack">
         <label class="btn primary block center" style="display:block">➕ Agregar PDF<input type="file" id="pdfIn" accept="application/pdf" multiple hidden></label>
         <div class="row" style="gap:8px"><button class="btn sm" data-go="apuntes">📓 Mis apuntes</button><button class="btn sm" id="pasteBtn">📋 Pegar texto</button><label class="btn sm">📥 Importar pack<input type="file" id="packIn" accept="application/json,.json" hidden></label></div>
@@ -132,7 +140,7 @@
       </div>
       <div class="card">
         <details><summary style="cursor:pointer"><b style="font-size:16px">Referencias del contenido incluido</b> <span class="xs muted" id="bsCount"></span></summary>
-        <p class="muted xs" style="margin:8px 0 0">Guías y textos en los que se basan los casos, tarjetas y fichas de la app, ordenados del más reciente al más antiguo. Vigencia revisada en <span id="bsChecked"></span>. Compara siempre con la normativa de tu país.</p>
+        <p class="muted xs" style="margin:8px 0 0">Guías y textos en los que se basan los casos y las fichas de la app, ordenados del más reciente al más antiguo. Vigencia revisada en <span id="bsChecked"></span>. Compara siempre con la normativa de tu país.</p>
         <div id="builtinSrc" style="margin-top:6px"></div></details>
       </div>
     </div>
@@ -161,7 +169,7 @@
       <div>
         <span class="tag">Guía · 10 minutos</span>
         <h2 style="margin-top:8px">Cómo conseguir tu clave de API de Claude</h2>
-        <p class="muted small" style="margin:6px 0 0">La clave es opcional. Sin ella, MediPulse funciona completo: estudio, repaso, simulacros y tarjetas de completar desde tus PDF. Con ella, además puedes <b>generar casos clínicos tipo examen</b> desde tus PDF, <b>revisar si tus fuentes siguen vigentes</b> y <b>actualizar las preguntas</b> cuando sale una guía nueva.</p>
+        <p class="muted small" style="margin:6px 0 0">La clave es opcional. Sin ella, MediPulse funciona completo: estudio, repaso, simulacros, leer tus PDF y crear fichas a mano. Con ella, además puedes <b>generar casos clínicos tipo examen</b> desde tus PDF, <b>revisar si tus fuentes siguen vigentes</b> y <b>actualizar las preguntas</b> cuando sale una guía nueva.</p>
       </div>
 
       <div class="card">
@@ -174,10 +182,10 @@
         <table class="gtable small">
           <thead><tr><th>Acción en MediPulse</th><th>Costo aprox.</th></tr></thead>
           <tbody>
-            <tr><td>Generar 10 casos + 10 tarjetas desde un PDF</td><td>US$0.10–0.40</td></tr>
+            <tr><td>Generar 10 casos + 10 fichas desde un PDF</td><td>US$0.10–0.40</td></tr>
             <tr><td>Revisar la vigencia de 5 fuentes</td><td>~US$0.25</td></tr>
             <tr><td>Actualizar las preguntas de una fuente</td><td>US$0.10–0.30</td></tr>
-            <tr><td>Estudiar, repasar, simulacros, tarjetas de completar</td><td>Gratis</td></tr>
+            <tr><td>Estudiar, repasar, simulacros, leer tus PDF y crear fichas a mano</td><td>Gratis</td></tr>
           </tbody>
         </table>
         <p class="xs muted" style="margin:8px 0 0">Precios estimados a noviembre de 2026. La app muestra el costo aproximado antes de cada acción que usa la API.</p>
@@ -216,7 +224,7 @@
         </li>
         <li class="card">
           <h3>Pruébala</h3>
-          <p class="small">Abre un PDF tuyo en Fuentes, elige <b>🤖 Casos clínicos + tarjetas (IA)</b>, selecciona 1–3 páginas y 5 casos, y toca <b>Generar</b>. Si en 1–3 minutos aparecen las preguntas para revisar, todo está listo.</p>
+          <p class="small">Abre un PDF tuyo en Fuentes, elige un tema del índice, toca <b>💎 Fichas y preguntas</b>, abre <b>⚙️ Personalizar</b>, pon 5 casos y toca <b>Generar con IA</b>. Si en 1–3 minutos aparecen las preguntas para revisar, todo está listo.</p>
         </li>
       </ol>
 
@@ -258,7 +266,7 @@
         <details><summary>¿Qué datos se envían a Anthropic?</summary><p class="small">Solo lo necesario para cada acción: el texto de las páginas que eliges de tu PDF, los nombres de tus fuentes o las preguntas que vas a actualizar. Tu progreso, tu racha y tus estadísticas nunca salen del dispositivo.</p></details>
         <details><summary>¿Qué modelo usa la app?</summary><p class="small">Claude Opus 5.5, con respaldo automático a otro modelo si el primero no puede responder una solicitud.</p></details>
         <details><summary>¿La IA puede equivocarse?</summary><p class="small">Sí. Por eso nada entra a tu banco sin que lo revises, cada pregunta indica su fuente y página, y las preguntas actualizadas llevan la marca “verifícalo”.</p></details>
-        <details><summary>¿Y si no quiero pagar nada?</summary><p class="small">No necesitas la clave. Puedes crear tarjetas de completar desde tus PDF gratis y revisar la vigencia de las fuentes a mano con el botón 🔗 de cada una.</p></details>
+        <details><summary>¿Y si no quiero pagar nada?</summary><p class="small">No necesitas la clave. Puedes leer tus PDF, crear fichas a mano, ver las recomendaciones de la guía y traer preguntas de tu propia IA con «📥 Pegar de otra IA», gratis, y revisar la vigencia de las fuentes a mano con el botón 🔗 de cada una.</p></details>
       </div>
     </div>
   </section>
@@ -292,7 +300,7 @@
   <!-- ============ LABORATORIO MBE ============ -->
   <section class="view" id="v-mbe">
     <div class="stack">
-      <div><h2>Laboratorio de lectura crítica</h2><p class="muted small" style="margin:4px 0 0">Cada tipo de documento se lee distinto. Elige qué vas a leer hoy: verás el método en 5 pasos, un ejemplo real desglosado y una ficha para destilarlo y convertirlo en tarjetas.</p></div>
+      <div><h2>Laboratorio de lectura crítica</h2><p class="muted small" style="margin:4px 0 0">Cada tipo de documento se lee distinto. Elige qué vas a leer hoy: verás el método en 5 pasos, un ejemplo real desglosado y una ficha para destilarlo y convertirlo en una ficha high-yield.</p></div>
       <div class="card stack" id="mbeDocs"></div>
       <div class="filters" id="mbeTabs"></div>
       <div class="card stack" id="mbeGuide"></div>
@@ -360,7 +368,7 @@
   <button data-go="hoy" class="on"><span class="i">⌂</span>Hoy</button>
   <button data-go="banco"><span class="i">🩺</span>Casos</button>
   <button data-go="tarjetas"><span class="i">💎</span>High Yield</button>
-  <button data-go="sim"><span class="i">⏱</span>Simulacro</button>
+  <button data-go="estudio"><span class="i">🧠</span>Estudio</button>
   <button data-go="mbe"><span class="i">🔬</span>MBE</button>
   <button data-go="lib"><span class="i">📚</span>Fuentes</button>
   <button data-go="prog"><span class="i">📈</span>Progreso</button>
@@ -405,6 +413,7 @@
 <script src="js/datos.js"></script>
 <script src="js/corregir.js"></script>
 <script src="js/apuntes.js"></script>
+<script src="js/estudio.js"></script>
 <script src="js/cuenta.js"></script>
 <script src="js/instalar.js"></script>
 <script src="js/inicio.js"></script>

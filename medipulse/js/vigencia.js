@@ -366,7 +366,7 @@ function renderItemReview(){
         ? `${esc(r.nw.vignette)}<ol type="A" style="margin:4px 0 0;padding-left:20px">${r.nw.options.map((o,j)=>`<li style="${j===r.nw.correct?"color:var(--ok);font-weight:700":""}">${esc(o)}</li>`).join("")}</ol><div class="muted" style="margin-top:4px">${esc(r.nw.whyCorrect)}</div>`
         : `${esc(r.nw.front)} → <b>${esc(r.nw.back)}</b>`;
       return `<div class="cand ${r.verdict==="keep" || r.on ? "" : "off"}" id="ir${i}">${r.verdict==="keep" ? "<span></span>" : `<input type="checkbox" data-ir="${i}" ${r.on?"checked":""} aria-label="Aplicar">`}
-        <div class="small" style="min-width:0"><div class="row xs" style="gap:6px"><span class="tag" style="color:${chip[r.verdict][1]}">${chip[r.verdict][0]}</span><span class="muted">${isQ ? "🩺 "+esc(x.topic||"Caso clínico") : "🃏 Tarjeta"}</span></div>
+        <div class="small" style="min-width:0"><div class="row xs" style="gap:6px"><span class="tag" style="color:${chip[r.verdict][1]}">${chip[r.verdict][0]}</span><span class="muted">${isQ ? "🩺 "+esc(x.topic||"Caso clínico") : "🃏 Repaso rápido"}</span></div>
           ${r.reason ? `<div class="xs" style="margin-top:4px">${esc(r.reason)}</div>` : ""}
           <div class="xs muted" style="margin-top:6px"><b>Antes:</b> ${before}</div>
           ${after ? `<div class="xs" style="margin-top:6px;border-left:3px solid var(--ok);padding-left:8px"><b>Después:</b> ${after}</div>` : ""}</div></div>`; }).join("")}

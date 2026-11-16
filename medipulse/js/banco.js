@@ -92,6 +92,8 @@ function renderBanco(){
       <div class="kpi"><b>${deSpecs.length}</b><span>casos</span></div>
       <div class="kpi"><b>${seen}</b><span>vistos</span></div>
       <div class="kpi"><b>${rd.general.n ? Math.round(rd.general.ok / rd.general.n * 100) + "%" : "—"}</b><span>aciertos</span></div></div>
+    ${S.sims.length ? plegable("simhist", `<b>⏱️ Tus simulacros</b> <span class="xs muted">${S.sims.length}</span>`, S.sims.slice(-15).reverse().map(x => { const p = Math.round(x.ok / x.n * 100);
+      return `<div class="row small" style="margin-top:8px"><span class="muted">${new Date(x.d).toLocaleDateString("es", {day: "numeric", month: "short"})}</span><div class="spacer"></div><span>${x.ok}/${x.n}</span><b style="width:48px;text-align:right;color:${p >= 70 ? "var(--ok)" : p >= 50 ? "var(--warn)" : "var(--bad)"}">${p}%</b></div>`; }).join("")) : ""}
     <button class="btn ghost block" data-go="new" style="margin-top:10px">➕ Crear pregunta o ficha high-yield</button>`;
   // El banco incluido es una demostración: cuando se acaba, se dice y se sugiere qué hacer.
   const nNewSp = deSpecs.filter(q => !S.srs["q"+q.id]).length, nFailSp = deSpecs.filter(isFail).length;
