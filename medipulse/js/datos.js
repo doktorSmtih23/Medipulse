@@ -64,7 +64,9 @@ function renderDataWarn(){
   if (SAVE_FAILED) html = `<div class="note trap" role="alert"><b>No se pudo guardar tu progreso.</b> El almacenamiento del navegador está lleno o bloqueado. Descarga tu copia ahora para no perder lo que has hecho.
     <div class="row" style="margin-top:8px"><button class="btn sm primary" data-dw="exp">⬇ Descargar copia</button></div></div>`;
   else if (CAN_STORE && isIOS() && !isInstalled() && !S.iosWarnOk) html = `<div class="note pearl"><b>En iPhone, agrega MediPulse a la pantalla de inicio.</b> Safari puede borrar los datos de un sitio que no abres en 7 días. Toca Compartir → «Agregar a pantalla de inicio» y abre la app desde ahí.
-    <div class="row" style="margin-top:8px"><button class="btn sm" data-dw="ios">Entendido</button></div></div>`;
+    <div class="row" style="margin-top:8px"><button class="btn sm primary" data-go="instalar">📲 Ver cómo</button><button class="btn sm ghost" data-dw="ios">Entendido</button></div></div>`;
+  else if (CAN_STORE && /Android/i.test(navigator.userAgent) && !isInstalled() && !S.iosWarnOk) html = `<div class="note"><b>Instala MediPulse en tu celular</b>: se abre a pantalla completa y funciona sin internet.
+    <div class="row" style="margin-top:8px"><button class="btn sm primary" data-go="instalar">📲 Instalar</button><button class="btn sm ghost" data-dw="ios">Ahora no</button></div></div>`;
   else if (backupDue()) html = `<div class="note"><b>${S.lastBackup ? `Hace más de ${BACKUP_DAYS} días que no haces una copia.` : "Aún no tienes una copia de seguridad."}</b> Tu progreso vive solo en este dispositivo: si se borran los datos del navegador o cambias de teléfono, se pierde.
     <div class="row" style="margin-top:8px"><button class="btn sm primary" data-dw="exp">⬇ Descargar copia</button><button class="btn sm ghost" data-dw="later">Más tarde</button></div></div>`;
   box.innerHTML = html;
