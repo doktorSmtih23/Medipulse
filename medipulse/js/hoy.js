@@ -41,7 +41,7 @@ function renderDirected(){
     ${top.map(s=>{ const x = st[s], pct = x.n >= 3 ? Math.round(x.ok/x.n*100) : null;
       const todo = x.total && x.seen >= x.total;   // ya vio todos los casos de esa área
       return `<div class="row" style="margin-top:6px;gap:8px"><span class="dot" style="background:${SPEC_COLOR[s]}"></span><div style="flex:1;min-width:0"><b class="small">${esc(s)}</b><div class="xs muted">${pct===null ? `sin explorar · ${x.seen} de ${x.total} casos vistos` : `${pct} % de aciertos`}${todo ? ` · ya viste los ${x.total} casos` : ""}</div></div>${todo ? `<button class="btn sm" data-dbank="${esc(s)}">Ver opciones</button>` : `<button class="btn sm" data-dspec="${esc(s)}">5 casos</button>`}</div>`; }).join("")}`;
-  document.querySelectorAll("[data-dbank]").forEach(b=>b.onclick=()=>{ qSpec = b.dataset.dbank; qSt = "all"; go("banco"); });
+  document.querySelectorAll("[data-dbank]").forEach(b=>b.onclick=()=>{ prac().specs = [b.dataset.dbank]; qSt = "all"; save(); go("banco"); });
   document.querySelectorAll("[data-dspec]").forEach(b=>b.onclick=()=>startSession({label:"Estudio dirigido",tag:"norm",stages:[{name:b.dataset.dspec,items:pickQuestions(5,{spec:b.dataset.dspec})}]}));
 }
 document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{

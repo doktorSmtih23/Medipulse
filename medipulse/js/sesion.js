@@ -86,14 +86,16 @@ function answerQ(q, o, exam){
   sess.state="fb"; addTime();
   const ok = o===q.correct;
   grade("q"+q.id, ok?2:0);
-  const l=logToday(); l.q++; if(ok) l.ok++; save();
-  sess.results.push({t:"q",id:q.id,ok});
+  const l=logToday(); l.q++; if(ok) l.ok++;
+  const ri = registrarRespuesta(q, o, ok, false); save();
+  sess.results.push({t:"q",id:q.id,ok,ri});
   $("#opts").classList.add("done"); $(".vignette").classList.add("hints"); $("#skipRow") && $("#skipRow").remove();
   document.querySelectorAll("#opts .opt").forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add("right"); else if(i===o) b.classList.add("wrong"); });
   $("#fbBox").innerHTML = `
     <div class="stack" style="margin-top:14px">
       <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b>${q.area ? ` · Área: ${esc(q.area)}` : ""}</div>
       <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
+      ${ok ? "" : motivoHTML(ri)}
       ${porOpcionHTML(q, o)}
       ${q.pearl ? `<div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>` : ""}
       ${q.trap ? `<div class="note trap" style="white-space:pre-line"><b>⚠️ Trampa:</b> ${esc(q.trap)}</div>` : ""}
@@ -170,28 +172,69 @@ function planHTML(){
 }
 
 function finishExam(timeUp){
-  if (sess.state==="examdone") return; sess.state="examdone"; addTime();
+  if (sess.state==="examdone" || sess.state==="audit") return; sess.state="examdone"; addTime();
   const st=stage(); let ok=0;
-  const rows = st.items.map((it,i)=>{
+  const rs = st.items.map((it,i)=>{
     const q=qById(it.id), a=sess.answers[sess.si+":"+i], good=a===q.correct; if(good) ok++;
     grade("q"+q.id, good?2:0); const l=logToday(); l.q++; if(good) l.ok++;
-    sess.results.push({t:"q",id:q.id,ok:good});
-    return `<details class="card" style="padding:12px 14px;margin-top:10px"><summary style="cursor:pointer"><b style="color:${good?"var(--ok)":"var(--bad)"}">${good?"✓":"✗"}</b> ${i+1}. ${esc(q.topic)}${sess.flags && sess.flags[sess.si+":"+i] ? " 🚩" : ""}</summary>
-      ${imgTag(q.img)}<p class="small" style="margin:10px 0">${q.vignette}</p>
-      <p class="small" style="margin:0">Tu respuesta: <b>${a==null?"(sin responder)":esc(q.options[a])}</b><br>Correcta: <b style="color:var(--ok)">${esc(q.options[q.correct])}</b></p>
-      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p><div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>${srcLine(q)}<div style="margin-top:6px"><button class="linkbtn xs" data-rep="q${q.id}">🚩 Reportar un error</button><div class="repslot"></div></div></details>`;
+    const ri = registrarRespuesta(q, a, good, true);
+    sess.results.push({t:"q",id:q.id,ok:good,ri});
+    return {q, a, good, ri, i};
   });
-  const pct=Math.round(ok/st.items.length*100);
   S.sims.push({d:Date.now(),n:st.items.length,ok}); save();
-  const more = sess.si+1 < sess.stages.length;
+  sess.exRes = {rs, ok, timeUp};
   $("#sessBar").style.width="100%";
+  const n = rs.filter(r=>r.a!=null).length;
+  if (!n) return examResults();
+  // Antes de ver la nota: auditoría a ciegas (si ves primero que acertaste, tiendes a decir «estaba seguro»).
+  $("#sessBody").innerHTML = `<div class="card center stack">
+      ${timeUp?'<span class="tag" style="background:var(--bad-soft);color:var(--bad)">Se acabó el tiempo</span>':""}
+      <div class="big">🔍</div><h3 style="margin:0">Antes de ver tu nota: auditoría a ciegas</h3>
+      <p class="small muted" style="margin:0">Repasa tus ${n} respuesta${n===1?"":"s"} <b>sin saber si acertaste</b> y marca cómo respondiste cada una. Así se separan los aciertos sólidos de los aciertos por suerte, y los fallos que no sabías de los errores cometidos con seguridad.</p>
+      <button class="btn primary block" id="auditGo">🔍 Auditar mis respuestas</button>
+      <button class="btn ghost block" id="auditSkip">Ver resultados sin auditar</button></div>`;
+  $("#auditGo").onclick = ()=>auditar(0);
+  $("#auditSkip").onclick = ()=>examResults();
+}
+function auditar(j){
+  const rs = sess.exRes.rs, pend = rs.filter(r=>r.a!=null);
+  const r = pend.find((x,k)=>k>=j && !x.c);
+  if (!r) return examResults();
+  sess.state="audit";
+  const k = pend.indexOf(r);
+  $("#sessStage").textContent = "Auditoría a ciegas"; $("#sessCount").textContent = `${k+1} / ${pend.length}`;
+  $("#sessBar").style.width = (k/pend.length*100)+"%";
+  $("#sessBody").innerHTML = `<div class="card">
+      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[r.q.specialty]}">${esc(r.q.specialty)}</span><span class="muted">Pregunta ${r.i+1}</span></div>
+      ${imgTag(r.q.img)}<p class="vignette" style="margin:12px 0 4px">${r.q.vignette}</p>
+      <div id="opts" class="done">${r.q.options.map((o,i)=>`<div class="optrow"><button class="opt${i===r.a?" sel":""}" disabled><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button></div>`).join("")}</div>
+      <p class="small" style="margin:12px 0 6px"><b>¿Cómo respondiste la ${"ABCDE"[r.a]}?</b></p>
+      <div class="grid2" id="confBtns">${CONFIANZA.map((c,i)=>`<button class="btn" data-conf="${c.k}"><b>${c.t}</b><br><span class="xs muted">${esc(c.d)}</span> <kbd>${i+1}</kbd></button>`).join("")}</div>
+      <div class="row" style="margin-top:10px"><div class="spacer"></div><button class="linkbtn xs" id="auditEnd">Terminar la auditoría y ver resultados</button></div></div>`;
+  window.scrollTo(0, 0);
+  document.querySelectorAll("#confBtns [data-conf]").forEach(b=>b.onclick=()=>{ marcarConfianza(r, b.dataset.conf); auditar(k+1); });
+  $("#auditEnd").onclick = ()=>examResults();
+}
+function examResults(){
+  sess.state="examdone";
+  const st=stage(), {rs, ok, timeUp} = sess.exRes, pct=Math.round(ok/st.items.length*100);
+  const more = sess.si+1 < sess.stages.length;
+  $("#sessBar").style.width="100%"; $("#sessStage").textContent = st.name; $("#sessCount").textContent = "";
+  const rows = rs.map(({q, a, good, ri, i, c})=>{ const cf = CONFIANZA.find(x=>x.k===c), cl = clasifConfianza(good, c);
+    return `<details class="card" style="padding:12px 14px;margin-top:10px"><summary style="cursor:pointer"><b style="color:${good?"var(--ok)":"var(--bad)"}">${good?"✓":"✗"}</b> ${i+1}. ${esc(q.topic)}${sess.flags && sess.flags[sess.si+":"+i] ? " 🚩" : ""}${cl ? ` <span class="audtag ${cl.k}">${cl.t}</span>` : ""}</summary>
+      ${imgTag(q.img)}<p class="small" style="margin:10px 0">${q.vignette}</p>
+      <p class="small" style="margin:0">Tu respuesta: <b>${a==null?"(sin responder)":esc(q.options[a])}</b>${cf ? ` · la marcaste como <b>${cf.t}</b>` : ""}<br>Correcta: <b style="color:var(--ok)">${esc(q.options[q.correct])}</b></p>
+      ${cl && cl.msg ? `<p class="xs" style="margin:6px 0 0">${esc(cl.msg)}</p>` : ""}
+      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p>${good ? "" : motivoHTML(ri)}${q.pearl ? `<div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>` : ""}${srcLine(q)}<div style="margin-top:6px"><button class="linkbtn xs" data-rep="q${q.id}">🚩 Reportar un error</button><div class="repslot"></div></div></details>`; });
   $("#sessBody").innerHTML = `<div class="card center stack">
       ${timeUp?'<span class="tag" style="background:var(--bad-soft);color:var(--bad)">Se acabó el tiempo</span>':""}
       <div class="big" style="color:${pct>=70?"var(--ok)":pct>=50?"var(--warn)":"var(--bad)"}">${pct}%</div>
       <p style="margin:0">${ok} de ${st.items.length} correctas</p>
+      ${auditoriaResumen(rs, st.items.length)}
       <p class="muted small" style="margin:0">${pct>=70?"Nivel competitivo. Las falladas ya están en tu repaso.":pct>=50?"Vas bien. Revisa las falladas abajo: es donde más aprendes.":"Normal al principio. Cada falla queda programada para volver."}</p>
       <button class="btn primary block" id="contBtn">${more?"Seguir con el plan →":"Terminar"}</button></div>
     <h3 style="margin-top:18px;font-size:16px">Revisión</h3>${rows.join("")}`;
+  window.scrollTo(0, 0);
   document.querySelectorAll("[data-rep]").forEach(b=>b.onclick=()=>openReportForm(b.dataset.rep, b.nextElementSibling));
   $("#contBtn").onclick = ()=> more ? (sess.state="ask", sess.i=st.items.length, nextStage()) : endSession(true);
 }
@@ -216,6 +259,7 @@ function endSession(showSummary){
     ${s.skipped ? `<p class="xs muted" style="margin:0">Pasaste ${s.skipped} pregunta${s.skipped===1?"":"s"} sin responder: siguen disponibles.</p>` : ""}
     ${s.diag ? diagSummary(q) : ""}
     ${enfoqueResumen(s.results)}
+    ${vulnResumen(s.results)}
     <p class="muted small" style="margin:0">🔥 Racha: <b>${streak()}</b> día${streak()===1?"":"s"}. ${s.lazy?"Lo difícil era empezar. ¿Y si haces otros 5 minutos ahora que ya entraste en ritmo?":"Lo que fallaste vuelve en tu repaso en el momento justo."}</p>
     ${s.lazy?'<button class="btn primary block" id="moreBtn">Otros 5 minutos 💪</button>':""}
     <button class="btn ${s.lazy?"ghost":"primary"} block" data-go="hoy">Volver a Hoy</button></div>`;
@@ -226,6 +270,7 @@ function endSession(showSummary){
 document.addEventListener("keydown", e=>{
   if (!sess || currentView!=="sess" || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
   const it = stage()?.items[sess.i];
+  if (sess.state==="audit"){ if (/^[1-4]$/.test(e.key)) document.querySelectorAll("#confBtns [data-conf]")[+e.key-1]?.click(); return; }
   if (!it) { if(e.key==="Enter"){ $("#contBtn")?.click(); } return; }
   if (it.t==="q"){
     if (/^[1-5]$/.test(e.key) && sess.state==="ask"){ document.querySelectorAll("#opts .opt")[+e.key-1]?.click(); }
