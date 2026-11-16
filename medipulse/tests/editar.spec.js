@@ -31,8 +31,12 @@ test("editar a mano: se guarda como tu versión, el original no cambia y se rotu
   await page.evaluate(() => { go("new"); editarCaso(qById(2)); });
   await page.fill("#edfVig", "Caso más difícil con [[dato clave]].");
   await page.click("#edAddE"); await page.fill('[data-edo="4"]', "Opción nueva");
-  await page.check("#edOcultar");
   await page.click("#edSave");
+  // antes de guardar: los cambios, con lo quitado y lo nuevo
+  await expect(page.locator(".confirmar")).toContainText("Revisa tus cambios (2)");
+  await expect(page.locator(".confirmar ins").first()).toBeVisible();
+  await page.check("#edOcultar");
+  await page.click("#edConfirm");
   const r = await page.evaluate(o => { const q = S.userQ.at(-1); return [q.editada, q.baseId, q.options.length, q.vignette, JSON.stringify(BUILTIN_Q.find(x => String(x.id) === "2")) === JSON.stringify(JSON.parse(o)) || true, !!S.hidden.q2, origenChip(q), srcLine(q)]; }, orig);
   expect(r.slice(0, 4)).toEqual([true, "2", 5, "Caso más difícil con <span class='hy'>dato clave</span>."]);
   expect(r[5]).toBe(true);
@@ -58,7 +62,7 @@ test("🤖 Hazla más difícil: envía las ideas marcadas y llena el editor con 
   expect(u).toContain("Quita el dato que delata la respuesta");
   expect(u).toContain("insuficiencia renal");
   expect(peticiones.at(-1).system).toContain("Exactamente 5 opciones");
-  await page.click("#edSave");
+  await page.click("#edSave"); await page.click("#edConfirm");
   expect(await page.evaluate(() => { const q = S.userQ.at(-1); return [q.ia, q.correct, q.porOpcion.length]; })).toEqual([true, 3, 5]);
 });
 
@@ -89,4 +93,49 @@ test("🤖 Revisar mi ficha en el editor de fichas", async ({ page }) => {
   await page.fill(".eTitle", "Hiponatremia"); await page.fill(".eL >> nth=0", "Corrección máxima"); await page.fill(".eV >> nth=0", "8 en 24 h");
   await page.click(".eRev");
   await expect(page.locator(".eRevBox")).toContainText("Falta la unidad del sodio.");
+});
+
+test.describe("cambios: nada igual al original y cada cambio se acepta", () => {
+  test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); await responder(page, [2]); await page.evaluate(() => { go("new"); editarCaso(qById(2)); }); });
+
+  test("sin cambios no se guarda una copia igual", async ({ page }) => {
+    const n = await page.evaluate(() => S.userQ.length);
+    await page.click("#edSave");
+    await expect(page.locator("#edErr")).toContainText("No cambiaste nada");
+    await expect(page.locator(".confirmar")).toHaveCount(0);
+    expect(await page.evaluate(() => S.userQ.length)).toBe(n);
+  });
+
+  test("desmarcar un cambio conserva el original en ese campo; sin ninguno aceptado no se guarda", async ({ page }) => {
+    const orig = await page.evaluate(() => qById(2).pearl);
+    await page.fill("#edfTopic", "Tema nuevo"); await page.fill("#edfPearl", "Perla nueva");
+    await page.click("#edSave");
+    await expect(page.locator(".cambio")).toHaveCount(2);
+    await page.locator(".cambio", {hasText: "Perla"}).locator("input").uncheck();
+    await expect(page.locator("#edConfirm")).toContainText("1 cambio");
+    await page.click("#edConfirm");
+    expect(await page.evaluate(() => { const q = S.userQ.at(-1); return [q.topic, q.pearl, q.cambios]; })).toEqual(["Tema nuevo", orig, ["topic"]]);
+  });
+
+  test("si edita después de revisar, vuelve a mostrar los cambios antes de guardar", async ({ page }) => {
+    await page.fill("#edfTopic", "Tema nuevo"); await page.click("#edSave");
+    await page.fill("#edfTrap", "Trampa nueva");
+    await page.click("#edConfirm");
+    await expect(page.locator("#edErr")).toContainText("Cambiaste algo después de revisar");
+    await expect(page.locator(".cambio")).toHaveCount(2);
+    await page.click("#edConfirm");
+    expect(await page.evaluate(() => S.userQ.at(-1).trap)).toBe("Trampa nueva");
+  });
+
+  test("sin IA, las ideas dicen qué cambiar y dónde; «conducta» y «5 opciones» se aplican solas", async ({ page }) => {
+    await page.evaluate(() => editarCaso(QUESTIONS.find(q => qKind(q) === "diagnostico" && q.options.length === 4)));
+    await page.click('[data-idea="pista"]');
+    await expect(page.locator(".guia")).toContainText("busca el dato más específico");
+    await expect(page.locator("#edfVig")).toBeFocused();
+    await page.click('[data-idea="cinco"]');
+    await expect(page.locator("[data-edo]")).toHaveCount(5);
+    await expect(page.locator('[data-edo="4"]')).toBeFocused();
+    await page.click('[data-idea="conducta"]');
+    await expect(page.locator("#edfTipo")).toHaveValue("conducta");
+  });
 });
