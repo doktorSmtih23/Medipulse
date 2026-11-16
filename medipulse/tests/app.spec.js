@@ -161,3 +161,11 @@ test("modo a tope: ninguna pregunta se repite entre bloques", async ({ page }) =
   expect(ids.length).toBeGreaterThan(5);
   expect(new Set(ids).size).toBe(ids.length);
 });
+
+test("ninguna pantalla dice «tarjetas» (ahora son fichas); solo la tarjeta de crédito de la guía", async ({ page }) => {
+  for (const v of ["hoy", "banco", "tarjetas", "sim", "mbe", "lib", "prog", "new", "rep", "guide", "instalar", "ahorro"]) {
+    await page.evaluate(v => go(v), v);
+    const t = await page.evaluate(() => document.querySelector(".view.on").innerText.replace(/tarjeta de crédito|registra tu tarjeta/gi, ""));
+    expect(t, `pantalla ${v}`).not.toMatch(/tarjeta/i);
+  }
+});

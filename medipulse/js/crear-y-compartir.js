@@ -45,7 +45,7 @@ function downloadPack(pack){
   const txt = JSON.stringify(pack);
   const name = ("medipulse-pack-" + pack.title).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").slice(0,60).replace(/-$/,"") + ".json";
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([txt], {type: "application/json"})); a.download = name; a.click();
-  const msg = `Pack descargado: ${pack.questions.length} casos y ${pack.cards.length} tarjetas`;
+  const msg = `Pack descargado: ${pack.questions.length} casos y ${(pack.fichas || []).length} fichas`;
   try { navigator.clipboard.writeText(txt).then(()=>toast(msg + " · también copiado ✓"), ()=>toast(msg + " ✓")); } catch(e) { toast(msg + " ✓"); }
 }
 function sanitizeVig(v){
@@ -147,7 +147,7 @@ function importPack(p){
   hs.forEach(h=>{ const sp = spec(h.specialty); S.userH.push({id: "u"+(++S.seq), specialty: sp, title: str(h.title,200), badge: str(h.badge,60), accent: SPEC_COLOR[sp],
     thresholds: h.thresholds.map(t=>({label: str(t.label,200), val: str(t.val,400)})), redFlag: str(h.redFlag,1000), trap: str(h.trap,1000), ctx: str(h.ctx,1500), src: id, page: parseInt(h.page) || 0, pack: true}); });
   cs.forEach(c=>S.userC.push({id: "u"+(++S.seq), specialty: spec(c.specialty), front: str(c.front,600), back: str(c.back,1500), ctx: str(c.ctx,1500), src: id, page: parseInt(c.page) || 0, pack: true}));
-  rebuild(); save(); toast(`Pack importado: ${qs.length} casos, ${hs.length} fichas${cs.length ? ` y ${cs.length} tarjetas` : ""} ✓ No los revisó MediPulse: verifícalos.`); openSrc(id);
+  rebuild(); save(); toast(`Pack importado: ${qs.length} casos, ${hs.length} fichas${cs.length ? ` y ${cs.length} repasos rápidos` : ""} ✓ No los revisó MediPulse: verifícalos.`); openSrc(id);
 }
 
 // ---------- ítems de una fuente ----------

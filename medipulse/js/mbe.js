@@ -144,7 +144,7 @@ function renderNotes(){
       <div class="row xs" style="gap:6px"><span class="tag">${MBE[n.type] ? MBE[n.type].icon + " " + esc(MBE[n.type].name) : ""}</span><span class="muted">${esc(n.spec)} · ${fmtDate(n.at)}</span></div>
       <div class="small" style="margin-top:4px"><b>${esc(n.title)}</b></div>
       <dl class="notedl">${n.f.map((v,i)=>v?`<div><dt>${esc(n.labels[i])}</dt><dd>${esc(v)}</dd></div>`:"").join("")}</dl>
-      <div class="row" style="gap:6px;margin-top:6px">${n.hy ? `<span class="xs" style="color:var(--ok)">✓ Ficha high-yield creada</span>` : n.cards ? `<span class="xs" style="color:var(--ok)">✓ ${n.cards} tarjetas en tu repaso</span>` : `<button class="btn sm" data-nhy="${n.id}">💎 Crear ficha high-yield</button>`}<button class="btn ghost sm" data-ndel="${n.id}" style="color:var(--bad)">Borrar</button></div>
+      <div class="row" style="gap:6px;margin-top:6px">${n.hy ? `<span class="xs" style="color:var(--ok)">✓ Ficha high-yield creada</span>` : n.cards ? `<span class="xs" style="color:var(--ok)">✓ Ya está en tu repaso</span>` : `<button class="btn sm" data-nhy="${n.id}">💎 Crear ficha high-yield</button>`}<button class="btn ghost sm" data-ndel="${n.id}" style="color:var(--bad)">Borrar</button></div>
       <div id="nhyEd-${n.id}"></div>
     </div></div>`).join("") : `<p class="muted small" style="margin:0">Aún no tienes fichas de lectura. Destila lo que leas hoy y conviértelo en una ficha high-yield.</p>`;
   document.querySelectorAll("[data-ndel]").forEach(b=>b.onclick=()=>{ S.notes = S.notes.filter(n=>n.id!==b.dataset.ndel); save(); renderNotes(); });

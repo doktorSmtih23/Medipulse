@@ -598,7 +598,7 @@ const qtLabel = k => k==="critica" ? "🔬 Lectura crítica" : k==="directa" ? "
 function renderReview(){
   const box = $("#reviewBox");
   if (!cands) { box.innerHTML = ""; return; }
-  if (!cands.length) { box.innerHTML = `<div class="card"><p class="small" style="margin:0">No encontré frases útiles${gen && gen.topic ? ` sobre “${esc(gen.topic)}”` : ""} en esas páginas. Prueba otro tema u otras páginas, o crea tus tarjetas en <b>📖 Leer y crear</b>.</p></div>`; return; }
+  if (!cands.length) { box.innerHTML = `<div class="card"><p class="small" style="margin:0">No encontré frases útiles${gen && gen.topic ? ` sobre “${esc(gen.topic)}”` : ""} en esas páginas. Prueba otro tema u otras páginas, o crea tus fichas en <b>📖 Leer</b>.</p></div>`; return; }
   // Repetidas: se comparan con el banco y con las anteriores de esta misma tanda (una sola vez).
   cands.forEach((c, i) => { if (c._dup !== undefined || c.kind === "c") return;
     const k = c.kind === "h" ? "h" : "q";
@@ -627,7 +627,7 @@ function renderReview(){
         <div class="stack" style="min-width:0">
           <label class="fld">Pregunta<textarea data-cf="${i}" data-k="front" rows="2">${esc(c.front)}</textarea></label>
           <label class="fld">Respuesta<textarea data-cf="${i}" data-k="back" rows="1">${esc(c.back)}</textarea></label>
-          <div class="xs muted">🃏 Tarjeta · ${esc(c.specialty)} · pág. ${c.page}</div>
+          <div class="xs muted">🃏 Repaso rápido · ${esc(c.specialty)} · pág. ${c.page}</div>
         </div></div>` : `
       <div class="cand ${c.on?"":"off"}" id="cand${i}"><input type="checkbox" data-ci="${i}" ${c.on?"checked":""} aria-label="Incluir">
         <div style="min-width:0">
@@ -711,7 +711,7 @@ function renderSrcItems(){
   // Resumen a la vista y la lista plegada (con muchas preguntas era una lista larga).
   const abierta = !!(box.querySelector("details.srclista") && box.querySelector("details.srclista").open);
   const est = rows.map(x=>status(x.k)), cuenta = t => est.filter(e=>e===t).length;
-  const partes = [qs.length && `${qs.length} pregunta${qs.length===1?"":"s"}`, hs.length && `${hs.length} ficha${hs.length===1?"":"s"}`, cs.length && `${cs.length} tarjeta${cs.length===1?"":"s"}`].filter(Boolean).join(" · ");
+  const partes = [qs.length && `${qs.length} pregunta${qs.length===1?"":"s"}`, hs.length && `${hs.length} ficha${hs.length===1?"":"s"}`, cs.length && `${cs.length} repaso${cs.length===1?"":"s"} rápido${cs.length===1?"":"s"}`].filter(Boolean).join(" · ");
   const estados = [["nueva","nuevas"],["toca repasar","para repasar"],["en repaso","en repaso"],["dominada","dominadas"]].map(([k,t])=>cuenta(k) ? `${cuenta(k)} ${t}` : "").filter(Boolean).join(" · ");
   box.innerHTML = `<div class="row"><h3 style="font-size:16px">En tu banco</h3><div class="spacer"></div><button class="btn primary" id="srcStudy">Estudiar esta fuente (${rows.length})</button></div>
     <p class="small" style="margin:6px 0 0">${partes}</p><p class="xs muted" style="margin:2px 0 0">${estados}</p>
