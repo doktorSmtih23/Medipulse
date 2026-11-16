@@ -33,7 +33,7 @@ function qEditRead(box){
 }
 function qEditError(v){
   if (!v.vignette) return "El enunciado no puede quedar vacío.";
-  if (v.options.some(o => !o)) return "Las 4 opciones deben tener texto.";
+  if (v.options.some(o => !o)) return "Todas las opciones deben tener texto.";
   if (v.options.length < 4 || v.options.length > 5) return "La pregunta debe tener 4 o 5 opciones.";
   if (new Set(v.options).size !== v.options.length) return "Hay dos opciones iguales.";
   return "";

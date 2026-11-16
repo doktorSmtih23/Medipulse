@@ -355,3 +355,15 @@ label.check>span{flex:1;min-width:0}
 .hyed .erow{background:var(--subtle);border-radius:12px;padding:6px}
 .edideas .chip2{white-space:normal;text-align:left;max-width:100%}
 .edopt{flex:1;min-width:0;resize:vertical;min-height:40px}
+.guia{margin-top:8px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:8px;padding:8px 10px}
+.guia div{margin-top:2px}
+.resaltar{outline:3px solid var(--warn);outline-offset:2px;transition:outline .3s}
+.confirmar{border:2px solid var(--accent);border-radius:12px;padding:12px}
+.cambio{display:block;border-top:1px dashed var(--border);padding-top:8px;cursor:pointer}
+.cambio.no .dif{opacity:.45}
+.dif{margin-top:4px;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--subtle);border-radius:8px;padding:8px}
+.dif del{background:var(--bad-soft);color:var(--bad);text-decoration:line-through}
+.dif ins{background:var(--ok-soft);color:var(--ok);text-decoration:none;font-weight:600}
+.dif del+ins{margin-left:3px}
+.dif .antes{margin-bottom:6px}
+.dif .opcambio{border-left:3px solid var(--accent);padding-left:6px;margin:4px 0}
