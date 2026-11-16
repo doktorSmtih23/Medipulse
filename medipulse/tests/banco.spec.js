@@ -239,3 +239,15 @@ test("buscar por tema con mis filtros conserva el cursor y abre la lista con lo 
   await expect(page.locator('#qList [data-pleg="bqlista"]')).toHaveAttribute("open", "");
   await expect.poll(() => page.$$eval("#qList details.qgrupo[open] [data-q1]", bs => bs.length)).toBeGreaterThan(2);
 });
+
+test("«Salud Pública» pasó a «Epidemiología y Estadística», también en lo guardado y en lo que llega de otras IA", async ({ page }) => {
+  await page.evaluate(() => { const d = JSON.parse(localStorage.getItem("medipulse_v2") || "{}");
+    d.userQ = [{id: "u1", specialty: "Salud Pública", topic: "NNT", vignette: "v", options: ["a", "b", "c", "d"], correct: 0, whyCorrect: "", pearl: "", trap: ""}];
+    d.prac = {specs: ["Salud Pública"], modo: "azar", n: 20, examen: false}; localStorage.setItem("medipulse_v2", JSON.stringify(d)); });
+  await page.reload();
+  const r = await page.evaluate(() => [SPECS.at(-1), qById("u1").specialty, S.prac.specs, specCanon("Salud publica"), specCanon("Bioestadística"), specCanon("Pediatría")]);
+  expect(r).toEqual(["Epidemiología y Estadística", "Epidemiología y Estadística", ["Epidemiología y Estadística"], "Epidemiología y Estadística", "Epidemiología y Estadística", "Pediatría"]);
+  await page.click("nav [data-go=banco]");
+  await expect(page.locator('#qSpecs [data-sp="Epidemiología y Estadística"]')).toHaveClass(/on/);
+  expect(await sinDesborde(page)).toBe(true);
+});

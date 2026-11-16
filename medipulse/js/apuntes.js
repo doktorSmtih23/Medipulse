@@ -15,8 +15,8 @@ const apLib = id => apLibs().find(l => l.id === id);
 const apId = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 // El área de la libreta es libre (Otorrino, Neurología, Urgencias…). Las fichas y preguntas van a una de
 // las especialidades de la app (para estadísticas y simulacros) y llevan el área como etiqueta.
-const apBase = lib => SPECS.includes(lib.spec) ? lib.spec : "Medicina Interna";
-const apEtiqueta = lib => SPECS.includes(lib.spec) ? "" : (lib.spec || "");
+const apBase = lib => SPECS.includes(specCanon(lib.spec)) ? specCanon(lib.spec) : "Medicina Interna";
+const apEtiqueta = lib => SPECS.includes(specCanon(lib.spec)) ? "" : (lib.spec || "");
 const apAreasHTML = () => `<datalist id="apAreas">${[...new Set([...SPECS, ...apLibs().map(l => l.spec).filter(Boolean)])].map(a => `<option value="${esc(a)}">`).join("")}</datalist>`;
 const AP_VERIF = /\s*(?:\(\?\)|\?\?)/g, AP_HAY_VERIF = /\(\?\)|\?\?/;
 

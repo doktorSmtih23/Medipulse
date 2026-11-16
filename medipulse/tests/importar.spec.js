@@ -126,6 +126,6 @@ test("preguntas primero y respuestas al final (otro formato de Gemini): las empa
 test("formato con «Dato clave» y la explicación dentro de la opción correcta: se llena Explicación, Perla y Trampa", async ({ page }) => {
   const texto = require("fs").readFileSync(require("path").join(__dirname, "fixtures/preguntas-inph-modo-a.txt"), "utf8");
   const qs = await page.evaluate(t => organizarTexto(t).map(q => [q.correct, q.specialty, q.tipo, !!q.fundamento, !!q.pearl, !!q.trap, /pág/.test(q.fuenteTxt), q.fundamento.slice(0, 20)]), texto);
-  expect(qs.map(q => q.slice(0, 7))).toEqual([[2, "Medicina Interna", "conducta", true, true, true, true], [0, "Cirugía", "diagnostico", true, true, true, true], [0, "Salud Pública", "datos", true, true, true, true]]);
+  expect(qs.map(q => q.slice(0, 7))).toEqual([[2, "Medicina Interna", "conducta", true, true, true, true], [0, "Cirugía", "diagnostico", true, true, true, true], [0, "Epidemiología y Estadística", "datos", true, true, true, true]]);
   expect(qs[0][7]).toMatch(/^Es correcta porque/);
 });

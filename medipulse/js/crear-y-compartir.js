@@ -135,7 +135,7 @@ function exportSourcePack(id){
 function importPack(p){
   const str = (x, max) => typeof x === "string" ? x.trim().slice(0, max) : "";
   if (!p || p.format !== "medipulse-pack" || (!Array.isArray(p.questions) && !Array.isArray(p.cards) && !Array.isArray(p.fichas))) return toast("Ese archivo no es un pack de MediPulse.");
-  const spec = x => SPECS.includes(x) ? x : "Medicina Interna";
+  const spec = x => SPECS.includes(specCanon(x)) ? specCanon(x) : "Medicina Interna";
   const qs = (p.questions || []).slice(0, 1000).filter(q=>q && str(q.vignette,1) && Array.isArray(q.options) && (q.options.length===4 || q.options.length===5) && q.options.every(o=>str(o,1)) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<q.options.length);
   const hs = (p.fichas || []).slice(0, 1000).filter(h=>h && str(h.title,1) && Array.isArray(h.thresholds) && h.thresholds.length && h.thresholds.length <= 10 && h.thresholds.every(t=>t && str(t.label,1) && str(t.val,1)));
   const cs = (p.cards || []).slice(0, 2000).filter(c=>c && str(c.front,1) && str(c.back,1));

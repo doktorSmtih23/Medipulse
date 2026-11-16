@@ -82,7 +82,7 @@ El contenido incluido es una **demostración corta del método** (ver `PRODUCTO.
 
 ```js
 MP_CONTENIDO.agregar({
-  "especialidad": "Salud Pública",     // igual que en SPECS
+  "especialidad": "Epidemiología y Estadística",     // igual que en SPECS
   "prefijo": "sp",                     // para los id nuevos
   "paquete": "salud-publica",          // "starter" (las 4 básicas, versión gratuita) o el módulo al que pertenece
   "actualizado": "2026-11-15",         // cámbialo cada vez que edites el archivo
