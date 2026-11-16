@@ -159,4 +159,57 @@ test.describe("preguntas de búsqueda activa", () => {
     await expect(page.locator("#estFichaGuiaBox .eL >> nth=1")).toHaveValue("¿Cuál es la primera línea?");
     await expect(page.locator("#estFichaGuiaBox .eV >> nth=1")).toHaveValue("El fármaco Y");
   });
+
+  test("con un ensayo clínico: no usa IA (remite a MBE), deja leer con mis preguntas y «¿Es una revisión?» la reactiva", async ({ page }) => {
+    errores = vigilarErrores(page);
+    const peticiones = await simularIA(page, () => ({tool: "report_preguntas", input: {preguntas: [
+      {pregunta: "¿Cuál es la primera línea?", concepto: "tratamiento", respuesta: "Y", page: 1}]}}));
+    await abrirConClave(page); await subirPdf(page);
+    await page.evaluate(() => { const s = S.sources.at(-1); s.design = "ECA";
+      s.indice = {items: [{title: "Métodos", from: 1, to: 1}, {title: "Resultados", from: 1, to: 1}]}; save(); });
+    await page.click("nav [data-go=estudio]");
+    await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
+    await expect(page.locator("#estNotaPaper")).toContainText("laboratorio MBE");
+    await expect(page.locator("#estGuiaIA")).toHaveCount(0);
+    await expect(page.locator("#estMias")).toBeVisible();   // abierto: con un estudio, las preguntas las escribes tú
+    await page.fill("#estMias", "¿Cuál fue el NNT?");
+    await page.click("#estGo");
+    await expect(page.locator("#estBox")).toContainText("¿Cuál fue el NNT?");
+    if (await page.locator("#estSaltar").count()) await page.click("#estSaltar");
+    await page.click("#estLeer"); await terminarBloque(page);
+    await page.fill("#estRec", "Algo"); await page.click("#estComp");
+    await expect(page.locator("#estIA")).toHaveCount(0);
+    expect(peticiones.length).toBe(0);
+    // Si la detección se equivocó, el usuario la corrige y vuelve la IA (con su aviso si elige solo «Métodos»).
+    await page.evaluate(() => { S.estudio.actual = null; save(); }); await page.click("nav [data-go=estudio]");
+    await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
+    await page.click("#estNoPaper");
+    await expect(page.locator("#estNotaPaper")).toHaveCount(0);
+    await expect(page.locator("#estGuiaIA")).toBeVisible();
+    await page.selectOption("#estInd", "0");
+    await expect(page.locator("#estNotaMet")).toContainText("Todo el documento");
+    await page.selectOption("#estInd", "1");
+    await expect(page.locator("#estNotaMet")).toHaveCount(0);
+    await page.click("#estGo");
+    await expect(page.locator("#estBox")).toContainText("¿Cuál es la primera línea?");
+    const p = peticiones.at(-1);
+    expect(p.system).toContain("NO preguntes por características basales");
+    expect(p.system).toContain("de la más fundamental a la menos");
+    expect(p.system).not.toContain("como aparecen en el documento");
+  });
+
+  test("sin documento (un tema): las preguntas siguen siendo de lo fundamental del tema clínico", async ({ page }) => {
+    errores = vigilarErrores(page);
+    const peticiones = await simularIA(page, () => ({tool: "report_preguntas", input: {preguntas: [
+      {pregunta: "¿Cuál es la primera línea?", concepto: "tratamiento", respuesta: "Y", page: 0}]}}));
+    await abrirConClave(page);
+    await page.click("nav [data-go=estudio]");
+    await expect(page.locator("#estNotaPaper")).toHaveCount(0);
+    await page.fill("#estTema", "Encefalitis autoinmune");
+    await page.click("#estGo");
+    await expect(page.locator("#estBox")).toContainText("¿Cuál es la primera línea?");
+    const p = peticiones.at(-1);
+    expect(p.system).toContain("mecanismo central");
+    expect(p.system).toContain("NO preguntes por características basales");
+  });
 });
