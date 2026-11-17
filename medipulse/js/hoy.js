@@ -7,14 +7,9 @@ function renderHoy(){
   renderFocusSel();
   renderPdfHoy();
   if (typeof renderDataWarn === "function") renderDataWarn();
+  $("#hoyFecha").textContent = new Date().toLocaleDateString("es", {weekday: "long", day: "numeric", month: "long"}).replace(/^./, c => c.toUpperCase());
   const l = logToday(), st = streak(), due = dueKeys().length;
-  $("#todayCard").innerHTML = `
-    <div class="row"><h3 style="font-size:16px">Hoy</h3><div class="spacer"></div>${l.sec>0||l.c>0||l.q>0?'<span class="tag" style="background:var(--ok-soft);color:var(--ok)">✓ Racha asegurada</span>':'<span class="tag">Aún sin estudiar</span>'}</div>
-    <div class="grid3" style="margin-top:12px">
-      <div class="kpi"><b>${Math.round(l.sec/60)}</b><span>minutos</span></div>
-      <div class="kpi"><b>${l.q}</b><span>casos${l.q?" · "+Math.round(l.ok/l.q*100)+"% ✓":""}</span></div>
-      <div class="kpi"><b>${l.c}</b><span>fichas</span></div>
-    </div>`;
+  renderHoyCard(l, st, due);
   const weak = weakestSpec();
   let sug;
   if (due>0) sug = `Tienes <b>${due} repaso${due>1?"s":""}</b> pendiente${due>1?"s":""}. Es lo que más rinde: estás a punto de olvidarlo.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDue">Repasar ahora</button></div>`;
@@ -22,16 +17,14 @@ function renderHoy(){
   else if (newUserItems().length) sug = `Tienes <b>${newUserItems().length} ítems nuevos</b> generados de tus PDF sin estudiar. Lo que acabas de leer se fija mejor si lo practicas hoy.<div class="row" style="margin-top:10px"><button class="btn primary" id="doNew">Practicar lo nuevo</button></div>`;
   else if (!SPECS.some(x => specStats()[x].n >= 3)) sug = `Todavía no sé cuál es tu punto más débil: necesito que respondas algunos casos. Empieza por el <b>diagnóstico rápido</b>: 5 casos, uno por área, y desde ahí te recomiendo.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDiag">🎯 Hacer el diagnóstico</button></div>`;
   else sug = `Tu punto más débil ahora: <b>${weak}</b>. Una ronda de 5 casos de ese tema te dará el mayor avance.<div class="row" style="margin-top:10px"><button class="btn" id="doWeak">5 casos de ${weak}</button></div>`;
-  $("#suggestCard").innerHTML = `<h3 style="font-size:16px">💡 Recomendación</h3><p style="margin:6px 0 0" class="small">${sug}</p>`;
+  $("#suggestCard").innerHTML = `<h3 style="font-size:16px">💡 Tu siguiente paso</h3><p style="margin:6px 0 0" class="small">${sug}</p>`;
   $("#doDue") && ($("#doDue").onclick = startDue);
   $("#doDiag") && ($("#doDiag").onclick = startDiag);
   $("#doNew") && ($("#doNew").onclick = ()=>startSession({label:"Mis PDF",tag:"norm",stages:[{name:"Nuevo de tus fuentes",items:newUserItems().slice(0,15)}]}));
   $("#doOne") && ($("#doOne").onclick = ()=>startSession({label:"Mantener racha",tag:"lazy",stages:[{name:"Fichas",items:pickHY(2)}]}));
   $("#doWeak") && ($("#doWeak").onclick = ()=>startSession({label:"Tema débil",tag:"norm",stages:[{name:weak,items:pickQuestions(5,{spec:weak})}]}));
   renderDirected();
-  const day = Math.floor(Date.now()/DAY);
-  const p = QUESTIONS[day % QUESTIONS.length];
-  $("#pearlCard").innerHTML = `<div class="row"><span class="tag" style="background:var(--warn-soft);color:var(--warn)">Perla del día</span><span class="xs muted">${esc(p.topic)}</span></div><p style="margin:8px 0 0">${esc(p.pearl)}</p>`;
+  renderPerla();
   refreshChips();
 }
 // ¿Qué estudiar hoy? Áreas ordenadas por precisión (las no exploradas primero). La práctica del enfoque está en Mi enfoque (perfil.js).
@@ -39,11 +32,11 @@ function renderDirected(){
   const st = specStats(), f = focusOf();
   const rank = s => st[s].n < 3 ? -1 + st[s].seen/Math.max(1, st[s].total) : st[s].ok/st[s].n;
   const top = SPECS.slice().sort((a,b)=>rank(a)-rank(b)).slice(0, 3);
-  $("#directCard").innerHTML = `<h3 style="font-size:16px">🧭 ¿Qué estudiar hoy?</h3>
+  $("#directCard").innerHTML = plegable("queestudiar", `<b>🧭 ¿Qué estudiar hoy?</b> <span class="xs muted">${top.length} áreas</span>`, `
     <p class="xs muted" style="margin:4px 0 8px">Primero lo que no has explorado y lo que más fallas.</p>
     ${top.map(s=>{ const x = st[s], pct = x.n >= 3 ? Math.round(x.ok/x.n*100) : null;
       const todo = x.total && x.seen >= x.total;   // ya vio todos los casos de esa área
-      return `<div class="row" style="margin-top:6px;gap:8px"><span class="dot" style="background:${SPEC_COLOR[s]}"></span><div style="flex:1;min-width:0"><b class="small">${esc(s)}</b><div class="xs muted">${pct===null ? `sin explorar · ${x.seen} de ${x.total} casos vistos` : `${pct} % de aciertos`}${todo ? ` · ya viste los ${x.total} casos` : ""}</div></div>${todo ? `<button class="btn sm" data-dbank="${esc(s)}">Ver opciones</button>` : `<button class="btn sm" data-dspec="${esc(s)}">5 casos</button>`}</div>`; }).join("")}`;
+      return `<div class="row" style="margin-top:6px;gap:8px"><span class="dot" style="background:${SPEC_COLOR[s]}"></span><div style="flex:1;min-width:0"><b class="small">${esc(s)}</b><div class="xs muted">${pct===null ? `sin explorar · ${x.seen} de ${x.total} casos vistos` : `${pct} % de aciertos`}${todo ? ` · ya viste los ${x.total} casos` : ""}</div></div>${todo ? `<button class="btn sm" data-dbank="${esc(s)}">Ver opciones</button>` : `<button class="btn sm" data-dspec="${esc(s)}">5 casos</button>`}</div>`; }).join("")}`);
   document.querySelectorAll("[data-dbank]").forEach(b=>b.onclick=()=>{ prac().specs = [b.dataset.dbank]; qSt = "all"; save(); go("banco"); });
   document.querySelectorAll("[data-dspec]").forEach(b=>b.onclick=()=>startSession({label:"Estudio dirigido",tag:"norm",stages:[{name:b.dataset.dspec,items:pickQuestions(5,{spec:b.dataset.dspec})}]}));
 }
@@ -78,4 +71,84 @@ document.querySelectorAll("[data-lazy]").forEach(b=>b.onclick=()=>{
 function startDue(){
   const items = dueKeys().slice(0,20).map(k=>({t:k[0],id:k.slice(1)}));
   startSession({label:"Repaso espaciado",tag:"norm",stages:[{name:"Repasos pendientes",items}]});
+}
+
+// Perla del día: arriba y destacada (puede ser lo único que el usuario vea). «Ponerla a prueba» abre
+// el caso de donde sale; «Guardar como ficha» la deja en su repaso.
+function renderPerla(){
+  const qs = QUESTIONS.filter(q => q.pearl); if (!qs.length) { $("#pearlCard").hidden = true; return; }
+  const p = qs[Math.floor(Date.now() / DAY) % qs.length];
+  $("#pearlCard").innerHTML = `<span class="gema" aria-hidden="true">💎</span>
+    <div class="et"><b>PERLA DEL DÍA</b><span class="muted">${esc(p.topic || p.specialty)}</span></div>
+    <div class="perla-txt">${perlaHTML(p.pearl)}</div>
+    <div class="row" style="gap:6px"><button class="btn sm primary" id="perlaCaso">🩺 Ponerla a prueba</button><button class="btn sm" id="perlaFicha">💎 Guardar como ficha</button></div>
+    <div id="perlaEd"></div>`;
+  $("#perlaCaso").onclick = () => startSession({label: "Perla del día", tag: "norm", stages: [{name: "El caso de la perla", items: [{t: "q", id: p.id}]}]});
+  $("#perlaFicha").onclick = () => hyEditor($("#perlaEd"), {title: String(p.topic || "").split("·").pop().trim() || p.specialty, spec: p.specialty, src: p.src,
+    rows: [{label: "Perla", val: p.pearl}], trap: p.trap || "", heading: "💎 Ficha con la perla del día · revísala y guárdala", onSave: () => { $("#perlaEd").innerHTML = ""; toast("Guardada en tus fichas ✓"); }});
+}
+// «Hoy» diagramado: anillo hacia la meta diaria (minutos, la elige el usuario), casos, fichas y
+// repasos, y la racha de los últimos 7 días.
+const META_MIN = [15, 25, 45, 60, 90];
+function renderHoyCard(l, st, due){
+  const meta = S.metaMin || 25, min = Math.round(l.sec / 60), frac = Math.min(1, min / meta), R = 50, C = 2 * Math.PI * R;
+  const dias = [...Array(7)].map((_, i) => { const d = new Date(Date.now() - (6 - i) * DAY), x = S.log[todayKey(d)];
+    return {ini: d.toLocaleDateString("es", {weekday: "narrow"}).toUpperCase(), on: !!(x && (x.sec > 0 || x.q > 0 || x.c > 0)), hoy: i === 6}; });
+  const fila = (ic, t, v, pct, color) => `<div class="r"><span>${ic}</span><span>${t}</span><b>${v}</b></div>${pct == null ? "" : `<div class="bar"><i style="width:${Math.min(100, pct)}%;background:${color}"></i></div>`}`;
+  $("#todayCard").innerHTML = `
+    <div class="row"><h3 style="font-size:16px">Hoy</h3><div class="spacer"></div>${l.sec > 0 || l.c > 0 || l.q > 0 ? '<span class="tag" style="background:var(--ok-soft);color:var(--ok)">✓ Racha asegurada</span>' : '<span class="tag">Aún sin estudiar</span>'}</div>
+    <div class="hoyd">
+      <div><div class="anillo" role="img" aria-label="${min} de ${meta} minutos de tu meta diaria">
+        <svg width="118" height="118" viewBox="0 0 118 118"><circle cx="59" cy="59" r="${R}" fill="none" stroke="var(--subtle)" stroke-width="11"/>
+          ${frac > 0 ? `<circle cx="59" cy="59" r="${R}" fill="none" stroke="${frac >= 1 ? "var(--ok)" : "var(--accent)"}" stroke-width="11" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - frac)).toFixed(1)}"/>` : ""}</svg>
+        <div class="c"><b>${min}</b><span>de ${meta} min</span></div></div>
+        <label class="metamin">Meta<select id="metaMin" aria-label="Meta diaria en minutos">${META_MIN.map(m => `<option value="${m}" ${m === meta ? "selected" : ""}>${m} min</option>`).join("")}</select></label></div>
+      <div class="met">
+        ${fila("🩺", "Casos", l.q ? `${l.q} · ${Math.round(l.ok / l.q * 100)} % ✓` : "0", l.q * 10, "var(--accent)")}
+        ${fila("💎", "Fichas", l.c, l.c * 10, "var(--warn)")}
+        ${fila("🔁", "Repasos", due ? `${due} pendiente${due === 1 ? "" : "s"}` : "al día ✓", null)}
+      </div>
+    </div>
+    <div class="racha7" aria-label="Tus últimos 7 días">${dias.map(d => `<span class="d${d.on ? " on" : ""}${d.hoy ? " hoy" : ""}">${d.ini}</span>`).join("")}
+      <span class="small" style="margin-left:4px">${st ? `🔥 <b>${st} día${st === 1 ? "" : "s"}</b>` : "Empieza tu racha hoy"}</span></div>`;
+  $("#metaMin").onchange = e => { S.metaMin = +e.target.value; save(); renderHoy(); };
+}
+
+// La perla se escribe en una línea; para leerla de un vistazo se ordena sola: el rótulo inicial
+// («SSC 2026:», «UKKA:») en negrita, los pasos «1) 2) 3)» o las oraciones en viñetas, y lo que va
+// entre paréntesis con varios datos («(insulina…; salbutamol…)») en sub-viñetas.
+function partirFuera(s, sep){   // parte por «sep» solo fuera de paréntesis
+  const out = []; let d = 0, cur = "";
+  for (const ch of s) { if (ch === "(") d++; if (ch === ")") d = Math.max(0, d - 1);
+    if (ch === sep && !d) { out.push(cur); cur = ""; } else cur += ch; }
+  out.push(cur); return out.map(x => x.trim()).filter(Boolean);
+}
+const perlaMay = s => s.charAt(0).toUpperCase() + s.slice(1);
+function perlaItem(s){
+  s = s.trim().replace(/[;.]$/, "");
+  const m = s.match(/^(.*?)\s*\(([^()]*;[^()]*)\)\s*(.*)$/);      // paréntesis con varios datos → sub-viñetas
+  if (m && !m[3]) return `${esc(perlaMay(m[1]))}<ul>${m[2].split(";").map(x => `<li>${esc(perlaMay(x.trim()))}</li>`).join("")}</ul>`;
+  const l = s.match(/^([^:()]{2,40}(?:\([^)]{1,20}\))?):\s+(.+)$/);    // «Gravedad moderada: amoxicilina…»
+  return l ? `<b>${esc(perlaMay(l[1].trim()))}:</b> ${esc(l[2])}` : esc(perlaMay(s));
+}
+function perlaHTML(texto){
+  let t = String(texto || "").trim(), titulo = "";
+  // Rótulo de arriba solo si es una fuente o una sigla («SSC 2026», «NICE», «UKKA», «Metotrexato (NICE)»);
+  // si no («Error tipo I (α): …»), cada viñeta lleva su propio rótulo en negrita.
+  const r = t.match(/^([^:.;()]{2,40}(?:\([^)]{1,20}\))?):\s+(.+)$/s);
+  if (r && r[1].trim().split(/\s+/).length <= 3 && /\b[A-Z]{2,}\d*\b|\b(19|20)\d{2}\b/.test(r[1])) { titulo = r[1].trim(); t = r[2]; }
+  let items, num = false;
+  if (/(^|\s)1\)\s/.test(t) && /\s2\)\s/.test(t)) {
+    num = true;
+    const partes = t.split(/(?:^|\s)\d\)\s+/).map(x => x.trim()).filter(Boolean);
+    // Lo que sigue al último paso, después de un punto, es una nota aparte.
+    const ult = partirFuera(partes.pop(), ".");
+    items = partes.concat(ult.slice(0, 1)); var notas = ult.slice(1);
+  } else {
+    items = t.split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ«¿])/).flatMap(o => partirFuera(o, ";"));
+  }
+  if (!titulo && items.length <= 1 && !num) return `<p>${esc(t)}</p>`;
+  const tag = num ? "ol" : "ul";
+  return `${titulo ? `<div class="perla-t">${esc(titulo)}</div>` : ""}<${tag} class="perla-l">${items.map(x => `<li>${perlaItem(x)}</li>`).join("")}</${tag}>`
+    + (num && notas && notas.length ? `<ul class="perla-l nota">${notas.map(x => `<li>${perlaItem(x)}</li>`).join("")}</ul>` : "");
 }
