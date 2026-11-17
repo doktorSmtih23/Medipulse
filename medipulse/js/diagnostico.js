@@ -92,7 +92,7 @@ function renderDiag(){
       p1.fin ? listo : "",
       `<div class="stack" style="gap:6px">${bl.map((b, i) => { const hecho = b.every(id => p1.hechos.includes(id));
         return `<div class="row" style="gap:8px"><span class="small" style="flex:1">Bloque ${i + 1} · ${b.length} casos</span>${hecho ? `<span class="xs" style="color:var(--ok)">✓ Hecho</span>` : `<button class="btn sm${i === bl.findIndex(x => !x.every(id => p1.hechos.includes(id))) ? " primary" : ""}" data-dbl="${i}">Empezar</button>`}</div>`; }).join("")}</div>`)}
-    ${parte(2, "Cómo estudias", "Unas 15 preguntas sobre tu tiempo, tus técnicas y tus hábitos, comparadas con lo que la evidencia dice que funciona. Unos 10 minutos.",
+    ${parte(2, "Cómo estudias", "${DIAG_P2.length} preguntas sobre tu tiempo, tus técnicas y tus hábitos, comparadas con lo que la evidencia dice que funciona. Unos 10 minutos.",
       D.p2 && D.p2.fin ? listo : "", `<button class="btn sm${p1.fin && !(D.p2 && D.p2.fin) ? " primary" : ""}" data-dpart="p2">${D.p2 && D.p2.fin ? "Ver tu resultado" : D.p2 && D.p2.i ? "Seguir" : "Empezar"}</button>`)}
     ${parte(3, "Juicio clínico", "Un expediente real, con datos que importan y otros que distraen. Eliges el caso; filtras, resumes, priorizas y decides. Unos 25 minutos.",
       D.p3 && D.p3.fin ? listo : "", `<button class="btn sm" data-dpart="p3">${D.p3 && D.p3.fin ? "Ver tu resultado" : D.p3 && D.p3.caso ? "Seguir" : "Elegir el caso"}</button>`)}`;
