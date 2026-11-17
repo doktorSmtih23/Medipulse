@@ -973,6 +973,10 @@ MP_CONTENIDO.agregar({
       "accent": "#b45309",
       "thresholds": [
         {
+          "label": "Primordial (Strasser, OMS)",
+          "val": "Evita que aparezcan los factores de riesgo en la población: políticas y entornos (menos sal en los alimentos, impuestos a bebidas azucaradas, espacios para la actividad física desde la infancia)"
+        },
+        {
           "label": "Primaria",
           "val": "Evita que la enfermedad aparezca: vacunas, dejar de fumar, ácido fólico"
         },
@@ -989,7 +993,7 @@ MP_CONTENIDO.agregar({
           "val": "Evita el daño por exceso de intervenciones médicas (sobrediagnóstico, sobretratamiento)"
         }
       ],
-      "trap": "Clasificar el tamizaje como prevención primaria: no evita la enfermedad, la detecta antes."
+      "trap": "Clasificar el tamizaje como prevención primaria (no evita la enfermedad, la detecta antes), o confundir primordial con primaria: la primordial actúa antes de que exista el factor de riesgo; la primaria, sobre personas con el factor de riesgo o expuestas (vacunar, tratar la hipertensión para evitar el ictus)."
     },
     {
       "id": "sp-f30",
