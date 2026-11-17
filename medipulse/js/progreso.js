@@ -2,6 +2,12 @@
 // PROGRESO
 // ===================================================================
 function renderProg(){
+  // Antes del diagnóstico el análisis por área y tipo no dice mucho: se abre al terminarlo.
+  const hecho = diagHecho();
+  $("#progDiag").innerHTML = (hecho ? "" : `<div class="card">${diagCandadoHTML("El análisis por área y por tipo de pregunta")}</div>`)
+    + (modoPrueba() ? `<p class="xs" style="margin:0;color:var(--warn)">🧪 Modo de prueba activo en este dispositivo (sin candados del diagnóstico). <button class="linkbtn" id="progPruebaOff">Apagarlo</button></p>` : "");
+  document.querySelectorAll("#v-prog .progdet").forEach(e => e.hidden = !hecho);
+  $("#progPruebaOff") && ($("#progPruebaOff").onclick = () => { setModoPrueba(false); toast("Modo de prueba apagado"); renderProg(); });
   const days=Object.values(S.log), tot=days.reduce((a,l)=>a+l.sec,0), q=days.reduce((a,l)=>a+l.q,0), ok=days.reduce((a,l)=>a+l.ok,0);
   const mastered=Object.values(S.srs).filter(r=>r.b>=3).length;
   $("#progKpis").innerHTML = `

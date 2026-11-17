@@ -1,0 +1,72 @@
+// Diagnóstico inicial (diagnostico.js): parte 1 en bloques de 10, candados sin bloquear la app y modo de prueba.
+const { test, expect } = require("@playwright/test");
+const { vigilarErrores, sinDesborde } = require("./ayudas");
+
+let errores;
+test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
+// Estas pruebas apagan el modo de prueba (las demás corren con él) para ver los candados.
+test.beforeEach(async ({ page }) => {
+  errores = vigilarErrores(page);
+  await page.goto("/?prueba=0");
+});
+
+test("la selección: hasta 10 casos por área, mezclando tipos de pregunta, siempre los mismos y en bloques de 10 con todas las áreas", async ({ page }) => {
+  const r = await page.evaluate(() => { const p1 = diagP1(), por = {}, tipos = new Set();
+    p1.ids.forEach(id => { const q = qById(id); por[q.specialty] = (por[q.specialty] || 0) + 1; tipos.add(qKind(q)); });
+    const otra = diagP1().ids.join(); const b1 = new Set(diagBloques(p1)[0].map(id => qById(id).specialty));
+    return {por, tipos: tipos.size, igual: otra === p1.ids.join(), bloques: diagBloques(p1).map(b => b.length), areasB1: b1.size}; });
+  Object.values(r.por).forEach(n => expect(n).toBeLessThanOrEqual(10));
+  expect(r.por["Medicina Interna"]).toBe(10);
+  expect(r.tipos).toBeGreaterThanOrEqual(3);
+  expect(r.igual).toBe(true);
+  expect(r.bloques.every(n => n <= 10)).toBe(true);
+  expect(r.areasB1).toBe(5);
+});
+
+test("Hoy propone el diagnóstico y «A tope» espera; Casos deja 10 libres al día, sin simulacro ni vulnerabilidades; Progreso también espera", async ({ page }) => {
+  await expect(page.locator("#suggestCard")).toContainText("Primero, tu diagnóstico");
+  await expect(page.locator('[data-mode="beast"]')).toContainText("🔒");
+  await page.click('[data-mode="beast"]');
+  await expect(page.locator("#v-diag")).toBeVisible();
+  await page.click("nav [data-go=banco]");
+  await expect(page.locator("#qLibres")).toContainText("10 casos libres");
+  await expect(page.locator("#qExam")).toBeHidden();
+  await page.click('#qModo [data-modo="vuln"]');
+  await expect(page.locator("#qVulnCand")).toContainText("se abre con tu diagnóstico");
+  // Gastados los 10 casos libres de hoy, el botón cambia por el candado.
+  await page.evaluate(() => { for (let i = 0; i < 10; i++) S.resp.push({id: "x" + i, d: Date.now(), ok: true, o: 0}); save(); });
+  await page.click('#qModo [data-modo="azar"]');
+  await expect(page.locator("#qCand")).toBeVisible();
+  await expect(page.locator("#pr10")).toBeHidden();
+  await page.click("nav [data-go=prog]");
+  await expect(page.locator("#progDiag")).toContainText("se abre con tu diagnóstico");
+  await expect(page.locator("#v-prog .progdet").first()).toBeHidden();
+  expect(await sinDesborde(page)).toBe(true);
+});
+
+test("un bloque del diagnóstico: modo examen, auditoría y queda hecho; al terminar todos se abren los candados", async ({ page }) => {
+  await page.click("#doDiag");
+  await expect(page.locator("#diagBox")).toContainText("Bloque 1");
+  await page.click('[data-dbl="0"]');
+  const n = await page.evaluate(() => sess.stages[0].items.length);
+  expect(await page.evaluate(() => sess.stages[0].exam)).toBe(true);
+  for (let i = 0; i < n; i++) { await page.click("#opts .opt >> nth=0"); await page.click("#nextBtn"); }
+  await page.click("#auditSkip");
+  await page.click("#contBtn");
+  await page.click("nav [data-go=hoy]"); await page.click("#doDiag");
+  await expect(page.locator("#diagBox")).toContainText(`Parte 1: ${n} de`);
+  // Todos los bloques hechos → diagnóstico de la parte 1 terminado.
+  await page.evaluate(() => { const p1 = diagP1(); p1.hechos = p1.ids.slice(); p1.fin = Date.now(); save(); });
+  expect(await page.evaluate(() => diagHecho())).toBe(true);
+  await page.click("nav [data-go=banco]");
+  await expect(page.locator("#qExam")).toBeAttached();
+  await expect(page.locator("#qLibres")).toHaveCount(0);
+});
+
+test("modo de prueba: ?prueba=1 quita los candados en este dispositivo y se apaga desde Progreso", async ({ page }) => {
+  await page.goto("/?prueba=1");
+  expect(await page.evaluate(() => [diagHecho(), location.search])).toEqual([true, ""]);
+  await page.click("nav [data-go=prog]");
+  await page.click("#progPruebaOff");
+  expect(await page.evaluate(() => diagHecho())).toBe(false);
+});

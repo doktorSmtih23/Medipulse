@@ -57,7 +57,7 @@ function sanitizeVig(v){
 $("#packIn").onchange = e => { const f = e.target.files[0]; e.target.value = ""; if (!f) return;
   f.text().then(t=>{ try { importPack(JSON.parse(t)); } catch(err) { toast("El archivo no es un pack válido."); } }); };
 $("#pasteBtn").onclick = togglePaste;
-$("#diagBtn").onclick = startDiag;
+$("#diagBtn").onclick = () => go("diag");
 
 function renderNew(){
   if (!["e", "q", "h", "g", "i"].includes(newType)) newType = "e";

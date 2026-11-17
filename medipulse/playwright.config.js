@@ -16,7 +16,10 @@ module.exports = defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}/`,
     viewport: {width: 360, height: 800},   // primero celular: sin desplazamiento horizontal a 360 px
-    trace: "off"
+    trace: "off",
+    // Las pruebas corren en modo de prueba (sin los candados del diagnóstico); las del diagnóstico
+    // lo apagan para probar los candados (tests/diagnostico.spec.js).
+    storageState: {cookies: [], origins: [{origin: `http://localhost:${PORT}`, localStorage: [{name: "medipulse_prueba", value: "1"}]}]}
   },
   webServer: {
     command: `node tests/servidor.js ${PORT}`,
