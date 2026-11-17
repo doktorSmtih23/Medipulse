@@ -48,6 +48,8 @@ test("Hoy propone el diagnóstico y «A tope» espera; Casos deja 10 libres al d
 test("un bloque del diagnóstico: modo examen, auditoría y queda hecho; al terminar todos se abren los candados", async ({ page }) => {
   await page.click("#doDiag");
   await expect(page.locator("#diagBox")).toContainText("Bloque 1");
+  await expect(page.locator("#diagBox")).toContainText("16 preguntas sobre tu tiempo");
+  await expect(page.locator("#diagBox")).not.toContainText("${");
   await page.click('[data-dbl="0"]');
   const n = await page.evaluate(() => sess.stages[0].items.length);
   expect(await page.evaluate(() => sess.stages[0].exam)).toBe(true);
