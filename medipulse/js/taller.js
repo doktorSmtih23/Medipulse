@@ -161,7 +161,7 @@ async function renderSrc(){
 // Una sola tarjeta: índice del documento (temas y subtemas) y qué hacer con el tema elegido.
 const ACCIONES = {
   read: ["📖 Leer", "El PDF tal como es: selecciona, recorta o sube capturas."],
-  recs: ["⚡ Recomendaciones", "Lo que recomienda la guía en este tema, completo y con su clase."],
+  recs: ["⚡ Recomendaciones", "Las de la guía, separadas por grado: lo que se hace, lo que puede considerarse y lo que no."],
   ai: ["💎 Fichas y preguntas", "La IA arma fichas y preguntas del tema."],
   audit: ["🔬 Auditoría", "Veredicto, algoritmo, qué hacer y qué no, umbrales."],
   tema: ["📖 Revisión de tema", "Fisiopatología, cuadro típico, banderas rojas, diferenciales."],
@@ -211,7 +211,9 @@ function renderGen(){
   const t = temaActual(), sel = temaSel();
   const est = s.design || detectDesign(info.pages.slice(0, 6).join(" "));
   const chars = sel ? sel.pages.reduce((a, p)=>a + p.length, 0) : 0;
-  const btn = k => `<button data-gt="${k}" class="${gen.tab===k?"on":""}"><b>${ACCIONES[k][0]}</b><span>${ACCIONES[k][1]}</span></button>`;
+  // En un estudio original la pestaña gratis no son recomendaciones (no las hay) sino sus resultados con cifras.
+  const acc = k => k === "recs" && recEsEstudio(s) ? ["📊 Resultados con cifras", "Las frases de los resultados con el efecto y sus cifras."] : ACCIONES[k];
+  const btn = k => `<button data-gt="${k}" class="${gen.tab===k?"on":""}"><b>${acc(k)[0]}</b><span>${acc(k)[1]}</span></button>`;
   $("#genCard").innerHTML = `
     <div class="row"><h3 style="font-size:16px">📚 Estudiar este documento</h3><div class="spacer"></div><span class="tag" title="${s.design ? "Según la IA" : "Estimado por palabras clave"}">${esc(DESIGNS[est] || DESIGNS.OTRO)}</span></div>
     ${info.danados ? `<div class="note trap" role="note"><b>⚠️ Este PDF tiene símbolos que no se leyeron bien</b> (por ejemplo «${esc(info.danados.ejemplo)}»). Los signos ≥, ≤, &lt; o &gt; pueden salir cambiados: revisa las cifras con signos en la página original.</div>` : ""}

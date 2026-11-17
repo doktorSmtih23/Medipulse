@@ -32,6 +32,10 @@ test("recomendaciones: enunciados completos, con su clase y la cifra con unidad 
 test("recomendaciones en pantalla: se marcan y pasan a una ficha con su clase como rótulo", async ({ page }) => {
   await page.evaluate(() => { docInfo(cur().id).pages[1] = "1 B-NR In patients with AIS, intensive systolic BP lowering to < 140 mm Hg is not recommended. 2a B-R Tenecteplase 0.25 mg/kg is reasonable within 4.5 hours."; gen.tab = "recs"; renderGen(); });
   await expect(page.locator("#gBody .cand")).toHaveCount(2);
+  // Plegadas por grado: lo que se hace (clase 1) y lo que puede considerarse (2a).
+  await expect(page.locator('[data-pleg="recg_hace"] summary')).toContainText("Lo que se hace");
+  await expect(page.locator('[data-pleg="recg_considerar"] summary')).toContainText("Puede considerarse");
+  await page.locator('[data-pleg="recg_hace"] summary').click();
   await expect(page.locator("#gBody")).toContainText("COR 1 · LOE B-NR");
   await page.check('[data-ri="0"]');
   await page.click("#recMake");
@@ -60,4 +64,38 @@ test("si el índice termina de cargar mientras se eligen páginas a mano, no se 
   await page.evaluate(() => refrescarIndice());   // como si el índice terminara justo ahora
   await expect(page.locator("#manTo")).toBeVisible();
   await expect(page.locator("#manFrom")).toHaveValue("2");
+});
+
+test("recomendaciones por grado: GRADE en español (texto y tabla resumen, sin repetir), en contra, buena práctica, y AHA con la clase arriba", async ({ page }) => {
+  const r = await page.evaluate(() => recsPorGrado({nums: [6, 28, 10], pages: [
+    "Recomendación 1.1 Sugerimos realizar una radiografía de tórax en pacientes adultos con sospecha de NAC. (Débil, Moderada calidad).\nRecomendación 3.1 Recomendamos no usar la tomografía de tórax de rutina para confirmar el diagnós -\ntico de NAC. (Fuerte, Moderada calidad).\nPunto de buena práctica Antes de procesar una muestra de esputo se debe evaluar su calidad con los criterios de Murray-Washington. La NAC sigue siendo frecuente.",
+    "Resumen recomendaciones\n1.1 Sugerimos realizar una radiografía de tórax en pacientes adultos con sospecha de NAC. Débil Moderada calidad\n2 Recomendamos considerar la ecografía pulmonar como alternativa a la radiografía de tórax. Fuerte Moderada calidad",
+    "COR LOE Recommendations\n1 A\n1. In patients presenting with symptoms suggestive\nof acute PE, a targeted history is recommend -\ned. 1 , 2\n3: Harm B-R\n2. In patients with acute PE, routine use of an\ninferior vena cava filter is not recommended. 3\nSynopsis\nTexto."]}).map(x => [x.grupo, x.clase, x.text]));
+  expect(r).toEqual([
+    ["considerar", "Débil · Moderada calidad · Rec. 1.1", "Sugerimos realizar una radiografía de tórax en pacientes adultos con sospecha de NAC."],
+    ["no", "Fuerte · Moderada calidad · Rec. 3.1", "Recomendamos no usar la tomografía de tórax de rutina para confirmar el diagnóstico de NAC."],
+    ["bp", "Buena práctica", "Antes de procesar una muestra de esputo se debe evaluar su calidad con los criterios de Murray-Washington."],
+    ["hace", "Fuerte · Moderada calidad · Rec. 2", "Recomendamos considerar la ecografía pulmonar como alternativa a la radiografía de tórax."],
+    ["hace", "COR 1 · LOE A", "In patients presenting with symptoms suggestive of acute PE, a targeted history is recommended."],
+    ["no", "COR 3: Harm · LOE B-R", "In patients with acute PE, routine use of an inferior vena cava filter is not recommended."]]);
+});
+
+test("sin sistema de grados no inventa recomendaciones: lo dice y ofrece Leer; ESC suelto (una sola «I C») no cuenta", async ({ page }) => {
+  const r = await page.evaluate(() => recsPorGrado({nums: [3], pages: ["iNPH may involve multifactorial mechanisms such as altered CSF dynamics I C\nTreatment should be considered in selected patients."]}));
+  expect(r).toEqual([]);
+  await page.evaluate(() => { const p = docInfo(cur().id).pages; for (let i = 0; i < p.length; i++) p[i] = "Texto de una revisión sin recomendaciones graduadas. The treatment is reasonable in some patients."; recsKey = ""; gen.tab = "recs"; renderGen(); });
+  await expect(page.locator("#recSinGrado")).toContainText("no gradúa sus recomendaciones");
+  await page.click('#recSinGrado [data-gtab="read"]');
+  await expect(page.locator('#genCard [data-gt="read"]')).toHaveClass(/on/);
+});
+
+test("en un ensayo clínico la pestaña gratis es «Resultados con cifras»: frases con el efecto, sin métodos ni direcciones", async ({ page }) => {
+  await page.evaluate(() => { const s = cur(); s.design = "ECA"; const p = docInfo(s.id).pages;
+    p[0] = "Address reprint requests to Dr. Antman at 350 Longwood Ave., Boston, or at eantman@ejemplo.org. Results The primary end point occurred in 12.1% of patients receiving clopidogrel and 9.9% of patients receiving prasugrel (hazard ratio, 0.81; 95% CI, 0.73 to 0.90; P<0.001). We calculated that 875 end points would be required to have a 90% power to detect a 20% reduction.";
+    recsKey = ""; gen.tab = "recs"; renderGen(); });
+  await expect(page.locator('#genCard [data-gt="recs"]')).toContainText("Resultados con cifras");
+  await expect(page.locator("#gBody .cand")).toHaveCount(1);
+  await expect(page.locator("#gBody .cand")).toContainText("hazard ratio, 0.81");
+  await page.check('[data-ri="0"]'); await page.click("#recMake");
+  expect(await page.inputValue("#recEd .eV >> nth=0")).toContain("hazard ratio, 0.81");
 });
