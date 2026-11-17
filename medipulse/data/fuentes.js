@@ -23,6 +23,8 @@ const SOURCES = [
   {id:"aap_bq",   t:"AAP Clinical Practice Guideline: The Diagnosis, Management, and Prevention of Bronchiolitis", r:"Pediatrics, 2014", y:2014, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
   {id:"acog_ect", t:"ACOG Practice Bulletin No. 193: Tubal Ectopic Pregnancy", r:"Obstetrics & Gynecology, 2018 · reafirmado en 2025", y:2025, k:"guideline"},
   {id:"gordis",   t:"Gordis Epidemiología, 7ª edición (Celentano DD, Szklo M, Farag Y)", r:"Elsevier, 2025", y:2025, k:"book"},
+  {id:"guyatt",   t:"Users' Guides to the Medical Literature: A Manual for Evidence-Based Clinical Practice, 3ª edición (Guyatt G, Rennie D, Meade MO, Cook DJ)", r:"JAMA / McGraw-Hill Education, 2015", y:2015, k:"book"},
+  {id:"wilson_jungner", t:"Principles and practice of screening for disease (Wilson JMG, Jungner G)", r:"OMS, Public Health Papers n.º 34, 1968", y:1968, k:"book", v:"Antiguo, pero sigue siendo la referencia de los criterios de tamizaje"},
   {id:"acc_fa",   t:"2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation", r:"Circulation, 2023", y:2023, k:"guideline", v:"Guía estadounidense vigente"},
   {id:"esc_fa",   t:"Guías ESC 2024 para el manejo de la fibrilación auricular (ESC/EACTS)", r:"European Heart Journal, 2024", y:2024, k:"guideline"},
   {id:"aha_kaw",  t:"Update on Diagnosis and Management of Kawasaki Disease: A Scientific Statement From the AHA", r:"Circulation, 2024", y:2024, k:"guideline"},

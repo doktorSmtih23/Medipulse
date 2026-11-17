@@ -42,7 +42,7 @@ MediPulse vende un método, y el método no depende del idioma.
 - No es un curso de un examen en particular. Orienta por tipo de pregunta (conducta, diagnóstico, lectura crítica, datos duros), porque los exámenes cambian sin aviso.
 
 ## Lo que trae incluido
-Una **demostración corta del método**: pocos casos y fichas de las 4 básicas (Medicina Interna, Pediatría, Ginecología y Obstetricia, Cirugía General), todos verificados contra la versión vigente de su guía y con la cita textual. Sirve para que el usuario entienda cómo estudiar con la app; no es un banco para preparar todo el examen. Epidemiología y Estadística, si se incluye, va como módulo aparte.
+Una **demostración corta del método**: pocos casos y fichas de las 4 básicas (Medicina Interna, Pediatría, Ginecología y Obstetricia, Cirugía General), todos verificados contra la versión vigente de su guía y con la cita textual. Sirve para que el usuario entienda cómo estudiar con la app; no es un banco para preparar todo el examen. Epidemiología y Estadística va como módulo aparte y más completo (35 fichas): es el tema que casi nadie disfruta estudiar, y MediPulse lo regala en un formato de datos clave y trampas.
 
 ## Modelo económico
 **No es un negocio para enriquecerse con el estudiante.** Preparar la residencia ya es caro (pines de los exámenes, viajes, cursos). MediPulse cobra solo lo necesario para:
