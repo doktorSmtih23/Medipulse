@@ -17,6 +17,8 @@ function renderHoy(){
   else if (!diagHecho()) { const p = diagProgreso();
     sug = p.hechos ? `Vas en <b>${p.hechos} de ${p.total}</b> casos de tu diagnóstico. Termínalo y te armo un plan con tus puntos débiles; mientras tanto, lo personalizado espera.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDiag">🎯 Seguir el diagnóstico</button></div>`
       : `<b>Primero, tu diagnóstico.</b> Antes de recomendarte qué estudiar necesito conocerte: ${p.total} casos en bloques de ${DIAG_BLOQUE} (unos 12 minutos cada uno), un cuestionario de cómo estudias y un caso de juicio clínico. Puedes hacerlo por partes.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDiag">🎯 Empezar el diagnóstico</button></div>`; }
+  else if (diagFocoHoy() && diagFocoHoy().qs.length) { const f = diagFocoHoy();
+    sug = `Según tu diagnóstico, hoy toca <b>${esc(QMETODO[f.tipo].t)}</b> en <b>${esc(f.area)}</b>: tu punto más débil. ${f.qs.length} casos, primero los que toca repasar y los que no has visto.<div class="row" style="margin-top:10px"><button class="btn primary" id="doFoco">🎯 Empezar · ${f.qs.length} casos</button><button class="btn sm ghost" data-go="diag">Ver mi plan</button></div>`; }
   else if (!l.sec && st>0) sug = `Llevas <b>${st} día${st>1?"s":""}</b> de racha. Aunque hoy no tengas ganas, con <b>dos fichas</b> la mantienes.<div class="row" style="margin-top:10px"><button class="btn" id="doOne">Mantener racha (1 min)</button></div>`;
   else if (newUserItems().length) sug = `Tienes <b>${newUserItems().length} ítems nuevos</b> generados de tus PDF sin estudiar. Lo que acabas de leer se fija mejor si lo practicas hoy.<div class="row" style="margin-top:10px"><button class="btn primary" id="doNew">Practicar lo nuevo</button></div>`;
   else if (!SPECS.some(x => specStats()[x].n >= 3)) sug = `Todavía no sé cuál es tu punto más débil: necesito que respondas algunos casos. Empieza por el <b>diagnóstico rápido</b>: 5 casos, uno por área, y desde ahí te recomiendo.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDiag">🎯 Hacer el diagnóstico</button></div>`;
@@ -24,6 +26,7 @@ function renderHoy(){
   $("#suggestCard").innerHTML = `<h3 style="font-size:16px">💡 Tu siguiente paso</h3><p style="margin:6px 0 0" class="small">${sug}</p>`;
   $("#doDue") && ($("#doDue").onclick = startDue);
   $("#doDiag") && ($("#doDiag").onclick = () => go("diag"));
+  $("#doFoco") && ($("#doFoco").onclick = () => { const f = diagFocoHoy(); startSession({label: "Foco del día", tag: "norm", stages: [{name: `${QMETODO[f.tipo].t} · ${f.area}`, items: f.qs.map(q => ({t: "q", id: q.id}))}]}); });
   $("#doNew") && ($("#doNew").onclick = ()=>startSession({label:"Mis PDF",tag:"norm",stages:[{name:"Nuevo de tus fuentes",items:newUserItems().slice(0,15)}]}));
   $("#doOne") && ($("#doOne").onclick = ()=>startSession({label:"Mantener racha",tag:"lazy",stages:[{name:"Fichas",items:pickHY(2)}]}));
   $("#doWeak") && ($("#doWeak").onclick = ()=>startSession({label:"Tema débil",tag:"norm",stages:[{name:weak,items:pickQuestions(5,{spec:weak})}]}));

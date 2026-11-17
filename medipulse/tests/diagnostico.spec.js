@@ -116,3 +116,26 @@ test("los 3 expedientes están completos: señal y ruido, 5 ideas, problema con 
   expect(r.map(x => x.k)).toEqual(["delirium", "postop", "preeclampsia"]);
   r.forEach(x => { expect(x.s).toBeGreaterThanOrEqual(5); expect(x.ruido).toBeGreaterThanOrEqual(4); expect(x.ideas).toBe(5); expect(x.probOk).toBe(true); expect(x.dec).toBeGreaterThanOrEqual(2); expect(x.fuentes).toBe(true); });
 });
+
+test("resultado: perfil con el área y el tipo más débiles, errores con seguridad y plan semanal con las horas de la parte 2; Hoy propone el foco del día", async ({ page }) => {
+  await page.evaluate(() => {
+    const p1 = diagP1(), t0 = Date.now();
+    p1.ids.forEach((id, i) => { const q = qById(id), malo = q.specialty === "Pediatría";
+      S.resp.push({id: String(id), d: t0 + i, ok: !malo, o: 0, ex: 1, c: malo && i % 2 ? "seguro" : "seguro"}); });
+    p1.hechos = p1.ids.slice(); p1.fin = t0;
+    S.diag.p2 = {resp: {examen: 2, horas: 2}, i: DIAG_P2.length, fin: t0};
+    save(); go("diag");
+  });
+  await expect(page.locator("#diagPerfil")).toContainText("Tu área más débil: Pediatría");
+  await expect(page.locator("#diagPerfil")).toContainText("errores con seguridad");
+  await expect(page.locator("#diagPerfil")).toContainText("15 horas por semana");
+  const plan = await page.evaluate(() => diagPerfil().plan);
+  expect(plan[0].s).toBe("Pediatría");                         // la mayor parte del tiempo, a la brecha
+  expect(await sinDesborde(page)).toBe(true);
+  await page.click("nav [data-go=hoy]");
+  await expect(page.locator("#suggestCard")).toContainText("Según tu diagnóstico");
+  await expect(page.locator("#suggestCard")).toContainText("Pediatría");
+  await page.click("#doFoco");
+  const specs = await page.evaluate(() => sess.stages[0].items.map(it => qById(it.id).specialty));
+  expect(specs.every(s => s === "Pediatría")).toBe(true);
+});
