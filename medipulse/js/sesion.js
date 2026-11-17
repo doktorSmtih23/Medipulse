@@ -188,6 +188,7 @@ function finishExam(timeUp){
     return {q, a, good, ri, i};
   });
   S.sims.push({d:Date.now(),n:st.items.length,ok}); save();
+  if (sess.diagBloque != null) diagRegistrarBloque(sess.diagBloque, rs);
   sess.exRes = {rs, ok, timeUp};
   $("#sessBar").style.width="100%";
   const n = rs.filter(r=>r.a!=null).length;
