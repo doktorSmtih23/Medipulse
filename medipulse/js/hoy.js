@@ -73,19 +73,48 @@ function startDue(){
   startSession({label:"Repaso espaciado",tag:"norm",stages:[{name:"Repasos pendientes",items}]});
 }
 
-// Perla del día: arriba y destacada (puede ser lo único que el usuario vea). «Ponerla a prueba» abre
-// el caso de donde sale; «Guardar como ficha» la deja en su repaso.
+// Perla del día: arriba y destacada (puede ser lo único que el usuario vea). No es al azar: primero
+// las de casos que fallaste o que toca repasar, luego las de tu propio contenido y al final las
+// incluidas. Ninguna se repite antes de 30 días; «✓ Me la sé» la saca por 60. La perla sale de un
+// caso, así que se gestiona con su caso: «Ponerla a prueba» lo abre y «A mis repasos» lo agenda.
+const PERLA_VISTA = 30 * DAY, PERLA_SABE = 60 * DAY;
+const perlaEst = () => S.perlas || (S.perlas = {vista: {}, sabe: {}, hoy: null});
+function perlaMotivo(q){
+  const k = "q" + q.id, r = S.srs[k];
+  if (r && (r.last === 0 || isDue(k))) return {n: 0, t: r.last === 0 ? "De un caso que fallaste" : "De un caso que toca repasar"};
+  if (S.userQ.some(x => String(x.id) === String(q.id))) return {n: 1, t: "De tu propio contenido"};
+  return {n: 2, t: ""};
+}
+function elegirPerla(){
+  const E = perlaEst(), ahora = Date.now(), dia = todayKey();
+  const pool = QUESTIONS.filter(q => q.pearl && !S.hidden["q" + q.id]);
+  if (!pool.length) return null;
+  if (E.hoy && E.hoy.dia === dia) { const q = pool.find(x => String(x.id) === String(E.hoy.id)); if (q) return q; }
+  const libre = q => !(ahora - (E.vista[q.id] || 0) < PERLA_VISTA) && !(ahora - (E.sabe[q.id] || 0) < PERLA_SABE);
+  let cand = pool.filter(libre);
+  if (!cand.length) cand = pool.filter(q => !(ahora - (E.sabe[q.id] || 0) < PERLA_SABE)).sort((a, b) => (E.vista[a.id] || 0) - (E.vista[b.id] || 0)).slice(0, 5);
+  if (!cand.length) cand = pool;
+  const mejor = Math.min(...cand.map(q => perlaMotivo(q).n));
+  const tier = cand.filter(q => perlaMotivo(q).n === mejor), q = tier[Math.floor(Math.random() * tier.length)];
+  E.vista[q.id] = ahora; E.hoy = {dia, id: String(q.id)}; save();
+  return q;
+}
 function renderPerla(){
-  const qs = QUESTIONS.filter(q => q.pearl); if (!qs.length) { $("#pearlCard").hidden = true; return; }
-  const p = qs[Math.floor(Date.now() / DAY) % qs.length];
+  const p = elegirPerla(); $("#pearlCard").hidden = !p; if (!p) return;
+  const m = perlaMotivo(p), r = S.srs["q" + p.id], agendado = r && r.due > Date.now() && r.due - Date.now() <= 1.5 * DAY && r.agendado;
   $("#pearlCard").innerHTML = `<span class="gema" aria-hidden="true">💎</span>
     <div class="et"><b>PERLA DEL DÍA</b><span class="muted">${esc(p.topic || p.specialty)}</span></div>
+    ${m.t ? `<div class="xs" style="margin-top:6px;color:var(--warn);font-weight:700">🎯 ${esc(m.t)}</div>` : ""}
     <div class="perla-txt">${perlaHTML(p.pearl)}</div>
-    <div class="row" style="gap:6px"><button class="btn sm primary" id="perlaCaso">🩺 Ponerla a prueba</button><button class="btn sm" id="perlaFicha">💎 Guardar como ficha</button></div>
-    <div id="perlaEd"></div>`;
+    <div class="row" style="gap:6px"><button class="btn sm primary" id="perlaCaso">🩺 Ponerla a prueba</button>
+      <button class="btn sm" id="perlaRep" ${agendado ? "disabled" : ""}>${agendado ? "✓ En tus repasos" : "🔁 A mis repasos"}</button>
+      <button class="btn sm ghost" id="perlaSabe">✓ Me la sé</button></div>`;
   $("#perlaCaso").onclick = () => startSession({label: "Perla del día", tag: "norm", stages: [{name: "El caso de la perla", items: [{t: "q", id: p.id}]}]});
-  $("#perlaFicha").onclick = () => hyEditor($("#perlaEd"), {title: String(p.topic || "").split("·").pop().trim() || p.specialty, spec: p.specialty, src: p.src,
-    rows: [{label: "Perla", val: p.pearl}], trap: p.trap || "", heading: "💎 Ficha con la perla del día · revísala y guárdala", onSave: () => { $("#perlaEd").innerHTML = ""; toast("Guardada en tus fichas ✓"); }});
+  // El caso entra al repaso espaciado y vuelve mañana (si ya estaba, se adelanta a mañana).
+  $("#perlaRep").onclick = () => { const k = "q" + p.id, x = S.srs[k] || (S.srs[k] = {b: 0, due: 0, n: 0, ok: 0});
+    const manana = new Date(); manana.setHours(24, 0, 0, 0); x.due = Math.min(x.due && x.due > Date.now() ? x.due : Infinity, manana.getTime()); x.agendado = true;
+    save(); toast("El caso vuelve mañana en tus repasos ✓"); renderPerla(); };
+  $("#perlaSabe").onclick = () => { const E = perlaEst(); E.sabe[p.id] = Date.now(); E.hoy = null; save(); toast("No vuelve en 60 días. Otra perla:"); renderPerla(); };
 }
 // «Hoy» diagramado: anillo hacia la meta diaria (minutos, la elige el usuario), casos, fichas y
 // repasos, y la racha de los últimos 7 días.
