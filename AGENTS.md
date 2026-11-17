@@ -29,7 +29,7 @@ El autor es médico, no programador: prueba la app como usuario real y decide el
 - Los controles van **donde se usan**: un filtro debe estar junto al botón que lo usa y a la cantidad, no en otra tarjeta.
 - Cuida el espaciado: un campo nunca pegado a su texto.
 - En el texto: «fichas», no «tarjetas»; «Epidemiología y Estadística», no «Salud Pública».
-- Nombres que digan qué hace la función («Resume lo que leíste», no «Destilador»). Las herramientas sueltas (calculadoras) van plegadas y avisan que no usan el PDF.
+- Nombres que digan qué hace la función («Resume lo que leíste», no «Destilador»). Las herramientas sueltas (calculadoras) van plegadas y dicen qué hacen; los avisos dicen lo que la función hace, no lo que no hace, y nunca nombran algo que el usuario quizá no tiene («tu PDF»).
 - La app no lleva firma ni nombre de autor.
 
 **Funciones**
