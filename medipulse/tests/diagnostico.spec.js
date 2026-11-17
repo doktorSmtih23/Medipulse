@@ -70,3 +70,16 @@ test("modo de prueba: ?prueba=1 quita los candados en este dispositivo y se apag
   await page.click("#progPruebaOff");
   expect(await page.evaluate(() => diagHecho())).toBe(false);
 });
+
+test("parte 2: un cuestionario, una pregunta por pantalla; al final, cuánto suma lo que haces y qué cambiar primero", async ({ page }) => {
+  await page.click("#doDiag");
+  await page.click('[data-dpart="p2"]');
+  const n = await page.evaluate(() => DIAG_P2.length);
+  await expect(page.locator("#diagBox")).toContainText(`1 / ${n}`);
+  for (let i = 0; i < n; i++) await page.click("[data-p2] >> nth=0");     // la primera opción: los peores hábitos
+  await expect(page.locator("#diagBox")).toContainText("Lo que más te conviene cambiar");
+  await expect(page.locator("#diagBox")).toContainText("Releer da sensación de dominio");
+  expect(await page.evaluate(() => [S.diag.p2.resp.examen, !!S.diag.p2.fin, diagP2Resultado().pct])).toEqual([0, true, 0]);
+  await page.click("#p2Volver");
+  await expect(page.locator('[data-dpart="p2"]')).toHaveText("Ver tu resultado");
+});
