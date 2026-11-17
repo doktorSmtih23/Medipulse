@@ -109,8 +109,12 @@ test.describe("Mi enfoque", () => {
 });
 
 test.describe("MBE", () => {
-  test("calculadora NNT (16 % vs 14.5 % → 67)", async ({ page }) => {
-    await page.click("nav [data-go=mbe]"); await page.fill("#cCer", "16"); await page.fill("#cEer", "14.5");
+  test("calculadora NNT (16 % vs 14.5 % → 67), plegada y explicando que funciona sola", async ({ page }) => {
+    await page.click("nav [data-go=mbe]");
+    await expect(page.locator("#mbeCalc")).toContainText("escribes los números de cualquier estudio");
+    await expect(page.locator("#cCer")).toBeHidden();
+    await page.locator('[data-pleg="calcrr"] summary').click();
+    await page.fill("#cCer", "16"); await page.fill("#cEer", "14.5");
     await expect(page.locator("#cOut")).toContainText("67");
   });
   test("ofrece auditar un PDF", async ({ page }) => {
@@ -169,4 +173,14 @@ test("ninguna pantalla dice «tarjetas» (ahora son fichas); solo la tarjeta de 
     const t = await page.evaluate(() => document.querySelector(".view.on").innerText.replace(/tarjeta de crédito|registra tu tarjeta/gi, ""));
     expect(t, `pantalla ${v}`).not.toMatch(/tarjeta/i);
   }
+});
+
+test("Hoy sin respuestas no inventa un «punto débil»: propone el diagnóstico; MBE se presenta como Laboratorio y el resumen ya no es «Destilador»", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#suggestCard")).toContainText("Todavía no sé cuál es tu punto más débil");
+  await expect(page.locator("#suggestCard #doDiag")).toBeVisible();
+  await expect(page.locator('#v-hoy [data-go="mbe"]')).toContainText("Laboratorio MBE");
+  await page.click("nav [data-go=mbe]");
+  await expect(page.locator("#v-mbe")).toContainText("Resume lo que leíste");
+  await expect(page.locator("#v-mbe")).not.toContainText("Destilador");
 });

@@ -58,10 +58,11 @@ test("íconos PNG para instalar (Android) y para la pantalla de inicio del iPhon
   expect((await request.get("/" + apple)).ok()).toBe(true);
 });
 
-test("la firma del autor aparece al final de Progreso", async ({ page }) => {
+test("la app no lleva firma de autor (ni en Progreso ni al entrar)", async ({ page }) => {
   errores = vigilarErrores(page);
   await page.goto("/"); await page.click("nav [data-go=prog]");
-  await expect(page.locator("#firmaProg")).toHaveText("MediPulse · Creado por Dr. Christian Smith");
+  await expect(page.locator("body")).not.toContainText("Creado por");
+  expect(await page.content()).not.toContain("Christian");
 });
 
 test("guía «Gasta menos con la IA»: cómo se cobra, ejemplos con el nivel elegido y 7 reglas; se llega desde Fuentes", async ({ page }) => {
