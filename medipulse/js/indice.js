@@ -280,6 +280,9 @@ function bindIndEdicion(){
     document.querySelectorAll("[data-iet]").forEach(e => indEd.items[+e.dataset.iet].title = e.value);
     document.querySelectorAll("[data-iep]").forEach(e => indEd.items[+e.dataset.iep].from = Math.max(1, Math.min(s.pages, Math.round(+e.value) || 1)));
   };
+  // Lo escrito se guarda al momento: si la pantalla se redibuja (p. ej. termina de calcularse el índice), no se pierde.
+  document.querySelectorAll("[data-iet]").forEach(e => e.oninput = () => { indEd.items[+e.dataset.iet].title = e.value; });
+  document.querySelectorAll("[data-iep]").forEach(e => e.oninput = () => { indEd.items[+e.dataset.iep].from = Math.max(1, Math.min(s.pages, Math.round(+e.value) || 1)); });
   const accion = (sel, fn) => document.querySelectorAll(sel).forEach(b => b.onclick = () => { leer(); fn(+Object.values(b.dataset)[0]); refrescarIndice(); });
   accion("[data-iel]", i => indEd.items[i].lvl = indEd.items[i].lvl === 1 ? 2 : 1);
   accion("[data-ied]", i => indEd.items.splice(i, 1));
