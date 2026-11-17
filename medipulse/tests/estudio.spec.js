@@ -166,7 +166,7 @@ test.describe("preguntas de búsqueda activa", () => {
       {pregunta: "¿Cuál es la primera línea?", concepto: "tratamiento", respuesta: "Y", page: 1}]}}));
     await abrirConClave(page); await subirPdf(page);
     await page.evaluate(() => { const s = S.sources.at(-1); s.design = "ECA";
-      s.indice = {items: [{title: "Métodos", from: 1, to: 1}, {title: "Resultados", from: 1, to: 1}]}; save(); });
+      s.indice = {v: IND_VERSION, items: [{title: "Métodos", from: 1, to: 1}, {title: "Resultados", from: 1, to: 1}]}; save(); });
     await page.click("nav [data-go=estudio]");
     await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
     await expect(page.locator("#estNotaPaper")).toContainText("laboratorio MBE");
@@ -218,7 +218,7 @@ test("un solo tema (el documento) y el subtema opcional del índice; sin casos d
   errores = vigilarErrores(page);
   await page.goto("/"); await subirPdf(page);
   await page.evaluate(() => { const s = S.sources.at(-1); s.title = "Enfermedad de Kikuchi-Fujimoto";
-    s.indice = {items: [{title: "Fisiopatología", from: 1, to: 1}, {title: "Tratamiento", from: 2, to: 2}]}; save(); });
+    s.indice = {v: IND_VERSION, items: [{title: "Fisiopatología", from: 1, to: 1}, {title: "Tratamiento", from: 2, to: 2}]}; save(); });
   await page.click("nav [data-go=estudio]");
   await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
   await expect(page.locator("#estTema")).toHaveValue("Enfermedad de Kikuchi-Fujimoto");

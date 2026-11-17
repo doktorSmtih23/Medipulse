@@ -81,6 +81,8 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/crear-y-compartir.js` | Crear preguntas y fichas a mano, texto pegado y packs JSON |
 | `js/ia-costo.js` | Costo de la IA: nivel (Calidad máxima / Equilibrado / Económico), modelo de cada llamada, estimación antes, costo real después y total del mes. Toda llamada a la API usa `aiParams()` y registra su uso con `aiRecord()` |
 | `js/indice.js` | Estudiar por temas: índice del documento (marcadores del PDF → secciones numeradas → títulos filtrados → IA), tema elegido como alcance de todo (`temaSel()`) y Recomendaciones sin IA (enunciados completos con clase/nivel y cifras con unidad) |
+| `js/maqueta.js` | Lectura del PDF sin IA por su maqueta: líneas con fuente y tamaño (`lineasDelPdf`), índice por estilos de título (`indiceDeMaqueta`: sin encabezados de página, rótulos de figuras, encabezados de tablas ni afiliaciones; preguntas PICO acortadas), título y año de la primera página. Medido con `tools/banco-pdf.js` |
+| `js/recomendaciones.js` | Recomendaciones por grado sin IA (`recsPorGrado`): AHA/ACC (COR/LOE), ESC, GRADE en español e inglés, NICE y puntos de buena práctica, agrupadas en lo que se hace, lo que puede considerarse y lo que no. Sin sistema de grados no inventa: remite a Leer o a la IA. En estudios originales, `resultadosConCifras` |
 | `js/lector.js` | Lector del PDF real en «Leer y crear»: página con pdf.js y capa de texto seleccionable, ✂️ recortar una zona, 📷 subir captura, imágenes guardadas en IndexedDB (`img:…`) y adjuntas a fichas y preguntas |
 | `js/corregir.js` | Corregir a mano preguntas y fichas: en la revisión antes de guardar y ya guardadas (✏️ Corregir). Lo incluido en la app se corrige en `S.over`; avisa los datos con «verificar el signo en el PDF» |
 | `js/apuntes.js` | 📓 Mis apuntes: libretas por semana o rotación, entradas por día y puntos numerados; atajos al escribir (`->` → →, `SatO2` → SatO₂), Enter sigue la numeración, `??` marca «por verificar». Cada punto → ficha a mano (`apFicha` separa título y datos) o preguntas con IA; la libreta se estudia como documento (`apSync`: fuente `kind:"text"` con `apunte`, un punto por parte y un tema por día). El área de la libreta es libre: si no es una de `SPECS`, los ítems van a Medicina Interna con el área como etiqueta |
@@ -96,6 +98,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `tests/*.spec.js` | Pruebas automáticas (Playwright Test): `app` (flujos principales), `analisis`, `ia-taller` (IA simulada), `documento` (limpieza del texto y capítulos), `vista-previa` (archivo único) |
 | `tests/fixtures/` | PDF de prueba inventado (`articulo-prueba.pdf`) y el script que lo crea |
 | `tools/un-archivo.js` | Genera `medipulse-un-archivo.html` (la app en un solo archivo, no se sube al repo) |
+| `tools/banco-pdf.js` | Banco de PDF de referencia: mide tipo, título, año e índice sin IA contra `tools/banco-pdf.json`. Uso: `node tools/banco-pdf.js <carpeta con los PDF>` (los PDF no se suben al repo). Córrelo antes y después de tocar `maqueta.js`, `indice.js` o `detectDesign` |
 
 ### Versión de un solo archivo
 

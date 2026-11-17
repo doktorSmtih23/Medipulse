@@ -184,3 +184,38 @@ test("Hoy sin respuestas no inventa un «punto débil»: propone el diagnóstico
   await expect(page.locator("#v-mbe")).toContainText("Resume lo que leíste");
   await expect(page.locator("#v-mbe")).not.toContainText(/[Dd]estil/);
 });
+
+test.describe("Hoy rediseñado", () => {
+  test("perla del día arriba y ordenada en viñetas; «Ponerla a prueba» abre su caso; Hoy con anillo y meta que elige el usuario", async ({ page }) => {
+    await page.goto("/");
+    // La perla va antes que todo lo demás de Hoy.
+    const orden = await page.evaluate(() => [...document.querySelectorAll("#v-hoy .stack > *")].map(e => e.id || e.className).slice(0, 4));
+    expect(orden.indexOf("pearlCard")).toBeLessThan(orden.indexOf("todayCard"));
+    const r = await page.evaluate(() => [
+      perlaHTML("UKKA: 1) proteger el corazón (calcio IV); 2) meter K+ a la célula (insulina 10 U; salbutamol nebulizado); 3) sacar K+ del cuerpo. El resonio ya no se usa de rutina."),
+      perlaHTML("NICE: antibiótico por 5 días. Gravedad moderada: amoxicilina."),
+      perlaHTML("En NAC por influenza no se sugieren corticosteroides.")]);
+    expect(r[0]).toContain('<div class="perla-t">UKKA</div><ol class="perla-l"><li>Proteger el corazón (calcio IV)</li><li>Meter K+ a la célula<ul><li>Insulina 10 U</li><li>Salbutamol nebulizado</li></ul></li><li>Sacar K+ del cuerpo</li></ol>');
+    expect(r[0]).toContain("El resonio ya no se usa de rutina");
+    expect(r[1]).toContain("<b>Gravedad moderada:</b> amoxicilina");
+    expect(r[2]).toBe("<p>En NAC por influenza no se sugieren corticosteroides.</p>");
+    await expect(page.locator("#todayCard .anillo")).toContainText("de 25 min");
+    await page.selectOption("#metaMin", "45");
+    await expect(page.locator("#todayCard .anillo")).toContainText("de 45 min");
+    expect(await page.evaluate(() => S.metaMin)).toBe(45);
+    await expect(page.locator("#todayCard .racha7 .d")).toHaveCount(7);
+    await expect(page.locator("#suggestCard")).toContainText("Tu siguiente paso");
+    await page.click("#perlaCaso");
+    await expect(page.locator("#sessBody")).toBeVisible();
+  });
+
+  test("la barra usa íconos propios (no emojis), dice «Fichas» y cabe en un renglón a 360 px", async ({ page }) => {
+    await page.setViewportSize({width: 360, height: 780});
+    await page.goto("/");
+    await expect(page.locator("nav.bottom button svg")).toHaveCount(7);
+    await expect(page.locator('nav.bottom [data-go="tarjetas"]')).toHaveText("Fichas");
+    const alturas = await page.locator("nav.bottom button").evaluateAll(bs => bs.map(b => b.getBoundingClientRect().height));
+    expect(Math.max(...alturas) - Math.min(...alturas)).toBeLessThan(1);   // ninguna etiqueta en dos renglones
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+});

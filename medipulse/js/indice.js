@@ -89,24 +89,30 @@ function indiceDeTitulos(s, info, last){
   if (items.length > 40) items = items.filter(x => x.lvl === 1);
   return items.length >= 2 ? items : null;
 }
+// Versión del índice automático: al mejorar cómo se calcula, los índices viejos se rehacen solos
+// (no los hechos con IA, los del propio PDF ni los que el usuario editó a mano).
+const IND_VERSION = 2;
+const indiceAlDia = s => !!s.indice && (s.indice.v >= IND_VERSION || ["ia", "pdf", "apuntes"].includes(s.indice.fuente));
 async function buildIndice(s){
-  if (s.indice) return s.indice;
+  if (indiceAlDia(s)) return s.indice;
+  const viejo = s.indice;
   const info = docInfo(s.id); if (!info) return null;
   const last = Math.min(s.pages, info.refFrom === Infinity ? s.pages : info.refFrom);
   let items = null, fuente = "";
   const deIA = () => s.chapters && s.chapters.length ? s.chapters.map(c => ({title: c.title, from: c.from, to: c.to, lvl: 1, summary: c.summary})) : null;
   if ((items = deIA())) fuente = "ia";
   if (!items) { try { items = await indiceDelPdf(s, last); fuente = "pdf"; } catch(e) {} }
+  if (!items && s.kind !== "text") { try { items = indiceDeMaqueta(await lineasDelPdf(await anDoc(s.id), last), last, s.title); fuente = "maqueta"; } catch(e) {} }
   if (!items) { items = indiceNumerado(info, last); fuente = "numerado"; }
   if (!items) { items = indiceDeTitulos(s, info, last); fuente = "titulos"; }
   // Mientras se buscaba, pudo terminar otro cálculo o crearse el índice con IA: ese manda.
-  if (s.indice) return s.indice;
+  if (s.indice && s.indice !== viejo) return s.indice;
   if (fuente !== "ia" && deIA()) { items = deIA(); fuente = "ia"; }
-  s.indice = {fuente: items ? fuente : "", items: items ? conHasta(items, last) : []};
+  s.indice = {v: IND_VERSION, fuente: items ? fuente : "", items: items ? conHasta(items, last) : []};
   save();
   return s.indice;
 }
-const IND_FUENTE = {apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", numerado: "Secciones numeradas del documento.", titulos: "Detectado por los títulos del documento: a veces confunde rótulos de figuras o tablas con secciones. Si no se parece al documento, usa ✨ Crear con IA.", ia: "Creado con IA a partir del documento."};
+const IND_FUENTE = {apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", maqueta: "Detectado sin IA por los títulos del documento (su letra y su tamaño).", numerado: "Secciones numeradas del documento.", titulos: "Detectado sin IA por los títulos del documento: a veces confunde rótulos de figuras o tablas con secciones.", ia: "Creado con IA a partir del documento."};
 
 // ---------- tema elegido ----------
 function temaActual(){
@@ -132,7 +138,8 @@ const CLASE_RE = /(?:^|\s)(1|2a|2b|3:\s?(?:No Benefit|Harm)|III|IIb|IIa|I)\s+(A|
 const CIFRA_RE = /(?:[<>≤≥]\s*=?\s*)?\d+(?:[.,]\d+)?(?:\s*(?:-|–|to|a)\s*\d+(?:[.,]\d+)?)?\s*(?:mm\s?Hg|mg\/kg\/(?:h|d[ií]a|day|min)|[µu]g\/kg\/min|mcg\/kg\/min|mL\/kg\/h|ml\/kg\/h|mL\/kg|ml\/kg|mg\/kg|mg\/dL|mmol\/L|mEq\/L|g\/dL|U\/kg|UI\/kg|mg|[µu]g|mcg|mL|ml|kg|%|°C|hours?|horas?|minutes?|minutos?|min\b|h\b|days?|d[ií]as?|weeks?|semanas?|months?|meses|years?|años|cm|mm\b|points?|puntos)/gi;
 const lineas = txt => txt.replace(/ ?-\n(?=[a-záéíóúñ])/g, "").replace(/\s*\n\s*/g, " ");   // une las palabras cortadas al final de línea («appro -⏎priate»)
 function subtemaDe(page){
-  const s = cur(), items = (s.indice && s.indice.items) || [], t = temaActual();
+  const s = cur(); if (!s) return "";
+  const items = (s.indice && s.indice.items) || [], t = temaActual();
   const dentro = items.filter(x => x.from <= page && page <= x.to && (!t || (x.from >= t.from && x.to <= t.to)));
   dentro.sort((a, b) => b.lvl - a.lvl || b.from - a.from);
   return dentro[0] ? dentro[0].title : (t ? t.title : "");
@@ -171,25 +178,34 @@ function buscarRecomendaciones(sel, max = 40){
 }
 
 let recs = null, recsKey = "";
+// Qué muestra la pestaña: recomendaciones por grado (guías), resultados con cifras (estudios originales).
+const recEsEstudio = s => { try { return ESTUDIO_PAPERS.includes(s.design || detectDesign((docInfo(s.id) || {pages: []}).pages.slice(0, 6).join(" "))); } catch(e) { return false; } };
 function renderRecs(){
   const b = $("#gBody"), sel = temaSel(), t = temaActual(), s = cur();
   if (!sel) { b.innerHTML = `<p class="small muted" style="margin:0">Ese tema no tiene texto que se pueda leer.</p>`; return; }
-  const key = s.id + "|" + sel.nums.join(",");
-  if (recsKey !== key) { recs = buscarRecomendaciones(sel); recsKey = key; }
-  const n = recs.filter(r => r.on).length, soloDatos = recs.length && recs.every(r => r.dato);
-  const grupos = [];
-  recs.forEach((r, i) => { const g = grupos.find(x => x.t === r.subtema); g ? g.i.push(i) : grupos.push({t: r.subtema, i: [i]}); });
-  b.innerHTML = !recs.length
-    ? `<p class="small" style="margin:0">No encontré recomendaciones ni datos con cifras en «${esc(sel.title)}». Prueba otro tema, o léelo en <b>📖 Leer</b> y selecciona tú lo importante.</p>`
-    : `<p class="xs muted" style="margin:0">${soloDatos ? `Este documento no usa enunciados de recomendación; estos son los datos con cifras de «${esc(sel.title)}».` : `Lo que recomienda el documento en «${esc(sel.title)}»: ${recs.length} enunciado${recs.length === 1 ? "" : "s"}, completos y con su página.`} Marca los que quieras y crea la ficha.</p>
-    ${grupos.map(g => `${g.t && grupos.length > 1 ? `<h5 class="rdh" style="margin:8px 0 0">${esc(g.t)}</h5>` : ""}
-      ${g.i.map(i => { const r = recs[i]; return `<div class="cand"><input type="checkbox" data-ri="${i}" ${r.on ? "checked" : ""} aria-label="Usar">
-        <div class="stack" style="min-width:0;gap:4px"><p class="small" style="margin:0">${esc(r.text)}</p>
-        <div class="row" style="gap:6px">${r.clase ? `<span class="tag">${esc(r.clase)}</span>` : ""}${r.cifras.map(c => `<span class="tag" style="background:var(--subtle)">${esc(c)}</span>`).join("")}<button class="linkbtn xs" data-rpg="${r.page}">pág. ${r.page}</button></div></div></div>`; }).join("")}`).join("")}
+  const estudio = recEsEstudio(s), key = s.id + "|" + sel.nums.join(",") + "|" + estudio;
+  if (recsKey !== key) { recs = estudio ? resultadosConCifras(sel) : recsPorGrado(sel); recsKey = key; }
+  const n = recs.filter(r => r.on).length, donde = esc(sel.title);
+  const fila = i => { const r = recs[i]; return `<div class="cand"><input type="checkbox" data-ri="${i}" ${r.on ? "checked" : ""} aria-label="Usar">
+    <div class="stack" style="min-width:0;gap:4px"><p class="small" style="margin:0">${esc(r.text)}</p>
+    <div class="row" style="gap:6px">${r.clase ? `<span class="tag">${esc(r.clase)}</span>` : ""}${r.cifras.map(c => `<span class="tag" style="background:var(--subtle)">${esc(c)}</span>`).join("")}<button class="linkbtn xs" data-rpg="${r.page}">pág. ${r.page}</button>${r.subtema && (!t || r.subtema !== t.title) ? `<span class="xs muted">${esc(r.subtema)}</span>` : ""}</div></div></div>`; };
+  let cuerpo;
+  if (!recs.length) cuerpo = estudio
+    ? `<p class="small" style="margin:0">No encontré frases de resultados con su efecto (hazard ratio, riesgo relativo, IC 95 %) en «${donde}». Prueba con <b>Todo el documento</b> o con el tema de resultados.</p>`
+    : `<div class="note stack" style="margin:0" id="recSinGrado"><p class="small" style="margin:0"><b>Este documento no gradúa sus recomendaciones</b> en «${donde}»: no trae la clase ni la fuerza de cada una (como las guías AHA/ACC, ESC, GRADE o NICE), así que sin IA no se pueden separar con seguridad.</p>
+        <p class="xs muted" style="margin:0">${getKey() ? "Con IA, «💎 Fichas y preguntas» saca lo importante del tema. " : ""}Sin IA, en «📖 Leer» marca tú lo importante y crea la ficha.</p>
+        <div class="row" style="gap:6px"><button class="btn sm" data-gtab="read">📖 Leer</button>${getKey() ? `<button class="btn sm" data-gtab="ai">💎 Fichas y preguntas</button>` : ""}</div></div>`;
+  else if (estudio) cuerpo = `<p class="xs muted" style="margin:0">Es un estudio original: no trae recomendaciones. Estas son las frases de «${donde}» con el efecto y sus cifras. Para leerlo con método, usa 🔬 Auditoría o el laboratorio MBE.</p>
+      ${plegable("recres", `<b>📊 Ver las ${recs.length} frases con cifras</b>`, recs.map((r, i) => fila(i)).join(""), recs.some(r => r.on))}`;
+  else cuerpo = `<p class="xs muted" style="margin:0">Las recomendaciones de «${donde}» separadas por su grado (${recs.length}). Marca las que quieras y crea la ficha.</p>
+      ${Object.entries(REC_GRUPOS).map(([g, G]) => { const ix = recs.map((r, i) => r.grupo === g ? i : -1).filter(i => i >= 0); if (!ix.length) return "";
+        return plegable("recg_" + g, `<b>${G.t}</b> <span class="xs muted">${ix.length} · ${G.d}</span>`, ix.map(fila).join(""), recs.some((r, i) => r.on && r.grupo === g)); }).join("")}`;
+  b.innerHTML = cuerpo + (recs.length ? `
     <div class="row" style="gap:6px;margin-top:6px"><button class="btn primary" id="recMake" ${n ? "" : "disabled"}>💎 Crear ficha con ${n}</button>
       ${getKey() ? `<button class="btn" id="recAI" ${n ? "" : "disabled"}>✨ Redactar la ficha con IA</button>` : ""}</div>
     ${getKey() && n ? `<p class="xs muted" style="margin:0">Con IA: ${aiEstimateLine(recs.filter(r => r.on).reduce((a, r) => a + r.text.length, 0), {light: true, outTokens: 800})}; escribe rótulos cortos con los mismos datos.</p>` : ""}
-    <div id="recEd"></div>`;
+    <div id="recEd"></div>` : "");
+  b.querySelectorAll("[data-gtab]").forEach(x => x.onclick = () => { gen.tab = x.dataset.gtab; renderGen(); });
   b.querySelectorAll("[data-ri]").forEach(c => c.onchange = () => { recs[+c.dataset.ri].on = c.checked; renderRecs(); });
   b.querySelectorAll("[data-rpg]").forEach(x => x.onclick = () => { gen.tab = "read"; gen.rdPage = +x.dataset.rpg; renderGen(); });
   const marcadas = () => recs.filter(r => r.on);
@@ -197,8 +213,8 @@ function renderRecs(){
     onSave: () => { recs.forEach(r => r.on = false); renderRecs(); renderSrcItems(); }}, o));
   $("#recMake") && ($("#recMake").onclick = () => {
     const m = marcadas();
-    abrir({title: (t ? t.title : s.title), rows: m.slice(0, 6).map(r => ({label: [r.subtema !== (t && t.title) ? r.subtema : "", r.clase].filter(Boolean).join(" · ") || "Recomendación", val: r.text})),
-      heading: "💎 Nueva ficha con las recomendaciones marcadas", flags: {auto: true}});
+    abrir({title: (t ? t.title : s.title), rows: m.slice(0, 6).map(r => ({label: [r.subtema !== (t && t.title) ? r.subtema : "", r.clase].filter(Boolean).join(" · ") || (estudio ? "Resultado" : "Recomendación"), val: r.text})),
+      heading: estudio ? "💎 Nueva ficha con los resultados marcados" : "💎 Nueva ficha con las recomendaciones marcadas", flags: {auto: true}});
   });
   $("#recAI") && ($("#recAI").onclick = async () => {
     const m = marcadas(), bt = $("#recAI"); bt.disabled = true; bt.innerHTML = `<span class="spin"></span> Redactando…`;
@@ -216,3 +232,4 @@ const T_FICHA = {name: "report_ficha", description: "Entrega la ficha redactada.
   input_schema: {type: "object", additionalProperties: false, required: ["title", "rows", "redFlag", "trap"], properties: {
     title: {type: "string"}, redFlag: {type: "string"}, trap: {type: "string"},
     rows: {type: "array", items: {type: "object", additionalProperties: false, required: ["label", "val"], properties: {label: {type: "string"}, val: {type: "string"}}}}}}};
+

@@ -161,7 +161,7 @@ async function renderSrc(){
 // Una sola tarjeta: índice del documento (temas y subtemas) y qué hacer con el tema elegido.
 const ACCIONES = {
   read: ["📖 Leer", "El PDF tal como es: selecciona, recorta o sube capturas."],
-  recs: ["⚡ Recomendaciones", "Lo que recomienda la guía en este tema, completo y con su clase."],
+  recs: ["⚡ Recomendaciones", "Las de la guía, separadas por grado: lo que se hace, lo que puede considerarse y lo que no."],
   ai: ["💎 Fichas y preguntas", "La IA arma fichas y preguntas del tema."],
   audit: ["🔬 Auditoría", "Veredicto, algoritmo, qué hacer y qué no, umbrales."],
   tema: ["📖 Revisión de tema", "Fisiopatología, cuadro típico, banderas rojas, diferenciales."],
@@ -177,7 +177,7 @@ function indiceHTML(){
         <button class="ind-it${gen.tema==null && !gen.manual?" on":""}" data-tema="-1"><span>Todo el documento</span></button>
         ${items.map((x,i)=>`<button class="ind-it lvl${x.lvl}${gen.tema===i && !gen.manual?" on":""}" data-tema="${i}"><span>${esc(x.title)}</span><small>${x.from===x.to?`pág. ${x.from}`:`págs. ${x.from}–${x.to}`}</small></button>`).join("")}
       </div>`) + `
-      <p class="xs muted" style="margin:0">${items.length ? IND_FUENTE[ind.fuente] + " Toca un tema para trabajar solo con él." : `No encontré un índice en este documento${getKey() ? "; puedes crearlo con IA (≈ US$0,01)" : ""}, o elige las páginas a mano.`}</p>`}
+      <p class="xs muted" style="margin:0">${items.length ? IND_FUENTE[ind.fuente] + (["maqueta", "titulos", "numerado"].includes(ind.fuente) ? (getKey() && s.kind !== "pack" ? " Para un índice más preciso, usa ✨ Crear con IA." : " Con tu clave de IA puedes crear uno más preciso.") : "") + " Toca un tema para trabajar solo con él." : `No encontré un índice en este documento${getKey() ? "; puedes crearlo con IA (≈ US$0,01)" : ""}, o elige las páginas a mano.`}</p>`}
       ${gen.indErr ? `<p class="small" style="margin:0;color:var(--bad)">${esc(gen.indErr)}</p>` : ""}
       <details class="custom" ${gen.manual ? "open" : ""}><summary>Elegir páginas a mano</summary><div class="row" style="gap:6px;margin-top:8px;align-items:flex-end">
         <label class="fld" style="flex:1">Desde<input type="number" id="manFrom" min="1" max="${s.pages}" value="${gen.manual ? gen.manual.from : 1}"></label>
@@ -200,18 +200,20 @@ function refrescarIndice(){
   const desde = $("#manFrom") && $("#manFrom").value, hasta = $("#manTo") && $("#manTo").value, foco = document.activeElement && document.activeElement.id;
   box.innerHTML = indiceHTML(); bindIndice();
   if (abierto) box.querySelector("details.custom").open = true;
-  if (desde != null) $("#manFrom").value = desde;
-  if (hasta != null) $("#manTo").value = hasta;
-  if (foco && /^man(From|To)$/.test(foco)) $("#" + foco).focus({preventScroll: true});
+  if (desde != null && $("#manFrom")) $("#manFrom").value = desde;
+  if (hasta != null && $("#manTo")) $("#manTo").value = hasta;
+  if (foco && /^man(From|To)$/.test(foco) && $("#" + foco)) $("#" + foco).focus({preventScroll: true});
 }
 function renderGen(){
   const s = cur(), info = docInfo(s.id);
   if (!info) { $("#genCard").innerHTML = `<p class="small" style="margin:0;color:var(--bad)">No encuentro el texto de esta fuente en este dispositivo. Vuelve a agregarla.</p>`; return; }
-  if (!s.indice && !gen.indCargando) { gen.indCargando = true; buildIndice(s).catch(()=>{}).then(()=>{ gen.indCargando = false; if (cur() === s && currentView === "src" && $("#indBox")) refrescarIndice(); }); }
+  if (!indiceAlDia(s) && !gen.indCargando) { gen.indCargando = true; buildIndice(s).catch(()=>{}).then(()=>{ gen.indCargando = false; if (cur() === s && currentView === "src" && $("#indBox")) refrescarIndice(); }); }
   const t = temaActual(), sel = temaSel();
   const est = s.design || detectDesign(info.pages.slice(0, 6).join(" "));
   const chars = sel ? sel.pages.reduce((a, p)=>a + p.length, 0) : 0;
-  const btn = k => `<button data-gt="${k}" class="${gen.tab===k?"on":""}"><b>${ACCIONES[k][0]}</b><span>${ACCIONES[k][1]}</span></button>`;
+  // En un estudio original la pestaña gratis no son recomendaciones (no las hay) sino sus resultados con cifras.
+  const acc = k => k === "recs" && recEsEstudio(s) ? ["📊 Resultados con cifras", "Las frases de los resultados con el efecto y sus cifras."] : ACCIONES[k];
+  const btn = k => `<button data-gt="${k}" class="${gen.tab===k?"on":""}"><b>${acc(k)[0]}</b><span>${acc(k)[1]}</span></button>`;
   $("#genCard").innerHTML = `
     <div class="row"><h3 style="font-size:16px">📚 Estudiar este documento</h3><div class="spacer"></div><span class="tag" title="${s.design ? "Según la IA" : "Estimado por palabras clave"}">${esc(DESIGNS[est] || DESIGNS.OTRO)}</span></div>
     ${info.danados ? `<div class="note trap" role="note"><b>⚠️ Este PDF tiene símbolos que no se leyeron bien</b> (por ejemplo «${esc(info.danados.ejemplo)}»). Los signos ≥, ≤, &lt; o &gt; pueden salir cambiados: revisa las cifras con signos en la página original.</div>` : ""}
