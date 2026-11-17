@@ -205,8 +205,31 @@ test.describe("Hoy rediseñado", () => {
     expect(await page.evaluate(() => S.metaMin)).toBe(45);
     await expect(page.locator("#todayCard .racha7 .d")).toHaveCount(7);
     await expect(page.locator("#suggestCard")).toContainText("Tu siguiente paso");
+    await expect(page.locator("#pearlCard")).not.toContainText("Guardar como ficha");   // sale de un caso: se gestiona con el caso
     await page.click("#perlaCaso");
     await expect(page.locator("#sessBody")).toBeVisible();
+  });
+
+  test("perla inteligente: primero la de un caso que fallaste; «A mis repasos» agenda el caso para mañana; «Me la sé» la saca 60 días; no se repite en 30", async ({ page }) => {
+    await page.goto("/");
+    const fallado = await page.evaluate(() => { const q = QUESTIONS.filter(x => x.pearl)[7];
+      S.srs["q" + q.id] = {b: 0, due: Date.now() + 9e9, n: 1, ok: 0, last: 0}; S.perlas = {vista: {}, sabe: {}, hoy: null}; save(); renderHoy(); return String(q.id); });
+    expect(await page.evaluate(() => S.perlas.hoy.id)).toBe(fallado);
+    await expect(page.locator("#pearlCard")).toContainText("De un caso que fallaste");
+    // Durante el día es la misma perla.
+    await page.evaluate(() => renderHoy());
+    expect(await page.evaluate(() => S.perlas.hoy.id)).toBe(fallado);
+    await page.click("#perlaRep");
+    const r = await page.evaluate(id => { const x = S.srs["q" + id], m = new Date(); m.setHours(24, 0, 0, 0); return [x.due === m.getTime(), x.agendado]; }, fallado);
+    expect(r).toEqual([true, true]);
+    await expect(page.locator("#perlaRep")).toHaveText("✓ En tus repasos");
+    await page.click("#perlaSabe");
+    const otra = await page.evaluate(() => S.perlas.hoy.id);
+    expect(otra).not.toBe(fallado);
+    expect(await page.evaluate(id => !!S.perlas.sabe[id], fallado)).toBe(true);
+    // Ninguna perla vista en los últimos 30 días vuelve a salir.
+    const vistas = await page.evaluate(() => { const ids = new Set(); for (let i = 0; i < 20; i++) { S.perlas.hoy = null; ids.add(elegirPerla().id); } return ids.size; });
+    expect(vistas).toBe(20);
   });
 
   test("la barra usa íconos propios (no emojis), dice «Fichas» y cabe en un renglón a 360 px", async ({ page }) => {
