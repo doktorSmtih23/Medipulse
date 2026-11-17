@@ -16,7 +16,8 @@ test("la selección: hasta 10 casos por área, mezclando tipos de pregunta, siem
     const otra = diagP1().ids.join(); const b1 = new Set(diagBloques(p1)[0].map(id => qById(id).specialty));
     return {por, tipos: tipos.size, igual: otra === p1.ids.join(), bloques: diagBloques(p1).map(b => b.length), areasB1: b1.size}; });
   Object.values(r.por).forEach(n => expect(n).toBeLessThanOrEqual(10));
-  expect(r.por["Medicina Interna"]).toBe(10);
+  Object.values(r.por).forEach(n => expect(n).toBe(10));                 // 50 casos: 10 por área
+  expect(Object.keys(r.por)).toHaveLength(5);
   expect(r.tipos).toBeGreaterThanOrEqual(3);
   expect(r.igual).toBe(true);
   expect(r.bloques.every(n => n <= 10)).toBe(true);
