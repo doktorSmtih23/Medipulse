@@ -68,7 +68,7 @@ const MBE = {
     labels:["Diseño (cohorte, casos y controles, transversal)", "Medida ajustada (RR, HR u OR con IC 95 %)", "Confusores ajustados y sesgo principal"]},
   REV: {name:"Revisión de tema", icon:"📖", time:"20 min",
     title:"Cómo estudiar una revisión de tema (NEJM, Lancet, UpToDate) sin subrayar todo",
-    intro:"Cuando estás cansado, el error es releer 12 páginas subrayando el 80 %. Destila la revisión en cuatro bloques que puedas usar.",
+    intro:"Cuando estás cansado, el error es releer 12 páginas subrayando el 80 %. Resúmela en cuatro bloques que puedas usar.",
     steps:["Lee primero tablas, figuras y recuadros de resumen: ahí está la mayor parte de lo que se pregunta.",
       "Resume la fisiopatología en una cadena de 3 pasos: causa → mecanismo → signo clínico.",
       "Separa la clínica en presentación típica y banderas rojas (cuándo sospechar una complicación grave).",
@@ -148,7 +148,7 @@ function renderNotes(){
       <dl class="notedl">${n.f.map((v,i)=>v?`<div><dt>${esc(n.labels[i])}</dt><dd>${esc(v)}</dd></div>`:"").join("")}</dl>
       <div class="row" style="gap:6px;margin-top:6px">${n.hy ? `<span class="xs" style="color:var(--ok)">✓ Ficha high-yield creada</span>` : n.cards ? `<span class="xs" style="color:var(--ok)">✓ Ya está en tu repaso</span>` : `<button class="btn sm" data-nhy="${n.id}">💎 Crear ficha high-yield</button>`}<button class="btn ghost sm" data-ndel="${n.id}" style="color:var(--bad)">Borrar</button></div>
       <div id="nhyEd-${n.id}"></div>
-    </div></div>`).join("") : `<p class="muted small" style="margin:0">Aún no tienes fichas de lectura. Destila lo que leas hoy y conviértelo en una ficha high-yield.</p>`;
+    </div></div>`).join("") : `<p class="muted small" style="margin:0">Aún no tienes resúmenes. Cuando termines un estudio o una guía, resúmelo arriba en «📝 Resume lo que leíste» y conviértelo en una ficha high-yield.</p>`;
   document.querySelectorAll("[data-ndel]").forEach(b=>b.onclick=()=>{ S.notes = S.notes.filter(n=>n.id!==b.dataset.ndel); save(); renderNotes(); });
   document.querySelectorAll("[data-nhy]").forEach(b=>b.onclick=()=>{
     const n = S.notes.find(x=>x.id===b.dataset.nhy);

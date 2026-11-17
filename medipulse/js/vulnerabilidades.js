@@ -132,15 +132,24 @@ function elegirAlAzar(pool, n){
 
 const pctTxt = x => Math.round(tasa(x) * 100);
 const barra = (lbl, x, color) => `<div class="bar"><span class="small">${lbl}</span><div class="track"><i style="width:${Math.round(x.ok / x.n * 100)}%;background:${color || "var(--accent)"}"></i></div><b class="small">${Math.round(x.ok / x.n * 100)} %</b></div>`;
-// Tarjeta «Tus vulnerabilidades» del banco.
+// Los casos de tus vulnerabilidades: los del tipo de pregunta y especialidad donde fallas (también los
+// que no has visto, para medir el área), los que fallaste, los que fallas una y otra vez y los errores
+// con seguridad o aciertos frágiles de tus auditorías. Nada más: «Mis vulnerabilidades» no es al azar.
+function vulnPool(pool, rd){
+  if (!rd.suficiente) return [];
+  const celdas = new Set(rd.focos.map(f => f.spec + "|" + f.tipo));
+  return pool.filter(q => { const r = S.srs["q" + q.id], au = rd.aud[String(q.id)];
+    return celdas.has(q.specialty + "|" + qKind(q)) || isFail(q) || (r && r.n - r.ok >= 2 && r.last !== 2) || au === "peligro" || au === "fragil"; });
+}
+// Análisis «Tus vulnerabilidades»: va dentro de la opción «🎯 Mis vulnerabilidades» del banco.
 function vulnHTML(specs){
   const rd = rendimiento(specs), alcance = specs && specs.length && specs.length < SPECS.length ? ` en ${specs.join(", ")}` : "";
-  if (!rd.suficiente) return `<h3 style="font-size:16px">🧭 Tus vulnerabilidades</h3>
-    <p class="small muted" style="margin:6px 0 0">Aún hay pocos datos${esc(alcance)} (${rd.general.n} respuesta${rd.general.n === 1 ? "" : "s"}). Responde al menos 8 casos y la app te dirá qué tipo de pregunta y qué especialidad te cuestan, qué casos fallas una y otra vez y qué error repites.</p>`;
+  if (!rd.suficiente) return `<p class="small" style="margin:0">🎯 Aquí aparecerán <b>los casos donde más fallas</b>: el tipo de pregunta y la especialidad que te cuestan, los casos que fallas una y otra vez y el error que repites.</p>
+    <p class="xs muted" style="margin:6px 0 0">Para detectarlo necesito al menos 8 respuestas${esc(alcance)}; llevas ${rd.general.n}. Empieza con casos al azar y vuelve aquí.</p>
+    <button class="btn sm" id="vulnAzar" style="margin-top:8px">🎲 Practicar al azar</button>`;
   const tipos = FOCUS.slice(1).filter(f => rd.tipo[f.k] && rd.tipo[f.k].n >= 3);
   const motTop = MOTIVOS.filter(m => rd.mot[m.k]).sort((a, b) => rd.mot[b.k] - rd.mot[a.k]);
-  return `<h3 style="font-size:16px">🧭 Tus vulnerabilidades</h3>
-    <p class="xs muted" style="margin:4px 0 0">Calculado con tus ${rd.general.n} respuestas${esc(alcance)} (${Math.round(rd.general.ok / rd.general.n * 100)} % de aciertos), en tu dispositivo.</p>
+  return `<p class="xs muted" style="margin:0">Calculado con tus ${rd.general.n} respuestas${esc(alcance)} (${Math.round(rd.general.ok / rd.general.n * 100)} % de aciertos), en tu dispositivo.</p>
     ${rd.focos.length ? `<div class="stack" style="gap:6px;margin-top:10px">${rd.focos.map((f, i) => `<div class="foco"><b class="small">${i + 1}. ${esc(QMETODO[f.tipo].t)} en ${esc(f.spec)}</b><span class="xs muted"> · ${f.ok} de ${f.n} (${Math.round(f.ok / f.n * 100)} %)</span>
         <div class="xs muted" style="margin-top:2px">⚠️ ${esc(QMETODO[f.tipo].trampa)}</div></div>`).join("")}</div>`
       : `<p class="small" style="margin:10px 0 0">No hay un tipo de pregunta claramente por debajo de tu promedio. Sube la exigencia con más casos o con modo examen.</p>`}
@@ -151,7 +160,7 @@ function vulnHTML(specs){
     ${rd.repetidos.length ? `<p class="small" style="margin:10px 0 0">🔁 <b>${rd.repetidos.length} caso${rd.repetidos.length === 1 ? "" : "s"}</b> que fallaste dos veces o más: ahí hay un error que se repite.</p>` : ""}
     ${motTop.length ? `<div class="note trap" style="margin-top:10px"><b>Tu error más frecuente: ${esc(motTop[0].t)}</b> (${rd.mot[motTop[0].k]} de ${rd.nMot} fallos con motivo).<div class="small" style="margin-top:4px">${esc(motTop[0].tip)}</div></div>`
       : `<p class="xs muted" style="margin:10px 0 0">Cuando falles, marca el motivo (no lo sabía, no vi un dato, dudé entre dos, lo confundí): así la app encuentra el error que repites.</p>`}
-    <div class="row" style="gap:6px;margin-top:10px">${rd.focos.length || rd.repetidos.length ? `<button class="btn sm primary" id="vulnGo">🎯 Practicar mis vulnerabilidades</button>` : ""}${rd.repetidos.length ? `<button class="btn sm" id="vulnRep">🔁 Los que fallo una y otra vez (${rd.repetidos.length})</button>` : ""}</div>`;
+    <div class="row" style="gap:6px;margin-top:10px">${rd.repetidos.length ? `<button class="btn sm" id="vulnRep">🔁 Los que fallo una y otra vez (${rd.repetidos.length})</button>` : ""}</div>`;
 }
 // En el resumen de la sesión: cómo te fue por tipo de pregunta y los motivos de tus fallos.
 function vulnResumen(results){

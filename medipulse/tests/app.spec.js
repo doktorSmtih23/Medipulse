@@ -182,5 +182,5 @@ test("Hoy sin respuestas no inventa un «punto débil»: propone el diagnóstico
   await expect(page.locator('#v-hoy [data-go="mbe"]')).toContainText("Laboratorio MBE");
   await page.click("nav [data-go=mbe]");
   await expect(page.locator("#v-mbe")).toContainText("Resume lo que leíste");
-  await expect(page.locator("#v-mbe")).not.toContainText("Destilador");
+  await expect(page.locator("#v-mbe")).not.toContainText(/[Dd]estil/);
 });

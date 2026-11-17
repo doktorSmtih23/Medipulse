@@ -159,13 +159,28 @@ test.describe("arma tu práctica", () => {
     // Falla todas las de conducta y acierta todas las demás
     await page.evaluate(() => { QUESTIONS.forEach(q => { const malo = qKind(q) === "conducta";
       S.srs["q" + q.id] = {b: malo ? 0 : 3, due: Date.now() + 9e9, n: 2, ok: malo ? 0 : 2, last: malo ? 0 : 2}; }); save(); renderBanco(); });
+    await expect(page.locator("#qVuln")).toHaveCount(0);   // el análisis va dentro de la opción
+    await page.click('#qModo [data-modo="vuln"]');
     await expect(page.locator("#qVuln")).toContainText("Conducta en");
     await expect(page.locator("#qVuln")).toContainText("fallaste dos veces o más");
-    await page.click('#qModo [data-modo="vuln"]');
+    const nConducta = await page.evaluate(() => QUESTIONS.filter(q => qKind(q) === "conducta").length);
+    await expect(page.locator("#qDisp")).toContainText(`${nConducta} casos de tus vulnerabilidades`);
     await page.fill("#qN", "10"); await page.locator("#qN").dispatchEvent("change");
     await page.click("#pr10");
     const tipos = await page.evaluate(() => sess.stages[0].items.map(it => qKind(qById(it.id))));
-    expect(tipos.filter(t => t === "conducta").length).toBeGreaterThanOrEqual(8);
+    expect(tipos.length).toBe(Math.min(10, nConducta));
+    expect(tipos.every(t => t === "conducta")).toBe(true);   // solo los de la vulnerabilidad, no todos
+  });
+
+  test("mis vulnerabilidades sin datos: explica qué aparecerá y cuánto falta, sin botón de empezar", async ({ page }) => {
+    await page.click('#qModo [data-modo="vuln"]');
+    await expect(page.locator("#qVuln")).toContainText("Aquí aparecerán los casos donde más fallas");
+    await expect(page.locator("#qVuln")).toContainText("llevas 0");
+    await expect(page.locator("#pr10")).toBeHidden();
+    await expect(page.locator("#qN")).toBeHidden();
+    await page.click("#vulnAzar");
+    await expect(page.locator("#pr10")).toBeVisible();
+    await expect(page.locator('#qModo [data-modo="azar"]')).toHaveClass(/on/);
   });
 
   test("al fallar se marca el motivo y aparece como patrón de error", async ({ page }) => {
@@ -177,6 +192,7 @@ test.describe("arma tu práctica", () => {
     await page.click("#nextBtn");
     await page.click("#sessBody [data-go=hoy]"); await page.click("nav [data-go=banco]");
     await page.evaluate(() => { QUESTIONS.slice(0, 8).forEach(q => S.srs["q" + q.id] = S.srs["q" + q.id] || {b: 1, due: Date.now() + 9e9, n: 1, ok: 1, last: 2}); renderBanco(); });
+    await page.click('#qModo [data-modo="vuln"]');
     await expect(page.locator("#qVuln")).toContainText("Tu error más frecuente: 🔍 No vi un dato del caso");
   });
 });
@@ -207,6 +223,7 @@ test.describe("auditoría a ciegas al final del modo examen", () => {
     // y en el banco aparece en el análisis
     await page.click("#contBtn"); await page.click("#sessBody [data-go=hoy]"); await page.click("nav [data-go=banco]");
     await page.evaluate(() => { QUESTIONS.slice(5, 12).forEach(q => S.srs["q" + q.id] = {b: 1, due: Date.now() + 9e9, n: 1, ok: 1, last: 2}); renderBanco(); });
+    await page.click('#qModo [data-modo="vuln"]');
     await expect(page.locator("#qVuln")).toContainText("1 error con seguridad");
   });
 
