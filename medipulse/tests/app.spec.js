@@ -111,7 +111,7 @@ test.describe("Mi enfoque", () => {
 test.describe("MBE", () => {
   test("calculadora NNT (16 % vs 14.5 % → 67), plegada y explicando que funciona sola", async ({ page }) => {
     await page.click("nav [data-go=mbe]");
-    await expect(page.locator("#mbeCalc")).toContainText("Funcionan solas, sin subir nada");
+    await expect(page.locator("#mbeCalc")).toContainText("escribes los números de cualquier estudio");
     await expect(page.locator("#cCer")).toBeHidden();
     await page.locator('[data-pleg="calcrr"] summary').click();
     await page.fill("#cCer", "16"); await page.fill("#cEer", "14.5");
