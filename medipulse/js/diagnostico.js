@@ -168,4 +168,89 @@ function renderDiagP2(box){
   $("#p2Salir").onclick = () => { D.vista = null; save(); renderDiag(); };
 }
 
-function renderDiagP3(box){ box.innerHTML = `<div class="card"><p class="small" style="margin:0">Los expedientes están en camino.</p><button class="btn sm" id="p3Volver">Volver</button></div>`; $("#p3Volver").onclick = () => { diagEst().vista = null; save(); renderDiag(); }; }
+
+// ---------- Parte 3 · Juicio clínico ----------
+// Un expediente con señal y ruido (data/expedientes.js): leer, filtrar, resumir sin mirar, comparar con las
+// ideas clave, elegir el problema principal y decidir. Mide cuánta señal encuentra, cuánto ruido arrastra,
+// si se ancla en el distractor y cómo decide.
+function expDocHTML(E, marcar){
+  return E.doc.map(s => `<div class="expsec"><b class="small">${esc(s.h)}</b>
+    ${s.p ? `<p class="small" style="margin:4px 0 0">${esc(s.p)}</p>` : ""}
+    ${s.li ? `<ul class="small" style="margin:4px 0 0;padding-left:18px">${s.li.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${s.tabla ? `<table class="tabla exptab small" style="margin-top:4px">${s.tabla.map(r => `<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td><td class="xs muted">${esc(r[2])}</td></tr>`).join("")}</table>` : ""}</div>`).join("");
+}
+function diagP3Resultado(){
+  const p3 = S.diag && S.diag.p3; if (!p3 || !p3.caso) return null;
+  const E = EXPEDIENTES.find(x => x.k === p3.caso); if (!E) return null;
+  const senal = E.datos.map((d, i) => i).filter(i => E.datos[i].s), ruido = E.datos.map((d, i) => i).filter(i => !E.datos[i].s);
+  const sel = new Set(p3.sel || []);
+  return {E, senal: senal.filter(i => sel.has(i)).length, nSenal: senal.length, ruido: ruido.filter(i => sel.has(i)).length, nRuido: ruido.length,
+    ideas: (p3.ideas || []).filter(Boolean).length, nIdeas: E.ideas.length, problema: p3.prob === E.problema.c, ancla: p3.prob === E.problema.ancla,
+    dec: E.decisiones.filter((d, i) => (p3.dec || [])[i] === d.c).length, nDec: E.decisiones.length};
+}
+function renderDiagP3(box){
+  const D = diagEst(), p3 = D.p3 || (D.p3 = {caso: null, paso: "elegir"});
+  const volver = `<button class="linkbtn small" id="p3Salir">← Volver al diagnóstico</button>`;
+  const bind = () => { $("#p3Salir") && ($("#p3Salir").onclick = () => { D.vista = null; save(); renderDiag(); }); };
+  const ir = paso => { p3.paso = paso; save(); renderDiag(); scrollTo(0, 0); };
+  const E = EXPEDIENTES.find(x => x.k === p3.caso);
+  const cab = n => `<div class="row"><span class="xs muted">Parte 3 · ${esc(E.t)}</span><div class="spacer"></div><span class="xs muted">Paso ${n} de 6</span></div>`;
+  if (!E || p3.paso === "elegir") {
+    box.innerHTML = `<div class="card stack"><b>🩺 Elige un caso</b><p class="xs muted" style="margin:0">Es un expediente como los de un turno: hay datos que importan y otros que distraen. Lo vas a leer, filtrar, resumir y decidir. Unos 25 minutos.</p>
+      ${EXPEDIENTES.map(x => `<button class="btn" style="text-align:left" data-exp="${x.k}"><b>${x.icono} ${esc(x.t)}</b><br><span class="xs muted">${esc(x.area)} · ${esc(x.gancho)}</span></button>`).join("")}${volver}</div>`;
+    box.querySelectorAll("[data-exp]").forEach(b => b.onclick = () => { D.p3 = {caso: b.dataset.exp, paso: "leer", ini: Date.now()}; save(); renderDiag(); scrollTo(0, 0); });
+    return bind();
+  }
+  if (p3.paso === "leer") {
+    box.innerHTML = `<div class="card stack">${cab(1)}<b>Lee el expediente</b><p class="xs muted" style="margin:0">Léelo como en un turno, unos 8 minutos. Cuando sigas, ya no lo tendrás a la vista hasta el final.</p></div>
+      <div class="card stack expdoc">${expDocHTML(E)}</div>
+      <button class="btn primary block" id="p3Sig">Ya lo leí →</button>${volver}`;
+    $("#p3Sig").onclick = () => ir("filtrar"); return bind();
+  }
+  if (p3.paso === "filtrar") {
+    const sel = new Set(p3.sel || []);
+    box.innerHTML = `<div class="card stack">${cab(2)}<b>¿Cuáles de estos datos cambian lo que vas a hacer?</b><p class="xs muted" style="margin:0">Marca solo los que importan para decidir. Los demás son ruido.</p>
+      ${E.datos.map((d, i) => `<label class="row check" style="gap:8px;align-items:flex-start"><input type="checkbox" data-dato="${i}" ${sel.has(i) ? "checked" : ""}><span class="small">${esc(d.t)}</span></label>`).join("")}
+      <button class="btn primary block" id="p3Sig">Listo →</button></div>${volver}`;
+    box.querySelectorAll("[data-dato]").forEach(c => c.onchange = () => { p3.sel = [...box.querySelectorAll("[data-dato]:checked")].map(x => +x.dataset.dato); save(); });
+    $("#p3Sig").onclick = () => { p3.sel = [...box.querySelectorAll("[data-dato]:checked")].map(x => +x.dataset.dato); ir("resumen"); }; return bind();
+  }
+  if (p3.paso === "resumen") {
+    box.innerHTML = `<div class="card stack">${cab(3)}<b>Resume el caso en 3 líneas, sin mirar</b><p class="xs muted" style="margin:0">Como si se lo presentaras al especialista de turno: qué tiene, por qué lo crees y qué vas a hacer.</p>
+      <textarea id="p3Res" rows="5" placeholder="1. …">${esc(p3.resumen || "")}</textarea>
+      <button class="btn primary block" id="p3Sig">Comparar →</button></div>${volver}`;
+    $("#p3Res").oninput = e => { p3.resumen = e.target.value; save(); };
+    $("#p3Sig").onclick = () => { p3.resumen = $("#p3Res").value; ir("ideas"); }; return bind();
+  }
+  if (p3.paso === "ideas") {
+    const ok = p3.ideas || E.ideas.map(() => false);
+    box.innerHTML = `<div class="card stack">${cab(4)}<b>Compara tu resumen con las ideas clave</b>
+      <div class="note" style="margin:0"><span class="xs muted">Tu resumen:</span><p class="small" style="margin:4px 0 0;white-space:pre-wrap">${esc(p3.resumen || "(vacío)")}</p></div>
+      <p class="xs muted" style="margin:0">Marca las ideas que tu resumen incluye, aunque las hayas dicho con otras palabras.</p>
+      ${E.ideas.map((x, i) => `<label class="row check" style="gap:8px;align-items:flex-start"><input type="checkbox" data-idea="${i}" ${ok[i] ? "checked" : ""}><span class="small">${esc(x)}</span></label>`).join("")}
+      <button class="btn primary block" id="p3Sig">Seguir →</button></div>${volver}`;
+    $("#p3Sig").onclick = () => { p3.ideas = E.ideas.map((_, i) => !!box.querySelector(`[data-idea="${i}"]`).checked); ir("problema"); }; return bind();
+  }
+  if (p3.paso === "problema" || p3.paso === "dec") {
+    const enDec = p3.paso === "dec", j = enDec ? (p3.j || 0) : -1, P = enDec ? E.decisiones[j] : E.problema;
+    const r = enDec ? (p3.dec || [])[j] : p3.prob, resp = r != null;
+    box.innerHTML = `<div class="card stack">${cab(enDec ? 6 : 5)}<b>${esc(P.p)}</b>
+      <div class="stack" style="gap:6px">${P.o.map((o, i) => `<button class="btn${resp ? (i === P.c ? " ok" : i === r ? " mal" : "") : ""}" style="text-align:left" data-pr="${i}" ${resp ? "disabled" : ""}>${esc(o)}</button>`).join("")}</div>
+      ${resp ? `<div class="note" style="margin:0"><b class="small">${r === P.c ? "✓ Bien." : "✗ No era esa."}</b> <span class="small">${esc(P.por)}</span>${P.fuente ? `<div class="xs muted" style="margin-top:4px">📚 ${esc(P.fuente)}</div>` : ""}</div>
+        <button class="btn primary block" id="p3Sig">${enDec && j === E.decisiones.length - 1 ? "Ver tu resultado →" : "Seguir →"}</button>` : ""}</div>${volver}`;
+    box.querySelectorAll("[data-pr]").forEach(b => b.onclick = () => { if (enDec) { p3.dec = p3.dec || []; p3.dec[j] = +b.dataset.pr; } else p3.prob = +b.dataset.pr; save(); renderDiag(); });
+    $("#p3Sig") && ($("#p3Sig").onclick = () => { if (!enDec) { p3.j = 0; ir("dec"); } else if (j < E.decisiones.length - 1) { p3.j = j + 1; ir("dec"); } else { p3.fin = Date.now(); ir("fin"); } });
+    return bind();
+  }
+  // Resultado
+  const R = diagP3Resultado();
+  box.innerHTML = `<div class="card stack"><b>🩺 Tu juicio clínico · ${esc(E.t)}</b>
+    <div class="grid2"><div class="kpi"><b>${R.senal}/${R.nSenal}</b><span>datos clave encontrados</span></div><div class="kpi${R.ruido > 2 ? " alerta" : ""}"><b>${R.ruido}/${R.nRuido}</b><span>datos de ruido que marcaste</span></div>
+      <div class="kpi"><b>${R.ideas}/${R.nIdeas}</b><span>ideas clave en tu resumen</span></div><div class="kpi"><b>${R.dec}/${R.nDec}</b><span>decisiones correctas</span></div></div>
+    <p class="small" style="margin:0">${R.problema ? "✓ Identificaste el problema principal." : R.ancla ? `⚓ <b>Te anclaste en el distractor</b>: «${esc(E.problema.o[E.problema.ancla])}». Es el error más común en este caso: un dato llamativo que no explica el cuadro.` : "✗ El problema principal no era ese."}</p>
+    ${R.ruido > 2 ? `<p class="xs" style="margin:0;color:var(--warn)">Marcaste varios datos que no cambian la conducta: en el examen, el ruido está para eso. Antes de usar un dato, pregúntate si cambia lo que vas a hacer.</p>` : ""}
+    ${plegable("p3exp", `<span class="small">Ver el expediente y qué era señal y qué ruido</span>`, `<div class="stack" style="gap:6px">${E.datos.map(d => `<div class="small"><b>${d.s ? "✅ Señal" : "🔇 Ruido"}:</b> ${esc(d.t)} <span class="xs muted">· ${esc(d.por)}</span></div>`).join("")}</div><div class="stack expdoc" style="margin-top:8px">${expDocHTML(E)}</div>`)}
+    <div class="row" style="gap:6px"><button class="btn primary" id="p3Fin">Volver al diagnóstico</button><button class="btn ghost sm" id="p3Otro">Probar otro caso</button></div></div>`;
+  $("#p3Fin").onclick = () => { D.vista = null; save(); renderDiag(); };
+  $("#p3Otro").onclick = () => { D.p3hist = (D.p3hist || []).concat([Object.assign({}, p3)]); D.p3 = {caso: null, paso: "elegir"}; save(); renderDiag(); };
+}

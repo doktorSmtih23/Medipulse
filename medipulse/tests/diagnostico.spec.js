@@ -83,3 +83,36 @@ test("parte 2: un cuestionario, una pregunta por pantalla; al final, cuánto sum
   await page.click("#p2Volver");
   await expect(page.locator('[data-dpart="p2"]')).toHaveText("Ver tu resultado");
 });
+
+test("parte 3: elige uno de los 3 expedientes; filtra, resume, compara, decide; el resultado mide señal, ruido y el ancla", async ({ page }) => {
+  await page.click("#doDiag");
+  await page.click('[data-dpart="p3"]');
+  await expect(page.locator("[data-exp]")).toHaveCount(3);
+  await page.click('[data-exp="delirium"]');
+  await expect(page.locator(".expdoc")).toContainText("Sodio");
+  expect(await sinDesborde(page)).toBe(true);
+  await page.click("#p3Sig");
+  // Marca dos datos clave y el uroanálisis (ruido).
+  await page.check('[data-dato="0"]'); await page.check('[data-dato="4"]'); await page.check('[data-dato="6"]');
+  await page.click("#p3Sig");
+  await page.fill("#p3Res", "Delirium por difenhidramina y tramadol, con hiponatremia por tiazida. Suspender y corregir el sodio despacio.");
+  await page.click("#p3Sig");
+  await page.check('[data-idea="0"]'); await page.check('[data-idea="1"]');
+  await page.click("#p3Sig");
+  await page.click('[data-pr="0"]');                       // el ancla: infección urinaria
+  await expect(page.locator("#diagBox")).toContainText("No era esa");
+  await page.click("#p3Sig");
+  for (let j = 0; j < 3; j++) { await page.click('[data-pr="1"]'); await page.click("#p3Sig"); }
+  await expect(page.locator("#diagBox")).toContainText("Te anclaste en el distractor");
+  const r = await page.evaluate(() => diagP3Resultado());
+  expect([r.senal, r.ruido, r.ideas, r.problema, r.ancla, r.dec]).toEqual([2, 1, 2, false, true, 2]);
+  await page.click("#p3Fin");
+  await expect(page.locator('[data-dpart="p3"]')).toHaveText("Ver tu resultado");
+});
+
+test("los 3 expedientes están completos: señal y ruido, 5 ideas, problema con ancla y decisiones con fuente", async ({ page }) => {
+  const r = await page.evaluate(() => EXPEDIENTES.map(E => ({k: E.k, s: E.datos.filter(d => d.s).length, ruido: E.datos.filter(d => !d.s).length, ideas: E.ideas.length,
+    probOk: E.problema.c !== E.problema.ancla && E.problema.o.length === 4, dec: E.decisiones.length, fuentes: E.decisiones.every(d => d.fuente && d.o.length === 4 && d.c >= 0 && d.c < 4)})));
+  expect(r.map(x => x.k)).toEqual(["delirium", "postop", "preeclampsia"]);
+  r.forEach(x => { expect(x.s).toBeGreaterThanOrEqual(5); expect(x.ruido).toBeGreaterThanOrEqual(4); expect(x.ideas).toBe(5); expect(x.probOk).toBe(true); expect(x.dec).toBeGreaterThanOrEqual(2); expect(x.fuentes).toBe(true); });
+});

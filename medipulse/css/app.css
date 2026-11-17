@@ -422,3 +422,6 @@ label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap
 .atajos button span{display:block;font-size:22px;margin-bottom:2px}
 .candado{border:1px dashed var(--border);border-radius:12px;padding:10px 12px;background:var(--subtle)}
 .diagparte .pnum{flex:none}
+.expdoc .expsec{padding-bottom:8px;border-bottom:1px solid var(--border)}.expdoc .expsec:last-child{border:0;padding-bottom:0}
+.btn.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}.btn.mal{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.exptab td:last-child{white-space:normal;text-align:left}.exptab td{vertical-align:top}

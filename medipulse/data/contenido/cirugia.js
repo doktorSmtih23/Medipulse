@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Cirugía",
   "prefijo": "cir",
   "paquete": "starter",
-  "actualizado": "2026-11-15",
+  "actualizado": "2026-11-17",
   "casos": [
     {
       "id": 6,
@@ -179,6 +179,150 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "cir-c02",
+      "topic": "Vía biliar · Coledocolitiasis",
+      "difficulty": "Nivel 3",
+      "src": "udea_cir25",
+      "vignette": "Mujer de 44 años con colelitiasis sintomática y bilirrubinas elevadas, <span class='hy'>sin colangitis ni pancreatitis</span>. La colangiorresonancia muestra 2 cálculos de 5 mm en el colédoco, que mide <span class='hy'>6 mm</span>, y un cístico de 5 mm. El hospital tiene cirujanos con experiencia en exploración laparoscópica de la vía biliar. ¿Cuál es la mejor conducta?",
+      "options": [
+        "CPRE preoperatoria y colecistectomía laparoscópica en un segundo tiempo",
+        "Colecistectomía laparoscópica con exploración transcística de la vía biliar en el mismo acto",
+        "Colecistectomía laparoscópica con coledocotomía para extraer los cálculos",
+        "Colecistectomía laparoscópica sola y CPRE solo si persiste la ictericia"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con experiencia local, la exploración laparoscópica de la vía biliar en el mismo acto que la colecistectomía resuelve todo en un solo procedimiento, con eficacia similar a la CPRE previa y menos estancia. El abordaje transcístico es el preferido; la coledocotomía se evita cuando el colédoco mide menos de 7 mm por el riesgo de estenosis. La CPRE preoperatoria se prefiere en colangitis o pancreatitis, que esta paciente no tiene.",
+      "pearl": "Coledocotomía laparoscópica: preferida con cístico < 4 mm, cálculos intrahepáticos o > 6 mm; evitarla si el colédoco mide < 7 mm (estenosis).",
+      "trap": "Elegir la coledocotomía porque «limpia mejor»: con un colédoco de 6 mm aumenta el riesgo de estenosis. Y la CPRE previa no es obligatoria si no hay colangitis ni pancreatitis.",
+      "cita": [
+        {
+          "donde": "Manejo de la coledocolitiasis por laparoscopia",
+          "texto": "se debe evitar cuando hay un conducto biliar común (CBC) menor de 7 mm para reducir el riesgo de estenosis"
+        },
+        {
+          "donde": "Manejo de la coledocolitiasis por laparoscopia",
+          "texto": "excepto los pacientes con pancreatitis aguda y colangitis en los que se opta por la CPRE preoperatoria"
+        }
+      ],
+      "verificado": "2026-11-17"
+    },
+    {
+      "id": "cir-c03",
+      "topic": "Trauma · Recto",
+      "difficulty": "Nivel 3",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 27 años con herida por arma de fuego de trayectoria transpélvica, <span class='hy'>hemodinámicamente estable</span> y sin irritación peritoneal. La tomografía y la proctoscopia rígida muestran una lesión del recto <span class='hy'>extraperitoneal que compromete menos del 25 % de la circunferencia</span>. ¿Cuál es la conducta?",
+      "options": [
+        "Colostomía derivativa, drenaje presacro y lavado del recto distal",
+        "Resección del segmento lesionado y anastomosis primaria",
+        "Laparotomía exploratoria y colostomía terminal",
+        "Manejo conservador o reparación primaria, sin colostomía ni lavado distal"
+      ],
+      "correct": 3,
+      "whyCorrect": "La lesión extraperitoneal no destructiva (< 25 % de la circunferencia) se maneja de forma conservadora o con reparación primaria; las guías favorecen no hacer ostomía. Las «cuatro D» (desbridamiento, derivación, drenaje y lavado distal) ya no son la regla: el lavado distal se asocia a más morbilidad infecciosa y el drenaje presacro no se recomienda de rutina en lesiones no destructivas.",
+      "pearl": "Recto extraperitoneal: > 25 % de la circunferencia (destructiva) → colostomía; < 25 % (no destructiva) → conservador o reparación primaria, sin ostomía.",
+      "trap": "Aplicar las «cuatro D» de la guerra: el lavado del recto distal puede aumentar la mortalidad y la morbilidad infecciosa.",
+      "cita": [
+        {
+          "donde": "Trauma de recto, abordaje inicial para el cirujano general",
+          "texto": "En caso de que la lesión afecte menos del 25 % de la circunferencia (lesión no destructiva), se puede optar por un manejo conservador o una reparación primaria (1). Actualmente, las guías favorecen la no realización de ostomías en lesiones no destructivas"
+        },
+        {
+          "donde": "Trauma de recto, abordaje inicial para el cirujano general",
+          "texto": "el lavado rectal puede estar asociado a mayor mortalidad y morbilidad infecciosa en comparación con la no realización de lavado"
+        }
+      ],
+      "verificado": "2026-11-17"
+    },
+    {
+      "id": "cir-c04",
+      "topic": "Infecciones · Gangrena de Fournier",
+      "difficulty": "Nivel 3",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 61 años con diabetes mal controlada, 3 días de dolor perineal <span class='hy'>desproporcionado al examen</span>, edema escrotal y crepitación al palpar. Está febril y taquicárdico. El puntaje LRINEC calculado es de 5. Se inicia la reanimación y el antibiótico de amplio espectro. ¿En cuánto tiempo debe hacerse el desbridamiento quirúrgico?",
+      "options": [
+        "Ninguno por ahora: un LRINEC menor de 6 descarta la fascitis necrosante",
+        "Dentro de las primeras 6 a 12 horas, con retiro de todo el tejido necrótico y nuevas revisiones cada 24 a 72 horas",
+        "Después de 48 horas de antibiótico, cuando se delimite la necrosis",
+        "Solo si la resonancia confirma gas en la fascia"
+      ],
+      "correct": 1,
+      "whyCorrect": "La gangrena de Fournier es una emergencia quirúrgica: el desbridamiento agresivo en las primeras 6 a 12 horas, repetido cada 24 a 72 horas hasta no encontrar más necrosis, junto con antibiótico de amplio espectro temprano, es lo que reduce la mortalidad. Un LRINEC menor de 6 no la descarta (sensibilidad cercana al 68 %) y las imágenes no deben demorar la cirugía.",
+      "pearl": "Fournier: reanimación + antibiótico de amplio espectro + desbridamiento en 6 a 12 h, repetido cada 24 a 72 h. Las escalas y las imágenes apoyan, no deciden ni retrasan.",
+      "trap": "Confiarse de un LRINEC bajo: con probabilidad pretest del 50 %, un puntaje menor de 6 deja una probabilidad postest cercana al 27 %. Es una escala para sumar sospecha, no para descartar.",
+      "cita": [
+        {
+          "donde": "Gangrena de Fournier, ¿qué hay de nuevo en su manejo?",
+          "texto": "Se recomienda realizar la intervención quirúrgica en las primeras 6 a 12 horas del diagnóstico, la cirugía debe ser agresiva, con retiro de todo el tejido necrótico presente, y repetida cada 24 a 72 horas hasta que no haya tejido necrótico adicional"
+        },
+        {
+          "donde": "Gangrena de Fournier, ¿qué hay de nuevo en su manejo?",
+          "texto": "un puntaje menor de 6 no reduce significativamente la probabilidad post- test de fascitis necrosante en pacientes con moderado riesgo, en la medida que un paciente pre-test tiene probabilidad de 50 % y con LRINEC continúa con riesgo del 27,3 %"
+        }
+      ],
+      "verificado": "2026-11-17"
+    },
+    {
+      "id": "cir-c05",
+      "topic": "Tórax · Nódulo pulmonar solitario",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Mujer de 56 años, no fumadora, a quien se le hizo una tomografía de abdomen por dolor lumbar. En la base pulmonar derecha aparece un <span class='hy'>nódulo sólido de 7 mm, de bordes lisos</span>, sin otros hallazgos. ¿Qué conducta es la adecuada?",
+      "options": [
+        "PET-CT para definir si es metabólicamente activo",
+        "Biopsia percutánea guiada por tomografía",
+        "Seguimiento con tomografía de tórax, sin PET ni biopsia",
+        "Resección quirúrgica diagnóstica y terapéutica"
+      ],
+      "correct": 2,
+      "whyCorrect": "Los nódulos sólidos de 8 mm o menos son difícilmente accesibles a la biopsia y el PET tiene muy baja sensibilidad en ese tamaño, por lo que la Sociedad de Fleischner propone observación con tomografía. Además, el riesgo de malignidad de un nódulo de 6 a 8 mm es de apenas 1 a 2 %.",
+      "pearl": "Nódulo sólido ≤ 8 mm → vigilancia con TC. > 8 mm → según la probabilidad de malignidad: baja, seguimiento; intermedia, PET (o biopsia); alta, cirugía previa biopsia.",
+      "trap": "Pedir un PET a un nódulo pequeño: en ≤ 8 mm su sensibilidad es muy baja y un resultado negativo no tranquiliza.",
+      "cita": [
+        {
+          "donde": "Nódulo pulmonar solitario: enfoque diagnóstico",
+          "texto": "Los NPS sólidos ≤8 mm son difícilmente accesibles a las técnicas de biopsia y el PET tiene muy baja sensibilidad, por lo que se propone según las recomendaciones de la Sociedad de Fleischner una pauta de observación"
+        },
+        {
+          "donde": "Nódulo pulmonar solitario: enfoque diagnóstico",
+          "texto": "La probabilidad de malignidad es inferior a 1 % para los NP menores de 6 mm y del 1 - 2 % para los de 6 - 8 mm"
+        }
+      ],
+      "verificado": "2026-11-17"
+    },
+    {
+      "id": "cir-c06",
+      "topic": "Infecciones · Sitio operatorio",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 38 años, día 6 después de una apendicectomía abierta. La herida está eritematosa en sus bordes y drena pus. Al abrirla, la infección <span class='hy'>compromete la piel, el tejido celular subcutáneo y la fascia</span>; la cavidad abdominal no tiene colecciones en la ecografía. ¿Cuál es el diagnóstico?",
+      "options": [
+        "Infección del sitio operatorio incisional superficial",
+        "Infección del sitio operatorio incisional profunda",
+        "Infección del sitio operatorio de órgano-espacio",
+        "No es infección del sitio operatorio porque ocurrió después del día 5"
+      ],
+      "correct": 1,
+      "whyCorrect": "La infección del sitio operatorio se define dentro de los primeros 30 días de la cirugía (90 si hay material protésico). Es incisional superficial si afecta solo piel y tejido celular subcutáneo; si compromete tejidos superficiales y profundos, como la fascia, es incisional profunda. Es de órgano-espacio cuando afecta el órgano o la cavidad manipulada.",
+      "pearl": "ISO superficial: abrir y lavar la herida; antibiótico solo si hay celulitis importante o signos sistémicos (fiebre, leucocitos > 12.000). Profunda u órgano-espacio: control del foco y antibiótico dirigido.",
+      "trap": "Clasificarla como superficial porque «la herida drena pus»: lo que define la clase es la capa más profunda comprometida.",
+      "cita": [
+        {
+          "donde": "¿Qué hay de nuevo en infección de sitio operatorio?",
+          "texto": "dentro de los primeros 30 días después de la cirugía o 90 días en caso de implantación de material protésico"
+        },
+        {
+          "donde": "¿Qué hay de nuevo en infección de sitio operatorio?",
+          "texto": "Si se evidencia que la infección involucra tejidos superficiales y profundos, se considera ISO incisional profunda."
+        },
+        {
+          "donde": "¿Qué hay de nuevo en infección de sitio operatorio?",
+          "texto": "los antibióticos están indicados únicamente cuando hay eritema considerable de la piel u otros signos de celulitis o cuando hay signos sistémicos de infección como fiebre o leucocitosis (mayor a 12.000 cel/mm3)"
+        }
+      ],
+      "verificado": "2026-11-17"
     }
   ],
   "fichas": [
