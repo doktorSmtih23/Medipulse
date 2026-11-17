@@ -124,7 +124,7 @@ let curSrc = null, gen = null, cands = null, genBusy = false;
 const cur = () => S.sources.find(x=>x.id===curSrc);
 // Deja lista una fuente para trabajar con ella (sin cambiar de pantalla); extra ajusta la pestaña, la página…
 function prepSrc(id, extra){
-  curSrc = id; cands = null;
+  curSrc = id; cands = null; indEd = null;
   const s = cur();
   gen = Object.assign(TEMPLATE_DEFAULT(), {tab: (anIntent && anIntent.id === id && anIntent.kind) || "read", tema: null, manual: null, from: 1, to: Math.max(1, Math.min(s.pages, 10)), pageSet: null, topic: "", spec: s.spec || "Medicina Interna", n: 10, rdPage: 1, rdQuery: ""}, extra || {});
   anIntent = null;
@@ -171,10 +171,12 @@ const ACCIONES = {
 // sin tocar el resto (así no se pierde una captura o una selección en curso).
 function indiceHTML(){
   const s = cur(), ind = s.indice, items = ind ? ind.items : [];
+  if (indEd && ind) return `<div class="row"><b class="small">📑 Editar el índice</b></div>` + indEdicionHTML();
   return `
       <div class="row"><b class="small">📑 Índice</b><div class="spacer"></div>${getKey() && s.kind !== "pack" ? `<button class="btn ghost sm" id="indAI" ${gen.indBusy?"disabled":""}>${gen.indBusy ? `<span class="spin"></span> Creando…` : items.length ? "✨ Rehacer con IA" : "✨ Crear con IA"}</button>` : ""}</div>
       ${!ind ? `<p class="xs muted" style="margin:0"><span class="spin"></span> Buscando el índice…</p>` : plegable("indice", `<b class="small">Elegir un tema</b> <span class="xs muted">${items.length ? `${items.length} temas` : "todo el documento"}</span>`, `<div class="indice">
         <button class="ind-it${gen.tema==null && !gen.manual?" on":""}" data-tema="-1"><span>Todo el documento</span></button>
+        ${items.length && s.kind !== "pack" ? `<button class="btn ghost sm" id="indEd" style="margin:4px 0">✏️ Editar el índice</button>` : ""}
         ${items.map((x,i)=>`<button class="ind-it lvl${x.lvl}${gen.tema===i && !gen.manual?" on":""}" data-tema="${i}"><span>${esc(x.title)}</span><small>${x.from===x.to?`pág. ${x.from}`:`págs. ${x.from}–${x.to}`}</small></button>`).join("")}
       </div>`) + `
       <p class="xs muted" style="margin:0">${items.length ? IND_FUENTE[ind.fuente] + " Toca un tema para trabajar solo con él." : `No encontré un índice en este documento${getKey() ? "; puedes crearlo con IA (≈ US$0,01)" : ""}, o elige las páginas a mano.`}</p>`}
@@ -187,6 +189,8 @@ function indiceHTML(){
 }
 function bindIndice(){
   const s = cur();
+  if (indEd) return bindIndEdicion();
+  $("#indEd") && ($("#indEd").onclick = indEditar);
   const elegir = v => { gen.tema = v; gen.manual = null; const x = temaActual(); gen.topic = x ? x.title : ""; if (x) gen.rdPage = x.from; renderGen(); };
   document.querySelectorAll("[data-tema]").forEach(b=>b.onclick=()=>elegir(+b.dataset.tema < 0 ? null : +b.dataset.tema));
   $("#manGo").onclick = ()=>{ const a = Math.max(1, Math.min(s.pages, +$("#manFrom").value || 1)), z = Math.max(a, Math.min(s.pages, +$("#manTo").value || a));
@@ -200,9 +204,9 @@ function refrescarIndice(){
   const desde = $("#manFrom") && $("#manFrom").value, hasta = $("#manTo") && $("#manTo").value, foco = document.activeElement && document.activeElement.id;
   box.innerHTML = indiceHTML(); bindIndice();
   if (abierto) box.querySelector("details.custom").open = true;
-  if (desde != null) $("#manFrom").value = desde;
-  if (hasta != null) $("#manTo").value = hasta;
-  if (foco && /^man(From|To)$/.test(foco)) $("#" + foco).focus({preventScroll: true});
+  if (desde != null && $("#manFrom")) $("#manFrom").value = desde;
+  if (hasta != null && $("#manTo")) $("#manTo").value = hasta;
+  if (foco && /^man(From|To)$/.test(foco) && $("#" + foco)) $("#" + foco).focus({preventScroll: true});
 }
 function renderGen(){
   const s = cur(), info = docInfo(s.id);

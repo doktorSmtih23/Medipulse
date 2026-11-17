@@ -387,3 +387,4 @@ label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap
 .pdfest{display:inline-block;border-radius:999px;padding:1px 8px;background:var(--subtle);color:var(--muted)}
 .pdfest.nuevo{background:var(--warn-soft);color:var(--warn)}.pdfest.estudio{background:var(--subtle);color:var(--accent)}.pdfest.hecho{background:var(--ok-soft);color:var(--ok)}
 .metapdf{border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--subtle)}.metapdf .track{height:6px;border-radius:99px;background:var(--border);overflow:hidden}.metapdf .track i{display:block;height:100%}
+.indfila input{padding:6px 8px;font-size:14px}.indfila.sub{padding-left:14px}.indfila .indpag{width:46px;flex:none;padding:6px 4px;text-align:center;-moz-appearance:textfield}.indfila .indpag::-webkit-inner-spin-button{-webkit-appearance:none}.indfila .iconbtn{width:30px;min-width:30px;height:34px;padding:0;flex:none}
