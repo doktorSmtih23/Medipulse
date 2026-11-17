@@ -73,8 +73,7 @@ function mostrarLogin(msg){
     </div>
     <div id="lgMsg" class="small" role="alert"></div>
     <p class="xs muted" style="margin:0">Solo usamos tu correo para dejarte entrar. Tu progreso, tus fichas y tus apuntes se quedan en este dispositivo.</p>
-    <p class="xs muted legal" style="margin:0">⚕️ MediPulse es una herramienta de estudio. No sustituye el juicio clínico.</p>
-    <p class="firma">Creado por ${esc(AUTOR)}</p></div>`;
+    <p class="xs muted legal" style="margin:0">⚕️ MediPulse es una herramienta de estudio. No sustituye el juicio clínico.</p></div>`;
   const msgEl = $("#lgMsg"), go = $("#lgGo");
   const enviar = async () => {
     const c = $("#lgMail").value.trim().toLowerCase();

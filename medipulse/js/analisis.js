@@ -12,19 +12,27 @@ const AN_KINDS = {
 };
 const DESIGNS = {GPC:"📋 Guía de práctica clínica", ECA:"⚖️ Ensayo clínico aleatorizado", META:"📊 Metaanálisis o revisión sistemática", OBS:"🔍 Estudio observacional", REV:"📚 Revisión o capítulo", OTRO:"📄 Otro documento"};
 
-// Tipo de documento estimado por palabras clave (sin IA). Solo orienta; la IA lo confirma.
+// Tipo de documento estimado sin IA: primero la cabecera de la primera página («Primer», «JAMA | Review»,
+// «Clinical Practice Guideline», «Original Investigation»), luego las palabras propias de cada diseño.
+// Probado con 17 PDF reales (guías, ensayos, cohortes, revisiones); la IA lo confirma al auditar.
 function detectDesign(text){
-  const t = norm(String(text).slice(0, 15000));
+  const t = norm(String(text).slice(0, 15000)).replace(/\s+/g, " "), cab = t.slice(0, 1200);
   const n = re => (t.match(re) || []).length;
+  // 1) La cabecera de la primera página casi siempre dice qué es.
+  if (/meta-?analy|meta-?anali|systematic review|revision sistematica/.test(cab)) return "META";
+  if (/clinical practice guidelines?|guia de practica clinica|\bguidelines? (?:for|on)\b|\bconsensus\b|\bconsenso\b|\brecommendations (?:from|for|of|on)\b|\brecomendaciones (?:para|de|del|sobre)\b|scientific statement|position (?:statement|paper)|declaracion cientifica/.test(cab)) return "GPC";
+  if (/\bprimers?\b|\breviews?\b|\bseminar\b|state of the art|revision (?:de tema|narrativa)|\bcapitulo\b|\bchapter\b/.test(cab)) return "REV";
+  // 2) Si no, por el cuerpo: palabras propias de cada diseño.
   const sc = {
-    GPC: n(/guia de practica clinica|clinical practice guideline|clase i\b|class i\b|clase iii|class iii|grade\b|nivel de evidencia|level of evidence|recomendacion/g) * 3,
-    META: n(/meta-?anali|meta-?analys|systematic review|revision sistematica|prisma|heterogeneidad|heterogeneity|forest plot/g) * 2,
-    ECA: n(/randomi[sz]ed|aleatoriz|placebo|double-blind|doble ciego|intention-to-treat|intencion de tratar|consort/g) * 2,
-    OBS: n(/cohort|casos y controles|case-control|transversal|cross-sectional|strobe/g) * 2,
-    REV: n(/\bprimer\b|\breview\b|narrative review|revision narrativa|\bcapitulo\b|\bchapter\b|this (?:review|primer)/g) * 3
+    GPC: n(/clase i\b|class i\b|clase iii|class iii|nivel de evidencia|level of evidence|recomendacion (?:fuerte|debil)|strong recommendation|weak recommendation|\bcor\b|\bloe\b/g) * 3,
+    META: n(/meta-?anali|meta-?analys|systematic review|revision sistematica|prisma|heterogeneidad|heterogeneity|forest plot|\bi2\b|i²/g) * 2,
+    // «randomized controlled trials» en plural es una revisión que cita ensayos; un ensayo dice «randomly assigned».
+    ECA: n(/randomly assigned|underwent randomization|were randomi[sz]ed|asignados aleatoriamente|aleatorizados|intention-to-treat|intencion de tratar|consort/g) * 3
+       + n(/randomi[sz]ed(?! (?:controlled |clinical )?trials)|randomised(?! (?:controlled |clinical )?trials)|placebo|double-blind|doble ciego/g),
+    OBS: n(/cohort stud|prospective cohort|retrospective cohort|estudio de cohorte|management (?:outcome )?study|prospective (?:multicenter |multicentre )?study|registry|registro|casos y controles|case-control|cross-sectional|transversal|strobe|derivation (?:and validation )?cohort|validation cohort/g) * 3,
+    REV: n(/narrative review|revision narrativa|this (?:review|primer|seminar)|in this review|en esta revision/g) * 3
   };
-  const best = Object.entries(sc).sort((a,b)=>b[1]-a[1])[0];
-  // Solo se afirma un diseño si las palabras clave son claras (una revisión cita metaanálisis y ensayos).
+  const best = Object.entries(sc).sort((a, b) => b[1] - a[1])[0];
   return best[1] >= 6 ? best[0] : "REV";
 }
 

@@ -29,6 +29,8 @@ El autor es médico, no programador: prueba la app como usuario real y decide el
 - Los controles van **donde se usan**: un filtro debe estar junto al botón que lo usa y a la cantidad, no en otra tarjeta.
 - Cuida el espaciado: un campo nunca pegado a su texto.
 - En el texto: «fichas», no «tarjetas»; «Epidemiología y Estadística», no «Salud Pública».
+- Nombres que digan qué hace la función («Resume lo que leíste», no «Destilador»). Las herramientas sueltas (calculadoras) van plegadas y avisan que no usan el PDF.
+- La app no lleva firma ni nombre de autor.
 
 **Funciones**
 - **Toda función debe servir también sin IA.** Lo que dependa de la IA debe tener un camino sin clave (guías, ideas, edición a mano, «Pegar de otra IA»). Pruébala siempre sin clave.
@@ -36,6 +38,8 @@ El autor es médico, no programador: prueba la app como usuario real y decide el
 - **Lo que se edita o crea se puede probar** antes de guardarlo, sin que cuente en el progreso.
 - **No dar pistas antes de responder:** ni el tema ni la fuente en las listas de casos sin responder (sesgo de anclaje).
 - **MediPulse no audita lo que aporta el usuario:** se rotula («Importada», «Editada por ti», «Elaboración propia») y se aclara que la responsabilidad es de quien lo aporta.
+- **No afirmar sin datos:** si aún no hay respuestas, no se declara un «punto débil»; se dice qué falta para saberlo.
+- **No gastar IA donde otro módulo lo hace mejor:** los estudios originales van a MBE; Estudio es para revisiones de tema.
 - **La app evidencia vulnerabilidades**, no vende contenido: prioriza que el usuario vea dónde y por qué falla.
 
 **Al trabajar con él**

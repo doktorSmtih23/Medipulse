@@ -42,7 +42,7 @@
       <div class="grid3 stackable">
         <button class="btn quick" data-go="apuntes">📓 Mis apuntes<small>Anota lo de hoy y vuélvelo fichas y preguntas</small></button>
         <button class="btn quick" id="diagBtn">🎯 Diagnóstico rápido<small>5 preguntas, una por área, para encontrar tu brecha antes de leer</small></button>
-        <button class="btn quick" data-go="mbe">🔬 Leer un estudio o guía<small>Método de lectura crítica, ficha y calculadora NNT</small></button>
+        <button class="btn quick" data-go="mbe">🔬 Laboratorio MBE<small>Aprende a leer ensayos, metaanálisis y guías: qué mirar primero, cómo sacar el NNT y dónde están las trampas del examen</small></button>
       </div>
       <div class="card" id="todayCard"></div>
       <div class="card" id="suggestCard"></div>
@@ -300,19 +300,24 @@
   <!-- ============ LABORATORIO MBE ============ -->
   <section class="view" id="v-mbe">
     <div class="stack">
-      <div><h2>Laboratorio de lectura crítica</h2><p class="muted small" style="margin:4px 0 0">Cada tipo de documento se lee distinto. Elige qué vas a leer hoy: verás el método en 5 pasos, un ejemplo real desglosado y una ficha para destilarlo y convertirlo en una ficha high-yield.</p></div>
+      <div><h2>Laboratorio de lectura crítica</h2><p class="muted small" style="margin:4px 0 0">Cada tipo de documento se lee distinto. Elige qué vas a leer hoy: verás el método en 5 pasos, un ejemplo real desglosado y un espacio para resumir lo que leíste y volverlo ficha high-yield.</p></div>
       <div class="card stack" id="mbeDocs"></div>
       <div class="filters" id="mbeTabs"></div>
       <div class="card stack" id="mbeGuide"></div>
-      <div class="card stack"><h3 style="font-size:16px">✍️ Destilador de lectura</h3><p class="xs muted" style="margin:0">Resume lo que estás leyendo en 4 campos. Después conviértelo en una ficha high-yield.</p><div class="stack" id="mbeForm"></div></div>
+      <div class="card stack"><h3 style="font-size:16px">📝 Resume lo que leíste</h3><p class="xs muted" style="margin:0">Al terminar un estudio o una guía, escribe lo esencial en 4 campos. Queda en «Mis lecturas» y lo puedes convertir en una ficha high-yield.</p><div class="stack" id="mbeForm"></div></div>
       <div class="card"><div class="row"><h3 style="font-size:16px">Mis lecturas</h3><span class="chip" id="mbeNotesN">0</span></div><div id="mbeNotes" style="margin-top:6px"></div></div>
-      <div class="card stack"><h3 style="font-size:16px">🧮 Impacto de un tratamiento: RR, RRR, RRA y NNT</h3>
+      <div class="card stack" id="mbeCalc"><h3 style="font-size:16px">🧮 Calculadoras</h3>
+        <p class="xs muted" style="margin:0">Herramientas sueltas: <b>no leen tu PDF</b>. Escribe tú los números de un estudio y te dan el resultado al instante.</p>
+      <details class="pleg" data-pleg="calcrr"><summary><b>Impacto de un tratamiento</b> <span class="xs muted">RR, RRR, RRA y NNT</span></summary><div class="pleg-in stack">
+        <p class="xs muted" style="margin:0">Escribe qué porcentaje de pacientes tuvo el evento (muerte, infarto…) en cada grupo de un ensayo. Los valores de ejemplo puedes borrarlos.</p>
         <div class="grid2"><label class="fld">Eventos en el grupo control (%)<input type="number" id="cCer" value="20" min="0" max="100" step="0.1"></label><label class="fld">Eventos en el grupo intervención (%)<input type="number" id="cEer" value="12" min="0" max="100" step="0.1"></label></div>
-        <div id="cOut"></div></div>
-      <div class="card stack"><h3 style="font-size:16px">🧮 Prueba diagnóstica (tabla 2×2)</h3>
+        <div id="cOut"></div></div></details>
+      <details class="pleg" data-pleg="calcdx"><summary><b>Prueba diagnóstica</b> <span class="xs muted">tabla 2×2: sensibilidad, VPP, LR</span></summary><div class="pleg-in stack">
+        <p class="xs muted" style="margin:0">Escribe los cuatro números de la tabla 2×2 de un estudio diagnóstico. Los valores de ejemplo puedes borrarlos.</p>
         <div class="grid2"><label class="fld">Verdaderos positivos<input type="number" id="dVP" value="90" min="0"></label><label class="fld">Falsos positivos<input type="number" id="dFP" value="40" min="0"></label>
           <label class="fld">Falsos negativos<input type="number" id="dFN" value="10" min="0"></label><label class="fld">Verdaderos negativos<input type="number" id="dVN" value="160" min="0"></label></div>
-        <div id="dOut"></div></div>
+        <div id="dOut"></div></div></details>
+      </div>
     </div>
   </section>
 
@@ -359,7 +364,6 @@
         <button class="btn block" data-go="instalar">📲 Instalar en tu celular</button>
         <div class="row"><button class="btn" id="expBtn">⬇ Descargar copia</button><label class="btn" style="display:inline-block">⬆ Cargar copia<input type="file" id="impFile" accept="application/json" hidden></label><button class="btn ghost" id="resetBtn" style="color:var(--bad)">Borrar progreso</button></div>
       </div>
-      <p class="firma" id="firmaProg">MediPulse · Creado por Dr. Christian Smith</p>
     </div>
   </section>
 </main>

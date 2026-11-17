@@ -213,3 +213,33 @@ test.describe("preguntas de búsqueda activa", () => {
     expect(p.system).toContain("NO preguntes por características basales");
   });
 });
+
+test("un solo tema (el documento) y el subtema opcional del índice; sin casos del tema explica por qué no hay pre-test", async ({ page }) => {
+  errores = vigilarErrores(page);
+  await page.goto("/"); await subirPdf(page);
+  await page.evaluate(() => { const s = S.sources.at(-1); s.title = "Enfermedad de Kikuchi-Fujimoto";
+    s.indice = {items: [{title: "Fisiopatología", from: 1, to: 1}, {title: "Tratamiento", from: 2, to: 2}]}; save(); });
+  await page.click("nav [data-go=estudio]");
+  await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
+  await expect(page.locator("#estTema")).toHaveValue("Enfermedad de Kikuchi-Fujimoto");
+  await expect(page.locator("label:has(#estInd)")).toContainText("Subtema");
+  await page.selectOption("#estInd", "0");
+  await expect(page.locator("#estTema")).toHaveValue("Enfermedad de Kikuchi-Fujimoto");   // elegir el subtema no cambia el tema
+  await page.click("#estGo");
+  await expect(page.locator("#estBox")).toContainText("Enfermedad de Kikuchi-Fujimoto · Fisiopatología");
+  await expect(page.locator("#estSinPre")).toContainText("no tiene casos de este tema");
+});
+
+test("la detección del tipo de documento lee la cabecera: Primer y Review son revisiones; un ensayo que dice «randomly assigned» es ECA", async ({ page }) => {
+  errores = vigilarErrores(page);
+  await page.goto("/");
+  const r = await page.evaluate(() => [
+    "nature reviews disease primers Primer Autoimmune encephalitis ... cohort cohort cohort cohort cohort cohort randomized",
+    "Clinical Review & Education JAMA | Review Idiopathic Normal Pressure Hydrocephalus",
+    "new england journal of medicine Prasugrel versus Clopidogrel ... patients were randomly assigned ... randomly assigned ... double-blind ... intention-to-treat ... cohort cohort cohort cohort",
+    "CME Diagnosis and Management of Tinea Infections ... randomized controlled trials ... randomized clinical trials ... randomized controlled trials",
+    "GUÍA DE PRÁCTICA CLÍNICA Guía de práctica clínica para el diagnóstico y tratamiento de la neumonía",
+    "Research Original Investigation Age-Adjusted D-Dimer ... prospective cohort ... management outcome study ... prospective multicenter study"
+  ].map(detectDesign));
+  expect(r).toEqual(["REV", "REV", "ECA", "REV", "GPC", "OBS"]);
+});
