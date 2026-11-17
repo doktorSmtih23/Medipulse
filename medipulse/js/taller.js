@@ -137,8 +137,10 @@ async function renderSrc(){
     <h2 style="margin-top:8px;word-break:break-word">${esc(s.title)}</h2>
     <div class="xs muted" style="margin-top:4px">${esc([s.org, s.year].filter(Boolean).join(", ") || "Sin organización ni año")}${s.updated?` · versión nueva subida el ${fmtDate(s.updated)}`:""}${c?` · vigencia revisada el ${fmtDate(c.at)}`:""}</div>
     <div class="row" style="margin-top:10px;gap:6px">${s.apunte ? `<button class="btn primary sm" id="srcLib">📓 Ir a la libreta</button>` : ""}<button class="btn sm" id="srcOpen">📄 Abrir PDF</button><button class="btn sm" id="srcMeta">✏️ Datos</button><button class="btn sm" id="srcVer">⬆ Subir versión nueva</button>${getKey()?`<button class="btn sm" id="srcChk">🔎 ¿Hay versión más nueva?</button>`:""}<button class="btn sm" id="srcPack">📦 Exportar pack</button><button class="btn ghost sm" id="srcDel" style="color:var(--bad)">Eliminar</button></div>
+    <div id="pdfCompBox">${pdfCompromisoHTML(s)}</div>
     <input type="file" id="verIn" accept="application/pdf" hidden>
     <div id="srcMetaForm"></div>`;
+  if (pdfCuenta(s) && !s.abierto) { s.abierto = Date.now(); save(); }
   $("#srcOpen").onclick = ()=>openPdf(s.id, 1);
   $("#srcMeta").onclick = editSrcMeta;
   $("#srcVer").onclick = ()=>$("#verIn").click();

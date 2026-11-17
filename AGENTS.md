@@ -71,6 +71,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/simulacro.js` | Pantalla antigua del simulacro (ya no está en la barra; el simulacro se arma en el banco con «Modo examen») |
 | `js/progreso.js` | Progreso y borrado |
 | `js/fuentes.js` | Biblioteca, PDFs (IndexedDB, pdf.js), clave de API y guía |
+| `js/compromiso.js` | Compromiso con los PDF: estado de cada documento (sin abrir, en estudio, estudiado, en espera), pendientes en Hoy, meta semanal que elige el usuario (`S.metaPdf`) y pregunta al subir uno más con la meta llena |
 | `js/taller.js` | Detalle de una fuente: taller de preguntas (lector, datos clave, IA), revisión y guardado |
 | `js/vigencia.js` | Llamadas a la API de Claude (`callForTool`, `apiErr`), revisión de vigencia y actualización de ítems |
 | `js/analisis.js` | Analizar un documento: visor de la página original, mapa por capítulos, auditoría MBE, revisión de tema y pase de revista |

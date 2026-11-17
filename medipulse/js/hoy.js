@@ -5,6 +5,7 @@ function renderHoy(){
   const h = new Date().getHours();
   $("#greet").textContent = h<12 ? "Buenos días ☀️" : h<19 ? "Buenas tardes 👋" : "Buenas noches 🌙";
   renderFocusSel();
+  renderPdfHoy();
   if (typeof renderDataWarn === "function") renderDataWarn();
   const l = logToday(), st = streak(), due = dueKeys().length;
   $("#todayCard").innerHTML = `

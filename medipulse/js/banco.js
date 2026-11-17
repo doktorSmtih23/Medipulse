@@ -64,7 +64,8 @@ function renderBanco(){
   const pool = base.filter(enEst);
   const deSpecs = QUESTIONS.filter(enSpec);
   const rd = rendimiento(sp);
-  const fuente = P.modo === "filtros" ? pool : deSpecs;
+  const vpool = P.modo === "vuln" ? vulnPool(deSpecs, rd) : [];
+  const fuente = P.modo === "filtros" ? pool : P.modo === "vuln" ? vpool : deSpecs;
   const max = Math.min(PRAC_MAX, fuente.length), n = Math.max(1, Math.min(P.n || 20, max));
   const seen = deSpecs.filter(q => S.srs["q"+q.id]).length;
   const cuentaF = f => deSpecs.filter(q => f(q) && qCoincide(q, txt)).length;
@@ -76,7 +77,7 @@ function renderBanco(){
       return `<button class="chip2${sp.includes(s) ? " on" : ""}" data-sp="${esc(s)}" ${c ? "" : "disabled"}>${esc(s)} <span class="cnt">${c}</span></button>`; }).join("")}</div>
     <div class="xs muted" style="margin:12px 0 6px">Cómo elegir los casos</div>
     <div class="seg seg3" id="qModo">${MODOS_PRAC.map(m => `<button class="${P.modo === m.k ? "on" : ""}" data-modo="${m.k}"><b>${m.t}</b><span>${m.d}</span></button>`).join("")}</div>
-    ${P.modo === "vuln" && !rd.suficiente ? `<p class="xs" style="margin:8px 0 0;color:var(--warn)">Aún hay pocos datos para saber qué te cuesta: por ahora se eligen al azar, con prioridad en lo que no has visto. Con 8 respuestas o más empieza a apuntar a tus fallos.</p>` : ""}
+    ${P.modo === "vuln" ? `<div class="vulnbox stack" id="qVuln">${vulnHTML(sp)}</div>` : ""}
     ${P.modo === "filtros" ? `<div class="filtrosbox stack">
       <input type="search" id="qQuery" placeholder="Tema o palabra clave (p. ej. TEP, Kawasaki, NNT)" aria-label="Buscar casos por tema">
       <div class="grid2">
@@ -85,9 +86,9 @@ function renderBanco(){
     <div class="row" style="margin-top:12px;gap:8px;align-items:flex-end">
       <label class="fld cantidad"><span>Cantidad de casos</span><input type="number" id="qN" min="1" max="${max}" value="${n}" inputmode="numeric"></label>
       <div class="chips" id="qNs">${[10, 20, 50, 100].filter(x => x < max).map(x => `<button class="chip2${n === x ? " on" : ""}" data-n="${x}">${x}</button>`).join("")}<button class="chip2${n === max ? " on" : ""}" data-n="${max}">${max === PRAC_MAX ? "100 (máximo)" : `Todos (${max})`}</button></div></div>
-    <p class="xs muted" style="margin:4px 0 0">${fuente.length} caso${fuente.length === 1 ? "" : "s"} disponible${fuente.length === 1 ? "" : "s"} con esta selección · máximo ${PRAC_MAX} por práctica.</p>
+    <p class="xs muted" style="margin:4px 0 0" id="qDisp">${fuente.length} caso${fuente.length === 1 ? "" : "s"} ${P.modo === "vuln" ? `de tus vulnerabilidades` : `disponible${fuente.length === 1 ? "" : "s"} con esta selección`} · máximo ${PRAC_MAX} por práctica.</p>
     <label class="row check" style="margin-top:10px;gap:8px;align-items:flex-start"><input type="checkbox" id="qExam" ${P.examen ? "checked" : ""}><span class="small"><b>⏱️ Modo examen</b><br><span class="xs muted">Con tiempo (~72 s por caso) y sin explicaciones hasta el final. Al terminar, auditoría a ciegas: marcas si respondiste seguro, dudando o al azar antes de ver tu nota.${n >= 40 ? " Con " + n + " casos ya es un simulacro." : ""}</span></span></label>
-    <button class="btn primary block" id="pr10" style="margin-top:12px" ${fuente.length ? "" : "disabled"}>${P.examen ? "⏱️ Empezar simulacro" : "Empezar"} · ${n} caso${n === 1 ? "" : "s"}${P.examen ? ` · ${fmt(n * 72)}` : ""}</button>
+    <button class="btn primary block" id="pr10" style="margin-top:12px" ${fuente.length ? "" : "disabled"}>${P.examen ? "⏱️ Empezar simulacro" : P.modo === "vuln" ? "🎯 Practicar mis vulnerabilidades" : "Empezar"} · ${n} caso${n === 1 ? "" : "s"}${P.examen ? ` · ${fmt(n * 72)}` : ""}</button>
     <div class="grid3" style="margin-top:12px">
       <div class="kpi"><b>${deSpecs.length}</b><span>casos</span></div>
       <div class="kpi"><b>${seen}</b><span>vistos</span></div>
@@ -115,20 +116,21 @@ function renderBanco(){
   document.querySelectorAll("#qNs [data-n]").forEach(b => b.onclick = () => { P.n = +b.dataset.n; save(); renderBanco(); });
   $("#qN").onchange = e => { P.n = Math.max(1, Math.min(PRAC_MAX, Math.round(+e.target.value) || 1)); save(); renderBanco(); };
   $("#qExam").onchange = e => { P.examen = e.target.checked; save(); renderBanco(); };
-  $("#pr10").onclick = () => empezarPractica(fuente, n, P.modo === "vuln" && !rd.suficiente ? "azar" : P.modo, P.examen, rd);
+  $("#pr10").onclick = () => empezarPractica(fuente, n, P.modo, P.examen, rd);
+  // Sin datos no hay vulnerabilidades que practicar: ni cantidad ni botón, solo qué falta para detectarlas.
+  if (P.modo === "vuln" && !rd.suficiente) [$("#qN").closest(".row"), $("#qDisp"), $("#qExam").closest("label"), $("#pr10")].forEach(e => e.hidden = true);
 
-  // ---- Tus vulnerabilidades ----
-  $("#qVuln").innerHTML = vulnHTML(sp);
-  $("#vulnGo") && ($("#vulnGo").onclick = () => empezarPractica(deSpecs, Math.min(n, deSpecs.length), "vuln", P.examen, rd));
+  // ---- Tus vulnerabilidades (dentro de la opción) ----
+  $("#vulnAzar") && ($("#vulnAzar").onclick = () => { P.modo = "azar"; save(); renderBanco(); });
   $("#vulnRep") && ($("#vulnRep").onclick = () => estudiarCasos(shuffle(rd.repetidos), "Fallos que se repiten"));
 
   // Lista por especialidad: sin tema ni fuente, para no dar pistas antes de responder.
   // La lista sigue lo elegido arriba: con «Con mis filtros», solo esos casos; si no, los de las especialidades.
-  const lista = P.modo === "filtros" ? pool : deSpecs, busca = P.modo === "filtros" && !!txt;
+  const lista = P.modo === "filtros" ? pool : P.modo === "vuln" ? vpool : deSpecs, busca = P.modo === "filtros" && !!txt;
   const grupos = SPECS.map(s => [s, lista.filter(q => q.specialty === s)]).filter(([, qs]) => qs.length);
   const abierto = busca;   // plegadas salvo que se esté buscando
   if (busca) PLEG.bqlista = true;
-  $("#qList").innerHTML = plegable("bqlista", `<b>Ver los casos</b> <span class="xs muted">${lista.length}${P.modo === "filtros" ? " con tus filtros" : ""}</span>`, lista.length ? `<p class="xs muted" style="margin:0 0 6px">Sin el tema ni la fuente, para no darte pistas: los ves al responder. Si un caso quedó en la especialidad equivocada, corrígelo con 🏷️.</p>` + grupos.map(([s, qs]) => `
+  $("#qList").innerHTML = plegable("bqlista", `<b>Ver los casos</b> <span class="xs muted">${lista.length}${P.modo === "filtros" ? " con tus filtros" : P.modo === "vuln" ? " de tus vulnerabilidades" : ""}</span>`, lista.length ? `<p class="xs muted" style="margin:0 0 6px">Sin el tema ni la fuente, para no darte pistas: los ves al responder. Si un caso quedó en la especialidad equivocada, corrígelo con 🏷️.</p>` + grupos.map(([s, qs]) => `
     <details class="qgrupo" data-pleg="bq_${esc(s)}" ${abierto || PLEG["bq_" + s] ? "open" : ""}><summary><span class="dot" style="background:${SPEC_COLOR[s]}"></span> <b>${esc(s)}</b> <span class="xs muted">${qs.length}</span></summary>
       <div style="margin-top:4px">${qs.map((q, i) => { const e = qEstado(q), id = esc(String(q.id)); return `<div class="qrow">
         <div style="flex:1;min-width:0" class="row" ><b class="small">Caso ${i + 1}</b>${tipoChip(q)}${origenChip(q)}<span class="xs est ${e.k}">${e.t}</span></div>
