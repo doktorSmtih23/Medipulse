@@ -92,7 +92,7 @@ function indiceDeTitulos(s, info, last){
 // Versión del índice automático: al mejorar cómo se calcula, los índices viejos se rehacen solos
 // (no los hechos con IA, los del propio PDF ni los que el usuario editó a mano).
 const IND_VERSION = 2;
-const indiceAlDia = s => !!s.indice && (s.indice.v >= IND_VERSION || ["ia", "pdf", "manual", "apuntes"].includes(s.indice.fuente));
+const indiceAlDia = s => !!s.indice && (s.indice.v >= IND_VERSION || ["ia", "pdf", "apuntes"].includes(s.indice.fuente));
 async function buildIndice(s){
   if (indiceAlDia(s)) return s.indice;
   const viejo = s.indice;
@@ -112,7 +112,7 @@ async function buildIndice(s){
   save();
   return s.indice;
 }
-const IND_FUENTE = {manual: "Corregido por ti.", apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", maqueta: "Detectado por los títulos del documento (su letra y su tamaño). Si algo no calza, corrígelo con ✏️ Editar el índice o usa ✨ Crear con IA.", numerado: "Secciones numeradas del documento.", titulos: "Detectado por los títulos del documento: a veces confunde rótulos de figuras o tablas con secciones. Si no se parece al documento, usa ✨ Crear con IA.", ia: "Creado con IA a partir del documento."};
+const IND_FUENTE = {apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", maqueta: "Detectado sin IA por los títulos del documento (su letra y su tamaño).", numerado: "Secciones numeradas del documento.", titulos: "Detectado sin IA por los títulos del documento: a veces confunde rótulos de figuras o tablas con secciones.", ia: "Creado con IA a partir del documento."};
 
 // ---------- tema elegido ----------
 function temaActual(){
@@ -233,71 +233,3 @@ const T_FICHA = {name: "report_ficha", description: "Entrega la ficha redactada.
     title: {type: "string"}, redFlag: {type: "string"}, trap: {type: "string"},
     rows: {type: "array", items: {type: "object", additionalProperties: false, required: ["label", "val"], properties: {label: {type: "string"}, val: {type: "string"}}}}}}};
 
-// ---------- Editar el índice a mano ----------
-// Renombrar, cambiar la página o el nivel, borrar, unir con el anterior y agregar temas. Antes de
-// guardar se muestra qué cambió; el índice editado no se rehace solo (fuente "manual").
-let indEd = null;   // {items, confirmar}
-const indUltima = s => { const info = docInfo(s.id); return Math.min(s.pages, info && info.refFrom !== Infinity ? info.refFrom : s.pages); };
-function indEditar(){
-  const s = cur();
-  indEd = {items: ((s.indice && s.indice.items) || []).map(x => ({title: x.title, from: x.from, lvl: x.lvl || 1, orig: x.title})), confirmar: null};
-  refrescarIndice();
-}
-function indCambios(s){
-  const antes = (s.indice && s.indice.items) || [], ahora = indEd.items.filter(x => x.title.trim());
-  const cs = [], quedan = new Set(ahora.map(x => x.orig).filter(Boolean));
-  antes.forEach(x => { if (!quedan.has(x.title)) cs.push(`🗑️ Quitas «${x.title}»`); });
-  ahora.forEach(x => {
-    const a = x.orig != null && antes.find(y => y.title === x.orig);
-    if (!a) cs.push(`➕ Agregas «${x.title.trim()}» (pág. ${x.from})`);
-    else {
-      if (a.title !== x.title.trim()) cs.push(`✏️ «${a.title}» → «${x.title.trim()}»`);
-      if (a.from !== x.from) cs.push(`📄 «${x.title.trim()}»: pág. ${a.from} → ${x.from}`);
-      if ((a.lvl || 1) !== x.lvl) cs.push(`↕️ «${x.title.trim()}» pasa a ${x.lvl === 1 ? "sección" : "subtema"}`);
-    }
-  });
-  return cs;
-}
-function indEdicionHTML(){
-  const s = cur();
-  if (indEd.confirmar) return `<div class="confirmar stack" id="indConf"><b class="small">Revisa tus cambios (${indEd.confirmar.length})</b>
-    <ul class="small" style="margin:0;padding-left:18px">${indEd.confirmar.map(c => `<li>${esc(c)}</li>`).join("")}</ul>
-    <div class="row" style="gap:6px"><button class="btn primary sm" id="indOk">✓ Guardar el índice</button><button class="btn sm" id="indSeguir">Seguir editando</button></div></div>`;
-  return `<div class="stack" id="indEdit" style="gap:6px">
-    <p class="xs muted" style="margin:0">Corrige el índice: el nombre, la página donde empieza, si es sección o subtema. «⤴» lo une con el tema anterior.</p>
-    ${indEd.items.map((x, i) => `<div class="row indfila${x.lvl === 2 ? " sub" : ""}" style="gap:4px">
-      <input type="text" data-iet="${i}" value="${esc(x.title)}" aria-label="Nombre del tema ${i + 1}" style="flex:1;min-width:0">
-      <input type="number" data-iep="${i}" value="${x.from}" min="1" max="${s.pages}" aria-label="Página" inputmode="numeric" class="indpag">
-      <button class="iconbtn" data-iel="${i}" title="${x.lvl === 1 ? "Pasar a subtema" : "Pasar a sección"}" aria-label="Cambiar nivel">${x.lvl === 1 ? "→" : "←"}</button>
-      ${i ? `<button class="iconbtn" data-ieu="${i}" title="Unir con el anterior" aria-label="Unir con el anterior">⤴</button>` : ""}
-      <button class="iconbtn" data-ied="${i}" title="Quitar" aria-label="Quitar">✕</button></div>`).join("")}
-    <button class="btn ghost sm" id="indAdd">➕ Agregar un tema</button>
-    <div class="row" style="gap:6px"><button class="btn primary sm" id="indSave">Guardar</button><button class="btn sm" id="indCancel">Cancelar</button>
-      ${s.indice && s.indice.fuente === "manual" ? `<button class="btn ghost sm" id="indAuto">↺ Volver al índice automático</button>` : ""}</div></div>`;
-}
-function bindIndEdicion(){
-  const s = cur(), leer = () => {
-    document.querySelectorAll("[data-iet]").forEach(e => indEd.items[+e.dataset.iet].title = e.value);
-    document.querySelectorAll("[data-iep]").forEach(e => indEd.items[+e.dataset.iep].from = Math.max(1, Math.min(s.pages, Math.round(+e.value) || 1)));
-  };
-  // Lo escrito se guarda al momento: si la pantalla se redibuja (p. ej. termina de calcularse el índice), no se pierde.
-  document.querySelectorAll("[data-iet]").forEach(e => e.oninput = () => { indEd.items[+e.dataset.iet].title = e.value; });
-  document.querySelectorAll("[data-iep]").forEach(e => e.oninput = () => { indEd.items[+e.dataset.iep].from = Math.max(1, Math.min(s.pages, Math.round(+e.value) || 1)); });
-  const accion = (sel, fn) => document.querySelectorAll(sel).forEach(b => b.onclick = () => { leer(); fn(+Object.values(b.dataset)[0]); refrescarIndice(); });
-  accion("[data-iel]", i => indEd.items[i].lvl = indEd.items[i].lvl === 1 ? 2 : 1);
-  accion("[data-ied]", i => indEd.items.splice(i, 1));
-  accion("[data-ieu]", i => indEd.items.splice(i, 1));            // su rango pasa al anterior (termina donde empieza el siguiente)
-  $("#indAdd") && ($("#indAdd").onclick = () => { leer(); indEd.items.push({title: "", from: gen.rdPage || 1, lvl: 1}); refrescarIndice();
-    const ult = document.querySelectorAll("[data-iet]"); ult.length && ult[ult.length - 1].focus(); });
-  $("#indCancel") && ($("#indCancel").onclick = () => { indEd = null; refrescarIndice(); });
-  $("#indSave") && ($("#indSave").onclick = () => { leer(); const cs = indCambios(s);
-    if (!cs.length) { toast("No cambiaste nada en el índice."); return; }
-    indEd.confirmar = cs; refrescarIndice(); });
-  $("#indSeguir") && ($("#indSeguir").onclick = () => { indEd.confirmar = null; refrescarIndice(); });
-  $("#indOk") && ($("#indOk").onclick = () => {
-    const items = indEd.items.filter(x => x.title.trim()).map(x => ({title: x.title.trim(), from: x.from, lvl: x.lvl})).sort((a, b) => a.from - b.from);
-    s.indice = {v: IND_VERSION, fuente: "manual", items: conHasta(items, indUltima(s))};
-    indEd = null; gen.tema = null; save(); toast("Índice guardado ✓"); renderGen();
-  });
-  $("#indAuto") && ($("#indAuto").onclick = async () => { indEd = null; s.indice = null; gen.tema = null; save(); await buildIndice(s); renderGen(); });
-}

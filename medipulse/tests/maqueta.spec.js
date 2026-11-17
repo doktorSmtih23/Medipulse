@@ -54,13 +54,13 @@ test("título y año desde la primera página; no se toma la fecha de descarga n
   expect(r).toEqual(["Guía de manejo del trauma craneoencefálico en urgencias", 2019, "Guía de manejo del trauma craneoencefálico en urgencias"]);
 });
 
-test("un índice automático viejo se rehace solo; uno editado a mano o hecho con IA no", async ({ page }) => {
+test("un índice automático viejo se rehace solo; uno hecho con IA o del propio PDF no", async ({ page }) => {
   errores = vigilarErrores(page);
   await page.goto("/");
   const r = await page.evaluate(() => [
     indiceAlDia({indice: {fuente: "titulos", items: []}}),
     indiceAlDia({indice: {v: IND_VERSION, fuente: "maqueta", items: []}}),
-    indiceAlDia({indice: {fuente: "manual", items: []}}),
+    indiceAlDia({indice: {fuente: "pdf", items: []}}),
     indiceAlDia({indice: {fuente: "ia", items: []}})]);
   expect(r).toEqual([false, true, true, true]);
 });

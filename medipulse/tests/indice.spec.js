@@ -101,27 +101,10 @@ test("en un ensayo clínico la pestaña gratis es «Resultados con cifras»: fra
   expect(await page.inputValue("#recEd .eV >> nth=0")).toContain("hazard ratio, 0.81");
 });
 
-test("editar el índice a mano: renombrar, cambiar nivel, unir y agregar; antes de guardar muestra los cambios y no se rehace solo", async ({ page }) => {
-  await page.evaluate(() => { const s = cur(); s.indice = {v: IND_VERSION, fuente: "maqueta", items: conHasta([
-    {title: "Introducción", from: 1, lvl: 1}, {title: "Me thods", from: 2, lvl: 1}, {title: "Clopidogrel Better", from: 2, lvl: 1}, {title: "Resultados", from: 3, lvl: 1}], 4)}; save(); gen.tema = null; renderGen(); });
-  await page.locator('[data-pleg="indice"] summary').click();
-  await page.click("#indEd");
-  await page.fill('[data-iet="1"]', "Métodos");
-  await page.click('[data-ieu="2"]');              // «Clopidogrel Better» se une a Métodos
-  await page.click('[data-iel="2"]');              // Resultados pasa a subtema
-  await page.click("#indAdd"); await page.fill('[data-iet="3"]', "Discusión"); await page.fill('[data-iep="3"]', "4");
-  await page.click("#indSave");
-  await expect(page.locator("#indConf")).toContainText("«Me thods» → «Métodos»");
-  await expect(page.locator("#indConf")).toContainText("Quitas «Clopidogrel Better»");
-  await expect(page.locator("#indConf")).toContainText("«Resultados» pasa a subtema");
-  await expect(page.locator("#indConf")).toContainText("Agregas «Discusión» (pág. 4)");
-  await page.click("#indOk");
-  const r = await page.evaluate(() => [cur().indice.fuente, cur().indice.items.map(x => [x.title, x.from, x.to, x.lvl]), indiceAlDia(cur())]);
-  expect(r).toEqual(["manual", [["Introducción", 1, 2, 1], ["Métodos", 2, 4, 1], ["Resultados", 3, 4, 2], ["Discusión", 4, 4, 1]], true]);
-  // Sin cambios: no guarda nada.
-  if (!await page.locator("#indEd").isVisible()) await page.locator('[data-pleg="indice"] summary').click();
-  await page.click("#indEd"); await page.click("#indSave");
-  await expect(page.locator("#indEdit")).toBeVisible();
-  await page.click("#indCancel");
-  await expect(page.locator("#genCard")).toContainText("Corregido por ti.");
+
+test("el índice automático (sin IA) recomienda crear uno con IA para un resultado más preciso", async ({ page }) => {
+  await page.evaluate(() => { cur().indice = {v: IND_VERSION, fuente: "maqueta", items: conHasta([{title: "Introducción", from: 1, lvl: 1}, {title: "Resultados", from: 2, lvl: 1}], 4)}; renderGen(); });
+  await expect(page.locator("#indBox")).toContainText("Detectado sin IA");
+  await expect(page.locator("#indBox")).toContainText("Para un índice más preciso, usa ✨ Crear con IA.");
+  await expect(page.locator("#indEd")).toHaveCount(0);
 });
