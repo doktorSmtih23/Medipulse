@@ -89,24 +89,30 @@ function indiceDeTitulos(s, info, last){
   if (items.length > 40) items = items.filter(x => x.lvl === 1);
   return items.length >= 2 ? items : null;
 }
+// Versión del índice automático: al mejorar cómo se calcula, los índices viejos se rehacen solos
+// (no los hechos con IA, los del propio PDF ni los que el usuario editó a mano).
+const IND_VERSION = 2;
+const indiceAlDia = s => !!s.indice && (s.indice.v >= IND_VERSION || ["ia", "pdf", "manual", "apuntes"].includes(s.indice.fuente));
 async function buildIndice(s){
-  if (s.indice) return s.indice;
+  if (indiceAlDia(s)) return s.indice;
+  const viejo = s.indice;
   const info = docInfo(s.id); if (!info) return null;
   const last = Math.min(s.pages, info.refFrom === Infinity ? s.pages : info.refFrom);
   let items = null, fuente = "";
   const deIA = () => s.chapters && s.chapters.length ? s.chapters.map(c => ({title: c.title, from: c.from, to: c.to, lvl: 1, summary: c.summary})) : null;
   if ((items = deIA())) fuente = "ia";
   if (!items) { try { items = await indiceDelPdf(s, last); fuente = "pdf"; } catch(e) {} }
+  if (!items && s.kind !== "text") { try { items = indiceDeMaqueta(await lineasDelPdf(await anDoc(s.id), last), last, s.title); fuente = "maqueta"; } catch(e) {} }
   if (!items) { items = indiceNumerado(info, last); fuente = "numerado"; }
   if (!items) { items = indiceDeTitulos(s, info, last); fuente = "titulos"; }
   // Mientras se buscaba, pudo terminar otro cálculo o crearse el índice con IA: ese manda.
-  if (s.indice) return s.indice;
+  if (s.indice && s.indice !== viejo) return s.indice;
   if (fuente !== "ia" && deIA()) { items = deIA(); fuente = "ia"; }
-  s.indice = {fuente: items ? fuente : "", items: items ? conHasta(items, last) : []};
+  s.indice = {v: IND_VERSION, fuente: items ? fuente : "", items: items ? conHasta(items, last) : []};
   save();
   return s.indice;
 }
-const IND_FUENTE = {apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", numerado: "Secciones numeradas del documento.", titulos: "Detectado por los títulos del documento: a veces confunde rótulos de figuras o tablas con secciones. Si no se parece al documento, usa ✨ Crear con IA.", ia: "Creado con IA a partir del documento."};
+const IND_FUENTE = {apuntes: "Tus entradas por día.", pdf: "Índice del propio PDF.", maqueta: "Detectado por los títulos del documento (su letra y su tamaño). Si algo no calza, corrígelo con ✏️ Editar el índice o usa ✨ Crear con IA.", numerado: "Secciones numeradas del documento.", titulos: "Detectado por los títulos del documento: a veces confunde rótulos de figuras o tablas con secciones. Si no se parece al documento, usa ✨ Crear con IA.", ia: "Creado con IA a partir del documento."};
 
 // ---------- tema elegido ----------
 function temaActual(){

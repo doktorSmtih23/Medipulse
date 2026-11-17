@@ -207,7 +207,7 @@ function refrescarIndice(){
 function renderGen(){
   const s = cur(), info = docInfo(s.id);
   if (!info) { $("#genCard").innerHTML = `<p class="small" style="margin:0;color:var(--bad)">No encuentro el texto de esta fuente en este dispositivo. Vuelve a agregarla.</p>`; return; }
-  if (!s.indice && !gen.indCargando) { gen.indCargando = true; buildIndice(s).catch(()=>{}).then(()=>{ gen.indCargando = false; if (cur() === s && currentView === "src" && $("#indBox")) refrescarIndice(); }); }
+  if (!indiceAlDia(s) && !gen.indCargando) { gen.indCargando = true; buildIndice(s).catch(()=>{}).then(()=>{ gen.indCargando = false; if (cur() === s && currentView === "src" && $("#indBox")) refrescarIndice(); }); }
   const t = temaActual(), sel = temaSel();
   const est = s.design || detectDesign(info.pages.slice(0, 6).join(" "));
   const chars = sel ? sel.pages.reduce((a, p)=>a + p.length, 0) : 0;

@@ -83,7 +83,7 @@ function estBindCab(box, a){ $("#estSalir").onclick = () => { a.paso = "cierre";
 async function renderEstInicio(box){
   const docs = S.sources.filter(s => s.kind !== "pack").slice().reverse(), r = estRitmo();
   const s = estNuevo.src && S.sources.find(x => x.id === estNuevo.src);
-  if (s) { try { await getRec(s.id); if (!s.indice) await buildIndice(s); } catch(e) {} }   // el texto también dice si es un estudio original
+  if (s) { try { await getRec(s.id); if (!indiceAlDia(s)) await buildIndice(s); } catch(e) {} }   // el texto también dice si es un estudio original
   const items = s && s.indice ? s.indice.items : [];
   const ses = estD().ses;
   box.innerHTML = `

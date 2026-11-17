@@ -122,11 +122,14 @@ async function extractPages(buf, onProg){
   }
   // Título que trae el propio PDF (metadatos), para cuando el nombre del archivo no dice nada.
   try { const m = await doc.getMetadata(); pages.titulo = String(m && m.info && m.info.Title || "").trim(); } catch(e) {}
+  // Título y año impresos en la primera página (maqueta.js).
+  try { const L = await lineasDelPdf(doc, 1); pages.tituloPag = tituloDePagina(L); pages.anio = anioDePagina(L.map(l => l.t)); } catch(e) {}
   return pages;
 }
-// Nombre de la fuente: el del archivo, legible; si es genérico («download (3)», «1-s2.0-S0140…», «ae»),
-// el título de los metadatos del PDF.
-function tituloFuente(archivo, meta){
+// Nombre de la fuente: el título impreso en la primera página; si no se encontró, el del archivo,
+// legible; si ese es genérico («download (3)», «1-s2.0-S0140…», «ae»), el de los metadatos del PDF.
+function tituloFuente(archivo, meta, pagina){
+  if (pagina && pagina.length >= 6) return pagina.length > 160 ? pagina.slice(0, 157).replace(/\s+\S*$/, "") + "…" : pagina;
   const n = archivo.replace(/\.pdf$/i, "").replace(/[_]+/g, " ").replace(/\s+/g, " ").trim();
   const generico = n.length < 8 || /^(doc|document|download|descarga|file|archivo|articulo|article|untitled|sin t[ií]tulo|scan)/i.test(n) || (n.match(/\d/g) || []).length > n.length / 3;
   const okMeta = meta && meta.length >= 6 && meta.length <= 200 && !/^(microsoft|untitled|document|sin t[ií]tulo)|\.(docx?|pdf|indd)$/i.test(meta);
@@ -148,7 +151,7 @@ async function addPdf(f, openAfter, meta){
     const id = "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
     const rec = {blob: new Blob([buf], {type:"application/pdf"}), pages};
     await idb.put(id, rec); recCache[id] = rec;
-    S.sources.push(Object.assign({id, title: tituloFuente(f.name, pages.titulo), pages: pages.length, chars, added: Date.now(), recien: Date.now(), spec: "Medicina Interna"}, meta || {}));
+    S.sources.push(Object.assign({id, title: tituloFuente(f.name, pages.titulo, pages.tituloPag), year: pages.anio || "", pages: pages.length, chars, added: Date.now(), recien: Date.now(), spec: "Medicina Interna"}, meta || {}));
     save(); prog.innerHTML = "";
     toast(chars < pages.length*80 ? "PDF agregado, pero casi no tiene texto (¿es escaneado o escrito a mano?)." : "PDF agregado ✓");
     if (openAfter) openSrc(id);
