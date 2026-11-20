@@ -78,21 +78,27 @@ test("cómo estudias sin IA: consejos con su herramienta (bloques sin terminar �
   expect(await page.evaluate(() => S.estudio.cfg.ritmo)).toBe("15/3");
 });
 
-test("análisis con IA: envía solo cifras (no tus apuntes) y muestra el informe con herramientas", async ({ page }) => {
+test("análisis con IA: recibe el detalle por sesión y comparaciones (no tus apuntes); el informe muestra los patrones que descubre y herramientas", async ({ page }) => {
   errores = vigilarErrores(page);
-  const peticiones = await simularIA(page, () => ({tool: "report_estudio", input: {resumen: "Lees mucho y recuerdas poco.", fortalezas: ["Constancia"],
+  const peticiones = await simularIA(page, () => ({tool: "report_estudio", input: {resumen: "Lees mucho y recuerdas poco.", patrones: [{hallazgo: "En bloques de 25 min recuerdas el doble que en los de 50", evidencia: "25/5: 2,0 puntos por bloque; 50/10: 1,0"}], fortalezas: ["Constancia"],
     problemas: [{titulo: "Recuerdo bajo", evidencia: "2 puntos por bloque"}], recomendaciones: [{accion: "Practica tus vulnerabilidades", porque: "Conducta en Pediatría 1/5", herramienta: "banco_vulnerabilidades"}],
     plan: [{dia: "Lunes", tarea: "Una sesión de 25/5"}]}}));
   await abrirConClave(page);
   await page.evaluate(() => { const ahora = Date.now();
-    S.estudio.ses = [1, 2, 3].map(i => ({id: "s" + i, tema: "Tema " + i, ini: ahora - i * 864e5, fin: ahora, ritmo: "25/5", hora: 9, bloques: 2, completos: 2, puntos: 4, min: 50, pausas: 0, auto: ["todo"]}));
+    S.estudio.ses = [1, 2, 3].map(i => ({id: "s" + i, tema: "Tema " + i, ini: ahora - i * 864e5, fin: ahora, ritmo: i === 3 ? "50/10" : "25/5", hora: i === 3 ? 22 : 9, bloques: 2, completos: 2, puntos: i === 3 ? 2 : 4, min: 50, pausas: 0, auto: ["todo"], pre: {ok: 1, n: 5}, post: {ok: 4, n: 5}}));
     S.estudio.actual = null; S.notes = [{id: "n1", title: "APUNTE SECRETO"}]; save(); });
   await page.click("nav [data-go=estudio]");
   await page.click("#estInforme");
   await expect(page.locator(".informe")).toContainText("Lees mucho y recuerdas poco.");
+  await expect(page.locator(".informe")).toContainText("Lo que descubrí en tus datos");
+  await expect(page.locator(".informe")).toContainText("recuerdas el doble");
   const p = peticiones.at(-1), u = JSON.stringify(p.messages);
   expect(p.tools.map(t => t.name)).toEqual(["report_estudio"]);
   expect(u).toContain("bloquesCompletosPct");
+  // El detalle para comparar: cada sesión, por ritmo y por franja horaria, y el pre y post-test por tema.
+  expect(u).toContain("porRitmo"); expect(u).toContain("porFranjaHoraria"); expect(u).toContain("casosUltimos30dias");
+  expect(u).toContain("Tema 1"); expect(u).toContain("postTest");
+  expect(p.system).toContain("Interpreta, no recites");
   expect(u).not.toContain("APUNTE SECRETO");
   await page.click('.informe [data-esth="banco"]');
   expect(await page.evaluate(() => [currentView, S.prac.modo])).toEqual(["banco", "vuln"]);

@@ -349,6 +349,32 @@ function estMetricas(){
     fichas: HYS.length, fichasPropias: (S.userH || []).length, simulacros30: S.sims.filter(s => s.d >= dias(30)).map(s => Math.round(s.ok / s.n * 100))
   };
 }
+// Para la IA: no solo totales (con totales solo puede repetir cifras), sino el detalle de cada sesión,
+// comparaciones ya calculadas (por ritmo y por franja horaria), el pre y post-test por tema, el
+// rendimiento en Casos por área y tipo, y el diagnóstico. Solo cifras y nombres de temas: nunca apuntes.
+function estDatosIA(){
+  const D = estD(), desde = Date.now() - 30 * DAY, ses = D.ses.filter(s => s.ini >= desde);
+  const franja = h => h < 12 ? "mañana" : h < 19 ? "tarde" : "noche";
+  const agrupa = f => { const g = {}; ses.forEach(s => { const k = f(s), x = g[k] || (g[k] = {sesiones: 0, bloques: 0, completos: 0, puntos: 0, min: 0});
+    x.sesiones++; x.bloques += s.bloques; x.completos += s.completos; x.puntos += s.puntos; x.min += s.min; });
+    Object.values(g).forEach(x => { x.puntosPorBloque = x.bloques ? +(x.puntos / x.bloques).toFixed(1) : null; x.pctCompletos = x.bloques ? Math.round(x.completos / x.bloques * 100) : null; }); return g; };
+  const casos = {porArea: {}, porTipo: {}};
+  (S.resp || []).filter(r => r.d >= desde).forEach(r => { const q = qById(r.id); if (!q) return;
+    [[casos.porArea, q.specialty], [casos.porTipo, QMETODO[qKind(q)].t.replace(/^\S+\s/, "")]].forEach(([o, k]) => { const x = o[k] || (o[k] = {n: 0, ok: 0}); x.n++; if (r.ok) x.ok++; }); });
+  const P = typeof diagPerfil === "function" ? diagPerfil() : null, R2 = S.diag && S.diag.p2 && S.diag.p2.fin ? diagP2Resultado() : null;
+  return {
+    resumen30dias: estMetricas(),
+    sesiones: ses.slice(-20).map(s => ({fecha: todayKey(new Date(s.ini)), tema: s.tema, ritmo: s.ritmo, franja: franja(s.hora), minutos: s.min, bloques: s.bloques, completos: s.completos,
+      puntosPorBloque: s.bloques ? +(s.puntos / s.bloques).toFixed(1) : 0, pausas: s.pausas || 0, recuerdoAutoevaluado: s.auto || [],
+      preTest: s.pre ? `${s.pre.ok}/${s.pre.n}` : null, postTest: s.post ? `${s.post.ok}/${s.post.n}` : null, hizoFicha: !!s.ficha, escribioAntesDeLeer: !!s.saber,
+      preguntasGuia: s.guia ? {total: s.guia.n, lasTenia: s.guia.si, aMedias: s.guia.medio, noLasTenia: s.guia.no} : null})),
+    comparaciones: {porRitmo: agrupa(s => s.ritmo), porFranjaHoraria: agrupa(s => franja(s.hora))},
+    casosUltimos30dias: casos,
+    diagnostico: P ? {areaMasDebil: P.areas[0] || null, tipoMasDebil: P.tipos[0] ? QMETODO[P.tipos[0]].t.replace(/^\S+\s/, "") : null, horasPorSemana: P.horas,
+      examenEn: S.diag.p2 && S.diag.p2.resp && S.diag.p2.resp.examen != null ? DIAG_P2[0].o[S.diag.p2.resp.examen] : null,
+      habitosACambiar: R2 ? R2.cambiar.slice(0, 3).map(q => `${q.p} → ${q.o[R2.r[q.k]]}`) : []} : null
+  };
+}
 // Consejos sin IA: reglas simples sobre las mismas cifras, cada uno con su herramienta.
 function estConsejos(m){
   const c = [];
@@ -375,7 +401,7 @@ function estAnalisisHTML(){
     ${cons.length ? `<div class="stack" style="gap:6px">${cons.slice(0, 4).map(([t, a]) => `<div class="consejo small"><span>${esc(t)}</span>${a ? estBoton(a, a.startsWith("ritmo") ? "Usar " + a.split(":")[1] : a === "hoy" ? "Ir a Hoy" : "Ir al banco") : ""}</div>`).join("")}</div>` : ""}
     <div class="aibox stack">
       <b class="small">🤖 Análisis detallado con IA</b>
-      <p class="xs muted" style="margin:0">La IA revisa tus cifras de estudio (sesiones, bloques, recuerdo, pre y post-test, aciertos, vulnerabilidades, repasos) y te dice qué está funcionando, qué no y qué hacer esta semana. Solo se envían cifras: ni tus apuntes ni tus documentos.</p>
+      <p class="xs muted" style="margin:0">La IA compara tus sesiones (ritmo, hora del día, tema), tu pre y post-test, lo que estudias frente a lo que fallas en Casos y tu diagnóstico, y te dice qué patrones encuentra y qué hacer esta semana. Solo se envían cifras y nombres de temas: ni tus apuntes ni tus documentos.</p>
       <button class="btn primary" id="estInforme" ${clave && datos >= 3 ? "" : "disabled"}>🤖 Analizar cómo estudio</button>
       ${!clave ? `<p class="xs muted" style="margin:0">Requiere tu clave de API de Claude. <button class="linkbtn" data-go="guide">Cómo conseguirla</button></p>` : datos < 3 ? `<p class="xs muted" style="margin:0">Haz al menos una sesión o responde unos casos para tener qué analizar.</p>` : `<p class="xs muted" style="margin:0">Costo aprox. ${aiEstimateLine(6000, {outTokens: 2500})}.</p>`}
       <div id="estInfMsg" class="small"></div>
@@ -387,6 +413,7 @@ function estInformeHTML(inf){
   return `<div class="informe stack">
     <div class="xs muted">Informe del ${fmtDate(inf.at)}</div>
     <p class="small" style="margin:0"><b>${esc(d.resumen)}</b></p>
+    ${(d.patrones || []).length ? `<div class="stack" style="gap:6px"><b class="small">🔍 Lo que descubrí en tus datos</b>${d.patrones.map(x => `<div class="note" style="margin:0"><b class="small">${esc(x.hallazgo)}</b><div class="xs muted" style="margin-top:2px">${esc(x.evidencia)}</div></div>`).join("")}</div>` : ""}
     ${d.fortalezas.length ? `<div><b class="small">✅ Lo que está funcionando</b><ul class="small">${d.fortalezas.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
     ${d.problemas.length ? `<div><b class="small">⚠️ Lo que te está frenando</b><ul class="small">${d.problemas.map(x => `<li><b>${esc(x.titulo)}</b> — ${esc(x.evidencia)}</li>`).join("")}</ul></div>` : ""}
     ${d.recomendaciones.length ? `<div class="stack" style="gap:6px"><b class="small">🛠️ Qué hacer</b>${d.recomendaciones.map(x => { const h = EST_HERRAMIENTAS[x.herramienta] || EST_HERRAMIENTAS.ninguna;
@@ -405,8 +432,9 @@ function estBindAnalisis(){
   $("#estInforme") && ($("#estInforme").onclick = estInformeIA);
 }
 const T_INFORME = {name: "report_estudio", description: "Entrega el análisis de cómo estudia el médico.", strict: true,
-  input_schema: {type: "object", additionalProperties: false, required: ["resumen", "fortalezas", "problemas", "recomendaciones", "plan"], properties: {
-    resumen: {type: "string"}, fortalezas: {type: "array", items: {type: "string"}},
+  input_schema: {type: "object", additionalProperties: false, required: ["resumen", "patrones", "fortalezas", "problemas", "recomendaciones", "plan"], properties: {
+    resumen: {type: "string"},
+    patrones: {type: "array", items: {type: "object", additionalProperties: false, required: ["hallazgo", "evidencia"], properties: {hallazgo: {type: "string"}, evidencia: {type: "string"}}}}, fortalezas: {type: "array", items: {type: "string"}},
     problemas: {type: "array", items: {type: "object", additionalProperties: false, required: ["titulo", "evidencia"], properties: {titulo: {type: "string"}, evidencia: {type: "string"}}}},
     recomendaciones: {type: "array", items: {type: "object", additionalProperties: false, required: ["accion", "porque", "herramienta"], properties: {
       accion: {type: "string"}, porque: {type: "string"}, herramienta: {type: "string", enum: Object.keys(EST_HERRAMIENTAS)}}}},
@@ -417,15 +445,17 @@ async function estInformeIA(){
   try {
     const r = await callForTool({system: `Eres un experto en ciencia del aprendizaje y en preparación del examen de residencia médica. Analizas las cifras de estudio de un médico y le dices, con franqueza y sin halagos, qué está funcionando, qué lo frena y qué hacer.
 Reglas:
-- Usa solo las cifras recibidas y cítalas en la evidencia («terminas el 45 % de los bloques»). No inventes datos. Si hay pocos datos para concluir algo, dilo.
+- Interpreta, no recites. El médico ya ve sus cifras; lo que necesita es lo que significan. Nunca hagas frases como «hiciste 6 sesiones» o «tu promedio es…» salvo como evidencia breve de un hallazgo.
+- "patrones": de 2 a 4 hallazgos que COMPAREN o CRUCEN datos: un ritmo frente a otro, una franja horaria frente a otra, el pre-test frente al post-test por tema, lo que estudia frente a lo que falla en Casos (por ejemplo «estudias Pediatría pero sigues fallando la conducta en Pediatría»), la confianza frente al acierto, sus hábitos declarados frente a lo que hace. Cada uno con la evidencia que lo sostiene. Si no hay datos suficientes para comparar, dilo en uno de ellos y di qué le falta registrar.
+- Usa solo los datos recibidos y no inventes. Relaciona los temas que estudia con las áreas de Casos por su nombre cuando sea evidente.
 - Fundamenta en lo que tiene evidencia: recuerdo activo (testing effect), pre-preguntas o búsqueda activa (leer buscando respuestas), repaso espaciado, práctica intercalada, bloques con descanso, calibración de la confianza (aciertos frágiles y errores con seguridad), y priorizar las vulnerabilidades.
 - "problemas": de 1 a 4, los que más pesan. "fortalezas": de 0 a 3, solo si las cifras las respaldan.
 - "recomendaciones": de 2 a 5 acciones concretas para esta semana, cada una con la herramienta de MediPulse que la hace posible ("herramienta"; "ninguna" si no aplica).
 - "plan": de 3 a 7 días con una tarea corta y realista cada uno.
-- "resumen": una o dos frases directas.
+- "resumen": una o dos frases directas con la conclusión más importante, no con cifras.
 Español neutro, sin markdown.${focusLine()}`,
-      tools: [T_INFORME], label: "Análisis de estudio", user: `Cifras de estudio de los últimos 30 días (JSON):\n${JSON.stringify(m, null, 1)}`}, "report_estudio");
-    const limpio = {resumen: String(r.resumen || ""), fortalezas: (r.fortalezas || []).map(String).slice(0, 3), problemas: (r.problemas || []).filter(x => x && x.titulo).slice(0, 4),
+      tools: [T_INFORME], label: "Análisis de estudio", user: `Datos de estudio de los últimos 30 días (JSON):\n${JSON.stringify(estDatosIA(), null, 1)}`}, "report_estudio");
+    const limpio = {resumen: String(r.resumen || ""), patrones: (r.patrones || []).filter(x => x && x.hallazgo).slice(0, 4), fortalezas: (r.fortalezas || []).map(String).slice(0, 3), problemas: (r.problemas || []).filter(x => x && x.titulo).slice(0, 4),
       recomendaciones: (r.recomendaciones || []).filter(x => x && x.accion).slice(0, 5), plan: (r.plan || []).filter(x => x && x.tarea).slice(0, 7)};
     const D = estD(); D.informes = D.informes || []; D.informes.push({at: Date.now(), data: limpio}); if (D.informes.length > 20) D.informes.shift();
     save(); renderEstudio();
