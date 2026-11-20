@@ -143,7 +143,7 @@ function estAntes(box, a){
   const ids = a.pre.ids, hechas = Object.keys(a.pre.resp).length;
   if (ids.length && hechas < ids.length) return estQuiz(box, a, "pre");
   box.innerHTML = `<div class="card stack">${estCabecera(a, "antes de leer")}
-    ${ids.length ? `<p class="small" style="margin:0">✓ Pre-test hecho (${hechas} casos). Verás cómo te fue al final, comparado con el post-test.</p>`
+    ${ids.length ? `<p class="small" style="margin:0">✓ Pre-test hecho (${hechas} caso${hechas === 1 ? "" : "s"}). Verás cómo te fue al final, comparado con el post-test.</p>`
       : `<p class="xs muted" style="margin:0" id="estSinPre">Sin pre-test: tu banco aún no tiene casos de este tema. Cuando los tengas (generados de tus PDF o creados por ti), la sesión empezará midiendo lo que sabes y al final verás cuánto mejoraste.</p>`}
     ${a.guia.length ? `<div class="guiabox"><b class="small">🔎 Lee buscando la respuesta a estas preguntas</b>${estGuiaLista(a)}<p class="xs muted" style="margin:6px 0 0">Las tendrás a la vista mientras lees y las responderás de memoria al final de cada bloque.</p></div>` : ""}
     <label class="fld">¿Qué sabes ya de este tema? Escríbelo sin mirar nada (2 minutos).<textarea id="estSaber" rows="5" placeholder="Lo que recuerdes: definición, causas, cómo se presenta, cómo se trata…">${esc(a.saber)}</textarea></label>
@@ -163,7 +163,7 @@ function estQuiz(box, a, cual){
   const ids = a.pre.ids, resp = a[cual].resp, i = ids.findIndex(id => resp[id] === undefined), q = qById(ids[i]);
   if (!q) { ids.forEach(id => { if (resp[id] === undefined) resp[id] = -1; }); save(); return renderEstudio(); }
   box.innerHTML = `<div class="card stack">${estCabecera(a, cual === "pre" ? "pre-test" : "post-test")}
-    <p class="xs muted" style="margin:0">${cual === "pre" ? `Pre-test: ${ids.length} casos del banco sobre este tema. Responde lo que puedas; las respuestas las verás al final.` : `Post-test: los mismos casos del inicio. Ahora sí verás cómo te fue.`} · ${i + 1} de ${ids.length}</p>
+    <p class="xs muted" style="margin:0">${cual === "pre" ? `Pre-test: ${ids.length === 1 ? "1 caso" : ids.length + " casos"} del banco sobre este tema. Responde lo que puedas; las respuestas las verás al final.` : `Post-test: los mismos casos del inicio. Ahora sí verás cómo te fue.`} · ${i + 1} de ${ids.length}</p>
     <p class="vignette" style="margin:4px 0">${q.vignette}</p>
     <div id="opts">${q.options.map((o, j) => `<div class="optrow"><button class="opt" data-eo="${j}"><span class="l">${"ABCDE"[j]}</span><span>${esc(o)}</span></button></div>`).join("")}</div>
     ${cual === "pre" ? `<button class="linkbtn xs" id="estSaltar" style="align-self:flex-start">Saltar el pre-test</button>` : ""}</div>`;
@@ -200,10 +200,10 @@ function estRecordar(box, a){
   const b = a.bloques.at(-1), clave = !!getKey(), src = a.src && S.sources.find(x => x.id === a.src);
   const comparando = !!b.comparar;
   box.innerHTML = `<div class="card stack">${estCabecera(a, `bloque ${a.bloques.length} · recuerdo activo`)}
-    <p class="small" style="margin:0"><b>Sin mirar el documento</b>, escribe de memoria los 3 a 5 puntos más importantes del bloque. Uno por línea; si es un dato, usa «→» (p. ej. «Pleocitosis → > 5/μl»).</p>
+    <p class="small" style="margin:0"><b>Sin mirar ${src ? "el documento" : "lo que leíste"}</b>, escribe de memoria los 3 a 5 puntos más importantes del bloque. Uno por línea; si es un dato, usa «→» (p. ej. «Pleocitosis → > 5/μl»).</p>
     <textarea id="estRec" rows="6" ${comparando ? "readonly" : ""} placeholder="1. …">${esc(b.recuerdo)}</textarea>
     ${a.guia.length ? `<div class="guiabox stack"><b class="small">🔎 Tus preguntas: respóndelas de memoria (las que puedas)</b>${a.guia.map((g, i) => `<label class="fld">${i + 1}. ${esc(g.p)}<textarea rows="2" data-gm="${i}" placeholder="Tu respuesta, sin mirar">${esc(g.mia)}</textarea></label>`).join("")}</div>` : ""}
-    ${comparando ? `<div class="note" style="margin:0"><b>Ahora compara:</b> abre el documento y revisa qué faltó o quedó mal. Lo que no recordaste es justo lo que debes repasar.</div>
+    ${comparando ? `<div class="note" style="margin:0"><b>Ahora compara:</b> ${src ? "abre el documento" : "vuelve a lo que leíste"} y revisa qué faltó o quedó mal. Lo que no recordaste es justo lo que debes repasar.</div>
       <div class="xs muted">¿Cuánto recordaste del bloque?</div>
       <div class="chips">${EST_AUTO.map(([k, t]) => `<button class="chip2${b.auto === k ? " on" : ""}" data-auto="${k}">${t}</button>`).join("")}</div>
       ${a.ia ? plegable("estia", `<b>🤖 Revisión de la IA para comparar</b>`, estIaHTML(a.ia)) : clave && src && !estEsPaper(src) ? `<button class="btn sm ghost" id="estIA">🤖 Comparar con una revisión de la IA (${aiEstimateLine(4000, {outTokens: 2500})})</button>` : ""}
@@ -282,7 +282,7 @@ function estCierre(box, a){
     <div class="xs muted">Sesión de estudio · cierre</div><b style="overflow-wrap:anywhere">${esc(a.tema)}</b>
     <div class="grid3"><div class="kpi"><b>${r.min}</b><span>min de lectura</span></div><div class="kpi"><b>${r.completos}/${a.bloques.length}</b><span>bloques completos</span></div><div class="kpi"><b>${r.puntos}</b><span>puntos recordados</span></div></div>
     ${r.pre && r.post ? `<div class="note pearl" style="margin:0"><b>Pre-test ${r.pre.ok}/${r.pre.n} → post-test ${r.post.ok}/${r.post.n}</b>${r.post.ok > r.pre.ok ? " · mejoraste en esta sesión." : r.post.ok === r.pre.ok ? " · sin cambio: repasa lo que fallaste." : ""}${tabla}<div class="xs muted" style="margin-top:4px">Lo que fallaste en el post-test vuelve en tu repaso.</div></div>`
-      : a.pre.ids.length ? `<button class="btn" id="estPost">📝 Hacer el post-test (${a.pre.ids.length} casos) y ver cuánto mejoraste</button>` : ""}
+      : a.pre.ids.length ? `<button class="btn" id="estPost">📝 Hacer el post-test (${a.pre.ids.length} caso${a.pre.ids.length === 1 ? "" : "s"}) y ver cuánto mejoraste</button>` : ""}
     ${a.guia.length ? `<div class="guiabox stack"><b class="small">🔎 Tus preguntas de búsqueda activa</b>
       <p class="xs muted" style="margin:0">Mira la respuesta y marca si la tenías. Lo que no tenías es lo primero que debes repasar.</p>
       ${a.guia.map((g, i) => `<div class="gcierre"><b class="small">${i + 1}. ${esc(g.p)}</b>
@@ -385,7 +385,7 @@ function estConsejos(m){
   if (m.repasosPendientes > 30) c.push([`Tienes ${m.repasosPendientes} repasos acumulados: antes de leer temas nuevos, ponte al día.`, "hoy"]);
   if (m.diasActivos7 < 3) c.push([`Estudiaste ${m.diasActivos7} día${m.diasActivos7 === 1 ? "" : "s"} esta semana. Es mejor 25 minutos diarios que 3 horas un solo día.`, null]);
   if (m.focosDebiles.length) c.push([`Tu punto más débil: ${m.focosDebiles[0]}. Practica tus vulnerabilidades.`, "banco"]);
-  if (m.erroresConSeguridad) c.push([`${m.erroresConSeguridad} errores cometidos con seguridad: son conceptos mal aprendidos; estúdialos en una sesión.`, "banco"]);
+  if (m.erroresConSeguridad) c.push([m.erroresConSeguridad === 1 ? "1 error cometido con seguridad: es un concepto mal aprendido; estúdialo en una sesión." : `${m.erroresConSeguridad} errores cometidos con seguridad: son conceptos mal aprendidos; estúdialos en una sesión.`, "banco"]);
   if (m.sesiones30 >= 2 && m.sesionesConFicha === 0) c.push(["No conviertes tus puntos en fichas: sin ficha, lo que recordaste no entra al repaso espaciado.", null]);
   return c;
 }

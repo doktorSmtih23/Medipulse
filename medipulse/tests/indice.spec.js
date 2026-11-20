@@ -84,7 +84,7 @@ test("sin sistema de grados no inventa recomendaciones: lo dice y ofrece Leer; E
   const r = await page.evaluate(() => recsPorGrado({nums: [3], pages: ["iNPH may involve multifactorial mechanisms such as altered CSF dynamics I C\nTreatment should be considered in selected patients."]}));
   expect(r).toEqual([]);
   await page.evaluate(() => { const p = docInfo(cur().id).pages; for (let i = 0; i < p.length; i++) p[i] = "Texto de una revisión sin recomendaciones graduadas. The treatment is reasonable in some patients."; recsKey = ""; gen.tab = "recs"; renderGen(); });
-  await expect(page.locator("#recSinGrado")).toContainText("no gradúa sus recomendaciones");
+  await expect(page.locator("#recSinGrado")).toContainText("no encontré recomendaciones con su grado");
   await page.click('#recSinGrado [data-gtab="read"]');
   await expect(page.locator('#genCard [data-gt="read"]')).toHaveClass(/on/);
 });

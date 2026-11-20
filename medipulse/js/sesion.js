@@ -60,7 +60,7 @@ function renderQ(q, exam){
       ${exam || sess.prueba ? "" : `<div class="row" id="skipRow" style="margin-top:10px"><div class="spacer"></div><button class="btn ghost sm" id="skipBtn">Pasar esta pregunta →</button></div>`}
     </div>
     ${exam ? `<div class="row" style="margin-top:12px">${sess.i>0?'<button class="btn" id="prevBtn">← Anterior</button>':""}<div class="spacer"></div><button class="btn primary" id="nextBtn">${sess.i+1<items.length?"Siguiente →":"Terminar simulacro"}</button></div>
-      <div class="card" style="margin-top:12px;padding:14px"><div class="row xs muted"><b style="color:var(--text)">Mapa del simulacro</b><div class="spacer"></div><span>${items.filter((_,j)=>sess.answers[sess.si+":"+j]!=null).length}/${items.length} respondidas</span></div>
+      <div class="card" style="margin-top:12px;padding:14px"><div class="row xs muted"><b style="color:var(--text)">${sess.diagBloque!=null?"Mapa del bloque":"Mapa del simulacro"}</b><div class="spacer"></div><span>${items.filter((_,j)=>sess.answers[sess.si+":"+j]!=null).length}/${items.length} respondidas</span></div>
         <div class="simmap">${items.map((_,j)=>{ const kk = sess.si+":"+j; return `<button data-j="${j}" class="${[j===sess.i?"cur":"", sess.answers[kk]!=null?"ans":"", sess.flags[kk]?"flag":""].join(" ")}" aria-label="Ir a la pregunta ${j+1}">${j+1}</button>`; }).join("")}</div>
         <p class="xs muted" style="margin:8px 0 0">Azul: respondida · Naranja: marcada 🚩 · Blanco: pendiente</p></div>` : ""}
     <p class="xs muted center kbhint" style="margin-top:10px">Atajos: <kbd>1</kbd>–<kbd>4</kbd> elegir · <kbd>Enter</kbd> seguir</p>`;
@@ -187,7 +187,8 @@ function finishExam(timeUp){
     sess.results.push({t:"q",id:q.id,ok:good,ri});
     return {q, a, good, ri, i};
   });
-  S.sims.push({d:Date.now(),n:st.items.length,ok}); save();
+  if (sess.diagBloque == null) S.sims.push({d:Date.now(),n:st.items.length,ok});   // los bloques del diagnóstico no son simulacros
+  save();
   if (sess.diagBloque != null) diagRegistrarBloque(sess.diagBloque, rs);
   sess.exRes = {rs, ok, timeUp};
   $("#sessBar").style.width="100%";
@@ -239,11 +240,13 @@ function examResults(){
       <p style="margin:0">${ok} de ${st.items.length} correctas</p>
       ${auditoriaResumen(rs, st.items.length)}
       <p class="muted small" style="margin:0">${pct>=70?"Nivel competitivo. Las falladas ya están en tu repaso.":pct>=50?"Vas bien. Revisa las falladas abajo: es donde más aprendes.":"Normal al principio. Cada falla queda programada para volver."}</p>
-      <button class="btn primary block" id="contBtn">${more?"Seguir con el plan →":"Terminar"}</button></div>
+      <button class="btn primary block" id="contBtn">${more?"Seguir con el plan →":sess.diagBloque!=null?"Volver al diagnóstico →":"Terminar"}</button></div>
     <h3 style="margin-top:18px;font-size:16px">Revisión</h3>${rows.join("")}`;
   window.scrollTo(0, 0);
   document.querySelectorAll("[data-rep]").forEach(b=>b.onclick=()=>openReportForm(b.dataset.rep, b.nextElementSibling));
-  $("#contBtn").onclick = ()=> more ? (sess.state="ask", sess.i=st.items.length, nextStage()) : endSession(true);
+  // Un bloque del diagnóstico vuelve al diagnóstico, donde se ve el avance y el bloque siguiente.
+  $("#contBtn").onclick = ()=> more ? (sess.state="ask", sess.i=st.items.length, nextStage())
+    : sess.diagBloque!=null ? (endSession(false), go("diag"), scrollTo(0, 0)) : endSession(true);
 }
 
 function endSession(showSummary){

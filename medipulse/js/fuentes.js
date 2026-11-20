@@ -181,7 +181,7 @@ function renderLib(){
     ? plegable("docs", `<b>Tus documentos</b> <span class="xs muted">${docs.length}</span>`, docs.map(s=>{
         const nq = S.userQ.filter(q=>q.src===s.id).length, nc = S.userC.filter(c=>c.src===s.id).length;
         const nh = S.userH.filter(h=>h.src===s.id).length, cuanto = s.apunte ? `${s.pages} puntos` : s.kind==="text" ? `${s.pages} parte${s.pages===1?"":"s"}` : s.kind==="pack" ? "pack" : `${s.pages} págs`;
-        return `<div class="srcitem"><div class="ic">${s.apunte?"📓":s.kind==="text"?"📋":s.kind==="pack"?"📦":"📄"}</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${cuanto} · ${nq} casos · ${nh} fichas${nc?` · ${nc} repasos rápidos`:""}</div>${pdfCuenta(s) ? `<div style="margin-top:3px">${pdfChip(s)}</div>` : ""}</div><button class="btn" data-src="${s.id}">Abrir</button></div>`;
+        return `<div class="srcitem"><div class="ic">${s.apunte?"📓":s.kind==="text"?"📋":s.kind==="pack"?"📦":"📄"}</div><div style="flex:1;min-width:0"><b style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${cuanto} · ${nq} caso${nq===1?"":"s"} · ${nh} ficha${nh===1?"":"s"}${nc?` · ${nc} repasos rápidos`:""}</div>${pdfCuenta(s) ? `<div style="margin-top:3px">${pdfChip(s)}</div>` : ""}</div><button class="btn" data-src="${s.id}">Abrir</button></div>`;
       }).join(""))
     : `<p class="muted small" style="margin:0">Aún no tienes documentos. Empieza con el PDF de una guía de práctica clínica o con tus apuntes de una rotación.</p>`);
   document.querySelectorAll("[data-src]").forEach(b=>b.onclick=()=>openSrc(b.dataset.src));

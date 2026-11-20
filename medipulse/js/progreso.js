@@ -13,7 +13,7 @@ function renderProg(){
   $("#progKpis").innerHTML = `
     <div class="kpi"><b>${streak()}</b><span>días de racha</span></div>
     <div class="kpi"><b>${(tot/3600).toFixed(1)} h</b><span>estudiadas</span></div>
-    <div class="kpi"><b>${q?Math.round(ok/q*100)+"%":"—"}</b><span>aciertos en ${q} casos</span></div>
+    <div class="kpi"><b>${q?Math.round(ok/q*100)+"%":"—"}</b><span>aciertos en ${q} caso${q===1?"":"s"}</span></div>
     <div class="kpi"><b>${mastered}</b><span>ítems dominados (≥ 1 semana)</span></div>`;
   const st=specStats();
   $("#bars").innerHTML = SPECS.map(s=>{ const x=st[s], p=x.n?Math.round(x.ok/x.n*100):null;

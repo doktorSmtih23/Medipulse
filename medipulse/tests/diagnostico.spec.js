@@ -142,3 +142,41 @@ test("resultado: perfil con el área y el tipo más débiles, errores con seguri
   const specs = await page.evaluate(() => sess.stages[0].items.map(it => qById(it.id).specialty));
   expect(specs.every(s => s === "Pediatría")).toBe(true);
 });
+
+test("correcciones de la prueba como estudiante: hábitos con su respuesta, plan que suma, pasos y bloques que vuelven al diagnóstico", async ({ page }) => {
+  // Parte 2: «Casi nunca» subraya → se nombra el hábito con la respuesta, no se felicita por subrayar.
+  await page.click("#doDiag"); await page.click('[data-dpart="p2"]');
+  const n = await page.evaluate(() => DIAG_P2.length);
+  for (let i = 0; i < n; i++) await page.click("[data-p2] >> nth=-1");
+  await expect(page.locator("#diagBox")).toContainText("Subrayar (casi nunca)");
+  await expect(page.locator("#diagBox")).not.toContainText("subrayas o resaltas");
+  // Plan semanal: las horas repartidas suman exactamente las horas dichas.
+  const sumas = await page.evaluate(() => [0, 1, 2, 3, 4].map(h => { S.diag.p2.resp.horas = h;
+    const p1 = diagP1(); p1.ids.forEach((id, i) => S.resp.push({id: String(id), d: Date.now() + i, ok: i % 3 > 0, o: 0, ex: 1}));
+    p1.hechos = p1.ids.slice(); p1.fin = Date.now(); const P = diagPerfil(); return [P.horas, P.plan.reduce((a, x) => a + x.h, 0), Math.min(...P.plan.map(x => x.h))]; }));
+  sumas.forEach(([h, suma, min]) => { expect(suma).toBe(h); expect(min).toBeGreaterThanOrEqual(0.5); });
+  // Hoy recuerda las partes que faltan.
+  await page.click("nav [data-go=hoy]");
+  await expect(page.locator("#suggestCard")).toContainText("te falta el caso de juicio clínico");
+  // Parte 3: cada decisión tiene su número de paso.
+  await page.click("#doDiagResto"); await page.click('[data-dpart="p3"]'); await page.click('[data-exp="postop"]');
+  await page.click("#p3Sig"); await page.click("#p3Sig"); await page.fill("#p3Res", "Fuga"); await page.click("#p3Sig"); await page.click("#p3Sig");
+  await expect(page.locator("#diagBox")).toContainText("Paso 5 de 7");
+  await page.click('[data-pr="2"]'); await page.click("#p3Sig");
+  await expect(page.locator("#diagBox")).toContainText("Paso 6 de 7");
+  await page.click('[data-pr="2"]'); await page.click("#p3Sig");
+  await expect(page.locator("#diagBox")).toContainText("Paso 7 de 7");
+});
+
+test("al terminar un bloque del diagnóstico se vuelve al diagnóstico y el bloque no cuenta como simulacro", async ({ page }) => {
+  await page.click("#doDiag"); await page.click('[data-dbl="0"]');
+  await expect(page.locator("#sessBody")).toContainText("Mapa del bloque");
+  const n = await page.evaluate(() => sess.stages[0].items.length);
+  for (let i = 0; i < n; i++) { await page.click("#opts .opt >> nth=0"); await page.click("#nextBtn"); }
+  await page.click("#auditSkip");
+  await expect(page.locator("#contBtn")).toHaveText("Volver al diagnóstico →");
+  await page.click("#contBtn");
+  await expect(page.locator("#v-diag")).toBeVisible();
+  await expect(page.locator("#diagBox")).toContainText(`Parte 1: ${n} de`);
+  expect(await page.evaluate(() => S.sims.length)).toBe(0);
+});

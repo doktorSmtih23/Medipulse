@@ -249,3 +249,15 @@ test("la detección del tipo de documento lee la cabecera: Primer y Review son r
   ].map(detectDesign));
   expect(r).toEqual(["REV", "REV", "ECA", "REV", "GPC", "OBS"]);
 });
+
+test("Estudio con un solo caso de pre-test: singular, y sin documento no pide abrir el documento", async ({ page }) => {
+  await page.goto("/");
+  await page.click("nav [data-go=estudio]");
+  await page.fill("#estTema", "Bronquiolitis");
+  await page.click("#estGo");
+  await expect(page.locator("#v-estudio")).toContainText("Pre-test: 1 caso del banco");
+  await page.click("[data-eo] >> nth=0");
+  await expect(page.locator("#v-estudio")).toContainText("Pre-test hecho (1 caso)");
+  await page.click("#estLeer"); await page.click("#estFin");
+  await expect(page.locator("#v-estudio")).toContainText("Sin mirar lo que leíste");
+});
