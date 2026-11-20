@@ -305,9 +305,8 @@ function diagPerfilHTML(){
   const tiposK = ["conducta", "diagnostico", "datos", "critica"];
   const mapa = `<table class="tabla mapa small"><tr><td></td>${tiposK.map(k => `<td class="xs" style="text-align:center">${esc(QMETODO[k].t)}</td>`).join("")}</tr>
     ${SPECS.map(s => `<tr><td class="xs">${esc(s)}</td>${tiposK.map(k => { const x = P.celda[s + "|" + k]; return `<td style="background:${color(x)};text-align:center">${x ? `${x.ok}/${x.n}` : "·"}</td>`; }).join("")}</tr>`).join("")}</table>`;
-  const prox = P.control ? new Date(P.control).toLocaleDateString("es", {day: "numeric", month: "long"}) : "";
   return `<div class="card stack" id="diagPerfil"><h3 style="font-size:16px">📊 Tu perfil</h3>
-    <p class="small" style="margin:0">${P.ok} de ${P.n} casos correctos (${Math.round(P.ok / P.n * 100)} %).${P.n < 30 ? " Con pocos casos el perfil orienta; se afina al terminar." : " Son 10 casos por área: tómalo como orientación, el control lo afina."}</p>
+    <p class="small" style="margin:0">${P.ok} de ${P.n} casos correctos (${Math.round(P.ok / P.n * 100)} %).${P.n < 30 ? " Con pocos casos el perfil orienta; se afina al terminar." : " Son 10 casos por área: tómalo como orientación."}</p>
     ${P.areas.length ? `<p class="small" style="margin:0">Tu área más débil: <b>${esc(P.areas[0])}</b> (${pctT(P.area[P.areas[0]])})${P.tipos.length ? ` · tipo de pregunta: <b>${esc(QMETODO[P.tipos[0]].t)}</b> (${pctT(P.tipo[P.tipos[0]])})` : ""}.</p>` : ""}
     ${plegable("diagmapa", `<span class="small">Ver el mapa por área y tipo de pregunta</span>`, mapa + `<p class="xs muted" style="margin:6px 0 0">Verde ≥ 70 % · amarillo 50–69 % · rojo &lt; 50 % · gris: sin casos.</p>`)}
     ${P.peligro ? `<div class="note trap" style="margin:0"><b class="small">🚨 ${P.peligro} error${P.peligro === 1 ? "" : "es"} con seguridad</b><div class="xs" style="margin-top:2px">Respondiste convencido y estaba mal: son conceptos mal aprendidos. Ya están en tus repasos; corrígelos primero.</div></div>` : ""}
@@ -316,5 +315,5 @@ function diagPerfilHTML(){
     <h3 style="font-size:16px;margin-top:6px">🗓️ Tu plan semanal</h3>
     <p class="xs muted" style="margin:0">${P.horas} horas por semana${D.p2 && D.p2.resp && D.p2.resp.horas != null ? " (lo que dijiste en la parte 2)" : " (estimado: responde la parte 2 para ajustarlo)"}, repartidas según tu brecha.${P.examen === 0 ? " Tu examen es en menos de un mes: prioriza repasos y simulacros sobre temas nuevos." : ""}</p>
     ${P.plan.map(x => `<div class="row small" style="gap:8px"><span class="dot" style="background:${SPEC_COLOR[x.s]}"></span><span style="flex:1">${esc(x.s)}</span><b>${String(x.h).replace(".", ",")} h</b></div>`).join("")}
-    <p class="xs muted" style="margin:0">Cada día, Hoy te propone el foco: tu tipo de pregunta más débil en tu área más débil.${prox ? ` Próximo control (25 casos): ${prox}.` : ""}</p></div>`;
+    <p class="xs muted" style="margin:0">Cada día, Hoy te propone el foco: tu tipo de pregunta más débil en tu área más débil.</p></div>`;
 }

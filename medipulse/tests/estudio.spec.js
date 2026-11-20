@@ -261,3 +261,19 @@ test("Estudio con un solo caso de pre-test: singular, y sin documento no pide ab
   await page.click("#estLeer"); await page.click("#estFin");
   await expect(page.locator("#v-estudio")).toContainText("Sin mirar lo que leíste");
 });
+
+test("con pre-test, el cierre pone el post-test como paso principal y deja terminar sin él", async ({ page }) => {
+  await page.goto("/");
+  await page.click("nav [data-go=estudio]");
+  await page.fill("#estTema", "Bronquiolitis");
+  await page.click("#estGo");
+  await page.click("[data-eo] >> nth=0");
+  await page.click("#estLeer"); await page.click("#estFin");
+  await page.fill("#estRec", "VSR → principal agente");
+  await page.click("#v-estudio button.primary >> nth=0");
+  await page.locator("#v-estudio button", {hasText: "Terminar la sesión"}).click();
+  await expect(page.locator("#estPost")).toHaveClass(/primary/);
+  await expect(page.locator("#estGuardar")).toHaveText("Terminar sin post-test");
+  await page.click("#estPost"); await page.click("[data-eo] >> nth=3");
+  await expect(page.locator("#estGuardar")).toHaveText("✓ Terminar y guardar la sesión");
+});
