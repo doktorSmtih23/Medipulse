@@ -242,3 +242,11 @@ test.describe("Hoy rediseñado", () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 });
+
+test("MBE: los 4 tipos de documento se ven completos a 360 px, sin deslizar", async ({ page }) => {
+  await page.goto("/");
+  await page.click("nav [data-go=mbe]");
+  const bordes = await page.$$eval("#mbeTabs button", bs => bs.map(b => b.getBoundingClientRect().right));
+  expect(bordes).toHaveLength(4);
+  bordes.forEach(r => expect(r).toBeLessThanOrEqual(360));
+});

@@ -110,29 +110,29 @@ const DIAG_P2 = [
   {k: "horas", g: "situacion", p: "¿Cuántas horas a la semana puedes estudiar de verdad?", o: ["Menos de 5", "5 a 10", "10 a 20", "20 a 30", "Más de 30"]},
   {k: "intentos", g: "situacion", p: "¿Cuántas veces has presentado el examen?", o: ["Ninguna, es la primera", "1 vez", "2 veces", "3 o más"]},
   {k: "trabajo", g: "situacion", p: "¿Trabajas mientras te preparas?", o: ["No", "Medio tiempo", "Tiempo completo", "Turnos o rural"]},
-  {k: "releer", g: "tecnica", p: "¿Con qué frecuencia relees el material para estudiar?", o: ["Casi siempre", "A veces", "Casi nunca"], s: [0, 1, 2],
+  {k: "releer", n: "Releer", g: "tecnica", p: "¿Con qué frecuencia relees el material para estudiar?", o: ["Casi siempre", "A veces", "Casi nunca"], s: [0, 1, 2],
     tip: "Releer da sensación de dominio, pero se olvida rápido. Cambia la segunda lectura por responder preguntas sin mirar.", h: "Casos"},
-  {k: "subrayar", g: "tecnica", p: "¿Subrayas o resaltas mientras lees?", o: ["Casi siempre", "A veces", "Casi nunca"], s: [0, 1, 2],
+  {k: "subrayar", n: "Subrayar", g: "tecnica", p: "¿Subrayas o resaltas mientras lees?", o: ["Casi siempre", "A veces", "Casi nunca"], s: [0, 1, 2],
     tip: "Subrayar casi no mejora lo que recuerdas. Al terminar cada bloque, escribe de memoria los 3 puntos clave (Sesión de estudio).", h: "Estudio"},
-  {k: "resumir", g: "tecnica", p: "¿Haces resúmenes de lo que estudias?", o: ["Casi siempre, largos", "Sí, cortos y con mis palabras", "Casi nunca"], s: [0, 2, 1],
+  {k: "resumir", n: "Resúmenes", g: "tecnica", p: "¿Haces resúmenes de lo que estudias?", o: ["Casi siempre, largos", "Sí, cortos y con mis palabras", "Casi nunca"], s: [0, 2, 1],
     tip: "Un resumen largo copia el libro. Si resumes, que sea corto, con tus palabras y en forma de preguntas o fichas.", h: "Fichas"},
-  {k: "autoevaluar", g: "tecnica", p: "¿Respondes preguntas o casos para ponerte a prueba?", o: ["Casi nunca", "A veces", "Casi siempre"], s: [0, 1, 2],
+  {k: "autoevaluar", n: "Ponerte a prueba", g: "tecnica", p: "¿Respondes preguntas o casos para ponerte a prueba?", o: ["Casi nunca", "A veces", "Casi siempre"], s: [0, 1, 2],
     tip: "Ponerse a prueba es la técnica con más evidencia: recordar fija más que releer. Haz casos todos los días, aunque sean 10.", h: "Casos"},
-  {k: "espaciar", g: "tecnica", p: "¿Repasas lo mismo en días separados (no todo el mismo día)?", o: ["Casi nunca", "A veces", "Casi siempre"], s: [0, 1, 2],
+  {k: "espaciar", n: "Repasar en días separados", g: "tecnica", p: "¿Repasas lo mismo en días separados (no todo el mismo día)?", o: ["Casi nunca", "A veces", "Casi siempre"], s: [0, 1, 2],
     tip: "Repasar en días separados vence la curva del olvido. Deja que la app te traiga los repasos pendientes cada día.", h: "Hoy"},
-  {k: "explicar", g: "tecnica", p: "¿Te explicas (o explicas a otro) por qué algo es así?", o: ["Casi nunca", "A veces", "Casi siempre"], s: [0, 1, 2],
+  {k: "explicar", n: "Explicarte el porqué", g: "tecnica", p: "¿Te explicas (o explicas a otro) por qué algo es así?", o: ["Casi nunca", "A veces", "Casi siempre"], s: [0, 1, 2],
     tip: "Preguntarte «¿por qué?» une el dato con el mecanismo y se recuerda mejor. Úsalo con la explicación de cada caso que fallas.", h: "Casos"},
-  {k: "intercalar", g: "tecnica", p: "En una sesión, ¿mezclas temas o especialidades?", o: ["No, un tema por sesión", "A veces", "Sí, mezclo"], s: [0, 1, 2],
+  {k: "intercalar", n: "Mezclar temas", g: "tecnica", p: "En una sesión, ¿mezclas temas o especialidades?", o: ["No, un tema por sesión", "A veces", "Sí, mezclo"], s: [0, 1, 2],
     tip: "Mezclar temas obliga a reconocer qué tipo de problema es, como en el examen. Practica casos al azar entre especialidades.", h: "Casos"},
-  {k: "apuntes", g: "habito", p: "¿Cómo tomas apuntes?", o: ["Copio casi textual", "Resumo con mis palabras", "Esquemas o tablas comparativas", "Preguntas que luego respondo", "No tomo apuntes"], s: [0, 1, 2, 2, 1],
+  {k: "apuntes", n: "Apuntes", g: "habito", p: "¿Cómo tomas apuntes?", o: ["Copio casi textual", "Resumo con mis palabras", "Esquemas o tablas comparativas", "Preguntas que luego respondo", "No tomo apuntes"], s: [0, 1, 2, 2, 1],
     tip: "Copiar textual no procesa la información. Anota en forma de pregunta o de comparación «A frente a B»: luego te sirven para repasar.", h: "Mis apuntes"},
-  {k: "fallo", g: "habito", p: "Cuando fallas una pregunta, ¿qué haces?", o: ["Sigo con la siguiente", "Leo la respuesta correcta", "Busco por qué fallé y lo anoto", "La vuelvo a hacer días después"], s: [0, 1, 2, 2],
+  {k: "fallo", n: "Cuando fallas", g: "habito", p: "Cuando fallas una pregunta, ¿qué haces?", o: ["Sigo con la siguiente", "Leo la respuesta correcta", "Busco por qué fallé y lo anoto", "La vuelvo a hacer días después"], s: [0, 1, 2, 2],
     tip: "El error es la mejor información que tienes. Marca por qué fallaste (no lo sabía, no vi un dato, dudé, lo confundí) y deja que vuelva a tu repaso.", h: "Casos"},
-  {k: "celular", g: "habito", p: "¿Dónde está el celular cuando estudias?", o: ["En la mano o la mesa, con notificaciones", "En la mesa, en silencio", "En otra habitación"], s: [0, 1, 2],
+  {k: "celular", n: "El celular", g: "habito", p: "¿Dónde está el celular cuando estudias?", o: ["En la mano o la mesa, con notificaciones", "En la mesa, en silencio", "En otra habitación"], s: [0, 1, 2],
     tip: "Con el celular a la vista rindes menos aunque no lo toques. Déjalo en otra habitación durante cada bloque.", h: "Estudio"},
-  {k: "sueno", g: "habito", p: "¿Cuántas horas duermes la noche antes de estudiar?", o: ["Menos de 6", "6 a 7", "7 a 8", "Más de 8"], s: [0, 1, 2, 2],
+  {k: "sueno", n: "Sueño", g: "habito", p: "¿Cuántas horas duermes la noche antes de estudiar?", o: ["Menos de 6", "6 a 7", "7 a 8", "Más de 8"], s: [0, 1, 2, 2],
     tip: "Lo que estudias se consolida mientras duermes. Recortar sueño para estudiar más suele salir caro.", h: ""},
-  {k: "plan", g: "habito", p: "¿Cómo organizas tu tiempo de estudio?", o: ["Sin plan, según el día", "Con un plan semanal", "Por bloques con descansos"], s: [0, 2, 2],
+  {k: "plan", n: "Organización", g: "habito", p: "¿Cómo organizas tu tiempo de estudio?", o: ["Sin plan, según el día", "Con un plan semanal", "Por bloques con descansos"], s: [0, 2, 2],
     tip: "Sin plan, se estudia lo que gusta y no lo que falta. Sigue el plan que arma tu diagnóstico y estudia en bloques con descanso.", h: "Estudio"}
 ];
 function diagP2Resultado(){
@@ -150,8 +150,8 @@ function renderDiagP2(box){
     const R = diagP2Resultado();
     box.innerHTML = `<div class="card stack"><h3 style="font-size:16px">📋 Cómo estudias</h3>
       <p class="small" style="margin:0">Tus hábitos suman <b>${R.pct} %</b> de lo que la evidencia recomienda.</p>
-      ${R.cambiar.length ? `<b class="small">Lo que más te conviene cambiar</b>${R.cambiar.slice(0, 3).map(q => `<div class="note" style="margin:0"><b class="small">${esc(q.o[R.r[q.k]])}</b> → <span class="small">${esc(q.tip)}</span>${q.h ? ` <span class="xs muted">· en la app: ${esc(q.h)}</span>` : ""}</div>`).join("")}` : ""}
-      ${R.suman.length ? `<p class="xs muted" style="margin:0">✓ Ya haces bien: ${R.suman.map(q => esc(q.p.replace(/^¿|\?$/g, "").toLowerCase())).slice(0, 4).join(" · ")}.</p>` : ""}
+      ${R.cambiar.length ? `<b class="small">Lo que más te conviene cambiar</b>${R.cambiar.slice(0, 3).map(q => `<div class="note" style="margin:0"><b class="small">${esc(q.n)}: ${esc(q.o[R.r[q.k]].toLowerCase())}</b> → <span class="small">${esc(q.tip)}</span>${q.h ? ` <span class="xs muted">· en la app: ${esc(q.h)}</span>` : ""}</div>`).join("")}` : ""}
+      ${R.suman.length ? `<p class="xs muted" style="margin:0">✓ Ya haces bien: ${R.suman.map(q => `${esc(q.n)} (${esc(q.o[R.r[q.k]].toLowerCase())})`).slice(0, 4).join(" · ")}.</p>` : ""}
       <div class="row" style="gap:6px"><button class="btn primary" id="p2Volver">Volver al diagnóstico</button><button class="btn ghost sm" id="p2Rehacer">Responder de nuevo</button></div></div>`;
     $("#p2Volver").onclick = () => { D.vista = null; save(); renderDiag(); };
     $("#p2Rehacer").onclick = () => { D.p2 = {resp: {}, i: 0, fin: 0}; save(); renderDiag(); };
@@ -194,7 +194,7 @@ function renderDiagP3(box){
   const bind = () => { $("#p3Salir") && ($("#p3Salir").onclick = () => { D.vista = null; save(); renderDiag(); }); };
   const ir = paso => { p3.paso = paso; save(); renderDiag(); scrollTo(0, 0); };
   const E = EXPEDIENTES.find(x => x.k === p3.caso);
-  const cab = n => `<div class="row"><span class="xs muted">Parte 3 · ${esc(E.t)}</span><div class="spacer"></div><span class="xs muted">Paso ${n} de 6</span></div>`;
+  const cab = n => `<div class="row"><span class="xs muted">Parte 3 · ${esc(E.t)}</span><div class="spacer"></div><span class="xs muted">Paso ${n} de ${5 + E.decisiones.length}</span></div>`;
   if (!E || p3.paso === "elegir") {
     box.innerHTML = `<div class="card stack"><b>🩺 Elige un caso</b><p class="xs muted" style="margin:0">Es un expediente como los de un turno: hay datos que importan y otros que distraen. Lo vas a leer, filtrar, resumir y decidir. Unos 25 minutos.</p>
       ${EXPEDIENTES.map(x => `<button class="btn" style="text-align:left" data-exp="${x.k}"><b>${x.icono} ${esc(x.t)}</b><br><span class="xs muted">${esc(x.area)} · ${esc(x.gancho)}</span></button>`).join("")}${volver}</div>`;
@@ -234,7 +234,7 @@ function renderDiagP3(box){
   if (p3.paso === "problema" || p3.paso === "dec") {
     const enDec = p3.paso === "dec", j = enDec ? (p3.j || 0) : -1, P = enDec ? E.decisiones[j] : E.problema;
     const r = enDec ? (p3.dec || [])[j] : p3.prob, resp = r != null;
-    box.innerHTML = `<div class="card stack">${cab(enDec ? 6 : 5)}<b>${esc(P.p)}</b>
+    box.innerHTML = `<div class="card stack">${cab(enDec ? 6 + j : 5)}<b>${esc(P.p)}</b>
       <div class="stack" style="gap:6px">${P.o.map((o, i) => `<button class="btn${resp ? (i === P.c ? " ok" : i === r ? " mal" : "") : ""}" style="text-align:left" data-pr="${i}" ${resp ? "disabled" : ""}>${esc(o)}</button>`).join("")}</div>
       ${resp ? `<div class="note" style="margin:0"><b class="small">${r === P.c ? "✓ Bien." : "✗ No era esa."}</b> <span class="small">${esc(P.por)}</span>${P.fuente ? `<div class="xs muted" style="margin-top:4px">📚 ${esc(P.fuente)}</div>` : ""}</div>
         <button class="btn primary block" id="p3Sig">${enDec && j === E.decisiones.length - 1 ? "Ver tu resultado →" : "Seguir →"}</button>` : ""}</div>${volver}`;
@@ -273,8 +273,19 @@ function diagPerfil(){
   const p2 = S.diag.p2 && S.diag.p2.resp || {}, horas = DIAG_HORAS[p2.horas] || 10;
   // Plan: las horas de la semana repartidas según la brecha de cada área (mínimo 10 % para no abandonar ninguna).
   const peso = s => Math.max(0.1, 1 - (area[s] ? pct(area[s]) : 0.5)), tot = SPECS.reduce((a, s) => a + peso(s), 0);
-  const plan = SPECS.map(s => ({s, h: Math.max(0.5, Math.round(horas * peso(s) / tot * 2) / 2)})).sort((a, b) => b.h - a.h);
+  // En medias horas: cada área recibe al menos una y el resto se reparte por mayor residuo, así la suma da las horas exactas.
+  const medias = Math.round(horas * 2), libres = Math.max(0, medias - SPECS.length);
+  const ideal = SPECS.map(s => ({s, u: 1 + libres * peso(s) / tot}));
+  ideal.forEach(x => { x.r = x.u - Math.floor(x.u); x.u = Math.floor(x.u); });
+  let falta = medias - ideal.reduce((a, x) => a + x.u, 0);
+  ideal.slice().sort((a, b) => b.r - a.r).forEach(x => { if (falta > 0) { x.u++; falta--; } });
+  const plan = ideal.map(x => ({s: x.s, h: x.u / 2})).sort((a, b) => b.h - a.h);
   return {n, ok, area, tipo, celda, areas, tipos, peligro, fragil, horas, plan, examen: p2.examen, control: p1.fin ? p1.fin + 35 * DAY : 0};
+}
+// Con la parte 1 hecha, lo que falta del diagnóstico (partes 2 y 3), para recordarlo en Hoy.
+function diagFaltan(){
+  const D = S.diag; if (!D || !D.p1 || !D.p1.fin) return [];
+  return [!(D.p2 && D.p2.fin) && "el cuestionario de cómo estudias", !(D.p3 && D.p3.fin) && "el caso de juicio clínico"].filter(Boolean);
 }
 // El foco de hoy según el diagnóstico: el tipo de pregunta más débil en el área más débil.
 function diagFocoHoy(){

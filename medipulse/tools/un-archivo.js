@@ -18,6 +18,16 @@ const WITH_LIBS = process.argv.includes("--con-librerias");
 const read = p => fs.readFileSync(path.join(ROOT, p), "utf8");
 // Un "</script" dentro del código cerraría la etiqueta antes de tiempo.
 const safeJs = s => s.replace(/<\/script/gi, "<\\/script");
+// Quita las líneas que son solo un comentario («// …») para que el archivo pese menos. Cuenta las
+// comillas invertidas para no tocar líneas dentro de una plantilla de texto (`…`).
+function sinComentarios(js){
+  let abiertas = 0;
+  return js.split("\n").filter(l => {
+    const quitar = abiertas % 2 === 0 && /^\s*\/\/(?!#)/.test(l);
+    if (!quitar) abiertas += (l.replace(/\\`/g, "").match(/`/g) || []).length;
+    return !quitar;
+  }).join("\n");
+}
 const safeCss = s => s.replace(/<\/style/gi, "<\\/style");
 
 // El contenido incluido (data/contenido/*.js) va en JSON sin sangrías: pesa bastante menos y es idéntico.
@@ -34,7 +44,7 @@ function build() {
     parts.push(href); return `<style>\n${safeCss(read(href))}</style>`;
   });
   html = html.replace(/<script src="((?:data|js)\/[^"]+)"><\/script>/g, (_, src) => {
-    parts.push(src); return `<script>\n// ===== ${src} =====\n${safeJs(compactar(src, read(src)))}</script>`;
+    parts.push(src); return `<script>\n// ===== ${src} =====\n${safeJs(sinComentarios(compactar(src, read(src))))}</script>`;
   });
   // Librerías de vendor/ como texto: la app las carga desde aquí si no tiene la carpeta al lado.
   // Solo con --con-librerias (pesa ~2,8 MB y algunos visores se cuelgan). Por defecto, la app las busca

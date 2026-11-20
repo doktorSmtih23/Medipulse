@@ -23,9 +23,12 @@ function renderHoy(){
   else if (newUserItems().length) sug = `Tienes <b>${newUserItems().length} ítems nuevos</b> generados de tus PDF sin estudiar. Lo que acabas de leer se fija mejor si lo practicas hoy.<div class="row" style="margin-top:10px"><button class="btn primary" id="doNew">Practicar lo nuevo</button></div>`;
   else if (!SPECS.some(x => specStats()[x].n >= 3)) sug = `Todavía no sé cuál es tu punto más débil: necesito que respondas algunos casos. Empieza por el <b>diagnóstico rápido</b>: 5 casos, uno por área, y desde ahí te recomiendo.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDiag">🎯 Hacer el diagnóstico</button></div>`;
   else sug = `Tu punto más débil ahora: <b>${weak}</b>. Una ronda de 5 casos de ese tema te dará el mayor avance.<div class="row" style="margin-top:10px"><button class="btn" id="doWeak">5 casos de ${weak}</button></div>`;
+  // Con la parte 1 hecha, sea cual sea el paso de hoy, se recuerda lo que falta del diagnóstico.
+  if (diagFaltan().length) sug += `<span class="xs muted" style="display:block;margin-top:10px">Para completar tu plan te falta ${diagFaltan().join(" y ")}. <button class="linkbtn xs" id="doDiagResto">Terminar el diagnóstico</button></span>`;
   $("#suggestCard").innerHTML = `<h3 style="font-size:16px">💡 Tu siguiente paso</h3><p style="margin:6px 0 0" class="small">${sug}</p>`;
   $("#doDue") && ($("#doDue").onclick = startDue);
   $("#doDiag") && ($("#doDiag").onclick = () => go("diag"));
+  $("#doDiagResto") && ($("#doDiagResto").onclick = () => { S.diag.vista = null; go("diag"); });
   $("#doFoco") && ($("#doFoco").onclick = () => { const f = diagFocoHoy(); startSession({label: "Foco del día", tag: "norm", stages: [{name: `${QMETODO[f.tipo].t} · ${f.area}`, items: f.qs.map(q => ({t: "q", id: q.id}))}]}); });
   $("#doNew") && ($("#doNew").onclick = ()=>startSession({label:"Mis PDF",tag:"norm",stages:[{name:"Nuevo de tus fuentes",items:newUserItems().slice(0,15)}]}));
   $("#doOne") && ($("#doOne").onclick = ()=>startSession({label:"Mantener racha",tag:"lazy",stages:[{name:"Fichas",items:pickHY(2)}]}));
