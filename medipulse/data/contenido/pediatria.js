@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Pediatría",
   "prefijo": "ped",
   "paquete": "starter",
-  "actualizado": "2026-11-15",
+  "actualizado": "2026-11-21",
   "casos": [
     {
       "id": 5,
@@ -47,10 +47,10 @@ MP_CONTENIDO.agregar({
       "src": "nice_ge",
       "vignette": "Lactante de 10 meses (peso 9 kg) con diarrea acuosa abundante. Está <span class='hy'>irritable, con ojos hundidos, boca seca, bebe con avidez</span> y el pliegue cutáneo vuelve lentamente (&lt; 2 s). Tolera vía oral. ¿Cómo se rehidrata?",
       "options": [
-        "SRO de baja osmolaridad 50 mL/kg en 4 horas, más los líquidos de mantenimiento",
-        "Líquidos caseros a libre demanda, sin SRO",
-        "Bolo rápido de solución salina 0.9 % IV",
-        "Suspender la lactancia materna y dar loperamida"
+        "SRO de baja osmolaridad 50 mL/kg en 4 horas, más mantenimiento",
+        "Líquidos caseros a libre demanda, sin sales de rehidratación oral",
+        "Bolo rápido de solución salina 0.9 % IV a 20 mL/kg y reevaluar",
+        "Suspender la lactancia materna y dar loperamida para frenar la diarrea"
       ],
       "correct": 0,
       "whyCorrect": "Tiene signos de deshidratación clínica, sin choque, y tolera la vía oral. NICE indica SRO de baja osmolaridad: 50 mL/kg en 4 horas para reponer el déficit, más los líquidos de mantenimiento, en tomas pequeñas y frecuentes. La vía IV se reserva para el choque, el deterioro pese a la SRO o el vómito persistente de la SRO.",
@@ -79,10 +79,10 @@ MP_CONTENIDO.agregar({
       "src": "nice_bq",
       "vignette": "Lactante de 4 meses previamente sano con coriza hace 3 días, ahora con <span class='hy'>taquipnea, tirajes subcostales, sibilancias espiratorias difusas y SatO2 89%</span>. Sin fiebre alta ni consolidación. ¿Manejo indicado?",
       "options": [
-        "Prednisolona oral 2 mg/kg + amoxicilina-clavulanato",
-        "Salbutamol horario programado + nebulización con solución hipertónica obligatoria",
-        "Ribavirina intravenosa de rutina",
-        "Oxígeno suplementario, hidratación y aspiración de la vía aérea superior solo si las secreciones dificultan la respiración o la alimentación"
+        "Prednisolona oral 2 mg/kg más amoxicilina-clavulanato por 7 días",
+        "Salbutamol horario programado más nebulización con solución salina hipertónica",
+        "Ribavirina intravenosa de rutina por la gravedad del cuadro",
+        "Oxígeno, hidratación y aspirar secreciones solo si estorban"
       ],
       "correct": 3,
       "whyCorrect": "Es una bronquiolitis: menor de 2 años con pródromo catarral, tos, tiraje y sibilancias. El manejo es de soporte. Con 4 meses de edad, NICE indica oxígeno si la saturación es persistentemente menor de 90 %; la aspiración de la vía aérea superior no es de rutina, solo si las secreciones causan dificultad respiratoria o para alimentarse.",
@@ -111,10 +111,10 @@ MP_CONTENIDO.agregar({
       "src": "aha_kaw",
       "vignette": "Niño de 3 años con <span class='hy'>fiebre de 6 días</span> sin respuesta a antipiréticos, conjuntivitis bilateral sin secreción, labios rojos y fisurados, lengua en fresa, exantema polimorfo, edema de manos y adenopatía cervical de 2 cm. ¿Tratamiento indicado?",
       "options": [
-        "Amoxicilina por probable escarlatina",
-        "Inmunoglobulina IV 2 g/kg + ácido acetilsalicílico",
-        "Prednisolona oral y observación",
-        "Ibuprofeno y control en 48 horas"
+        "Amoxicilina por probable escarlatina y control en 48 horas",
+        "Inmunoglobulina IV 2 g/kg más ácido acetilsalicílico",
+        "Prednisolona oral y observación hospitalaria por 72 horas",
+        "Ibuprofeno a horario y control en 48 horas si sigue la fiebre"
       ],
       "correct": 1,
       "whyCorrect": "Con fiebre y 4 o más criterios clínicos principales es una enfermedad de Kawasaki completa; la AHA 2024 permite diagnosticarla desde el día 4 de fiebre. El tratamiento estándar es IGIV 2 g/kg en 8 a 12 horas, más aspirina. Tratar dentro de los 10 días de fiebre reduce la dilatación y los aneurismas coronarios.",
@@ -147,10 +147,10 @@ MP_CONTENIDO.agregar({
       "src": "aha_kaw",
       "vignette": "Lactante de <span class='hy'>4 meses</span> con 6 días de fiebre, conjuntivitis bilateral sin secreción, labios rojos y edema de manos y pies. Se diagnostica enfermedad de Kawasaki. El ecocardiograma muestra la descendente anterior con <span class='hy'>Z score 3,1</span>. ¿Tratamiento inicial?",
       "options": [
-        "IGIV 2 g/kg sola y ecocardiograma al alta",
-        "Esperar 36 horas para ver si responde antes de decidir",
-        "IGIV 2 g/kg + aspirina, intensificada con un antiinflamatorio adyuvante (p. ej., corticoide)",
-        "Infliximab en lugar de IGIV"
+        "IGIV 2 g/kg sola y ecocardiograma de control al alta",
+        "Esperar 36 horas para ver si responde antes de decidir la terapia",
+        "IGIV 2 g/kg y aspirina, más un adyuvante como corticoide",
+        "Infliximab en lugar de IGIV por tener ya una dilatación coronaria"
       ],
       "correct": 2,
       "whyCorrect": "Edad < 6 meses y Z score ≥ 2,5 al diagnóstico son rasgos de alto riesgo de aneurismas. A estos pacientes se les debe considerar intensificar el tratamiento primario: IGIV más un antiinflamatorio adyuvante (terapia dual). En el ensayo RAISE, IGIV más prednisolona redujo las anomalías coronarias frente a IGIV sola (3 % vs 23 %).",
@@ -187,10 +187,10 @@ MP_CONTENIDO.agregar({
       "src": "aha_kaw",
       "vignette": "Niño de 3 años con Kawasaki tratado con IGIV 2 g/kg y aspirina. <span class='hy'>40 horas después de terminar la infusión</span> sigue con fiebre de 39 °C. ¿Cómo se interpreta y qué haces?",
       "options": [
-        "Es esperable: observar 72 horas más",
-        "Resistencia a la IGIV: dar tratamiento adicional, por ejemplo infliximab 10 mg/kg IV o una segunda dosis de IGIV",
-        "Subir la aspirina a dosis alta como único tratamiento",
-        "Fiebre por la IGIV: solo antipiréticos"
+        "Es esperable después de la IGIV: observar 72 horas más sin cambios",
+        "Resistencia a la IGIV: segunda dosis de IGIV o infliximab",
+        "Subir la aspirina a dosis alta como único tratamiento adicional",
+        "Fiebre por la infusión de IGIV: solo antipiréticos y control"
       ],
       "correct": 1,
       "whyCorrect": "Fiebre persistente o que reaparece ≥ 36 horas después de terminar la IGIV define la resistencia, que aumenta el riesgo de aneurismas. Las opciones incluyen una segunda dosis de IGIV, infliximab o corticoides. En el ensayo KIDCARE, infliximab (10 mg/kg IV) frente a una segunda IGIV acortó la fiebre, redujo la necesidad de más tratamiento y la estancia.",
@@ -223,9 +223,9 @@ MP_CONTENIDO.agregar({
       "src": "aha_kaw",
       "vignette": "Niña de 9 años con 5 días de fiebre, <span class='hy'>dolor abdominal intenso, vómitos y diarrea</span>, cefalea e hipotensión. Plaquetas 98.000, linfopenia y troponina elevada. Ecocardiograma: <span class='hy'>función sistólica del ventrículo izquierdo disminuida y derrame pericárdico</span>, coronarias normales. Sin cambios en la mucosa oral. ¿Diagnóstico más probable?",
       "options": [
-        "Enfermedad de Kawasaki completa",
-        "Escarlatina",
-        "Gastroenteritis con deshidratación",
+        "Enfermedad de Kawasaki completa con afectación miocárdica",
+        "Escarlatina con miocarditis estreptocócica",
+        "Gastroenteritis con deshidratación y choque hipovolémico",
         "Síndrome inflamatorio multisistémico pediátrico (MIS-C)"
       ],
       "correct": 3,
@@ -280,10 +280,10 @@ MP_CONTENIDO.agregar({
       "src": "aha_kaw",
       "vignette": "Niño de 5 años con Kawasaki y aneurisma de la descendente anterior con <span class='hy'>Z score 12</span> (diámetro 8,5 mm). ¿Qué tratamiento antitrombótico corresponde?",
       "options": [
-        "Aspirina en dosis baja más anticoagulación (warfarina, heparina de bajo peso molecular o anticoagulante oral directo)",
-        "Aspirina en dosis baja por 6 semanas y suspender",
-        "Clopidogrel solo",
-        "Ninguno si está asintomático"
+        "Aspirina en dosis baja más anticoagulación",
+        "Aspirina en dosis baja por 6 semanas y luego suspender",
+        "Clopidogrel solo como antiagregante de mantenimiento",
+        "Ninguno si está asintomático y sin trombo en el ecocardiograma"
       ],
       "correct": 0,
       "whyCorrect": "Z score ≥ 10 o diámetro ≥ 8 mm es un aneurisma grande o gigante, con alto riesgo de trombosis. Requiere antiagregación (aspirina, o aspirina más clopidogrel) y anticoagulación con warfarina o heparina de bajo peso molecular; los anticoagulantes orales directos pueden ser una alternativa más cómoda y segura.",
@@ -388,10 +388,10 @@ MP_CONTENIDO.agregar({
       "src": "nrdp_ts",
       "vignette": "Adolescente de 13 años con síndrome de Tourette cuyos tics le causan burlas en el colegio y afectan su desempeño. Sin comorbilidades graves. ¿Cuál es el tratamiento de primera línea?",
       "options": [
-        "Haloperidol",
-        "Estimulación cerebral profunda",
-        "Aripiprazol",
-        "Terapia conductual: CBIT, reversión del hábito o exposición con prevención de respuesta"
+        "Haloperidol en dosis bajas como primera opción",
+        "Estimulación cerebral profunda por el impacto escolar",
+        "Aripiprazol desde el diagnóstico para reducir los tics",
+        "Terapia conductual: CBIT o reversión del hábito"
       ],
       "correct": 3,
       "whyCorrect": "Se recomiendan como primera línea 3 estrategias conductuales: CBIT, entrenamiento en reversión del hábito y exposición con prevención de respuesta, sin que una supere a las otras. Entre los medicamentos del segundo escalón, varios reportes ponen al aripiprazol como primera opción. La estimulación cerebral profunda queda para casos graves refractarios.",
@@ -460,6 +460,284 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "ped-c10",
+      "topic": "Endocrinología · Hipotiroidismo subclínico",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Niña de 9 años, asintomática, con crecimiento normal. En un chequeo le pidieron pruebas tiroideas: <span class='hy'>TSH de 7,2 mU/L con T4 libre normal</span>. No tiene bocio. ¿Cuál es la conducta?",
+      "options": [
+        "Iniciar levotiroxina a dosis plena por superficie corporal",
+        "Repetir TSH y T4 libre en 2 a 3 meses antes de tratar",
+        "Pedir ecografía tiroidea y gammagrafía de inmediato",
+        "Remitir a endocrinología pediátrica como prioritaria"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es un hipotiroidismo subclínico (TSH elevada con T4 libre normal). Se repite la medición en 2 a 3 meses para descartar fluctuaciones transitorias o errores de laboratorio. Hay consenso en tratar si la TSH supera 10 mU/L en una segunda medición; entre 4,5 y 10 se individualiza.",
+      "pearl": "Hipotiroidismo subclínico: confirmar antes de tratar. TSH > 10 mU/L en dos mediciones → levotiroxina, más aún con anticuerpos antitiroideos positivos.",
+      "trap": "Tratar con una sola TSH levemente alta: puede ser transitoria o un error de laboratorio.",
+      "cita": [
+        {
+          "donde": "Patología tiroidea en niños y adolescentes: aspectos esenciales",
+          "texto": "Se recomienda repetir la medición en 2 a 3 meses para descartar fluctuaciones transitorias o errores de laboratorio."
+        },
+        {
+          "donde": "Patología tiroidea en niños y adolescentes: aspectos esenciales",
+          "texto": "TSH mayor de 10 mU/L confirmado con una segunda medición, más aún en presencia de anticuerpos antitiroperoxidasa o antitiroglobulina."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c11",
+      "topic": "Maltrato infantil · Equimosis en el lactante",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Lactante de 3 meses llevado a urgencias porque «se golpeó con la baranda de la cuna». Al examen tiene una <span class='hy'>equimosis en el pabellón auricular izquierdo</span>, sin otras lesiones visibles. Está alerta y come bien. ¿Qué haces?",
+      "options": [
+        "Explicar a los padres medidas de seguridad en la cuna y dar de alta",
+        "Pedir hemograma y tiempos de coagulación, y dar de alta si son normales",
+        "Serie esquelética completa y activar la ruta de protección",
+        "Observar en casa y control por consulta externa en 48 horas"
+      ],
+      "correct": 2,
+      "whyCorrect": "Una sola equimosis en un menor de 4 meses, en cualquier lugar, debe generar sospecha inmediata de maltrato físico; además, la oreja es una zona TEN-4 FACESp. En menores de 2 años, la serie esquelética completa es el estudio de elección para buscar fracturas ocultas.",
+      "pearl": "TEN-4 FACESp: torso, oreja, cuello; frenillo, ángulo mandibular, mejillas, párpados, subconjuntival; y cualquier equimosis en menores de 4 meses.",
+      "trap": "Aceptar el mecanismo contado: un lactante de 3 meses no se moviliza lo suficiente para golpearse así.",
+      "cita": [
+        {
+          "donde": "Maltrato físico infantil: aspectos clínicos, epidemiológicos e imagenológicos",
+          "texto": "La presencia de una sola equimosis en cualquiera de las áreas descritas en un niño menor de 4 años o en cualquier lugar en un menor de 4 meses debe generar sospecha inmediata de maltrato físico."
+        },
+        {
+          "donde": "Maltrato físico infantil: aspectos clínicos, epidemiológicos e imagenológicos",
+          "texto": "La serie esquelética inicial es el estudio de elección en la evaluación del maltrato físico infantil, especialmente en niños menores de 2 años."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c12",
+      "topic": "Cuidado crítico · Choque séptico",
+      "difficulty": "Nivel 3",
+      "src": "udea_ped26",
+      "vignette": "Niño de 4 años con neumonía y choque séptico. Recibió <span class='hy'>40 mL/kg de cristaloides</span> en bolos de 10 mL/kg. Sigue con llenado capilar de 5 segundos, extremidades frías, pulsos débiles y oliguria. Tiene dos accesos periféricos; el catéter central se colocará en una hora. ¿Qué haces ahora?",
+      "options": [
+        "Iniciar adrenalina por la vía periférica, con monitorización estricta",
+        "Un quinto bolo de 10 mL/kg y esperar el catéter central para vasoactivos",
+        "Dopamina por vía periférica como primera línea",
+        "Noradrenalina cuando esté el catéter central, por ser choque frío"
+      ],
+      "correct": 0,
+      "whyCorrect": "Si después de 30 a 40 mL/kg persiste la hipoperfusión, se inicia soporte vasoactivo sin esperar un acceso central: puede darse por vía periférica o intraósea con monitorización estricta. En el choque frío se prefiere la adrenalina; la noradrenalina, en el caliente. La dopamina no se recomienda como primera línea.",
+      "pearl": "Choque pediátrico: bolos de 10 mL/kg hasta 30 a 40 mL/kg. Frío → adrenalina; caliente → noradrenalina. La hipotensión es tardía: mira perfusión, estado mental y diuresis.",
+      "trap": "Retrasar el vasoactivo por no tener catéter central, o seguir dando líquidos sin límite.",
+      "cita": [
+        {
+          "donde": "Vasoactivos en pediatría",
+          "texto": "Si después de una reanimación hídrica de 30-40 mL/ kg persiste la hipoperfusión o se evidencian datos de sobrecarga, se debe iniciar soporte vasoactivo de manera oportuna, sin esperar un acceso central."
+        },
+        {
+          "donde": "Vasoactivos en pediatría",
+          "texto": "La adrenalina se prefiere en choque frío, mientras que la noradrenalina se prefiere en choque caliente La dopamina no se recomienda como primera línea por mayor riesgo de arritmias y menor beneficio clínico"
+        },
+        {
+          "donde": "Vasoactivos en pediatría",
+          "texto": "no se debe demorar el inicio de estos medicamentos por ausencia de un acceso central, ya que se puede utilizar una vía periférica o intraósea, con monitorización estricta."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c13",
+      "topic": "Genética · Síndrome de Down: crecimiento",
+      "difficulty": "Nivel 1",
+      "src": "udea_ped26",
+      "vignette": "Niño de 2 años con síndrome de Down, activo y sin síntomas. En las curvas de la OMS su peso y talla están por <span class='hy'>debajo del percentil 3</span>; en las curvas específicas para síndrome de Down están en el percentil 40 y siguen su canal. ¿Cuál es la interpretación correcta?",
+      "options": [
+        "Falla de medro: hay que estudiar malabsorción",
+        "Talla baja: hay que pedir hormona de crecimiento",
+        "Desnutrición crónica: hay que aumentar las calorías",
+        "Crecimiento adecuado según las curvas específicas"
+      ],
+      "correct": 3,
+      "whyCorrect": "Los niños con síndrome de Down deben evaluarse con curvas específicas: usarlas es mandatorio para no diagnosticar por error falla de medro o enmascarar la obesidad. En su curva, este niño crece bien y sigue su canal.",
+      "pearl": "Síndrome de Down: curvas específicas para el crecimiento y evaluación del desarrollo longitudinal, comparando al niño consigo mismo.",
+      "trap": "Aplicar las curvas de la OMS y pedir estudios innecesarios por una «talla baja» esperada.",
+      "cita": [
+        {
+          "donde": "Seguimiento integral del niño y la niña con síndrome de Down",
+          "texto": "El uso de curvas de crecimiento específicas para SD es mandatorio para evitar diagnósticos erróneos de fallo de medro o enmascarar la obesidad."
+        }
+      ],
+      "verificado": "2026-11-21",
+      "tipo": "diagnostico"
+    },
+    {
+      "id": "ped-c14",
+      "topic": "Neurología · Síndrome de West",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Lactante de 6 meses con episodios de flexión brusca del tronco y los brazos, de menos de 2 segundos, <span class='hy'>en salvas al despertar</span>. Desde hace 3 semanas dejó de sostener la cabeza. El EEG muestra hipsarritmia. ¿Cuál es la conducta?",
+      "options": [
+        "Prednisolona o ACTH, o vigabatrina, en los primeros 7 días",
+        "Carbamazepina y control por consulta externa en un mes",
+        "Esperar la resonancia y los estudios genéticos antes de tratar",
+        "Ácido valproico y control del EEG en 3 meses"
+      ],
+      "correct": 0,
+      "whyCorrect": "Espasmos epilépticos más hipsarritmia más regresión del neurodesarrollo es el síndrome de West, una urgencia neurológica: el tratamiento debe iniciarse idealmente en los primeros 7 días, con prednisolona o ACTH y vigabatrina. El pronóstico depende de la etiología, pero no se espera a conocerla para tratar.",
+      "pearl": "West: espasmos en salvas + hipsarritmia + regresión. Inicio usual entre 3 y 12 meses. Tratar en 7 días.",
+      "trap": "Confundir los espasmos con cólicos o reflujo, o dar un bloqueador de canales de sodio.",
+      "cita": [
+        {
+          "donde": "Epilepsia en pediatría: Aspectos claves para su abordaje y tratamiento",
+          "texto": "Síndrome de West: triada de espasmos epilépticos+hipsarritmia en el EEG+ compromiso del neurodesarrollo."
+        },
+        {
+          "donde": "Epilepsia en pediatría: Aspectos claves para su abordaje y tratamiento",
+          "texto": "Urgencia neurológica: Inicio de tratamiento idealmente en los primeros 7 días. Prednisolona o ACTH y vigabatrina."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c15",
+      "topic": "Hematología · Anemia de células falciformes",
+      "difficulty": "Nivel 3",
+      "src": "udea_ped26",
+      "vignette": "Niño de 7 años con anemia de células falciformes, asintomático, en su control anual. La ecografía Doppler transcraneal muestra una <span class='hy'>velocidad de 195 cm/s en la arteria cerebral media</span>. Examen neurológico normal. ¿Qué sigue?",
+      "options": [
+        "Repetir el Doppler en un año, porque está asintomático y sin déficit",
+        "Resonancia o angiorresonancia y repetir el Doppler en una semana",
+        "Iniciar ácido acetilsalicílico y control en 3 meses",
+        "Hidroxiurea y repetir el Doppler en 6 meses"
+      ],
+      "correct": 1,
+      "whyCorrect": "Un Doppler transcraneal anormal (más de 180 cm/s en carótida interna o cerebral media) obliga a pedir resonancia o angiorresonancia preferente y a repetir el Doppler en una semana. Si se confirma, hematología evalúa el régimen hipertransfusional para prevenir el ictus.",
+      "pearl": "Doppler transcraneal anual de los 2 a los 16 años. < 150 cm/s normal; 150 a 180 condicional (repetir en 3 meses); > 180 anormal.",
+      "trap": "Tranquilizarse porque el niño está asintomático: el Doppler sirve justamente para prevenir el primer ictus.",
+      "cita": [
+        {
+          "donde": "Enfermedad de células falciforme, más allá de la urgencia",
+          "texto": "Se recomienda realizar la ecografía Doppler transcraneal (EcoDTC) anual a todos los pacientes desde los 2 hasta los 16 años"
+        },
+        {
+          "donde": "Enfermedad de células falciforme, más allá de la urgencia",
+          "texto": "Anormal: >180 cm/seg en alguna medición en carótida interna o cerebral media. Se debe solicitar RM/Angio RM preferente y repetir DTC en 1 semana."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c16",
+      "topic": "Nutrición · Alimentación complementaria",
+      "difficulty": "Nivel 1",
+      "src": "udea_ped26",
+      "vignette": "Lactante de 6 meses, sano, que va a iniciar la alimentación complementaria. La madre no quiere darle huevo porque al hijo de una amiga «le produjo un brote». <span class='hy'>No hay antecedentes de alergia</span> en la familia. ¿Qué le recomiendas?",
+      "options": [
+        "Esperar hasta el año para dar huevo, cuando el intestino ya madura",
+        "Pedir pruebas de alergia antes de dar huevo",
+        "Dar solo la clara después de los 2 años",
+        "Incluir huevo cocido desde ya, al menos 2 veces por semana"
+      ],
+      "correct": 3,
+      "whyCorrect": "La introducción temprana y regular de alérgenos es segura y promueve la tolerancia; no debe retrasarse. Huevo cocido, pescado y maní pueden darse desde que se inicia la alimentación complementaria, con exposición frecuente, al menos dos veces por semana.",
+      "pearl": "Alérgenos: no retrasar. La exposición frecuente mantiene la tolerancia.",
+      "trap": "Retrasar el huevo «por seguridad»: aumenta el riesgo de alergia en lugar de reducirlo.",
+      "cita": [
+        {
+          "donde": "Fundamentos de la alimentación complementaria: estableciendo las bases para una vida saludable",
+          "texto": "La introducción temprana y el consumo regular de alérgenos alimentarios se ha demostrado que es seguro y promueve el desarrollo de la tolerancia. La introducción de alimentos potencialmente alergénicos no debe retrasarse."
+        },
+        {
+          "donde": "Fundamentos de la alimentación complementaria: estableciendo las bases para una vida saludable",
+          "texto": "La exposición debe ser frecuente, al menos dos veces a la semana"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c17",
+      "topic": "Infecciones perinatales · Citomegalovirus congénito",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Recién nacido de 5 días con microcefalia, ictericia, hepatoesplenomegalia, petequias y trombocitopenia. La ecografía transfontanelar muestra <span class='hy'>calcificaciones periventriculares</span>. ¿Cómo confirmas el diagnóstico y cómo lo tratas?",
+      "options": [
+        "IgM para CMV a los 2 meses; sin tratamiento antiviral",
+        "PCR para CMV en orina antes de los 21 días; valganciclovir por 6 meses",
+        "PCR para CMV en saliva; aciclovir intravenoso por 14 días",
+        "Serología materna para CMV y ganciclovir intravenoso solo si aparece hipoacusia"
+      ],
+      "correct": 1,
+      "whyCorrect": "El diagnóstico de CMV congénito se hace con PCR antes de los 21 días de vida, para diferenciarlo de la infección postnatal; la PCR en orina es la prueba de elección. Un recién nacido sintomático o con compromiso del sistema nervioso central recibe valganciclovir oral o ganciclovir intravenoso por 6 meses, lo que reduce la progresión de la hipoacusia.",
+      "pearl": "CMV congénito: microcefalia, calcificaciones periventriculares, hepatoesplenomegalia y trombocitopenia. La PCR en saliva sirve de tamizaje, pero se confirma en orina.",
+      "trap": "Diagnosticar después de los 21 días: ya no se puede distinguir de una infección adquirida después del parto.",
+      "cita": [
+        {
+          "donde": "Claves diagnósticas en infecciones perinatales: enfoque sindromático: SCORTCH",
+          "texto": "El diagnóstico definitivo se realiza mediante PCR antes de los 21 días de vida, para diferenciar infección congénita de postnatal. La PCR en orina es la prueba de elección por su alta sensibilidad y especificidad"
+        },
+        {
+          "donde": "Claves diagnósticas en infecciones perinatales: enfoque sindromático: SCORTCH",
+          "texto": "El tratamiento antiviral se reserva para recién nacidos sintomáticos o con compromiso del sistema nervioso central, con valganciclovir oral o ganciclovir intravenoso durante seis meses"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c18",
+      "topic": "Neonatología · Tamizaje neonatal ampliado",
+      "difficulty": "Nivel 1",
+      "src": "udea_ped26",
+      "vignette": "Recién nacido a término, sano, que va a salir de alta a las <span class='hy'>20 horas de vida</span>. La madre pregunta cuándo deben tomarle la muestra de sangre del talón para el tamizaje neonatal ampliado. ¿Qué le respondes?",
+      "options": [
+        "Ahora mismo, antes de salir, para no perder la oportunidad",
+        "De la sangre del cordón, que ya se tomó al nacer",
+        "Entre las 48 y 72 horas de vida, cuando ya haya comido",
+        "Al mes de vida, en el primer control"
+      ],
+      "correct": 2,
+      "whyCorrect": "La tamización neonatal debe hacerse entre las 48 y 72 horas de vida, cuando el neonato ya recibió alimentación, con consentimiento informado de los padres. Una muestra muy temprana puede dar falsos negativos en enfermedades metabólicas que dependen de la ingesta.",
+      "pearl": "Tamizaje metabólico de talón: 48 a 72 horas, después de alimentarse. Si el alta es antes, hay que garantizar la toma después.",
+      "trap": "Tomar la muestra antes del alta temprana «por comodidad»: puede no detectar la enfermedad.",
+      "cita": [
+        {
+          "donde": "Lo que deberíamos saber sobre el tamizaje neonatal ampliado",
+          "texto": "La tamización neonatal debe realizarse entre las 48 y 72 horas de vida, una vez el neonato haya recibido alimentación se tomará la muestra para la tamización metabólica de sangre del talón"
+        }
+      ],
+      "verificado": "2026-11-21",
+      "tipo": "datos"
+    },
+    {
+      "id": "ped-c19",
+      "topic": "Cardiología · El atleta pediátrico",
+      "difficulty": "Nivel 1",
+      "src": "udea_ped26",
+      "vignette": "Nadador de 12 años que entrena 10 horas por semana. En el club le encuentran <span class='hy'>frecuencia cardiaca en reposo de 59 lpm</span>. No tiene síntomas, el examen físico es normal y el ECG solo muestra bradicardia sinusal. ¿Cuál es la conducta?",
+      "options": [
+        "Suspender el deporte hasta tener un Holter de 24 horas",
+        "Pedir ecocardiograma y prueba de esfuerzo antes de seguir",
+        "Dar el aval: es una adaptación al entrenamiento",
+        "Remitir a electrofisiología por enfermedad del nodo sinusal"
+      ],
+      "correct": 2,
+      "whyCorrect": "La bradicardia sinusal es un hallazgo frecuente en atletas con alto volumen de entrenamiento. Con interrogatorio y examen físico normales y un ECG sin otras alteraciones, se da el aval para continuar. Impedir el deporte por este hallazgo es un error común.",
+      "pearl": "Cambios esperados en el ECG del atleta: bradicardia sinusal, repolarización precoz, bloqueo AV de primer grado, bloqueo incompleto de rama derecha y voltaje de hipertrofia del VI.",
+      "trap": "Restringir el deporte por una bradicardia aislada en un niño asintomático y entrenado.",
+      "cita": [
+        {
+          "donde": "Tamizaje cardiovascular en el niño deportista",
+          "texto": "Los cambios eléctricos inducidos por el ejercicio que se observan comúnmente en atletas pediátricos incluyen intervalos PR más largos y una mayor prevalencia de bradicardia sinusal, repolarización precoz, bloqueo auriculoventricular de primer grado, bloqueo incompleto de rama derecha y criterios de voltaje de hipertrofia del ventrículo izquierdo"
+        },
+        {
+          "donde": "Tamizaje cardiovascular en el niño deportista",
+          "texto": "este paciente tiene una bradicardia sinusal, el cual es uno de los hallazgos que normalmente se encuentran en atletas con alto volumen de entrenamiento"
+        }
+      ],
+      "verificado": "2026-11-21"
     }
   ],
   "fichas": [

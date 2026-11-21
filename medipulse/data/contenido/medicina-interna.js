@@ -75,10 +75,10 @@ MP_CONTENIDO.agregar({
       "src": "ada_cri",
       "vignette": "Joven de 22 años con DM1 ingresa por vómitos y respiración de Kussmaul. Glucemia 480 mg/dL, pH arterial 7.14, HCO3 10 mEq/L, cetonuria +++, Na+ 132 mEq/L, <span class='hy'>K+ sérico 3.1 mEq/L</span>. ¿Qué acción es obligatoria ANTES de iniciar la infusión de insulina?",
       "options": [
-        "Iniciar reposición de potasio IV junto con hidratación y diferir la insulina hasta K+ > 3.5 mmol/L",
-        "Administrar bicarbonato de sodio IV para corregir el pH < 7.20",
-        "Pasar bolo de insulina regular 0.15 U/kg IV de inmediato",
-        "Corregir el sodio sérico con solución salina hipertónica al 3%"
+        "Reponer potasio IV con la hidratación; insulina cuando el K+ pase de 3.5 mmol/L",
+        "Bicarbonato de sodio IV para corregir el pH menor de 7.20 antes de la insulina",
+        "Bolo de insulina regular 0.15 U/kg IV de inmediato y luego infusión continua",
+        "Corregir el sodio sérico con solución salina hipertónica al 3 % en la primera hora"
       ],
       "correct": 0,
       "whyCorrect": "La insulina mete potasio a la célula. Con K+ < 3.5 mmol/L se repone potasio primero y se difiere la insulina hasta que el K+ supere 3.5, para evitar arritmias letales y debilidad de los músculos respiratorios.",
@@ -218,10 +218,10 @@ MP_CONTENIDO.agregar({
       "src": "aha_tep",
       "vignette": "Mujer de 54 años en posoperatorio de reemplazo de cadera presenta <span class='hy'>disnea súbita, dolor pleurítico, FC 116 lpm, FR 26 rpm y SatO2 88%</span>. PA 115/75 mmHg. Probabilidad clínica por Wells: 7.5 puntos (alta). ¿Estudio diagnóstico de elección?",
       "options": [
-        "Solicitar Dímero D y si es negativo descartar TEP",
-        "Espirometría forzada con broncodilatador",
-        "AngioTAC de tórax (protocolo TEP) e inicio empírico de anticoagulación si no hay contraindicación",
-        "Radiografía de tórax normal descarta el diagnóstico"
+        "Dímero D y, si es negativo, descartar el TEP sin hacer más estudios de imagen",
+        "Espirometría con broncodilatador para descartar broncoespasmo",
+        "AngioTAC de tórax y anticoagulación empírica si no hay contraindicación",
+        "Radiografía de tórax: si es normal, se descarta el diagnóstico"
       ],
       "correct": 2,
       "whyCorrect": "Con probabilidad clínica alta (Wells > 6 o > 4 en modelo dicotomizado), el Dímero D NO se solicita porque un resultado negativo no descarta con seguridad suficiente; se va directo a AngioTAC pulmonar y anticoagulación.",
@@ -265,10 +265,10 @@ MP_CONTENIDO.agregar({
       "src": "goldf",
       "vignette": "Agricultor de 40 años traído tras fumigar sin protección. Presenta <span class='hy'>miosis puntiforme, sialorrea, broncorrea, bradicardia</span>, diarrea y fasciculaciones. ¿Antídoto de primera línea?",
       "options": [
-        "Naloxona IV",
-        "Atropina IV en dosis crecientes hasta secar las secreciones bronquiales",
-        "Flumazenil IV",
-        "N-acetilcisteína"
+        "Naloxona IV en bolos hasta revertir la depresión respiratoria",
+        "Atropina IV en dosis crecientes hasta secar las secreciones",
+        "Flumazenil IV para revertir la sedación",
+        "N-acetilcisteína IV en el esquema de 21 horas"
       ],
       "correct": 1,
       "whyCorrect": "El cuadro colinérgico (muscarínico + nicotínico) es típico de los organofosforados. La atropina revierte los efectos muscarínicos; su meta es secar las secreciones bronquiales, no la midriasis. La pralidoxima es un complemento para los efectos nicotínicos.",
@@ -329,10 +329,10 @@ MP_CONTENIDO.agregar({
       "src": "nice_nm",
       "vignette": "Mujer de 72 años con fiebre, tos productiva y crepitantes en la base derecha; la radiografía muestra consolidación. Está <span class='hy'>orientada</span>, FR 24 rpm, PA 128/76 mmHg, <span class='hy'>urea en sangre 9 mmol/L</span>. Según NICE, ¿cuál es su CURB65 y qué se considera para el lugar de atención?",
       "options": [
-        "CURB65 de 1: alta con seguimiento en atención primaria",
-        "CURB65 de 2: hospitalización, hospital en casa, sala virtual o unidad de atención el mismo día",
-        "CURB65 de 3: hospitalización y valoración por cuidados críticos",
-        "CURB65 de 0: no requiere antibiótico"
+        "CURB65 de 1: alta con seguimiento en atención primaria en 48 horas",
+        "CURB65 de 2: atención en el hospital o en casa con supervisión hospitalaria",
+        "CURB65 de 3: hospitalización inmediata y valoración temprana por cuidados críticos",
+        "CURB65 de 0: no requiere antibiótico, solo manejo sintomático en casa"
       ],
       "correct": 1,
       "whyCorrect": "Suma 1 punto por urea mayor de 7 mmol/L y 1 por edad de 65 años o más: CURB65 de 2, riesgo intermedio (mortalidad del 3 al 15 %). NICE propone considerar hospitalización u opciones supervisadas como hospital en casa, siempre con juicio clínico.",
@@ -365,10 +365,10 @@ MP_CONTENIDO.agregar({
       "src": "acin_nac26",
       "vignette": "Hombre de 42 años, sin comorbilidades ni antibióticos en los últimos 90 días, con 3 días de tos productiva y fiebre. FC 104 lpm, <span class='hy'>FR 22 rpm</span>, PA 124/78 mmHg, <span class='hy'>SatO₂ 95 %</span> al aire ambiente, orientado. Crepitantes basales derechos y consolidación en la radiografía. <span class='hy'>CRB-65: 0</span>. ¿Conducta?",
       "options": [
-        "Hospitalizar y ceftriaxona intravenosa",
-        "Levofloxacino 750 mg al día por vía oral",
-        "Amoxicilina 1 g cada 8 horas por vía oral, ambulatorio, por 5 días",
-        "Ceftriaxona más claritromicina en sala general"
+        "Hospitalizar y dar ceftriaxona intravenosa por 7 días",
+        "Levofloxacino 750 mg al día por vía oral durante 10 días",
+        "Amoxicilina 1 g cada 8 horas oral, ambulatorio, por 5 días",
+        "Ceftriaxona más claritromicina en sala general de hospitalización"
       ],
       "correct": 2,
       "whyCorrect": "Con CRB-65 de 0 a 1 el riesgo de muerte es bajo y se trata en casa, salvo hipoxemia o intolerancia a la vía oral. Sin factores de riesgo para SAMR ni Pseudomonas, la primera línea es oral: amoxicilina 1 g cada 8 horas (alternativas: claritromicina o doxiciclina). En la NAC no grave la duración es de 5 días en total, según la estabilidad clínica.",
@@ -405,9 +405,9 @@ MP_CONTENIDO.agregar({
       "src": "acin_nac26",
       "vignette": "Mujer de 74 años con hipertensión, 4 días de fiebre y tos, ahora <span class='hy'>confusa</span>. FR 24 rpm, PA 112/70 mmHg, SatO₂ 93 %. Infiltrado en el lóbulo inferior izquierdo. <span class='hy'>CURB-65: 2</span>. Sin hospitalizaciones, antibióticos recientes ni cultivos previos con SAMR o Pseudomonas, y sin criterios de UCI. ¿Tratamiento empírico?",
       "options": [
-        "Piperacilina-tazobactam más vancomicina",
-        "Ceftriaxona en monoterapia y ajustar según cultivos y pruebas moleculares",
-        "Moxifloxacino intravenoso",
+        "Piperacilina-tazobactam más vancomicina por posible germen resistente",
+        "Ceftriaxona sola, ajustada luego según cultivos",
+        "Moxifloxacino intravenoso como monoterapia de amplio espectro",
         "Amoxicilina oral y control en 48 horas en casa"
       ],
       "correct": 1,
@@ -441,9 +441,9 @@ MP_CONTENIDO.agregar({
       "src": "acin_nac26",
       "vignette": "Hombre de 63 años con NAC: <span class='hy'>FR 34 rpm</span>, <span class='hy'>PaO₂/FiO₂ 220</span>, <span class='hy'>infiltrados multilobares</span>, confusión y BUN 28 mg/dL. PA 100/62 mmHg sin vasopresores. Sin factores de riesgo para SAMR ni Pseudomonas. Ingresa a la UCI. ¿Esquema antibiótico empírico?",
       "options": [
-        "Ceftriaxona en monoterapia",
-        "Levofloxacino en monoterapia",
-        "Meropenem más vancomicina",
+        "Ceftriaxona en monoterapia ajustada a la gravedad",
+        "Levofloxacino en monoterapia a dosis de 750 mg al día",
+        "Meropenem más vancomicina para cubrir gérmenes resistentes en UCI",
         "Ceftriaxona (o ampicilina/sulbactam) más claritromicina"
       ],
       "correct": 3,
@@ -522,9 +522,9 @@ MP_CONTENIDO.agregar({
       "src": "acin_nac26",
       "vignette": "Según la guía colombiana de NAC 2026, ¿cuánto debe durar el antibiótico en un adulto con NAC no grave que mejora y está clínicamente estable?",
       "options": [
-        "3 días",
-        "7 días",
-        "10 días",
+        "3 días en total",
+        "7 días en total",
+        "10 días en total",
         "5 días en total"
       ],
       "correct": 3,
@@ -584,10 +584,10 @@ MP_CONTENIDO.agregar({
       "src": "confidence",
       "vignette": "El ensayo CONFIDENCE aleatorizó (1:1:1) a adultos con ERC, albuminuria y diabetes tipo 2, ya con IECA o ARA II, a finerenona, empagliflozina o ambas. El desenlace primario fue el <span class='hy'>cambio de la relación albúmina/creatinina urinaria a 180 días</span>. La combinación la redujo 29 % más que la finerenona y 32 % más que la empagliflozina (p menor de 0,001). ¿Cuál es la principal limitación para la práctica?",
       "options": [
-        "No fue aleatorizado",
+        "No fue aleatorizado, así que hay riesgo de confusión",
         "El resultado no fue estadísticamente significativo",
-        "No tuvo un grupo de comparación activo",
-        "Usa un desenlace sustituto y un seguimiento corto: no demuestra menos falla renal ni menos eventos cardiovasculares"
+        "No tuvo un grupo de comparación activo frente a la combinación de los dos fármacos",
+        "Mide la albuminuria a 180 días, no la falla renal ni los eventos"
       ],
       "correct": 3,
       "whyCorrect": "Fue aleatorizado, doble ciego y con comparadores activos, y el resultado fue significativo. Pero la albuminuria es un desenlace sustituto, y los autores reconocen que el seguimiento no alcanzó para medir eventos cardiovasculares ni progresión clínica de la enfermedad renal.",
@@ -625,9 +625,9 @@ MP_CONTENIDO.agregar({
       "src": "confidence",
       "vignette": "En CONFIDENCE, la combinación de finerenona y empagliflozina frente a finerenona sola tuvo una <span class='hy'>razón de 0,71 (IC 95 % 0,61 a 0,82)</span> en el cambio de la relación albúmina/creatinina urinaria a 180 días. ¿Cómo se interpreta?",
       "options": [
-        "La combinación redujo la albuminuria 29 % más que la finerenona sola, y el intervalo no incluye 1, así que es significativo",
-        "La combinación redujo un 29 % la progresión a diálisis",
-        "El intervalo incluye 0, así que la diferencia no es significativa",
+        "Redujo la albuminuria 29 % más que la finerenona y es significativo",
+        "La combinación redujo un 29 % la progresión a diálisis en el seguimiento",
+        "El intervalo incluye 0, así que la diferencia no es estadísticamente significativa",
         "La combinación redujo la albuminuria en 0,71 mg/g en términos absolutos"
       ],
       "correct": 0,
@@ -653,10 +653,10 @@ MP_CONTENIDO.agregar({
       "src": "tep26",
       "vignette": "Mujer de <span class='hy'>82 años</span> con disnea de 2 días. FC 96 lpm, SatO₂ 94 %, sin signos de trombosis venosa. La probabilidad clínica de TEP es <span class='hy'>baja a intermedia (menor de 50 %)</span>. <span class='hy'>Dímero D 650 μg/L</span> (FEU). ¿Cuál es el siguiente paso diagnóstico?",
       "options": [
-        "AngioTC de tórax, porque el dímero D supera 500 μg/L",
-        "Ninguno: el dímero está por debajo de su umbral ajustado por edad (820 μg/L) y se descarta el TEP sin imágenes",
-        "Gammagrafía de ventilación/perfusión",
-        "Ecocardiograma para confirmar o descartar el TEP"
+        "AngioTC de tórax, porque el dímero D supera el umbral habitual de 500 μg/L",
+        "Ninguno: está bajo su umbral por edad (820 μg/L); se descarta el TEP",
+        "Gammagrafía de ventilación/perfusión para no exponerla al contraste",
+        "Ecocardiograma para confirmar o descartar el TEP con certeza"
       ],
       "correct": 1,
       "whyCorrect": "Con probabilidad clínica baja o intermedia (< 50 %), un dímero D por debajo del umbral ajustado por edad (edad × 10 μg/L desde los 50 años; aquí 820) excluye el TEP y la necesidad de imágenes. En ADJUST-PE, en mayores de 75 años, el umbral ajustado aumentó los pacientes en quienes se descartó el TEP de 6,4 % a 29,7 %, sin falsos negativos adicionales.",
@@ -689,10 +689,10 @@ MP_CONTENIDO.agregar({
       "src": "tep26",
       "vignette": "Hombre de 45 años con dolor torácico pleurítico. <span class='hy'>Sin signos de trombosis venosa profunda, sin hemoptisis</span>, y el TEP <span class='hy'>no es el diagnóstico más probable</span>. <span class='hy'>Dímero D 800 μg/L</span>. Según el algoritmo YEARS, ¿cuál es la conducta diagnóstica?",
       "options": [
-        "AngioTC de tórax: el dímero supera 500 μg/L",
-        "Gammagrafía V/Q",
-        "No necesita imágenes: sin criterios YEARS el umbral es 1000 μg/L",
-        "Ultrasonido venoso de miembros inferiores"
+        "AngioTC de tórax, porque el dímero D supera el umbral de 500 μg/L",
+        "Gammagrafía de ventilación/perfusión como primera imagen",
+        "Sin imágenes: sin criterios YEARS el umbral es 1000 μg/L",
+        "Ultrasonido venoso de miembros inferiores antes de cualquier otra imagen"
       ],
       "correct": 2,
       "whyCorrect": "El algoritmo YEARS usa 3 criterios: signos de TVP, hemoptisis y TEP como diagnóstico más probable. Sin ninguno, el umbral del dímero D es 1000 μg/L; con 1 o más, es 500 μg/L. Con 800 μg/L y ningún criterio, no necesita imágenes para descartar el TEP.",
@@ -919,10 +919,10 @@ MP_CONTENIDO.agregar({
       "src": "acc_antiag26",
       "vignette": "Mujer de 72 años con <span class='hy'>fibrilación auricular anticoagulada</span> que presenta un SCA tratado con angioplastia y stent. Recibe triple terapia (aspirina, clopidogrel y anticoagulante oral). ¿Qué conducta antitrombótica sigue?",
       "options": [
-        "Mantener la triple terapia por 12 meses",
-        "Suspender el anticoagulante y dejar doble antiagregación",
-        "Suspender la aspirina tras 1 a 4 semanas y seguir con clopidogrel más anticoagulante oral",
-        "Cambiar clopidogrel por prasugrel para mayor protección"
+        "Mantener la triple terapia completa durante 12 meses",
+        "Suspender el anticoagulante oral y dejar doble antiagregación por un año",
+        "Suspender la aspirina a las 1 a 4 semanas; clopidogrel más anticoagulante",
+        "Cambiar clopidogrel por prasugrel para mayor protección del stent y seguir triple"
       ],
       "correct": 2,
       "whyCorrect": "En SCA que requiere anticoagulación oral, la aspirina se suspende tras 1 a 4 semanas de triple terapia, y se continúa un inhibidor P2Y12 (preferiblemente clopidogrel) más el anticoagulante oral, para reducir el sangrado.",
@@ -943,10 +943,10 @@ MP_CONTENIDO.agregar({
       "src": "jama_inph",
       "vignette": "Hombre de 76 años con 1 año de <span class='hy'>marcha lenta, de base amplia, «magnética»</span>, con dificultad para girar, y <span class='hy'>urgencia urinaria</span>. Fuerza y sensibilidad normales. La RM muestra <span class='hy'>ventriculomegalia (índice de Evans 0,34)</span>. ¿Qué prueba confirma el diagnóstico y predice la respuesta a la derivación?",
       "options": [
-        "Punción lumbar de gran volumen (30 a 50 mL) con medición objetiva de la marcha antes y después",
-        "Una segunda RM a los 6 meses para ver si crecen los ventrículos",
-        "PET con amiloide",
-        "Electromiografía de miembros inferiores"
+        "Punción lumbar de gran volumen con medición de la marcha antes y después",
+        "Una segunda resonancia a los 6 meses para ver si los ventrículos siguen creciendo",
+        "PET con amiloide para descartar enfermedad de Alzheimer",
+        "Electromiografía de miembros inferiores para buscar neuropatía"
       ],
       "correct": 0,
       "whyCorrect": "La HPN idiopática se diagnostica con la clínica característica y la neuroimagen con ventrículos y espacio subaracnoideo agrandados, pero la imagen no predice la respuesta al tratamiento. Por eso se hace una punción lumbar de gran volumen (30 a 50 mL de LCR): la mejoría objetiva de la marcha en horas confirma el diagnóstico y predice la respuesta a la derivación. El drenaje lumbar prolongado (200 a 300 mL en varios días) tiene mayor precisión pronóstica.",
@@ -995,10 +995,10 @@ MP_CONTENIDO.agregar({
       "src": "jama_inph",
       "vignette": "Mujer de 79 años con marcha lenta de <span class='hy'>base amplia</span> que «se pega al piso», le cuesta levantarse de la silla y girar. Desde hace meses tiene <span class='hy'>urgencia e incontinencia urinaria</span> y lentitud mental. La memoria episódica está relativamente conservada. La TC muestra ventrículos grandes. ¿Cuál es el diagnóstico más probable?",
       "options": [
-        "Enfermedad de Parkinson",
-        "Enfermedad de Alzheimer",
+        "Enfermedad de Parkinson con disautonomía urinaria",
+        "Enfermedad de Alzheimer en fase moderada",
         "Hidrocefalia de presión normal idiopática",
-        "Envejecimiento normal"
+        "Envejecimiento normal con incontinencia de esfuerzo"
       ],
       "correct": 2,
       "whyCorrect": "La marcha de base amplia «magnética» con problemas para girar, temprana y dominante, más urgencia urinaria y lentitud cognitiva con ventriculomegalia orientan a HPN idiopática. En el Parkinson la marcha es de base estrecha, y en el Alzheimer el déficit de memoria episódica domina desde el inicio. Ojo: Parkinson o Alzheimer coexisten en el 20 a 30 % de los pacientes con HPN.",
@@ -1148,10 +1148,10 @@ MP_CONTENIDO.agregar({
       "src": "nrdp_np",
       "vignette": "Hombre de 66 años con neuropatía diabética dolorosa que le impide dormir. Función renal normal. ¿Cuál es una opción de primera línea?",
       "options": [
-        "Pregabalina, gabapentina, duloxetina o un antidepresivo tricíclico",
-        "Tramadol como primer fármaco",
-        "Ibuprofeno a dosis altas",
-        "Topiramato"
+        "Pregabalina, gabapentina, duloxetina o un tricíclico",
+        "Tramadol como primer fármaco, por ser un dolor intenso",
+        "Ibuprofeno a dosis altas de forma continua",
+        "Topiramato como estabilizador de membrana"
       ],
       "correct": 0,
       "whyCorrect": "Pregabalina, gabapentina, duloxetina y los antidepresivos tricíclicos tienen recomendación fuerte y son de primera línea para el dolor neuropático periférico y central. Otros antiepilépticos (como topiramato) no tienen esa evidencia, aunque algunos sirven en subgrupos.",

@@ -22,6 +22,7 @@ const SOURCES = [
   {id:"aha_tep",  t:"2026 AHA/ACC Guideline for the Evaluation and Management of Acute Pulmonary Embolism in Adults", r:"Circulation, 2026", y:2026, k:"guideline"},
   {id:"aap_bq",   t:"AAP Clinical Practice Guideline: The Diagnosis, Management, and Prevention of Bronchiolitis", r:"Pediatrics, 2014", y:2014, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
   {id:"acog_ect", t:"ACOG Practice Bulletin No. 193: Tubal Ectopic Pregnancy", r:"Obstetrics & Gynecology, 2018 · reafirmado en 2025", y:2025, k:"guideline"},
+  {id:"udea_ped26", t:"Memorias del XLII Curso de actualización en Pediatría 2026", r:"Universidad de Antioquia, Facultad de Medicina, 2026", y:2026, k:"book"},
   {id:"udea_gin26", t:"Memorias del XXXIV Curso de actualización en Ginecología y Obstetricia 2026", r:"Universidad de Antioquia, Facultad de Medicina, 2026", y:2026, k:"book"},
   {id:"udea_cir25", t:"Memorias del VIII Curso de actualización en Cirugía general 2025", r:"Universidad de Antioquia, Facultad de Medicina, 2025", y:2025, k:"book"},
   {id:"gordis",   t:"Gordis Epidemiología, 7ª edición (Celentano DD, Szklo M, Farag Y)", r:"Elsevier, 2025", y:2025, k:"book"},
