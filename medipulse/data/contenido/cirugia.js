@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Cirugía",
   "prefijo": "cir",
   "paquete": "starter",
-  "actualizado": "2026-11-17",
+  "actualizado": "2026-11-21",
   "casos": [
     {
       "id": 6,
@@ -323,6 +323,70 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-17"
+    },
+    {
+      "id": "cir-c07",
+      "topic": "Vascular · Disección aguda de aorta",
+      "difficulty": "Nivel 2",
+      "src": "udea_urg26",
+      "vignette": "Hombre de 58 años, hipertenso, con dolor torácico desgarrante irradiado a la espalda. PA <span class='hy'>186/104 mmHg, FC 108 lpm</span>. La angiotomografía confirma una disección aguda de aorta. Mientras se define la conducta quirúrgica, ¿cuál es el primer fármaco?",
+      "options": [
+        "Nitroprusiato IV como primera medida, para bajar rápido la presión arterial",
+        "Betabloqueador IV (esmolol, labetalol o metoprolol) hasta FC 60 a 70",
+        "Nifedipino sublingual y control de la presión arterial a los 30 minutos",
+        "Furosemida IV en bolo para reducir el volumen circulante y la presión"
+      ],
+      "correct": 1,
+      "whyCorrect": "En la disección aórtica lo que mata es el impulso del ventrículo sobre la pared, no el valor aislado de la presión: el manejo es antiimpulso. Primero un betabloqueador IV para llevar la FC a 60 a 70 lpm; si persiste la hipertensión, se añade un vasodilatador IV, evitando la taquicardia refleja. Meta de PAS: 100 a 120 mmHg. La analgesia IV potente es parte del manejo.",
+      "pearl": "Disección aórtica: primero frecuencia (betabloqueador, FC 60–70), después presión (vasodilatador, PAS 100–120), y analgesia potente.",
+      "trap": "Empezar con un vasodilatador solo: la taquicardia refleja aumenta el estrés sobre la pared aórtica.",
+      "cita": [
+        {
+          "donde": "Manejo médico emergente de la disección aguda de aorta",
+          "texto": "En la disección aguda de aorta, lo que mata al paciente es el impulso del ventrículo sobre la pared aórtica, no el valor aislado de la presión arterial, por esto el objetivo es el manejo antiimpulso, no solo “antihipertensivo”."
+        },
+        {
+          "donde": "Manejo médico emergente de la disección aguda de aorta",
+          "texto": "se debe iniciar beta-bloqueadores intravenosos como primera medida, si persiste hipertensión tras el control de la frecuencia, se pueden añadir vasodilatadores intravenosos, evitando la taquicardia refleja."
+        },
+        {
+          "donde": "Manejo médico emergente de la disección aguda de aorta",
+          "texto": "Metas: Frecuencia Cardiaca: 60 a 70 lpm Presión arterial sistólica 100 - 120 mmHg"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c08",
+      "topic": "Vascular · Isquemia aguda de extremidades",
+      "difficulty": "Nivel 2",
+      "src": "udea_urg26",
+      "vignette": "Mujer de 74 años con fibrilación auricular sin anticoagulación. Desde hace 4 horas tiene dolor y frialdad en la pierna derecha. Hay <span class='hy'>pérdida sensitiva por encima de los dedos y debilidad leve</span> del pie; el Doppler arterial es inaudible. ¿Cuál es la conducta?",
+      "options": [
+        "Heparina no fraccionada IV y revascularización urgente",
+        "Ácido acetilsalicílico, analgesia y Doppler programado en 48 horas",
+        "Ejercicio supervisado y cilostazol, como en la claudicación intermitente",
+        "Amputación primaria por pérdida irreversible del tejido"
+      ],
+      "correct": 0,
+      "whyCorrect": "Es una isquemia aguda Rutherford IIb: pérdida sensitiva por encima de los dedos y debilidad leve a moderada, con la extremidad salvable si se trata urgentemente. Se anticoagula de inmediato con heparina no fraccionada (bolo de 80 UI/kg e infusión de 18 UI/kg/h) y se revasculariza. La amputación se plantea en el estadio III (anestesia y parálisis completas).",
+      "pearl": "Rutherford: I sin amenaza; IIa salvable si se trata rápido; IIb salvable si se trata urgente (pérdida sensitiva más allá de los dedos, debilidad); III daño irreversible.",
+      "trap": "Tratarla como una claudicación crónica o esperar estudios: el tiempo define si la extremidad se salva.",
+      "cita": [
+        {
+          "donde": "Manejo médico de la isquemia aguda de extremidades",
+          "texto": "Es una urgencia vascular que requiere reconocimiento rápido e implementación temprana de terapias de revascularización inmediata para preservar la viabilidad de la extremidad."
+        },
+        {
+          "donde": "Manejo médico de la isquemia aguda de extremidades",
+          "texto": "IIb Extremidad salvable si se trata urgentemente Pérdida sensorial (por encima de los dedos), debilidad motora leve o moderada. Doppler usualmente inaudible."
+        },
+        {
+          "donde": "Manejo médico de la isquemia aguda de extremidades",
+          "texto": "Bolo inicial: 80 UI/kg IV Infusión continua: 18 UI/kg/h, ajustada según TPTa"
+        }
+      ],
+      "verificado": "2026-11-21"
     }
   ],
   "fichas": [

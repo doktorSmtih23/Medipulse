@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Medicina Interna",
   "prefijo": "mi",
   "paquete": "starter",
-  "actualizado": "2026-11-15",
+  "actualizado": "2026-11-21",
   "casos": [
     {
       "id": 1,
@@ -1244,6 +1244,210 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-15"
+    },
+    {
+      "id": "mi-c28",
+      "topic": "Cardiología · Troponina de alta sensibilidad",
+      "difficulty": "Nivel 3",
+      "src": "udea_mi26",
+      "vignette": "Hombre de 62 años con dolor torácico opresivo que empezó <span class='hy'>hace 90 minutos</span>. ECG sin elevación del ST. La troponina T de alta sensibilidad a la hora 0 es <span class='hy'>menor de 5 ng/L</span>. ¿Qué haces?",
+      "options": [
+        "Darle de alta: una troponina tan baja descarta el infarto",
+        "Repetir la troponina a la hora 1 antes de descartar el infarto",
+        "Llevarlo a coronariografía inmediata por la clínica típica",
+        "Repetir la troponina a las 12 horas, como con los ensayos antiguos"
+      ],
+      "correct": 1,
+      "whyCorrect": "El descarte con una sola muestra solo es seguro si la troponina es indetectable o muy baja y el dolor empezó hace más de 3 horas. Con 90 minutos de evolución hay que seguir el algoritmo 0/1 h: medir a la hora 1 y decidir con el valor y el cambio.",
+      "pearl": "Algoritmo 0/1 h (hs-cTnT Roche): descarte si < 5 ng/L a la hora 0 (con más de 3 h de dolor), o < 12 a la 0 h y cambio < 3 a la hora 1. Confirmación si ≥ 52 a la 0 h o cambio ≥ 5.",
+      "trap": "Aplicar el descarte con muestra única a un dolor de menos de 3 horas: la troponina puede no haber subido aún.",
+      "cita": [
+        {
+          "donde": "Troponinas de alta sensibilidad: indicación, interpretación y aplicación clínica",
+          "texto": "El descarte inmediato con una sola toma solo es seguro si los niveles son indetectables (o extremadamente bajos) y el paciente consulta tras más de 3 horas del inicio del dolor."
+        },
+        {
+          "donde": "Troponinas de alta sensibilidad: indicación, interpretación y aplicación clínica (Tabla 1)",
+          "texto": "hs-cTnT (Elecsys; Roche) <5 <12 <3 ≥52 ≥5"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "mi-c29",
+      "topic": "Endocrinología · Hiperaldosteronismo primario",
+      "difficulty": "Nivel 2",
+      "src": "udea_mi26",
+      "vignette": "Mujer de 45 años con hipertensión de 2 años, controlada con enalapril y amlodipino. <span class='hy'>Potasio normal</span>, sin incidentalomas. Nunca la han tamizado para causas secundarias. ¿Qué es lo indicado?",
+      "options": [
+        "Nada: con potasio normal no hay que buscar aldosteronismo",
+        "Suspender los antihipertensivos 4 semanas y luego medir aldosterona",
+        "Tomografía de suprarrenales como primer estudio",
+        "Relación aldosterona/renina sin suspender sus medicamentos"
+      ],
+      "correct": 3,
+      "whyCorrect": "Las guías actuales recomiendan tamizar el aldosteronismo primario al menos una vez en todo paciente hipertenso, aunque el potasio sea normal. El tamizaje es la relación aldosterona/renina, típicamente sin suspender medicamentos: si la renina está suprimida, el resultado se puede interpretar. La imagen de suprarrenales va después de confirmar.",
+      "pearl": "Aldosteronismo primario: tamizar a todo hipertenso una vez. Renina suprimida con aldosterona inapropiadamente alta → pruebas confirmatorias.",
+      "trap": "Esperar hipopotasemia para sospecharlo: la mayoría tiene potasio normal.",
+      "cita": [
+        {
+          "donde": "Hiperaldosteronismo primario: enfoque diagnóstico y terapéutico",
+          "texto": "las guías actuales recomiendan tamizar para aldosteronismo primario al menos una vez en todo paciente hipertenso."
+        },
+        {
+          "donde": "Hiperaldosteronismo primario: enfoque diagnóstico y terapéutico",
+          "texto": "Medir relación aldosterona/renina (típicamente sin suspender medicamentos, incluso espironolactona. Si la renina es suprimida se puede interpretar)."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "mi-c30",
+      "topic": "Infectología · Profilaxis de endocarditis",
+      "difficulty": "Nivel 1",
+      "src": "udea_mi26",
+      "vignette": "Hombre de 50 años con <span class='hy'>antecedente de endocarditis infecciosa</span> hace 3 años, sin alergias. Le van a hacer una extracción dental mañana. ¿Qué le indicas?",
+      "options": [
+        "Ninguna profilaxis: solo se da a portadores de prótesis valvular",
+        "Amoxicilina 2 g oral, 30 a 60 minutos antes del procedimiento",
+        "Amoxicilina 500 mg cada 8 horas por 7 días después de la extracción",
+        "Ciprofloxacino 500 mg oral una hora antes del procedimiento"
+      ],
+      "correct": 1,
+      "whyCorrect": "El antecedente de endocarditis es de alto riesgo, y la ESC elevó a clase I la profilaxis antes de procedimientos dentales invasivos en estos pacientes. Va dirigida contra estreptococos del grupo viridans: amoxicilina 2 g oral, 30 a 60 minutos antes. Con alergia a penicilinas: cefalexina, claritromicina, azitromicina o doxiciclina; se evita la clindamicina.",
+      "pearl": "Alto riesgo de endocarditis: antecedente de endocarditis, prótesis valvulares, cardiopatías congénitas complejas, dispositivos de asistencia ventricular y reparaciones valvulares transcatéter.",
+      "trap": "Dar un esquema de varios días después del procedimiento: la profilaxis es una dosis única antes.",
+      "cita": [
+        {
+          "donde": "Endocarditis infecciosa: diagnóstico temprano y prevención",
+          "texto": "pacientes con alto riesgo de endocarditis infecciosa, como aquellos con antecedentes de endocarditis, prótesis valvulares, cardiopatías congénitas complejas, dispositivos de asistencia ventricular, y reparaciones valvulares transcatéter."
+        },
+        {
+          "donde": "Endocarditis infecciosa: diagnóstico temprano y prevención",
+          "texto": "es la amoxicilina la opción preferida por su perfil de seguridad y bajo riesgo de efectos adversos (amoxicilina VO 2 g 30–60 min antes)"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "mi-c31",
+      "topic": "Neurología · Encefalitis herpética",
+      "difficulty": "Nivel 2",
+      "src": "udea_neuro26",
+      "vignette": "Mujer de 35 años con 3 días de fiebre, cefalea, conducta extraña y una crisis focal. Glasgow 13. Se tomó la punción lumbar y la PCR para herpes estará <span class='hy'>en 48 horas</span>; la resonancia se hará mañana. ¿Qué haces ahora?",
+      "options": [
+        "Esperar la PCR para no exponerla a nefrotoxicidad",
+        "Aciclovir IV 10 mg/kg cada 8 horas desde ya",
+        "Aciclovir oral, por su buena biodisponibilidad",
+        "Esperar la resonancia para confirmar el lóbulo temporal"
+      ],
+      "correct": 1,
+      "whyCorrect": "Ante la sospecha de encefalitis herpética, el aciclovir IV se inicia de inmediato, sin esperar la PCR ni la resonancia: 10 mg/kg cada 8 horas (peso ajustado en obesos), ajustado a la función renal, por 14 a 21 días. La vía oral no sirve por su baja absorción.",
+      "pearl": "Solo se suspende el aciclovir en urgencias si la PCR es negativa después de 72 horas, la conciencia es normal y la resonancia y la punción son normales.",
+      "trap": "Esperar la confirmación: cada hora sin aciclovir empeora el pronóstico neurológico.",
+      "cita": [
+        {
+          "donde": "Encefalitis herpética: antes de que sea tarde...",
+          "texto": "El tratamiento debe iniciarse de inmediato, sin esperar los resultados de la PCR ni de la resonancia magnética"
+        },
+        {
+          "donde": "Encefalitis herpética: antes de que sea tarde...",
+          "texto": "El fármaco de elección es el aciclovir, a una dosis de 10 mg/kg cada 8 horas en pacientes no obesos"
+        },
+        {
+          "donde": "Encefalitis herpética: antes de que sea tarde...",
+          "texto": "La vía de administración debe ser siempre intravenosa, ya que la forma oral no es útil debido a su baja absorción"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "mi-c32",
+      "topic": "Neurología · Síndrome de Guillain-Barré",
+      "difficulty": "Nivel 2",
+      "src": "udea_neuro26",
+      "vignette": "Hombre de 28 años que 2 semanas después de una diarrea presenta debilidad ascendente y arreflexia. Hoy <span class='hy'>no logra caminar 10 metros sin ayuda</span>. Capacidad vital normal. ¿Cuál es el tratamiento?",
+      "options": [
+        "Inmunoglobulina IV 2 g/kg en 5 días, o plasmaféresis",
+        "Metilprednisolona IV 1 g al día por 5 días",
+        "Inmunoglobulina IV seguida de plasmaféresis de rutina",
+        "Observar: solo se trata si necesita ventilación"
+      ],
+      "correct": 0,
+      "whyCorrect": "La inmunoterapia se inicia en quien no puede caminar 10 metros de forma independiente. La inmunoglobulina IV (2 g/kg en 5 días) y la plasmaféresis (5 sesiones) son igualmente eficaces y acortan el tiempo hasta la recuperación entre 40 y 50 %.",
+      "pearl": "Guillain-Barré: tratar si no camina 10 m solo. IgIV o plasmaféresis, una de las dos. Vigilar capacidad vital y disautonomía.",
+      "trap": "Esperar la falla respiratoria para tratar: se pierde el beneficio de iniciar temprano.",
+      "cita": [
+        {
+          "donde": "Síndrome de Guillain-Barré",
+          "texto": "La terapia inmunomoduladora debe iniciarse en pacientes que no pueden caminar de forma independiente 10 metros"
+        },
+        {
+          "donde": "Síndrome de Guillain-Barré",
+          "texto": "Se ha demostrado que el intercambio plasmático o plasmaféresis (PLEX) y la inmunoglobulina intravenosa (IVIg) reducen el tiempo hasta el inicio de la recuperación en aproximadamente un 40 % a 50 %"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "mi-c33",
+      "topic": "Neurología · Síndrome vestibular agudo",
+      "difficulty": "Nivel 3",
+      "src": "udea_neuro26",
+      "vignette": "Hombre de 66 años, diabético, con vértigo continuo desde hace 10 horas, náuseas y <span class='hy'>nistagmo espontáneo</span>. Al hacer el test de impulso cefálico <span class='hy'>no aparece sacada correctiva</span> hacia ningún lado. ¿Cómo lo interpretas?",
+      "options": [
+        "Neuritis vestibular: el impulso cefálico es normal",
+        "Vértigo posicional paroxístico benigno: hacer la maniobra de Epley",
+        "Test sin valor: debió hacerse sin nistagmo espontáneo",
+        "Alto riesgo: sospechar un ACV hasta demostrar lo contrario"
+      ],
+      "correct": 3,
+      "whyCorrect": "En el síndrome vestibular agudo con nistagmo espontáneo, un impulso cefálico sin sacada correctiva (normal) orienta a una causa central, típicamente un ACV, y prácticamente descarta la neuritis vestibular. Lo «normal» es lo potencialmente más grave. HINTS+ solo es válido si hay nistagmo espontáneo.",
+      "pearl": "HINTS+: impulso cefálico, nistagmo, skew y audición. Impulso normal en un paciente con vértigo continuo = ACV hasta demostrar lo contrario.",
+      "trap": "Tranquilizarse porque el impulso cefálico es «normal».",
+      "cita": [
+        {
+          "donde": "Síndrome vestibular agudo",
+          "texto": "Central (también denominado normal o negativo): ausencia de sacada correctiva → signo de alto riesgo que orienta a una causa central, típicamente ACV"
+        },
+        {
+          "donde": "Síndrome vestibular agudo",
+          "texto": "Es fundamental recalcar que un HIT normal prácticamente descarta neuritis vestibular y obliga a pensar en un ACV hasta demostrar lo contrario."
+        },
+        {
+          "donde": "Síndrome vestibular agudo",
+          "texto": "Debe aplicarse exclusivamente en pacientes con SVA que presenten nistagmo espontáneo activo."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "mi-c34",
+      "topic": "Toxicología · Encefalopatía de Wernicke",
+      "difficulty": "Nivel 1",
+      "src": "udea_psiq26",
+      "vignette": "Hombre de 47 años con consumo crónico de alcohol y desnutrición, traído confuso, con marcha inestable y nistagmo. Glucemia capilar de 58 mg/dL. Vas a pasar dextrosa. ¿Qué debe ir <span class='hy'>antes</span>?",
+      "options": [
+        "Flumazenil IV para descartar benzodiacepinas",
+        "Tiamina IV 100 mg",
+        "Haloperidol IM para poder canalizarlo",
+        "Lactulosa por posible encefalopatía hepática"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el paciente con consumo crónico de alcohol, la tiamina IV (100 mg) se da antes de la glucosa para prevenir la encefalopatía de Wernicke. La tríada clásica (ataxia, alteración oculomotora y encefalopatía) no siempre está completa, por eso la sospecha debe ser amplia.",
+      "pearl": "Wernicke: ataxia + oftalmoparesia/nistagmo + confusión. Tiamina antes de la glucosa. No esperar la tríada completa.",
+      "trap": "Dar dextrosa sin tiamina: puede precipitar o empeorar la encefalopatía.",
+      "cita": [
+        {
+          "donde": "Complicaciones neuropsiquiátricas agudas del consumo de alcohol",
+          "texto": "tiamina IV (100 mg, antes de glucosa para prevenir encefalopatía de Wernicke)"
+        },
+        {
+          "donde": "Complicaciones neuropsiquiátricas agudas del consumo de alcohol",
+          "texto": "La tríada clásica (ataxia, disfunción oculomotora y encefalopatía) no siempre es simultánea"
+        }
+      ],
+      "verificado": "2026-11-21"
     }
   ],
   "fichas": [

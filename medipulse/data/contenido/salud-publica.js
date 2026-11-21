@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Epidemiología y Estadística",
   "prefijo": "sp",
   "paquete": "salud-publica",
-  "actualizado": "2026-11-17",
+  "actualizado": "2026-11-21",
   "casos": [
     {
       "id": 19,
@@ -177,6 +177,35 @@ MP_CONTENIDO.agregar({
       "whyCorrect": "Con poder de 40 %, el estudio tenía 60 % de probabilidad de no detectar una diferencia real (error tipo II, β). Un resultado no significativo en un estudio con poco poder no demuestra equivalencia: la ausencia de evidencia no es evidencia de ausencia.",
       "pearl": "Error tipo I (α): encontrar una diferencia que no existe. Error tipo II (β): no encontrar una que sí existe. Poder = 1 − β; se busca ≥ 80 %.",
       "trap": "Concluir que los tratamientos son equivalentes porque p > 0,05."
+    },
+    {
+      "id": "sp-c09",
+      "area": "Ensayos clínicos y lectura crítica",
+      "topic": "Lectura crítica · Guías de reporte",
+      "difficulty": "Nivel 2",
+      "src": "udea_mi26",
+      "vignette": "Un grupo publica un <span class='hy'>ensayo clínico aleatorizado</span> que compara una alerta de sepsis basada en inteligencia artificial frente al manejo convencional, con mortalidad como desenlace. ¿Qué guía de reporte corresponde a su informe de resultados?",
+      "options": [
+        "STROBE",
+        "PRISMA-AI",
+        "CONSORT-AI",
+        "SPIRIT-AI"
+      ],
+      "correct": 2,
+      "whyCorrect": "Los informes de resultados de ensayos clínicos que evalúan una intervención con IA usan CONSORT-AI; sus protocolos usan SPIRIT-AI. PRISMA-AI es para revisiones sistemáticas y metaanálisis sobre IA, y STROBE para estudios observacionales.",
+      "pearl": "Guías de reporte por diseño: ECA → CONSORT (protocolo: SPIRIT); observacional → STROBE; revisión sistemática → PRISMA. Con IA, sus extensiones «-AI».",
+      "trap": "Confundir la guía del protocolo (SPIRIT) con la del informe de resultados (CONSORT).",
+      "cita": [
+        {
+          "donde": "Manual de lectura crítica de artículos científicos con inteligencia artificial en medicina interna",
+          "texto": "se utiliza el SPIRIT-AI (9) para los protocolos de RCT y los informes de resultados de ensayos clínicos el CONSORT-AI (10)"
+        },
+        {
+          "donde": "Manual de lectura crítica de artículos científicos con inteligencia artificial en medicina interna",
+          "texto": "PRISMA-AI (15), diseñada para estandarizar las revisiones sistemáticas y metaanálisis que evalúan intervenciones basadas en IA"
+        }
+      ],
+      "verificado": "2026-11-21"
     }
   ],
   "fichas": [

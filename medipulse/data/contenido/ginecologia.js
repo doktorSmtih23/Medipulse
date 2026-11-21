@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Ginecología",
   "prefijo": "gin",
   "paquete": "starter",
-  "actualizado": "2026-11-17",
+  "actualizado": "2026-11-21",
   "casos": [
     {
       "id": 4,
@@ -330,6 +330,34 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-17"
+    },
+    {
+      "id": "gin-c08",
+      "topic": "Salud mental perinatal · Depresión posparto",
+      "difficulty": "Nivel 2",
+      "src": "udea_psiq26",
+      "vignette": "Mujer de 27 años, 5 semanas después del parto. En el control dice que llora a diario, no disfruta nada y no puede cuidar a su bebé; la escala de Edimburgo sale alta y refiere <span class='hy'>pensamientos de hacerse daño</span>. ¿Qué haces?",
+      "options": [
+        "Tranquilizarla: es tristeza posparto y se resuelve sola",
+        "Remitir a salud mental con enfoque perinatal",
+        "Repetir la escala de Edimburgo en el próximo control",
+        "Suspender la lactancia y empezar un antidepresivo sin control"
+      ],
+      "correct": 1,
+      "whyCorrect": "Hay depresión con deterioro funcional e ideación autolesiva: se remite a salud mental o psiquiatría con enfoque perinatal. El tamizaje con el test de Whooley y la escala de Edimburgo hace parte de la ruta materno perinatal.",
+      "pearl": "Remitir con enfoque perinatal: depresión o ansiedad moderada a grave, deterioro funcional, ideación autolesiva o suicida, antecedente psiquiátrico, sustancias o trauma reciente.",
+      "trap": "Llamarlo «tristeza posparto» y esperar: con ideación autolesiva hay que actuar hoy.",
+      "cita": [
+        {
+          "donde": "Comenzar bien la vida: salud mental perinatal y prevención de trastornos del neurodesarrollo",
+          "texto": "Remitir a salud mental o psiquiatra con enfoque perinatal cuando la mujer presente depresión o ansiedad moderada grave o con deterioro funcional, ideación autolesiva o suicida, antecedente psiquiátrico relevante, uso de sustancias psicoactivas, trauma reciente."
+        },
+        {
+          "donde": "Comenzar bien la vida: salud mental perinatal y prevención de trastornos del neurodesarrollo",
+          "texto": "a partir del uso de herramientas como el test de Whooley y la escala de depresión de Edimburgo"
+        }
+      ],
+      "verificado": "2026-11-21"
     }
   ],
   "fichas": [
