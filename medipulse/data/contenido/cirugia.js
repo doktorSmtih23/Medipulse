@@ -387,6 +387,222 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c09",
+      "topic": "Esófago · Barrett con displasia de bajo grado",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 58 años con reflujo crónico. La endoscopia de alta definición con biopsias muestra <span class='hy'>esófago de Barrett con displasia de bajo grado</span>, confirmada por el patólogo. ¿Cuándo es el siguiente control?",
+      "options": [
+        "Endoscopia con biopsias en 6 meses",
+        "Endoscopia en 3 a 5 años, como en el Barrett sin displasia",
+        "Esofagectomía, por el riesgo de cáncer",
+        "Solo inhibidor de bomba, sin más endoscopias"
+      ],
+      "correct": 0,
+      "whyCorrect": "Con Barrett y displasia de bajo grado, el Colegio Americano de Gastroenterología recomienda una nueva endoscopia con biopsias a los 6 meses del diagnóstico; si persiste, otra al año y luego anual. La progresión anual a adenocarcinoma es de 0,54 % con displasia de bajo grado, frente a 0,2 a 0,5 % sin displasia y 1,73 % con alto grado.",
+      "pearl": "Factores de progresión del Barrett: sexo masculino, displasia de bajo grado y segmento más largo. La endoscopia índice debe ser de alta calidad (alta definición y cromoendoscopia).",
+      "trap": "Vigilarlo como un Barrett sin displasia, o saltar a la esofagectomía.",
+      "cita": [
+        {
+          "donde": "Esófago de Barrett desde el consultorio",
+          "texto": "Ante el hallazgo de esófago de Barrett con displasia de bajo grado la recomendación del colegio americano de gastroenterología es realizar un nuevo control endoscópico y toma de biopsia en 6 meses desde el diagnóstico."
+        },
+        {
+          "donde": "Esófago de Barrett desde el consultorio",
+          "texto": "la tasa anual de progresión a adenocarcinoma de esófago para aquellos pacientes sin displasia era de 0,2 al 0,5 %, con displasia de bajo grado 0,54 % y de alto grado 1,73 %"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c10",
+      "topic": "Cirugía pediátrica · Invaginación intestinal",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Niño de 14 meses con episodios de llanto intenso y encogimiento de piernas, vómito y deposición con moco y sangre. La ecografía muestra el <span class='hy'>signo de la dona</span>. Está <span class='hy'>hemodinámicamente estable</span>, sin signos de peritonitis. ¿Cuál es el tratamiento de primera línea?",
+      "options": [
+        "Laparotomía y reducción manual de inmediato",
+        "Colon por enema con bario para confirmar y luego cirugía",
+        "Reducción con enema guiado por ecografía",
+        "Observar 24 horas: muchas se reducen solas"
+      ],
+      "correct": 2,
+      "whyCorrect": "En el niño estable, la primera línea es la reducción radiológica: un enema de aire, agua o contraste hidrosoluble guiado por imagen, de preferencia ecografía. La cirugía inmediata se reserva para el paciente inestable o con peritonitis o perforación. El colon por enema con bario quedó desplazado por la ecografía, porque es invasivo e irradia.",
+      "pearl": "Invaginación: el 75 % ocurre en los primeros 2 años y el 95 % es idiopática. Después de los 3 años, buscar una «cabeza» de invaginación (Meckel, pólipo, linfoma, púrpura de Henoch-Schönlein).",
+      "trap": "Ir directo a cirugía en un niño estable.",
+      "cita": [
+        {
+          "donde": "Abdomen agudo del menor de 5 años, todo un reto diagnóstico",
+          "texto": "en un paciente estable, la primera línea es la reducción radiológica, que consiste en un enema de aire, agua o contraste hidrosoluble guiado por imagen, ya sea fluoroscopia o ecografía, esta última de elección."
+        },
+        {
+          "donde": "Abdomen agudo del menor de 5 años, todo un reto diagnóstico",
+          "texto": "el 75 % ocurre en los primeros dos años de vida y el 90 % en los primeros tres. El 95 % de los casos son idiopáticos"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c11",
+      "topic": "Abdomen agudo · Apendicitis no complicada",
+      "difficulty": "Nivel 1",
+      "src": "udea_cir25",
+      "vignette": "Mujer de 25 años operada por apendicitis aguda. En la apendicectomía laparoscópica se encuentra un <span class='hy'>apéndice inflamado sin perforación ni peritonitis</span>. Recibió la profilaxis antes de la cirugía. ¿Qué antibiótico indicas después?",
+      "options": [
+        "Ninguno en el posoperatorio",
+        "Ceftriaxona y metronidazol IV por 5 días",
+        "Amoxicilina-clavulanato oral por 7 días",
+        "Ciprofloxacino y metronidazol oral por 10 días"
+      ],
+      "correct": 0,
+      "whyCorrect": "En la apendicitis no complicada no se requieren antibióticos en el posoperatorio. La forma complicada, con perforación o peritonitis, sí se beneficia de 4 a 5 días de antibiótico después de la cirugía.",
+      "pearl": "Apendicitis no complicada sin apendicolito: el manejo no operatorio con antibióticos es una alternativa que se discute con el paciente (WSES 2020, NICE 2019).",
+      "trap": "Prolongar el antibiótico en una apendicitis no complicada «por seguridad».",
+      "cita": [
+        {
+          "donde": "¿Qué hay de nuevo en apendicitis aguda?",
+          "texto": "En apendicitis no complicada no se requieren antibióticos en el postoperatorio"
+        },
+        {
+          "donde": "¿Qué hay de nuevo en apendicitis aguda?",
+          "texto": "estos pacientes si se benefician de tratamiento antibiótico postquirúrgico de 4-5 días"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c12",
+      "topic": "Cirugía pediátrica · Cuerpo extraño",
+      "difficulty": "Nivel 1",
+      "src": "udea_cir25",
+      "vignette": "Niña de 3 años que se tragó una moneda hace 3 horas. Está <span class='hy'>asintomática</span>, come y traga bien. La radiografía muestra la moneda <span class='hy'>en el estómago</span>. ¿Qué haces?",
+      "options": [
+        "Endoscopia hoy para extraerla",
+        "Observar en casa y controlar que salga",
+        "Laxante y enema para acelerar la salida",
+        "Cirugía si no sale en 24 horas"
+      ],
+      "correct": 1,
+      "whyCorrect": "Las monedas suelen pasar solas al estómago y salen espontáneamente en un máximo de 4 semanas. Solo requieren extracción si dan síntomas, si están en el esófago al evaluarlas o si no avanzan en 3 a 4 días.",
+      "pearl": "Las pilas y los imanes son distintos: una pila puede producir necrosis por presión, descarga eléctrica y fuga alcalina; varios imanes atrapan asas y las perforan.",
+      "trap": "Extraer de rutina una moneda que ya está en el estómago y no da síntomas.",
+      "cita": [
+        {
+          "donde": "Ingesta de cuerpo extraño en pediatría",
+          "texto": "Monedas: Por lo general, estas pasan espontáneamente al estómago y en un tiempo máximo de 4 semanas presentan salida espontánea. Sólo requiere extracción vía endoscópica o quirúrgica aquellas que: • Producen síntomas. • Que estén en el esófago al momento de la evaluación. • Si el objeto no avanza durante 3 – 4 días."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c13",
+      "topic": "Coloproctología · Absceso anorrectal",
+      "difficulty": "Nivel 1",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 42 años, diabético, con 3 días de dolor anal pulsátil y una masa fluctuante, roja y caliente <span class='hy'>junto al borde anal</span>. Febrícula. ¿Cuál es el tratamiento?",
+      "options": [
+        "Antibiótico oral por 10 días y control",
+        "Baños de asiento, analgésicos y control",
+        "Fistulotomía en el mismo acto siempre",
+        "Drenaje quirúrgico del absceso"
+      ],
+      "correct": 3,
+      "whyCorrect": "El tratamiento de los abscesos anorrectales es el drenaje quirúrgico, con la incisión sobre el área más fluctuante y lo más cerca posible del borde anal, para que una posible fístula sea corta, sin dañar el esfínter. El empaquetamiento solo se indica si sangra después del drenaje. La fístula se trata en el mismo acto solo si el compromiso del esfínter es mínimo y claro.",
+      "pearl": "Recurrencia del absceso: drenaje inadecuado, loculaciones y fístula asociada (un tercio de los casos).",
+      "trap": "Tratarlo solo con antibiótico: sin drenaje, el absceso no se resuelve.",
+      "cita": [
+        {
+          "donde": "Urgencias anorrectales",
+          "texto": "El tratamiento de los abscesos anorrectales es el drenaje quirúrgico. La incisión debería realizarse sobre el área más fluctuante de la colección y lo más cercano posible al borde anal para minimizar la longitud de una potencial fístula, además se debe evitar el daño al esfínter."
+        },
+        {
+          "donde": "Urgencias anorrectales",
+          "texto": "Sólo está indicado el empaquetamiento de las heridas si hay sangrado después del drenaje."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c14",
+      "topic": "Cabeza y cuello · Nódulo tiroideo",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Mujer de 45 años con un nódulo tiroideo de 2 cm hallado en el examen. La <span class='hy'>TSH está suprimida</span>. ¿Cuál es el siguiente estudio?",
+      "options": [
+        "Biopsia por aspiración con aguja fina de inmediato",
+        "Gammagrafía de tiroides",
+        "Tiroidectomía total diagnóstica",
+        "Repetir la ecografía en un año"
+      ],
+      "correct": 1,
+      "whyCorrect": "La gammagrafía con tecnecio no se usa de rutina, pero está indicada cuando la TSH está suprimida o baja, para saber si el nódulo es funcionante. Los nódulos hiperfuncionantes rara vez son malignos; los no funcionantes son los que tienen indicación de biopsia por aspiración.",
+      "pearl": "Bethesda, riesgo de malignidad: II benigno < 4 %; III 15–30 %; IV 20–35 %; V 60–75 %; VI > 97 %.",
+      "trap": "Puncionar de entrada un nódulo con TSH suprimida, sin saber si es funcionante.",
+      "cita": [
+        {
+          "donde": "Enfoque del paciente adulto con nódulo tiroideo",
+          "texto": "se recomienda realizarse cuando se encuentre la TSH sérica suprimida o en límites inferiores para evaluar la funcionalidad del nódulo"
+        },
+        {
+          "donde": "Enfoque del paciente adulto con nódulo tiroideo",
+          "texto": "ayuda en la diferenciación de los nódulos no funcionales, que tienen indicación de ACAF, de los nódulos hiperfuncionantes."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c15",
+      "topic": "Colon · Diverticulitis no complicada",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 55 años, inmunocompetente, con dolor en fosa ilíaca izquierda y fiebre baja. La tomografía muestra <span class='hy'>diverticulitis del sigmoides con inflamación pericólica, sin absceso ni perforación</span> (Hinchey Ia). Tolera la vía oral. ¿Qué indicas?",
+      "options": [
+        "Analgesia ambulatoria sin antibiótico",
+        "Hospitalizar y dar antibiótico IV por 10 días",
+        "Sigmoidectomía electiva tras este primer episodio",
+        "Drenaje percutáneo guiado por tomografía"
+      ],
+      "correct": 0,
+      "whyCorrect": "En la diverticulitis no complicada (Hinchey 0 y Ia) la evidencia respalda evitar los antibióticos: no cambian la recurrencia, las complicaciones, la recuperación ni la necesidad de cirugía. El pilar es el manejo del dolor y los cambios en el estilo de vida. El antibiótico se considera en pacientes seleccionados.",
+      "pearl": "Diverticulitis complicada: absceso, perforación, fístula u obstrucción.",
+      "trap": "Darle antibiótico a toda diverticulitis por reflejo.",
+      "cita": [
+        {
+          "donde": "Estado del arte de la diverticulitis aguda",
+          "texto": "El uso racional de antibióticos y los estudios han respaldado evitar el uso de antibióticos en diverticulitis Hinchey 0 y Ia, lo que demuestra que no hay diferencias clínicas en la recurrencia, complicaciones, tiempo de recuperación y necesidad de manejo quirúrgico."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c16",
+      "topic": "Cirugía pediátrica · Criptorquidia",
+      "difficulty": "Nivel 1",
+      "src": "udea_cir25",
+      "vignette": "Lactante de 6 meses con el testículo derecho <span class='hy'>no palpable en el escroto</span> desde el nacimiento; el izquierdo está en su sitio. ¿Qué haces?",
+      "options": [
+        "Esperar hasta los 2 años por si desciende solo",
+        "Gonadotropina coriónica y control en un año",
+        "Remitir ya para orquidopexia antes de 18 meses",
+        "Ecografía y resonancia antes de cualquier remisión"
+      ],
+      "correct": 2,
+      "whyCorrect": "Después de los 6 meses el descenso espontáneo es poco probable. Las guías de la AUA y la EAU recomiendan la orquidopexia antes de los 18 meses, y la AUA señala que se debe remitir a cirugía pediátrica a los 6 meses. Esperar no aporta beneficio.",
+      "pearl": "Criptorquidia: una de las malformaciones congénitas más comunes; afecta la fertilidad y se asocia a mayor riesgo de malignidad.",
+      "trap": "Esperar a los 2 años por un descenso que después de los 6 meses es poco probable.",
+      "cita": [
+        {
+          "donde": "Calendario quirúrgico en pediatría",
+          "texto": "La actualización de las guías de la AUA (2014) y la EAU (2024) recomiendan que la orquiopexia se realice antes de los 18 meses de edad, y la AUA señala la importancia de derivar al especialista en cirugía pediátrica a los 6 meses."
+        },
+        {
+          "donde": "Calendario quirúrgico en pediatría",
+          "texto": "después de los 6 meses, el descenso espontáneo del testículo es poco probable"
+        }
+      ],
+      "verificado": "2026-11-21"
     }
   ],
   "fichas": [

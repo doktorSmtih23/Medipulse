@@ -90,9 +90,11 @@ test.describe("Mi enfoque", () => {
     await expect(page.locator("#focusBox")).toContainText("pocas preguntas de este tipo");
     await expect(page.locator("#focusBox [data-go=apuntes]")).toBeVisible();
   });
-  test("la IA arranca con las cantidades de tu enfoque", async ({ page }) => {
-    await page.selectOption("#focusSel", "critica");
-    expect(await page.evaluate(() => TEMPLATE_DEFAULT().counts.critica)).toBe(6);
+  test("los casos que propone la IA suman uno al tipo de tu enfoque", async ({ page }) => {
+    const sel = {pages: ["Texto de una revisión."], nums: [1]};
+    const antes = await page.evaluate(sel => casosPropuesta("revision", sel).cant.diagnostico, sel);
+    await page.selectOption("#focusSel", "diagnostico");
+    expect(await page.evaluate(sel => casosPropuesta("revision", sel).cant.diagnostico, sel)).toBe(antes + 1);
   });
   test("Progreso muestra el acierto por tipo de pregunta y permite elegir el enfoque", async ({ page }) => {
     await page.click("nav [data-go=prog]");

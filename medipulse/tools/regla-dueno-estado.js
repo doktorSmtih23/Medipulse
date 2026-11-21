@@ -15,7 +15,7 @@ const DUENOS = {
   check: "vigencia",
   notes: "mbe",
   reports: "reportes",
-  tpls: "taller-ia",
+  tpls: "taller-casos",
   apuntes: "apuntes",
   resp: "vulnerabilidades",
   metaPdf: "compromiso",

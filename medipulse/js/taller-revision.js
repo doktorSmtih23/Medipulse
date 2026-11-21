@@ -1,30 +1,7 @@
 // ===================================================================
-// TALLER · DATOS CLAVE Y REVISIÓN
+// TALLER · REVISIÓN ANTES DE GUARDAR
 // ===================================================================
-// Datos clave sin internet y la revisión de lo propuesto (por la IA o sin ella) antes de guardarlo.
-// ---------- ⚡ Datos clave (sin internet) ----------
-async function runGenerate(){
-  if (genBusy) return;
-  const st = $("#gStatus"), s = cur();
-  if (gen.tab === "ai" && !getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return go("lib"); }
-  const sel = selectedText();
-  if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
-  const chars = sel.pages.reduce((x,p)=>x+p.length, 0);
-  if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">Esas páginas no tienen texto que se pueda leer.</span>`;
-  if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">Demasiado texto: elige menos páginas o un tema más concreto.</span>`;
-  const c = gen.counts; if (!(c.caso + c.critica + c.directa + c.ficha)) return st.innerHTML = `<span style="color:var(--bad)">Pide al menos una pregunta o una ficha.</span>`;
-  genBusy = true; $("#gGo").disabled = true;
-  try {
-    st.innerHTML = `<span class="spin"></span> Claude está leyendo las ${pagesLabel(sel)}${gen.topic.trim() ? ` sobre “${esc(gen.topic.trim())}”` : ""} y redactando lo que pediste. Puede tardar 1–3 minutos; no cierres la app.`;
-    cands = await aiGenerate(sel, s.title);
-    st.innerHTML = "";
-  } catch(err) {
-    st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button>`;
-  } finally { genBusy = false; const b = $("#gGo"); if (b) b.disabled = false; }
-  renderReview();
-  if (cands) $("#reviewBox").scrollIntoView({behavior:"smooth", block:"start"});
-}
-
+// La revisión de lo propuesto (por la IA o sin ella) antes de guardarlo.
 // ---------- Revisión antes de guardar ----------
 // Vista previa de una ficha propuesta, tal como se verá en la app
 const hyPrevHTML = c => `<div class="hyprev" style="border-top-color:${SPEC_COLOR[c.specialty]||"var(--accent)"}">

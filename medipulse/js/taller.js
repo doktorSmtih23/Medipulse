@@ -58,7 +58,7 @@ async function renderSrc(){
 const ACCIONES = {
   read: ["📖 Leer", "El PDF tal como es: selecciona, recorta o sube capturas."],
   recs: ["⚡ Recomendaciones", "Las de la guía, separadas por grado: lo que se hace, lo que puede considerarse y lo que no."],
-  ai: ["💎 Fichas y preguntas", "La IA arma fichas y preguntas del tema."],
+  ai: ["💎 Fichas y casos", "La IA arma fichas o casos tipo examen del tema."],
   audit: ["🔬 Auditoría", "Veredicto, algoritmo, qué hacer y qué no, umbrales."],
   tema: ["📖 Revisión de tema", "Fisiopatología, cuadro típico, banderas rojas, diferenciales."],
   revista: ["🩺 Pase de revista", "Resumen de 60 s, conductas y preguntas del profesor."]

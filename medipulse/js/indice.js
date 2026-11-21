@@ -193,8 +193,8 @@ function renderRecs(){
   if (!recs.length) cuerpo = estudio
     ? `<p class="small" style="margin:0">No encontré frases de resultados con su efecto (hazard ratio, riesgo relativo, IC 95 %) en «${donde}». Prueba con <b>Todo el documento</b> o con el tema de resultados.</p>`
     : `<div class="note stack" style="margin:0" id="recSinGrado"><p class="small" style="margin:0">${donde === "Todo el documento" ? "En <b>todo el documento</b>" : `En «${donde}»`} <b>no encontré recomendaciones con su grado</b> (la clase o la fuerza, como en las guías AHA/ACC, ESC, GRADE o NICE), así que sin IA no puedo separarlas con seguridad.</p>
-        <p class="xs muted" style="margin:0">${getKey() ? "Con IA, «💎 Fichas y preguntas» saca lo importante del tema. " : ""}Sin IA, en «📖 Leer» marca tú lo importante y crea la ficha.</p>
-        <div class="row" style="gap:6px"><button class="btn sm" data-gtab="read">📖 Leer</button>${getKey() ? `<button class="btn sm" data-gtab="ai">💎 Fichas y preguntas</button>` : ""}</div></div>`;
+        <p class="xs muted" style="margin:0">${getKey() ? "Con IA, «💎 Fichas y casos» saca lo importante del tema. " : ""}Sin IA, en «📖 Leer» marca tú lo importante y crea la ficha.</p>
+        <div class="row" style="gap:6px"><button class="btn sm" data-gtab="read">📖 Leer</button>${getKey() ? `<button class="btn sm" data-gtab="ai">💎 Fichas y casos</button>` : ""}</div></div>`;
   else if (estudio) cuerpo = `<p class="xs muted" style="margin:0">Es un estudio original: no trae recomendaciones. Estas son las frases de «${donde}» con el efecto y sus cifras. Para leerlo con método, usa 🔬 Auditoría o el laboratorio MBE.</p>
       ${plegable("recres", `<b>📊 Ver las ${recs.length} frases con cifras</b>`, recs.map((r, i) => fila(i)).join(""), recs.some(r => r.on))}`;
   else cuerpo = `<p class="xs muted" style="margin:0">Las recomendaciones de «${donde}» separadas por su grado (${recs.length}). Marca las que quieras y crea la ficha.</p>
