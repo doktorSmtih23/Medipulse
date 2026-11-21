@@ -61,7 +61,13 @@ $("#diagBtn").onclick = () => go("diag");
 
 function renderNew(){
   if (!["e", "q", "h", "g", "i"].includes(newType)) newType = "e";
-  $("#newSeg").innerHTML = `<button data-nt="e" class="${newType==="e"||newType==="q"?"on":""}"><b>✏️ Editar un caso</b><span>Hazlo más difícil o a tu estilo</span></button><button data-nt="h" class="${newType==="h"?"on":""}"><b>💎 Ficha high-yield</b><span>Datos clave, bandera roja y trampa</span></button><button data-nt="g" class="${newType==="g"?"on":""}"><b>🤖 Generar desde tu PDF</b><span>La IA de MediPulse crea casos y fichas</span></button><button data-nt="i" class="${newType==="i"?"on":""}"><b>📥 Pegar de otra IA</b><span>Gemini, ChatGPT u otro banco</span></button>`;
+  const MODOS = [
+    ["e", "✏️ Editar un caso", "Hazlo más difícil o a tu estilo"],
+    ["h", "💎 Ficha high-yield", "Datos clave, bandera roja y trampa"],
+    ["g", "🤖 Generar desde tu PDF", "La IA de MediPulse crea casos y fichas"],
+    ["i", "📥 Pegar de otra IA", "Gemini, ChatGPT u otro banco"]];
+  const activo = k => newType === k || (k === "e" && newType === "q");   // «q» (caso en blanco) vive dentro de «Editar»
+  $("#newSeg").innerHTML = MODOS.map(([k, t, d]) => `<button data-nt="${k}" class="${activo(k) ? "on" : ""}"><b>${t}</b><span>${d}</span></button>`).join("");
   document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ newType = b.dataset.nt; renderNew(); });
   if (newType === "i") { $("#newForm").classList.add("card"); renderImportar($("#newForm")); renderMine(); return; }
   if (newType === "e") { $("#newForm").classList.add("card"); renderEditarCaso($("#newForm")); renderMine(); return; }
@@ -110,8 +116,16 @@ function saveNew(){
 function renderMine(){
   const qs = S.userQ.filter(q=>q.manual && !S.hidden["q"+q.id]), cs = S.userC.filter(c=>c.manual && !S.hidden["c"+c.id]), hs = S.userH.filter(h=>h.manual && !S.hidden["h"+h.id]);
   const all = [...qs.map(q=>({k:"q"+q.id, t:"🩺 "+q.topic, d: `${q.externa ? "📥 Importada · " : ""}${q.specialty} · ${QMETODO[qKind(q)].t}`})), ...hs.map(h=>({k:"h"+h.id, t:"💎 "+h.title, d: h.specialty})), ...cs.map(c=>({k:"c"+c.id, t:"🃏 "+c.front}))];
-  $("#mineList").innerHTML = all.length ? `
-    ${plegable("mias", `<b>Creadas por ti</b> <span class="xs muted">${all.length}</span>`, `<div class="row" style="margin:6px 0"><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>${all.map(x=>`<div><div class="srcitem"><div style="flex:1;min-width:0;word-break:break-word"><div class="small">${esc(x.t)}</div>${x.d ? `<div class="xs muted">${esc(x.d)}</div>` : ""}</div>${x.k[0] !== "c" ? `<button class="btn ghost sm" data-medit="${x.k}" aria-label="Corregir">✏️</button>` : ""}<button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div><div data-mbox="${x.k}"></div></div>`).join("")}`)}`
+  // Una fila: el ítem, sus botones (corregir no aplica a los repasos rápidos) y el espacio donde se abre la corrección.
+  const fila = x => {
+    const texto = `<div class="small">${esc(x.t)}</div>` + (x.d ? `<div class="xs muted">${esc(x.d)}</div>` : "");
+    const corregir = x.k[0] !== "c" ? `<button class="btn ghost sm" data-medit="${x.k}" aria-label="Corregir">✏️</button>` : "";
+    const eliminar = `<button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button>`;
+    return `<div><div class="srcitem"><div style="flex:1;min-width:0;word-break:break-word">${texto}</div>${corregir}${eliminar}</div><div data-mbox="${x.k}"></div></div>`;
+  };
+  const exportar = `<div class="row" style="margin:6px 0"><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>`;
+  const titulo = `<b>Creadas por ti</b> <span class="xs muted">${all.length}</span>`;
+  $("#mineList").innerHTML = all.length ? "\n    " + plegable("mias", titulo, exportar + all.map(fila).join(""))
     : `<p class="muted small" style="margin:0">Lo que crees aquí entra a tu repaso espaciado y lo puedes compartir como pack.</p>`;
   document.querySelectorAll("[data-mdel]").forEach(b=>b.onclick=()=>{ const k = b.dataset.mdel;
     quitarPropio(k); rebuild(); save(); renderMine(); });
@@ -154,13 +168,21 @@ function importPack(p){
 // ---------- 🤖 Generar desde tu PDF: atajo al taller con IA de una fuente ----------
 // Elige uno de tus documentos (o sube uno) y abre su taller con IA listo para crear casos y fichas.
 function generarDesde(id){ prepSrc(id, {tab: "ai", customOpen: true}); go("src"); }
+// Un documento en «Generar desde tu PDF»: icono por tipo, título, tamaño y el botón «Crear».
+function docGenerarHTML(s, clave){
+  const icono = s.apunte ? "📓" : s.kind === "text" ? "📋" : "📄";
+  const tam = s.apunte ? `${s.pages} puntos` : s.kind === "text" ? "texto pegado" : `${s.pages} págs`;
+  return `<div class="row docrow" style="gap:8px;flex-wrap:nowrap"><span>${icono}</span>`
+    + `<div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(s.title)}</b><div class="xs muted">${tam}</div></div>`
+    + `<button class="btn sm${clave ? " primary" : ""}" data-gen="${esc(s.id)}">Crear</button></div>`;
+}
 function renderGenerarPdf(box){
   const docs = S.sources.filter(s => s.kind !== "pack").slice().sort((a, b) => (b.added || 0) - (a.added || 0));
   const clave = !!getKey();
   box.innerHTML = `<div class="stack">
     <div><b>🤖 Casos y fichas con la IA de MediPulse</b><p class="xs muted" style="margin:4px 0 0">Elige el documento: la IA lee solo ese texto, crea casos tipo examen y fichas con la página de donde sale cada dato, y comprueba que las citas estén en el PDF. Tú revisas todo antes de guardar.</p></div>
     ${clave ? "" : `<div class="note"><b>Necesitas tu clave de API de Claude</b> (se paga aparte, unos centavos de dólar por documento). <div class="row" style="gap:6px;margin-top:8px"><button class="btn sm primary" data-go="guide">Cómo conseguirla</button><button class="btn sm" data-nt2="i">📥 Sin clave: usa tu propia IA</button></div></div>`}
-    ${docs.length ? `<div class="stack" style="gap:6px">${docs.map(s => `<div class="row docrow" style="gap:8px;flex-wrap:nowrap"><span>${s.apunte ? "📓" : s.kind === "text" ? "📋" : "📄"}</span><div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(s.title)}</b><div class="xs muted">${s.apunte ? `${s.pages} puntos` : s.kind === "text" ? "texto pegado" : `${s.pages} págs`}</div></div><button class="btn sm${clave ? " primary" : ""}" data-gen="${esc(s.id)}">Crear</button></div>`).join("")}</div>`
+    ${docs.length ? `<div class="stack" style="gap:6px">${docs.map(s => docGenerarHTML(s, clave)).join("")}</div>`
       : `<p class="small muted" style="margin:0">Aún no tienes documentos. Sube un PDF (una guía, una revisión, un capítulo) y la IA arma casos y fichas a partir de él.</p>`}
     <label class="btn${docs.length ? "" : " primary"} block center" style="display:block">➕ Subir un PDF nuevo<input type="file" id="genPdfIn" accept="application/pdf" hidden></label>
     <div id="genPdfProg" class="small muted"></div>
