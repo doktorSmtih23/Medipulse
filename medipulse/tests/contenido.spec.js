@@ -118,3 +118,16 @@ test("cada ficha HY tiene título, 2 a 6 datos clave y una fuente", () => {
 test("cada tarjeta tiene frente y reverso", () => {
   expect(todos("tarjetas").filter(c => !c.front || !c.back).map(donde)).toEqual([]);
 });
+
+test("la respuesta correcta no se delata por ser la opción más larga", async ({ page }) => {
+  await page.goto("/");
+  const r = await page.evaluate(() => {
+    const qs = QUESTIONS.filter(q => q.options && q.options.length >= 4);
+    const larga = qs.filter(q => { const L = q.options.map(o => o.length); return L[q.correct] === Math.max(...L); });
+    // «Clara»: la correcta mide más de 1,3 veces la siguiente opción más larga.
+    const clara = larga.filter(q => { const L = q.options.map(o => o.length).sort((a, b) => b - a); return L[0] > 1.3 * L[1]; });
+    return {n: qs.length, larga: larga.length, clara: clara.map(q => q.id)};
+  });
+  expect(r.clara, "casos donde la correcta es mucho más larga que las demás").toEqual([]);
+  expect(r.larga / r.n, "la correcta es la más larga en más casos de lo esperable al azar").toBeLessThanOrEqual(0.3);
+});

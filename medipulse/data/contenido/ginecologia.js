@@ -87,10 +87,10 @@ MP_CONTENIDO.agregar({
       "src": "nice_ect",
       "vignette": "Mujer de 27 años con amenorrea de 6 semanas, <span class='hy'>dolor en fosa ilíaca izquierda, sangrado vaginal escaso y PA 84/52 mmHg, FC 120 lpm</span>. β-hCG positiva, ecografía transvaginal: útero vacío y líquido libre abundante en fondo de saco de Douglas. ¿Conducta?",
       "options": [
-        "Metotrexato 50 mg/m² IM en dosis única",
-        "Repetir β-hCG en 48 horas para verificar duplicación",
-        "Legrado uterino obstétrico por aborto incompleto",
-        "Reanimación con cristaloides + laparoscopia (o laparotomía) quirúrgica urgente"
+        "Metotrexato 50 mg/m² IM en dosis única y control de β-hCG",
+        "Repetir β-hCG en 48 horas para verificar si se duplica antes de decidir",
+        "Legrado uterino obstétrico por aborto incompleto con sangrado activo",
+        "Reanimación y cirugía urgente (laparoscopia o laparotomía)"
       ],
       "correct": 3,
       "whyCorrect": "Es un embarazo ectópico con dolor importante, inestabilidad hemodinámica y hemoperitoneo: se reanima y se opera de urgencia. NICE indica cirugía como primera línea cuando hay dolor significativo, masa anexial de 35 mm o más, latido fetal visible o hCG de 5.000 UI/L o más; el metotrexato es solo para el ectópico no roto, sin dolor importante.",
@@ -133,10 +133,10 @@ MP_CONTENIDO.agregar({
       "src": "udea_gin26",
       "vignette": "Mujer de 31 años, G3P2 con dos cesáreas previas, con 31 semanas de gestación. Consulta por <span class='hy'>sangrado vaginal rojo brillante, abundante e indoloro</span> que empezó en reposo. Está hemodinámicamente estable, el útero está blando y no tiene ecografías del tercer trimestre. ¿Cuál es la conducta inicial?",
       "options": [
-        "Tacto vaginal para evaluar la dilatación y el origen del sangrado",
-        "Estabilizarla y hacer ecografía para localizar la placenta, sin tacto vaginal hasta descartar placenta previa",
-        "Amniotomía para acelerar el parto",
-        "Uterotónicos y observación ambulatoria"
+        "Tacto vaginal para evaluar la dilatación cervical y el origen del sangrado",
+        "Estabilizar y ecografía para ubicar la placenta, sin tacto vaginal",
+        "Amniotomía para acelerar el parto y disminuir el sangrado",
+        "Uterotónicos y observación ambulatoria con signos de alarma"
       ],
       "correct": 1,
       "whyCorrect": "El sangrado rojo, abundante e indoloro en la segunda mitad del embarazo es típico de placenta previa. Nunca se hace tacto vaginal sin haberla descartado, porque puede desencadenar una hemorragia masiva. La prioridad es estabilizar a la madre y luego la ecografía (transabdominal y, si se sospecha placenta o vasa previa, transvaginal, que es segura).",
@@ -162,10 +162,10 @@ MP_CONTENIDO.agregar({
       "tipo": "datos",
       "vignette": "Mujer de 27 años, primigestante, con 36 semanas de embarazo. En la ecografía de control el <span class='hy'>bolsillo vertical máximo mide 1,5 cm</span>; el crecimiento fetal es normal, no hay malformaciones, las membranas están íntegras y la monitoría es reactiva. Según la ACOG, ¿en qué momento se considera terminar este embarazo?",
       "options": [
-        "Inmediatamente, por cesárea",
-        "A las 41 semanas si persiste el hallazgo",
-        "Entre las 36 y las 37 + 6 semanas, con vía según las condiciones obstétricas",
-        "Solo si aparece restricción del crecimiento fetal"
+        "Inmediatamente, por cesárea, por el riesgo de compresión del cordón",
+        "A las 41 semanas si persiste el hallazgo en la ecografía",
+        "Entre las 36 y las 37 + 6 semanas, por la vía que corresponda",
+        "Solo si aparece restricción del crecimiento fetal en el seguimiento"
       ],
       "correct": 2,
       "whyCorrect": "Es un oligohidramnios aislado (idiopático): BVM menor de 2 cm sin malformaciones, restricción del crecimiento ni ruptura de membranas. Por recomendación de la ACOG se considera terminar el embarazo entre las 36 y las 37 + 6 semanas. El oligohidramnios no contraindica el parto vaginal, y en el trabajo de parto se necesita monitoreo fetal continuo por el riesgo de compresión del cordón.",
@@ -222,9 +222,9 @@ MP_CONTENIDO.agregar({
       "src": "udea_gin26",
       "vignette": "Mujer de 33 años con <span class='hy'>tres pérdidas gestacionales</span> antes de la semana 10. El estudio muestra <span class='hy'>anticoagulante lúpico positivo en dos determinaciones separadas por 12 semanas</span>; útero, TSH y anticuerpos antiperoxidasa normales. Desea un nuevo embarazo. ¿Qué tratamiento le ofreces?",
       "options": [
-        "Aspirina en dosis bajas desde antes de la concepción y heparina en dosis profilácticas al confirmar un embarazo viable",
-        "Solo progesterona vaginal desde la concepción",
-        "Prednisona e inmunoglobulina intravenosa",
+        "Aspirina antes de la concepción y heparina profiláctica con embarazo viable",
+        "Solo progesterona vaginal desde la concepción hasta la semana 12",
+        "Prednisona más inmunoglobulina intravenosa durante el primer trimestre",
         "Ningún tratamiento: la aspirina y la heparina no sirven en la pérdida recurrente"
       ],
       "correct": 0,
@@ -282,10 +282,10 @@ MP_CONTENIDO.agregar({
       "src": "udea_gin26",
       "vignette": "Mujer de 24 años, 39 semanas, en trabajo de parto con 6 cm de dilatación y membranas rotas hace 14 horas. Temperatura oral de <span class='hy'>38,4 °C, que persiste a los 30 minutos</span>, y <span class='hy'>frecuencia cardiaca fetal basal de 168 lpm</span>, sin desaceleraciones. ¿Cuál es la conducta?",
       "options": [
-        "Cesárea inmediata por la infección",
+        "Cesárea inmediata por la infección intraamniótica",
         "Acetaminofén y vigilar; antibiótico solo si la fiebre llega a 39 °C",
-        "Antibiótico intravenoso (por ejemplo, ampicilina y gentamicina) y continuar el trabajo de parto; cesárea solo por indicación obstétrica",
-        "Esperar el parto y dar antibiótico al recién nacido"
+        "Antibiótico IV y seguir el trabajo de parto; cesárea solo si hay otra indicación",
+        "Esperar el parto y dar antibiótico solo al recién nacido si nace con fiebre o taquicardia"
       ],
       "correct": 2,
       "whyCorrect": "Hay fiebre materna (38 a 38,9 °C que persiste a los 30 minutos) con taquicardia fetal: infección intraamniótica sospechada. Se inicia antibiótico intraparto (un esquema es ampicilina con gentamicina). La infección intraamniótica aislada no justifica la cesárea: la vía se individualiza.",
@@ -311,9 +311,9 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 26 años con dismenorrea progresiva y dispareunia profunda de 3 años de evolución. No desea embarazo por ahora. La <span class='hy'>ecografía de mapeo para endometriosis</span> muestra un nódulo en el ligamento uterosacro izquierdo, sin endometriomas. ¿Cuál es el tratamiento de primera línea?",
       "options": [
         "Laparoscopia diagnóstica para confirmar la enfermedad antes de tratar",
-        "Análogos de GnRH por 6 meses",
-        "Supresión hormonal continua con anticonceptivos combinados o con progestinas, además de analgésicos",
-        "Histerectomía con salpingooforectomía bilateral"
+        "Análogos de GnRH por 6 meses como tratamiento inicial",
+        "Anticonceptivos combinados continuos o progestinas, más analgésicos",
+        "Histerectomía con salpingooforectomía bilateral para resolver el dolor"
       ],
       "correct": 2,
       "whyCorrect": "Hoy el diagnóstico se hace con la ecografía de mapeo (sensibilidad 93 %, especificidad 96 %) o con resonancia; no hace falta laparoscopia para empezar a tratar. En la paciente con dolor que no busca embarazo, la primera línea es la supresión hormonal continua con anticonceptivos combinados o solo progestinas; los análogos o antagonistas de GnRH son de segunda línea.",

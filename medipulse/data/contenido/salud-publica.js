@@ -66,10 +66,10 @@ MP_CONTENIDO.agregar({
       "src": "gordis",
       "vignette": "En un ensayo clínico aleatorizado de un antihipertensivo, el <span class='hy'>15 % de los pacientes abandonó el tratamiento</span> por efectos adversos, la mayoría en el grupo intervención. Los autores presentan como resultado principal solo a quienes completaron el tratamiento según el protocolo, y muestran un gran beneficio. ¿Qué análisis debió ser el principal para conservar los beneficios de la aleatorización?",
       "options": [
-        "Análisis por protocolo",
-        "Análisis por intención de tratar, con todos en el grupo al que fueron asignados",
-        "Análisis solo de los pacientes con buena adherencia",
-        "Análisis de subgrupos por edad"
+        "Análisis por protocolo, con los que completaron el tratamiento",
+        "Análisis por intención de tratar: cada uno en su grupo asignado",
+        "Análisis solo de los pacientes con buena adherencia al tratamiento",
+        "Análisis de subgrupos por edad para encontrar quién se beneficia"
       ],
       "correct": 1,
       "whyCorrect": "El análisis por intención de tratar incluye a todos los pacientes en el grupo al que fueron aleatorizados, hayan completado o no el tratamiento. Así conserva la comparabilidad que da la aleatorización y refleja lo que pasa en la práctica. Excluir a quienes abandonan, sobre todo si son más en un grupo, rompe esa comparabilidad y exagera el beneficio.",
@@ -100,10 +100,10 @@ MP_CONTENIDO.agregar({
       "src": "gordis",
       "vignette": "Tras implementar un programa de tamizaje de un cáncer, la <span class='hy'>supervivencia a 5 años desde el diagnóstico aumentó</span> de 40 % a 60 %. Sin embargo, la <span class='hy'>mortalidad por ese cáncer en la población no cambió</span>. ¿Qué explica mejor este hallazgo?",
       "options": [
-        "El tratamiento mejoró gracias al diagnóstico temprano",
-        "Sesgo de anticipación (lead time): el diagnóstico se adelantó sin cambiar la fecha de muerte",
-        "Sesgo de memoria de los pacientes encuestados",
-        "Error tipo I por un tamaño de muestra grande"
+        "El tratamiento mejoró gracias al diagnóstico más temprano",
+        "Sesgo de anticipación: el diagnóstico se adelantó, la muerte no",
+        "Sesgo de memoria de los pacientes encuestados en el seguimiento",
+        "Error tipo I por un tamaño de muestra demasiado grande para el estudio"
       ],
       "correct": 1,
       "whyCorrect": "El tamizaje adelanta el momento del diagnóstico. Si la muerte ocurre en la misma fecha, el tiempo medido desde el diagnóstico se alarga y la supervivencia parece mejor, sin beneficio real. Por eso el desenlace que demuestra beneficio de un tamizaje es la mortalidad, no la supervivencia desde el diagnóstico.",
@@ -168,10 +168,10 @@ MP_CONTENIDO.agregar({
       "src": "gordis",
       "vignette": "Un ensayo clínico con <span class='hy'>80 pacientes</span> compara dos analgésicos y no encuentra diferencia significativa en el dolor (p = 0,30). Los autores reconocen que el estudio tenía un <span class='hy'>poder estadístico de 40 %</span> para detectar la diferencia que consideraban importante. ¿Cuál es la conclusión correcta?",
       "options": [
-        "Los dos analgésicos son igual de eficaces",
-        "El nuevo analgésico es inferior",
-        "No se puede concluir que sean iguales: hay alto riesgo de error tipo II",
-        "Hubo un error tipo I"
+        "Los dos analgésicos son igual de eficaces para el dolor",
+        "El nuevo analgésico es inferior al de comparación",
+        "No se puede concluir que sean iguales: alto riesgo de error tipo II",
+        "Hubo un error tipo I porque el valor de p fue mayor de 0,05 en la comparación"
       ],
       "correct": 2,
       "whyCorrect": "Con poder de 40 %, el estudio tenía 60 % de probabilidad de no detectar una diferencia real (error tipo II, β). Un resultado no significativo en un estudio con poco poder no demuestra equivalencia: la ausencia de evidencia no es evidencia de ausencia.",

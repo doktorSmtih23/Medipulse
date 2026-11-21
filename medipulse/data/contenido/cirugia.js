@@ -47,9 +47,9 @@ MP_CONTENIDO.agregar({
       "src": "nice_tr",
       "vignette": "Joven sufre herida por arma blanca en hemitórax derecho. Llega con <span class='hy'>disnea severa, PA 70/40 mmHg, ingurgitación yugular, desviación traqueal a la izquierda y abolición del murmullo vesicular derecho</span>. ¿Acción inmediata?",
       "options": [
-        "Descompresión torácica inmediata (toracostomía abierta, o con aguja si no hay experiencia) seguida de tubo de tórax",
-        "Solicitar radiografía de tórax portátil urgente para confirmar diagnóstico",
-        "Pericardiocentesis subxifoidea guiada por ecografía",
+        "Descompresión torácica inmediata y luego tubo de tórax",
+        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
+        "Pericardiocentesis subxifoidea guiada por ecografía en la sala de reanimación",
         "Intubación orotraqueal con presión positiva antes de descomprimir el tórax"
       ],
       "correct": 0,
@@ -79,10 +79,10 @@ MP_CONTENIDO.agregar({
       "src": "wses_app",
       "vignette": "Hombre de 21 años con <span class='hy'>dolor periumbilical que migró a fosa ilíaca derecha</span> hace 14 horas, anorexia, náuseas, T° 37.9°C, Blumberg positivo y leucocitos 14.500/mm³ con neutrofilia. ¿Conducta?",
       "options": [
-        "Alta con analgésicos, sin estudios",
-        "Colonoscopia diagnóstica",
-        "Metronidazol oral ambulatorio como única medida",
-        "Apendicectomía laparoscópica dentro de las 24 horas del ingreso, con profilaxis antibiótica en dosis única"
+        "Alta con analgésicos y control en 24 horas si persiste el dolor",
+        "Colonoscopia diagnóstica para descartar enfermedad inflamatoria",
+        "Metronidazol oral ambulatorio como única medida, sin cirugía",
+        "Apendicectomía laparoscópica en las primeras 24 horas"
       ],
       "correct": 3,
       "whyCorrect": "Es un cuadro típico de apendicitis aguda no complicada. La WSES 2025 recomienda la apendicectomía laparoscópica dentro de las 24 horas del ingreso, con una sola dosis de antibiótico profiláctico antes de la cirugía y sin antibiótico posoperatorio.",
@@ -244,9 +244,9 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 61 años con diabetes mal controlada, 3 días de dolor perineal <span class='hy'>desproporcionado al examen</span>, edema escrotal y crepitación al palpar. Está febril y taquicárdico. El puntaje LRINEC calculado es de 5. Se inicia la reanimación y el antibiótico de amplio espectro. ¿En cuánto tiempo debe hacerse el desbridamiento quirúrgico?",
       "options": [
         "Ninguno por ahora: un LRINEC menor de 6 descarta la fascitis necrosante",
-        "Dentro de las primeras 6 a 12 horas, con retiro de todo el tejido necrótico y nuevas revisiones cada 24 a 72 horas",
-        "Después de 48 horas de antibiótico, cuando se delimite la necrosis",
-        "Solo si la resonancia confirma gas en la fascia"
+        "En las primeras 6 a 12 horas, y repetir cada 24 a 72 horas",
+        "Después de 48 horas de antibiótico, cuando se delimite bien la necrosis",
+        "Solo si la resonancia confirma gas en la fascia o en el tejido blando"
       ],
       "correct": 1,
       "whyCorrect": "La gangrena de Fournier es una emergencia quirúrgica: el desbridamiento agresivo en las primeras 6 a 12 horas, repetido cada 24 a 72 horas hasta no encontrar más necrosis, junto con antibiótico de amplio espectro temprano, es lo que reduce la mortalidad. Un LRINEC menor de 6 no la descarta (sensibilidad cercana al 68 %) y las imágenes no deben demorar la cirugía.",

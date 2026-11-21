@@ -192,3 +192,10 @@ test("sin promesas ni tareas del autor: el perfil no anuncia un control que no e
   await page.click("nav [data-go=lib]");
   await expect(page.locator("#vigCard")).toContainText("sin revisar en los últimos 6 meses");
 });
+
+test("la selección del diagnóstico varía los temas: ningún tema ocupa más de 2 de los 10 casos de un área", async ({ page }) => {
+  const r = await page.evaluate(() => { const por = {};
+    diagSeleccion().map(qById).forEach(q => { const t = q.specialty + " / " + diagTema(q); por[t] = (por[t] || 0) + 1; });
+    return Object.entries(por).filter(([, n]) => n > 2); });
+  expect(r).toEqual([]);
+});

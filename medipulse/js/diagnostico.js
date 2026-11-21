@@ -22,13 +22,22 @@ function setModoPrueba(on){ try { on ? localStorage.setItem(KEY_PRUEBA, "1") : l
 const diagHecho = () => modoPrueba() || !!(S.diag && S.diag.p1 && S.diag.p1.fin);
 
 // Los casos del diagnóstico: los mismos para siempre (se eligen la primera vez).
+// El tema de un caso: la primera palabra después de «·» («Vasculitis · Kawasaki de alto riesgo» → «kawasaki»).
+const diagTema = q => { const p = String(q.topic || "").split("·").map(x => x.trim().toLowerCase()); return (p[1] || p[0]).split(/[\s:,]/)[0]; };
 function diagSeleccion(){
   const out = [];
   SPECS.forEach(sp => {
-    const pool = shuffle(QUESTIONS.filter(q => q.specialty === sp && !S.hidden["q" + q.id]));
-    const elegidos = [];
-    Object.entries(DIAG_TIPOS).forEach(([k, n]) => pool.filter(q => qKind(q) === k && !elegidos.includes(q)).slice(0, n).forEach(q => elegidos.push(q)));
-    pool.filter(q => !elegidos.includes(q)).slice(0, DIAG_POR_AREA - elegidos.length).forEach(q => elegidos.push(q));
+    // Temas variados: primero un caso de cada tema y solo después los repetidos, para que un tema con
+    // muchos casos (p. ej. Kawasaki) no llene el área.
+    const tema = diagTema;
+    const vistos = {}, pool = shuffle(QUESTIONS.filter(q => q.specialty === sp && !S.hidden["q" + q.id]))
+      .map(q => ({q, n: vistos[tema(q)] = (vistos[tema(q)] || 0) + 1})).sort((x, y) => x.n - y.n).map(x => x.q);
+    const elegidos = [], usados = new Set();
+    // Toma «n» casos que cumplan «ok», prefiriendo temas que aún no están en el área.
+    const tomar = (ok, n) => { for (const nuevo of [true, false]) pool.forEach(q => {
+      if (n > 0 && ok(q) && !elegidos.includes(q) && (!nuevo || !usados.has(tema(q)))) { elegidos.push(q); usados.add(tema(q)); n--; } }); };
+    Object.entries(DIAG_TIPOS).forEach(([k, n]) => tomar(q => qKind(q) === k, n));
+    tomar(() => true, DIAG_POR_AREA - elegidos.length);
     out.push(elegidos.slice(0, DIAG_POR_AREA).map(q => String(q.id)));
   });
   // Bloques de 10 con todas las áreas mezcladas: se toma uno de cada área por turno.
