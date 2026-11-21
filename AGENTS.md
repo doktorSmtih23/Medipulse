@@ -102,6 +102,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `tools/un-archivo.js` | Genera `medipulse-un-archivo.html` (la app en un solo archivo, no se sube al repo) |
 | `tools/globales.js` | Lista los nombres globales de cada script (en el orden de `index.html`) y avisa si dos archivos declaran el mismo |
 | `eslint.config.js` | Revisor automático del código (ESLint): nombres que no existen, `${…}` entre comillas normales, variables sin usar, código inalcanzable |
+| `tools/regla-dueno-estado.js` | Regla del revisor: cada parte del progreso (`S`) tiene un archivo dueño (tabla `DUENOS`) y solo ese archivo la escribe; los demás usan sus funciones |
 | `tools/banco-pdf.js` | Banco de PDF de referencia: mide tipo, título, año e índice sin IA contra `tools/banco-pdf.json`. Uso: `node tools/banco-pdf.js <carpeta con los PDF>` (los PDF no se suben al repo). Córrelo antes y después de tocar `maqueta.js`, `indice.js` o `detectDesign` |
 
 ### Versión de un solo archivo
@@ -140,6 +141,7 @@ Reglas:
 - `vignette` admite solo el resaltado `<span class='hy'>…</span>`; los signos `<` y `>` del texto se escriben `&lt;` y `&gt;`.
 - 4 opciones distintas y una sola correcta (`correct`, de 0 a 3). Reparte la posición de la correcta entre A, B, C y D.
 - Cifras, dosis y umbrales se verifican contra la fuente antes de entrar al repo, y un médico revisa cada especialidad antes de publicarla.
+- **El progreso (`S`) tiene dueños:** cada campo de `S` lo escribe un solo archivo (tabla `DUENOS` en `tools/regla-dueno-estado.js`). Los ítems propios, el repaso, lo archivado y las correcciones se cambian con las funciones de `js/estado.js` (`agregarPropio`, `nuevoIdPropio`, `quitarPropio`, `quitarPropiosDeFuente`, `archivar`, `desarchivar`, `olvidarRepaso`, `repasoDe`, `corregirIncluido`); las fuentes, con `agregarFuente` y `quitarFuente` (`js/fuentes.js`); el enfoque, con `elegirEnfoque` (`js/perfil.js`). Un campo nuevo se agrega a esa tabla con su dueño; el revisor falla si alguien más lo escribe.
 - **Opciones sin pistas:** la respuesta correcta no debe delatarse por ser la opción más larga o la más detallada. Escribe los distractores con el mismo nivel de detalle y recorta la correcta a lo esencial (la explicación va en `whyCorrect`). La prueba `tests/contenido.spec.js` falla si la correcta mide más de 1,3 veces la siguiente o si es la más larga en más del 30 % de los casos.
 - **Temas variados en el diagnóstico:** el diagnóstico elige primero un caso por tema (`diagTema`: la primera palabra después de «·» en `topic`). Escribe el `topic` como «Área · Tema concreto» para que esto funcione.
 - **Cita textual:** cada ítem lleva `"cita": [{ "donde": "Recomendación 1.8.1", "texto": "texto literal de la guía" }]` y `"verificado": "AAAA-MM-DD"`. La app la muestra en "Ver la cita textual de la guía"; revisar es comparar el dato con la cita. Se prefieren fuentes de acceso abierto; si la fuente es de suscripción (por ejemplo, una revista), se cita solo el texto breve de la recomendación y el usuario consigue el documento por su cuenta.

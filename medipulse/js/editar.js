@@ -224,13 +224,13 @@ function guardarVersion(box){
   if (!dupConfirmar(fin, "q", {excluir: [String(q.id), String(q.baseId || "")]})) return;
   // El análisis por opción vale si las opciones son las del original o si lo rehízo la IA para las nuevas.
   const porOpcion = !op ? o.porOpcion : edBase.ia && v.porOpcion && v.porOpcion.length === v.options.length ? v.porOpcion : null;
-  const nueva = {id: "u" + (++S.seq), specialty: fin.specialty, tipo: fin.tipo, qtype: fin.tipo === "critica" ? "critica" : fin.tipo === "datos" ? "directa" : "caso",
+  const nueva = {id: nuevoIdPropio(), specialty: fin.specialty, tipo: fin.tipo, qtype: fin.tipo === "critica" ? "critica" : fin.tipo === "datos" ? "directa" : "caso",
     topic: fin.topic || q.topic || "Caso editado", vignette: textToVig(fin.vignette), options: fin.options, correct: fin.correct,
     whyCorrect: fin.whyCorrect, pearl: fin.pearl, trap: fin.trap, porOpcion: porOpcion || undefined,
     src: q.src || null, page: q.page || 0, area: q.area, fuenteTxt: q.fuenteTxt, externa: q.externa || undefined,
     manual: true, editada: true, baseId: String(q.id), cambios: [...acept], ia: edBase.ia || undefined, difficulty: "Editada"};
-  S.userQ.push(nueva);
-  if ($("#edOcultar") && $("#edOcultar").checked) S.hidden["q" + q.id] = Date.now();
+  agregarPropio("q", nueva);
+  if ($("#edOcultar") && $("#edOcultar").checked) archivar("q" + q.id);
   rebuild(); save(); refreshChips();
   edBase = null; edGuardada = nueva.id; toast(`Tu versión quedó guardada con ${acept.size} cambio${acept.size === 1 ? "" : "s"} ✓`);
   renderNew();

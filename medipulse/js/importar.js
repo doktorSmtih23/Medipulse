@@ -238,7 +238,7 @@ function guardarImportadas(){
   const lista = rep.length && !confirm(`${rep.length === 1 ? "1 pregunta parece repetida" : `${rep.length} preguntas parecen repetidas`} de lo que ya tienes.\n\nAceptar: guardarlas también.\nCancelar: guardar solo las demás.`) ? impCands.filter(q => !rep.includes(q)) : impCands;
   lista.forEach(q => {
     const spec = SPECS.includes(specCanon(q.specialty)) ? specCanon(q.specialty) : "Medicina Interna";
-    S.userQ.push({id: "u" + (++S.seq), specialty: spec, tipo: q.tipo, qtype: q.tipo === "critica" ? "critica" : q.tipo === "datos" ? "directa" : "caso",
+    agregarPropio("q", {id: nuevoIdPropio(), specialty: spec, tipo: q.tipo, qtype: q.tipo === "critica" ? "critica" : q.tipo === "datos" ? "directa" : "caso",
       topic: (q.topic || "Pregunta importada").trim(), difficulty: "Importada", vignette: textToVig(q.vignette), options: q.options.map(o => o.trim()), correct: q.correct,
       // con análisis por opción, la explicación ya está ahí (no se repite arriba)
       whyCorrect: (q.fundamento || (q.porOpcion.some(Boolean) ? "" : q.porOpcion[q.correct] || "")).trim(), porOpcion: q.porOpcion.some(Boolean) ? q.porOpcion.map(t => t.trim()) : undefined,

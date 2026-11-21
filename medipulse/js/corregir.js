@@ -75,7 +75,7 @@ function openCorregir(kind, item, box, onDone){
     v.edited = Date.now();
     const propio = (kind === "q" ? S.userQ : S.userH).find(x => String(x.id) === String(item.id));
     if (propio) Object.assign(propio, v);
-    else S.over[kind + item.id] = Object.assign({}, S.over[kind + item.id], v);
+    else corregirIncluido(kind + item.id, v);
     rebuild(); save(); box.innerHTML = "";
     toast("Corregido ✓");
     onDone && onDone(kind === "q" ? qById(item.id) : hyById(item.id));

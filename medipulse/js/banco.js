@@ -28,7 +28,7 @@ function estudiarCasos(qs, label){
 function cambiarEspecialidad(q, spec){
   const propio = S.userQ.find(x => String(x.id) === String(q.id));
   if (propio) propio.specialty = spec;
-  else S.over["q" + q.id] = Object.assign({}, S.over["q" + q.id], {specialty: spec, edited: Date.now()});
+  else corregirIncluido("q" + q.id, {specialty: spec, edited: Date.now()});
   rebuild(); save(); toast(`Ahora está en ${spec} ✓`);
 }
 const opt = (v, l, sel) => `<option value="${esc(v)}" ${sel ? "selected" : ""}>${esc(l)}</option>`;

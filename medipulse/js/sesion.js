@@ -112,7 +112,7 @@ function answerQ(q, o, exam){
   $("#repBtn").onclick = ()=>openReportForm("q"+q.id, $("#repBox"));
   $("#fixBtn").onclick = ()=>openCorregir("q", q, $("#fixBox"));
   $("#verBtn").onclick = ()=>{ if (confirmLeave()) { go("new"); editarCaso(q); } };
-  $("#archBtn").onclick = ()=>{ S.hidden["q"+q.id] = Date.now(); delete S.srs["q"+q.id]; rebuild(); save(); refreshChips();
+  $("#archBtn").onclick = ()=>{ archivar("q"+q.id); olvidarRepaso("q"+q.id); rebuild(); save(); refreshChips();
     $("#archBtn").replaceWith(Object.assign(document.createElement("span"), {className: "xs muted", textContent: "🗄️ Archivado: no volverá a salir. Lo restauras en Casos, al final de la lista."})); };
   $("#nextBtn").onclick=()=>{ if (prueba) return terminarPrueba(); sess.i++; renderItem(); };
   $("#nextBtn").focus({preventScroll:true});

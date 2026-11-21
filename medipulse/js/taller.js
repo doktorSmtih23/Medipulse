@@ -681,18 +681,18 @@ function saveCands(){
   if (conMarca && !confirm(`${conMarca} ${conMarca === 1 ? "ítem todavía dice" : "ítems todavía dicen"} «verificar el signo en el PDF». ¿Guardar igual? Después puedes corregirlos con ✏️ Corregir.`)) return;
   const s = cur(); let nq = 0, nc = 0, nh = 0;
   cands.filter(c=>c.on).forEach(c=>{
-    const id = "u" + (++S.seq);
+    const id = nuevoIdPropio();
     if (c.kind === "h") {
       const rows = c.thresholds.map(x=>({label:x.label.trim(), val:x.val.trim()})).filter(x=>x.label && x.val);
       if (!c.title.trim() || !rows.length) return;
-      S.userH.push(Object.assign({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), relevance:c.relevance||0, why:c.why||"", ctx:"", src:s.id, page:c.page, ai:true, img:c.img||undefined}, extrasIA(c)));
+      agregarPropio("h", Object.assign({id, specialty:c.specialty, title:c.title.trim(), badge:c.badge, accent:SPEC_COLOR[c.specialty], thresholds:rows, redFlag:c.redFlag.trim(), trap:c.trap.trim(), relevance:c.relevance||0, why:c.why||"", ctx:"", src:s.id, page:c.page, ai:true, img:c.img||undefined}, extrasIA(c)));
       nh++;
     } else if (c.kind === "c") {
       if (!c.front.trim() || !c.back.trim()) return;
-      S.userC.push({id, specialty:c.specialty, front:c.front.trim(), back:c.back.trim(), ctx:c.ctx||"", src:s.id, page:c.page, ai:!!c.ai, auto:!c.ai});
+      agregarPropio("c", {id, specialty:c.specialty, front:c.front.trim(), back:c.back.trim(), ctx:c.ctx||"", src:s.id, page:c.page, ai:!!c.ai, auto:!c.ai});
       nc++;
     } else {
-      S.userQ.push(Object.assign({id, qtype:c.qtype||"caso", tipo:c.tipo||undefined, specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
+      agregarPropio("q", Object.assign({id, qtype:c.qtype||"caso", tipo:c.tipo||undefined, specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
         whyCorrect:c.whyCorrect, pearl:c.pearl, trap:c.trap, src:s.id, page:c.page, ai:true, img:c.img||undefined}, extrasIA(c)));
       nq++;
     }
@@ -724,9 +724,8 @@ function renderSrcItems(){
       <div class="srcitem"><div style="flex:1;min-width:0" class="small">${esc(x.t)}<div class="xs muted">${x.p ? "pág. " + x.p + " · " : ""}${status(x.k)}${x.o.stale?' · <span style="color:var(--warn)">versión anterior</span>':""}${x.o.updated?" · actualizado":""}</div></div><button class="btn ghost xs" data-del="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div>`).join("")}</div></details>`;
   $("#srcStudy").onclick = ()=>studySource(s.id);
   box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
-    const k = b.dataset.del, id = k.slice(1);
-    if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else if (k[0]==="h") S.userH = S.userH.filter(h=>h.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);
-    delete S.srs[k]; rebuild(); save(); renderSrcItems(); refreshChips();
+    const k = b.dataset.del;
+    quitarPropio(k); rebuild(); save(); renderSrcItems(); refreshChips();
   });
 }
 
@@ -735,9 +734,8 @@ async function deleteSource(id){
   const n = S.userQ.filter(q=>q.src===id).length + S.userC.filter(c=>c.src===id).length + S.userH.filter(h=>h.src===id).length;
   const na = s.anHist ? s.anHist.length : Object.keys(s.an || {}).length;
   if (!confirm(`¿Eliminar “${s.title}”${n?` y sus ${n} preguntas y fichas`:""}${na ? `${n ? " y" : " y sus"} ${na} análisis (descárgalos antes si los quieres conservar)` : ""}? No se puede deshacer.`)) return;
-  [["q",S.userQ],["c",S.userC],["h",S.userH]].forEach(([k,arr])=>arr.filter(o=>o.src===id).forEach(o=>delete S.srs[k+o.id]));
-  S.userQ = S.userQ.filter(q=>q.src!==id); S.userC = S.userC.filter(c=>c.src!==id); S.userH = S.userH.filter(h=>h.src!==id);
-  S.sources = S.sources.filter(x=>x.id!==id);
+  quitarPropiosDeFuente(id);
+  quitarFuente(id);
   rebuild(); save(); delete recCache[id];
   try { await idb.del(id); } catch(e) {}
   toast("Fuente eliminada"); go("lib");
