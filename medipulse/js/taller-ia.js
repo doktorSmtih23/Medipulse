@@ -3,7 +3,11 @@
 // ===================================================================
 // Fichas automáticas, IA a tu medida (plantillas, tipos, dificultad), verificación de citas y la llamada a la IA.
 // ---------- 💎 Fichas y 🩺 Casos ----------
-const LEVELS = [["basica","Básica","conceptos y definiciones"],["residencia","Examen de residencia","aplicación clínica y distractores plausibles"],["avanzada","Avanzada","subespecialidad: detalles finos, matices y controversias"]];
+// Niveles de dificultad: [clave, nombre, qué se le pide a la IA, para quién]. «avanzada» conserva su clave por las plantillas guardadas.
+const LEVELS = [["basica", "Básica", "conceptos y definiciones", "repaso de conceptos"],
+  ["residencia", "Examen de residencia", "aplicación clínica y distractores plausibles", "quien prepara el examen"],
+  ["dificil", "Difícil", "distractores muy parecidos entre sí y datos que hay que integrar para decidir", "quien prepara el examen y ya domina lo básico"],
+  ["avanzada", "Especialista", "nivel de subespecialidad: detalles finos, matices y controversias", "residentes y especialistas"]];
 // La pestaña tiene dos secciones: «💎 Fichas» (la IA elige lo más relevante) y «🩺 Casos» (taller-casos.js).
 function renderAiTab(){
   const b = $("#gBody"), sub = gen.sub === "casos" ? "casos" : "fichas";

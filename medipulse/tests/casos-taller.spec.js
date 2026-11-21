@@ -77,3 +77,15 @@ test("crear casos: la petición pide cada clase con su cantidad, sin fichas, y c
   await page.click("#candSave");
   expect(await page.evaluate(() => S.userQ.map(q => [q.topic, q.tipo]))).toEqual([["Parkinson · Diferenciales", "diagnostico"], ["Ensayo · Diseño", "critica"]]);
 });
+
+test("dificultad: cuatro niveles, y debajo se lee qué significa el elegido (en el celular no hay texto emergente)", async ({ page }) => {
+  await abrirCasos(page, "REV");
+  await expect(page.locator("[data-lv]")).toHaveText(["Básica", "Examen de residencia", "Difícil", "Especialista"]);
+  await expect(page.locator("#cNivel")).toContainText("Examen de residencia: aplicación clínica");
+  await page.click('[data-lv="avanzada"]');
+  await expect(page.locator("#cNivel")).toContainText("Especialista: nivel de subespecialidad");
+  await expect(page.locator("#cNivel")).toContainText("residentes y especialistas");
+  await page.click('[data-lv="dificil"]'); await page.click("#cGo");
+  await expect(page.locator("#candList")).toBeVisible();
+  expect(peticiones.at(-1).messages[0].content.map(b => b.text).join("\n")).toContain("Dificultad: Difícil (distractores muy parecidos");
+});
