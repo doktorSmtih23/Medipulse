@@ -39,7 +39,7 @@ function renderHoy(){
 }
 // ¿Qué estudiar hoy? Áreas ordenadas por precisión (las no exploradas primero). La práctica del enfoque está en Mi enfoque (perfil.js).
 function renderDirected(){
-  const st = specStats(), f = focusOf();
+  const st = specStats();
   const rank = s => st[s].n < 3 ? -1 + st[s].seen/Math.max(1, st[s].total) : st[s].ok/st[s].n;
   const top = SPECS.slice().sort((a,b)=>rank(a)-rank(b)).slice(0, 3);
   $("#directCard").innerHTML = plegable("queestudiar", `<b>🧭 ¿Qué estudiar hoy?</b> <span class="xs muted">${top.length} áreas</span>`, `

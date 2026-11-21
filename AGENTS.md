@@ -21,7 +21,7 @@ El autor es médico, no programador: prueba la app como usuario real y decide el
 
 **Antes de abrir un pull request**
 - Muestra **capturas** de cómo se ve el cambio en el celular (390 px de ancho) y espera su visto bueno. No abras el PR sin ellas.
-- Corre todas las pruebas (`npm test`) y di cuántas pasan. Cada hallazgo del autor se vuelve una prueba automática.
+- Corre todas las pruebas (`npm test`) y di cuántas pasan. Cada hallazgo del autor se vuelve una prueba automática. `npm test` incluye el revisor automático (`tests/revisor.spec.js`); para verlo solo: `npm run revisar`.
 - Cuenta lo hecho y lo que falta, en español claro, sin jerga técnica. Si algo no se pudo verificar, dilo.
 
 **Interfaz**
@@ -100,6 +100,8 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `tests/*.spec.js` | Pruebas automáticas (Playwright Test): `app` (flujos principales), `analisis`, `ia-taller` (IA simulada), `documento` (limpieza del texto y capítulos), `vista-previa` (archivo único) |
 | `tests/fixtures/` | PDF de prueba inventado (`articulo-prueba.pdf`) y el script que lo crea |
 | `tools/un-archivo.js` | Genera `medipulse-un-archivo.html` (la app en un solo archivo, no se sube al repo) |
+| `tools/globales.js` | Lista los nombres globales de cada script (en el orden de `index.html`) y avisa si dos archivos declaran el mismo |
+| `eslint.config.js` | Revisor automático del código (ESLint): nombres que no existen, `${…}` entre comillas normales, variables sin usar, código inalcanzable |
 | `tools/banco-pdf.js` | Banco de PDF de referencia: mide tipo, título, año e índice sin IA contra `tools/banco-pdf.json`. Uso: `node tools/banco-pdf.js <carpeta con los PDF>` (los PDF no se suben al repo). Córrelo antes y después de tocar `maqueta.js`, `indice.js` o `detectDesign` |
 
 ### Versión de un solo archivo

@@ -442,7 +442,7 @@ const T_INFORME = {name: "report_estudio", description: "Entrega el análisis de
       accion: {type: "string"}, porque: {type: "string"}, herramienta: {type: "string", enum: Object.keys(EST_HERRAMIENTAS)}}}},
     plan: {type: "array", items: {type: "object", additionalProperties: false, required: ["dia", "tarea"], properties: {dia: {type: "string"}, tarea: {type: "string"}}}}}}};
 async function estInformeIA(){
-  const bt = $("#estInforme"), m = estMetricas();
+  const bt = $("#estInforme");
   bt.disabled = true; bt.innerHTML = `<span class="spin"></span> Analizando…`;
   try {
     const r = await callForTool({system: `Eres un experto en ciencia del aprendizaje y en preparación del examen de residencia médica. Analizas las cifras de estudio de un médico y le dices, con franqueza y sin halagos, qué está funcionando, qué lo frena y qué hacer.

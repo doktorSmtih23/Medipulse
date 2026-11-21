@@ -698,7 +698,7 @@ function saveCands(){
     }
   });
   rebuild(); save(); cands = null;
-  toast(`Guardado: ${[nq ? `${nq} pregunta${nq===1?"":"s"}` : "", nh ? `${nh} ficha${nh===1?"":"s"}` : ""].filter(Boolean).join(" y ") || "nada"} ✓ Ya está en tu repaso.`);
+  toast(`Guardado: ${[nq ? `${nq} pregunta${nq===1?"":"s"}` : "", nh ? `${nh} ficha${nh===1?"":"s"}` : "", nc ? `${nc} repaso${nc===1?"":"s"} rápido${nc===1?"":"s"}` : ""].filter(Boolean).join(", ").replace(/, ([^,]*)$/, " y $1") || "nada"} ✓ Ya está en tu repaso.`);
   renderSrc(); refreshChips();
 }
 
