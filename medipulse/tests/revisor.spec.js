@@ -42,3 +42,16 @@ test("hallazgo del revisor: al guardar solo repasos rápidos del Taller, el avis
   await page.evaluate(() => { cands = [{kind: "c", on: true, front: "¿Dosis de adrenalina en anafilaxia?", back: "0,5 mg IM", specialty: "Medicina Interna", page: 1}]; saveCands(); });
   await expect(page.locator("#toast")).toContainText("Guardado: 1 repaso rápido");
 });
+
+test("cada parte del progreso (S) solo la escribe su archivo dueño", async () => {
+  const lint = async (archivo, codigo) => (await eslint().lintText(codigo, {filePath: path.join(ROOT, "js", archivo)}))[0].messages.filter(m => m.ruleId === "medipulse/dueno-del-estado").map(m => m.message);
+  // Desde otro archivo, escribir el repaso, archivar o agregar una fuente directamente es un error…
+  expect(await lint("hoy.js", 'S.srs["q1"] = {b: 0};')).toEqual(["S.srs solo se escribe en js/estado.js: usa una de sus funciones."]);
+  expect(await lint("sesion.js", 'delete S.hidden["q1"];')).toHaveLength(1);
+  expect(await lint("taller.js", "S.sources.push({id: 1});")).toHaveLength(1);
+  expect((await lint("banco.js", "S.campoNuevo = 1;"))[0]).toContain("no tiene archivo dueño");
+  // …el dueño sí puede, y leer está permitido en todas partes.
+  expect(await lint("estado.js", 'S.srs["q1"] = {b: 0};')).toEqual([]);
+  expect(await lint("fuentes.js", "S.sources.push({id: 1});")).toEqual([]);
+  expect(await lint("hoy.js", 'const r = S.srs["q1"]; const n = S.sources.length; console.log(r, n);')).toEqual([]);
+});

@@ -106,6 +106,6 @@ function hiddenListHTML(pref){
     <div class="row"><div class="spacer"></div><button class="btn sm" id="unhide">Restaurar todos</button></div></div></details>`;
 }
 function bindHiddenList(after, pref){
-  document.querySelectorAll("[data-unh]").forEach(b => b.onclick = () => { delete S.hidden[b.dataset.unh]; rebuild(); save(); refreshChips(); toast("Ítem restaurado ✓"); after(); });
-  $("#unhide") && ($("#unhide").onclick = () => { if (confirm("¿Restaurar todos los ítems archivados a tu banco?")) { Object.keys(S.hidden).filter(k => !pref || k[0] === pref).forEach(k => delete S.hidden[k]); rebuild(); save(); refreshChips(); after(); } });
+  document.querySelectorAll("[data-unh]").forEach(b => b.onclick = () => { desarchivar(b.dataset.unh); rebuild(); save(); refreshChips(); toast("Ítem restaurado ✓"); after(); });
+  $("#unhide") && ($("#unhide").onclick = () => { if (confirm("¿Restaurar todos los ítems archivados a tu banco?")) { Object.keys(S.hidden).filter(k => !pref || k[0] === pref).forEach(desarchivar); rebuild(); save(); refreshChips(); after(); } });
 }

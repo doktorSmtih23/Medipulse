@@ -2,6 +2,7 @@
 // entre archivos (tools/globales.js). Solo reglas que encuentran errores reales, no de estilo.
 const globals = require("globals");
 const { mapa } = require("./tools/globales.js");
+const dueno = require("./tools/regla-dueno-estado.js");
 
 // Cada archivo usa lo que declaran los demás: todos los nombres de la app son globales conocidos.
 const deLaApp = Object.fromEntries(Object.keys(mapa()).map(n => [n, "writable"]));
@@ -20,7 +21,9 @@ module.exports = [
       }
     },
     linterOptions: { reportUnusedDisableDirectives: "error" },
+    plugins: { medipulse: { rules: { "dueno-del-estado": dueno } } },
     rules: {
+      "medipulse/dueno-del-estado": "error",   // cada parte del progreso (S) la escribe solo su archivo dueño
       "no-undef": "error",              // un nombre que no existe en ningún archivo (p. ej. un error al escribirlo)
       "no-redeclare": ["error", {builtinGlobals: false}],   // el mismo nombre declarado dos veces en un archivo
       "no-dupe-keys": "error",          // la misma clave dos veces en un objeto

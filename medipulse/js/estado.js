@@ -42,9 +42,31 @@ function save(){
 const todayKey = (d=new Date()) => new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
 function logToday(){ const k = todayKey(); return S.log[k] || (S.log[k] = {sec:0,q:0,ok:0,c:0}); }
 
+// ---------- Lo que guarda el usuario: sus ítems, su repaso y lo archivado ----------
+// Este archivo es el único que escribe en S.userQ, S.userC, S.userH, S.seq, S.srs, S.hidden y S.over.
+// Los demás usan estas funciones (el revisor, eslint.config.js, lo comprueba). Ninguna llama a save():
+// cada pantalla guarda una vez, después de hacer todos sus cambios.
+// Las claves son el tipo más el id: «q12» (caso), «c3» (repaso rápido), «hu7» (ficha high-yield).
+const LISTA_PROPIA = {q: "userQ", c: "userC", h: "userH"};
+const nuevoIdPropio = () => "u" + (++S.seq);
+function agregarPropio(tipo, item){ S[LISTA_PROPIA[tipo]].push(item); return item; }
+// Quita un ítem propio y su repaso.
+function quitarPropio(key){ const k = LISTA_PROPIA[key[0]], id = key.slice(1); S[k] = S[k].filter(o => String(o.id) !== id); delete S.srs[key]; }
+// Quita todos los ítems de una fuente y sus repasos.
+function quitarPropiosDeFuente(srcId){
+  for (const [t, k] of Object.entries(LISTA_PROPIA)) { S[k].filter(o => o.src === srcId).forEach(o => delete S.srs[t + o.id]); S[k] = S[k].filter(o => o.src !== srcId); }
+}
+const archivar = key => { S.hidden[key] = Date.now(); };
+const desarchivar = key => { delete S.hidden[key]; };
+const olvidarRepaso = key => { delete S.srs[key]; };
+// El registro de repaso de un ítem; lo crea si no existe.
+const repasoDe = key => S.srs[key] || (S.srs[key] = {b:0,due:0,n:0,ok:0});
+// Corrección de un ítem incluido: se suma a la anterior, o la reemplaza.
+function corregirIncluido(key, cambios, reemplazar){ S.over[key] = Object.assign({}, reemplazar ? {} : S.over[key], cambios); }
+
 // grade: 0 = fallé, 1 = dudé, 2 = la sabía
 function grade(key, g){
-  const r = S.srs[key] || (S.srs[key] = {b:0,due:0,n:0,ok:0});
+  const r = repasoDe(key);
   r.n++; if (g === 2) r.ok++; r.last = g;
   if (g === 0) { r.b = 0; r.due = Date.now() + 10*6e4; }
   else if (g === 1) { r.due = Date.now() + DAY; }

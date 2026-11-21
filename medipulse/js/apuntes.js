@@ -104,7 +104,7 @@ function apSync(lib){
     pts.forEach(p => pages.push(p.text)); });
   if (!pages.length) return null;
   let s = S.sources.find(x => x.id === lib.srcId);
-  if (!s) { s = {id: apId("a"), added: Date.now(), kind: "text", apunte: lib.id}; S.sources.push(s); lib.srcId = s.id; }
+  if (!s) { s = {id: apId("a"), added: Date.now(), kind: "text", apunte: lib.id}; agregarFuente(s); lib.srcId = s.id; }
   Object.assign(s, {title: lib.title, spec: apBase(lib), pages: pages.length, chars: pages.reduce((a, p) => a + p.length, 0), indice: {fuente: "apuntes", items}});
   const rec = {blob: null, pages};
   recCache[s.id] = rec; idb.put(s.id, rec).catch(() => {});
@@ -256,7 +256,7 @@ function renderLibreta(lib){
   $("#apDel").onclick = async () => {
     if (!confirm(`¿Eliminar la libreta «${lib.title}»? Las fichas y preguntas que ya creaste con ella se conservan. No se puede deshacer.`)) return;
     S.apuntes = apLibs().filter(l => l !== lib);
-    if (lib.srcId) { S.sources = S.sources.filter(s => s.id !== lib.srcId); delete recCache[lib.srcId]; try { await idb.del(lib.srcId); } catch(e) {} }
+    if (lib.srcId) { quitarFuente(lib.srcId); delete recCache[lib.srcId]; try { await idb.del(lib.srcId); } catch(e) {} }
     save(); apCur = null; apEdit = null; renderApuntes(); toast("Libreta eliminada");
   };
   document.querySelectorAll("[data-apedit]").forEach(b => b.onclick = () => {

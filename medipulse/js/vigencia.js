@@ -389,11 +389,11 @@ function applyReview(){
     const own = isB ? null : (t==="q" ? S.userQ : S.userC).find(o=>String(o.id)===id);
     if (r.verdict === "keep") { if (own) delete own.stale; continue; }
     if (!r.on) continue;
-    if (r.verdict === "remove") { S.hidden[key] = Date.now(); nr++; continue; }
+    if (r.verdict === "remove") { archivar(key); nr++; continue; }
     const fields = t==="q" ? Object.assign({}, r.nw, {vignette: esc(r.nw.vignette)}) : r.nw;
-    if (isB) S.over[key] = Object.assign({}, fields, {upd: Date.now()});
+    if (isB) corregirIncluido(key, Object.assign({}, fields, {upd: Date.now()}), true);
     else { Object.assign(own, fields, {updated: Date.now()}); delete own.stale; }
-    delete S.srs[key]; nu++;
+    olvidarRepaso(key); nu++;
   }
   if (isB && irev.mode === "web" && S.check[irev.srcId]) S.check[irev.srcId].adopted = Date.now();
   const where = irev.where, repId = irev.repId; irev = null;
@@ -436,10 +436,10 @@ function renderSrcBanner(){
   $("#stRev") && ($("#stRev").onclick = ()=>reviewAffected(s.id, "doc", "src"));
   $("#stKeep") && ($("#stKeep").onclick = ()=>{ [...S.userQ, ...S.userC, ...S.userH].forEach(o=>{ if (o.src===s.id) delete o.stale; }); save(); renderSrc(); });
   $("#stArch") && ($("#stArch").onclick = ()=>{ if (!confirm("¿Archivar los ítems de la versión anterior? Dejarán de aparecer en tus repasos.")) return;
-    [["q",S.userQ],["c",S.userC],["h",S.userH]].forEach(([k,arr])=>arr.forEach(o=>{ if (o.src===s.id && o.stale) S.hidden[k+o.id] = Date.now(); }));
+    [["q",S.userQ],["c",S.userC],["h",S.userH]].forEach(([k,arr])=>arr.forEach(o=>{ if (o.src===s.id && o.stale) archivar(k+o.id); }));
     rebuild(); save(); renderSrc(); refreshChips(); });
   $("#oldArch") && ($("#oldArch").onclick = ()=>{
-    BUILTIN_Q.forEach(q=>{ if (q.src===s.replaces) S.hidden["q"+q.id] = Date.now(); }); BUILTIN_F.forEach(c=>{ if (c.src===s.replaces) S.hidden["c"+c.id] = Date.now(); });
+    BUILTIN_Q.forEach(q=>{ if (q.src===s.replaces) archivar("q"+q.id); }); BUILTIN_F.forEach(c=>{ if (c.src===s.replaces) archivar("c"+c.id); });
     rebuild(); save(); toast("Ítems de la versión anterior archivados."); renderSrc(); refreshChips(); });
 }
 function editSrcMeta(){

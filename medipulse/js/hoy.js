@@ -28,7 +28,7 @@ function renderHoy(){
   $("#suggestCard").innerHTML = `<h3 style="font-size:16px">💡 Tu siguiente paso</h3><p style="margin:6px 0 0" class="small">${sug}</p>`;
   $("#doDue") && ($("#doDue").onclick = startDue);
   $("#doDiag") && ($("#doDiag").onclick = () => go("diag"));
-  $("#doDiagResto") && ($("#doDiagResto").onclick = () => { S.diag.vista = null; go("diag"); });
+  $("#doDiagResto") && ($("#doDiagResto").onclick = diagIrAlInicio);
   $("#doFoco") && ($("#doFoco").onclick = () => { const f = diagFocoHoy(); startSession({label: "Foco del día", tag: "norm", stages: [{name: `${QMETODO[f.tipo].t} · ${f.area}`, items: f.qs.map(q => ({t: "q", id: q.id}))}]}); });
   $("#doNew") && ($("#doNew").onclick = ()=>startSession({label:"Mis PDF",tag:"norm",stages:[{name:"Nuevo de tus fuentes",items:newUserItems().slice(0,15)}]}));
   $("#doOne") && ($("#doOne").onclick = ()=>startSession({label:"Mantener racha",tag:"lazy",stages:[{name:"Fichas",items:pickHY(2)}]}));
@@ -122,7 +122,7 @@ function renderPerla(){
       <button class="btn sm ghost" id="perlaSabe">✓ Me la sé</button></div>`;
   $("#perlaCaso").onclick = () => startSession({label: "Perla del día", tag: "norm", stages: [{name: "El caso de la perla", items: [{t: "q", id: p.id}]}]});
   // El caso entra al repaso espaciado y vuelve mañana (si ya estaba, se adelanta a mañana).
-  $("#perlaRep").onclick = () => { const k = "q" + p.id, x = S.srs[k] || (S.srs[k] = {b: 0, due: 0, n: 0, ok: 0});
+  $("#perlaRep").onclick = () => { const k = "q" + p.id, x = repasoDe(k);
     const manana = new Date(); manana.setHours(24, 0, 0, 0); x.due = Math.min(x.due && x.due > Date.now() ? x.due : Infinity, manana.getTime()); x.agendado = true;
     save(); toast("El caso vuelve mañana en tus repasos ✓"); renderPerla(); };
   $("#perlaSabe").onclick = () => { const E = perlaEst(); E.sabe[p.id] = Date.now(); E.hoy = null; save(); toast("No vuelve en 60 días. Otra perla:"); renderPerla(); };

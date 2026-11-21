@@ -53,7 +53,7 @@ function renderRep(){
   L.querySelectorAll("[data-rv]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rv); startSession({label:"Reporte", tag:"norm", stages:[{name:"Ítem reportado", items:[{t:r.key[0], id:r.key.slice(1)}]}]}); });
   L.querySelectorAll("[data-rst]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rst); r.status = r.status==="open" ? "done" : "open"; save(); renderRep(); });
   L.querySelectorAll("[data-rdel]").forEach(b=>b.onclick=()=>{ S.reports = S.reports.filter(r=>r.id!==b.dataset.rdel); save(); renderRep(); });
-  L.querySelectorAll("[data-rarch]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rarch); S.hidden[r.key] = Date.now(); r.status = "done"; rebuild(); save(); refreshChips(); toast("Ítem archivado. Puedes restaurarlo en Fuentes → Vigencia."); renderRep(); });
+  L.querySelectorAll("[data-rarch]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rarch); archivar(r.key); r.status = "done"; rebuild(); save(); refreshChips(); toast("Ítem archivado. Puedes restaurarlo en Fuentes → Vigencia."); renderRep(); });
   L.querySelectorAll("[data-rai]").forEach(b=>b.onclick=()=>{
     const r = R(b.dataset.rai), x = itemByKey(r.key), s = x.src ? srcInfo(x.src) : null;
     const ctx = `Reporte del estudiante: ${r.reason}.${r.comment ? `\nDetalle: ${r.comment}` : ""}${s ? `\nFuente citada por el ítem: ${s.t}${s.r ? " ("+s.r+")" : ""}.` : ""}`;

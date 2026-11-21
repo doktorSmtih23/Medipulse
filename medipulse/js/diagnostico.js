@@ -22,6 +22,8 @@ function setModoPrueba(on){ try { on ? localStorage.setItem(KEY_PRUEBA, "1") : l
 const diagHecho = () => modoPrueba() || !!(S.diag && S.diag.p1 && S.diag.p1.fin);
 
 // Los casos del diagnóstico: los mismos para siempre (se eligen la primera vez).
+// Abre el diagnóstico en su pantalla principal (no en la última parte que se vio).
+function diagIrAlInicio(){ diagEst().vista = null; go("diag"); }
 // El tema de un caso: la primera palabra después de «·» («Vasculitis · Kawasaki de alto riesgo» → «kawasaki»).
 const diagTema = q => { const p = String(q.topic || "").split("·").map(x => x.trim().toLowerCase()); return (p[1] || p[0]).split(/[\s:,]/)[0]; };
 function diagSeleccion(){

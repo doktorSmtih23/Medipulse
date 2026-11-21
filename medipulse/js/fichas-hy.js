@@ -134,11 +134,11 @@ No propongas datos nuevos que la ficha no tenga. Si no hay problemas, "veredicto
     if (!title) return toast("Ponle un título a la ficha.");
     if ((!rows.length && !(o.flags && o.flags.img)) || rows.some(x=>!x.label || !x.val)) return toast("Cada dato necesita qué es y su valor.");
     const spec = box.querySelector(".eSpec").value;
-    const h = Object.assign({id: "u"+(++S.seq), specialty: spec, title, badge: box.querySelector(".eBadge").value.trim(), accent: SPEC_COLOR[spec],
+    const h = Object.assign({id: nuevoIdPropio(), specialty: spec, title, badge: box.querySelector(".eBadge").value.trim(), accent: SPEC_COLOR[spec],
       thresholds: rows, redFlag: box.querySelector(".eRed").value.trim(), trap: box.querySelector(".eTrap").value.trim(),
       src: o.showSrc ? (box.querySelector(".eSrc").value || null) : o.src, page: o.showSrc ? (parseInt(box.querySelector(".ePage").value) || 0) : o.page, ctx: o.ctx || ""}, o.flags);
     if (!dupConfirmar(h, "h")) return;
-    S.userH.push(h); rebuild(); save(); box.innerHTML = ""; box._addRow = null;
+    agregarPropio("h", h); rebuild(); save(); box.innerHTML = ""; box._addRow = null;
     toast("Ficha guardada ✓ Entra a tu repaso espaciado."); refreshChips(); o.onSave && o.onSave(h);
   };
   // Pone el cursor en el primer campo, salvo que el usuario ya esté escribiendo en el editor
@@ -201,7 +201,7 @@ function renderHY(){
     d.querySelector(".hybody").innerHTML = hyCardHTML(h) + `<div class="row xs" style="margin:6px 4px 0;gap:10px"><button class="linkbtn" data-h1="${esc(String(h.id))}">💎 Repasar esta</button><div class="spacer"></div>${mia(h) ? `<button class="linkbtn" data-hdel="${esc(String(h.id))}" style="color:var(--bad)">Eliminar</button>` : ""}</div>`;
     d.querySelectorAll("[data-h1]").forEach(b => b.onclick = () => startSession({label:"High Yield", tag:"norm", stages:[{name: h.title, items:[{t:"h", id:h.id}]}]}));
     d.querySelectorAll("[data-hdel]").forEach(b => b.onclick = () => { if (!confirm("¿Eliminar esta ficha?")) return;
-      S.userH = S.userH.filter(x => String(x.id) !== b.dataset.hdel); delete S.srs["h"+b.dataset.hdel]; rebuild(); save(); renderHY(); refreshChips(); });
+      quitarPropio("h" + b.dataset.hdel); rebuild(); save(); renderHY(); refreshChips(); });
   });
 }
 // Orden para repasar: lo pendiente, luego lo nuevo más relevante, luego lo menos sabido.

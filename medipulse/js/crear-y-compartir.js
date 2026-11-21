@@ -32,7 +32,7 @@ function togglePaste(){
     const pages = chunkText(text), id = "t" + Date.now().toString(36) + Math.random().toString(36).slice(2,5), rec = {blob: null, pages};
     try { await idb.put(id, rec); } catch(e) { return toast("No se pudo guardar el texto en este dispositivo."); }
     recCache[id] = rec;
-    S.sources.push({id, title: title || text.slice(0,50).replace(/\s+/g," ") + "…", pages: pages.length, chars: text.length, added: Date.now(), spec: "Medicina Interna", kind: "text"});
+    agregarFuente({id, title: title || text.slice(0,50).replace(/\s+/g," ") + "…", pages: pages.length, chars: text.length, added: Date.now(), spec: "Medicina Interna", kind: "text"});
     save(); box.innerHTML = ""; toast("Texto guardado ✓"); openSrc(id);
   };
 }
@@ -102,7 +102,7 @@ function saveNew(){
   if (new Set(opts).size !== opts.length) return toast("Hay dos opciones iguales.");
   const tipo = v("#nTipo");
   if (!dupConfirmar({topic: v("#nTopic"), vignette: v("#nVig"), options: opts, correct: cor}, "q")) return;
-  S.userQ.push({id: "u"+(++S.seq), specialty: v("#nSpec"), tipo, qtype: tipo === "critica" ? "critica" : tipo === "datos" ? "directa" : "caso", topic: v("#nTopic") || "Caso propio", difficulty: "Propia",
+  agregarPropio("q", {id: nuevoIdPropio(), specialty: v("#nSpec"), tipo, qtype: tipo === "critica" ? "critica" : tipo === "datos" ? "directa" : "caso", topic: v("#nTopic") || "Caso propio", difficulty: "Propia",
     vignette: esc(v("#nVig")).replace(/\[\[([\s\S]+?)\]\]/g, "<span class='hy'>$1</span>"), options: opts, correct: cor,
     whyCorrect: v("#nWhy"), pearl: v("#nPearl"), trap: v("#nTrap"), src, page, manual: true});
   rebuild(); save(); toast("Agregado a tu banco ✓ Entra al repaso como nuevo."); renderNew();
@@ -113,9 +113,8 @@ function renderMine(){
   $("#mineList").innerHTML = all.length ? `
     ${plegable("mias", `<b>Creadas por ti</b> <span class="xs muted">${all.length}</span>`, `<div class="row" style="margin:6px 0"><div class="spacer"></div><button class="btn sm" id="mineExp">📦 Exportar como pack</button></div>${all.map(x=>`<div><div class="srcitem"><div style="flex:1;min-width:0;word-break:break-word"><div class="small">${esc(x.t)}</div>${x.d ? `<div class="xs muted">${esc(x.d)}</div>` : ""}</div>${x.k[0] !== "c" ? `<button class="btn ghost sm" data-medit="${x.k}" aria-label="Corregir">✏️</button>` : ""}<button class="btn ghost sm" data-mdel="${x.k}" aria-label="Eliminar" style="color:var(--bad)">✕</button></div><div data-mbox="${x.k}"></div></div>`).join("")}`)}`
     : `<p class="muted small" style="margin:0">Lo que crees aquí entra a tu repaso espaciado y lo puedes compartir como pack.</p>`;
-  document.querySelectorAll("[data-mdel]").forEach(b=>b.onclick=()=>{ const k = b.dataset.mdel, id = k.slice(1);
-    if (k[0]==="q") S.userQ = S.userQ.filter(q=>q.id!==id); else if (k[0]==="h") S.userH = S.userH.filter(h=>h.id!==id); else S.userC = S.userC.filter(c=>c.id!==id);
-    delete S.srs[k]; rebuild(); save(); renderMine(); });
+  document.querySelectorAll("[data-mdel]").forEach(b=>b.onclick=()=>{ const k = b.dataset.mdel;
+    quitarPropio(k); rebuild(); save(); renderMine(); });
   document.querySelectorAll("[data-medit]").forEach(b=>b.onclick=()=>{ const k = b.dataset.medit, id = k.slice(1);
     openCorregir(k[0], k[0]==="q" ? qById(id) : hyById(id), document.querySelector(`[data-mbox="${k}"]`), ()=>renderMine()); });
   $("#mineExp") && ($("#mineExp").onclick = ()=>downloadPack(makePack("Mis preguntas y fichas", qs, cs, {}, hs)));
@@ -141,12 +140,12 @@ function importPack(p){
   const cs = (p.cards || []).slice(0, 2000).filter(c=>c && str(c.front,1) && str(c.back,1));
   if (!qs.length && !cs.length && !hs.length) return toast("El pack no tiene ítems válidos.");
   const id = "k" + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
-  S.sources.push({id, title: str(p.title, 120) || "Pack importado", org: str(p.org, 80), year: parseInt(p.year) || "", pages: 0, chars: 0, added: Date.now(), spec: "Medicina Interna", kind: "pack"});
-  qs.forEach(q=>S.userQ.push({id: "u"+(++S.seq), qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", specialty: spec(q.specialty), topic: str(q.topic,200) || "Caso del pack", difficulty: "Pack", vignette: sanitizeVig(str(q.vignette,5000)),
+  agregarFuente({id, title: str(p.title, 120) || "Pack importado", org: str(p.org, 80), year: parseInt(p.year) || "", pages: 0, chars: 0, added: Date.now(), spec: "Medicina Interna", kind: "pack"});
+  qs.forEach(q=>agregarPropio("q", {id: nuevoIdPropio(), qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", specialty: spec(q.specialty), topic: str(q.topic,200) || "Caso del pack", difficulty: "Pack", vignette: sanitizeVig(str(q.vignette,5000)),
     options: q.options.map(o=>str(o,600)), correct: q.correct, whyCorrect: str(q.whyCorrect,3000), pearl: str(q.pearl,1500), trap: str(q.trap,1500), src: id, page: parseInt(q.page) || 0, pack: true}));
-  hs.forEach(h=>{ const sp = spec(h.specialty); S.userH.push({id: "u"+(++S.seq), specialty: sp, title: str(h.title,200), badge: str(h.badge,60), accent: SPEC_COLOR[sp],
+  hs.forEach(h=>{ const sp = spec(h.specialty); agregarPropio("h", {id: nuevoIdPropio(), specialty: sp, title: str(h.title,200), badge: str(h.badge,60), accent: SPEC_COLOR[sp],
     thresholds: h.thresholds.map(t=>({label: str(t.label,200), val: str(t.val,400)})), redFlag: str(h.redFlag,1000), trap: str(h.trap,1000), ctx: str(h.ctx,1500), src: id, page: parseInt(h.page) || 0, pack: true}); });
-  cs.forEach(c=>S.userC.push({id: "u"+(++S.seq), specialty: spec(c.specialty), front: str(c.front,600), back: str(c.back,1500), ctx: str(c.ctx,1500), src: id, page: parseInt(c.page) || 0, pack: true}));
+  cs.forEach(c=>agregarPropio("c", {id: nuevoIdPropio(), specialty: spec(c.specialty), front: str(c.front,600), back: str(c.back,1500), ctx: str(c.ctx,1500), src: id, page: parseInt(c.page) || 0, pack: true}));
   rebuild(); save(); toast(`Pack importado: ${qs.length} casos, ${hs.length} fichas${cs.length ? ` y ${cs.length} repasos rápidos` : ""} ✓ No los revisó MediPulse: verifícalos.`); openSrc(id);
 }
 

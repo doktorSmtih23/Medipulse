@@ -5,6 +5,9 @@ const KEY_API = "medipulse_api_key";
 let memKey = "";   // respaldo en memoria cuando el navegador no deja guardar
 function getKey(){ try { return localStorage.getItem(KEY_API) || memKey; } catch(e) { return memKey; } }
 function setKey(k){ memKey = k || ""; try { k ? localStorage.setItem(KEY_API, k) : localStorage.removeItem(KEY_API); } catch(e) {} }
+// Este archivo es el único que agrega o quita fuentes de S.sources; los demás usan estas dos funciones.
+const agregarFuente = s => { S.sources.push(s); return s; };
+const quitarFuente = id => { S.sources = S.sources.filter(x => x.id !== id); };
 const pubmed = t => "https://pubmed.ncbi.nlm.nih.gov/?term=" + encodeURIComponent(t);
 
 function srcInfo(id){
@@ -151,7 +154,7 @@ async function addPdf(f, openAfter, meta){
     const id = "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
     const rec = {blob: new Blob([buf], {type:"application/pdf"}), pages};
     await idb.put(id, rec); recCache[id] = rec;
-    S.sources.push(Object.assign({id, title: tituloFuente(f.name, pages.titulo, pages.tituloPag), year: pages.anio || "", pages: pages.length, chars, added: Date.now(), recien: Date.now(), spec: "Medicina Interna"}, meta || {}));
+    agregarFuente(Object.assign({id, title: tituloFuente(f.name, pages.titulo, pages.tituloPag), year: pages.anio || "", pages: pages.length, chars, added: Date.now(), recien: Date.now(), spec: "Medicina Interna"}, meta || {}));
     save(); prog.innerHTML = "";
     toast(chars < pages.length*80 ? "PDF agregado, pero casi no tiene texto (¿es escaneado o escrito a mano?)." : "PDF agregado ✓");
     if (openAfter) openSrc(id);

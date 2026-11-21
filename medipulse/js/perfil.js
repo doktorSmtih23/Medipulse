@@ -12,6 +12,8 @@ const FOCUS = [
 ];
 const focusOf = () => FOCUS.find(f=>f.k===S.focus) || FOCUS[0];
 // Tipo de una pregunta: el que trae (las generadas) o el que se deduce del tema y de la pregunta final.
+// El enfoque de estudio (conducta, diagnóstico…): solo este archivo lo cambia.
+const elegirEnfoque = k => { S.focus = k; };
 function qKind(q){
   if (q.tipo && QMETODO[q.tipo]) return q.tipo;   // elegido o corregido por el usuario
   if (q.qtype === "critica") return "critica";
@@ -60,7 +62,7 @@ function renderFocusBox(){
   if (f.k === "mixto") {
     const con = FOCUS.slice(1).map(x => ({x, p: pct(st[x.k])})).filter(y => y.p != null).sort((a, b) => a.p - b.p);
     box.innerHTML = con.length ? `<p class="xs muted" style="margin:6px 0 0">Tu tipo de pregunta más débil: <b>${esc(con[0].x.t)}</b> (${con[0].p} %). <button class="linkbtn" id="focWeak">Ponerlo como enfoque</button></p>` : "";
-    $("#focWeak") && ($("#focWeak").onclick = () => { S.focus = con[0].x.k; save(); renderHoy(); toast("Enfoque: " + con[0].x.t); });
+    $("#focWeak") && ($("#focWeak").onclick = () => { elegirEnfoque(con[0].x.k); save(); renderHoy(); toast("Enfoque: " + con[0].x.t); });
     return;
   }
   const x = st[f.k], p = pct(x), cuantos = f.k === "datos" ? x.total + x.fichas : x.total, poco = cuantos < 3;
@@ -108,7 +110,7 @@ function renderFocusSel(){
   const sel = $("#focusSel"); if (!sel) return;
   sel.innerHTML = FOCUS.map(f=>`<option value="${f.k}" ${focusOf().k===f.k?"selected":""}>${esc(f.t)}</option>`).join("");
   $("#focusDesc").textContent = focusOf().d;
-  sel.onchange = ()=>{ S.focus = sel.value; save(); toast("Enfoque: " + focusOf().t); renderHoy(); };
+  sel.onchange = ()=>{ elegirEnfoque(sel.value); save(); toast("Enfoque: " + focusOf().t); renderHoy(); };
   renderFocusBox();
 }
 
