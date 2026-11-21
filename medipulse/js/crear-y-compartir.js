@@ -167,7 +167,8 @@ function importPack(p){
 
 // ---------- 🤖 Generar desde tu PDF: atajo al taller con IA de una fuente ----------
 // Elige uno de tus documentos (o sube uno) y abre su taller con IA listo para crear casos y fichas.
-function generarDesde(id){ prepSrc(id, {tab: "ai", customOpen: true}); go("src"); }
+// Desde Casos → Crear: abre el documento directamente en «🩺 Casos».
+function generarDesde(id){ prepSrc(id, {tab: "ai", sub: "casos"}); go("src"); }
 // Un documento en «Generar desde tu PDF»: icono por tipo, título, tamaño y el botón «Crear».
 function docGenerarHTML(s, clave){
   const icono = s.apunte ? "📓" : s.kind === "text" ? "📋" : "📄";

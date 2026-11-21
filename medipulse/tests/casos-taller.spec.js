@@ -89,3 +89,28 @@ test("dificultad: cuatro niveles, y debajo se lee qué significa el elegido (en 
   await expect(page.locator("#candList")).toBeVisible();
   expect(peticiones.at(-1).messages[0].content.map(b => b.text).join("\n")).toContain("Dificultad: Difícil (distractores muy parecidos");
 });
+
+test("desde Casos → Crear → «Generar desde tu PDF», el documento abre directamente en «🩺 Casos»", async ({ page }) => {
+  await page.click("nav [data-go=banco]");
+  await page.click('[data-go="new"]'); await page.click('[data-nt="g"]');
+  await page.click("[data-gen]");
+  await expect(page.locator("#casosBox")).toBeVisible();
+  await expect(page.locator('[data-gsub="casos"]')).toHaveClass(/on/);
+});
+
+test("el tema se elige dentro de la sección y la cantidad de cada tipo se escribe; hay un tope por vez", async ({ page }) => {
+  await page.evaluate(() => { const s = S.sources[0]; s.indice = {v: 99, fuente: "ia", items: [{title: "Diagnóstico", from: 1, to: 1, lvl: 1}, {title: "Tratamiento", from: 2, to: 2, lvl: 1}]}; save(); });
+  await abrirCasos(page, "REV");
+  await expect(page.locator("#cTema option")).toHaveText([/Todo el documento/, /Diagnóstico/, /Tratamiento/]);
+  await page.selectOption("#cTema", "1");
+  await expect(page.locator("#cTema")).toHaveValue("1");
+  expect(await page.evaluate(() => temaActual().title)).toBe("Tratamiento");
+  // Escribir la cantidad: 12 casos de diferenciales.
+  await page.fill('[data-ccant="diferenciales"]', "12"); await page.locator('[data-ccant="diferenciales"]').dispatchEvent("change");
+  await expect(page.locator("#cGo")).toHaveText("🩺 Crear 20 casos");
+  // Más de 30 por vez: lo dice y no deja crear.
+  await page.fill('[data-ccant="conducta"]', "20"); await page.locator('[data-ccant="conducta"]').dispatchEvent("change");
+  await expect(page.locator("#casosBox")).toContainText("Máximo 30 casos por vez");
+  await expect(page.locator("#cGo")).toBeDisabled();
+  expect(await sinDesborde(page)).toBe(true);
+});

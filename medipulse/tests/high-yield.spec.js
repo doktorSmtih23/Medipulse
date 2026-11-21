@@ -65,15 +65,15 @@ test("editor de ficha: ejemplo guía en todos los campos y vista previa del repa
   await expect(page.locator(".hyprev-in .th b").first()).toHaveText("?");
 });
 
-test("crear → generar desde tu PDF: sin clave ofrece la guía y tu propia IA; con un documento abre su taller con IA", async ({ page }) => {
+test("crear → generar desde tu PDF: sin clave ofrece la guía y tu propia IA; con un documento abre «🩺 Casos» de su taller", async ({ page }) => {
   await page.evaluate(() => { newType = "g"; go("new"); });
   await expect(page.locator("#newForm")).toContainText("Necesitas tu clave de API");
   await page.click("#newForm [data-nt2=i]");
   await expect(page.locator("#newForm")).toContainText("Prompt para tu IA");
   await page.evaluate(() => { S.sources.push({id: "t1", title: "Guía de prueba", kind: "text", pages: 2, added: Date.now()}); newType = "g"; go("new"); });
-  await page.evaluate(() => { window._abrio = null; prepSrc = (id, extra) => { window._abrio = [id, extra.tab, extra.customOpen]; }; go = v => { window._vista = v; }; });
+  await page.evaluate(() => { window._abrio = null; prepSrc = (id, extra) => { window._abrio = [id, extra.tab, extra.sub]; }; go = v => { window._vista = v; }; });
   await page.click('#newForm [data-gen="t1"]');
-  expect(await page.evaluate(() => [window._abrio, window._vista])).toEqual([["t1", "ai", true], "src"]);
+  expect(await page.evaluate(() => [window._abrio, window._vista])).toEqual([["t1", "ai", "casos"], "src"]);
 });
 
 test("«En tu banco» de un documento: resumen a la vista y la lista plegada", async ({ page }) => {
