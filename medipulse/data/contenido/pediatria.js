@@ -738,6 +738,34 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c20",
+      "topic": "Neurología · Convulsión febril simple",
+      "difficulty": "Nivel 1",
+      "src": "udea_neuro26",
+      "vignette": "Niña de 18 meses con fiebre de 39 °C por un resfriado. Tuvo una <span class='hy'>crisis tónico-clónica generalizada de 2 minutos</span>, única, y a los 30 minutos está alerta, juega y el examen neurológico es normal. ¿Qué estudios pides?",
+      "options": [
+        "Electroencefalograma y resonancia cerebral ambulatorios",
+        "Punción lumbar de rutina por la edad",
+        "Hemograma, electrolitos y glucemia de rutina",
+        "Ninguno de rutina: observar y educar a la familia"
+      ],
+      "correct": 3,
+      "whyCorrect": "Es una convulsión febril simple. Con buen estado general y recuperación completa no se indican de rutina análisis de sangre, neuroimagen ni electroencefalograma: no cambian el manejo ni predicen recurrencia o epilepsia. Se observa al menos 6 horas y se educa a la familia.",
+      "pearl": "Convulsión febril simple: observar mínimo 6 horas (las complejas, hasta 24). Riesgo de meningitis cerca del 3 %, y del 9 % en las complejas.",
+      "trap": "Pedir EEG o neuroimagen «para descartar epilepsia»: no la predicen y generan costos y ansiedad.",
+      "cita": [
+        {
+          "donde": "Convulsiones febriles",
+          "texto": "en un niño con convulsión febril simple, buen estado general y recuperación completa, no se indican de rutina análisis de sangre, neuroimagen ni electroencefalograma"
+        },
+        {
+          "donde": "Convulsiones febriles",
+          "texto": "Aunque el riesgo de meningitis bacteriana en una convulsión febril simple es bajo (aproximadamente 3%), este riesgo aumenta hasta cerca del 9% en las convulsiones febriles complejas."
+        }
+      ],
+      "verificado": "2026-11-21"
     }
   ],
   "fichas": [

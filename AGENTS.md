@@ -117,7 +117,7 @@ Para ver la app en un visor que abre un solo HTML (por ejemplo, el panel de arch
 
 ## Contenido médico
 
-El contenido incluido es una **demostración corta del método** (ver `PRODUCTO.md`): pocos casos y fichas por básica, todos verificados. Vive en `data/contenido/`, un archivo por especialidad, con este formato (JSON dentro de `MP_CONTENIDO.agregar({...})`):
+El contenido incluido es una **demostración del método con casos suficientes para el diagnóstico** (ver `PRODUCTO.md`): casos y fichas por básica, todos verificados. Vive en `data/contenido/`, un archivo por especialidad, con este formato (JSON dentro de `MP_CONTENIDO.agregar({...})`):
 
 ```js
 MP_CONTENIDO.agregar({

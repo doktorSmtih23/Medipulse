@@ -25,7 +25,9 @@ function estCasos(tema, src){
   const T = new Set([...dupTokens(tema)].filter(w => !EST_GENERICAS.has(w)));
   if (!T.size) return [];
   const score = q => { const Q = dupTokens([q.topic, String(q.vignette).replace(/<[^>]+>/g, " ")].join(" ")); let c = 0; T.forEach(w => { if (Q.has(w)) c++; }); return c / T.size + (src && q.src === src ? 0.5 : 0); };
-  return QUESTIONS.map(q => [score(q), q]).filter(([s]) => s >= 0.5).sort((a, b) => b[0] - a[0]).slice(0, 5).map(([, q]) => String(q.id));
+  // Con 1 o 2 palabras, todas deben estar («Encefalitis autoinmune» no trae la encefalitis herpética); con más, 2 de cada 3.
+  const umbral = T.size <= 2 ? 1 : 0.66;
+  return QUESTIONS.map(q => [score(q), q]).filter(([s]) => s >= umbral).sort((a, b) => b[0] - a[0]).slice(0, 5).map(([, q]) => String(q.id));
 }
 
 // ---------- reloj ----------

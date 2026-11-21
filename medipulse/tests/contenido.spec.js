@@ -57,9 +57,9 @@ test("en una especialidad verificada, todo lo visible trae su cita textual y la 
   expect(mal).toEqual([]);
 });
 
-test("la demostración de Medicina Interna es acotada (máximo 32 casos y 14 fichas)", () => {
+test("la demostración de Medicina Interna es acotada (máximo 40 casos y 14 fichas)", () => {
   const mi = tipo => visibles(tipo).filter(x => x._esp === "Medicina Interna").length;
-  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(32);
+  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(40);
   expect(mi("fichas")).toBeLessThanOrEqual(14);
 });
 
