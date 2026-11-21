@@ -180,3 +180,15 @@ test("al terminar un bloque del diagnóstico se vuelve al diagnóstico y el bloq
   await expect(page.locator("#diagBox")).toContainText(`Parte 1: ${n} de`);
   expect(await page.evaluate(() => S.sims.length)).toBe(0);
 });
+
+test("sin promesas ni tareas del autor: el perfil no anuncia un control que no existe y Fuentes no muestra «sin revisar» al estudiante", async ({ page }) => {
+  await page.evaluate(() => { const p1 = diagP1(); p1.ids.forEach((id, i) => S.resp.push({id: String(id), d: Date.now() + i, ok: i % 2 > 0, o: 0, ex: 1}));
+    p1.hechos = p1.ids.slice(); p1.fin = Date.now(); save(); go("diag"); });
+  await expect(page.locator("#diagPerfil")).toContainText("Tu plan semanal");
+  await expect(page.locator("#diagPerfil")).not.toContainText("control");
+  await page.click("nav [data-go=lib]");
+  await expect(page.locator("#vigCard")).toBeHidden();
+  await page.goto("/?prueba=1");
+  await page.click("nav [data-go=lib]");
+  await expect(page.locator("#vigCard")).toContainText("sin revisar en los últimos 6 meses");
+});

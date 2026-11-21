@@ -282,7 +282,7 @@ function estCierre(box, a){
     <div class="xs muted">Sesión de estudio · cierre</div><b style="overflow-wrap:anywhere">${esc(a.tema)}</b>
     <div class="grid3"><div class="kpi"><b>${r.min}</b><span>min de lectura</span></div><div class="kpi"><b>${r.completos}/${a.bloques.length}</b><span>bloques completos</span></div><div class="kpi"><b>${r.puntos}</b><span>puntos recordados</span></div></div>
     ${r.pre && r.post ? `<div class="note pearl" style="margin:0"><b>Pre-test ${r.pre.ok}/${r.pre.n} → post-test ${r.post.ok}/${r.post.n}</b>${r.post.ok > r.pre.ok ? " · mejoraste en esta sesión." : r.post.ok === r.pre.ok ? " · sin cambio: repasa lo que fallaste." : ""}${tabla}<div class="xs muted" style="margin-top:4px">Lo que fallaste en el post-test vuelve en tu repaso.</div></div>`
-      : a.pre.ids.length ? `<button class="btn" id="estPost">📝 Hacer el post-test (${a.pre.ids.length} caso${a.pre.ids.length === 1 ? "" : "s"}) y ver cuánto mejoraste</button>` : ""}
+      : a.pre.ids.length ? `<div class="note stack" style="margin:0"><b class="small">📝 Falta el post-test: ${a.pre.ids.length === 1 ? "el mismo caso" : `los mismos ${a.pre.ids.length} casos`} del inicio</b><div class="xs muted">Sin él no sabrás cuánto aprendiste en esta sesión.</div><button class="btn primary block" id="estPost">📝 Hacer el post-test</button></div>` : ""}
     ${a.guia.length ? `<div class="guiabox stack"><b class="small">🔎 Tus preguntas de búsqueda activa</b>
       <p class="xs muted" style="margin:0">Mira la respuesta y marca si la tenías. Lo que no tenías es lo primero que debes repasar.</p>
       ${a.guia.map((g, i) => `<div class="gcierre"><b class="small">${i + 1}. ${esc(g.p)}</b>
@@ -291,7 +291,7 @@ function estCierre(box, a){
         <div class="chips" style="margin-top:6px">${[["si", "✓ La tenía"], ["medio", "~ A medias"], ["no", "✗ No la tenía"]].map(([k, t]) => `<button class="chip2${g.auto === k ? " on" : ""}" data-ga="${i}:${k}">${t}</button>`).join("")}</div></div>`).join("")}
       ${a.guia.some(g => g.r) ? `<button class="btn" id="estFichaGuia">💎 Ficha con las preguntas y sus respuestas</button><div id="estFichaGuiaBox"></div>` : ""}</div>` : ""}
     ${pts.length ? `<button class="btn" id="estFicha">💎 Convertir mis ${pts.length} puntos en una ficha</button><div id="estFichaBox"></div>` : `<p class="xs muted" style="margin:0">No escribiste puntos de memoria: en la próxima sesión, el recuerdo activo es lo que más fija lo leído.</p>`}
-    <button class="btn primary block" id="estGuardar">✓ Terminar y guardar la sesión</button>
+    ${r.pre && !r.post && a.pre.ids.length ? `<button class="btn ghost block" id="estGuardar">Terminar sin post-test</button>` : `<button class="btn primary block" id="estGuardar">✓ Terminar y guardar la sesión</button>`}
     <button class="linkbtn xs" id="estDescartar" style="align-self:center;color:var(--bad)">Descartar esta sesión</button></div>`;
   $("#estPost") && ($("#estPost").onclick = () => { a.postHaciendo = true; save(); renderEstudio(); });
   box.querySelectorAll("[data-ga]").forEach(b => b.onclick = () => { const [i, k] = b.dataset.ga.split(":"); a.guia[+i].auto = k; save(); renderEstudio(); });

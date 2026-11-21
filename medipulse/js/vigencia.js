@@ -154,9 +154,13 @@ function countItems(id){
 
 function renderVigCard(){
   const all = allSources();
-  const out = all.filter(s=>srcState(s.id)==="outdated").length, pend = all.filter(s=>needsCheck(s.id)).length;
+  const out = all.filter(s=>srcState(s.id)==="outdated").length; const pend = all.filter(s=>needsCheck(s.id)).length;
+  // «Sin revisar» cuenta lo que este dispositivo no ha revisado: es tarea del autor (modo de prueba), no del
+  // estudiante. Al estudiante solo se le avisa si una fuente ya tiene una versión más nueva.
+  const autor = typeof modoPrueba === "function" && modoPrueba();
+  $("#vigCard").hidden = !autor && !out;
   $("#vigCard").innerHTML = `<div class="row"><h3 style="font-size:16px">🔎 Vigencia de las fuentes</h3><div class="spacer"></div><button class="btn primary sm" data-go="check">Revisar</button></div>
-    <p class="small" style="margin:6px 0 0">${out ? `<b style="color:var(--bad)">${out} con versión más nueva</b> · ` : ""}${pend ? `${pend} sin revisar en los últimos 6 meses` : "Todas revisadas recientemente ✓"}</p>`;
+    <p class="small" style="margin:6px 0 0">${[out && `<b style="color:var(--bad)">${out} con versión más nueva</b>`, autor && (pend ? `${pend} sin revisar en los últimos 6 meses` : "Todas revisadas recientemente ✓")].filter(Boolean).join(" · ")}</p>`;
 }
 
 // ---------- vista de revisión ----------
