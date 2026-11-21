@@ -358,6 +358,226 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c09",
+      "topic": "Obstetricia · Chagas en el embarazo",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 24 años, 22 semanas de gestación, de un municipio priorizado para Chagas. La tamización con prueba rápida y la confirmación son positivas. Está <span class='hy'>asintomática, con ECG normal</span>: es una infección en fase crónica. ¿Qué haces con el tratamiento antiparasitario?",
+      "options": [
+        "Benznidazol desde ya, para evitar la transmisión congénita",
+        "Nifurtimox en el tercer trimestre, cuando ya terminó la organogénesis",
+        "No tratar en el embarazo; tratar al terminar la lactancia",
+        "No tratarla nunca, porque la fase crónica no tiene tratamiento"
+      ],
+      "correct": 2,
+      "whyCorrect": "La infección crónica no justifica tratamiento durante el embarazo, por riesgos de teratogenicidad inciertos y efectos adversos. Se trata después de la lactancia exclusiva, y el recién nacido expuesto se sigue para confirmar o descartar la transmisión congénita, cuyo tratamiento precoz es altamente efectivo.",
+      "pearl": "Chagas en la gestante: tratar en el embarazo solo la fase aguda o la reactivación con compromiso del SNC o miocarditis. Benznidazol 5 a 8 mg/kg/día cada 12 horas por 60 días.",
+      "trap": "Tratarla en el embarazo «para proteger al bebé»: en la fase crónica no está indicado.",
+      "cita": [
+        {
+          "donde": "Enfermedad de Chagas: ¿qué hacer?",
+          "texto": "No justifica el tratamiento en infección en fase crónica durante el embarazo dado riesgos de teratogenicidad inciertos y efectos adversos."
+        },
+        {
+          "donde": "Enfermedad de Chagas: ¿qué hacer?",
+          "texto": "La tamización durante el embarazo en municipios priorizados es una oportunidad para la detección de esta infección y el tratamiento posterior a la lactancia exclusiva."
+        },
+        {
+          "donde": "Enfermedad de Chagas: ¿qué hacer?",
+          "texto": "En los recién nacidos expuestos a la enfermedad el seguimiento descartará o confirmará la transmisión congénita para la cual el tratamiento precoz es altamente efectivo."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c10",
+      "topic": "Ginecología · Preservación de la fertilidad",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 29 años, sin hijos, a quien acaban de diagnosticar cáncer de mama. La quimioterapia empezará <span class='hy'>en dos semanas</span> y ella quiere tener hijos en el futuro. ¿Qué es lo indicado?",
+      "options": [
+        "Esperar a terminar la quimioterapia y valorar la reserva ovárica",
+        "Solo análogos de la GnRH durante la quimioterapia para proteger los ovarios",
+        "Aplazar la quimioterapia hasta completar dos ciclos de estimulación",
+        "Remitir ya a reproducción: estimulación y vitrificar ovocitos"
+      ],
+      "correct": 3,
+      "whyCorrect": "La preservación de la fertilidad se discute al momento del diagnóstico, y la ventana hasta el tratamiento oncológico define la estrategia. Con dos semanas, la estimulación en cualquier fase del ciclo (random-start) permite vitrificar ovocitos sin retrasar la quimioterapia. Los análogos de la GnRH son complementarios, no sustitutivos.",
+      "pearl": "Ovocitos, embriones y tejido ovárico: métodos bien establecidos. Remitir no obliga a preservar; no preservar es válido si es informado y documentado.",
+      "trap": "Confiar solo en los análogos de la GnRH, o retrasar la quimioterapia para preservar.",
+      "cita": [
+        {
+          "donde": "Preservación de la fertilidad en mujeres con cáncer",
+          "texto": "La preservación de la fertilidad se debe discutir temprano, idealmente al momento de hacer el diagnóstico de cáncer"
+        },
+        {
+          "donde": "Preservación de la fertilidad en mujeres con cáncer",
+          "texto": "La supresión ovárica con análogos de la GnRH puede ser complementaria, no sustitutiva"
+        },
+        {
+          "donde": "Preservación de la fertilidad en mujeres con cáncer",
+          "texto": "Dado que el inicio de quimioterapia estaba programado en dos semanas, se inició estimulación ovárica en esquema random-start"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c11",
+      "topic": "Cardio-obstetricia · Vía del parto",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 30 años con una cardiopatía congénita corregida, en clase funcional I, con 36 semanas de un embarazo normal. Feto cefálico, sin indicaciones obstétricas de cesárea. ¿Cómo y cuándo planeas el parto?",
+      "options": [
+        "Cesárea programada a las 37 semanas por la cardiopatía",
+        "Parto vaginal a término; cesárea solo por indicación obstétrica",
+        "Inducir ya a las 36 semanas para evitar la sobrecarga del tercer trimestre",
+        "Cesárea con anestesia general para evitar el pujo"
+      ],
+      "correct": 1,
+      "whyCorrect": "Programar una cesárea solo porque hay cardiopatía es un error común. Se favorece el parto vaginal a término: menos pérdida de sangre y menos sepsis posquirúrgica. La cesárea se reserva para indicaciones obstétricas o situaciones cardíacas específicas, como una aorta de más de 45 mm en Marfan o una falla cardíaca aguda intratable.",
+      "pearl": "La mayoría de las cardiópatas pueden tener un embarazo exitoso con estratificación del riesgo (mWHO, CARPREG II).",
+      "trap": "Creer que la cardiopatía obliga a un parto prematuro y por cesárea.",
+      "cita": [
+        {
+          "donde": "Desmintiendo mitos en obstetricia: algunos aspectos que se deben saber sobre cardiopatía y embarazo",
+          "texto": "La recomendación actual es favorecer el parto vaginal a término, ya que se asocia con menores pérdidas hemáticas y un menor riesgo de sepsis posquirúrgica."
+        },
+        {
+          "donde": "Desmintiendo mitos en obstetricia: algunos aspectos que se deben saber sobre cardiopatía y embarazo",
+          "texto": "La cesárea queda reservada para indicaciones estrictamente obstétricas o situaciones cardíacas específicas (ej. diámetro aórtico >45 mm en Marfan o falla cardíaca aguda intratable)."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c12",
+      "topic": "Cardio-obstetricia · Válvula mecánica",
+      "difficulty": "Nivel 3",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 33 años con válvula mitral mecánica, anticoagulada con <span class='hy'>warfarina 3 mg al día</span> con INR en meta, que tiene 7 semanas de embarazo. En su hospital no miden anti-Xa. ¿Qué haces con la anticoagulación?",
+      "options": [
+        "Cambiar a enoxaparina en dosis fijas sin control de niveles",
+        "Suspender toda anticoagulación en el primer trimestre",
+        "Cambiar a aspirina sola hasta la semana 13",
+        "Seguir con warfarina, por su dosis menor de 5 mg al día"
+      ],
+      "correct": 3,
+      "whyCorrect": "Los antagonistas de la vitamina K son los más eficaces para prevenir la trombosis valvular, cuya mortalidad supera el 80 %. Con una dosis de warfarina menor de 5 mg al día, el riesgo de embriopatía es bajo (menor de 3 %). La heparina de bajo peso molecular solo es alternativa con niveles de anti-Xa (0,8 a 1,2) y ajuste semanal; sin ese control está contraindicada.",
+      "pearl": "Válvula mecánica en el embarazo: la decisión es individualizada y compartida, priorizando la seguridad valvular materna.",
+      "trap": "Pasar a heparina en dosis fijas sin anti-Xa: se asocia a altas tasas de trombosis valvular.",
+      "cita": [
+        {
+          "donde": "Desmintiendo mitos en obstetricia: algunos aspectos que se deben saber sobre cardiopatía y embarazo",
+          "texto": "si la dosis de warfarina necesaria para mantener la meta de anticoagulación en estas pacientes es <5 mg/ día, el riesgo de embriopatía es bajo (<3 %)."
+        },
+        {
+          "donde": "Desmintiendo mitos en obstetricia: algunos aspectos que se deben saber sobre cardiopatía y embarazo",
+          "texto": "se contraindica el uso de HBPM si no se dispone de dichos niveles."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c13",
+      "topic": "Cardio-obstetricia · Anticoncepción",
+      "difficulty": "Nivel 1",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 27 años con una cardiopatía con riesgo trombótico, en el posparto inmediato de un parto vaginal. No desea otro embarazo por ahora y pide un método. ¿Qué le ofreces?",
+      "options": [
+        "Anticonceptivo oral combinado desde la semana 3",
+        "Parche combinado de estrógeno y progestina",
+        "Anillo vaginal combinado mensual",
+        "DIU de levonorgestrel desde el posparto"
+      ],
+      "correct": 3,
+      "whyCorrect": "En cardio-obstetricia la planificación familiar es una intervención de seguridad. Se ofrecen métodos de larga duración, como el DIU de levonorgestrel, que evitan el riesgo trombótico de los estrógenos. La asesoría empieza desde el control prenatal e incluye la vasectomía de la pareja.",
+      "pearl": "Cardiópata: LARC sin estrógenos (DIU de levonorgestrel, implante).",
+      "trap": "Pensar que la anticoncepción es insegura o ineficaz en cardiópatas y no ofrecer nada.",
+      "cita": [
+        {
+          "donde": "Desmintiendo mitos en obstetricia: algunos aspectos que se deben saber sobre cardiopatía y embarazo",
+          "texto": "Se deben ofrecer métodos de larga duración (LARC), como el dispositivo intrauterino (DIU) de levonorgestrel, que evitan los riesgos trombóticos de los estrógenos."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c14",
+      "topic": "Cardio-obstetricia · Lactancia",
+      "difficulty": "Nivel 1",
+      "src": "udea_gin26",
+      "vignette": "Puérpera de 31 años con cardiopatía, en tratamiento con metoprolol y warfarina. Quiere amamantar y pregunta si puede. ¿Qué le dices?",
+      "options": [
+        "Que suspenda la lactancia mientras tome warfarina",
+        "Que puede amamantar sin cambiar los fármacos",
+        "Que cambie la warfarina por heparina para poder amamantar",
+        "Que amamante solo si suspende el metoprolol"
+      ],
+      "correct": 1,
+      "whyCorrect": "La lactancia es posible y debe fomentarse por sus beneficios metabólicos. La mayoría de los betabloqueadores, antihipertensivos y anticoagulantes, incluidas la warfarina y la heparina, pasan muy poco a la leche y son seguros para el lactante.",
+      "pearl": "El puerperio es el periodo de mayor inestabilidad hemodinámica en la cardiópata: la vigilancia no termina a las 6 semanas.",
+      "trap": "Suspender la lactancia por los medicamentos cardíacos.",
+      "cita": [
+        {
+          "donde": "Desmintiendo mitos en obstetricia: algunos aspectos que se deben saber sobre cardiopatía y embarazo",
+          "texto": "La mayoría de los betabloqueadores, antihipertensivos y anticoagulantes (incluyendo la warfarina y la heparina) tienen un paso mínimo a la leche materna y son seguros para el lactante."
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c15",
+      "topic": "Obstetricia · Ecografía intraparto",
+      "difficulty": "Nivel 3",
+      "src": "udea_gin26",
+      "vignette": "Primigestante en el segundo periodo del parto, con 2 horas de pujo sin descenso claro. La ecografía transperineal muestra un <span class='hy'>ángulo de progresión de 98°</span>. ¿Cómo lo interpretas?",
+      "options": [
+        "Alto riesgo de fracaso del parto vaginal",
+        "Cabeza encajada: aplicar fórceps sin más estudios",
+        "Progreso normal: darle una hora más de pujo",
+        "El ángulo de progresión no sirve en el segundo periodo"
+      ],
+      "correct": 0,
+      "whyCorrect": "El ángulo de progresión (entre el eje del pubis y la tangente al cráneo fetal) predice el resultado del parto. Un ángulo de 120° a 140° o más suele predecir un parto vaginal exitoso; uno menor de 105° se asocia a alto riesgo de fracaso y necesidad de cesárea. La estación 0 corresponde a unos 116°.",
+      "pearl": "Ecografía intraparto: más objetiva que el tacto para la posición y la estación de la cabeza fetal.",
+      "trap": "Instrumentar con una cabeza alta: con menos de 105° el riesgo de fracaso es alto.",
+      "cita": [
+        {
+          "donde": "Ecografía intraparto: ¿nueva herramienta para evaluar el progreso del parto?",
+          "texto": "Un AoP mayor a 120° - 140° suele predecir un parto vaginal exitoso, mientras que un Un AoP menor a 105° se asocia a un alto riesgo de fracaso en el parto y la necesidad de cesárea"
+        },
+        {
+          "donde": "Ecografía intraparto: ¿nueva herramienta para evaluar el progreso del parto?",
+          "texto": "la estación fetal de 0 corresponde a una AoP de 116°"
+        }
+      ],
+      "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c16",
+      "topic": "Obstetricia · Cardiopatías fetales",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Gestante de 28 años, sin antecedentes. En la ecografía de las 12 semanas la <span class='hy'>translucencia nucal mide 3,8 mm</span>; el cariotipo resulta normal. ¿Qué estudio cardíaco del feto indicas?",
+      "options": [
+        "Ninguno, porque el cariotipo es normal",
+        "Ecocardiografía fetal especializada",
+        "Solo la ecografía de detalle de las 20 semanas",
+        "Ecocardiograma al recién nacido"
+      ],
+      "correct": 1,
+      "whyCorrect": "Una translucencia nucal por encima del percentil 99 o de 3,5 mm siempre es indicación de ecocardiografía fetal: se asocia a trisomías 21 y 18 y a cardiopatías, aunque no haya anomalías cromosómicas.",
+      "pearl": "Otras indicaciones de ecocardiografía fetal: anomalía en la vista de cuatro cámaras o en los tractos de salida, arritmias fetales, fiebre o ciertas infecciones maternas en el primer trimestre.",
+      "trap": "Descartar el riesgo cardíaco porque el cariotipo salió normal.",
+      "cita": [
+        {
+          "donde": "Cardiopatías fetales ¿cuándo sospecharlas?",
+          "texto": "Translucencia nucal aumentada: en percentil > 99 o 3.5mm siempre se debe realizar ecocardiografía fetal ya que se asocia a trisomía 21, 18 y alteraciones cardíacas, aunque no presenten anomalías cromosómicas."
+        }
+      ],
+      "verificado": "2026-11-21"
     }
   ],
   "fichas": [

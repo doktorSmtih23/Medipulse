@@ -18,9 +18,24 @@ const WITH_LIBS = process.argv.includes("--con-librerias");
 const read = p => fs.readFileSync(path.join(ROOT, p), "utf8");
 // Un "</script" dentro del código cerraría la etiqueta antes de tiempo.
 const safeJs = s => s.replace(/<\/script/gi, "<\\/script");
-// Quita las líneas que son solo un comentario («// …») para que el archivo pese menos. Cuenta las
-// comillas invertidas para no tocar líneas dentro de una plantilla de texto (`…`).
+// Quita los comentarios para que el archivo pese menos. Usa el analizador de ESLint (espree), que distingue un
+// comentario de un texto o una expresión regular que contenga «//». Si no está instalado (`npm install`),
+// quita solo las líneas que son un comentario completo, contando las comillas invertidas para no tocar
+// líneas dentro de una plantilla de texto (`…`).
+let espree = null;
+try { espree = require(require.resolve("espree", {paths: [path.dirname(require.resolve("eslint"))]})); } catch(e) {}
 function sinComentarios(js){
+  if (espree) {
+    try {
+      const {comments} = espree.parse(js, {ecmaVersion: "latest", sourceType: "script", comment: true, range: true});
+      let out = "", desde = 0;
+      for (const c of comments) {
+        out += js.slice(desde, c.range[0]) + (c.type === "Block" ? " " : "");
+        desde = c.range[1];
+      }
+      return out + js.slice(desde);
+    } catch(e) { /* si no se puede analizar, el método simple */ }
+  }
   let abiertas = 0;
   return js.split("\n").filter(l => {
     const quitar = abiertas % 2 === 0 && /^\s*\/\/(?!#)/.test(l);
