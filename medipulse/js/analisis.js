@@ -313,7 +313,7 @@ function renderMbeDocs(){
   const docs = S.sources.filter(s=>s.kind !== "pack").slice().reverse();
   box.innerHTML = `<h3 style="font-size:16px">🧠 Auditar un PDF</h3>
     <p class="xs muted" style="margin:0">Sube una guía o un artículo, o elige uno de tu biblioteca. Verás el veredicto, el algoritmo, qué hacer y qué no, y los umbrales, cada uno con su página.</p>
-    ${docs.length ? plegable("mbedocs", `<b class="small">Elegir de tu biblioteca</b> <span class="xs muted">${docs.length}</span>`, docs.slice(0, 12).map(s=>`<div class="srcitem"><div class="ic">📄</div><div style="flex:1;min-width:0"><b class="small" style="word-break:break-word">${esc(s.title)}</b><div class="xs muted">${s.pages} págs${s.an ? " · " + Object.keys(s.an).map(k=>AN_KINDS[k] ? AN_KINDS[k].icon : "").join(" ") : ""}</div></div><button class="btn sm" data-aud="${esc(s.id)}">Analizar</button></div>`).join("")) : ""}
+    ${docs.length ? plegable("mbedocs", `<b class="small">Elegir de tu biblioteca</b> <span class="xs muted">${docs.length}</span>`, docs.slice(0, 12).map(docAuditarHTML).join("")) : ""}
     <button class="btn" id="mbeUp">➕ Subir un PDF</button><input type="file" id="mbeIn" accept="application/pdf" hidden><div id="mbeUpMsg" class="xs"></div>`;
   box.insertAdjacentHTML("beforeend", misAnalisisHTML());
   box.querySelectorAll("[data-misan]").forEach(b=>b.onclick=()=>{ const [id, kind, ver] = b.dataset.misan.split("|"); openAnalysis(id, kind, ver); });
@@ -381,10 +381,20 @@ function anImprimir(s, kind, saved){
   document.body.appendChild(f);
   toast("Elige «Guardar como PDF» en el diálogo de impresión.");
 }
+// Un documento de la biblioteca en «Auditar un PDF»: título, páginas, los análisis que ya tiene y el botón.
+function docAuditarHTML(s){
+  const hechos = s.an ? " · " + Object.keys(s.an).map(k => AN_KINDS[k] ? AN_KINDS[k].icon : "").join(" ") : "";
+  return `<div class="srcitem"><div class="ic">📄</div><div style="flex:1;min-width:0"><b class="small" style="word-break:break-word">${esc(s.title)}</b>`
+    + `<div class="xs muted">${s.pages} págs${hechos}</div></div><button class="btn sm" data-aud="${esc(s.id)}">Analizar</button></div>`;
+}
 // «Mis análisis»: todos los análisis guardados, de todos los documentos (en MBE).
 function misAnalisisHTML(){
   const todos = S.sources.filter(s => s.kind !== "pack").flatMap(s => anHist(s).map(x => ({s, x}))).sort((a, b) => b.x.at - a.x.at);
   if (!todos.length) return "";
-  return plegable("misan", `<b class="small">📚 Mis análisis</b> <span class="xs muted">${todos.length}</span>`, `${todos.slice(0, 12).map(({s, x}) => `<div class="qrow"><span>${AN_KINDS[x.kind] ? AN_KINDS[x.kind].icon : "📄"}</span><div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(s.title)}</b><div class="xs muted">${esc(AN_KINDS[x.kind] ? AN_KINDS[x.kind].name : "")} · ${esc(x.label)} · ${anCuando(x.at)}</div></div><button class="btn sm" data-misan="${esc(s.id)}|${x.kind}|${x.id}">Abrir</button></div>`).join("")}
+  const fila = ({s, x}) => { const k = AN_KINDS[x.kind];
+    return `<div class="qrow"><span>${k ? k.icon : "📄"}</span><div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(s.title)}</b>`
+      + `<div class="xs muted">${esc(k ? k.name : "")} · ${esc(x.label)} · ${anCuando(x.at)}</div></div>`
+      + `<button class="btn sm" data-misan="${esc(s.id)}|${x.kind}|${x.id}">Abrir</button></div>`; };
+  return plegable("misan", `<b class="small">📚 Mis análisis</b> <span class="xs muted">${todos.length}</span>`, `${todos.slice(0, 12).map(fila).join("")}
     ${todos.length > 12 ? `<p class="xs muted" style="margin:6px 0 0">Y ${todos.length - 12} más: ábrelos desde su documento.</p>` : ""}`);
 }

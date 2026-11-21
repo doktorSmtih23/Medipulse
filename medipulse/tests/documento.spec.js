@@ -1,4 +1,4 @@
-// Procesamiento del texto de un documento (js/taller.js): limpieza y detección de capítulos, sin IA.
+// Procesamiento del texto de un documento (js/texto-pdf.js): limpieza y detección de capítulos, sin IA.
 const { test, expect } = require("@playwright/test");
 const { vigilarErrores, subirPdf } = require("./ayudas");
 

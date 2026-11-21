@@ -79,6 +79,14 @@ function edLeer(box){
   edBase.instr = val("#edInstr") || "";
   return v;
 }
+// Una opción del editor: marcar como correcta, la letra, el texto y quitarla (solo si hay más de 4).
+function edOpcionHTML(o, j, v){
+  const L = "ABCDE"[j], filas = Math.min(4, Math.max(1, Math.ceil(o.length / 30)));
+  const quitar = v.options.length > 4 ? `<button class="xbtn" data-edx="${j}" aria-label="Quitar la opción ${L}">✕</button>` : "";
+  return `<div class="row" style="gap:6px;align-items:center;flex-wrap:nowrap">`
+    + `<input type="radio" name="edCor" value="${j}" ${j === v.correct ? "checked" : ""} aria-label="Correcta: ${L}"><b>${L}</b>`
+    + `<textarea data-edo="${j}" rows="${filas}" class="edopt">${esc(o)}</textarea>${quitar}</div>`;
+}
 function renderEditor(box){
   const q = qById(edBase.id), v = edBase.v, clave = !!getKey();
   if (!q) { edBase = null; return renderEditarCaso(box); }
@@ -102,7 +110,7 @@ function renderEditor(box){
     <label class="fld">Tema<input type="text" id="edfTopic" value="${esc(v.topic)}"></label>
     <label class="fld">Caso<textarea id="edfVig" rows="6">${esc(v.vignette)}</textarea></label>
     <span class="xs muted">Marca la correcta. Entre [[dobles corchetes]] van los datos clave (se resaltan como pistas).</span>
-    ${v.options.map((o, j) => `<div class="row" style="gap:6px;align-items:center;flex-wrap:nowrap"><input type="radio" name="edCor" value="${j}" ${j === v.correct ? "checked" : ""} aria-label="Correcta: ${"ABCDE"[j]}"><b>${"ABCDE"[j]}</b><textarea data-edo="${j}" rows="${Math.min(4, Math.max(1, Math.ceil(o.length / 30)))}" class="edopt">${esc(o)}</textarea>${v.options.length > 4 ? `<button class="xbtn" data-edx="${j}" aria-label="Quitar la opción ${"ABCDE"[j]}">✕</button>` : ""}</div>`).join("")}
+    ${v.options.map((o, j) => edOpcionHTML(o, j, v)).join("")}
     ${v.options.length < 5 ? `<button class="btn ghost sm" id="edAddE" style="align-self:flex-start">➕ Agregar opción E</button>` : ""}
     <label class="fld">Explicación<textarea id="edfWhy" rows="3">${esc(v.whyCorrect)}</textarea></label>
     <div class="grid2"><label class="fld">💎 Perla<textarea id="edfPearl" rows="2">${esc(v.pearl)}</textarea></label><label class="fld">⚠️ Trampa<textarea id="edfTrap" rows="2">${esc(v.trap)}</textarea></label></div>

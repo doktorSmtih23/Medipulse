@@ -1,4 +1,4 @@
-// Taller de preguntas con IA (js/taller.js): fichas automáticas por relevancia, siempre con revisión.
+// Taller de preguntas con IA (js/taller-ia.js y js/taller-revision.js): fichas automáticas por relevancia, siempre con revisión.
 const { test, expect } = require("@playwright/test");
 const { vigilarErrores, simularIA, abrirConClave, subirPdf } = require("./ayudas");
 

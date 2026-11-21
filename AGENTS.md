@@ -68,11 +68,14 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/banco.js` | Banco de casos: «Arma tu práctica» (varias especialidades, 1 a 100 casos, al azar / mis vulnerabilidades / con filtros, modo examen) y «Explorar el banco» (búsqueda, tipo, estado, lista sin tema ni fuente) |
 | `js/vulnerabilidades.js` | Registro de respuestas (`S.resp`, con el motivo del fallo que marca el usuario), rendimiento por tipo × especialidad, casos que se fallan una y otra vez, patrón de error auditoría a ciegas del modo examen (`CONFIANZA`, `marcarConfianza`: un acierto sin certeza vuelve mañana al repaso; nota real, aciertos frágiles y errores con seguridad) y elección de casos por vulnerabilidad (`elegirVulnerables`) o al azar balanceado (`elegirAlAzar`). Todo se calcula en el dispositivo |
 | `js/fichas-hy.js` | Fichas high-yield: estudio, editor y pestaña High Yield (buscador, filtros por especialidad, área y estado, lista compacta que abre cada ficha con un toque; «Repasar» usa lo filtrado) |
-| `js/simulacro.js` | Pantalla antigua del simulacro (ya no está en la barra; el simulacro se arma en el banco con «Modo examen») |
 | `js/progreso.js` | Progreso y borrado |
 | `js/fuentes.js` | Biblioteca, PDFs (IndexedDB, pdf.js), clave de API y guía |
 | `js/compromiso.js` | Compromiso con los PDF: estado de cada documento (sin abrir, en estudio, estudiado, en espera), pendientes en Hoy, meta semanal que elige el usuario (`S.metaPdf`) y pregunta al subir uno más con la meta llena |
-| `js/taller.js` | Detalle de una fuente: taller de preguntas (lector, datos clave, IA), revisión y guardado |
+| `js/texto-pdf.js` | Texto de un documento: limpieza (encabezados repetidos, marcas de agua), capítulos y páginas de un tema, utilidades de texto |
+| `js/taller.js` | Detalle de una fuente: encabezado, índice, pestañas, ítems guardados y eliminar el documento |
+| `js/taller-ia.js` | Taller · generar con IA: fichas automáticas, IA a tu medida (plantillas), verificación de citas |
+| `js/taller-leer.js` | Taller · leer y crear: el PDF tal cual, búsqueda, selección, recorte y capturas para armar fichas |
+| `js/taller-revision.js` | Taller · datos clave sin internet y revisión de lo propuesto antes de guardarlo |
 | `js/vigencia.js` | Llamadas a la API de Claude (`callForTool`, `apiErr`), revisión de vigencia y actualización de ítems |
 | `js/analisis.js` | Analizar un documento: visor de la página original, mapa por capítulos, auditoría MBE, revisión de tema y pase de revista |
 | `js/perfil.js` | Enfoque de estudio por tipo de pregunta (`FOCUS`, `qKind`, `focusLine`) y diagnóstico rápido |

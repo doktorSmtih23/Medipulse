@@ -53,3 +53,11 @@ test("sin meta y con pocos pendientes no pregunta nada al subir", async ({ page 
   await expect(page.locator("#pdfComp")).toBeVisible();
   await expect(page.locator("#pdfPregunta")).toHaveCount(0);
 });
+
+test("un PDF recién subido y abierto ya no dice «Sin abrir»: queda «En estudio»", async ({ page }) => {
+  const { subirPdf } = require("./ayudas");
+  await page.goto("/");
+  await subirPdf(page);
+  await expect(page.locator("#pdfCompBox")).toContainText("En estudio");
+  await expect(page.locator("#pdfCompBox")).not.toContainText("Sin abrir");
+});
