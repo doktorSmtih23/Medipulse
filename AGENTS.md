@@ -73,9 +73,10 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/compromiso.js` | Compromiso con los PDF: estado de cada documento (sin abrir, en estudio, estudiado, en espera), pendientes en Hoy, meta semanal que elige el usuario (`S.metaPdf`) y pregunta al subir uno más con la meta llena |
 | `js/texto-pdf.js` | Texto de un documento: limpieza (encabezados repetidos, marcas de agua), capítulos y páginas de un tema, utilidades de texto |
 | `js/taller.js` | Detalle de una fuente: encabezado, índice, pestañas, ítems guardados y eliminar el documento |
-| `js/taller-ia.js` | Taller · generar con IA: fichas automáticas, IA a tu medida (plantillas), verificación de citas |
+| `js/taller-ia.js` | Taller · «💎 Fichas y casos»: las dos secciones, fichas automáticas, verificación de citas y la llamada a la IA |
+| `js/taller-casos.js` | Taller · «🩺 Casos de este documento»: tipos de caso según la clase de documento (guía, revisión, estudio), cantidades propuestas con lo que se encuentra sin IA (recomendaciones por grado, resultados con cifras; solo los conteos que existen), partes del índice a cubrir y plantillas |
 | `js/taller-leer.js` | Taller · leer y crear: el PDF tal cual, búsqueda, selección, recorte y capturas para armar fichas |
-| `js/taller-revision.js` | Taller · datos clave sin internet y revisión de lo propuesto antes de guardarlo |
+| `js/taller-revision.js` | Taller · revisión de lo propuesto antes de guardarlo |
 | `js/vigencia.js` | Llamadas a la API de Claude (`callForTool`, `apiErr`), revisión de vigencia y actualización de ítems |
 | `js/analisis.js` | Analizar un documento: visor de la página original, mapa por capítulos, auditoría MBE, revisión de tema y pase de revista |
 | `js/perfil.js` | Enfoque de estudio por tipo de pregunta (`FOCUS`, `qKind`, `focusLine`) y diagnóstico rápido |

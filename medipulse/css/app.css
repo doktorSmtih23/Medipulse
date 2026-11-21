@@ -426,3 +426,15 @@ label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap
 .btn.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}.btn.mal{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
 .exptab td:last-child{white-space:normal;text-align:left}.exptab td{vertical-align:top}
 .mapa td{padding:4px 3px;font-size:12px}.mapa td:last-child{text-align:center;white-space:normal}
+/* Fichas y casos (taller-ia.js, taller-casos.js) */
+.subtabs{display:flex;gap:8px}
+.subtabs button{flex:1;min-width:0;border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--panel);text-align:left;color:var(--text)}
+.subtabs button.on{border:2px solid var(--accent);background:var(--accent-soft)}
+.subtabs b{display:block;font-size:14.5px}.subtabs small{color:var(--muted);font-size:12px}
+.basado{background:var(--subtle);border-radius:10px;padding:8px 10px;font-size:13px}
+.hall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.hall div{border:1px solid var(--border);border-radius:10px;padding:8px;text-align:center;background:var(--panel)}
+.hall b{display:block;font-size:20px;overflow-wrap:anywhere}.hall span{display:block;font-size:12px;color:var(--muted);hyphens:auto;overflow-wrap:anywhere}
+.ct{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--border);border-radius:12px;padding:8px 10px;background:var(--panel)}
+.ct span{display:flex;flex-direction:column;min-width:0}.ct b{font-size:14px}.ct small{font-size:12px;color:var(--muted)}
+.step{display:flex;align-items:center;gap:6px;flex:none}.step .btn{min-width:32px;padding:4px 0;justify-content:center}.step output{width:22px;text-align:center;font-weight:700}
