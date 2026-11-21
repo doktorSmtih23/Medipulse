@@ -85,6 +85,8 @@ function casosEstado(){
   gen.casos = {clave, fam, sel, tipos: p.tipos, cant: p.cant, hallazgos: sel ? casosHallazgos(fam, sel) : [], partes, partesOn: new Set(partes)};
   return gen.casos;
 }
+// Qué significa el nivel elegido, visible debajo de los botones (en el celular no hay texto emergente).
+const nivelTxt = k => { const l = LEVELS.find(x => x[0] === k) || LEVELS[1]; return `<b>${l[1]}:</b> ${esc(l[2])}. Para ${esc(l[3])}.`; };
 const casosTotal = c => c.tipos.reduce((a, x) => a + (c.cant[x.k] || 0), 0);
 
 function casosHTML(){
@@ -101,7 +103,8 @@ function casosHTML(){
       <div class="stack" style="gap:8px">${c.tipos.map(paso).join("")}</div></div>
     ${c.partes.length >= 2 ? `<div><div class="fld" style="margin-bottom:6px">Partes del documento que quieres cubrir</div>
       <div class="chips">${c.partes.map((p, i) => `<button class="chip2${c.partesOn.has(p) ? " on" : ""}" data-cparte="${i}">${esc(p)}</button>`).join("")}</div></div>` : ""}
-    <div><div class="fld" style="margin-bottom:6px">Dificultad</div><div class="chips">${LEVELS.map(([k, l, d]) => `<button class="chip2${gen.level === k ? " on" : ""}" data-lv="${k}" title="${esc(d)}">${l}</button>`).join("")}</div></div>
+    <div><div class="fld" style="margin-bottom:6px">Dificultad</div><div class="chips">${LEVELS.map(([k, l]) => `<button class="chip2${gen.level === k ? " on" : ""}" data-lv="${k}">${l}</button>`).join("")}</div>
+      <p class="xs muted" id="cNivel" style="margin:6px 0 0">${nivelTxt(gen.level)}</p></div>
     <details class="custom" id="cMas" ${gen.casosMas ? "open" : ""}><summary>Más opciones: idioma, instrucciones, plantillas</summary><div class="stack" style="margin-top:10px">
       ${tpls.length ? `<div class="row" style="gap:6px"><span class="xs muted">Mis plantillas:</span>${tpls.map((x, i) => `<button class="chip2" data-tpl="${i}">${esc(x.name)}</button>`).join("")}</div>` : ""}
       <div class="grid2">
@@ -129,7 +132,7 @@ function bindCasos(){
   box.querySelectorAll("[data-cmas]").forEach(b => b.onclick = () => { const k = b.dataset.cmas; c.cant[k] = Math.min(10, (c.cant[k] || 0) + 1); refrescar(); });
   box.querySelectorAll("[data-cmenos]").forEach(b => b.onclick = () => { const k = b.dataset.cmenos; c.cant[k] = Math.max(0, (c.cant[k] || 0) - 1); refrescar(); });
   box.querySelectorAll("[data-cparte]").forEach(b => b.onclick = () => { const p = c.partes[+b.dataset.cparte]; c.partesOn.has(p) ? c.partesOn.delete(p) : c.partesOn.add(p); b.classList.toggle("on"); });
-  box.querySelectorAll("[data-lv]").forEach(x => x.onclick = () => { gen.level = x.dataset.lv; box.querySelectorAll("[data-lv]").forEach(y => y.classList.toggle("on", y === x)); });
+  box.querySelectorAll("[data-lv]").forEach(x => x.onclick = () => { gen.level = x.dataset.lv; box.querySelectorAll("[data-lv]").forEach(y => y.classList.toggle("on", y === x)); $("#cNivel").innerHTML = nivelTxt(gen.level); });
   $("#cTema").onclick = () => { const i = document.querySelector("#genCard details"); if (i) { i.open = true; i.scrollIntoView({behavior: "smooth", block: "center"}); } };
   $("#cMas").ontoggle = () => { gen.casosMas = $("#cMas").open; };
   $("#gLang").onchange = () => { gen.lang = $("#gLang").value; };
