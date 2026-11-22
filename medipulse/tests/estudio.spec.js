@@ -321,6 +321,44 @@ test.describe("tipo de material", () => {
     expect(await page.evaluate(() => S.estudio.actual.tipo)).toBe("proc");
   });
 
+  test("la IA puede llenar la plantilla del tipo elegido; se estudia con su página, se escribe de memoria y se compara al final", async ({ page }) => {
+    errores = vigilarErrores(page);
+    const peticiones = await simularIA(page, body => body.tools[0].name === "report_plantilla"
+      ? {tool: "report_plantilla", input: {aplica: {texto: "Adultos con NAC", page: 1}, hace: {texto: "Amoxicilina → 1 g cada 8 h", page: 1}, nohace: {texto: "", page: 0}, umbrales: {texto: "CURB-65 ≥ 2 → hospitalizar", page: 1}, cambios: {texto: "", page: 0}}}
+      : {tool: "report_preguntas", input: {preguntas: [{pregunta: "¿Qué umbral decide hospitalizar?", concepto: "umbral", respuesta: "CURB-65 ≥ 2", page: 1}]}});
+    await abrirConClave(page); await subirPdf(page);
+    await page.evaluate(() => { const s = S.sources.at(-1); s.design = "GPC"; s.title = "Guía de práctica clínica de la NAC"; save(); });
+    await page.click("nav [data-go=estudio]");
+    await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
+    await expect(page.locator('[data-estpl="yo"]')).toHaveClass(/on/);       // por defecto la llena el usuario
+    await page.click('[data-estpl="ia"]');
+    await expect(page.locator("#estPlNota")).toContainText("con la página de cada dato");
+    await page.click("#estGo");
+    await expect(page.locator("#estBox")).not.toContainText("preparando");
+    const pide = peticiones.find(p => p.tools[0].name === "report_plantilla");
+    expect(pide.system).toContain('"nohace" (Lo que no se hace)');
+    expect(Object.keys(pide.tools[0].input_schema.properties)).toEqual(["aplica", "hace", "nohace", "umbrales", "cambios"]);
+    if (await page.locator("#estSaltar").count()) await page.click("#estSaltar");
+    await page.click("#estLeer");
+    await expect(page.locator('[data-pleg="estbusca"]')).toContainText("¿Qué umbral decide hospitalizar?");
+    await expect(page.locator('[data-pleg="estplant"] summary')).toContainText("llenada por la IA");
+    await expect(page.locator('[data-pl="hace"]')).toHaveValue("Amoxicilina → 1 g cada 8 h");
+    await expect(page.locator('[data-plpag="1"]').first()).toBeVisible();
+    await expect(page.locator("#estPdf")).toBeVisible();   // los PDF subidos no guardan «kind»: igual se ofrece abrirlo
+    await terminarBloque(page);
+    await page.fill("#estRec", "CURB-65"); await page.click("#estComp");
+    await expect(page.locator('[data-pleg="estplcomp"]')).toContainText("CURB-65 ≥ 2 → hospitalizar");
+    expect(await sinDesborde(page)).toBe(true);
+  });
+
+  test("sin clave de IA la plantilla se llena a mano y se ofrece la opción con la clave", async ({ page }) => {
+    errores = vigilarErrores(page);
+    await page.goto("/");
+    await page.click("nav [data-go=estudio]");
+    await expect(page.locator("[data-estpl]")).toHaveCount(0);
+    await expect(page.locator("#estPlBox")).toContainText("Con tu clave de API, la IA puede llenarla por ti");
+  });
+
   test("el tema corto quita «Guía de…», «Diagnosis and management of», «Estado del arte» y el año", async ({ page }) => {
     errores = vigilarErrores(page);
     await page.goto("/");

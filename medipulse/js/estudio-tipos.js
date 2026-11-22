@@ -89,3 +89,41 @@ function estTemaCorto(titulo){
   if (t.length > 70 && t.includes(":")) t = t.split(":")[0].trim();
   return t.charAt(0).toUpperCase() + t.slice(1);
 }
+
+// ---------- la IA llena la plantilla (opcional) ----------
+// Para quien no quiere llenarla a mano: la IA la llena con las secciones del tipo de material, desde el
+// documento y con la página de cada dato. El esquema sigue igual: se estudia con el reloj, se escribe de
+// memoria al terminar cada bloque y se compara.
+function estTextoDoc(s, a){
+  const info = docInfo(s.id), nums = [];
+  for (let p = a.desde || 1; p <= (a.hasta || s.pages); p++) if (info && info.pages[p - 1]) nums.push(p);
+  return nums.map(p => `[pág. ${p}]\n${info.pages[p - 1]}`).join("\n\n").slice(0, AN_MAX_CHARS);
+}
+async function estGenPlantilla(a){
+  const s = a.src && S.sources.find(x => x.id === a.src), T = estTipo(a.tipo);
+  try {
+    let doc = "";
+    if (s) { await getRec(s.id); doc = estTextoDoc(s, a); }
+    const seccion = {type: "object", additionalProperties: false, required: ["texto", "page"], properties: {texto: {type: "string"}, page: {type: "integer"}}};
+    const tool = {name: "report_plantilla", description: "Entrega la plantilla de lectura llena.", strict: true,
+      input_schema: {type: "object", additionalProperties: false, required: T.pl.map(x => x[0]), properties: Object.fromEntries(T.pl.map(([k]) => [k, seccion]))}};
+    const r = await callForTool({system: `Eres un profesor de medicina que prepara a médicos para el examen de residencia. Llenas la plantilla de lectura de una sesión de estudio: el médico la estudiará y después la escribirá de memoria.
+El material es ${T.n.replace(/^\S+\s/, "").toLowerCase()}. Secciones:
+${T.pl.map(([k, t, d]) => `- "${k}" (${t.replace(/^\S+\s/, "")}): ${d}.`).join("\n")}
+Reglas:
+- Solo lo que se pregunta en el examen y cambia la conducta: criterios, cifras, umbrales, dosis y trampas. Nada de relleno.
+- Cada sección en 2 a 4 líneas cortas, una idea por línea, sin viñetas ni markdown. Si es un dato, usa «→» (p. ej. «Pleocitosis → > 5/μl»).
+- ${s ? `Tomado SOLO del documento. "page" es la página donde está lo principal de la sección, según las marcas [pág. N]. Si el documento no trae nada de una sección, deja "texto" vacío y "page" en 0.` : `Según el conocimiento médico vigente; "page" es 0.`}
+Español neutro.${focusLine()}`,
+      tools: [tool], label: "Plantilla de lectura",
+      user: s ? [{type: "text", text: `<documento titulo="${s.title.replace(/"/g, "'")}">\n${doc}\n</documento>`, cache_control: {type: "ephemeral"}}, {type: "text", text: `Tema a estudiar: ${a.tema}.`}]
+             : `Tema a estudiar: ${a.tema}.`}, "report_plantilla");
+    a.plPag = {};
+    T.pl.forEach(([k]) => {
+      const x = r[k] || {}, t = String(x.texto || "").trim();
+      if (t && !(a.plantilla[k] || "").trim()) a.plantilla[k] = t;
+      a.plPag[k] = s && x.page > 0 && x.page <= s.pages ? x.page : 0;
+    });
+    if (!Object.values(a.plantilla).some(x => x && x.trim())) throw uerr("La IA no llenó la plantilla.");
+  } catch(e) { a.plIA = false; toast((e.userMsg || e.message) + " · La plantilla queda para llenarla tú."); }
+}
