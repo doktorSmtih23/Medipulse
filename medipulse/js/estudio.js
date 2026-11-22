@@ -8,11 +8,8 @@
 // La sesión en curso vive en S.estudio.actual: el reloj se calcula con marcas de tiempo y sobrevive a recargar.
 // ===================================================================
 const EST_RITMOS = [{k: "25/5", t: 25, d: 5, l: 15, n: "Clásico"}, {k: "50/10", t: 50, d: 10, l: 20, n: "Bloques largos"}, {k: "15/3", t: 15, d: 3, l: 10, n: "Si estás cansado"}];
-const EST_PLANTILLA = [["fisio", "🧬 Fisiopatología", "Causa → mecanismo → signo clínico"], ["cuadro", "🩺 Cuadro típico", "Quién, cómo se presenta, hallazgos clave"],
-  ["banderas", "🚩 Banderas rojas", "Cuándo sospechar algo grave"], ["algoritmo", "🧭 Algoritmo", "Prueba inicial → confirmatoria → tratamiento de primera línea"],
-  ["dif", "🔀 Diferenciales", "Con qué se confunde y el dato que los separa"], ["perlas", "💎 Perlas", "Cifras, umbrales y trampas de examen"]];
 const EST_AUTO = [["todo", "Casi todo"], ["mitad", "La mitad"], ["poco", "Poco"]];
-let estNuevo = {src: "", tema: "", indice: -1, guiaIA: true, mias: ""};
+let estNuevo = {src: "", tema: "", indice: -1, guiaIA: true, mias: "", tipo: null};   // tipo null: el que se sugiere solo
 const estD = () => S.estudio || (S.estudio = {cfg: {ritmo: "25/5"}, ses: [], informes: [], actual: null});
 const estRitmo = () => EST_RITMOS.find(r => r.k === (estD().cfg.ritmo || "25/5")) || EST_RITMOS[0];
 const estAct = () => estD().actual;
@@ -87,12 +84,14 @@ async function renderEstInicio(box){
   const s = estNuevo.src && S.sources.find(x => x.id === estNuevo.src);
   if (s) { try { await getRec(s.id); if (!indiceAlDia(s)) await buildIndice(s); } catch(e) {} }   // el texto también dice si es un estudio original
   const items = s && s.indice ? s.indice.items : [];
-  const ses = estD().ses;
+  const ses = estD().ses, paper = estEsPaper(s), tipo = estNuevo.tipo || estTipoAuto(s, estNuevo.tema), T = estTipo(tipo);
   box.innerHTML = `
     <div class="card stack">
       <h3 style="font-size:16px">Nueva sesión</h3>
       <label class="fld">¿Qué vas a estudiar?<select id="estDoc"><option value="">Solo un tema (sin documento)</option>${docs.map(d => `<option value="${esc(d.id)}" ${estNuevo.src === d.id ? "selected" : ""}>${esc(d.title)}</option>`).join("")}</select></label>
-      <label class="fld">Tema<input type="text" id="estTema" value="${esc(estNuevo.tema)}" placeholder="p. ej. Encefalitis autoinmune"></label>
+      <label class="fld">Tema<input type="text" id="estTema" value="${esc(estNuevo.tema)}" placeholder="${esc(T.ej)}"></label>
+      ${paper ? "" : `<div class="xs muted">Tipo de material <span class="muted">· cambia la plantilla de lectura y las preguntas</span></div>
+      <div class="chips" id="estTipos">${Object.entries(EST_TIPOS).map(([k, x]) => `<button class="chip2${k === tipo ? " on" : ""}" data-esttipo="${k}">${x.n}</button>`).join("")}</div>`}
       ${estEsPaper(s) ? `<div class="dupaviso repetida" role="note" id="estNotaPaper">🔬 Es un <b>estudio original</b> (${esc(DESIGNS[estDiseno(s)].replace(/^\S+\s/, ""))}). Los estudios se analizan en el <button class="linkbtn" data-go="mbe">laboratorio MBE</button>; aquí puedes leerlo con el reloj y tus propias preguntas, pero <b>sin IA</b>, para no gastar en algo que MBE hace mejor. <button class="linkbtn" id="estNoPaper">¿Es una revisión?</button></div>` : ""}
       ${items.length ? `<label class="fld">Subtema <span class="xs muted">(opcional)</span><select id="estInd"><option value="-1">Todo el documento</option>${items.map((x, i) => `<option value="${i}" ${estNuevo.indice === i ? "selected" : ""}>${esc(x.title)} (${x.from === x.to ? `pág. ${x.from}` : `págs. ${x.from}–${x.to}`})</option>`).join("")}</select></label>` : ""}
       ${!estEsPaper(s) && estNuevo.indice >= 0 && items[estNuevo.indice] && estSoloMetodos(items[estNuevo.indice].title) ? `<div class="dupaviso repetida" role="note" id="estNotaMet">⚠️ Elegiste solo <b>${esc(items[estNuevo.indice].title)}</b>: ahí no están los resultados y las preguntas saldrían de detalles sin valor. Mejor elige <b>Todo el documento</b> o los resultados.</div>` : ""}
@@ -103,18 +102,20 @@ async function renderEstInicio(box){
         <b class="small">🔎 Preguntas de búsqueda activa</b>
         <p class="xs muted" style="margin:0">${estEsPaper(s) ? "Escribe 3 a 5 preguntas que quieras responder al leer (p. ej. resultado principal, NNT, seguridad). Leerás buscándolas." : "Antes de leer recibes 5 o 6 preguntas sobre lo fundamental del tema. Lees buscando esas respuestas: tu cerebro queda enganchado a encontrarlas y retiene justo lo importante."}</p>
         ${estEsPaper(s) ? "" : getKey() ? `<label class="row check" style="gap:8px"><input type="checkbox" id="estGuiaIA" ${estNuevo.guiaIA ? "checked" : ""}><span class="small">Que la IA las diseñe${s ? " a partir de tu documento" : " sobre el tema"} (${aiEstimateLine(s ? 30000 : 500, {outTokens: 1500})})</span></label>` : `<p class="xs muted" style="margin:0">Con tu clave de API, la IA las diseña. Sin ella, escribe las tuyas:</p>`}
-        ${plegable("estmias", `<span class="small">✍️ Escribir mis propias preguntas</span>`, `<textarea id="estMias" rows="4" placeholder="Una por línea. p. ej.\n¿Cuál es el criterio para sospecharla?\n¿Cuál es el tratamiento de primera línea?">${esc(estNuevo.mias)}</textarea>`, !getKey() || estEsPaper(s))}
+        ${plegable("estmias", `<span class="small">✍️ Escribir mis propias preguntas</span>`, `<textarea id="estMias" rows="4" placeholder="Una por línea. p. ej.\n${esc(T.preg)}">${esc(estNuevo.mias)}</textarea>`, !getKey() || estEsPaper(s))}
       </div>
       <button class="btn primary block" id="estGo">▶ Empezar la sesión</button>
       <p class="xs" style="margin:0;color:var(--bad)" id="estErr"></p>
     </div>
-    <div class="card">${plegable("estguia", `<b>📘 Cómo estudiar una revisión de tema</b>`, estGuiaHTML())}</div>
+    ${paper ? "" : `<div class="card">${plegable("estguia", `<b>📘 Cómo estudiar ${T.como}</b>`, estGuiaHTML(tipo))}</div>`}
     <div class="card stack" id="estAnalisis">${estAnalisisHTML()}</div>
     ${ses.length ? `<div class="card">${plegable("estses", `<b>Tus sesiones</b> <span class="xs muted">${ses.length}</span>`, ses.slice().reverse().slice(0, 30).map(x => `<div class="qrow"><div style="flex:1;min-width:0"><b class="small" style="overflow-wrap:anywhere">${esc(x.tema)}</b>
       <div class="xs muted">${fmtDate(x.ini)} · ${x.min} min · ${x.completos}/${x.bloques} bloques · ${x.puntos} puntos${x.pre && x.post ? ` · pre ${x.pre.ok}/${x.pre.n} → post ${x.post.ok}/${x.post.n}` : ""}</div></div></div>`).join(""))}</div>` : ""}`;
-  $("#estDoc").onchange = e => { estNuevo.src = e.target.value; estNuevo.indice = -1; const d = S.sources.find(x => x.id === estNuevo.src); if (d && (!estNuevo.tema || estNuevo.tema === estNuevo.temaDoc)) { estNuevo.tema = d.title; estNuevo.temaDoc = d.title; } renderEstudio(); };
+  $("#estDoc").onchange = e => { estNuevo.src = e.target.value; estNuevo.indice = -1; const d = S.sources.find(x => x.id === estNuevo.src); estNuevo.tipo = null; if (d && (!estNuevo.tema || estNuevo.tema === estNuevo.temaDoc)) { estNuevo.tema = estTemaCorto(d.title); estNuevo.temaDoc = estNuevo.tema; } renderEstudio(); };
+  box.querySelectorAll("[data-esttipo]").forEach(b => b.onclick = () => { estNuevo.tipo = b.dataset.esttipo; renderEstudio(); });
   $("#estInd") && ($("#estInd").onchange = e => { estNuevo.indice = +e.target.value; renderEstudio(); });
-  $("#estTema").oninput = e => { estNuevo.tema = e.target.value; };
+  // Sin tipo elegido, el sugerido sigue al tema mientras se escribe («Toracostomía» → Procedimiento).
+  $("#estTema").oninput = e => { estNuevo.tema = e.target.value; if (!estNuevo.tipo) { const k = estTipoAuto(s, estNuevo.tema); box.querySelectorAll("[data-esttipo]").forEach(c => c.classList.toggle("on", c.dataset.esttipo === k)); } };
   $("#estNoPaper") && ($("#estNoPaper").onclick = () => { s.design = "REV"; save(); renderEstudio(); });
   $("#estGuiaIA") && ($("#estGuiaIA").onchange = e => { estNuevo.guiaIA = e.target.checked; });
   $("#estMias").oninput = e => { estNuevo.mias = e.target.value; };
@@ -125,17 +126,17 @@ async function renderEstInicio(box){
     // El tema es el documento (p. ej. «Enfermedad de Parkinson»); la parte del índice es el subtema.
     const it = estNuevo.indice >= 0 ? items[estNuevo.indice] : null, tema = it && norm(it.title) !== norm(base) ? `${base} · ${it.title}` : base;
     estD().actual = {id: "e" + Date.now(), ini: Date.now(), tema, src: estNuevo.src || null, desde: it ? it.from : 1, hasta: it ? it.to : (s ? s.pages : 0),
-      ritmo: r.k, paso: "antes", saber: "", pre: {ids: estCasos(base, estNuevo.src), resp: {}}, post: {resp: {}}, bloques: [], plantilla: {}, auto: [], ia: null, fase: null,
+      ritmo: r.k, paso: "antes", saber: "", pre: {ids: estCasos(base, estNuevo.src), resp: {}}, post: {resp: {}}, bloques: [], tipo: paper ? "enf" : estNuevo.tipo || estTipoAuto(s, base), plantilla: {}, auto: [], ia: null, fase: null,
       guia: estNuevo.mias.split("\n").map(x => x.replace(/^\s*(?:\d+[.)]|[-•*])\s*/, "").trim()).filter(Boolean).slice(0, 10).map(p => ({p, r: "", page: 0, propia: true, mia: "", auto: ""}))};
     const conIA = getKey() && estNuevo.guiaIA && !estEsPaper(s);
-    estNuevo = {src: "", tema: "", indice: -1, guiaIA: true, mias: ""};
+    estNuevo = {src: "", tema: "", indice: -1, guiaIA: true, mias: "", tipo: null};
     if (conIA) { estD().actual.paso = "preparando"; save(); renderEstudio(); estGenGuia(estD().actual); }
     else { save(); renderEstudio(); }
   };
   estBindAnalisis();
 }
-function estGuiaHTML(){
-  const g = typeof GUIA_REV !== "undefined" ? GUIA_REV : null; if (!g) return "";
+function estGuiaHTML(tipo){
+  const g = estGuiaDe(tipo); if (!g) return "";
   return `<p class="small" style="margin:6px 0">${esc(g.intro)}</p><ol class="small" style="margin:0;padding-left:18px">${g.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol>
     <p class="xs" style="margin:8px 0 0"><b>⚠️ Error típico:</b> ${esc(g.pitfall)}</p>`;
 }
@@ -187,7 +188,7 @@ function estLeer(box, a){
     <p class="xs muted" style="margin:0;text-align:center">Lee con un objetivo: llena la plantilla con tus palabras. Al terminar el bloque escribirás de memoria lo más importante.</p>
     <p class="xs muted" style="margin:0;text-align:center">📵 La pantalla se queda encendida para avisarte al terminar. Deja el celular boca abajo y lee en papel o en el computador.</p></div>
     ${a.guia.length ? `<div class="card">${plegable("estbusca", `<b>🔎 Lo que estás buscando</b> <span class="xs muted">${a.guia.length} preguntas</span>`, estGuiaLista(a), true)}</div>` : ""}
-    <div class="card">${plegable("estplant", `<b>📝 Plantilla de lectura: qué extraer</b>`, `<div class="stack" style="gap:6px;margin-top:6px">${EST_PLANTILLA.map(([k, t, d]) => `<label class="fld">${t}<textarea rows="2" data-pl="${k}" placeholder="${esc(d)}">${esc(a.plantilla[k] || "")}</textarea></label>`).join("")}</div>`, true)}</div>`;
+    <div class="card">${plegable("estplant", `<b>📝 Plantilla de lectura: qué extraer</b>`, `<div class="stack" style="gap:6px;margin-top:6px">${estTipo(a.tipo).pl.map(([k, t, d]) => `<label class="fld">${t}<textarea rows="2" data-pl="${k}" placeholder="${esc(d)}">${esc(a.plantilla[k] || "")}</textarea></label>`).join("")}</div>`, true)}</div>`;
   estBindCab(box, a);
   $("#estPausa").onclick = () => { const f = a.fase; if (!f) return; if (f.pausa) { f.pausado += Date.now() - f.pausa; f.pausa = null; } else { f.pausa = Date.now(); a.bloques.at(-1).pausas = (a.bloques.at(-1).pausas || 0) + 1; } save(); renderEstudio(); };
   $("#estFin").onclick = () => { estCerrarBloque(a, estRestante(a) <= 60); a.fase = null; a.paso = "recordar"; save(); renderEstudio(); };
@@ -208,7 +209,7 @@ function estRecordar(box, a){
     ${comparando ? `<div class="note" style="margin:0"><b>Ahora compara:</b> ${src ? "abre el documento" : "vuelve a lo que leíste"} y revisa qué faltó o quedó mal. Lo que no recordaste es justo lo que debes repasar.</div>
       <div class="xs muted">¿Cuánto recordaste del bloque?</div>
       <div class="chips">${EST_AUTO.map(([k, t]) => `<button class="chip2${b.auto === k ? " on" : ""}" data-auto="${k}">${t}</button>`).join("")}</div>
-      ${a.ia ? plegable("estia", `<b>🤖 Revisión de la IA para comparar</b>`, estIaHTML(a.ia)) : clave && src && !estEsPaper(src) ? `<button class="btn sm ghost" id="estIA">🤖 Comparar con una revisión de la IA (${aiEstimateLine(4000, {outTokens: 2500})})</button>` : ""}
+      ${a.ia ? plegable("estia", `<b>🤖 Revisión de la IA para comparar</b>`, estIaHTML(a.ia)) : clave && src && !estEsPaper(src) && estTipo(a.tipo) === EST_TIPOS.enf ? `<button class="btn sm ghost" id="estIA">🤖 Comparar con una revisión de la IA (${aiEstimateLine(4000, {outTokens: 2500})})</button>` : ""}
       <div class="row" style="gap:6px"><button class="btn primary" id="estDesc">☕ Descanso</button><button class="btn" id="estOtro">Otro bloque sin descanso</button><button class="btn ghost" id="estCerrar">Terminar la sesión</button></div>`
       : `<button class="btn primary block" id="estComp">Listo: comparar con el documento</button>`}
     <div id="estIAMsg" class="small"></div></div>`;
@@ -501,7 +502,7 @@ async function estGenGuia(a){
     }
     const r = await callForTool({system: `Eres un profesor de medicina que prepara a médicos para el examen de residencia. Diseñas preguntas de búsqueda activa: preguntas que el médico lee ANTES de estudiar un tema para leer buscando sus respuestas.
 Reglas:
-- Entre 5 y 6 preguntas, solo sobre lo fundamental del tema: mecanismo central, criterio o dato diagnóstico clave, primera línea de tratamiento, un umbral o cifra que cambie la conducta, el diferencial que más se confunde y la trampa típica de examen.
+- Entre 5 y 6 preguntas, solo sobre lo fundamental del tema. El material es ${estTipo(a.tipo).n.replace(/^\S+\s/, "").toLowerCase()}: pregunta por ${estTipo(a.tipo).foco}.
 - NO preguntes por características basales, número de pacientes reclutados o aleatorizados, porcentajes descriptivos de la muestra, escalas de ingreso ni detalles de métodos que no cambian la conclusión: eso no se pregunta en el examen.
 - Preguntas abiertas, cortas y concretas («¿Cuál es…?», «¿Qué dato separa…?», «¿Cuándo está indicado…?»), que se respondan en una o dos frases. Sin opciones múltiples. No reveles la respuesta en la pregunta.
 - Ordénalas de la más fundamental a la menos.
