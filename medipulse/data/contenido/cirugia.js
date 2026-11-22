@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Cirugía",
   "prefijo": "cir",
   "paquete": "starter",
-  "actualizado": "2026-11-21",
+  "actualizado": "2026-11-22",
   "casos": [
     {
       "id": 6,
@@ -603,6 +603,266 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-21"
+    },
+    {
+      "id": "cir-c17",
+      "topic": "Coloproctología · Fisura anal aguda",
+      "difficulty": "Nivel 1",
+      "src": "udea_cir25",
+      "vignette": "Mujer de 28 años con <span class='hy'>dolor anal cortante al defecar</span> y sangre roja en las heces desde hace 2 semanas. Al separar los glúteos se ve un desgarro en la <span class='hy'>línea media posterior</span>. ¿Qué indicas?",
+      "options": [
+        "Esfinterotomía interna lateral de urgencia en el mismo ingreso",
+        "Fibra, baños de asiento y diltiazem tópico",
+        "Tacto rectal y anoscopia para confirmar",
+        "Antibiótico oral por posible absceso y control en una semana"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es una fisura anal aguda (menos de 6 semanas, línea media posterior). El manejo médico es de primera línea: 25 a 30 g de fibra al día, agua, analgesia no opioide, baños de asiento y un relajante del esfínter. Los calcioantagonistas tópicos (diltiazem, nifedipino) son la primera opción: igual de eficaces que los nitratos, con menos efectos adversos y recurrencias.",
+      "pearl": "Fisuras laterales o múltiples hacen pensar en VIH, Crohn, tuberculosis o sífilis.",
+      "trap": "Operar de urgencia: la esfinterotomía es para la falla del manejo médico y no se hace en urgencias.",
+      "cita": [
+        {
+          "donde": "Urgencias anorrectales",
+          "texto": "los bloqueadores de canales de calcio como diltiazem y nifedipino tienen eficacia similar a los nitratos, con menor tasa de efectos secundarios y de recurrencias, por lo que son la primera opción de manejo."
+        },
+        {
+          "donde": "Urgencias anorrectales",
+          "texto": "La opción de manejo quirúrgico está indicada para pacientes que fallan al manejo médico, esta no se realiza en situaciones de emergencia, y comprende la esfinterotomía interna lateral."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c18",
+      "topic": "Trauma · Toracostomía de pequeño calibre",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 34 años, estable, con herida por arma cortopunzante en hemitórax derecho y <span class='hy'>hemotórax</span> en la radiografía. Hay tubo de 14 Fr y de 32 Fr. ¿Qué calibre usas?",
+      "options": [
+        "Solo el de 32 Fr: el hemotórax exige gran calibre",
+        "Cualquiera: en trauma los resultados son similares",
+        "Ninguno: se observa sin drenaje con radiografía cada 6 horas",
+        "Dos tubos de gran calibre desde el inicio, anterior y posterior"
+      ],
+      "correct": 1,
+      "whyCorrect": "Los estudios que comparan tubos de pequeño (14 Fr o menos) y gran calibre en trauma (neumotórax y hemotórax) no muestran diferencias en falla, complicaciones, empiema, tubos adicionales, estancia ni mortalidad.",
+      "pearl": "Se inserta en el triángulo de seguridad (pectoral mayor, dorsal ancho, base de la axila), usualmente en el quinto espacio intercostal; la succión no es rutinaria.",
+      "trap": "Creer que el hemotórax siempre exige un tubo grueso.",
+      "cita": [
+        {
+          "donde": "Toracostomía cerrada, Estado del Arte",
+          "texto": "se han encontrado similares resultados clínicos, sin diferencias significativas con respecto a falla terapéutica, complicaciones relacionadas con la inserción del tubo, desarrollo de empiema, necesidad de tubos adicionales, tiempo de estancia hospitalaria, admisión UCI, estancia UCI ni mortalidad en el contexto de trauma (neumo/hemotórax)"
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c19",
+      "topic": "Trauma · Hígado de alto grado",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Mujer de 25 años tras accidente de moto. <span class='hy'>PA 118/76 mmHg, FC 92</span>, sostenida sin transfusiones. La tomografía muestra una <span class='hy'>lesión hepática AAST grado IV con extravasación de contraste</span>. ¿Qué haces?",
+      "options": [
+        "Laparotomía inmediata por el grado IV",
+        "Manejo no operatorio con angioembolización",
+        "Empaquetamiento hepático y relaparotomía programada a las 48 horas",
+        "Alta con control ecográfico ambulatorio en una semana"
+      ],
+      "correct": 1,
+      "whyCorrect": "El tratamiento lo decide el estado hemodinámico, no el grado: estable, va a manejo no operatorio aun con lesión de alto grado. La extravasación de contraste indica angioembolización.",
+      "pearl": "Inestable (PAS <90 con signos de choque): cirugía obligatoria con empaquetamiento y control de daños.",
+      "trap": "Operar por el grado de la lesión en una paciente estable.",
+      "cita": [
+        {
+          "donde": "Abordaje del paciente con trauma hepático complejo",
+          "texto": "se considera que el manejo quirúrgico es una medida obligatoria en pacientes inestables, mientras que el manejo no operatorio se realiza en pacientes hemodinámicamente estables incluso en pacientes con lesiones de alto grado."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c20",
+      "topic": "Trauma · REBOA",
+      "difficulty": "Nivel 3",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 45 años con <span class='hy'>fractura de pelvis inestable</span> y choque hemorrágico que no responde a la reanimación, sin sangrado en tórax ni abdomen. Se decide REBOA. ¿En qué zona y por cuánto tiempo máximo ideal?",
+      "options": [
+        "Zona 1, hasta 60 minutos",
+        "Zona 2, sobre las arterias renales",
+        "Zona 3, idealmente 30 minutos o menos",
+        "Zona 1, sin límite mientras haya pulso"
+      ],
+      "correct": 2,
+      "whyCorrect": "La zona 3 (de la arteria renal más distal a la bifurcación) se usa en hemorragia pélvica, con oclusión idealmente de 30 minutos o menos (máximo 59). La zona 1 es para hemorragia abdominal (idealmente 15 minutos o menos) y la zona 2 está contraindicada.",
+      "pearl": "Contraindicaciones absolutas: taponamiento cardíaco y sospecha de disección traumática de la aorta.",
+      "trap": "Ocluir en zona 1 una hemorragia pélvica: más isquemia visceral sin beneficio.",
+      "cita": [
+        {
+          "donde": "Realidades del REBOA en trauma",
+          "texto": "Zona 3: Desde la arteria renal más distal hasta la bifurcación. Utilizada para hemorragias pélvicas."
+        },
+        {
+          "donde": "Realidades del REBOA en trauma",
+          "texto": "Zona 3: ≤30 minutos, con un máximo de 59 minutos."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c21",
+      "topic": "Trauma · Carótida penetrante",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 22 años con herida por arma blanca en zona II del cuello, <span class='hy'>hematoma pulsátil, PA 80/50 mmHg</span> y hemiparesia izquierda de 1 hora. ¿Qué haces?",
+      "options": [
+        "Angiotomografía de cuello antes de decidir la conducta",
+        "Cirugía inmediata con reparo de la carótida",
+        "Ligadura sistemática de la carótida común e interna",
+        "Observación en UCI con anticoagulación plena"
+      ],
+      "correct": 1,
+      "whyCorrect": "Inestable y con déficit neurológico agudo por trauma penetrante de carótida: el manejo es quirúrgico inmediato y se busca el reparo primario. La imagen es para pacientes estables con signos de duda.",
+      "pearl": "Contraindican la revascularización: coma, ventana mayor de 6 horas y alto riesgo de transformación hemorrágica.",
+      "trap": "Llevar a imagen a un paciente inestable con signos duros.",
+      "cita": [
+        {
+          "donde": "Trauma carotídeo",
+          "texto": "Pacientes inestables, pacientes con déficit neurológico agudo secundario a un trauma penetrante de carótida, el manejo es netamente quirúrgico y se debería realizar un reparo primario."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c22",
+      "topic": "Trauma · Vena cava inferior",
+      "difficulty": "Nivel 3",
+      "src": "udea_cir25",
+      "vignette": "En laparotomía por herida por arma de fuego, el paciente está <span class='hy'>inestable, con sangrado activo y lesión de colon</span>. Se encuentra una lesión compleja de la <span class='hy'>vena cava infrarrenal</span>. ¿Qué opción es válida?",
+      "options": [
+        "Ligar la cava infrarrenal",
+        "Injerto protésico de interposición",
+        "Reparo con parche aunque prolongue la cirugía",
+        "Trasladar sin control del sangrado"
+      ],
+      "correct": 0,
+      "whyCorrect": "En el segmento infrarrenal la circulación colateral (venas lumbares) hace que la ligadura se tolere. En un paciente inestable con sangrado activo y lesiones asociadas, la ligadura es una opción descrita. En lesiones suprarrenales y retrohepáticas generalmente no se liga.",
+      "pearl": "El segmento infrarrenal es el más lesionado (39 %) y el de mejor supervivencia; el retrohepático, el de peor pronóstico.",
+      "trap": "Insistir en una reconstrucción larga en un paciente en control de daños, o usar injerto protésico con contaminación intestinal.",
+      "cita": [
+        {
+          "donde": "Trauma de vena cava inferior: se liga o se repara",
+          "texto": "Cuando el paciente está hemodinámicamente inestable con sangrado activo, lesiones graves asociadas, o cuando la reparación produce estenosis del vaso, la ligadura es una opción quirúrgica descrita."
+        },
+        {
+          "donde": "Trauma de vena cava inferior: se liga o se repara",
+          "texto": "La ligadura de la VCI generalmente no se realiza en lesiones suprarrenales y retrohepáticas."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c23",
+      "topic": "Trauma · Isquemia aguda de extremidad",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 30 años con herida por arma de fuego en el muslo y <span class='hy'>pie frío sin pulsos</span>. El cirujano vascular llega en 3 horas. ¿Qué haces mientras tanto?",
+      "options": [
+        "Esperar al cirujano: la ventana segura de revascularización es de 6 horas",
+        "Derivación arterial temporal (shunt) y revascularizar pronto",
+        "Amputación primaria por el tiempo de isquemia esperado",
+        "Anticoagular con heparina y reevaluar la perfusión en 12 horas"
+      ],
+      "correct": 1,
+      "whyCorrect": "La ventana clásica de 6 horas se está revaluando: el salvamento de la extremidad cae de forma notable después de 3 horas. Las guías priorizan la revascularización temprana y el uso de shunts arteriales cuando la reparación definitiva no es inmediata.",
+      "pearl": "Un índice tobillo-brazo mayor de 0,9 se ha usado para descartar lesión arterial, pero esa evidencia viene sobre todo de oclusión no traumática.",
+      "trap": "Confiarse en la ventana de 6 horas.",
+      "cita": [
+        {
+          "donde": "Isquemia aguda traumática de miembros inferiores",
+          "texto": "Diversos estudios han documentado que la probabilidad de salvamento de la extremidad disminuye progresivamente a medida que aumenta el tiempo de isquemia, con una caída notable después de las 3 horas y un aumento exponencial del riesgo de amputación después de las 6 horas (12–14)."
+        },
+        {
+          "donde": "Isquemia aguda traumática de miembros inferiores",
+          "texto": "diversas guías internacionales han recomendado priorizar estrategias de revascularización temprana y utilizar medidas de control temporal como el uso de shunts arteriales en entornos donde la reparación definitiva no es inmediata (6)."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c24",
+      "topic": "Esófago · Síndrome de Boerhaave",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 52 años con <span class='hy'>dolor torácico intenso tras vómitos</span> por ingesta de alcohol, enfisema subcutáneo cervical y taquicardia. ¿Qué estudio pides?",
+      "options": [
+        "Endoscopia digestiva alta urgente para ver el desgarro",
+        "Tomografía con contraste o esofagografía por TC",
+        "Esofagograma con bario, que da mejor detalle de la mucosa",
+        "Troponina seriada y alta si es negativa"
+      ],
+      "correct": 1,
+      "whyCorrect": "Sospecha de Boerhaave (ruptura espontánea tras vómitos, hombre de 40 a 60 años). La tomografía con contraste y la esofagografía por TC son el estudio de elección. Si se usa esofagograma, el contraste debe ser hidrosoluble: el bario causa mediastinitis química.",
+      "pearl": "La mortalidad (10 a 20 %) se duplica con 24 horas de retraso en el diagnóstico.",
+      "trap": "Usar bario en una sospecha de perforación.",
+      "cita": [
+        {
+          "donde": "Perforación esofágica",
+          "texto": "La tomografía computada con contraste y la esofagografía por TC son el examen de imagen de elección en pacientes con sospecha de perforación esofágica."
+        },
+        {
+          "donde": "Perforación esofágica",
+          "texto": "Esofagograma: implica el consumo de material de contraste (idealmente hidrosoluble por el riesgo de mediastinitis química con el bario) para visualizar el lumen esofágico y detectar fugas."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c25",
+      "topic": "Esófago · Hernia hiatal paraesofágica",
+      "difficulty": "Nivel 1",
+      "src": "udea_cir25",
+      "vignette": "Mujer de 74 años con plenitud posprandial y disnea. Al examen hay <span class='hy'>matidez en la base izquierda y ruidos intestinales en el tórax</span>. Sospechas una hernia hiatal grande. ¿Qué estudio la clasifica mejor?",
+      "options": [
+        "Radiografía contrastada de esófago, estómago y duodeno",
+        "Ecografía abdominal con ventana subxifoidea",
+        "Manometría esofágica de alta resolución, antes que cualquier imagen",
+        "pH-metría de 24 horas con impedancia"
+      ],
+      "correct": 0,
+      "whyCorrect": "La radiografía contrastada de vías digestivas altas es el método de elección: ubica la unión gastroesofágica, clasifica el tipo de hernia (I a IV) y descarta vólvulo.",
+      "pearl": "Las tipo I (por deslizamiento) suelen ser asintomáticas; las II a IV dan más síntomas y complicaciones agudas (vólvulo, obstrucción, sangrado).",
+      "trap": "Pedir pruebas funcionales (manometría, pH-metría) para clasificar la anatomía.",
+      "cita": [
+        {
+          "donde": "Hernia hiatal",
+          "texto": "la radiografía contrastada de las vías digestivas altas (radiografía de esófago, estómago y duodeno) es el método de elección porque permite realizar una clasificación más adecuada del tipo de hernia, ya que se puede visualizar la ubicación de la UGE y descartar la presencia de un vólvulo asociado."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c26",
+      "topic": "Perioperatorio · Analgesia multimodal",
+      "difficulty": "Nivel 2",
+      "src": "udea_cir25",
+      "vignette": "Hombre de 48 años con <span class='hy'>consumo crónico de opioides</span> por dolor lumbar, programado para laparotomía. ¿Qué agregas a la analgesia multimodal para controlar el dolor y ahorrar opioides?",
+      "options": [
+        "Duplicar la dosis de morfina sin otros fármacos",
+        "Ketamina en infusión perioperatoria",
+        "Suspender los opioides la víspera",
+        "Solo acetaminofén, sin AINE"
+      ],
+      "correct": 1,
+      "whyCorrect": "La ketamina en infusión es muy efectiva en cirugía mayor dolorosa y en pacientes con consumo crónico de opioides, en quienes la tolerancia es un reto. En infusión tiene un perfil hemodinámico seguro.",
+      "pearl": "Si no hay epidural, la lidocaína en infusión es una alternativa muy efectiva en cirugía abdominal mayor.",
+      "trap": "Subir solo el opioide en un paciente con tolerancia.",
+      "cita": [
+        {
+          "donde": "Manejo del dolor perioperatorio: importancia de la analgesia multimodal",
+          "texto": "Otro escenario en donde ha demostrado gran impacto es en el manejo de dolor de pacientes con consumo crónico de opioides, que representa un gran reto por el fenómeno de tolerancia en estos pacientes (21,22)."
+        }
+      ],
+      "verificado": "2026-11-22"
     }
   ],
   "fichas": [
