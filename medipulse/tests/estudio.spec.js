@@ -279,3 +279,91 @@ test("con pre-test, el cierre pone el post-test como paso principal y deja termi
   await page.click("#estPost"); await page.click("[data-eo] >> nth=3");
   await expect(page.locator("#estGuardar")).toHaveText("✓ Terminar y guardar la sesión");
 });
+
+// Tipo de material (estudio-tipos.js): la plantilla, la guía, los ejemplos y el foco de las preguntas se
+// adaptan a lo que se estudia: enfermedad, guía, fármaco, procedimiento o tema amplio.
+test.describe("tipo de material", () => {
+  test("con una guía de práctica clínica: se sugiere Guía, el tema queda corto y la plantilla pide recomendaciones, no fisiopatología", async ({ page }) => {
+    errores = vigilarErrores(page);
+    await page.goto("/"); await subirPdf(page);
+    await page.evaluate(() => { const s = S.sources.at(-1); s.design = "GPC"; s.title = "Guía de práctica clínica para el diagnóstico y tratamiento de la NAC 2026"; save(); });
+    await page.click("nav [data-go=estudio]");
+    await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
+    await expect(page.locator("#estTema")).toHaveValue("NAC");
+    await expect(page.locator('[data-esttipo="guia"]')).toHaveClass(/on/);
+    await expect(page.locator('[data-pleg="estguia"] summary')).toContainText("Cómo estudiar una guía de práctica clínica");
+    await page.click("#estGo");
+    if (await page.locator("#estSaltar").count()) await page.click("#estSaltar");
+    await page.click("#estLeer");
+    await expect(page.locator("[data-pl]")).toHaveCount(5);
+    await expect(page.locator('[data-pleg="estplant"]')).toContainText("Lo que no se hace");
+    await expect(page.locator('[data-pleg="estplant"]')).not.toContainText("Fisiopatología");
+    expect(await sinDesborde(page)).toBe(true);
+  });
+
+  test("sin documento: el tipo sigue al tema al escribir, se puede cambiar y la IA recibe el foco de ese tipo", async ({ page }) => {
+    errores = vigilarErrores(page);
+    const peticiones = await simularIA(page, () => ({tool: "report_preguntas", input: {preguntas: [
+      {pregunta: "¿Cuál es la indicación?", concepto: "indicación", respuesta: "Neumotórax", page: 0}]}}));
+    await abrirConClave(page);
+    await page.click("nav [data-go=estudio]");
+    await expect(page.locator('[data-esttipo="enf"]')).toHaveClass(/on/);
+    await page.fill("#estTema", "Toracostomía cerrada");
+    await expect(page.locator('[data-esttipo="proc"]')).toHaveClass(/on/);
+    await page.click('[data-esttipo="farm"]');
+    await expect(page.locator("#estTema")).toHaveValue("Toracostomía cerrada");
+    await expect(page.locator('[data-pleg="estguia"] summary')).toContainText("Cómo estudiar un fármaco");
+    await page.click('[data-esttipo="proc"]');
+    await page.click("#estGo");
+    await expect(page.locator("#estBox")).toContainText("¿Cuál es la indicación?");
+    expect(peticiones.at(-1).system).toContain("El material es procedimiento");
+    expect(peticiones.at(-1).system).toContain("reparos anatómicos");
+    expect(await page.evaluate(() => S.estudio.actual.tipo)).toBe("proc");
+  });
+
+  test("la IA puede llenar la plantilla del tipo elegido; se estudia con su página, se escribe de memoria y se compara al final", async ({ page }) => {
+    errores = vigilarErrores(page);
+    const peticiones = await simularIA(page, body => body.tools[0].name === "report_plantilla"
+      ? {tool: "report_plantilla", input: {aplica: {texto: "Adultos con NAC", page: 1}, hace: {texto: "Amoxicilina → 1 g cada 8 h", page: 1}, nohace: {texto: "", page: 0}, umbrales: {texto: "CURB-65 ≥ 2 → hospitalizar", page: 1}, cambios: {texto: "", page: 0}}}
+      : {tool: "report_preguntas", input: {preguntas: [{pregunta: "¿Qué umbral decide hospitalizar?", concepto: "umbral", respuesta: "CURB-65 ≥ 2", page: 1}]}});
+    await abrirConClave(page); await subirPdf(page);
+    await page.evaluate(() => { const s = S.sources.at(-1); s.design = "GPC"; s.title = "Guía de práctica clínica de la NAC"; save(); });
+    await page.click("nav [data-go=estudio]");
+    await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
+    await expect(page.locator('[data-estpl="yo"]')).toHaveClass(/on/);       // por defecto la llena el usuario
+    await page.click('[data-estpl="ia"]');
+    await expect(page.locator("#estPlNota")).toContainText("con la página de cada dato");
+    await page.click("#estGo");
+    await expect(page.locator("#estBox")).not.toContainText("preparando");
+    const pide = peticiones.find(p => p.tools[0].name === "report_plantilla");
+    expect(pide.system).toContain('"nohace" (Lo que no se hace)');
+    expect(Object.keys(pide.tools[0].input_schema.properties)).toEqual(["aplica", "hace", "nohace", "umbrales", "cambios"]);
+    if (await page.locator("#estSaltar").count()) await page.click("#estSaltar");
+    await page.click("#estLeer");
+    await expect(page.locator('[data-pleg="estbusca"]')).toContainText("¿Qué umbral decide hospitalizar?");
+    await expect(page.locator('[data-pleg="estplant"] summary')).toContainText("llenada por la IA");
+    await expect(page.locator('[data-pl="hace"]')).toHaveValue("Amoxicilina → 1 g cada 8 h");
+    await expect(page.locator('[data-plpag="1"]').first()).toBeVisible();
+    await expect(page.locator("#estPdf")).toBeVisible();   // los PDF subidos no guardan «kind»: igual se ofrece abrirlo
+    await terminarBloque(page);
+    await page.fill("#estRec", "CURB-65"); await page.click("#estComp");
+    await expect(page.locator('[data-pleg="estplcomp"]')).toContainText("CURB-65 ≥ 2 → hospitalizar");
+    expect(await sinDesborde(page)).toBe(true);
+  });
+
+  test("sin clave de IA la plantilla se llena a mano y se ofrece la opción con la clave", async ({ page }) => {
+    errores = vigilarErrores(page);
+    await page.goto("/");
+    await page.click("nav [data-go=estudio]");
+    await expect(page.locator("[data-estpl]")).toHaveCount(0);
+    await expect(page.locator("#estPlBox")).toContainText("Con tu clave de API, la IA puede llenarla por ti");
+  });
+
+  test("el tema corto quita «Guía de…», «Diagnosis and management of», «Estado del arte» y el año", async ({ page }) => {
+    errores = vigilarErrores(page);
+    await page.goto("/");
+    expect(await page.evaluate(() => ["Guía de práctica clínica para el diagnóstico y tratamiento de la NAC 2026", "Diagnosis and Management of Dementia- Review",
+      "Toracostomía cerrada, Estado del Arte", "Autoimmune encephalitis", "Consenso Colombiano para TEC"].map(estTemaCorto)))
+      .toEqual(["NAC", "Dementia", "Toracostomía cerrada", "Autoimmune encephalitis", "TEC"]);
+  });
+});
