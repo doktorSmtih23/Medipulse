@@ -55,7 +55,7 @@ test("sin meta y con pocos pendientes no pregunta nada al subir", async ({ page 
 });
 
 test("un PDF recién subido y abierto ya no dice «Sin abrir»: queda «En estudio»", async ({ page }) => {
-  const { subirPdf } = require("./ayudas");
+  errores = vigilarErrores(page);
   await page.goto("/");
   await subirPdf(page);
   await expect(page.locator("#pdfCompBox")).toContainText("En estudio");

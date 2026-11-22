@@ -251,6 +251,7 @@ test("la detección del tipo de documento lee la cabecera: Primer y Review son r
 });
 
 test("Estudio con un solo caso de pre-test: singular, y sin documento no pide abrir el documento", async ({ page }) => {
+  errores = vigilarErrores(page);
   await page.goto("/");
   await page.click("nav [data-go=estudio]");
   await page.fill("#estTema", "Bronquiolitis");
@@ -263,6 +264,7 @@ test("Estudio con un solo caso de pre-test: singular, y sin documento no pide ab
 });
 
 test("con pre-test, el cierre pone el post-test como paso principal y deja terminar sin él", async ({ page }) => {
+  errores = vigilarErrores(page);
   await page.goto("/");
   await page.click("nav [data-go=estudio]");
   await page.fill("#estTema", "Bronquiolitis");
