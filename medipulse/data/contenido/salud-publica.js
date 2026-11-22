@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Epidemiología y Estadística",
   "prefijo": "sp",
   "paquete": "salud-publica",
-  "actualizado": "2026-11-21",
+  "actualizado": "2026-11-22",
   "casos": [
     {
       "id": 19,
@@ -206,6 +206,214 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-21"
+    },
+    {
+      "id": "sp-c10",
+      "topic": "Pruebas diagnósticas · Dímero D ajustado por edad",
+      "difficulty": "Nivel 2",
+      "src": "adjust_pe",
+      "vignette": "Mujer de 80 años con disnea súbita. Probabilidad clínica <span class='hy'>no alta</span> (Ginebra simplificado). Dímero D de <span class='hy'>650 µg/L</span>. ¿Qué haces?",
+      "options": [
+        "Angiotomografía, porque supera los 500 µg/L",
+        "Descartas TEP: está bajo su corte de 800 µg/L",
+        "Anticoagular de forma empírica sin imagen",
+        "Repetir el dímero D en 24 horas antes de decidir"
+      ],
+      "correct": 1,
+      "whyCorrect": "En mayores de 50 años el corte es edad × 10: a los 80 años, 800 µg/L. Con probabilidad clínica no alta y dímero D bajo ese corte, el TEP queda descartado sin imagen.",
+      "pearl": "En ADJUST-PE, en mayores de 75 años con probabilidad no alta, el corte ajustado subió la proporción en que se descartó el TEP con el dímero D de 6,4 % a 29,7 %.",
+      "trap": "Aplicar el corte fijo de 500 µg/L a un anciano: casi siempre sale positivo y lleva a imágenes innecesarias.",
+      "cita": [
+        {
+          "donde": "Resumen",
+          "texto": "an age-adjusted D-dimer cutoff, defined as age × 10 in patients 50 years or older"
+        },
+        {
+          "donde": "Resumen",
+          "texto": "using the age-adjusted cutoff instead of the 500 μg/L cutoff increased the proportion of patients in whom PE could be excluded on the basis of D-dimer from 43 of 673 patients (6.4% [95% CI, 4.8%-8.5%) to 200 of 673 patients (29.7% [95% CI, 26.4%-33.3%), without any additional false-negative findings."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "sp-c11",
+      "topic": "Lectura crítica · Estudio de manejo diagnóstico",
+      "difficulty": "Nivel 3",
+      "src": "adjust_pe",
+      "vignette": "En ADJUST-PE, a los pacientes con dímero D entre 500 µg/L y su corte por edad <span class='hy'>no se les hizo angiotomografía ni se les anticoaguló</span>, y se siguieron 3 meses. ¿Qué tipo de estudio es y cuál es su principal limitación?",
+      "options": [
+        "Ensayo aleatorizado; su limitación es el cegamiento",
+        "Casos y controles; tiene sesgo de memoria",
+        "Estudio prospectivo de manejo sin grupo control",
+        "Cohorte retrospectiva con datos incompletos"
+      ],
+      "correct": 2,
+      "whyCorrect": "Es un estudio prospectivo de resultado del manejo (management outcome study): se aplica la estrategia y se mide cuántos tienen eventos sin tratar. Al no ser aleatorizado, no hay un grupo control manejado con el corte de 500 µg/L para comparar.",
+      "pearl": "Se acepta como seguro si el límite superior del IC 95 % de eventos a 3 meses no pasa de 3 %, la tasa que se observa tras una angiografía pulmonar negativa.",
+      "trap": "Pensar que toda estrategia diagnóstica se valida con un ensayo aleatorizado; lo usual es este diseño.",
+      "cita": [
+        {
+          "donde": "Resumen · diseño",
+          "texto": "A multicenter, multinational, prospective management outcome study in 19 centers in Belgium, France, the Netherlands, and Switzerland"
+        },
+        {
+          "donde": "Discusión · limitaciones",
+          "texto": "this study was not designed as a randomized clinic al study. Therefore, we could not compare the 3-month thromboembolic risk with that of a control group that would have been managed using the conventional 500 μg/L cutoff."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "sp-c12",
+      "topic": "Lectura crítica · Intervalo de confianza y seguridad",
+      "difficulty": "Nivel 3",
+      "src": "adjust_pe",
+      "vignette": "El criterio de seguridad de ADJUST-PE era que el <span class='hy'>límite superior del IC 95 %</span> de eventos tromboembólicos a 3 meses no pasara de 3 %. Resultado: 1 de 331 pacientes, <span class='hy'>0,3 % (IC 95 % 0,1 % a 1,7 %)</span>. ¿Qué concluyes?",
+      "options": [
+        "Es seguro: aun el peor escenario (1,7 %) queda bajo 3 %",
+        "No es seguro, porque hubo un evento tromboembólico",
+        "No se puede concluir sin un valor de p ni un grupo de comparación",
+        "Es seguro solo porque 0,3 % es menor que 3 %"
+      ],
+      "correct": 0,
+      "whyCorrect": "La seguridad se juzga con el límite superior del intervalo, no con el valor puntual: si el peor escenario compatible con los datos (1,7 %) está bajo el umbral de 3 %, la estrategia es segura.",
+      "pearl": "El umbral de 3 % corresponde a la tasa de eventos tras una angiografía pulmonar negativa.",
+      "trap": "Mirar solo el valor puntual (0,3 %) y no el límite superior del intervalo.",
+      "cita": [
+        {
+          "donde": "Métodos · tamaño de la muestra",
+          "texto": "the upper limit of the 95% CI around the 3-month thromboembolic risk (failure rate) in patients left untreated on the basis of such a D-dimer result should not be higher than 3%."
+        },
+        {
+          "donde": "Resumen",
+          "texto": "The 3-month failure rate in patients with a D-dimer level higher than 500 μg/L but below the age-adjusted cutoff was 1 of 331 patients (0.3% [95% CI, 0.1%-1.7%])."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "sp-c13",
+      "topic": "Epidemiología · Diferencia absoluta y relativa",
+      "difficulty": "Nivel 2",
+      "src": "adjust_pe",
+      "vignette": "Con el corte por edad, la proporción de dímeros D negativos subió <span class='hy'>11,6 puntos porcentuales</span>, que equivale a un <span class='hy'>41,2 %</span> más. ¿Qué es cada cifra?",
+      "options": [
+        "11,6 % es relativo y 41,2 % es absoluto",
+        "11,6 % es absoluto y 41,2 % es relativo",
+        "Las dos son relativas, con distinta base",
+        "Las dos son absolutas, de distintos grupos"
+      ],
+      "correct": 1,
+      "whyCorrect": "11,6 % es el aumento absoluto (diferencia de proporciones en puntos porcentuales); 41,2 % es el aumento relativo (ese 11,6 dividido entre la proporción de negativos con el corte de 500). El relativo siempre suena más grande.",
+      "pearl": "Para decidir en la práctica sirve la diferencia absoluta: dice a cuántos de cada 100 pacientes les cambia el manejo.",
+      "trap": "Presentar el cambio relativo como si fuera absoluto exagera el efecto.",
+      "cita": [
+        {
+          "donde": "Resultados",
+          "texto": "the use of the age-adjusted cutoff resulted in an 11.6% absolute increase (95% CI, 10.5%-12.9%) or a 41.2% relative increase (95% CI, 31.3%-52.0%) in the proportion of negative D-dimer results."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "sp-c14",
+      "topic": "Lectura crítica · Validación de un puntaje",
+      "difficulty": "Nivel 3",
+      "src": "precise_dapt",
+      "vignette": "El puntaje PRECISE-DAPT tuvo un <span class='hy'>índice c de 0,73</span> para sangrado en la cohorte donde se creó, y de <span class='hy'>0,70 y 0,66</span> en dos cohortes de validación externa. ¿Cómo se interpreta?",
+      "options": [
+        "Predice con exactitud el sangrado de cada paciente individual",
+        "No sirve, porque su desempeño bajó en las cohortes de validación",
+        "Discrimina moderadamente; bajar al validarlo es lo esperado",
+        "El índice c mide la calibración: riesgo predicho igual al observado"
+      ],
+      "correct": 2,
+      "whyCorrect": "El índice c (área bajo la curva) indica con qué frecuencia el puntaje asigna más riesgo a quien sangra que a quien no: 0,5 es azar y 1 es perfecto; 0,66 a 0,73 es discriminación moderada. Que baje en cohortes externas es lo usual y por eso se exige validarlo fuera de donde se creó.",
+      "pearl": "Discriminación (índice c) y calibración (si el riesgo predicho coincide con el observado) son cosas distintas.",
+      "trap": "Confundir discriminación con calibración, o esperar el mismo desempeño en la validación externa.",
+      "cita": [
+        {
+          "donde": "Resumen",
+          "texto": "showed a c-index for out-of-hospital TIMI major or minor bleeding of 0·73 (95% CI 0·61–0·85) in the derivation cohort, and 0·70 (0·65–0·74) in the PLATO trial validation cohort and 0·66 (0·61–0·71) in the BernPCI registry validation cohort."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "sp-c15",
+      "topic": "Lectura crítica · Número necesario para dañar",
+      "difficulty": "Nivel 2",
+      "src": "precise_dapt",
+      "vignette": "En pacientes con PRECISE-DAPT de 25 o más, la doble antiagregación larga (12 a 24 meses) frente a corta (3 a 6) aumentó el sangrado con una <span class='hy'>diferencia absoluta de riesgo de +2,59 %</span>. ¿Cuántos hay que tratar con el esquema largo para causar un sangrado más?",
+      "options": [
+        "Unos 26",
+        "Unos 38",
+        "Unos 259",
+        "Unos 4"
+      ],
+      "correct": 1,
+      "whyCorrect": "El número necesario para dañar es 1 dividido por la diferencia absoluta de riesgo: 1 / 0,0259 ≈ 38.",
+      "pearl": "En esos mismos pacientes de alto riesgo de sangrado, el esquema largo no redujo los eventos isquémicos; en los de riesgo no alto sí (NNT 65).",
+      "trap": "Dividir 100 entre 2,59 mal ubicando la coma, o usar la reducción relativa en lugar de la absoluta.",
+      "cita": [
+        {
+          "donde": "Resultados",
+          "texto": "exclusively in patients at high bleeding risk (absolute risk difference [ARD] +2·59% [95% CI +0·82 to +4·34]; number needed to treat: 38)"
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "sp-c16",
+      "topic": "Lectura crítica · Interacción entre subgrupos",
+      "difficulty": "Nivel 3",
+      "src": "precise_dapt",
+      "vignette": "En el análisis de PRECISE-DAPT, la doble antiagregación larga aumentó el sangrado en los de alto riesgo (+2,59 %) pero no en los demás (+0,14 %), con <span class='hy'>p de interacción = 0,007</span>. ¿Qué significa ese valor?",
+      "options": [
+        "Que el tratamiento no sirve en ningún grupo",
+        "Que el efecto difiere según el riesgo de sangrado",
+        "Que los dos subgrupos tienen el mismo efecto con distinta precisión",
+        "Que el estudio tiene poco poder estadístico"
+      ],
+      "correct": 1,
+      "whyCorrect": "La prueba de interacción compara el efecto entre subgrupos. Un p de interacción bajo indica que el efecto del tratamiento cambia según el subgrupo (modificación del efecto), no solo que en uno fue significativo y en el otro no.",
+      "pearl": "Comparar un subgrupo «significativo» con otro «no significativo» no basta; hay que mirar la p de interacción.",
+      "trap": "Concluir diferencias entre subgrupos sin prueba de interacción.",
+      "cita": [
+        {
+          "donde": "Resultados",
+          "texto": "but not in those without a high bleeding risk profile (ie, very low risk, low risk, and moderate risk: mean of the first three quartiles ARD +0·14% [–0·22 to +0·49]; pinteraction=0·007; figure 3)."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "sp-c17",
+      "topic": "Lectura crítica · Desenlace compuesto",
+      "difficulty": "Nivel 3",
+      "src": "triton",
+      "vignette": "En TRITON-TIMI 38, el desenlace primario (muerte cardiovascular, IAM no fatal o ACV no fatal) bajó de <span class='hy'>12,1 % a 9,9 %</span> con prasugrel. El IAM bajó de <span class='hy'>9,7 % a 7,4 %</span> y la mortalidad global no difirió. ¿Qué concluyes?",
+      "options": [
+        "Prasugrel reduce la mortalidad cardiovascular",
+        "El beneficio lo explica sobre todo el infarto",
+        "Cada componente bajó en la misma proporción",
+        "El compuesto no sirve si la mortalidad no cambia"
+      ],
+      "correct": 1,
+      "whyCorrect": "En un desenlace compuesto hay que mirar cada componente: aquí la reducción la explica casi toda el infarto (bajó 2,3 puntos, tanto como el compuesto, que bajó 2,2), sin diferencia en la mortalidad global.",
+      "pearl": "El beneficio neto (muerte, IAM, ACV y sangrado mayor) favoreció a prasugrel: 13,9 % frente a 12,2 %.",
+      "trap": "Leer la reducción del compuesto como si cada componente, incluida la muerte, hubiera bajado igual.",
+      "cita": [
+        {
+          "donde": "Resumen",
+          "texto": "The primary efficacy end point occurred in 12.1% of patients receiving clopidogrel and 9.9% of patients receiving prasugrel (hazard ratio for prasugrel vs. clopidogrel, 0.81; 95% confidence interval [CI], 0.73 to 0.90; P<0.001). We also found significant reductions in the prasugrel group in the rates of myocardial infarction (9.7% for clopidogrel vs. 7.4% for prasugrel; P<0.001)"
+        },
+        {
+          "donde": "Resumen",
+          "texto": "Overall mortality did not differ significantly between treatment groups."
+        }
+      ],
+      "verificado": "2026-11-22"
     }
   ],
   "fichas": [
