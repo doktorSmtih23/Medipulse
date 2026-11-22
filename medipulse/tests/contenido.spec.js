@@ -131,3 +131,22 @@ test("la respuesta correcta no se delata por ser la opción más larga", async (
   expect(r.clara, "casos donde la correcta es mucho más larga que las demás").toEqual([]);
   expect(r.larga / r.n, "la correcta es la más larga en más casos de lo esperable al azar").toBeLessThanOrEqual(0.3);
 });
+
+// Auditoría de noviembre de 2026: la B era la correcta en el 41 % de los casos. Quien marcaba B ante la duda
+// acertaba casi la mitad. Cada letra debe ser la correcta en una proporción cercana al 25 %.
+test("la letra de la respuesta correcta está repartida: ninguna se puede adivinar", () => {
+  const casos = todos("casos"), porEsp = {};
+  casos.forEach(q => { const e = q._esp; (porEsp[e] = porEsp[e] || [0, 0, 0, 0])[q.correct]++; });
+  const total = [0, 0, 0, 0]; casos.forEach(q => total[q.correct]++);
+  total.forEach((c, i) => expect(c / casos.length, `la ${"ABCD"[i]} es la correcta en ${c} de ${casos.length}`).toBeGreaterThanOrEqual(0.2));
+  total.forEach((c, i) => expect(c / casos.length, `la ${"ABCD"[i]} es la correcta en ${c} de ${casos.length}`).toBeLessThanOrEqual(0.3));
+  Object.entries(porEsp).forEach(([e, c]) => { const n = c.reduce((a, b) => a + b);
+    c.forEach((k, i) => expect(k / n, `${e}: la ${"ABCD"[i]} es la correcta en ${k} de ${n}`).toBeLessThanOrEqual(0.35)); });
+});
+
+test("si todas las opciones son cifras, van de menor a mayor", () => {
+  const cifra = o => { const m = String(o).replace(/CURB65 de/, "").match(/\d+(?:[.,]\d+)?/); return m ? parseFloat(m[0].replace(",", ".")) : NaN; };
+  const desordenadas = todos("casos").filter(q => q.options.every(o => /^\s*(?:[≥≤<>]\s*)?\d|^(?:CURB65 de|Unos|NNT)/.test(o)))
+    .filter(q => q.options.some((o, i) => i && cifra(o) < cifra(q.options[i - 1]))).map(donde);
+  expect(desordenadas).toEqual([]);
+});

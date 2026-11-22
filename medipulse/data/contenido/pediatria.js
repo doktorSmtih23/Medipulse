@@ -47,12 +47,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_ge",
       "vignette": "Lactante de 10 meses (peso 9 kg) con diarrea acuosa abundante. Está <span class='hy'>irritable, con ojos hundidos, boca seca, bebe con avidez</span> y el pliegue cutáneo vuelve lentamente (&lt; 2 s). Tolera vía oral. ¿Cómo se rehidrata?",
       "options": [
-        "SRO de baja osmolaridad 50 mL/kg en 4 horas, más mantenimiento",
         "Líquidos caseros a libre demanda, sin sales de rehidratación oral",
+        "SRO de baja osmolaridad 50 mL/kg en 4 horas, más mantenimiento",
         "Bolo rápido de solución salina 0.9 % IV a 20 mL/kg y reevaluar",
         "Suspender la lactancia materna y dar loperamida para frenar la diarrea"
       ],
-      "correct": 0,
+      "correct": 1,
       "whyCorrect": "Tiene signos de deshidratación clínica, sin choque, y tolera la vía oral. NICE indica SRO de baja osmolaridad: 50 mL/kg en 4 horas para reponer el déficit, más los líquidos de mantenimiento, en tomas pequeñas y frecuentes. La vía IV se reserva para el choque, el deterioro pese a la SRO o el vómito persistente de la SRO.",
       "pearl": "Choque: bolo rápido de 10 mL/kg de solución salina 0.9 %. Durante la rehidratación se continúa la lactancia materna. No dar antibióticos de rutina.",
       "trap": "Pasar a líquidos IV a un niño que bebe y tolera la vía oral, o suspender la lactancia materna.",
@@ -79,12 +79,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_bq",
       "vignette": "Lactante de 4 meses previamente sano con coriza hace 3 días, ahora con <span class='hy'>taquipnea, tirajes subcostales, sibilancias espiratorias difusas y SatO2 89%</span>. Sin fiebre alta ni consolidación. ¿Manejo indicado?",
       "options": [
-        "Prednisolona oral 2 mg/kg más amoxicilina-clavulanato por 7 días",
+        "Oxígeno, hidratación y aspirar secreciones solo si estorban",
         "Salbutamol horario programado más nebulización con solución salina hipertónica",
         "Ribavirina intravenosa de rutina por la gravedad del cuadro",
-        "Oxígeno, hidratación y aspirar secreciones solo si estorban"
+        "Prednisolona oral 2 mg/kg más amoxicilina-clavulanato por 7 días"
       ],
-      "correct": 3,
+      "correct": 0,
       "whyCorrect": "Es una bronquiolitis: menor de 2 años con pródromo catarral, tos, tiraje y sibilancias. El manejo es de soporte. Con 4 meses de edad, NICE indica oxígeno si la saturación es persistentemente menor de 90 %; la aspiración de la vía aérea superior no es de rutina, solo si las secreciones causan dificultad respiratoria o para alimentarse.",
       "pearl": "NICE: en la bronquiolitis no se usan antibióticos, solución salina hipertónica, adrenalina nebulizada, salbutamol, montelukast, ipratropio ni corticoides.",
       "trap": "Tratar una bronquiolitis como una crisis de asma con salbutamol y corticoides.",
@@ -111,12 +111,12 @@ MP_CONTENIDO.agregar({
       "src": "aha_kaw",
       "vignette": "Niño de 3 años con <span class='hy'>fiebre de 6 días</span> sin respuesta a antipiréticos, conjuntivitis bilateral sin secreción, labios rojos y fisurados, lengua en fresa, exantema polimorfo, edema de manos y adenopatía cervical de 2 cm. ¿Tratamiento indicado?",
       "options": [
-        "Amoxicilina por probable escarlatina y control en 48 horas",
         "Inmunoglobulina IV 2 g/kg más ácido acetilsalicílico",
+        "Amoxicilina por probable escarlatina y control en 48 horas",
         "Prednisolona oral y observación hospitalaria por 72 horas",
         "Ibuprofeno a horario y control en 48 horas si sigue la fiebre"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Con fiebre y 4 o más criterios clínicos principales es una enfermedad de Kawasaki completa; la AHA 2024 permite diagnosticarla desde el día 4 de fiebre. El tratamiento estándar es IGIV 2 g/kg en 8 a 12 horas, más aspirina. Tratar dentro de los 10 días de fiebre reduce la dilatación y los aneurismas coronarios.",
       "pearl": "Kawasaki es la principal causa de cardiopatía adquirida en niños de países desarrollados; sin tratamiento, el 25 % desarrolla dilatación o aneurismas coronarios.",
       "trap": "Confundirlo con escarlatina o con una infección viral y retrasar la IGIV más allá del día 10 de fiebre.",
@@ -187,12 +187,12 @@ MP_CONTENIDO.agregar({
       "src": "aha_kaw",
       "vignette": "Niño de 3 años con Kawasaki tratado con IGIV 2 g/kg y aspirina. <span class='hy'>40 horas después de terminar la infusión</span> sigue con fiebre de 39 °C. ¿Cómo se interpreta y qué haces?",
       "options": [
-        "Es esperable después de la IGIV: observar 72 horas más sin cambios",
         "Resistencia a la IGIV: segunda dosis de IGIV o infliximab",
+        "Es esperable después de la IGIV: observar 72 horas más sin cambios",
         "Subir la aspirina a dosis alta como único tratamiento adicional",
         "Fiebre por la infusión de IGIV: solo antipiréticos y control"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Fiebre persistente o que reaparece ≥ 36 horas después de terminar la IGIV define la resistencia, que aumenta el riesgo de aneurismas. Las opciones incluyen una segunda dosis de IGIV, infliximab o corticoides. En el ensayo KIDCARE, infliximab (10 mg/kg IV) frente a una segunda IGIV acortó la fiebre, redujo la necesidad de más tratamiento y la estancia.",
       "pearl": "Tras la IGIV, la VSG sube por la propia inmunoglobulina: no sirve para seguir la inflamación.",
       "trap": "Esperar más días: cada día de inflamación sin control aumenta el riesgo coronario.",
@@ -256,12 +256,12 @@ MP_CONTENIDO.agregar({
       "src": "aha_kaw",
       "vignette": "Un niño recibió IGIV por enfermedad de Kawasaki. ¿Cuánto tiempo deben diferirse las vacunas vivas (triple viral y varicela)?",
       "options": [
-        "11 meses",
         "1 mes",
         "3 meses",
-        "6 meses"
+        "6 meses",
+        "11 meses"
       ],
-      "correct": 0,
+      "correct": 3,
       "whyCorrect": "Todas las vacunas vivas, incluidas sarampión, paperas, rubéola y varicela, se difieren 11 meses después de la IGIV, porque la inmunoglobulina puede reducir su eficacia.",
       "pearl": "La IGIV puede reducir la eficacia de las vacunas vivas: por eso se difieren.",
       "trap": "Aplicar la triple viral en el control de los 12 meses si recibió IGIV pocos meses antes.",
@@ -425,11 +425,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niño de 6 años con una placa redonda descamativa en el cuero cabelludo, con <span class='hy'>pelos quebrados y puntos negros</span>, de 6 semanas. Ya usó una crema antimicótica sin mejoría. ¿Conducta?",
       "options": [
         "Seguir con la crema antimicótica 4 semanas más",
-        "Terbinafina oral",
         "Crema de clotrimazol con betametasona",
+        "Terbinafina oral",
         "Champú de ketoconazol como único tratamiento"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "La tiña de la cabeza compromete el folículo piloso y necesita antimicótico oral: los tópicos no bastan. La terbinafina es la preferida, con cursos más cortos que la griseofulvina. Si el cuadro es típico, a menudo se trata sin pruebas.",
       "pearl": "Kerion: tratarlo pronto para evitar cicatriz y alopecia permanente.",
       "trap": "Usar una crema que combina antimicótico y corticoide: generalmente se deben evitar.",
@@ -456,7 +456,7 @@ MP_CONTENIDO.agregar({
         },
         {
           "donde": "Recomendaciones clave (C)",
-          "texto": "Combination antifungal-corticosteroid products, such as clotrimazole- betamethasone, generally should be avoided."
+          "texto": "Combination antifungal-corticosteroid products, such as clotrimazole-betamethasone, generally should be avoided."
         }
       ],
       "verificado": "2026-11-15"
@@ -469,11 +469,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niña de 9 años, asintomática, con crecimiento normal. En un chequeo le pidieron pruebas tiroideas: <span class='hy'>TSH de 7,2 mU/L con T4 libre normal</span>. No tiene bocio. ¿Cuál es la conducta?",
       "options": [
         "Iniciar levotiroxina a dosis plena por superficie corporal",
-        "Repetir TSH y T4 libre en 2 a 3 meses antes de tratar",
+        "Remitir a endocrinología pediátrica como prioritaria",
         "Pedir ecografía tiroidea y gammagrafía de inmediato",
-        "Remitir a endocrinología pediátrica como prioritaria"
+        "Repetir TSH y T4 libre en 2 a 3 meses antes de tratar"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Es un hipotiroidismo subclínico (TSH elevada con T4 libre normal). Se repite la medición en 2 a 3 meses para descartar fluctuaciones transitorias o errores de laboratorio. Hay consenso en tratar si la TSH supera 10 mU/L en una segunda medición; entre 4,5 y 10 se individualiza.",
       "pearl": "Hipotiroidismo subclínico: confirmar antes de tratar. TSH > 10 mU/L en dos mediciones → levotiroxina, más aún con anticuerpos antitiroideos positivos.",
       "trap": "Tratar con una sola TSH levemente alta: puede ser transitoria o un error de laboratorio.",
@@ -609,12 +609,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_ped26",
       "vignette": "Niño de 7 años con anemia de células falciformes, asintomático, en su control anual. La ecografía Doppler transcraneal muestra una <span class='hy'>velocidad de 195 cm/s en la arteria cerebral media</span>. Examen neurológico normal. ¿Qué sigue?",
       "options": [
-        "Repetir el Doppler en un año, porque está asintomático y sin déficit",
         "Resonancia o angiorresonancia y repetir el Doppler en una semana",
+        "Repetir el Doppler en un año, porque está asintomático y sin déficit",
         "Iniciar ácido acetilsalicílico y control en 3 meses",
         "Hidroxiurea y repetir el Doppler en 6 meses"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Un Doppler transcraneal anormal (más de 180 cm/s en carótida interna o cerebral media) obliga a pedir resonancia o angiorresonancia preferente y a repetir el Doppler en una semana. Si se confirma, hematología evalúa el régimen hipertransfusional para prevenir el ictus.",
       "pearl": "Doppler transcraneal anual de los 2 a los 16 años. < 150 cm/s normal; 150 a 180 condicional (repetir en 3 meses); > 180 anormal.",
       "trap": "Tranquilizarse porque el niño está asintomático: el Doppler sirve justamente para prevenir el primer ictus.",
@@ -666,11 +666,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Recién nacido de 5 días con microcefalia, ictericia, hepatoesplenomegalia, petequias y trombocitopenia. La ecografía transfontanelar muestra <span class='hy'>calcificaciones periventriculares</span>. ¿Cómo confirmas el diagnóstico y cómo lo tratas?",
       "options": [
         "IgM para CMV a los 2 meses; sin tratamiento antiviral",
-        "PCR para CMV en orina antes de los 21 días; valganciclovir por 6 meses",
         "PCR para CMV en saliva; aciclovir intravenoso por 14 días",
+        "PCR para CMV en orina antes de los 21 días; valganciclovir por 6 meses",
         "Serología materna para CMV y ganciclovir intravenoso solo si aparece hipoacusia"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "El diagnóstico de CMV congénito se hace con PCR antes de los 21 días de vida, para diferenciarlo de la infección postnatal; la PCR en orina es la prueba de elección. Un recién nacido sintomático o con compromiso del sistema nervioso central recibe valganciclovir oral o ganciclovir intravenoso por 6 meses, lo que reduce la progresión de la hipoacusia.",
       "pearl": "CMV congénito: microcefalia, calcificaciones periventriculares, hepatoesplenomegalia y trombocitopenia. La PCR en saliva sirve de tamizaje, pero se confirma en orina.",
       "trap": "Diagnosticar después de los 21 días: ya no se puede distinguir de una infección adquirida después del parto.",
@@ -775,11 +775,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Lactante de 5 meses cuyo perímetro cefálico estaba en el percentil 25 y hoy está en el <span class='hy'>percentil 90</span>, con <span class='hy'>fontanela abombada</span>. El desarrollo va bien. ¿Qué haces?",
       "options": [
         "Tranquilizar: el percentil 90 es normal",
-        "Neuroimagen (ecografía transfontanelar o RM)",
+        "Solo pedir el perímetro cefálico de los padres",
         "Medir de nuevo en 6 meses",
-        "Solo pedir el perímetro cefálico de los padres"
+        "Neuroimagen (ecografía transfontanelar o RM)"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Lo alarmante es la trayectoria, no el valor aislado: cruzar dos o más líneas de percentil indica que se sobrepasaron los mecanismos de compensación del volumen intracraneal. Con fontanela abombada hay que estudiar con neuroimagen; la ecografía transfontanelar tamiza ventriculomegalia.",
       "pearl": "Un crecimiento estable, aunque sea en percentiles altos o bajos, suele ser tranquilizador; la microcefalia es un perímetro por debajo del percentil 3.",
       "trap": "Quedarse tranquilo porque el valor está dentro del rango normal.",
@@ -958,7 +958,7 @@ MP_CONTENIDO.agregar({
       "src": "udea_ped26",
       "vignette": "Adolescente de 17 años que <span class='hy'>vapea cartuchos de THC</span>, con tos, dolor torácico, disnea, fiebre y vómito de una semana. Opacidades bilaterales y saturación de 89 %. Sin otra causa. ¿Qué es lo indispensable del manejo?",
       "options": [
-        "Solo antibiótico y seguir vapeando nicotina",
+        "Azitromicina por neumonía atípica, sin preguntar más",
         "Soporte, oxígeno y suspender ya el vapeo",
         "Broncodilatador y alta ambulatoria",
         "Esperar el cultivo antes de cualquier medida"
@@ -984,8 +984,8 @@ MP_CONTENIDO.agregar({
       "options": [
         "Bolos de cristaloides de 20 mL/kg",
         "Diurético (furosemida)",
-        "Alta con control ambulatorio",
-        "Antibiótico empírico sin más"
+        "Dobutamina de entrada por ser miocarditis",
+        "Antibiótico empírico por posible sepsis"
       ],
       "correct": 1,
       "whyCorrect": "Perfil «caliente y húmedo»: perfusión conservada con congestión. Requiere diurético. Los perfiles fríos tienen peor pronóstico y pueden necesitar inotrópicos.",

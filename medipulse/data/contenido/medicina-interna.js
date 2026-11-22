@@ -15,12 +15,12 @@ MP_CONTENIDO.agregar({
       "src": "acc_acs",
       "vignette": "Hombre de 62 años con HTA y tabaquismo consulta por <span class='hy'>dolor retroesternal opresivo de 90 minutos</span> irradiado a mandíbula y diaforesis. PA 135/85 mmHg, FC 92 lpm, SatO2 96%. ECG muestra <span class='hy'>supradesnivel del ST de 3 mm en V1-V4</span>. El centro cuenta con sala de hemodinamia disponible en 45 minutos. ¿Cuál es la conducta de reperfusión prioritaria?",
       "options": [
-        "Administrar alteplasa intravenosa inmediata antes del traslado a sala",
-        "Iniciar heparina de bajo peso molecular y esperar troponinas seriadas a las 3 horas",
         "Intervención coronaria percutánea (ICP) primaria dentro de los próximos 90 minutos",
-        "Realizar ecocardiograma transtorácico antes de definir terapia antitrombótica"
+        "Iniciar heparina de bajo peso molecular y esperar troponinas seriadas a las 3 horas",
+        "Realizar ecocardiograma transtorácico antes de definir terapia antitrombótica",
+        "Administrar alteplasa intravenosa inmediata antes del traslado a sala"
       ],
-      "correct": 2,
+      "correct": 0,
       "whyCorrect": "En el IAMCEST, la ICP primaria es la reperfusión de elección cuando el dispositivo se activa dentro de los 90 minutos desde el primer contacto médico (120 minutos si el paciente viene trasladado de un centro sin hemodinamia). Aquí la sala está disponible en 45 minutos. No se retrasa por troponinas ni por ecocardiograma.",
       "pearl": "ICP primaria: ≤ 90 min del primer contacto médico al dispositivo; ≤ 120 min si hay traslado. Si el traslado a un centro con hemodinamia tardaría más de 120 minutos, fibrinólisis.",
       "trap": "Esperar troponinas cuando el ECG ya muestra supradesnivel del ST: el diagnóstico de IAMCEST no las necesita y la espera retrasa la reperfusión.",
@@ -44,11 +44,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 71 años ingresa por fiebre, disuria y confusión. PA 78/46 mmHg, FC 124 lpm, FR 28 rpm, T° 39.1°C, <span class='hy'>lactato sérico 4.4 mmol/L</span>. Ya recibió 30 mL/kg de cristaloides balanceados en la primera hora, pero persiste con <span class='hy'>PAM en 54 mmHg</span>. ¿Cuál es el siguiente paso inmediato?",
       "options": [
         "Administrar un segundo bolo de 30 mL/kg de solución salina al 0.9%",
-        "Iniciar dopamina como vasopresor de primera línea por vía periférica",
         "Iniciar norepinefrina en infusión titulada a la PAM objetivo",
+        "Iniciar dopamina como vasopresor de primera línea por vía periférica",
         "Indicar hidrocortisona 200 mg IV en bolo único antes de vasopresores"
       ],
-      "correct": 2,
+      "correct": 1,
       "whyCorrect": "Persiste la hipotensión tras la reanimación inicial con cristaloides: se inicia noradrenalina, el vasopresor de primera línea, y se titula a la PAM objetivo. En adultos de 65 años o más, como esta paciente, la SSC 2026 sugiere una PAM inicial de 60–65 mmHg.",
       "pearl": "SSC 2026: noradrenalina de primera línea; se puede iniciar por vía periférica sin esperar el catéter central. PAM inicial 65 mmHg (60–65 en ≥ 65 años).",
       "trap": "Retrasar la noradrenalina hasta tener un acceso venoso central: la SSC 2026 sugiere iniciarla por vía periférica.",
@@ -106,11 +106,11 @@ MP_CONTENIDO.agregar({
         "Administrar ácido acetilsalicílico 300 mg VO y observar evolución 24 horas",
         "Bajar la presión arterial a < 120/80 mmHg con nitroprusiato antes de trombolizar",
         "Iniciar heparina no fraccionada en infusión continua",
-        "Trombólisis intravenosa con alteplasa (o tenecteplasa) de inmediato"
+        "Trombólisis IV de inmediato y angio-TC para trombectomía"
       ],
       "correct": 3,
-      "whyCorrect": "Está dentro de la ventana terapéutica (< 4.5 horas), con TAC sin sangrado y PA < 185/110 mmHg. No tiene contraindicaciones, por lo que debe recibir trombólisis IV de inmediato.",
-      "pearl": "Meta de PA ANTES de trombólisis en ACV isquémico: < 185/110 mmHg (luego mantener < 180/105). No bajar agresivamente si no se tromboliza.",
+      "whyCorrect": "Está dentro de la ventana terapéutica (< 4,5 horas), con TAC sin sangrado y PA < 185/110 mmHg, y sin contraindicaciones: trombólisis IV de inmediato. Con NIHSS de 12 y afasia hay que sospechar una oclusión de gran vaso: se hace angio-TC sin retrasar la trombólisis, para decidir la trombectomía mecánica.",
+      "pearl": "Meta de PA ANTES de la trombólisis: < 185/110 mmHg (luego < 180/105). Déficit importante (NIHSS alto, afasia, desviación de la mirada) → buscar oclusión de gran vaso para trombectomía.",
       "trap": "Dar aspirina o bajar demasiado la PA antes de decidir trombólisis compromete la penumbra isquémica.",
       "estado": "pendiente"
     },
@@ -124,12 +124,12 @@ MP_CONTENIDO.agregar({
         "Carbón activado (si < 4 h) + medir acetaminofén sérico a las 4 horas para nomograma de Rumack-Matthew",
         "Dar de alta con signos de alarma porque está asintomático y con signos normales",
         "Iniciar N-acetilcisteína solo si aparecen náuseas o ictericia a las 24 horas",
-        "Realizar lavado gástrico con sonda de gran calibre y administrar flumazenilo"
+        "Medir el acetaminofén ya, a las 3 horas, y decidir con el nomograma"
       ],
       "correct": 0,
       "whyCorrect": "La intoxicación por acetaminofén es inicialmente asintomática (Fase I, 0-24 h). En ingesta < 4 horas se considera carbón activado y se toma nivel sérico a las 4 horas post-ingesta para ubicarlo en el nomograma de Rumack-Matthew e iniciar N-acetilcisteína.",
-      "pearl": "El nomograma de Rumack-Matthew solo es válido a partir de las 4 horas post-ingesta aguda. NAC es más efectiva si se inicia en las primeras 8 horas.",
-      "trap": "Confiarse porque el paciente está asintomático a las 3 horas: la necrosis hepática aparece entre las 24 y 72 horas.",
+      "pearl": "El nomograma de Rumack-Matthew solo vale desde las 4 horas de una ingesta aguda única. Si el nivel no estará disponible antes de las 8 horas, se inicia la N-acetilcisteína sin esperarlo: su eficacia es máxima en las primeras 8 horas.",
+      "trap": "Medir el nivel antes de las 4 horas y tranquilizarse con un valor bajo, o confiarse porque el paciente está asintomático: la necrosis hepática aparece entre las 24 y 72 horas.",
       "estado": "pendiente"
     },
     {
@@ -140,11 +140,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Adulto de 35 años con fiebre, cefalea intensa, rigidez de nuca y petequias en tronco. Glasgow 13/15, sin déficit focal ni papiledema. ¿Cuál es la secuencia correcta?",
       "options": [
         "TAC cerebral primero; luego punción lumbar y al tener el resultado iniciar antibióticos",
-        "Hemocultivos + dexametasona IV + ceftriaxona + vancomicina de inmediato, y realizar PL",
         "Solo aciclovir IV hasta confirmar etiología bacteriana en LCR",
+        "Hemocultivos + dexametasona IV + ceftriaxona + vancomicina de inmediato, y realizar PL",
         "Punción lumbar inmediata sin hemocultivos y observar respuesta a antipiréticos"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Ante sospecha de meningitis bacteriana aguda sin indicación de TAC previa (no inmunosuprimido, sin focalización, sin convulsiones recientes ni papiledema), nunca se deben retrasar los antibióticos ni la dexametasona; se toman hemocultivos y se inicia terapia empírica + dexametasona de inmediato.",
       "pearl": "Dexametasona se administra ANTES o CON la primera dosis de antibiótico para reducir inflamación meníngea y secuelas neurológicas (sobre todo S. pneumoniae).",
       "trap": "Esperar a tener una TAC o el citoquímico del LCR antes de dar antibióticos aumenta exponencialmente la mortalidad.",
@@ -157,12 +157,12 @@ MP_CONTENIDO.agregar({
       "src": "ukka_k",
       "vignette": "Paciente con ERC estadio 5 llega por debilidad muscular. <span class='hy'>K+ sérico 7.1 mEq/L</span> y ECG muestra <span class='hy'>ondas T picudas y ensanchamiento del QRS</span>. ¿Cuál es el primer fármaco a administrar?",
       "options": [
-        "Gluconato de calcio al 10 %, 30 mL IV en 10 minutos",
         "Resina de intercambio iónico (poliestireno sulfonato) vía oral",
+        "Gluconato de calcio al 10 %, 30 mL IV en 10 minutos",
         "Insulina 10 U con 25 g de glucosa IV como única medida",
         "Furosemida oral y restricción dietética de potasio"
       ],
-      "correct": 0,
+      "correct": 1,
       "whyCorrect": "Con hiperkalemia y cambios en el ECG, lo primero es proteger el corazón con calcio IV: gluconato de calcio al 10 %, 30 mL en 10 minutos (o cloruro de calcio al 10 %, 10 mL en 5 minutos, en el contexto de reanimación). El calcio no baja el K+; después se redistribuye y se elimina.",
       "pearl": "UKKA: 1) proteger el corazón (calcio IV); 2) meter K+ a la célula (insulina 10 U con 25 g de glucosa si K+ ≥ 6.5; salbutamol nebulizado 10–20 mg como adyuvante); 3) sacar K+ del cuerpo. El resonio ya no se usa de rutina.",
       "trap": "Empezar por la insulina sin proteger el corazón cuando el ECG ya muestra QRS ancho.",
@@ -189,12 +189,12 @@ MP_CONTENIDO.agregar({
       "src": "rcuk_ana",
       "vignette": "Mujer de 28 años desarrolla <span class='hy'>urticaria generalizada, estridor laríngeo, sibilancias y PA 80/50 mmHg</span> 10 minutos después de recibir penicilina IM. ¿Tratamiento de primera línea?",
       "options": [
-        "Difenhidramina 50 mg IV + hidrocortisona 200 mg IV",
+        "Adrenalina 0.3–0.5 mg IM en cara anterolateral del muslo",
         "Adrenalina 1 mg IV en bolo rápido",
         "Salbutamol nebulizado seguido de observación",
-        "Adrenalina 0.3–0.5 mg IM en cara anterolateral del muslo"
+        "Difenhidramina 50 mg IV + hidrocortisona 200 mg IV"
       ],
-      "correct": 3,
+      "correct": 0,
       "whyCorrect": "La adrenalina intramuscular es el tratamiento de primera línea: en adultos, 500 microgramos IM (0.5 mL de adrenalina 1 mg/mL) en la cara anterolateral del muslo. Se repite a los 5 minutos si persisten los problemas de vía aérea, respiración o circulación.",
       "pearl": "Antihistamínicos y corticoides no son el tratamiento de primera línea. Si no mejora, repetir la adrenalina IM a los 5 minutos.",
       "trap": "Dar adrenalina 1 mg IV en bolo (dosis de paro) en un paciente con pulso causa crisis hipertensiva y arritmias letales.",
@@ -220,10 +220,10 @@ MP_CONTENIDO.agregar({
       "options": [
         "Dímero D y, si es negativo, descartar el TEP sin hacer más estudios de imagen",
         "Espirometría con broncodilatador para descartar broncoespasmo",
-        "AngioTAC de tórax y anticoagulación empírica si no hay contraindicación",
-        "Radiografía de tórax: si es normal, se descarta el diagnóstico"
+        "Radiografía de tórax: si es normal, se descarta el diagnóstico",
+        "AngioTAC de tórax y anticoagulación empírica si no hay contraindicación"
       ],
-      "correct": 2,
+      "correct": 3,
       "whyCorrect": "Con probabilidad clínica alta (Wells > 6 o > 4 en modelo dicotomizado), el Dímero D NO se solicita porque un resultado negativo no descarta con seguridad suficiente; se va directo a AngioTAC pulmonar y anticoagulación.",
       "pearl": "El D-dímero solo sirve para descartar TEP con probabilidad clínica baja o intermedia. Si se requiere anticoagulación parenteral inicial, HBPM antes que heparina no fraccionada.",
       "trap": "Pedir Dímero D en un paciente con Wells alto es un error clásico de examen que retrasa el diagnóstico.",
@@ -248,11 +248,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 70 años con palpitaciones de 6 horas. FC 168 lpm irregular, <span class='hy'>PA 76/48 mmHg</span>, diaforética y somnolienta. ECG: fibrilación auricular con respuesta ventricular rápida. ¿Conducta inmediata?",
       "options": [
         "Amiodarona IV en infusión y reevaluar en 24 horas",
-        "Cardioversión eléctrica sincronizada",
         "Metoprolol IV en bolos para control de frecuencia",
+        "Cardioversión eléctrica sincronizada",
         "Anticoagular 3 semanas y luego cardiovertir"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Toda taquiarritmia con inestabilidad hemodinámica (hipotensión, alteración de conciencia, dolor torácico isquémico o insuficiencia cardíaca aguda) se trata con cardioversión eléctrica sincronizada inmediata, sin importar el tiempo de evolución.",
       "pearl": "Inestable = electricidad. Estable = fármacos (control de frecuencia o de ritmo).",
       "trap": "Dar betabloqueador IV a una paciente hipotensa: empeora el choque.",
@@ -265,12 +265,12 @@ MP_CONTENIDO.agregar({
       "src": "goldf",
       "vignette": "Agricultor de 40 años traído tras fumigar sin protección. Presenta <span class='hy'>miosis puntiforme, sialorrea, broncorrea, bradicardia</span>, diarrea y fasciculaciones. ¿Antídoto de primera línea?",
       "options": [
-        "Naloxona IV en bolos hasta revertir la depresión respiratoria",
         "Atropina IV en dosis crecientes hasta secar las secreciones",
+        "Naloxona IV en bolos hasta revertir la depresión respiratoria",
         "Flumazenil IV para revertir la sedación",
         "N-acetilcisteína IV en el esquema de 21 horas"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "El cuadro colinérgico (muscarínico + nicotínico) es típico de los organofosforados. La atropina revierte los efectos muscarínicos; su meta es secar las secreciones bronquiales, no la midriasis. La pralidoxima es un complemento para los efectos nicotínicos.",
       "pearl": "DUMBELS: Diarrea, Urination, Miosis, Bradicardia/Broncorrea, Emesis, Lagrimeo, Salivación.",
       "trap": "Usar la midriasis o la FC como meta de atropinización: el objetivo es secar los pulmones.",
@@ -301,12 +301,12 @@ MP_CONTENIDO.agregar({
       "src": "esc_ic26",
       "vignette": "Hombre de 68 años con disnea de esfuerzo progresiva y edema maleolar. NT-proBNP 1.200 pg/mL. El ecocardiograma muestra <span class='hy'>FEVI 45 %</span>. Según la guía ESC 2026 de insuficiencia cardíaca, ¿cómo se clasifica?",
       "options": [
-        "Insuficiencia cardíaca con fracción de eyección levemente reducida",
         "Insuficiencia cardíaca con fracción de eyección reducida",
+        "Insuficiencia cardíaca con fracción de eyección levemente reducida",
         "Insuficiencia cardíaca con fracción de eyección preservada",
         "No es insuficiencia cardíaca porque la FEVI es mayor de 40 %"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "La guía ESC 2026 eliminó la categoría de fracción de eyección levemente reducida (antes FEVI 41–49 %) y amplió la IC con fracción de eyección reducida hasta una FEVI menor de 50 %. Con síntomas y FEVI de 45 %, es IC con FE reducida.",
       "pearl": "ESC 2026: IC con FE reducida = FEVI < 50 %; IC con FE preservada = FEVI ≥ 50 % con evidencia objetiva de alteración estructural o funcional. «IC descompensada» reemplaza a «IC aguda».",
       "trap": "Responder «levemente reducida» con la clasificación de 2021: en la guía vigente esa categoría ya no existe.",
@@ -329,12 +329,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_nm",
       "vignette": "Mujer de 72 años con fiebre, tos productiva y crepitantes en la base derecha; la radiografía muestra consolidación. Está <span class='hy'>orientada</span>, FR 24 rpm, PA 128/76 mmHg, <span class='hy'>urea en sangre 9 mmol/L</span>. Según NICE, ¿cuál es su CURB65 y qué se considera para el lugar de atención?",
       "options": [
+        "CURB65 de 0: no requiere antibiótico, solo manejo sintomático en casa",
         "CURB65 de 1: alta con seguimiento en atención primaria en 48 horas",
         "CURB65 de 2: atención en el hospital o en casa con supervisión hospitalaria",
-        "CURB65 de 3: hospitalización inmediata y valoración temprana por cuidados críticos",
-        "CURB65 de 0: no requiere antibiótico, solo manejo sintomático en casa"
+        "CURB65 de 3: hospitalización inmediata y valoración temprana por cuidados críticos"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Suma 1 punto por urea mayor de 7 mmol/L y 1 por edad de 65 años o más: CURB65 de 2, riesgo intermedio (mortalidad del 3 al 15 %). NICE propone considerar hospitalización u opciones supervisadas como hospital en casa, siempre con juicio clínico.",
       "pearl": "NICE: antibiótico por 5 días en todos los niveles de gravedad. Gravedad moderada: amoxicilina, más claritromicina si se sospechan atípicos. Gravedad alta en el hospital: considerar un corticoide de 4 a 7 días.",
       "trap": "Calcular el CURB65 sin la edad: tener 65 años o más ya suma 1 punto.",
@@ -406,13 +406,13 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 74 años con hipertensión, 4 días de fiebre y tos, ahora <span class='hy'>confusa</span>. FR 24 rpm, PA 112/70 mmHg, SatO₂ 93 %. Infiltrado en el lóbulo inferior izquierdo. <span class='hy'>CURB-65: 2</span>. Sin hospitalizaciones, antibióticos recientes ni cultivos previos con SAMR o Pseudomonas, y sin criterios de UCI. ¿Tratamiento empírico?",
       "options": [
         "Piperacilina-tazobactam más vancomicina por posible germen resistente",
-        "Ceftriaxona sola, ajustada luego según cultivos",
         "Moxifloxacino intravenoso como monoterapia de amplio espectro",
+        "Ceftriaxona sola, ajustada luego según cultivos",
         "Amoxicilina oral y control en 48 horas en casa"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "CURB-65 de 2 indica hospitalización en sala general. Sin gravedad y sin factores de riesgo para SAMR o P. aeruginosa, la guía recomienda un betalactámico en monoterapia (ampicilina/sulbactam o ceftriaxona) y ajustar con los resultados microbiológicos. El macrólido se agrega si una prueba molecular identifica un germen atípico o si la evolución es tórpida a las 48–72 horas.",
-      "pearl": "En sala general sin gravedad, el macrólido no va de rutina: se agrega ante evolución tórpida a las 48–72 horas o un atípico identificado.",
+      "pearl": "En sala general sin gravedad, el macrólido no va de rutina: se agrega ante evolución tórpida a las 48–72 horas o un atípico identificado. Ojo con el CURB-65 de 2: la guía colombiana indica sala general; NICE contempla también la atención en casa con supervisión hospitalaria. En el examen, responde según la guía que te pregunten.",
       "trap": "Cubrir SAMR y Pseudomonas «por si acaso»: sin factores de riesgo no se da cobertura empírica para SAMR.",
       "cita": [
         {
@@ -523,11 +523,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Según la guía colombiana de NAC 2026, ¿cuánto debe durar el antibiótico en un adulto con NAC no grave que mejora y está clínicamente estable?",
       "options": [
         "3 días en total",
+        "5 días en total",
         "7 días en total",
-        "10 días en total",
-        "5 días en total"
+        "10 días en total"
       ],
-      "correct": 3,
+      "correct": 1,
       "whyCorrect": "En NAC no grave se recomiendan 5 días en total, con la estabilidad clínica como criterio para suspender. En la NAC grave, la duración depende de la evolución, la microbiología y los biomarcadores.",
       "pearl": "La procalcitonina sola no decide el inicio del antibiótico, pero con la evolución clínica ayuda a acortarlo.",
       "trap": "Completar 7 a 10 días «por costumbre» en un paciente estable.",
@@ -884,11 +884,11 @@ MP_CONTENIDO.agregar({
       "vignette": "En TRITON-TIMI 38 (13.608 pacientes con SCA y angioplastia programada), el desenlace primario ocurrió en <span class='hy'>12,1 % con clopidogrel y 9,9 % con prasugrel</span>; el sangrado mayor, en <span class='hy'>1,8 % y 2,4 %</span>. ¿Cuántos pacientes hay que tratar con prasugrel en vez de clopidogrel para evitar un evento, y cuántos para causar un sangrado mayor?",
       "options": [
         "NNT ≈ 10 y NNH ≈ 17",
+        "NNT ≈ 22 y NNH ≈ 60",
         "NNT ≈ 46 y NNH ≈ 167",
-        "NNT ≈ 81 y NNH ≈ 132",
-        "NNT ≈ 22 y NNH ≈ 60"
+        "NNT ≈ 81 y NNH ≈ 132"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Reducción absoluta del riesgo: 12,1 − 9,9 = 2,2 % → NNT = 100/2,2 ≈ 46. Aumento absoluto del sangrado mayor: 2,4 − 1,8 = 0,6 % → NNH = 100/0,6 ≈ 167. La mortalidad total no difirió entre los grupos.",
       "pearl": "NNT = 100 / reducción absoluta en %. No uses el HR (0,81) para calcularlo.",
       "trap": "Calcular el NNT con la reducción relativa (19 %) en lugar de la absoluta (2,2 %).",
@@ -1240,7 +1240,7 @@ MP_CONTENIDO.agregar({
         },
         {
           "donde": "Recomendaciones clave (C)",
-          "texto": "Combination antifungal-corticosteroid products, such as clotrimazole- betamethasone, generally should be avoided."
+          "texto": "Combination antifungal-corticosteroid products, such as clotrimazole-betamethasone, generally should be avoided."
         }
       ],
       "verificado": "2026-11-15"
@@ -1429,14 +1429,14 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 47 años con consumo crónico de alcohol y desnutrición, traído confuso, con marcha inestable y nistagmo. Glucemia capilar de 58 mg/dL. Vas a pasar dextrosa. ¿Qué debe ir <span class='hy'>antes</span>?",
       "options": [
         "Flumazenil IV para descartar benzodiacepinas",
-        "Tiamina IV 100 mg",
+        "Tiamina IV 200 mg cada 8 horas",
         "Haloperidol IM para poder canalizarlo",
         "Lactulosa por posible encefalopatía hepática"
       ],
       "correct": 1,
-      "whyCorrect": "En el paciente con consumo crónico de alcohol, la tiamina IV (100 mg) se da antes de la glucosa para prevenir la encefalopatía de Wernicke. La tríada clásica (ataxia, alteración oculomotora y encefalopatía) no siempre está completa, por eso la sospecha debe ser amplia.",
-      "pearl": "Wernicke: ataxia + oftalmoparesia/nistagmo + confusión. Tiamina antes de la glucosa. No esperar la tríada completa.",
-      "trap": "Dar dextrosa sin tiamina: puede precipitar o empeorar la encefalopatía.",
+      "whyCorrect": "Con sospecha de encefalopatía de Wernicke, la tiamina parenteral se da de inmediato y antes de la glucosa: 200 mg IV cada 8 horas por 3 a 5 días, corrigiendo también el magnesio y el folato. La hipoglucemia no se deja sin tratar: la dextrosa va justo después, sin esperar. La tríada clásica (ataxia, alteración oculomotora y encefalopatía) no siempre está completa, por eso la sospecha debe ser amplia.",
+      "pearl": "Wernicke: tiamina 200 mg IV cada 8 horas por 3 a 5 días, antes de la glucosa. Los 100 mg IV son la dosis preventiva en la intoxicación alcohólica. No esperar la tríada completa.",
+      "trap": "Dar la dosis preventiva (100 mg) a un paciente con Wernicke establecido, o retrasar la glucosa en una hipoglucemia esperando la tiamina.",
       "cita": [
         {
           "donde": "Complicaciones neuropsiquiátricas agudas del consumo de alcohol",
@@ -1445,9 +1445,13 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Complicaciones neuropsiquiátricas agudas del consumo de alcohol",
           "texto": "La tríada clásica (ataxia, disfunción oculomotora y encefalopatía) no siempre es simultánea"
+        },
+        {
+          "donde": "Encefalopatía de Wernicke: tratamiento",
+          "texto": "El tratamiento requiere administración urgente de tiamina parenteral en todos los casos sospechosos o con riesgo, siempre antes de glucosa. Se recomienda 200 mg IV cada 8 horas durante 3–5 días, junto con corrección de déficits asociados (magnesio y folato), siendo el magnesio clave para su función(10)."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-22"
     }
   ],
   "fichas": [
@@ -2230,7 +2234,7 @@ MP_CONTENIDO.agregar({
         },
         {
           "donde": "Recomendaciones clave (C)",
-          "texto": "Combination antifungal-corticosteroid products, such as clotrimazole- betamethasone, generally should be avoided."
+          "texto": "Combination antifungal-corticosteroid products, such as clotrimazole-betamethasone, generally should be avoided."
         }
       ],
       "verificado": "2026-11-15"

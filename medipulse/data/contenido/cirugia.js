@@ -16,11 +16,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 46 años consulta por dolor en hipocondrio derecho de 36 horas, fiebre de 38.4°C y vómitos. <span class='hy'>Signo de Murphy positivo</span>. Leucocitos 15.200/mm³. Ecografía: litiasis vesicular, pared engrosada de 5 mm y líquido pericolecístico. <span class='hy'>Bilirrubina total y fosfatasa alcalina normales</span>. ¿Conducta?",
       "options": [
         "CPRE urgente antes de cualquier intervención quirúrgica",
+        "Colangiorresonancia obligatoria para descartar colangitis aguda",
         "Manejo ambulatorio con analgésicos y colecistectomía electiva en 3 meses",
-        "Antibioticoterapia IV + colecistectomía laparoscópica temprana",
-        "Colangiorresonancia obligatoria para descartar colangitis aguda"
+        "Antibioticoterapia IV + colecistectomía laparoscópica temprana"
       ],
-      "correct": 2,
+      "correct": 3,
       "whyCorrect": "Tiene un signo local (Murphy), signos sistémicos (fiebre, leucocitosis) e imagen característica: colecistitis aguda definitiva según TG18, sin colestasis. Es leve (grado I) y la paciente tolera la cirugía, así que TG18 indica colecistectomía laparoscópica pronto tras el inicio.",
       "pearl": "TG18 propone la cirugía temprana en quien la tolera, sin importar exactamente cuánto tiempo pasó desde el inicio (ya no exige el límite estricto de 72 h).",
       "trap": "Diferir la colecistectomía varias semanas en una paciente que tolera la cirugía.",
@@ -47,12 +47,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_tr",
       "vignette": "Joven sufre herida por arma blanca en hemitórax derecho. Llega con <span class='hy'>disnea severa, PA 70/40 mmHg, ingurgitación yugular, desviación traqueal a la izquierda y abolición del murmullo vesicular derecho</span>. ¿Acción inmediata?",
       "options": [
-        "Descompresión torácica inmediata y luego tubo de tórax",
-        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
         "Pericardiocentesis subxifoidea guiada por ecografía en la sala de reanimación",
+        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
+        "Descompresión torácica inmediata y luego tubo de tórax",
         "Intubación orotraqueal con presión positiva antes de descomprimir el tórax"
       ],
-      "correct": 0,
+      "correct": 2,
       "whyCorrect": "Es un neumotórax a tensión con inestabilidad hemodinámica (hipotensión, ingurgitación yugular, desviación traqueal y murmullo abolido). NICE indica descomprimir antes de cualquier imagen, con toracostomía abierta seguida de tubo de tórax.",
       "pearl": "NICE: preferir la toracostomía abierta a la descompresión con aguja si hay experiencia, y vigilar la recurrencia después de descomprimir.",
       "trap": "Pedir una radiografía antes de descomprimir a un paciente inestable.",
@@ -79,12 +79,12 @@ MP_CONTENIDO.agregar({
       "src": "wses_app",
       "vignette": "Hombre de 21 años con <span class='hy'>dolor periumbilical que migró a fosa ilíaca derecha</span> hace 14 horas, anorexia, náuseas, T° 37.9°C, Blumberg positivo y leucocitos 14.500/mm³ con neutrofilia. ¿Conducta?",
       "options": [
-        "Alta con analgésicos y control en 24 horas si persiste el dolor",
+        "Apendicectomía laparoscópica en las primeras 24 horas",
         "Colonoscopia diagnóstica para descartar enfermedad inflamatoria",
         "Metronidazol oral ambulatorio como única medida, sin cirugía",
-        "Apendicectomía laparoscópica en las primeras 24 horas"
+        "Alta con analgésicos y control en 24 horas si persiste el dolor"
       ],
-      "correct": 3,
+      "correct": 0,
       "whyCorrect": "Es un cuadro típico de apendicitis aguda no complicada. La WSES 2025 recomienda la apendicectomía laparoscópica dentro de las 24 horas del ingreso, con una sola dosis de antibiótico profiláctico antes de la cirugía y sin antibiótico posoperatorio.",
       "pearl": "WSES 2025: el antibiótico sin cirugía es una alternativa en el adulto con apendicitis no complicada, con vigilancia clínica y decisión compartida. Para estratificar el riesgo recomienda las escalas AIR, AAS y PAS.",
       "trap": "Dejar antibiótico después de operar una apendicitis no complicada: la WSES 2025 lo desaconseja.",
@@ -116,11 +116,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 66 años con fiebre de 39 °C, <span class='hy'>ictericia y dolor en hipocondrio derecho</span>. Además está confuso y con PA 82/50 mmHg. Bilirrubina 6.8 mg/dL. Ecografía: colédoco dilatado de 11 mm con litiasis. ¿Conducta?",
       "options": [
         "Colecistectomía laparoscópica urgente",
-        "Reanimación + antibióticos IV + drenaje biliar urgente (CPRE)",
+        "Colangiorresonancia antes de cualquier tratamiento",
         "Antibióticos orales y CPRE electiva en 6 semanas",
-        "Colangiorresonancia antes de cualquier tratamiento"
+        "Reanimación + antibióticos IV + drenaje biliar urgente (CPRE)"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Es una colangitis aguda definitiva (fiebre, ictericia y dilatación biliar con litiasis) con alteración de la conciencia, que es disfunción neurológica: grado III (grave) según TG18. El tratamiento es soporte, antibiótico y drenaje biliar temprano; la CPRE drena la vía y trata la causa.",
       "pearl": "La tríada de Charcot es muy específica pero poco sensible; TG18 no la usa como criterio diagnóstico. Antibiótico de 4 a 7 días una vez controlado el foco.",
       "trap": "Ir directo a la colecistectomía: la urgencia es drenar la vía biliar, no quitar la vesícula.",
@@ -188,11 +188,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 44 años con colelitiasis sintomática y bilirrubinas elevadas, <span class='hy'>sin colangitis ni pancreatitis</span>. La colangiorresonancia muestra 2 cálculos de 5 mm en el colédoco, que mide <span class='hy'>6 mm</span>, y un cístico de 5 mm. El hospital tiene cirujanos con experiencia en exploración laparoscópica de la vía biliar. ¿Cuál es la mejor conducta?",
       "options": [
         "CPRE preoperatoria y colecistectomía laparoscópica en un segundo tiempo",
-        "Colecistectomía laparoscópica con exploración transcística de la vía biliar en el mismo acto",
+        "Colecistectomía laparoscópica sola y CPRE solo si persiste la ictericia",
         "Colecistectomía laparoscópica con coledocotomía para extraer los cálculos",
-        "Colecistectomía laparoscópica sola y CPRE solo si persiste la ictericia"
+        "Colecistectomía laparoscópica con exploración transcística de la vía biliar en el mismo acto"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Con experiencia local, la exploración laparoscópica de la vía biliar en el mismo acto que la colecistectomía resuelve todo en un solo procedimiento, con eficacia similar a la CPRE previa y menos estancia. El abordaje transcístico es el preferido; la coledocotomía se evita cuando el colédoco mide menos de 7 mm por el riesgo de estenosis. La CPRE preoperatoria se prefiere en colangitis o pancreatitis, que esta paciente no tiene.",
       "pearl": "Coledocotomía laparoscópica: preferida con cístico < 4 mm, cálculos intrahepáticos o > 6 mm; evitarla si el colédoco mide < 7 mm (estenosis).",
       "trap": "Elegir la coledocotomía porque «limpia mejor»: con un colédoco de 6 mm aumenta el riesgo de estenosis. Y la CPRE previa no es obligatoria si no hay colangitis ni pancreatitis.",
@@ -244,11 +244,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 61 años con diabetes mal controlada, 3 días de dolor perineal <span class='hy'>desproporcionado al examen</span>, edema escrotal y crepitación al palpar. Está febril y taquicárdico. El puntaje LRINEC calculado es de 5. Se inicia la reanimación y el antibiótico de amplio espectro. ¿En cuánto tiempo debe hacerse el desbridamiento quirúrgico?",
       "options": [
         "Ninguno por ahora: un LRINEC menor de 6 descarta la fascitis necrosante",
-        "En las primeras 6 a 12 horas, y repetir cada 24 a 72 horas",
+        "Solo si la resonancia confirma gas en la fascia o en el tejido blando",
         "Después de 48 horas de antibiótico, cuando se delimite bien la necrosis",
-        "Solo si la resonancia confirma gas en la fascia o en el tejido blando"
+        "En las primeras 6 a 12 horas, y repetir cada 24 a 72 horas"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "La gangrena de Fournier es una emergencia quirúrgica: el desbridamiento agresivo en las primeras 6 a 12 horas, repetido cada 24 a 72 horas hasta no encontrar más necrosis, junto con antibiótico de amplio espectro temprano, es lo que reduce la mortalidad. Un LRINEC menor de 6 no la descarta (sensibilidad cercana al 68 %) y las imágenes no deben demorar la cirugía.",
       "pearl": "Fournier: reanimación + antibiótico de amplio espectro + desbridamiento en 6 a 12 h, repetido cada 24 a 72 h. Las escalas y las imágenes apoyan, no deciden ni retrasan.",
       "trap": "Confiarse de un LRINEC bajo: con probabilidad pretest del 50 %, un puntaje menor de 6 deja una probabilidad postest cercana al 27 %. Es una escala para sumar sospecha, no para descartar.",
@@ -300,11 +300,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 38 años, día 6 después de una apendicectomía abierta. La herida está eritematosa en sus bordes y drena pus. Al abrirla, la infección <span class='hy'>compromete la piel, el tejido celular subcutáneo y la fascia</span>; la cavidad abdominal no tiene colecciones en la ecografía. ¿Cuál es el diagnóstico?",
       "options": [
         "Infección del sitio operatorio incisional superficial",
-        "Infección del sitio operatorio incisional profunda",
         "Infección del sitio operatorio de órgano-espacio",
+        "Infección del sitio operatorio incisional profunda",
         "No es infección del sitio operatorio porque ocurrió después del día 5"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "La infección del sitio operatorio se define dentro de los primeros 30 días de la cirugía (90 si hay material protésico). Es incisional superficial si afecta solo piel y tejido celular subcutáneo; si compromete tejidos superficiales y profundos, como la fascia, es incisional profunda. Es de órgano-espacio cuando afecta el órgano o la cavidad manipulada.",
       "pearl": "ISO superficial: abrir y lavar la herida; antibiótico solo si hay celulitis importante o signos sistémicos (fiebre, leucocitos > 12.000). Profunda u órgano-espacio: control del foco y antibiótico dirigido.",
       "trap": "Clasificarla como superficial porque «la herida drena pus»: lo que define la clase es la capa más profunda comprometida.",
@@ -332,11 +332,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 58 años, hipertenso, con dolor torácico desgarrante irradiado a la espalda. PA <span class='hy'>186/104 mmHg, FC 108 lpm</span>. La angiotomografía confirma una disección aguda de aorta. Mientras se define la conducta quirúrgica, ¿cuál es el primer fármaco?",
       "options": [
         "Nitroprusiato IV como primera medida, para bajar rápido la presión arterial",
-        "Betabloqueador IV (esmolol, labetalol o metoprolol) hasta FC 60 a 70",
+        "Furosemida IV en bolo para reducir el volumen circulante y la presión",
         "Nifedipino sublingual y control de la presión arterial a los 30 minutos",
-        "Furosemida IV en bolo para reducir el volumen circulante y la presión"
+        "Betabloqueador IV (esmolol, labetalol o metoprolol) hasta FC 60 a 70"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "En la disección aórtica lo que mata es el impulso del ventrículo sobre la pared, no el valor aislado de la presión: el manejo es antiimpulso. Primero un betabloqueador IV para llevar la FC a 60 a 70 lpm; si persiste la hipertensión, se añade un vasodilatador IV, evitando la taquicardia refleja. Meta de PAS: 100 a 120 mmHg. La analgesia IV potente es parte del manejo.",
       "pearl": "Disección aórtica: primero frecuencia (betabloqueador, FC 60–70), después presión (vasodilatador, PAS 100–120), y analgesia potente.",
       "trap": "Empezar con un vasodilatador solo: la taquicardia refleja aumenta el estrés sobre la pared aórtica.",
@@ -458,7 +458,7 @@ MP_CONTENIDO.agregar({
       ],
       "correct": 0,
       "whyCorrect": "En la apendicitis no complicada no se requieren antibióticos en el posoperatorio. La forma complicada, con perforación o peritonitis, sí se beneficia de 4 a 5 días de antibiótico después de la cirugía.",
-      "pearl": "Apendicitis no complicada sin apendicolito: el manejo no operatorio con antibióticos es una alternativa que se discute con el paciente (WSES 2020, NICE 2019).",
+      "pearl": "Apendicitis no complicada sin apendicolito: el manejo no operatorio con antibióticos es una alternativa que se discute con el paciente (WSES 2025).",
       "trap": "Prolongar el antibiótico en una apendicitis no complicada «por seguridad».",
       "cita": [
         {
@@ -480,11 +480,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niña de 3 años que se tragó una moneda hace 3 horas. Está <span class='hy'>asintomática</span>, come y traga bien. La radiografía muestra la moneda <span class='hy'>en el estómago</span>. ¿Qué haces?",
       "options": [
         "Endoscopia hoy para extraerla",
-        "Observar en casa y controlar que salga",
         "Laxante y enema para acelerar la salida",
+        "Observar en casa y controlar que salga",
         "Cirugía si no sale en 24 horas"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Las monedas suelen pasar solas al estómago y salen espontáneamente en un máximo de 4 semanas. Solo requieren extracción si dan síntomas, si están en el esófago al evaluarlas o si no avanzan en 3 a 4 días.",
       "pearl": "Las pilas y los imanes son distintos: una pila puede producir necrosis por presión, descarga eléctrica y fuga alcalina; varios imanes atrapan asas y las perforan.",
       "trap": "Extraer de rutina una moneda que ya está en el estómago y no da síntomas.",
@@ -532,11 +532,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 45 años con un nódulo tiroideo de 2 cm hallado en el examen. La <span class='hy'>TSH está suprimida</span>. ¿Cuál es el siguiente estudio?",
       "options": [
         "Biopsia por aspiración con aguja fina de inmediato",
-        "Gammagrafía de tiroides",
+        "Repetir la ecografía en un año",
         "Tiroidectomía total diagnóstica",
-        "Repetir la ecografía en un año"
+        "Gammagrafía de tiroides"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "La gammagrafía con tecnecio no se usa de rutina, pero está indicada cuando la TSH está suprimida o baja, para saber si el nódulo es funcionante. Los nódulos hiperfuncionantes rara vez son malignos; los no funcionantes son los que tienen indicación de biopsia por aspiración.",
       "pearl": "Bethesda, riesgo de malignidad: II benigno < 4 %; III 15–30 %; IV 20–35 %; V 60–75 %; VI > 97 %.",
       "trap": "Puncionar de entrada un nódulo con TSH suprimida, sin saber si es funcionante.",
