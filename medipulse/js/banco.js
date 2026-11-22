@@ -4,7 +4,7 @@
 // «Explorar el banco»: búsqueda, tipo y estado, lista por especialidad SIN tema ni fuente (serían una
 // pista: sesgo de anclaje), corregir la especialidad y los casos archivados para restaurarlos.
 // ===================================================================
-let qSt = "all", qTipo = null, qQuery = "", qEspOpen = null;
+let qSt = "all", qQuery = "", qEspOpen = null, qFuenteQ = "";
 const isFail = q => { const r = S.srs["q"+q.id]; return !!r && (r.last !== undefined ? r.last === 0 : (r.b === 0 && r.n > r.ok)); };
 // Estado de un caso para el usuario.
 function qEstado(q){
@@ -36,17 +36,58 @@ const opt = (v, l, sel) => `<option value="${esc(v)}" ${sel ? "selected" : ""}>$
 const MODOS_PRAC = [
   {k: "azar", t: "🎲 Al azar", d: "La app mezcla las especialidades y pone primero lo que no has visto y lo que toca repasar."},
   {k: "vuln", t: "🎯 Mis vulnerabilidades", d: "Lo que más te cuesta según tu rendimiento: tipo de pregunta, especialidad y casos que fallas."},
-  {k: "filtros", t: "🔧 Con mis filtros", d: "Tú eliges el tema, el tipo de pregunta y el estado."}
+  {k: "filtros", t: "🔧 Con mis filtros", d: "Tú eliges las fuentes, los tipos de pregunta, el tema y el estado."}
 ];
 const PRAC_MAX = 100;
-const prac = () => S.prac || (S.prac = {specs: [], modo: "azar", n: 20, examen: false});
+const prac = () => { const P = S.prac || (S.prac = {specs: [], modo: "azar", n: 20, examen: false}); P.tipos = P.tipos || []; P.fuentes = P.fuentes || []; return P; };
+
+// ---- Fuentes por categoría (para «Con mis filtros») ----
+// Cada caso tiene su fuente («src»): una del contenido incluido (data/fuentes.js), un documento del usuario
+// (S.sources) o ninguna (creado o importado a mano). La categoría agrupa las fuentes para elegir rápido.
+const FUENTE_PROPIAS = "__propias";
+const CATS_FUENTE = [["udea", "🎓 Memorias UdeA"], ["guideline", "📜 Guías de práctica clínica"], ["article", "📄 Artículos y revisiones"],
+  ["book", "📚 Libros de texto"], ["tuyas", "📂 Tus documentos"], ["propias", "✍️ Creadas por ti o importadas"]];
+function fuenteDe(q){
+  if (q.src && SRC_BY_ID[q.src]) { const f = SRC_BY_ID[q.src]; return {id: q.src, cat: /^udea_/.test(q.src) ? "udea" : f.k || "article", nombre: nombreFuente(f)}; }
+  const d = q.src && S.sources.find(x => x.id === q.src);
+  return d ? {id: d.id, cat: "tuyas", nombre: d.title} : {id: FUENTE_PROPIAS, cat: "propias", nombre: "Creadas por ti o importadas"};
+}
+// Nombre corto: «Memorias del XXVI Curso de actualización en Medicina Interna 2026» → «Medicina Interna 2026».
+const nombreFuente = f => String(f.t).replace(/^Memorias del? .*?(?:Curso de actualización en|Simposio de) /i, "").replace(/\s*\(.*$/, "");
+// Las fuentes que tienen casos, por categoría, con cuántos casos aportan.
+function fuentesDelBanco(qs){
+  const por = {};
+  qs.forEach(q => { const f = fuenteDe(q), c = por[f.cat] || (por[f.cat] = {}); (c[f.id] || (c[f.id] = {id: f.id, nombre: f.nombre, n: 0})).n++; });
+  return CATS_FUENTE.filter(([k]) => por[k]).map(([k, t]) => ({k, t, fuentes: Object.values(por[k]).sort((a, b) => b.n - a.n || a.nombre.localeCompare(b.nombre))}));
+}
+// Las fuentes para elegir. Con texto en el buscador: solo las que coinciden, sin plegar. Sin texto: por categoría, plegadas.
+function fuentesHTML(cats, fuentes){
+  const chip = x => `<button class="chip2${fuentes.includes(x.id) ? " on" : ""}" data-qsrc="${esc(x.id)}" title="${esc(x.nombre)}">${esc(x.nombre)} <span class="cnt">${x.n}</span></button>`;
+  const q = norm(qFuenteQ.trim());
+  if (q) {
+    const hits = cats.flatMap(c => c.fuentes.filter(x => norm(x.nombre + " " + x.id + " " + c.t).includes(q)));
+    return hits.length ? `<div class="chips fuentes">${hits.map(chip).join("")}</div>` : `<p class="xs muted" style="margin:0">Ninguna fuente coincide con «${esc(qFuenteQ.trim())}».</p>`;
+  }
+  return cats.map(cat => {
+    const ids = cat.fuentes.map(x => x.id), todas = ids.every(id => fuentes.includes(id)), algunas = ids.filter(id => fuentes.includes(id)).length;
+    return plegable("qcat_" + cat.k, `<span class="row" style="gap:8px;display:inline-flex"><button class="chip2${todas ? " on" : ""}" data-qcat="${cat.k}">${cat.t} <span class="cnt">${cat.fuentes.reduce((a, x) => a + x.n, 0)}</span></button>${algunas && !todas ? `<span class="xs muted">${algunas} de ${ids.length}</span>` : ""}</span>`,
+      `<div class="chips fuentes" style="margin-top:6px">${cat.fuentes.map(chip).join("")}</div>`);
+  }).join("");
+}
+// Con varios tipos elegidos, la práctica los intercala por turnos para que salga mezclada, como un examen.
+function mezclarPorTipo(qs, tipos){
+  if (tipos.length < 2) return qs;
+  const g = tipos.map(t => qs.filter(q => qKind(q) === t)), out = [];
+  for (let i = 0; out.length < qs.length; i++) { let algo = false; g.forEach(x => { if (x[i]) { out.push(x[i]); algo = true; } }); if (!algo) break; }
+  return out;
+}
 const specsSel = () => prac().specs.filter(s => SPECS.includes(s));
 // Practicar: arma la sesión según el modo, la cantidad y si es en modo examen (un simulacro).
 function empezarPractica(pool, n, modo, examen, rd){
   let qs;
   if (modo === "vuln") qs = elegirVulnerables(pool, n, rd);
   else if (modo === "azar") qs = elegirAlAzar(pool, n);
-  else qs = shuffle(pool).slice(0, n);
+  else qs = mezclarPorTipo(shuffle(pool), prac().tipos).slice(0, n);
   if (!qs.length) return toast("No hay casos con esa selección.");
   const sp = specsSel(), donde = sp.length && sp.length < SPECS.length ? sp.join(" · ") : "Todas las especialidades";
   const nombre = (modo === "vuln" ? "🎯 Mis vulnerabilidades" : modo === "azar" ? "🎲 Al azar" : "🔧 Con mis filtros") + " · " + donde;
@@ -56,9 +97,11 @@ function empezarPractica(pool, n, modo, examen, rd){
 }
 function renderBanco(){
   const P = prac(), sp = specsSel(), txt = norm(qQuery.trim());
-  const enSpec = q => !sp.length || sp.includes(q.specialty), enTipo = q => !qTipo || qKind(q) === qTipo;
+  const tipos = P.tipos, fuentes = P.fuentes;
+  const enSpec = q => !sp.length || sp.includes(q.specialty), enTipo = q => !tipos.length || tipos.includes(qKind(q));
+  const enFuente = q => !fuentes.length || fuentes.includes(fuenteDe(q).id);
   const enEst = q => qSt === "fail" ? isFail(q) : qSt === "new" ? !S.srs["q"+q.id] : qSt === "due" ? isDue("q"+q.id) : true;
-  const base = QUESTIONS.filter(q => enSpec(q) && enTipo(q) && qCoincide(q, txt));
+  const base = QUESTIONS.filter(q => enSpec(q) && enTipo(q) && enFuente(q) && qCoincide(q, txt));
   const nFail = base.filter(isFail).length, nNew = base.filter(q => !S.srs["q"+q.id]).length, nDue = base.filter(q => isDue("q"+q.id)).length;
   if (qSt === "due" && !nDue) qSt = "all";
   const pool = base.filter(enEst);
@@ -82,9 +125,14 @@ function renderBanco(){
     <div class="seg seg3" id="qModo">${MODOS_PRAC.map(m => `<button class="${P.modo === m.k ? "on" : ""}" data-modo="${m.k}"><b>${m.t}</b><span>${m.d}</span></button>`).join("")}</div>
     ${P.modo === "vuln" ? (hecho ? `<div class="vulnbox stack" id="qVuln">${vulnHTML(sp)}</div>` : `<div style="margin-top:10px" id="qVulnCand">${diagCandadoHTML("«Mis vulnerabilidades»")}</div>`) : ""}
     ${P.modo === "filtros" ? `<div class="filtrosbox stack">
-      <input type="search" id="qQuery" placeholder="Tema o palabra clave (p. ej. TEP, Kawasaki, NNT)" aria-label="Buscar casos por tema">
+      <input type="search" id="qQuery" placeholder="Tema: TEP, Kawasaki, NNT…" aria-label="Buscar casos por tema">
+      <div><div class="xs muted" style="margin-bottom:6px">Tipos de pregunta <span>(elige uno o varios; se mezclan como en el examen)</span></div>
+        <div class="chips" id="qTipos"><button class="chip2${tipos.length ? "" : " on"}" data-qtipo="">Todos</button>${FOCUS.slice(1).map(f => { const c = cuentaF(q => qKind(q) === f.k && enFuente(q));
+          return `<button class="chip2${tipos.includes(f.k) ? " on" : ""}" data-qtipo="${f.k}" ${c ? "" : "disabled"}>${f.t} <span class="cnt">${c}</span></button>`; }).join("")}</div></div>
+      <div><div class="xs muted" style="margin-bottom:6px">Fuentes <span>(${fuentes.length ? `${fuentes.length} elegida${fuentes.length === 1 ? "" : "s"}` : "todas"})</span>${fuentes.length ? ` · <button class="linkbtn xs" id="qFuentesTodas">Todas</button>` : ""}</div>
+        <input type="search" id="qFuenteQ" placeholder="Buscar fuente: NAC, sepsis…" aria-label="Buscar una fuente" style="margin-bottom:6px">
+        <div class="stack" style="gap:6px" id="qFuentes">${fuentesHTML(fuentesDelBanco(deSpecs.filter(q => enTipo(q) && qCoincide(q, txt))), fuentes)}</div></div>
       <div class="grid2">
-        <label class="fld">Tipo de pregunta<select id="qSelTipo">${opt("", "Todos los tipos", !qTipo)}${FOCUS.slice(1).map(f => opt(f.k, `${f.t} (${cuentaF(q => qKind(q) === f.k)})`, qTipo === f.k)).join("")}</select></label>
         <label class="fld">Estado<select id="qSelSt">${opt("all", `Todos (${base.length})`, qSt === "all")}${opt("new", `Sin responder (${nNew})`, qSt === "new")}${opt("fail", `Mis fallos (${nFail})`, qSt === "fail")}${nDue ? opt("due", `Para repasar (${nDue})`, qSt === "due") : ""}</select></label></div></div>` : ""}
     <div class="row" style="margin-top:12px;gap:8px;align-items:flex-end">
       <label class="fld cantidad"><span>Cantidad de casos</span><input type="number" id="qN" min="1" max="${max}" value="${n}" inputmode="numeric"></label>
@@ -114,7 +162,17 @@ function renderBanco(){
     const q0 = $("#qQuery"); q0.value = qQuery;
     if (renderBanco._foco) { q0.focus(); q0.setSelectionRange(q0.value.length, q0.value.length); renderBanco._foco = false; }
     q0.oninput = () => { qQuery = q0.value; clearTimeout(renderBanco._t); renderBanco._t = setTimeout(() => { renderBanco._foco = document.activeElement === $("#qQuery"); renderBanco(); }, 250); };
-    $("#qSelTipo").onchange = e => { qTipo = e.target.value || null; renderBanco(); };
+    document.querySelectorAll("#qTipos [data-qtipo]").forEach(b => b.onclick = () => { const k = b.dataset.qtipo;
+      P.tipos = !k ? [] : tipos.includes(k) ? tipos.filter(x => x !== k) : [...tipos, k]; if (P.tipos.length === FOCUS.length - 1) P.tipos = []; save(); renderBanco(); });
+    document.querySelectorAll("#qFuentes [data-qsrc]").forEach(b => b.onclick = () => { const id = b.dataset.qsrc;
+      P.fuentes = fuentes.includes(id) ? fuentes.filter(x => x !== id) : [...fuentes, id]; save(); renderBanco(); });
+    document.querySelectorAll("#qFuentes [data-qcat]").forEach(b => b.onclick = e => { e.preventDefault(); e.stopPropagation();
+      const cat = fuentesDelBanco(deSpecs).find(c => c.k === b.dataset.qcat), ids = cat ? cat.fuentes.map(x => x.id) : [];
+      P.fuentes = ids.every(id => fuentes.includes(id)) ? fuentes.filter(x => !ids.includes(x)) : [...new Set([...fuentes, ...ids])]; save(); renderBanco(); });
+    $("#qFuentesTodas") && ($("#qFuentesTodas").onclick = () => { P.fuentes = []; save(); renderBanco(); });
+    const fq = $("#qFuenteQ"); fq.value = qFuenteQ;
+    if (renderBanco._focoF) { fq.focus(); fq.setSelectionRange(fq.value.length, fq.value.length); renderBanco._focoF = false; }
+    fq.oninput = () => { qFuenteQ = fq.value; clearTimeout(renderBanco._tf); renderBanco._tf = setTimeout(() => { renderBanco._focoF = document.activeElement === $("#qFuenteQ"); renderBanco(); }, 200); };
     $("#qSelSt").onchange = e => { qSt = e.target.value; renderBanco(); };
   }
   document.querySelectorAll("#qNs [data-n]").forEach(b => b.onclick = () => { P.n = +b.dataset.n; save(); renderBanco(); });

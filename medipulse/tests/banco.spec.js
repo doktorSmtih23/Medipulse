@@ -12,14 +12,14 @@ test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 test("especialidades, tipo y estado; la lista no muestra el tema ni la fuente", async ({ page }) => {
   await expect(page.locator('#qSpecs [data-sp="Medicina Interna"]')).toContainText(/Medicina Interna \d+/);
   await page.click('#qModo [data-modo="filtros"]');   // los filtros viven en «Con mis filtros»
-  await page.selectOption("#qSelTipo", "diagnostico");
+  await page.click('#qTipos [data-qtipo="diagnostico"]');
   const tipos = await page.$$eval("#qList [data-q1]", bs => bs.map(b => qKind(qById(b.dataset.q1))));
   expect(tipos.length).toBeGreaterThan(5);
   expect(new Set(tipos)).toEqual(new Set(["diagnostico"]));
   // sin pistas: ni el tema ni la fuente aparecen en la lista
   const texto = await page.textContent("#qList");
   expect(texto).not.toMatch(/Kawasaki|TEP|Tourette|Neumolog/);
-  await page.selectOption("#qSelTipo", "");
+  await page.click('#qTipos [data-qtipo=""]');
   await page.fill("#qQuery", "kawasaki");
   await expect.poll(() => page.$$eval("#qList [data-q1]", bs => bs.length > 3 && bs.every(b => { const q = qById(b.dataset.q1); return /kawasaki/i.test(q.topic + q.vignette + (srcInfo(q.src) || {}).t); }))).toBe(true);
   expect(await sinDesborde(page)).toBe(true);
@@ -237,7 +237,7 @@ test.describe("auditoría a ciegas al final del modo examen", () => {
 
 test("con mis filtros: tema, tipo y estado junto a la cantidad; Empezar usa exactamente eso", async ({ page }) => {
   await page.click('#qModo [data-modo="filtros"]');
-  await page.selectOption("#qSelTipo", "conducta");
+  await page.click('#qTipos [data-qtipo="conducta"]');
   await page.selectOption("#qSelSt", "new");
   await page.fill("#qN", "3"); await page.locator("#qN").dispatchEvent("change");
   await expect(page.locator("#pr10")).toContainText("3 casos");
@@ -266,5 +266,31 @@ test("«Salud Pública» pasó a «Epidemiología y Estadística», también en 
   expect(r).toEqual(["Epidemiología y Estadística", "Epidemiología y Estadística", ["Epidemiología y Estadística"], "Epidemiología y Estadística", "Epidemiología y Estadística", "Pediatría"]);
   await page.click("nav [data-go=banco]");
   await expect(page.locator('#qSpecs [data-sp="Epidemiología y Estadística"]')).toHaveClass(/on/);
+  expect(await sinDesborde(page)).toBe(true);
+});
+
+test("con mis filtros: varios tipos a la vez (mezclados como en el examen) y fuentes por categoría o con el buscador", async ({ page }) => {
+  await page.click('#qModo [data-modo="filtros"]');
+  // Dos tipos: la práctica los intercala.
+  await page.click('#qTipos [data-qtipo="conducta"]'); await page.click('#qTipos [data-qtipo="diagnostico"]');
+  expect(await page.evaluate(() => prac().tipos)).toEqual(["conducta", "diagnostico"]);
+  // Fuentes: el buscador encuentra la memoria de Cirugía sin abrir categorías.
+  await page.fill("#qFuenteQ", "cirugia");
+  await expect(page.locator('#qFuentes [data-qsrc="udea_cir25"]')).toBeVisible();
+  await expect(page.locator("#qFuentes [data-qcat]")).toHaveCount(0);
+  await page.click('#qFuentes [data-qsrc="udea_cir25"]');
+  await page.fill("#qFuenteQ", "no existe nada así"); await expect(page.locator("#qFuentes")).toContainText("Ninguna fuente coincide");
+  await page.fill("#qFuenteQ", "");
+  // Una categoría entera de un toque: las memorias UdeA.
+  await page.click('#qFuentes [data-qcat="udea"]');
+  const fuentes = await page.evaluate(() => prac().fuentes);
+  expect(fuentes).toContain("udea_cir25"); expect(fuentes).toContain("udea_gin26"); expect(fuentes.every(f => f.startsWith("udea_"))).toBe(true);
+  await page.fill("#qN", "8"); await page.locator("#qN").dispatchEvent("change");
+  await page.click("#pr10");
+  const r = await page.evaluate(() => sess.stages[0].items.map(it => { const q = qById(it.id); return [qKind(q), q.src]; }));
+  expect(r.length).toBe(8);
+  expect(r.every(([k, src]) => ["conducta", "diagnostico"].includes(k) && /^udea_/.test(src))).toBe(true);
+  // Mezclados: no salen todos los de un tipo y luego todos los del otro.
+  expect(r[0][0]).not.toBe(r[1][0]);
   expect(await sinDesborde(page)).toBe(true);
 });
