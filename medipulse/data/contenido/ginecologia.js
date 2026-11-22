@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Ginecología",
   "prefijo": "gin",
   "paquete": "starter",
-  "actualizado": "2026-11-21",
+  "actualizado": "2026-11-22",
   "casos": [
     {
       "id": 4,
@@ -578,6 +578,282 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-21"
+    },
+    {
+      "id": "gin-c17",
+      "topic": "Ginecología · Mola hidatiforme",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 24 años con sangrado en el primer trimestre. La ecografía muestra un patrón en <span class='hy'>«tormenta de nieve» sin embrión</span> y la β-hCG está muy por encima de lo esperado para la edad gestacional. Desea tener hijos. ¿Cómo se evacúa el útero?",
+      "options": [
+        "Inducción con misoprostol y luego legrado",
+        "Aspiración por succión",
+        "Histerectomía abdominal total",
+        "Metotrexato antes de cualquier evacuación"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es una mola completa. Se evacúa preferiblemente por aspiración por succión. Las prostaglandinas se desaconsejan porque aumentan la hemorragia y, al parecer, la neoplasia trofoblástica posmolar. La histerectomía se reserva para mayores de 40 años o sin deseo reproductivo.",
+      "pearl": "Después de evacuar: β-hCG cada 1 a 2 semanas hasta que sea indetectable, y anticoncepción confiable (no DIU) durante la vigilancia.",
+      "trap": "Usar misoprostol para «ablandar el cuello» antes de evacuar una mola.",
+      "cita": [
+        {
+          "donde": "Enfermedad Trofoblástica Gestacional",
+          "texto": "El tratamiento de la mola hidatiforme se basa en la evacuación uterina, preferiblemente mediante aspiración por succión (legrado por aspiración) (1, 5)."
+        },
+        {
+          "donde": "Enfermedad Trofoblástica Gestacional",
+          "texto": "El uso de prostaglandinas está desaconsejado, ya que se asocia con mayor riesgo de hemorragia y parece haber mayor incidencia de neoplasia trofoblástica gestacional (NTG) pos molar (2, 5)."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c18",
+      "topic": "Ginecología · Neoplasia trofoblástica posmolar",
+      "difficulty": "Nivel 3",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 30 años a quien se evacuó una mola completa hace 5 semanas. Controles de β-hCG en los días 1, 7, 14 y 21: <span class='hy'>1.850, 1.820, 1.870 y 1.840 UI/L</span>. Radiografía de tórax normal. ¿Qué tiene?",
+      "options": [
+        "Evolución normal: seguir midiendo cada mes",
+        "Un nuevo embarazo intrauterino",
+        "Neoplasia trofoblástica por meseta de β-hCG",
+        "Restos molares: repetir el legrado de rutina"
+      ],
+      "correct": 2,
+      "whyCorrect": "Cuatro valores consecutivos (días 1, 7, 14 y 21) que varían 10 % o menos cumplen el criterio FIGO de meseta: es una neoplasia trofoblástica gestacional posmolar.",
+      "pearl": "Criterios FIGO: meseta (4 valores, variación ≤10 %), aumento ≥10 % en 3 valores (días 1, 7 y 14), β-hCG detectable más de 6 meses después, o histología de coriocarcinoma.",
+      "trap": "Esperar a que «baje sola»: una β-hCG que no desciende tras la evacuación ya es neoplasia.",
+      "cita": [
+        {
+          "donde": "Enfermedad Trofoblástica Gestacional",
+          "texto": "Meseta de β-hCG Al menos cuatro valores consecutivos medidos en los días 1, 7, 14 y 21, con una variación ≤10%. Aumento de β-hCG Incremento ≥10% en tres valores consecutivos medidos en los días 1, 7 y 14."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c19",
+      "topic": "Obstetricia · Hemorragia posparto: definición",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Puérpera de 2 horas tras parto vaginal. En la bolsa colectora calibrada se han medido <span class='hy'>350 mL</span>. FC 108 lpm, PA 98/58 mmHg. ¿Cómo la clasificas?",
+      "options": [
+        "No es hemorragia porque no llega a 500 mL medidos",
+        "Hemorragia posparto, por 300 mL o más con signos anormales",
+        "Solo cuenta como hemorragia si supera los 1.000 mL",
+        "Sangrado normal del puerperio: revalorar a las 6 horas"
+      ],
+      "correct": 1,
+      "whyCorrect": "La OMS define hemorragia posparto como 300 mL o más medidos con cualquier signo hemodinámico anormal (pulso >100, índice de choque >1, PAS <100 o PAD <60), o 500 mL o más, lo que ocurra primero en las primeras 24 horas.",
+      "pearl": "La vigilancia es especialmente estrecha en las 2 primeras horas tras el parto.",
+      "trap": "Esperar a los 500 mL cuando ya hay taquicardia o hipotensión.",
+      "cita": [
+        {
+          "donde": "Puntos clave en el manejo de la hemorragia obstétrica grave",
+          "texto": "pérdida de sanguínea medida objetivamente de ≥300 mL sumado a cualquier signo hemodinámico anormal (pulso >100 lpm, índice de choque >1, presión arterial sistólica <100 mmHg o presión arterial diastólica <60 mmHg), o sangrado medido objetivamente de ≥500 mL, lo que ocurra primero en las 24 horas posteriores al nacimiento"
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c20",
+      "topic": "Obstetricia · Hemorragia grave: fibrinógeno",
+      "difficulty": "Nivel 3",
+      "src": "udea_gin26",
+      "vignette": "Puérpera con hemorragia posparto grave en reanimación. Recibió oxitocina y ácido tranexámico. El laboratorio reporta <span class='hy'>fibrinógeno de 140 mg/dL</span>. ¿Qué es lo más adecuado para corregirlo con menos volumen?",
+      "options": [
+        "Más cristaloides hasta normalizar la presión",
+        "Plasma fresco congelado como única fuente de fibrinógeno",
+        "Crioprecipitado o concentrado de fibrinógeno",
+        "Esperar el control de 6 horas"
+      ],
+      "correct": 2,
+      "whyCorrect": "El fibrinógeno por debajo de 200 mg/dL es el punto crítico para transfundir. El crioprecipitado (15 g/L) y el concentrado (20 g/L) lo reponen con mucho menos volumen que el plasma (2,5 g/L). Además, más líquidos diluyen el fibrinógeno.",
+      "pearl": "Ácido tranexámico: 1 g en 10 minutos; si sigue sangrando a los 30 minutos, una segunda dosis de 1 g.",
+      "trap": "Reanimar con grandes volúmenes de cristaloides: entre más volumen, menor fibrinógeno.",
+      "cita": [
+        {
+          "donde": "Puntos clave en el manejo de la hemorragia obstétrica grave",
+          "texto": "En todos estos casos, el punto de corte crítico indicativo de transfusión es 200 mg/dl. El fibrinógeno puede ser corregido de tres formas que tienen concentraciones distintas: con plasma, que tiene 2,5 g/l; crioprecipitado, que tiene 15 g/l; o también con concentrado de fibrinógeno, que trae 20 g/l."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c21",
+      "topic": "Ginecología · Masa anexial",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 63 años, posmenopáusica, con distensión abdominal. La ecografía muestra una <span class='hy'>masa anexial multilocular sólida irregular de 12 cm, con ascitis</span>. ¿Qué haces?",
+      "options": [
+        "Repetir ecografía en 3 meses",
+        "Remitir a ginecología oncológica",
+        "Laparoscopia de quistectomía en su hospital",
+        "Anticonceptivos orales y nuevo control"
+      ],
+      "correct": 1,
+      "whyCorrect": "Cumple reglas M de IOTA (tumor multilocular sólido irregular de 100 mm o más y ascitis): alto riesgo de malignidad. Las lesiones de alto riesgo, O-RADS 4 o 5, deben operarse por ginecología oncológica para una citorreducción correcta.",
+      "pearl": "Índice de riesgo de malignidad (IRM) de 200 o más: punto de corte para remitir.",
+      "trap": "Operarla en un centro sin ginecología oncológica o hacer seguimiento expectante.",
+      "cita": [
+        {
+          "donde": "Abordaje de la masa anexial: ¿cuándo observar, cuándo operar?",
+          "texto": "M1 Tumor sólido irregular M2 Presencia de ascitis M3 Al menos 4 estructuras papilares M4 Tumor multilocular sólido irregular (diámetro mayor ≥100 mm)"
+        },
+        {
+          "donde": "Abordaje de la masa anexial: ¿cuándo observar, cuándo operar?",
+          "texto": "Deben ser operadas específicamente por ginecología oncológica todas las pacientes con lesiones de alto riesgo o quienes tengan evidencia clínica de enfermedad avanzada"
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c22",
+      "topic": "Anticoncepción · Lactancia y acetato de medroxiprogesterona",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 26 años, lactancia exclusiva, a las <span class='hy'>3 semanas posparto</span>. Pide la inyección trimestral de acetato de medroxiprogesterona. Según los criterios de la OMS 2025, ¿qué categoría tiene?",
+      "options": [
+        "Categoría 4: contraindicada",
+        "Categoría 3: solo si no hay otra opción",
+        "Categoría 2: se puede usar",
+        "Categoría 1 desde el primer día"
+      ],
+      "correct": 2,
+      "whyCorrect": "La OMS 2025 pasó el acetato de medroxiprogesterona de depósito en lactantes del posparto de categoría 3 a 2: la evidencia no confirmó que afecte la lactogénesis ni al recién nacido.",
+      "pearl": "En ese mismo periodo, los métodos combinados con estrógeno siguen en categoría 4; después de las 6 semanas, los de solo progestágeno son categoría 1.",
+      "trap": "Aplicar la clasificación anterior (categoría 3) de la OMS.",
+      "cita": [
+        {
+          "donde": "Criterios médicos de elegibilidad OMS 2025, ¿qué cambió?",
+          "texto": "el cambio en la clasificación del acetato de medroxiprogesterona de depósito (inyección trimestral) de categoría 3 a categoría 2."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c23",
+      "topic": "Anticoncepción · Migraña con aura",
+      "difficulty": "Nivel 1",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 29 años con <span class='hy'>migraña con aura</span>, en manejo por neurología, que usa anticonceptivos orales combinados. ¿Qué le recomiendas?",
+      "options": [
+        "Seguir con la píldora si el aura dura menos de una hora",
+        "Pasar a un anillo vaginal combinado, que tiene menos estrógeno",
+        "Cambiar a DIU de cobre o solo progestágeno",
+        "Bajar la dosis de etinilestradiol"
+      ],
+      "correct": 2,
+      "whyCorrect": "En migraña con aura, todos los métodos hormonales combinados (píldora, anillo, parche) son categoría 4 por el riesgo de ataque cerebrovascular del estrógeno. Se cambia a un método sin estrógeno.",
+      "pearl": "Con trombosis venosa previa en anticoagulación: los de solo progestágeno son categoría 2 y los combinados, categoría 4.",
+      "trap": "Creer que el anillo o el parche evitan el riesgo: también llevan estrógeno.",
+      "cita": [
+        {
+          "donde": "Criterios médicos de elegibilidad OMS 2025, ¿qué cambió?",
+          "texto": "En mujeres con migraña con aura, los métodos hormonales combinados se clasifican como categoría 4 debido al aumento significativo del riesgo de accidente cerebrovascular asociado al estrógeno."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c24",
+      "topic": "Obstetricia · Lesiones ocultas del suelo pélvico",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Primípara de 32 años, 8 semanas después de un <span class='hy'>parto con fórceps</span>, siente «bulto y peso en la vagina». La episiotomía cicatrizó bien. Al tacto, el puborrectal no se ancla en el pubis derecho y el <span class='hy'>hiato mide 5 cm</span>. ¿Qué sigue?",
+      "options": [
+        "Tranquilizar: el periné está íntegro",
+        "Ecografía 3D/4D transperineal",
+        "Colporrafia posterior inmediata",
+        "Pesario y control en un año"
+      ],
+      "correct": 1,
+      "whyCorrect": "Sospecha de avulsión del elevador del ano, una lesión oculta bajo un periné que se ve sano. Con hiato mayor de 4 cm o falta de contracción, se hace ecografía 3D/4D transperineal, el patrón de oro, y luego fisioterapia de suelo pélvico.",
+      "pearl": "Las lesiones ocultas afectan a 1 de cada 3 mujeres tras su primer parto vaginal; fórceps, segunda fase prolongada y feto de más de 4.000 g aumentan el riesgo.",
+      "trap": "Descartar lesión porque la episiotomía y el esfínter se ven bien.",
+      "cita": [
+        {
+          "donde": "Lesiones ocultas del suelo pélvico en el posparto: el trauma invisible",
+          "texto": "Ecografía 3D/4D transperineal se considera en la actualidad, el \"Gold Standard\" para el tamizaje de lesiones ocultas postparto."
+        },
+        {
+          "donde": "Lesiones ocultas del suelo pélvico en el posparto: el trauma invisible",
+          "texto": "¿se observa un hiato >4 cm o falta de contracción voluntaria? - SÍ: realizar Ecografía 3D/4D de suelo pélvico."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c25",
+      "topic": "Ginecología · Tamización de mama en alto riesgo",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Mujer de 32 años cuya <span class='hy'>hermana tuvo cáncer de mama a los 39 años</span>. Sin estudio genético. ¿Desde cuándo inicia la mamografía?",
+      "options": [
+        "A los 50 años, igual que la población general sin riesgo",
+        "A los 40 años, cuando haya pasado la edad del caso índice",
+        "Ya: 10 años antes del caso índice, no antes de los 30",
+        "Solo con ecografía si aparece un nódulo palpable o dolor"
+      ],
+      "correct": 2,
+      "whyCorrect": "En parientes en primer grado se inicia la mamografía 10 años antes de la edad del caso índice (aquí 29), pero no antes de los 30: le corresponde ya. En alto riesgo se complementa con resonancia contrastada anual.",
+      "pearl": "También es alto riesgo la radiación a la pared torácica entre los 10 y 30 años (p. ej., linfoma de Hodgkin).",
+      "trap": "Esperar a los 40 o 50 años por no tener mutación demostrada.",
+      "cita": [
+        {
+          "donde": "Tamización para cáncer de mama en grupos especiales",
+          "texto": "Tradicionalmente se ha recomendado que las parientes inicien tamización mamográfica 10 años antes de la edad de presentación en el caso índice, pero no antes de los 30 años."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c26",
+      "topic": "Obstetricia · Anticoagulación periparto",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Gestante con trombosis venosa profunda en este embarazo, con <span class='hy'>enoxaparina en dosis terapéutica</span>. Tiene cesárea programada a las 39 semanas. ¿Cuándo aplica la última dosis?",
+      "options": [
+        "La mañana de la cesárea",
+        "24 horas antes",
+        "12 horas antes",
+        "Una semana antes, sin puente"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con HBPM en dosis intermedias o terapéuticas, la última dosis es 24 horas antes del procedimiento; con dosis bajas (profilácticas), 12 horas antes.",
+      "pearl": "Válvula mecánica con warfarina: pasar a heparina al menos 2 semanas antes del parto y a HNF IV 36 horas antes; suspenderla 4 a 6 horas antes.",
+      "trap": "Usar el intervalo de la dosis profiláctica (12 horas) con dosis terapéuticas.",
+      "cita": [
+        {
+          "donde": "Anticoagulación periparto: ¿cuándo suspender, ¿cuándo actuar?",
+          "texto": "las pacientes con HBPM en dosis bajas toman su última dosis 12 horas antes del procedimiento; las pacientes con HBPM en dosis intermedias o terapéuticas toman su última dosis 24 horas antes del procedimiento."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c27",
+      "topic": "Ginecología · Terapia hormonal masculinizante",
+      "difficulty": "Nivel 2",
+      "src": "udea_gin26",
+      "vignette": "Hombre transgénero de 27 años, con testosterona hace 2 años. En el control, <span class='hy'>hematocrito de 54 %</span>. ¿Qué efecto adverso es y qué riesgo implica?",
+      "options": [
+        "Anemia dilucional sin importancia clínica en este momento",
+        "Eritrocitosis con riesgo trombótico",
+        "Déficit de hierro por menstruación",
+        "Hepatotoxicidad por testosterona que obliga a suspenderla"
+      ],
+      "correct": 1,
+      "whyCorrect": "La eritrocitosis (hematocrito mayor de 50 %) es quizá el efecto adverso más frecuente de la testosterona en hombres transgénero y aumenta el riesgo de eventos trombóticos y cardiovasculares.",
+      "pearl": "En la terapia feminizante el principal riesgo es tromboembólico; se prefiere estradiol (oral o transdérmico) en lugar del etinilestradiol.",
+      "trap": "Ignorar el hematocrito por creer que un valor «masculino» es normal.",
+      "cita": [
+        {
+          "donde": "Terapia Hormonal en la Población Transgénero",
+          "texto": "La eritrocitosis (hematocrito >50 %) es tal vez el efecto secundario más frecuente en los hombres transgénero y confieren un mayor riesgo de eventos trombóticos o cardiovasculares."
+        }
+      ],
+      "verificado": "2026-11-22"
     }
   ],
   "fichas": [
