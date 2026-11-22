@@ -12,7 +12,7 @@ const textToVig = t => esc(t).replace(/\[\[([\s\S]+?)\]\]/g, "<span class='hy'>$
 
 let corrSeq = 0;
 // Especialidad: la IA a veces la asigna mal; se puede cambiar al revisar o al corregir.
-const specSelHTML = (attr, val) => `<label class="fld">Especialidad<select ${attr}>${SPECS.map(s => `<option ${s === val ? "selected" : ""}>${esc(s)}</option>`).join("")}</select></label>`;
+const specSelHTML = (attr, val) => `<label class="fld">Especialidad<select ${attr}>${ESPS().map(s => `<option ${s === val ? "selected" : ""}>${esc(s)}</option>`).join("")}${ESP_NUEVA_OPT}</select></label>`;
 function qEditHTML(q, crudo){
   const n = "qeOk" + (++corrSeq);
   return `<div class="stack qedit" style="gap:6px">

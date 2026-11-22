@@ -105,7 +105,7 @@ function renderDistill(){
   const b = MBE[mbeType];
   $("#mbeForm").innerHTML = `
     <div class="grid2"><label class="fld">Tipo<select id="dType">${Object.entries(MBE).map(([k,v])=>`<option value="${k}" ${k===mbeType?"selected":""}>${v.icon} ${v.name}</option>`).join("")}</select></label>
-      <label class="fld">Especialidad<select id="dSpec">${SPECS.map(s=>`<option>${s}</option>`).join("")}</select></label></div>
+      <label class="fld">Especialidad<select id="dSpec">${ESPS().map(s=>`<option>${s}</option>`).join("")}${ESP_NUEVA_OPT}</select></label></div>
     <label class="fld">Título del estudio, guía o revisión<input type="text" id="dTitle" placeholder="p. ej. PARADIGM-HF"></label>
     ${b.labels.map((l,i)=>`<label class="fld">${esc(l)}<textarea id="dF${i}" rows="2"></textarea></label>`).join("")}
     <label class="fld">Perla de examen o “no hacer”<textarea id="dF3" rows="2"></textarea></label>

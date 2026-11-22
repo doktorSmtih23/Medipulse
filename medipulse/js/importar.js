@@ -94,7 +94,7 @@ function leerSecciones(lineas, i, q, buf){
       // Lo que va después de los dos puntos del encabezado («DATO CLAVE QUE DEFINÍA LA RESPUESTA: …»)
       const resto = l.includes(":") ? l.slice(l.indexOf(":") + 1).trim() : "";
       if (sec === "resp") { const m = resto.match(/^\(?([A-E])\b/i); if (m) q.correct = L.indexOf(m[1].toUpperCase()); }
-      else if (sec === "esp") { const c = specCanon(resto); q.specialty = SPECS.includes(c) ? c : SPECS.find(s => norm(resto).includes(norm(s))) || q.specialty; }
+      else if (sec === "esp") { const c = specCanon(resto); q.specialty = ESPS().includes(c) ? c : ESPS().find(s => norm(resto).includes(norm(s))) || q.specialty; }
       else if (sec === "tipo") q.tipo = (TIPOS_TXT.find(([re]) => re.test(resto)) || [])[1] || q.tipo;
       else if (sec === "tema") q.topic = resto;
       else if (sec === "fuente") q.fuenteTxt = resto;
@@ -237,7 +237,7 @@ function guardarImportadas(){
   const rep = impCands.filter((q, k) => { const d = impDup(q, k); return d && d.nivel === "repetida"; });
   const lista = rep.length && !confirm(`${rep.length === 1 ? "1 pregunta parece repetida" : `${rep.length} preguntas parecen repetidas`} de lo que ya tienes.\n\nAceptar: guardarlas también.\nCancelar: guardar solo las demás.`) ? impCands.filter(q => !rep.includes(q)) : impCands;
   lista.forEach(q => {
-    const spec = SPECS.includes(specCanon(q.specialty)) ? specCanon(q.specialty) : "Medicina Interna";
+    const spec = ESPS().includes(specCanon(q.specialty)) ? specCanon(q.specialty) : "Medicina Interna";
     agregarPropio("q", {id: nuevoIdPropio(), specialty: spec, tipo: q.tipo, qtype: q.tipo === "critica" ? "critica" : q.tipo === "datos" ? "directa" : "caso",
       topic: (q.topic || "Pregunta importada").trim(), difficulty: "Importada", vignette: textToVig(q.vignette), options: q.options.map(o => o.trim()), correct: q.correct,
       // con análisis por opción, la explicación ya está ahí (no se repite arriba)

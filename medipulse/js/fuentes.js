@@ -188,7 +188,7 @@ function renderLib(){
       }).join(""))
     : `<p class="muted small" style="margin:0">Aún no tienes documentos. Empieza con el PDF de una guía de práctica clínica o con tus apuntes de una rotación.</p>`);
   document.querySelectorAll("[data-src]").forEach(b=>b.onclick=()=>openSrc(b.dataset.src));
-  renderAiBox(); renderVigCard(); renderRepCard();
+  renderAiBox(); renderEspCard(); renderVigCard(); renderRepCard();
   const cnt = {}; [...BUILTIN_Q, ...BUILTIN_F, ...HY_CARDS].forEach(x=>{ if (x.src) cnt[x.src] = (cnt[x.src]||0) + 1; });
   $("#bsCount").textContent = `(${SOURCES.length})`; $("#bsChecked").textContent = SOURCES_CHECKED;
   $("#builtinSrc").innerHTML = SOURCES.slice().sort((a,b)=>b.y-a.y || (cnt[b.id]||0)-(cnt[a.id]||0)).map(s=>`

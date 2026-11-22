@@ -76,20 +76,21 @@ function citaEnTexto(cita, texto){
 }
 // Frases copiadas tal cual del documento que respaldan el ítem, con su página. La app comprueba que estén en el PDF.
 const CITAS_T = {type:"array", items:{type:"object", additionalProperties:false, required:["texto","page"], properties:{texto:{type:"string"}, page:{type:"integer"}}}};
-const GEN_SCHEMA = {
+// El esquema de la respuesta: la especialidad se elige entre las 5 básicas y las del usuario.
+const genSchema = (ESPS_IA = ESPS()) => ({
   type:"object", additionalProperties:false, required:["questions","fichas"],
   properties:{
     questions:{type:"array", items:{type:"object", additionalProperties:false,
       required:["qtype","clase","specialty","area","topic","vignette","options","correct","whyCorrect","pearl","trap","page","citas"],
-      properties:{qtype:{type:"string", enum:["caso","critica","directa"]}, clase:{type:"string"}, specialty:{type:"string", enum:SPECS}, area:{type:"string"}, topic:{type:"string"}, vignette:{type:"string"}, citas:CITAS_T,
+      properties:{qtype:{type:"string", enum:["caso","critica","directa"]}, clase:{type:"string"}, specialty:{type:"string", enum:ESPS_IA}, area:{type:"string"}, topic:{type:"string"}, vignette:{type:"string"}, citas:CITAS_T,
         options:{type:"array", items:{type:"string"}}, correct:{type:"integer"}, whyCorrect:{type:"string"},
         pearl:{type:"string"}, trap:{type:"string"}, page:{type:"integer"}}}},
     fichas:{type:"array", items:{type:"object", additionalProperties:false, required:["specialty","area","title","badge","thresholds","redFlag","trap","relevance","why","page","citas"],
-      properties:{specialty:{type:"string", enum:SPECS}, area:{type:"string"}, title:{type:"string"}, badge:{type:"string"}, citas:CITAS_T,
+      properties:{specialty:{type:"string", enum:ESPS_IA}, area:{type:"string"}, title:{type:"string"}, badge:{type:"string"}, citas:CITAS_T,
         thresholds:{type:"array", items:{type:"object", additionalProperties:false, required:["label","val"], properties:{label:{type:"string"}, val:{type:"string"}}}},
         redFlag:{type:"string"}, trap:{type:"string"}, relevance:{type:"integer"}, why:{type:"string"}, page:{type:"integer"}}}}
   }
-};
+});
 const GEN_SYSTEM = `Eres un profesor de medicina que prepara a médicos para el examen de residencia y para su práctica. Redactas preguntas a partir de un documento que te entrega el médico: puede ser una guía, un artículo original, un ensayo clínico, una revisión o sus apuntes.
 
 Reglas:
@@ -139,7 +140,7 @@ async function aiGenerate(sel, title, ask, imagen){
     // El documento va en un bloque guardado en caché: si se generan más ítems del mismo texto en unos minutos, se cobra ~5–10 % de la lectura.
     const stream = client.beta.messages.stream(Object.assign({
       max_tokens: 32000,
-      output_config: {effort: "medium", format: {type: "json_schema", schema: GEN_SCHEMA}},
+      output_config: {effort: "medium", format: {type: "json_schema", schema: genSchema()}},
       system: GEN_SYSTEM,
       messages: [{role: "user", content: imagen ? [
         {type: "image", source: {type: "base64", media_type: "image/jpeg", data: imagen.split(",")[1]}},
@@ -163,9 +164,9 @@ async function aiGenerate(sel, title, ask, imagen){
   const okStr = v => typeof v === "string" && v.trim().length > 0;
   const lab = gen.label.trim(), withLab = t => lab ? (t ? `${lab} · ${t}` : lab) : t;
   const qs = (data.questions||[]).filter(q=>okStr(q.vignette) && Array.isArray(q.options) && q.options.length===4 && q.options.every(okStr) && Number.isInteger(q.correct) && q.correct>=0 && q.correct<4)
-    .map(q=>{ const cs = citas(q); return {kind:"q", on:true, qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", tipo: (typeof CASO_TIPO_DE !== "undefined" && CASO_TIPO_DE[q.clase]) || undefined, specialty: SPECS.includes(q.specialty)?q.specialty:"Medicina Interna", area: (q.area||"").trim(), topic:withLab(q.topic||""), vignette:q.vignette, options:q.options, correct:q.correct, whyCorrect:q.whyCorrect||"", pearl:q.pearl||"", trap:q.trap||"", page:fixPage(q.page), pages: paginas(q, cs), citas: cs}; });
+    .map(q=>{ const cs = citas(q); return {kind:"q", on:true, qtype: ["caso","critica","directa"].includes(q.qtype) ? q.qtype : "caso", tipo: (typeof CASO_TIPO_DE !== "undefined" && CASO_TIPO_DE[q.clase]) || undefined, specialty: ESPS().includes(q.specialty)?q.specialty:"Medicina Interna", area: (q.area||"").trim(), topic:withLab(q.topic||""), vignette:q.vignette, options:q.options, correct:q.correct, whyCorrect:q.whyCorrect||"", pearl:q.pearl||"", trap:q.trap||"", page:fixPage(q.page), pages: paginas(q, cs), citas: cs}; });
   const hs = (data.fichas||[]).filter(h=>okStr(h.title) && Array.isArray(h.thresholds) && h.thresholds.length && h.thresholds.every(x=>x && okStr(x.label) && okStr(x.val)))
-    .map(h=>{ const cs = citas(h); return {kind:"h", on:true, specialty: SPECS.includes(h.specialty)?h.specialty:"Medicina Interna", area: (h.area||"").trim(), title:withLab(h.title), badge:h.badge||"", thresholds:h.thresholds.slice(0,6).map(x=>({label:x.label, val:x.val})), redFlag:h.redFlag||"", trap:h.trap||"", relevance: Math.max(1, Math.min(5, parseInt(h.relevance)||3)), why: h.why||"", page:fixPage(h.page), pages: paginas(h, cs), citas: cs}; })
+    .map(h=>{ const cs = citas(h); return {kind:"h", on:true, specialty: ESPS().includes(h.specialty)?h.specialty:"Medicina Interna", area: (h.area||"").trim(), title:withLab(h.title), badge:h.badge||"", thresholds:h.thresholds.slice(0,6).map(x=>({label:x.label, val:x.val})), redFlag:h.redFlag||"", trap:h.trap||"", relevance: Math.max(1, Math.min(5, parseInt(h.relevance)||3)), why: h.why||"", page:fixPage(h.page), pages: paginas(h, cs), citas: cs}; })
     .sort((a,b)=>b.relevance-a.relevance);
   return [...qs, ...hs];
 }

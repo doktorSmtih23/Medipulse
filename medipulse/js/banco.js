@@ -81,7 +81,7 @@ function mezclarPorTipo(qs, tipos){
   for (let i = 0; out.length < qs.length; i++) { let algo = false; g.forEach(x => { if (x[i]) { out.push(x[i]); algo = true; } }); if (!algo) break; }
   return out;
 }
-const specsSel = () => prac().specs.filter(s => SPECS.includes(s));
+const specsSel = () => prac().specs.filter(s => ESPS().includes(s));
 // Practicar: arma la sesión según el modo, la cantidad y si es en modo examen (un simulacro).
 function empezarPractica(pool, n, modo, examen, rd){
   let qs;
@@ -89,7 +89,7 @@ function empezarPractica(pool, n, modo, examen, rd){
   else if (modo === "azar") qs = elegirAlAzar(pool, n);
   else qs = mezclarPorTipo(shuffle(pool), prac().tipos).slice(0, n);
   if (!qs.length) return toast("No hay casos con esa selección.");
-  const sp = specsSel(), donde = sp.length && sp.length < SPECS.length ? sp.join(" · ") : "Todas las especialidades";
+  const sp = specsSel(), donde = sp.length && sp.length < ESPS().length ? sp.join(" · ") : "Todas las especialidades";
   const nombre = (modo === "vuln" ? "🎯 Mis vulnerabilidades" : modo === "azar" ? "🎲 Al azar" : "🔧 Con mis filtros") + " · " + donde;
   const items = qs.map(q => ({t: "q", id: q.id}));
   if (examen) startSession({label: "Simulacro", tag: "fire", stages: [{name: nombre, items, exam: true, limit: items.length * 72}]});
@@ -119,7 +119,7 @@ function renderBanco(){
   // ---- Arma tu práctica ----
   $("#qInfo").innerHTML = `<h3 style="font-size:16px">Arma tu práctica</h3>
     <div class="xs muted" style="margin:4px 0 6px">Especialidades (elige una o varias)</div>
-    <div class="chips" id="qSpecs"><button class="chip2${sp.length ? "" : " on"}" data-sp="">Todas <span class="cnt">${QUESTIONS.length}</span></button>${SPECS.map(s => { const c = QUESTIONS.filter(q => q.specialty === s).length;
+    <div class="chips" id="qSpecs"><button class="chip2${sp.length ? "" : " on"}" data-sp="">Todas <span class="cnt">${QUESTIONS.length}</span></button>${ESPS().filter(s => esBasica(s) || QUESTIONS.some(q => q.specialty === s)).map(s => { const c = QUESTIONS.filter(q => q.specialty === s).length;
       return `<button class="chip2${sp.includes(s) ? " on" : ""}" data-sp="${esc(s)}" ${c ? "" : "disabled"}>${esc(s)} <span class="cnt">${c}</span></button>`; }).join("")}</div>
     <div class="xs muted" style="margin:12px 0 6px">Cómo elegir los casos</div>
     <div class="seg seg3" id="qModo">${MODOS_PRAC.map(m => `<button class="${P.modo === m.k ? "on" : ""}" data-modo="${m.k}"><b>${m.t}</b><span>${m.d}</span></button>`).join("")}</div>
@@ -155,7 +155,7 @@ function renderBanco(){
   document.querySelectorAll("[data-qs2]").forEach(b => b.onclick = () => estudiarCasos(shuffle(deSpecs.filter(isFail)).slice(0, PRAC_MAX), "Mis fallos"));
   document.querySelectorAll("#qSpecs [data-sp]").forEach(b => b.onclick = () => {
     const s = b.dataset.sp; P.specs = !s ? [] : sp.includes(s) ? sp.filter(x => x !== s) : [...sp, s];
-    if (P.specs.length === SPECS.length) P.specs = [];
+    if (P.specs.length === ESPS().length) P.specs = [];
     save(); renderBanco(); });
   document.querySelectorAll("#qModo [data-modo]").forEach(b => b.onclick = () => { P.modo = b.dataset.modo; save(); renderBanco(); });
   if (P.modo === "filtros") {
@@ -189,7 +189,7 @@ function renderBanco(){
   // Lista por especialidad: sin tema ni fuente, para no dar pistas antes de responder.
   // La lista sigue lo elegido arriba: con «Con mis filtros», solo esos casos; si no, los de las especialidades.
   const lista = P.modo === "filtros" ? pool : P.modo === "vuln" ? vpool : deSpecs, busca = P.modo === "filtros" && !!txt;
-  const grupos = SPECS.map(s => [s, lista.filter(q => q.specialty === s)]).filter(([, qs]) => qs.length);
+  const grupos = ESPS().map(s => [s, lista.filter(q => q.specialty === s)]).filter(([, qs]) => qs.length);
   const abierto = busca;   // plegadas salvo que se esté buscando
   if (busca) PLEG.bqlista = true;
   $("#qList").innerHTML = plegable("bqlista", `<b>Ver los casos</b> <span class="xs muted">${lista.length}${P.modo === "filtros" ? " con tus filtros" : P.modo === "vuln" ? " de tus vulnerabilidades" : ""}</span>`, lista.length ? `<p class="xs muted" style="margin:0 0 6px">Sin el tema ni la fuente, para no darte pistas: los ves al responder. Si un caso quedó en la especialidad equivocada, corrígelo con 🏷️.</p>` + grupos.map(([s, qs]) => `
@@ -198,7 +198,7 @@ function renderBanco(){
         <div style="flex:1;min-width:0" class="row" ><b class="small">Caso ${i + 1}</b>${tipoChip(q)}${origenChip(q)}<span class="xs est ${e.k}">${e.t}</span></div>
         <button class="iconbtn" data-qe="${id}" aria-label="Cambiar la especialidad del caso ${i + 1}" title="Cambiar especialidad">🏷️</button>
         <button class="btn sm" data-q1="${id}">Estudiar</button></div>
-        ${qEspOpen === String(q.id) ? `<div class="qesp row"><span class="xs">Mover a</span><select data-qesel="${id}">${SPECS.map(x => opt(x, x, x === q.specialty)).join("")}</select></div>` : ""}`; }).join("")}
+        ${qEspOpen === String(q.id) ? `<div class="qesp row"><span class="xs">Mover a</span><select data-qesel="${id}">${ESPS().map(x => opt(x, x, x === q.specialty)).join("")}</select></div>` : ""}`; }).join("")}
       ${qs.length > 1 ? `<button class="btn ghost sm" data-qg="${esc(s)}" style="margin-top:6px">Estudiar los ${qs.length} de ${esc(s)}</button>` : ""}</div></details>`).join("")
     : `<p class="muted small" style="margin:0">No hay casos con esos filtros.</p>`, busca);
   $("#qList").insertAdjacentHTML("beforeend", hiddenListHTML("q"));

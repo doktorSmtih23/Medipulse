@@ -121,7 +121,7 @@ function elegirVulnerables(pool, n, rd){
 // Al azar, pero balanceado: reparte entre las especialidades y dentro de cada una pone primero
 // lo que toca repasar y lo que no has visto.
 function elegirAlAzar(pool, n){
-  const grupos = shuffle(SPECS.map(s => pool.filter(q => q.specialty === s)).filter(g => g.length)).map(g => {
+  const grupos = shuffle(ESPS().map(s => pool.filter(q => q.specialty === s)).filter(g => g.length)).map(g => {
     const due = g.filter(q => isDue("q" + q.id)), nuevo = g.filter(q => !S.srs["q" + q.id]);
     return [...shuffle(due), ...shuffle(nuevo), ...shuffle(g.filter(q => !due.includes(q) && !nuevo.includes(q)))];
   });
@@ -143,7 +143,7 @@ function vulnPool(pool, rd){
 }
 // Análisis «Tus vulnerabilidades»: va dentro de la opción «🎯 Mis vulnerabilidades» del banco.
 function vulnHTML(specs){
-  const rd = rendimiento(specs), alcance = specs && specs.length && specs.length < SPECS.length ? ` en ${specs.join(", ")}` : "";
+  const rd = rendimiento(specs), alcance = specs && specs.length && specs.length < ESPS().length ? ` en ${specs.join(", ")}` : "";
   if (!rd.suficiente) return `<p class="small" style="margin:0">🎯 Aquí aparecerán <b>los casos donde más fallas</b>: el tipo de pregunta y la especialidad que te cuestan, los casos que fallas una y otra vez y el error que repites.</p>
     <p class="xs muted" style="margin:6px 0 0">Para detectarlo necesito al menos 8 respuestas${esc(alcance)}; llevas ${rd.general.n}. Empieza con casos al azar y vuelve aquí.</p>
     <button class="btn sm" id="vulnAzar" style="margin-top:8px">🎲 Practicar al azar</button>`;
@@ -155,7 +155,7 @@ function vulnHTML(specs){
       : `<p class="small" style="margin:10px 0 0">No hay un tipo de pregunta claramente por debajo de tu promedio. Sube la exigencia con más casos o con modo examen.</p>`}
     ${tipos.length ? `<details style="margin-top:10px"><summary class="small" style="cursor:pointer">Por tipo de pregunta y por especialidad</summary><div class="bars">
       ${tipos.map(f => barra(esc(QMETODO[f.k].t), rd.tipo[f.k])).join("")}
-      ${SPECS.filter(s => rd.esp[s] && rd.esp[s].n >= 3).map(s => barra(esc(s), rd.esp[s], SPEC_COLOR[s])).join("")}</div></details>` : ""}
+      ${ESPS().filter(s => rd.esp[s] && rd.esp[s].n >= 3).map(s => barra(esc(s), rd.esp[s], SPEC_COLOR[s])).join("")}</div></details>` : ""}
     ${rd.audN.peligro || rd.audN.fragil ? `<p class="small" style="margin:10px 0 0">Según tus auditorías: ${rd.audN.peligro ? `<b>🚨 ${rd.audN.peligro} error${rd.audN.peligro === 1 ? "" : "es"} con seguridad</b>` : ""}${rd.audN.peligro && rd.audN.fragil ? " · " : ""}${rd.audN.fragil ? `<b>🍀 ${rd.audN.fragil} acierto${rd.audN.fragil === 1 ? "" : "s"} frágil${rd.audN.fragil === 1 ? "" : "es"}</b>` : ""}. Entran primero en «Mis vulnerabilidades».</p>` : ""}
     ${rd.repetidos.length ? `<p class="small" style="margin:10px 0 0">🔁 <b>${rd.repetidos.length} caso${rd.repetidos.length === 1 ? "" : "s"}</b> que fallaste dos veces o más: ahí hay un error que se repite.</p>` : ""}
     ${motTop.length ? `<div class="note trap" style="margin-top:10px"><b>Tu error más frecuente: ${esc(motTop[0].t)}</b> (${rd.mot[motTop[0].k]} de ${rd.nMot} fallos con motivo).<div class="small" style="margin-top:4px">${esc(motTop[0].tip)}</div></div>`
