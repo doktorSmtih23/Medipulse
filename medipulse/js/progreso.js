@@ -16,7 +16,7 @@ function renderProg(){
     <div class="kpi"><b>${q?Math.round(ok/q*100)+"%":"—"}</b><span>aciertos en ${q} caso${q===1?"":"s"}</span></div>
     <div class="kpi"><b>${mastered}</b><span>ítems dominados (≥ 1 semana)</span></div>`;
   const st=specStats();
-  $("#bars").innerHTML = SPECS.map(s=>{ const x=st[s], p=x.n?Math.round(x.ok/x.n*100):null;
+  $("#bars").innerHTML = ESPS().filter(s => esBasica(s) || (st[s] && st[s].n)).map(s=>{ const x=st[s], p=x.n?Math.round(x.ok/x.n*100):null;
     const col = p==null?"var(--border)":p>=70?"var(--ok)":p>=50?"var(--warn)":"var(--bad)";
     return `<button class="bar barbtn" data-bspec="${s}"><span>${s}</span><div class="track"><i style="width:${p??100}%;background:${col}"></i></div><b style="text-align:right">${p==null?"—":p+"%"}</b></button>`; }).join("");
   document.querySelectorAll("[data-bspec]").forEach(b=>b.onclick=()=>{ const sp = b.dataset.bspec; startSession({label:sp, tag:"norm", stages:[{name:sp, items:pickQuestions(5,{spec:sp})}]}); });
@@ -38,7 +38,7 @@ $("#impFile").onchange = e => { const f = e.target.files[0]; e.target.value = ""
 $("#resetBtn").onclick = () => {
   if (!confirm("¿Borrar tu progreso (racha, repasos, estadísticas)? Tus PDF y las preguntas generadas se conservan. No se puede deshacer.")) return;
   const conserva = {theme: S.theme, userQ: S.userQ, userC: S.userC, sources: S.sources, seq: S.seq, check: S.check, over: S.over, hidden: S.hidden,
-    notes: S.notes, reports: S.reports, exam: S.exam, focus: S.focus, hints: S.hints, tpls: S.tpls, userH: S.userH, apuntes: S.apuntes, prac: S.prac,
+    notes: S.notes, reports: S.reports, exam: S.exam, focus: S.focus, hints: S.hints, tpls: S.tpls, userH: S.userH, apuntes: S.apuntes, prac: S.prac, especialidades: S.especialidades,
     estudio: Object.assign({}, S.estudio, {ses: [], informes: [], actual: null})};
   S = Object.assign(BLANK(), conserva);
   save(); renderProg(); refreshChips(); toast("Progreso borrado");

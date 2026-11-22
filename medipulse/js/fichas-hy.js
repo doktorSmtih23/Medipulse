@@ -69,7 +69,7 @@ function hyEditor(box, o){
     <label class="fld">Título<input type="text" class="eTitle" value="${esc(o.title)}" placeholder="Derrame pleural: ¿exudado o trasudado?"></label>
     <p class="xs muted hyayuda">Un tema concreto, como te lo preguntarían. Mejor «Derrame pleural: ¿exudado o trasudado?» que «Neumología».</p>
     <div class="grid2"><label class="fld">Tipo de dato (opcional)<input type="text" class="eBadge" list="hyBadges" value="${esc(o.badge)}" placeholder="Criterios"><datalist id="hyBadges">${HY_BADGES.map(x => `<option value="${x}">`).join("")}</datalist></label>
-      <label class="fld">Especialidad<select class="eSpec">${SPECS.map(x=>`<option ${x===o.spec?"selected":""}>${x}</option>`).join("")}</select></label></div>
+      <label class="fld">Especialidad<select class="eSpec">${ESPS().map(x=>`<option ${x===o.spec?"selected":""}>${x}</option>`).join("")}${ESP_NUEVA_OPT}</select></label></div>
     <div class="hysec"><span class="hynum">2</span><b>Los datos clave</b></div>
     <p class="xs muted hyayuda">Izquierda: <b>la pregunta que te harás</b> (se ve al repasar). Derecha: <b>la respuesta exacta</b>, con cifra y unidad (se oculta). Entre 2 y 5 datos.</p>
     <div class="eRows stack" style="gap:6px"></div>
@@ -176,7 +176,7 @@ function renderHY(){
   $("#hyStudy").onclick = ()=>startSession({label:"High Yield", tag:"norm", stages:[{name:"Fichas high-yield", items:ordenHY(list).slice(0, 10)}]});
   const qPrev = $("#hyQ"), foco = qPrev && document.activeElement === qPrev;
   $("#hyFilters").innerHTML = `<input type="search" id="hyQ" placeholder="Buscar: tema, dato, área o fuente (p. ej. NMDAR, dosis)" aria-label="Buscar fichas" style="grid-column:1/-1">
-    <label class="fld">Especialidad<select id="hySelSpec">${opt("", `Todas (${HYS.length})`, !hySpec)}${SPECS.filter(s => HYS.some(h => h.specialty === s)).map(s => opt(s, `${s} (${HYS.filter(h => h.specialty === s).length})`, hySpec === s)).join("")}</select></label>
+    <label class="fld">Especialidad<select id="hySelSpec">${opt("", `Todas (${HYS.length})`, !hySpec)}${ESPS().filter(s => HYS.some(h => h.specialty === s)).map(s => opt(s, `${s} (${HYS.filter(h => h.specialty === s).length})`, hySpec === s)).join("")}</select></label>
     ${areas.length ? `<label class="fld">Área<select id="hySelArea">${opt("", "Todas las áreas", !hyArea)}${areas.map(a => opt(a, a, hyArea === a)).join("")}</select></label>` : ""}
     <label class="fld">Estado<select id="hySelEst">${opt("", `Todas (${base.length})`, !hyEst)}${opt("new", `Nuevas (${cnt(h => !S.srs["h"+h.id])})`, hyEst === "new")}${opt("due", `Toca repasar (${cnt(h => isDue("h"+h.id))})`, hyEst === "due")}${opt("rev", `En repaso (${cnt(h => hyEstado(h).k === "rev")})`, hyEst === "rev")}${opt("ok", `Dominadas (${cnt(h => hyEstado(h).k === "ok")})`, hyEst === "ok")}${opt("mine", `Creadas por ti (${cnt(mia)})`, hyEst === "mine")}</select></label>`;
   const q = $("#hyQ"); q.value = hyQ;
@@ -186,7 +186,7 @@ function renderHY(){
   $("#hySelArea") && ($("#hySelArea").onchange = e => { hyArea = e.target.value; renderHY(); });
   $("#hySelEst").onchange = e => { hyEst = e.target.value; renderHY(); };
   const abierto = !!txt;   // plegadas salvo que se esté buscando
-  const grupos = SPECS.map(s => [s, list.filter(h => h.specialty === s)]).filter(([, hs]) => hs.length);
+  const grupos = ESPS().map(s => [s, list.filter(h => h.specialty === s)]).filter(([, hs]) => hs.length);
   $("#hyList").innerHTML = list.length ? grupos.map(([s, hs]) => `
     <details class="qgrupo card" data-pleg="hy_${esc(s)}" ${abierto || PLEG["hy_" + s] ? "open" : ""}><summary><span class="dot" style="background:${SPEC_COLOR[s]}"></span> <b>${esc(s)}</b> <span class="xs muted">${hs.length}</span></summary>
       ${hs.map(h => { const e = hyEstado(h), id = esc(String(h.id)); return `<details class="hyrow" data-hid="${id}"><summary>

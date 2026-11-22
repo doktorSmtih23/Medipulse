@@ -43,7 +43,7 @@ function importBackup(file){
     try { localStorage.setItem(KEY_ANTES, JSON.stringify(S)); } catch(e) {}
     const imagenes = d._imagenes && typeof d._imagenes === "object" ? d._imagenes : {}; delete d._imagenes;
     for (const [k, v] of Object.entries(imagenes)) if (/^img:/.test(k) && /^data:image\//.test(v)) await imgSet(k, v);
-    S = Object.assign(BLANK(), d); rebuild(); save(); applyTheme(); refreshChips(); renderDataWarn(); renderProg();
+    S = Object.assign(BLANK(), d); espColores(); rebuild(); save(); applyTheme(); refreshChips(); renderDataWarn(); renderProg();
     toast("Copia importada ✓");
   });
 }
@@ -52,7 +52,7 @@ function undoImport(){
   let prev = null; try { prev = JSON.parse(localStorage.getItem(KEY_ANTES) || "null"); } catch(e) {}
   if (!prev) return toast("No hay datos anteriores guardados.");
   if (!confirm("¿Volver a los datos que tenías antes de importar la copia?")) return;
-  S = Object.assign(BLANK(), prev); rebuild(); save(); applyTheme(); refreshChips(); renderDataWarn();
+  S = Object.assign(BLANK(), prev); espColores(); rebuild(); save(); applyTheme(); refreshChips(); renderDataWarn();
   try { localStorage.removeItem(KEY_ANTES); } catch(e) {}
   renderProg(); toast("Datos anteriores restaurados ✓");
 }

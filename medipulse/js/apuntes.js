@@ -15,9 +15,9 @@ const apLib = id => apLibs().find(l => l.id === id);
 const apId = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 // El área de la libreta es libre (Otorrino, Neurología, Urgencias…). Las fichas y preguntas van a una de
 // las especialidades de la app (para estadísticas y simulacros) y llevan el área como etiqueta.
-const apBase = lib => SPECS.includes(specCanon(lib.spec)) ? specCanon(lib.spec) : "Medicina Interna";
-const apEtiqueta = lib => SPECS.includes(specCanon(lib.spec)) ? "" : (lib.spec || "");
-const apAreasHTML = () => `<datalist id="apAreas">${[...new Set([...SPECS, ...apLibs().map(l => l.spec).filter(Boolean)])].map(a => `<option value="${esc(a)}">`).join("")}</datalist>`;
+const apBase = lib => ESPS().includes(specCanon(lib.spec)) ? specCanon(lib.spec) : "Medicina Interna";
+const apEtiqueta = lib => ESPS().includes(specCanon(lib.spec)) ? "" : (lib.spec || "");
+const apAreasHTML = () => `<datalist id="apAreas">${[...new Set([...ESPS(), ...apLibs().map(l => l.spec).filter(Boolean)])].map(a => `<option value="${esc(a)}">`).join("")}</datalist>`;
 const AP_VERIF = /\s*(?:\(\?\)|\?\?)/g, AP_HAY_VERIF = /\(\?\)|\?\?/;
 
 // ---------- atajos al escribir ----------
@@ -246,7 +246,7 @@ function renderLibreta(lib){
     const b = $("#apRenBox"); if (b.innerHTML) { b.innerHTML = ""; return; }
     b.innerHTML = `<div class="card stack"><div class="grid2"><label class="fld">Nombre<input type="text" id="apRenT" value="${esc(lib.title)}"></label>
       <label class="fld">Área<input type="text" id="apRenA" list="apAreas" value="${esc(lib.spec)}"></label>${apAreasHTML()}</div>
-      <p class="xs muted" style="margin:0">El área es libre. Si no es una de las especialidades de la app (${SPECS.join(", ")}), tus fichas y preguntas la llevan como etiqueta y cuentan en Medicina Interna para las estadísticas.</p>
+      <p class="xs muted" style="margin:0">El área es libre. Si no es una de las especialidades de la app (${ESPS().join(", ")}), tus fichas y preguntas la llevan como etiqueta y cuentan en Medicina Interna para las estadísticas.</p>
       <div class="row" style="gap:6px"><button class="btn primary sm" id="apRenOk">Guardar</button><button class="btn ghost sm" id="apRenX">Cancelar</button></div></div>`;
     $("#apRenT").focus();
     $("#apRenX").onclick = () => { b.innerHTML = ""; };

@@ -87,16 +87,25 @@ function casosEstado(){
 }
 // Qué significa el nivel elegido, visible debajo de los botones (en el celular no hay texto emergente).
 const nivelTxt = k => { const l = LEVELS.find(x => x[0] === k) || LEVELS[1]; return `<b>${l[1]}:</b> ${esc(l[2])}. Para ${esc(l[3])}.`; };
+// Topes: por tipo, y por vez (la respuesta de la IA tiene un largo máximo: unos 700 tokens por caso).
+const CASOS_MAX_TIPO = 20, CASOS_MAX = 30;
+// Opciones del tema: todo el documento o un tema del índice (los subtemas, con sangría).
+function temasOpciones(){
+  const s = cur(), items = (s && s.indice && s.indice.items) || [], sel = gen.manual ? "m" : gen.tema == null ? "" : String(gen.tema);
+  const op = (v, t) => `<option value="${v}" ${sel === String(v) ? "selected" : ""}>${esc(t)}</option>`;
+  return op("", "Todo el documento") + items.map((x, i) => op(i, `${"   ".repeat(Math.max(0, (x.lvl || 1) - 1))}${x.title}${x.from ? ` · pág. ${x.from}` : ""}`)).join("")
+    + (gen.manual ? op("m", `Págs. ${gen.manual.from}–${gen.manual.to}`) : "");
+}
 const casosTotal = c => c.tipos.reduce((a, x) => a + (c.cant[x.k] || 0), 0);
 
 function casosHTML(){
-  const s = cur(), c = casosEstado(), tpls = S.tpls || [], total = casosTotal(c), t = temaActual();
+  const s = cur(), c = casosEstado(), tpls = S.tpls || [], total = casosTotal(c);
   const paso = x => `<div class="ct"><span><b>${x.t}</b><small>${esc(x.d)}</small></span>
-    <div class="step"><button class="btn sm" data-cmenos="${x.k}" aria-label="Menos">−</button><output>${c.cant[x.k] || 0}</output><button class="btn sm" data-cmas="${x.k}" aria-label="Más">+</button></div></div>`;
+    <div class="step"><button class="btn sm" data-cmenos="${x.k}" aria-label="Menos">−</button><input type="number" min="0" max="${CASOS_MAX_TIPO}" inputmode="numeric" data-ccant="${x.k}" value="${c.cant[x.k] || 0}" aria-label="Cantidad de ${esc(x.t)}"><button class="btn sm" data-cmas="${x.k}" aria-label="Más">+</button></div></div>`;
   return `<div class="autobox stack" id="casosBox">
     <div><b>🩺 Casos de este documento</b> <span class="tag">${esc(DESIGNS[estDiseno(s)] || "📄 Documento")}</span>
       <p class="xs muted" style="margin:4px 0 0">La IA arma casos tipo examen solo con lo que dice este texto, con la página de cada dato. Tú revisas todo antes de guardar.</p></div>
-    <div class="basado">📍 <b>Basado en:</b> ${esc(t ? t.title : "Todo el documento")}${c.sel ? ` · ${pagesLabel(c.sel)}` : ""} <button class="linkbtn xs" id="cTema">Cambiar el tema</button></div>
+    <label class="fld basado">📍 Basado en${c.sel ? ` <span class="xs muted">· ${pagesLabel(c.sel)}</span>` : ""}<select id="cTema">${temasOpciones()}</select></label>
     ${c.hallazgos.length ? `<div><div class="fld" style="margin-bottom:6px">Lo que encontré en el tema <span class="xs muted">(sin IA, gratis)</span></div>
       <div class="hall">${c.hallazgos.map(([n, txt]) => `<div><b>${n}</b><span>${esc(txt)}</span></div>`).join("")}</div></div>` : ""}
     <div><div class="fld" style="margin-bottom:6px">Casos que te propongo <span class="xs muted">· ajusta las cantidades</span></div>
@@ -115,7 +124,8 @@ function casosHTML(){
       <div class="row" style="gap:6px"><button class="btn ghost sm" id="gSaveTpl">💾 Guardar como plantilla</button>${tpls.length ? `<button class="btn ghost sm" id="gDelTpl">🗑 Borrar plantillas</button>` : ""}</div>
     </div></details>
     <div id="cEst" class="xs muted"></div>
-    <button class="btn primary block" id="cGo" ${genBusy || !getKey() || !total ? "disabled" : ""}>🩺 Crear ${total} caso${total === 1 ? "" : "s"}</button>
+    ${total > CASOS_MAX ? `<p class="xs" style="margin:0;color:var(--bad)">Máximo ${CASOS_MAX} casos por vez: la respuesta de la IA tiene un largo máximo. Baja las cantidades o créalos en dos tandas.</p>` : ""}
+    <button class="btn primary block" id="cGo" ${genBusy || !getKey() || !total || total > CASOS_MAX ? "disabled" : ""}>🩺 Crear ${total} caso${total === 1 ? "" : "s"}</button>
     <div id="cStatus" class="small"></div>
   </div>`;
 }
@@ -129,11 +139,13 @@ function casosEstimar(){
 function bindCasos(){
   const box = $("#casosBox"); if (!box) return;
   const c = gen.casos, refrescar = () => renderAiTab();
-  box.querySelectorAll("[data-cmas]").forEach(b => b.onclick = () => { const k = b.dataset.cmas; c.cant[k] = Math.min(10, (c.cant[k] || 0) + 1); refrescar(); });
+  box.querySelectorAll("[data-cmas]").forEach(b => b.onclick = () => { const k = b.dataset.cmas; c.cant[k] = Math.min(CASOS_MAX_TIPO, (c.cant[k] || 0) + 1); refrescar(); });
+  box.querySelectorAll("[data-ccant]").forEach(i => i.onchange = () => { c.cant[i.dataset.ccant] = Math.max(0, Math.min(CASOS_MAX_TIPO, Math.round(+i.value) || 0)); refrescar(); });
   box.querySelectorAll("[data-cmenos]").forEach(b => b.onclick = () => { const k = b.dataset.cmenos; c.cant[k] = Math.max(0, (c.cant[k] || 0) - 1); refrescar(); });
   box.querySelectorAll("[data-cparte]").forEach(b => b.onclick = () => { const p = c.partes[+b.dataset.cparte]; c.partesOn.has(p) ? c.partesOn.delete(p) : c.partesOn.add(p); b.classList.toggle("on"); });
   box.querySelectorAll("[data-lv]").forEach(x => x.onclick = () => { gen.level = x.dataset.lv; box.querySelectorAll("[data-lv]").forEach(y => y.classList.toggle("on", y === x)); $("#cNivel").innerHTML = nivelTxt(gen.level); });
-  $("#cTema").onclick = () => { const i = document.querySelector("#genCard details"); if (i) { i.open = true; i.scrollIntoView({behavior: "smooth", block: "center"}); } };
+  $("#cTema").onchange = e => { const v = e.target.value; gen.tema = v === "" ? null : +v; gen.manual = null; const x = temaActual();
+    gen.topic = x ? x.title : ""; if (x) gen.rdPage = x.from; gen.casos = null; renderGen(); };
   $("#cMas").ontoggle = () => { gen.casosMas = $("#cMas").open; };
   $("#gLang").onchange = () => { gen.lang = $("#gLang").value; };
   $("#gLabel").oninput = () => { gen.label = $("#gLabel").value; };
@@ -176,6 +188,7 @@ async function runCasos(){
   if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">Esas páginas no tienen texto que se pueda leer.</span>`;
   if (chars > MAX_AI_CHARS) return st.innerHTML = `<span style="color:var(--bad)">Demasiado texto: elige un tema del índice.</span>`;
   if (!casosTotal(c)) return st.innerHTML = `<span style="color:var(--bad)">Pide al menos un caso.</span>`;
+  if (casosTotal(c) > CASOS_MAX) return st.innerHTML = `<span style="color:var(--bad)">Máximo ${CASOS_MAX} casos por vez.</span>`;
   genBusy = true; $("#cGo").disabled = true;
   try {
     st.innerHTML = `<span class="spin"></span> Claude está leyendo las ${pagesLabel(c.sel)} y redactando los casos. Puede tardar 1–3 minutos; no cierres la app.`;

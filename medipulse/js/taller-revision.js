@@ -25,6 +25,7 @@ function renderReview(){
   box.innerHTML = `<div class="card">
     <div class="row"><h3 style="font-size:16px">Revisa antes de guardar</h3><div class="spacer"></div><span class="xs muted" id="candCount">${on}/${cands.length} seleccionadas</span></div>
     <p class="xs muted" style="margin:4px 0 6px">Desmarca lo que no sirva y corrige lo que quieras.${hasAI ? " La IA puede equivocarse: compara con la página indicada." : ""}</p>
+    ${espSugeridasHTML(cands)}
     ${(n => n ? `<div class="note xs" style="margin:0 0 8px">🔁 <b>${n} ítem${n===1?"":"s"}</b> ${n===1?"parece repetido":"parecen repetidos"} de lo que ya tienes en el banco: ${n===1?"lo dejé desmarcado":"los dejé desmarcados"}.</div>` : "")(cands.filter(c => c._dup && c._dup.nivel === "repetida").length)}
     ${(n => n ? `<div class="note trap xs" style="margin:0 0 8px">⚠️ <b>${n} ítem${n===1?"":"s"}</b> con citas que no aparecen en el PDF: la IA pudo haber inventado o cambiado algo. Revísalos antes de guardar.</div>` : "")(cands.filter(c => (c.citas||[]).some(x => x.ok === false)).length)}
     <div id="candList">${cands.map((c,i)=> c.kind==="h" ? `
@@ -68,6 +69,7 @@ function renderReview(){
   box.querySelectorAll("[data-marca-pg]").forEach(b=>b.onclick=()=>openPdf(cur().id, +b.dataset.marcaPg));
   $("#candCancel").onclick = ()=>{ cands = null; renderReview(); };
   $("#candSave").onclick = saveCands;
+  bindEspSugeridas(cands, renderReview);
 }
 const pagsTxt = c => c.pages && c.pages.length > 1 ? `págs. ${c.pages.join(", ")}` : `pág. ${c.page}`;
 // Las citas que la IA dice haber copiado del documento, con la comprobación automática.
