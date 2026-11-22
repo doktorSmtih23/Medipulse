@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Pediatría",
   "prefijo": "ped",
   "paquete": "starter",
-  "actualizado": "2026-11-21",
+  "actualizado": "2026-11-22",
   "casos": [
     {
       "id": 5,
@@ -766,6 +766,238 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-21"
+    },
+    {
+      "id": "ped-c21",
+      "topic": "Neurología · Perímetro cefálico",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Lactante de 5 meses cuyo perímetro cefálico estaba en el percentil 25 y hoy está en el <span class='hy'>percentil 90</span>, con <span class='hy'>fontanela abombada</span>. El desarrollo va bien. ¿Qué haces?",
+      "options": [
+        "Tranquilizar: el percentil 90 es normal",
+        "Neuroimagen (ecografía transfontanelar o RM)",
+        "Medir de nuevo en 6 meses",
+        "Solo pedir el perímetro cefálico de los padres"
+      ],
+      "correct": 1,
+      "whyCorrect": "Lo alarmante es la trayectoria, no el valor aislado: cruzar dos o más líneas de percentil indica que se sobrepasaron los mecanismos de compensación del volumen intracraneal. Con fontanela abombada hay que estudiar con neuroimagen; la ecografía transfontanelar tamiza ventriculomegalia.",
+      "pearl": "Un crecimiento estable, aunque sea en percentiles altos o bajos, suele ser tranquilizador; la microcefalia es un perímetro por debajo del percentil 3.",
+      "trap": "Quedarse tranquilo porque el valor está dentro del rango normal.",
+      "cita": [
+        {
+          "donde": "El perímetro cefálico en la práctica pediátrica",
+          "texto": "Un perímetro cefálico que se desvía de la curva de crecimiento del paciente (p. ej., cruzar dos o más líneas de percentil) es a menudo el signo de alarma más significativo que una medición aislada en un percentil bajo o alto"
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c22",
+      "topic": "Dolor · Analgesia en dolor intenso",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Niño de 7 años con <span class='hy'>fractura desplazada de antebrazo</span>; en la escala numérica califica el dolor en <span class='hy'>9/10</span>. ¿Qué analgesia indicas?",
+      "options": [
+        "Codeína oral cada 6 horas",
+        "Acceso venoso y morfina titulada",
+        "Tramadol oral como opioide de elección",
+        "Solo acetaminofén y esperar a yesar"
+      ],
+      "correct": 1,
+      "whyCorrect": "En dolor moderado a intenso se canaliza una vena y se titulan opioides potentes: la morfina es la primera elección. Los beneficios de los opioides potentes superan a los «débiles»; la codeína tiene problemas de seguridad por su metabolismo variable y el tramadol tiene poca evidencia en niños.",
+      "pearl": "La escala numérica sirve desde los 7 a 8 años; en menores o no verbales, la FLACC o las caras.",
+      "trap": "Usar codeína por creerla más segura en niños.",
+      "cita": [
+        {
+          "donde": "Manejo multimodal del dolor agudo en pediatría: De la teoría a la práctica",
+          "texto": "La diferencia con la estrategia de tres peldaños radica en que hay estudios demuestran que los beneficios de los opioides potentes superan a los de potencia intermedia o “débiles”, como la codeína o tramadol (7)."
+        },
+        {
+          "donde": "Manejo multimodal del dolor agudo en pediatría: De la teoría a la práctica",
+          "texto": "La morfina es el opioide potente recomendado como primera elección en caso de dolor moderado a grave"
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c23",
+      "topic": "Trauma · Choque hipovolémico en niños",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Niño de 6 años tras atropello. <span class='hy'>FC 150, llenado capilar de 4 segundos, pulsos distales débiles</span>; PA 98/60 mmHg (normal para la edad). ¿Cómo lo interpretas?",
+      "options": [
+        "Estable, porque la presión es normal",
+        "Choque compensado: la hipotensión es tardía",
+        "Taquicardia solo por dolor y ansiedad",
+        "Choque descompensado que ya requiere vasoactivos"
+      ],
+      "correct": 1,
+      "whyCorrect": "En niños la taquicardia y la mala perfusión distal son signos tempranos de hipovolemia; la hipotensión y la oliguria son tardías. Esperar a la hipotensión es llegar tarde.",
+      "pearl": "Ácido tranexámico en las primeras 3 horas: 15 mg/kg (máximo 1 g) y luego 2 mg/kg/h por 8 horas.",
+      "trap": "Descartar el choque porque la presión es normal.",
+      "cita": [
+        {
+          "donde": "Politrauma en pediatría un abordaje inicial más allá del reconocimiento",
+          "texto": "En los niños la taquicardia y la disminución de la perfusión distal son signos tempranos de hipovolemia, otro signo sutil es la disminución progresiva de los pulsos periféricos, entre los signos tardíos se encuentra la hipotensión y la reducción del gasto urinario (Tabla 8)."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c24",
+      "topic": "Trauma · Ácido tranexámico en niños",
+      "difficulty": "Nivel 3",
+      "src": "udea_ped26",
+      "vignette": "Niña de 8 años, <span class='hy'>25 kg</span>, con trauma abdominal y hemorragia; lleva <span class='hy'>1 hora</span> del evento. ¿Qué dosis de ácido tranexámico?",
+      "options": [
+        "1 g fijo en bolo, igual que en los adultos",
+        "375 mg y luego 50 mg/h por 8 horas",
+        "No se usa en menores de 12 años por riesgo de convulsiones",
+        "Solo si ya pasaron más de 3 horas del trauma"
+      ],
+      "correct": 1,
+      "whyCorrect": "En las primeras 3 horas: 15 mg/kg (máximo 1 g) → 375 mg, y luego 2 mg/kg/h por 8 horas → 50 mg/h.",
+      "pearl": "Glóbulos rojos 10 a 20 mL/kg; en hemorragia masiva, proporción 1:1:1 con plasma y plaquetas.",
+      "trap": "Dar la dosis fija de adulto o usarlo después de 3 horas.",
+      "cita": [
+        {
+          "donde": "Politrauma en pediatría un abordaje inicial más allá del reconocimiento",
+          "texto": "Otra medida para prevenir la coagulopatía asociada a trauma es el uso de ácido tranexámico en las primeras 3 horas del trauma, a una dosis 15mg/kg (máx. 1 gr) y continuar con 2 mg/kg/h por 8 horas."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c25",
+      "topic": "Cuidado crítico · Delirium",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Niño de 4 años en UCI, día 5 de ventilación con midazolam, está <span class='hy'>agitado, desconectado y con sueño invertido</span>; la escala CAPD es positiva. ¿Cuál es la medida inicial?",
+      "options": [
+        "Aumentar el midazolam para sedarlo más profundamente",
+        "Tratar la causa y medidas no farmacológicas",
+        "Haloperidol IV de entrada a todos los niños con CAPD positiva",
+        "Quetiapina como primera línea con eficacia probada en niños"
+      ],
+      "correct": 1,
+      "whyCorrect": "Lo primero es tratar la causa (incluida la revisión de medicamentos como las benzodiacepinas) y aplicar medidas no farmacológicas: más del 80 % de los niños responden a ellas. Los antipsicóticos quedan para casos refractarios; su eficacia en niños no está establecida.",
+      "pearl": "Las benzodiacepinas, los opioides, los anticolinérgicos y los corticoides favorecen el delirium.",
+      "trap": "Subir la benzodiacepina, que perpetúa el delirium.",
+      "cita": [
+        {
+          "donde": "Delirium en pediatría: Detección temprana y manejo eficaz",
+          "texto": "La medida inicial para el manejo del delirium es tratar la etiología de este y la aplicación de medidas no farmacológicas."
+        },
+        {
+          "donde": "Delirium en pediatría: Detección temprana y manejo eficaz",
+          "texto": "Más del 80 % de los niños con delirium responden a las intervenciones no farmacológicas."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c26",
+      "topic": "Hematología · Anemia ferropénica",
+      "difficulty": "Nivel 1",
+      "src": "udea_ped26",
+      "vignette": "Niña de 2 años con palidez. Hb <span class='hy'>9,2 g/dL, VCM 68 fL, RDW aumentado</span>, reticulocitos bajos y <span class='hy'>ferritina 8 ng/mL</span>. Sin pérdidas de sangre. ¿Qué indicas?",
+      "options": [
+        "Transfusión de glóbulos rojos a 10 mL/kg hoy mismo",
+        "Hierro elemental oral 3 mg/kg/día y orientación nutricional",
+        "Electroforesis de hemoglobina para descartar talasemia antes de tratar",
+        "Hierro IV de entrada para corregir más rápido el déficit"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es anemia microcítica hipocrómica por déficit de hierro (ferritina baja). Se trata con hierro elemental oral a 3 mg/kg/día y orientación nutricional, con control a los 3 meses.",
+      "pearl": "Un RDW aumentado apoya la ferropenia: la anisocitosis es típica.",
+      "trap": "Transfundir a una niña estable o pedir estudios de talasemia antes de tratar una ferropenia clara.",
+      "cita": [
+        {
+          "donde": "Lectura sistemática del hemograma",
+          "texto": "Con estos hallazgos se confirma anemia microcítica hipocrómica compatible con ferropenia. Se solicita ferritina sérica, que resulta disminuida (8 ng/mL), y se descartan pérdidas sanguíneas evidentes."
+        },
+        {
+          "donde": "Lectura sistemática del hemograma",
+          "texto": "La paciente inicia tratamiento con suplementación oral de hierro elemental a dosis de 3 mg/kg/día y orientación nutricional."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c27",
+      "topic": "Dermatología · Acné",
+      "difficulty": "Nivel 1",
+      "src": "udea_ped26",
+      "vignette": "Adolescente de 15 años con <span class='hy'>acné inflamatorio moderado</span> en la cara. Otro médico le dejó <span class='hy'>clindamicina tópica sola</span> hace 4 meses. ¿Qué cambias?",
+      "options": [
+        "Nada: seguir con la clindamicina sola otros 6 meses",
+        "Agregar peróxido de benzoilo o un retinoide",
+        "Isotretinoína oral de inmediato, sin pasar por tópicos",
+        "Cambiar a eritromicina tópica sola por resistencia"
+      ],
+      "correct": 1,
+      "whyCorrect": "Los antibióticos tópicos solo se usan combinados con peróxido de benzoilo o un retinoide, para reducir la resistencia bacteriana. El peróxido no genera resistencia. Los retinoides son el pilar del mantenimiento.",
+      "pearl": "La terapia sistémica es para acné moderado a severo, noduloquístico o resistente a los tópicos.",
+      "trap": "Dejar un antibiótico tópico en monoterapia por meses.",
+      "cita": [
+        {
+          "donde": "Acné en pediatría",
+          "texto": "Antibióticos tópicos (clindamicina, eritromicina): indicados solo en combinación con peróxido de benzoilo o algún retinoide para reducir resistencia bacteriana."
+        },
+        {
+          "donde": "Acné en pediatría",
+          "texto": "Recomendación clave: evitar el uso prolongado de antibióticos tópicos en monoterapia, y mantener los retinoides como pilar de mantenimiento post-tratamiento activo."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c28",
+      "topic": "Neumología · Lesión pulmonar por vapeo",
+      "difficulty": "Nivel 2",
+      "src": "udea_ped26",
+      "vignette": "Adolescente de 17 años que <span class='hy'>vapea cartuchos de THC</span>, con tos, dolor torácico, disnea, fiebre y vómito de una semana. Opacidades bilaterales y saturación de 89 %. Sin otra causa. ¿Qué es lo indispensable del manejo?",
+      "options": [
+        "Solo antibiótico y seguir vapeando nicotina",
+        "Soporte, oxígeno y suspender ya el vapeo",
+        "Broncodilatador y alta ambulatoria",
+        "Esperar el cultivo antes de cualquier medida"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es una probable EVALI, ligada sobre todo al acetato de vitamina E de cartuchos de THC. El manejo es de soporte con oxígeno; en los graves, corticoides y ventilación. Suspender de inmediato el vapeo es indispensable.",
+      "pearl": "Los síntomas son inespecíficos (respiratorios, fiebre y gastrointestinales), por eso hay que preguntar por el vapeo.",
+      "trap": "No preguntar por el vapeo ante una neumonitis en un adolescente.",
+      "cita": [
+        {
+          "donde": "Vapeadores en Pediatría: un fenómeno emergente",
+          "texto": "El tratamiento para EVALI es principalmente de soporte, e incluye oxígeno suplementario y en los casos más graves, se ha recurrido al uso de corticosteroides sistémicos y soporte ventilatorio mecánico, además es indispensable, la suspensión inmediata del uso de vapeadores (14)."
+        }
+      ],
+      "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c29",
+      "topic": "Cardiología · Falla cardíaca aguda",
+      "difficulty": "Nivel 3",
+      "src": "udea_ped26",
+      "vignette": "Niña de 5 años con miocarditis probable: <span class='hy'>crépitos bibasales, hepatomegalia e ingurgitación yugular</span>, pero extremidades tibias y buen llenado capilar. ¿Qué terapia requiere primero?",
+      "options": [
+        "Bolos de cristaloides de 20 mL/kg",
+        "Diurético (furosemida)",
+        "Alta con control ambulatorio",
+        "Antibiótico empírico sin más"
+      ],
+      "correct": 1,
+      "whyCorrect": "Perfil «caliente y húmedo»: perfusión conservada con congestión. Requiere diurético. Los perfiles fríos tienen peor pronóstico y pueden necesitar inotrópicos.",
+      "pearl": "Toma BNP o proBNP al ingreso para seguir la respuesta; la troponina, si sospechas miocarditis.",
+      "trap": "Dar bolos de líquidos a un niño congestivo por confundirlo con sepsis.",
+      "cita": [
+        {
+          "donde": "Del diagnóstico a la estabilización: enfoque inicial de falla cardíaca aguda en el paciente pediátrico",
+          "texto": "Los pacientes “calientes y secos” pueden manejarse ambulatoriamente; los “calientes y húmedos” van a requerir terapia diurética"
+        }
+      ],
+      "verificado": "2026-11-22"
     }
   ],
   "fichas": [
