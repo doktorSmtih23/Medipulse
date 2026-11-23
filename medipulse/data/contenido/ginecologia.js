@@ -15,12 +15,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_hta",
       "vignette": "Gestante de 34 semanas consulta por <span class='hy'>cefalea frontal intensa, fosfenos y epigastralgia</span>. PA 168/112 mmHg en dos tomas, proteinuria en tira +++, plaquetas 88.000/mm³, AST 145 U/L. ¿Cuál es el manejo farmacológico prioritario para prevención de eclampsia y control tensional?",
       "options": [
-        "Diazepam IV en infusión + losartán oral 50 mg",
-        "Alfamelildopa oral 500 mg cada 8 horas y control ambulatorio en 48 horas",
         "Sulfato de magnesio IV (4 g en 5–15 min, luego 1 g/h) + labetalol o nifedipino oral",
+        "Alfamelildopa oral 500 mg cada 8 horas y control ambulatorio en 48 horas",
+        "Diazepam IV en infusión + losartán oral 50 mg",
         "Furosemida IV + inducción del parto diferida hasta las 37 semanas"
       ],
-      "correct": 2,
+      "correct": 0,
       "whyCorrect": "Es una preeclampsia con hipertensión grave (más de 160/110 mmHg) y signos de gravedad: cefalea, escotomas, epigastralgia, plaquetas en descenso y transaminasas elevadas. NICE indica considerar el sulfato de magnesio (4 g IV en 5–15 minutos y luego 1 g/h por 24 horas) y tratar de inmediato la hipertensión grave con labetalol (oral o IV), nifedipino oral o hidralazina IV.",
       "pearl": "Con tratamiento antihipertensivo, la meta es una PA de 135/85 mmHg o menos (NICE).",
       "trap": "Usar diazepam o fenitoína en lugar del sulfato de magnesio. Los IECA y ARA-II (losartán) se suspenden en el embarazo.",
@@ -88,11 +88,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 27 años con amenorrea de 6 semanas, <span class='hy'>dolor en fosa ilíaca izquierda, sangrado vaginal escaso y PA 84/52 mmHg, FC 120 lpm</span>. β-hCG positiva, ecografía transvaginal: útero vacío y líquido libre abundante en fondo de saco de Douglas. ¿Conducta?",
       "options": [
         "Metotrexato 50 mg/m² IM en dosis única y control de β-hCG",
-        "Repetir β-hCG en 48 horas para verificar si se duplica antes de decidir",
+        "Reanimación y cirugía urgente (laparoscopia o laparotomía)",
         "Legrado uterino obstétrico por aborto incompleto con sangrado activo",
-        "Reanimación y cirugía urgente (laparoscopia o laparotomía)"
+        "Repetir β-hCG en 48 horas para verificar si se duplica antes de decidir"
       ],
-      "correct": 3,
+      "correct": 1,
       "whyCorrect": "Es un embarazo ectópico con dolor importante, inestabilidad hemodinámica y hemoperitoneo: se reanima y se opera de urgencia. NICE indica cirugía como primera línea cuando hay dolor significativo, masa anexial de 35 mm o más, latido fetal visible o hCG de 5.000 UI/L o más; el metotrexato es solo para el ectópico no roto, sin dolor importante.",
       "pearl": "Metotrexato (NICE): sin dolor importante, ectópico no roto, masa < 35 mm, sin latido, hCG < 1.500 UI/L, sin embarazo intrauterino y con seguimiento posible. Con hCG entre 1.500 y 4.999 UI/L se puede elegir metotrexato o cirugía.",
       "trap": "Indicar metotrexato o esperar 48 horas en una paciente hipotensa con hemoperitoneo.",
@@ -115,12 +115,12 @@ MP_CONTENIDO.agregar({
       "src": "rcog_pp",
       "vignette": "Gestante de 32 semanas con <span class='hy'>sangrado vaginal rojo rutilante, indoloro</span>, que empezó en reposo. Útero blando, sin contracciones, FCF 145 lpm. Signos vitales normales. ¿Qué NO debe hacerse hasta tener el diagnóstico por imagen?",
       "options": [
-        "Ecografía transabdominal",
         "Tacto vaginal",
+        "Ecografía transabdominal",
         "Monitoreo fetal continuo",
         "Canalizar una vía venosa y pedir hemograma"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Un sangrado indoloro, rojo brillante y con útero relajado sugiere placenta previa. El tacto vaginal puede desencadenar una hemorragia masiva y está contraindicado hasta descartarla por ecografía.",
       "pearl": "Placenta previa: indolora, útero blando. DPPNI: dolorosa, útero hipertónico, sufrimiento fetal, a menudo con HTA o trauma.",
       "trap": "Hacer tacto vaginal de rutina ante cualquier sangrado del tercer trimestre.",
@@ -133,12 +133,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_gin26",
       "vignette": "Mujer de 31 años, G3P2 con dos cesáreas previas, con 31 semanas de gestación. Consulta por <span class='hy'>sangrado vaginal rojo brillante, abundante e indoloro</span> que empezó en reposo. Está hemodinámicamente estable, el útero está blando y no tiene ecografías del tercer trimestre. ¿Cuál es la conducta inicial?",
       "options": [
-        "Tacto vaginal para evaluar la dilatación cervical y el origen del sangrado",
         "Estabilizar y ecografía para ubicar la placenta, sin tacto vaginal",
+        "Tacto vaginal para evaluar la dilatación cervical y el origen del sangrado",
         "Amniotomía para acelerar el parto y disminuir el sangrado",
         "Uterotónicos y observación ambulatoria con signos de alarma"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "El sangrado rojo, abundante e indoloro en la segunda mitad del embarazo es típico de placenta previa. Nunca se hace tacto vaginal sin haberla descartado, porque puede desencadenar una hemorragia masiva. La prioridad es estabilizar a la madre y luego la ecografía (transabdominal y, si se sospecha placenta o vasa previa, transvaginal, que es segura).",
       "pearl": "Placenta previa: sangrado rojo, indoloro, recurrente, útero blando. DPPNI: sangrado oscuro y escaso o ausente, con dolor, útero hipertónico y compromiso fetal.",
       "trap": "Hacer el tacto vaginal «para saber cuánto ha dilatado» antes de saber dónde está la placenta.",
@@ -164,10 +164,10 @@ MP_CONTENIDO.agregar({
       "options": [
         "Inmediatamente, por cesárea, por el riesgo de compresión del cordón",
         "A las 41 semanas si persiste el hallazgo en la ecografía",
-        "Entre las 36 y las 37 + 6 semanas, por la vía que corresponda",
-        "Solo si aparece restricción del crecimiento fetal en el seguimiento"
+        "Solo si aparece restricción del crecimiento fetal en el seguimiento",
+        "Entre las 36 y las 37 + 6 semanas, por la vía que corresponda"
       ],
-      "correct": 2,
+      "correct": 3,
       "whyCorrect": "Es un oligohidramnios aislado (idiopático): BVM menor de 2 cm sin malformaciones, restricción del crecimiento ni ruptura de membranas. Por recomendación de la ACOG se considera terminar el embarazo entre las 36 y las 37 + 6 semanas. El oligohidramnios no contraindica el parto vaginal, y en el trabajo de parto se necesita monitoreo fetal continuo por el riesgo de compresión del cordón.",
       "pearl": "Oligohidramnios: BVM < 2 cm o ILA < 5 cm. Se prefiere el BVM porque reduce intervenciones innecesarias sin aumentar los riesgos perinatales.",
       "trap": "Indicar cesárea por el oligohidramnios: la vía la definen las condiciones obstétricas habituales.",
@@ -194,12 +194,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_gin26",
       "vignette": "Mujer de 30 años con esquizofrenia en tratamiento con risperidona desde hace 8 meses. Consulta por <span class='hy'>amenorrea de 4 meses y galactorrea</span>. Prueba de embarazo negativa, TSH y creatinina normales. Prolactina: <span class='hy'>85 µg/L</span>. ¿Cuál es la causa más probable de la hiperprolactinemia?",
       "options": [
-        "Macroprolactinoma",
         "Hiperprolactinemia por el antipsicótico",
+        "Macroprolactinoma",
         "Síndrome de ovario poliquístico",
         "Efecto de tallo por un tumor no funcionante"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Los antipsicóticos y los antidepresivos son las causas farmacológicas más comunes de hiperprolactinemia. Con valores menores de 200 µg/L se deben considerar causas distintas al prolactinoma (medicamentos, falla renal, enfermedad hepática, hipotiroidismo); la resonancia de silla turca se pide si esas causas se descartaron o si la prolactina supera 200 µg/L.",
       "pearl": "Prolactina > 200 µg/L o causas secundarias descartadas → resonancia de silla turca con contraste. Tratamiento del prolactinoma: agonistas dopaminérgicos (cabergolina).",
       "trap": "Pedir de entrada la resonancia por una prolactina de 85 en una paciente con antipsicótico: primero se buscan las causas secundarias.",
@@ -284,10 +284,10 @@ MP_CONTENIDO.agregar({
       "options": [
         "Cesárea inmediata por la infección intraamniótica",
         "Acetaminofén y vigilar; antibiótico solo si la fiebre llega a 39 °C",
-        "Antibiótico IV y seguir el trabajo de parto; cesárea solo si hay otra indicación",
-        "Esperar el parto y dar antibiótico solo al recién nacido si nace con fiebre o taquicardia"
+        "Esperar el parto y dar antibiótico solo al recién nacido si nace con fiebre o taquicardia",
+        "Antibiótico IV y seguir el trabajo de parto; cesárea solo si hay otra indicación"
       ],
-      "correct": 2,
+      "correct": 3,
       "whyCorrect": "Hay fiebre materna (38 a 38,9 °C que persiste a los 30 minutos) con taquicardia fetal: infección intraamniótica sospechada. Se inicia antibiótico intraparto (un esquema es ampicilina con gentamicina). La infección intraamniótica aislada no justifica la cesárea: la vía se individualiza.",
       "pearl": "Infección intraamniótica sospechada: fiebre intraparto + leucocitosis, drenaje cervical purulento o taquicardia fetal. Confirmada: líquido amniótico positivo o histología placentaria.",
       "trap": "Hacer cesárea «para sacar al bebé del ambiente infectado»: no mejora los desenlaces y suma morbilidad materna.",
@@ -339,11 +339,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 27 años, 5 semanas después del parto. En el control dice que llora a diario, no disfruta nada y no puede cuidar a su bebé; la escala de Edimburgo sale alta y refiere <span class='hy'>pensamientos de hacerse daño</span>. ¿Qué haces?",
       "options": [
         "Tranquilizarla: es tristeza posparto y se resuelve sola",
-        "Remitir a salud mental con enfoque perinatal",
+        "Suspender la lactancia y empezar un antidepresivo sin control",
         "Repetir la escala de Edimburgo en el próximo control",
-        "Suspender la lactancia y empezar un antidepresivo sin control"
+        "Remitir a salud mental con enfoque perinatal"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Hay depresión con deterioro funcional e ideación autolesiva: se remite a salud mental o psiquiatría con enfoque perinatal. El tamizaje con el test de Whooley y la escala de Edimburgo hace parte de la ruta materno perinatal.",
       "pearl": "Remitir con enfoque perinatal: depresión o ansiedad moderada a grave, deterioro funcional, ideación autolesiva o suicida, antecedente psiquiátrico, sustancias o trauma reciente.",
       "trap": "Llamarlo «tristeza posparto» y esperar: con ideación autolesiva hay que actuar hoy.",
@@ -430,12 +430,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_gin26",
       "vignette": "Mujer de 30 años con una cardiopatía congénita corregida, en clase funcional I, con 36 semanas de un embarazo normal. Feto cefálico, sin indicaciones obstétricas de cesárea. ¿Cómo y cuándo planeas el parto?",
       "options": [
-        "Cesárea programada a las 37 semanas por la cardiopatía",
         "Parto vaginal a término; cesárea solo por indicación obstétrica",
+        "Cesárea programada a las 37 semanas por la cardiopatía",
         "Inducir ya a las 36 semanas para evitar la sobrecarga del tercer trimestre",
         "Cesárea con anestesia general para evitar el pujo"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Programar una cesárea solo porque hay cardiopatía es un error común. Se favorece el parto vaginal a término: menos pérdida de sangre y menos sepsis posquirúrgica. La cesárea se reserva para indicaciones obstétricas o situaciones cardíacas específicas, como una aorta de más de 45 mm en Marfan o una falla cardíaca aguda intratable.",
       "pearl": "La mayoría de las cardiópatas pueden tener un embarazo exitoso con estratificación del riesgo (mWHO, CARPREG II).",
       "trap": "Creer que la cardiopatía obliga a un parto prematuro y por cesárea.",
@@ -511,11 +511,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Puérpera de 31 años con cardiopatía, en tratamiento con metoprolol y warfarina. Quiere amamantar y pregunta si puede. ¿Qué le dices?",
       "options": [
         "Que suspenda la lactancia mientras tome warfarina",
-        "Que puede amamantar sin cambiar los fármacos",
+        "Que amamante solo si suspende el metoprolol",
         "Que cambie la warfarina por heparina para poder amamantar",
-        "Que amamante solo si suspende el metoprolol"
+        "Que puede amamantar sin cambiar los fármacos"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "La lactancia es posible y debe fomentarse por sus beneficios metabólicos. La mayoría de los betabloqueadores, antihipertensivos y anticoagulantes, incluidas la warfarina y la heparina, pasan muy poco a la leche y son seguros para el lactante.",
       "pearl": "El puerperio es el periodo de mayor inestabilidad hemodinámica en la cardiópata: la vigilancia no termina a las 6 semanas.",
       "trap": "Suspender la lactancia por los medicamentos cardíacos.",

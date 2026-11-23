@@ -67,11 +67,11 @@ MP_CONTENIDO.agregar({
       "vignette": "En un ensayo clínico aleatorizado de un antihipertensivo, el <span class='hy'>15 % de los pacientes abandonó el tratamiento</span> por efectos adversos, la mayoría en el grupo intervención. Los autores presentan como resultado principal solo a quienes completaron el tratamiento según el protocolo, y muestran un gran beneficio. ¿Qué análisis debió ser el principal para conservar los beneficios de la aleatorización?",
       "options": [
         "Análisis por protocolo, con los que completaron el tratamiento",
-        "Análisis por intención de tratar: cada uno en su grupo asignado",
+        "Análisis de subgrupos por edad para encontrar quién se beneficia",
         "Análisis solo de los pacientes con buena adherencia al tratamiento",
-        "Análisis de subgrupos por edad para encontrar quién se beneficia"
+        "Análisis por intención de tratar: cada uno en su grupo asignado"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "El análisis por intención de tratar incluye a todos los pacientes en el grupo al que fueron aleatorizados, hayan completado o no el tratamiento. Así conserva la comparabilidad que da la aleatorización y refleja lo que pasa en la práctica. Excluir a quienes abandonan, sobre todo si son más en un grupo, rompe esa comparabilidad y exagera el beneficio.",
       "pearl": "En ensayos de superioridad, el análisis principal es por intención de tratar; el análisis por protocolo es complementario.",
       "trap": "Creer que el análisis por protocolo es más “real” porque solo cuenta a quienes recibieron el tratamiento."
@@ -101,11 +101,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Tras implementar un programa de tamizaje de un cáncer, la <span class='hy'>supervivencia a 5 años desde el diagnóstico aumentó</span> de 40 % a 60 %. Sin embargo, la <span class='hy'>mortalidad por ese cáncer en la población no cambió</span>. ¿Qué explica mejor este hallazgo?",
       "options": [
         "El tratamiento mejoró gracias al diagnóstico más temprano",
-        "Sesgo de anticipación: el diagnóstico se adelantó, la muerte no",
+        "Error tipo I por un tamaño de muestra demasiado grande para el estudio",
         "Sesgo de memoria de los pacientes encuestados en el seguimiento",
-        "Error tipo I por un tamaño de muestra demasiado grande para el estudio"
+        "Sesgo de anticipación: el diagnóstico se adelantó, la muerte no"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "El tamizaje adelanta el momento del diagnóstico. Si la muerte ocurre en la misma fecha, el tiempo medido desde el diagnóstico se alarga y la supervivencia parece mejor, sin beneficio real. Por eso el desenlace que demuestra beneficio de un tamizaje es la mortalidad, no la supervivencia desde el diagnóstico.",
       "pearl": "Sesgos del tamizaje: anticipación (lead time), duración (length time: detecta más los tumores lentos) y sobrediagnóstico. Se evitan midiendo mortalidad en ensayos aleatorizados.",
       "trap": "Tomar el aumento de la supervivencia como prueba de que el tamizaje salva vidas."
@@ -135,11 +135,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Después de un almuerzo comunitario, varias personas presentan vómito y diarrea en las 6 horas siguientes. De <span class='hy'>120 que comieron ensalada de papa, 60 enfermaron</span>; de <span class='hy'>80 que no la comieron, 4 enfermaron</span>. Con el pollo, enfermaron 30 de 100 que lo comieron y 34 de 100 que no. ¿Cuál es el alimento sospechoso y su riesgo relativo?",
       "options": [
         "Pollo, RR ≈ 0,9",
-        "Ensalada de papa, RR = 10",
+        "No se puede calcular: falta un grupo control",
         "Ensalada de papa, RR = 2",
-        "No se puede calcular: falta un grupo control"
+        "Ensalada de papa, RR = 10"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Tasa de ataque en quienes comieron ensalada: 60/120 = 50 %; en quienes no: 4/80 = 5 %. RR = 50 / 5 = 10. Con el pollo, 30 % frente a 34 %: RR ≈ 0,9, sin asociación. En un brote con población definida se comparan tasas de ataque (un estudio de cohorte retrospectivo).",
       "pearl": "Tasa de ataque = enfermos / expuestos. El alimento sospechoso es el que tiene alta tasa de ataque en los expuestos, baja en los no expuestos y la mayoría de los casos entre quienes lo comieron.",
       "trap": "Elegir el alimento con más enfermos en números absolutos sin comparar con quienes no lo comieron."
@@ -169,11 +169,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Un ensayo clínico con <span class='hy'>80 pacientes</span> compara dos analgésicos y no encuentra diferencia significativa en el dolor (p = 0,30). Los autores reconocen que el estudio tenía un <span class='hy'>poder estadístico de 40 %</span> para detectar la diferencia que consideraban importante. ¿Cuál es la conclusión correcta?",
       "options": [
         "Los dos analgésicos son igual de eficaces para el dolor",
-        "El nuevo analgésico es inferior al de comparación",
         "No se puede concluir que sean iguales: alto riesgo de error tipo II",
+        "El nuevo analgésico es inferior al de comparación",
         "Hubo un error tipo I porque el valor de p fue mayor de 0,05 en la comparación"
       ],
-      "correct": 2,
+      "correct": 1,
       "whyCorrect": "Con poder de 40 %, el estudio tenía 60 % de probabilidad de no detectar una diferencia real (error tipo II, β). Un resultado no significativo en un estudio con poco poder no demuestra equivalencia: la ausencia de evidencia no es evidencia de ausencia.",
       "pearl": "Error tipo I (α): encontrar una diferencia que no existe. Error tipo II (β): no encontrar una que sí existe. Poder = 1 − β; se busca ≥ 80 %.",
       "trap": "Concluir que los tratamientos son equivalentes porque p > 0,05."
@@ -187,11 +187,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Un grupo publica un <span class='hy'>ensayo clínico aleatorizado</span> que compara una alerta de sepsis basada en inteligencia artificial frente al manejo convencional, con mortalidad como desenlace. ¿Qué guía de reporte corresponde a su informe de resultados?",
       "options": [
         "STROBE",
-        "PRISMA-AI",
         "CONSORT-AI",
+        "PRISMA-AI",
         "SPIRIT-AI"
       ],
-      "correct": 2,
+      "correct": 1,
       "whyCorrect": "Los informes de resultados de ensayos clínicos que evalúan una intervención con IA usan CONSORT-AI; sus protocolos usan SPIRIT-AI. PRISMA-AI es para revisiones sistemáticas y metaanálisis sobre IA, y STROBE para estudios observacionales.",
       "pearl": "Guías de reporte por diseño: ECA → CONSORT (protocolo: SPIRIT); observacional → STROBE; revisión sistemática → PRISMA. Con IA, sus extensiones «-AI».",
       "trap": "Confundir la guía del protocolo (SPIRIT) con la del informe de resultados (CONSORT).",
@@ -215,11 +215,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 80 años con disnea súbita. Probabilidad clínica <span class='hy'>no alta</span> (Ginebra simplificado). Dímero D de <span class='hy'>650 µg/L</span>. ¿Qué haces?",
       "options": [
         "Angiotomografía, porque supera los 500 µg/L",
-        "Descartas TEP: está bajo su corte de 800 µg/L",
+        "Repetir el dímero D en 24 horas antes de decidir",
         "Anticoagular de forma empírica sin imagen",
-        "Repetir el dímero D en 24 horas antes de decidir"
+        "Descartas TEP: está bajo su corte de 800 µg/L"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "En mayores de 50 años el corte es edad × 10: a los 80 años, 800 µg/L. Con probabilidad clínica no alta y dímero D bajo ese corte, el TEP queda descartado sin imagen.",
       "pearl": "En ADJUST-PE, en mayores de 75 años con probabilidad no alta, el corte ajustado subió la proporción en que se descartó el TEP con el dímero D de 6,4 % a 29,7 %.",
       "trap": "Aplicar el corte fijo de 500 µg/L a un anciano: casi siempre sale positivo y lleva a imágenes innecesarias.",
@@ -346,12 +346,12 @@ MP_CONTENIDO.agregar({
       "src": "precise_dapt",
       "vignette": "En pacientes con PRECISE-DAPT de 25 o más, la doble antiagregación larga (12 a 24 meses) frente a corta (3 a 6) aumentó el sangrado con una <span class='hy'>diferencia absoluta de riesgo de +2,59 %</span>. ¿Cuántos hay que tratar con el esquema largo para causar un sangrado más?",
       "options": [
+        "Unos 4",
         "Unos 26",
         "Unos 38",
-        "Unos 259",
-        "Unos 4"
+        "Unos 259"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "El número necesario para dañar es 1 dividido por la diferencia absoluta de riesgo: 1 / 0,0259 ≈ 38.",
       "pearl": "En esos mismos pacientes de alto riesgo de sangrado, el esquema largo no redujo los eventos isquémicos; en los de riesgo no alto sí (NNT 65).",
       "trap": "Dividir 100 entre 2,59 mal ubicando la coma, o usar la reducción relativa en lugar de la absoluta.",
