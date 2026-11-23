@@ -1,6 +1,6 @@
 // Fuentes del contenido incluido
 // Fuentes del contenido incluido. Vigencia revisada en noviembre de 2026.
-// norma: true para normas colombianas (resoluciones): no se ofrece buscarlas en PubMed.
+// norma: true para documentos del Ministerio de Salud de Colombia (resoluciones y guías de práctica clínica): no están en PubMed, así que no se ofrece buscarlos ahí.
 // v: nota de vigencia que se muestra en la biblioteca (vacía = versión más reciente publicada).
 const SOURCES_CHECKED = "noviembre de 2026";
 const SOURCES = [
@@ -42,6 +42,10 @@ const SOURCES = [
   {id:"pir_nac26", t:"Pneumonia (Sanguineti GG, San Martin S, Behnam-Terneus M, Cunill-De Sautu B)", r:"Pediatrics in Review, 2026; 47(4)", y:2026, k:"article"},
   {id:"gina26", t:"Global Strategy for Asthma Management and Prevention (GINA), 2026", r:"Global Initiative for Asthma, 2026", y:2026, k:"guideline"},
   {id:"res117_26", norma:true, t:"Resolución 117 de 2026: actualiza el Anexo Técnico 1 de la Resolución 207 de 2024 (Programa de Tamizaje Neonatal)", r:"Ministerio de Salud y Protección Social de Colombia, 2026", y:2026, k:"guideline"},
+  {id:"gpc_vih_ad", norma:true, t:"Guía de práctica clínica basada en la evidencia científica para la atención de la infección por VIH/SIDA en personas adultas, gestantes y adolescentes (Guía N° 39, actualización parcial)", r:"Ministerio de Salud y Protección Social de Colombia e IETS, 2021", y:2021, k:"guideline"},
+  {id:"gpc_vih_ped", norma:true, t:"Guía de práctica clínica basada en la evidencia científica para la atención de la infección por VIH/SIDA en niñas, niños y adolescentes", r:"Ministerio de Salud y Protección Social de Colombia e IETS, 2021", y:2021, k:"guideline"},
+  {id:"pai_esquema26", norma:true, t:"Esquema de vacunación de Colombia (memoficha del Programa Ampliado de Inmunizaciones, actualización julio 2026)", r:"Ministerio de Salud y Protección Social de Colombia, 2026", y:2026, k:"guideline"},
+  {id:"pai_jornada26", norma:true, t:"Lineamiento técnico y operativo de la Primera Jornada Nacional de Vacunación 2026", r:"Ministerio de Salud y Protección Social de Colombia, PAI, enero 2026", y:2026, k:"guideline"},
   {id:"res3280", norma:true, t:"Resolución 3280 de 2018: Rutas Integrales de Atención para la Promoción y Mantenimiento de la Salud y Materno Perinatal", r:"Ministerio de Salud y Protección Social de Colombia, 2018", y:2018, k:"guideline", v:"Vigente; el tamizaje neonatal lo actualizan las Resoluciones 207 de 2024 y 117 de 2026"},
   {id:"lancet_dengue", t:"Dengue (Seminar, Paz-Bailey G et al.)", r:"Lancet, 2024; 403", y:2024, k:"article"},
   {id:"udea_ped26", t:"Memorias del XLII Curso de actualización en Pediatría 2026", r:"Universidad de Antioquia, Facultad de Medicina, 2026", y:2026, k:"book"},

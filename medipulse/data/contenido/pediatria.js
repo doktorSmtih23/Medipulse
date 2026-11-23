@@ -1422,6 +1422,330 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c46",
+      "topic": "Infectología · Profilaxis neonatal del VIH: alto riesgo",
+      "difficulty": "dificil",
+      "src": "gpc_vih_ped",
+      "vignette": "Recién nacido de <span class='hy'>39 semanas</span> y 3.100 g. A la madre le diagnosticaron VIH con una <span class='hy'>prueba positiva en el trabajo de parto</span>. ¿Qué profilaxis indicas?",
+      "options": [
+        "Zidovudina oral sola durante 4 semanas, desde el nacimiento",
+        "Zidovudina, lamivudina y raltegravir o nevirapina",
+        "Zidovudina sola durante 6 semanas",
+        "Ninguna hasta tener la carga viral ARN del recién nacido"
+      ],
+      "correct": 1,
+      "whyCorrect": "Madre con prueba positiva en el intraparto = neonato de alto riesgo. Con más de 37 semanas se usan 3 medicamentos (zidovudina, lamivudina y raltegravir o nevirapina) durante 6 semanas. La profilaxis se inicia sin esperar el resultado del niño.",
+      "pearl": "Alto riesgo: madre sin TAR, solo TAR intraparto, carga viral detectable cerca del parto, infección aguda en la gestación o prueba positiva en el intraparto.",
+      "trap": "Dar zidovudina sola, que es el esquema del bajo riesgo.",
+      "cita": [
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, Recomendación 4",
+          "texto": "Se recomienda el uso de la combinación de tres medicamentos (zidovudina, lamivudina y raltegravir o nevirapina) en neonatos expuestos al VIH mayores a 37 semanas de edad gestacional con alto riesgo de transmisión materno infantil del VIH"
+        },
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, glosario: neonatos de alto riesgo",
+          "texto": "madres con seroestatus desconocido o con prueba positiva en el intraparto"
+        },
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, sección 5.1.7.1",
+          "texto": "el panel recomienda la profilaxis durante 6 semanas por considerar que el riesgo de eventos adversos no excede el beneficio de evitar un caso de TMI."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c47",
+      "topic": "Infectología · Profilaxis neonatal del VIH: bajo riesgo",
+      "difficulty": "residencia",
+      "src": "gpc_vih_ped",
+      "vignette": "Recién nacido a término, hijo de madre con VIH que recibió terapia antirretroviral todo el embarazo, con <span class='hy'>carga viral indetectable a las 37 semanas</span>. ¿Qué profilaxis indicas?",
+      "options": [
+        "Zidovudina más nevirapina durante 6 semanas",
+        "Zidovudina, lamivudina y raltegravir",
+        "Zidovudina oral durante 4 semanas",
+        "Zidovudina oral durante 2 semanas"
+      ],
+      "correct": 2,
+      "whyCorrect": "Es de bajo riesgo (TAR en la gestación y carga viral indetectable 2 a 4 semanas antes del parto): zidovudina oral 4 mg/kg cada 12 horas durante 4 semanas. No se recomienda agregar nevirapina ni acortar a menos de 4 semanas.",
+      "pearl": "Bajo riesgo = madre con TAR y carga viral indetectable 2 a 4 semanas antes del parto.",
+      "trap": "Acortar la zidovudina a menos de 4 semanas.",
+      "cita": [
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, Recomendación 1",
+          "texto": "Se recomienda utilizar la zidovudina oral durante 4 semanas (4 mg/kg/dosis vía oral cada 12 horas) como profilaxis en neonatos de bajo riesgo de transmisión materno infantil del VIH"
+        },
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, Recomendación 3",
+          "texto": "Se recomienda no usar la profilaxis con zidovudina oral durante menos de 4 semanas en neonatos de bajo riesgo de transmisión materno infantil del VIH."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c48",
+      "topic": "Infectología · Diagnóstico del VIH en el lactante expuesto",
+      "difficulty": "dificil",
+      "src": "gpc_vih_ped",
+      "vignette": "Lactante de 7 semanas, hijo de madre con VIH en tratamiento y carga viral indetectable al final del embarazo. <span class='hy'>Terminó la zidovudina hace 2 semanas</span>. En otra institución le hicieron una <span class='hy'>ELISA para VIH que salió reactiva</span>. ¿Qué haces?",
+      "options": [
+        "Confirmar con Western blot e iniciar tratamiento",
+        "Repetir la ELISA a los 6 meses de vida",
+        "Pedir carga viral ARN para VIH",
+        "Iniciar tratamiento por la ELISA reactiva"
+      ],
+      "correct": 2,
+      "whyCorrect": "En el expuesto perinatal las pruebas serológicas no sirven: detectan los anticuerpos de la madre. En el bajo riesgo se pide carga viral ARN a las 2 semanas de terminar la profilaxis.",
+      "pearl": "Menores de 18 meses: el diagnóstico es virológico (carga viral ARN o ADN proviral), no serológico.",
+      "trap": "Tomar la ELISA reactiva como diagnóstico de infección.",
+      "cita": [
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, Recomendación 15",
+          "texto": "No se recomienda utilizar las pruebas presuntivas serológicas (ELISA, quimioluminiscencia, prueba rápida) para el diagnóstico de VIH en niños expuestos perinatalmente al Virus de Inmunodeficiencia Humana."
+        },
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, Recomendación 14",
+          "texto": "Se recomienda realizar la carga viral ARN para el diagnóstico de infección por VIH en niños de bajo riesgo*, a las 2 semanas de finalizado el manejo profiláctico**."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c49",
+      "topic": "Infectología · Alimentación del hijo de madre con VIH",
+      "difficulty": "basica",
+      "src": "gpc_vih_ped",
+      "vignette": "Puérpera con VIH, en terapia antirretroviral y con <span class='hy'>carga viral indetectable</span>, quiere amamantar a su hijo. ¿Qué le recomiendas según la guía colombiana?",
+      "options": [
+        "Lactancia exclusiva: con carga viral indetectable no transmite",
+        "Leche de fórmula hasta los 12 meses, sin leche materna",
+        "Lactancia materna mientras el niño reciba profilaxis",
+        "Lactancia mixta durante los primeros 6 meses"
+      ],
+      "correct": 1,
+      "whyCorrect": "La guía recomienda leche de fórmula desde el nacimiento hasta los 12 meses y no dar leche materna, aunque la madre esté en tratamiento o el niño en profilaxis.",
+      "pearl": "En Colombia, el hijo de madre con VIH recibe fórmula los primeros 12 meses.",
+      "trap": "Permitir la lactancia por la carga viral indetectable.",
+      "cita": [
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, Recomendación 8",
+          "texto": "Dar leche de fórmula* durante todo el periodo de lactancia, desde el nacimiento hasta los 12 meses de edad."
+        },
+        {
+          "donde": "GPC VIH niñas, niños y adolescentes 2021, Recomendación 9",
+          "texto": "Independientemente de si la madre recibe tratamiento antirretroviral o si la niña o el niño se encuentra en profilaxis antirretroviral, se recomienda no dar leche materna."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c50",
+      "topic": "Neonatología · Ictericia antes de las 24 horas",
+      "difficulty": "basica",
+      "src": "aap_bili",
+      "vignette": "Recién nacido de 39 semanas, con lactancia materna. A las <span class='hy'>18 horas de vida</span> la enfermera nota que está ictérico. ¿Qué haces?",
+      "options": [
+        "Agua con dextrosa para bajar la bilirrubina",
+        "Observar: es ictericia fisiológica",
+        "Exponerlo al sol y revisarlo al alta",
+        "Medir la bilirrubina lo antes posible"
+      ],
+      "correct": 3,
+      "whyCorrect": "La ictericia en las primeras 24 horas obliga a medir la bilirrubina (sérica o transcutánea) cuanto antes. No se dan agua ni dextrosa para prevenir o bajar la bilirrubina.",
+      "pearl": "Todo recién nacido se valora por ictericia al menos cada 12 horas hasta el alta.",
+      "trap": "Llamar fisiológica a una ictericia de menos de 24 horas.",
+      "cita": [
+        {
+          "donde": "AAP 2022, KAS 4",
+          "texto": "TSB or TcB should be measured as soon as possible for infants noted to be jaundiced <24 hours after birth."
+        },
+        {
+          "donde": "AAP 2022, KAS 2",
+          "texto": "Oral supplementation with water or dextrose water should not be provided to prevent hyperbilirubinemia or decrease bilirubin concentrations."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c51",
+      "topic": "Neonatología · Bilirrubina transcutánea cerca del umbral",
+      "difficulty": "residencia",
+      "src": "aap_bili",
+      "vignette": "Recién nacido de 38 semanas, sin factores de riesgo de neurotoxicidad. A las 36 horas, la <span class='hy'>bilirrubina transcutánea está 2 mg/dL por debajo</span> del umbral de fototerapia para su edad en horas. ¿Qué haces?",
+      "options": [
+        "Medir la bilirrubina sérica total",
+        "Iniciar fototerapia con ese valor transcutáneo",
+        "Dar de alta con control al mes",
+        "Repetir la transcutánea en 3 días"
+      ],
+      "correct": 0,
+      "whyCorrect": "Si la transcutánea supera el umbral o está a 3 mg/dL o menos de él (o es de 15 mg/dL o más), se mide la bilirrubina sérica total, que es la prueba que define la fototerapia.",
+      "pearl": "La transcutánea tamiza; la sérica total decide el tratamiento.",
+      "trap": "Tratar o dar de alta con base solo en la transcutánea.",
+      "cita": [
+        {
+          "donde": "AAP 2022, KAS 6",
+          "texto": "TSB should be measured if the TcB exceeds or is within 3 mg/dL of the phototherapy treatment threshold or if the TcB is ≥15 mg/dL."
+        },
+        {
+          "donde": "AAP 2022, KAS 3",
+          "texto": "Use TSB as the definitive diagnostic test to guide phototherapy and escalation-of-care decisions, including exchange transfusion."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c52",
+      "topic": "Neonatología · Colestasis: ictericia prolongada",
+      "difficulty": "residencia",
+      "src": "aap_bili",
+      "vignette": "Lactante de <span class='hy'>3 semanas y media</span>, alimentado solo con leche materna, que <span class='hy'>sigue ictérico</span>. Gana peso bien. ¿Qué pides?",
+      "options": [
+        "Bilirrubina total y directa",
+        "Suspender la lactancia 48 horas y ver si mejora",
+        "Nada: es ictericia por leche materna",
+        "Iniciar fototerapia en casa"
+      ],
+      "correct": 0,
+      "whyCorrect": "El amamantado que sigue ictérico a las 3 a 4 semanas (o el alimentado con fórmula a las 2 semanas) necesita bilirrubina total y directa para buscar colestasis patológica, como la atresia de vías biliares.",
+      "pearl": "Ictericia prolongada: medir la fracción directa antes de atribuirla a la leche materna.",
+      "trap": "Suspender la lactancia o tranquilizar sin medir la bilirrubina directa.",
+      "cita": [
+        {
+          "donde": "AAP 2022, KAS 9",
+          "texto": "For breastfed infants who are still jaundiced at 3 to 4 weeks of age, and for formula-fed infants who are still jaundiced at 2 weeks of age, the total and direct-reacting (or conjugated) bilirubin concentrations should be measured to identify possible pathologic cholestasis."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c53",
+      "topic": "Neonatología · Encefalopatía bilirrubínica aguda",
+      "difficulty": "dificil",
+      "src": "aap_bili",
+      "vignette": "Recién nacido de 5 días que reingresa por ictericia intensa. Está con <span class='hy'>hipertonía, arqueamiento del tronco y llanto agudo</span>. Ya está en fototerapia intensiva. ¿Qué sigue?",
+      "options": [
+        "Medir la bilirrubina en 12 horas para ver la tendencia",
+        "Inmunoglobulina intravenosa como único tratamiento",
+        "Suspender la lactancia y dar fórmula",
+        "Exsanguinotransfusión urgente"
+      ],
+      "correct": 3,
+      "whyCorrect": "Los signos de encefalopatía bilirrubínica aguda intermedia o avanzada (hipertonía, arqueamiento, retrocolis, opistótonos, llanto agudo o apneas) indican exsanguinotransfusión urgente.",
+      "pearl": "Con signos neurológicos, la exsanguinotransfusión no espera al siguiente valor de bilirrubina.",
+      "trap": "Seguir solo con fototerapia y controles espaciados.",
+      "cita": [
+        {
+          "donde": "AAP 2022, KAS 22",
+          "texto": "An urgent exchange transfusion should be performed for infants with signs of intermediate or advanced stages of intermediate or advanced stages of acute bilirubin encephalopathy (eg, hypertonia, arching, retrocollis, opisthotonos, high-pitched cry, or recurrent apnea)."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c54",
+      "topic": "Vacunación · Rotavirus: edad máxima",
+      "difficulty": "residencia",
+      "src": "pai_esquema26",
+      "vignette": "Lactante de <span class='hy'>4 meses</span>, sano, que nunca ha sido vacunado. La madre pregunta por la vacuna contra el rotavirus. ¿Qué le dices?",
+      "options": [
+        "Primera dosis hoy y segunda dentro de 2 meses",
+        "Una sola dosis hoy, por la edad que tiene",
+        "No: ya pasó la edad de la primera dosis",
+        "Solo si ha tenido diarrea en el último mes"
+      ],
+      "correct": 2,
+      "whyCorrect": "La primera dosis de rotavirus se aplica como máximo hasta los 3 meses y 21 días; sin primera dosis no hay segunda. A los 4 meses ya no se inicia.",
+      "pearl": "Rotavirus: primera dosis hasta 3 meses 21 días; segunda hasta 11 meses 29 días.",
+      "trap": "Iniciar el rotavirus tarde para «ponerse al día», como con las demás vacunas.",
+      "cita": [
+        {
+          "donde": "Esquema de vacunación de Colombia (memoficha MinSalud, julio 2026), nota 2",
+          "texto": "Rotavirus: Primera dosis entre 2 meses y máximo hasta 3 meses 21 dias y segunda dosis hasta 11 meses 29 dias. Sin primera no hay segunda dosis."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c55",
+      "topic": "Vacunación · Influenza: primovacunación",
+      "difficulty": "residencia",
+      "src": "pai_esquema26",
+      "vignette": "Niño de <span class='hy'>2 años</span> que <span class='hy'>nunca ha recibido vacuna contra la influenza</span>. ¿Qué esquema le aplicas?",
+      "options": [
+        "2 dosis con 4 semanas de intervalo",
+        "Una dosis y refuerzo dentro de un año",
+        "Una sola dosis, por ser mayor de 1 año",
+        "Ninguna: la vacuna es solo hasta los 12 meses"
+      ],
+      "correct": 0,
+      "whyCorrect": "Sin primovacunación previa, entre los 6 y los 35 meses se garantizan 2 dosis con 4 semanas de intervalo. Con primovacunación, basta una dosis anual hasta los 5 años.",
+      "pearl": "Primovacunación contra influenza = 2 dosis de la misma cepa.",
+      "trap": "Dar una sola dosis a un niño de 6 a 35 meses nunca vacunado.",
+      "cita": [
+        {
+          "donde": "Esquema de vacunación de Colombia (memoficha MinSalud, julio 2026), nota 3",
+          "texto": "Influenza: Se considera primovacunación a la aplicación de 2 dosis de la misma cepa. Sin antecedente de primovacunación, entre los 6 a 35 meses se deben garantizar 2 dosis en intervalo de 4 semanas."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c56",
+      "topic": "Vacunación · Triple viral: esquema atrasado",
+      "difficulty": "basica",
+      "src": "pai_jornada26",
+      "vignette": "Niña de <span class='hy'>3 años</span> con carné que muestra <span class='hy'>solo una dosis de triple viral</span>, aplicada a los 12 meses. No recibió la de los 18 meses. ¿Qué haces?",
+      "options": [
+        "Reiniciar el esquema con dos dosis nuevas",
+        "Nada: una dosis basta después de los 2 años",
+        "Esperar a los 5 años para la segunda dosis",
+        "Aplicar hoy la segunda dosis"
+      ],
+      "correct": 3,
+      "whyCorrect": "Todos los niños de 1 a 10 años deben tener 2 dosis de triple viral. No se reinician esquemas: se cuenta la dosis previa y se aplica la que falta.",
+      "pearl": "La segunda dosis de triple viral va a los 18 meses; si falta, se aplica en el primer contacto.",
+      "trap": "Reiniciar el esquema en lugar de completarlo.",
+      "cita": [
+        {
+          "donde": "Lineamiento de la Primera Jornada Nacional de Vacunación 2026 (MinSalud), consideración técnica 8",
+          "texto": "Todos los niños de 1 a 10 años deben tener 2 dosis de triple viral"
+        },
+        {
+          "donde": "Esquema de vacunación de Colombia (memoficha MinSalud, julio 2026)",
+          "texto": "No está indicado reiniciar esquemas de vacunación, se debe revisar el antecedente vacunal."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c57",
+      "topic": "Vacunación · VPH en inmunosuprimidos",
+      "difficulty": "dificil",
+      "src": "pai_jornada26",
+      "vignette": "Niña de 11 años con <span class='hy'>lupus en tratamiento inmunosupresor</span>. Sus padres preguntan por la vacuna contra el VPH. ¿Qué esquema corresponde?",
+      "options": [
+        "Una sola dosis, como en las niñas sanas",
+        "Dos dosis, a los 0 y 6 meses",
+        "Tres dosis, a los 0, 2 y 6 meses",
+        "No se aplica mientras esté inmunosuprimida"
+      ],
+      "correct": 1,
+      "whyCorrect": "Las niñas, niños y adolescentes sanos de 9 a 17 años reciben una sola dosis; los inmunosuprimidos de la misma edad reciben 2 dosis, a los 0 y 6 meses.",
+      "pearl": "VPH en Colombia: dosis única de 9 a 17 años; 2 dosis si hay inmunosupresión.",
+      "trap": "Aplicar la dosis única también a la paciente inmunosuprimida.",
+      "cita": [
+        {
+          "donde": "Lineamiento de la Primera Jornada Nacional de Vacunación 2026 (MinSalud), consideración técnica 7",
+          "texto": "se define esquema de una única dosis en niñas niños y adolescentes sanos de 9 a 17 años y 2 dosis en población inmunosuprimida de la misma edad"
+        },
+        {
+          "donde": "Esquema de vacunación de Colombia (memoficha MinSalud, julio 2026), nota 6",
+          "texto": "VPH: Personas Inmunocomprometidas deben recibir 2 dosis a los 0 y 6 meses."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [
