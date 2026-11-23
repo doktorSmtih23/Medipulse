@@ -219,7 +219,18 @@ MP_CONTENIDO.agregar({
       "correct": 0,
       "whyCorrect": "La incidencia mide casos nuevos y no cambia. La prevalencia depende de la incidencia y de la duración de la enfermedad (P ≈ I × D): si los pacientes viven más sin curarse, se acumulan y la prevalencia sube.",
       "pearl": "P ≈ I × D. Aumentan la prevalencia: más casos nuevos o más duración (tratamientos que no curan, mejor supervivencia). La disminuyen: curación o muerte rápida.",
-      "trap": "Pensar que un mejor tratamiento siempre baja la prevalencia: solo lo hace si cura."
+      "trap": "Pensar que un mejor tratamiento siempre baja la prevalencia: solo lo hace si cura.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Relationship between incidence and prevalence»",
+          "texto": "in a steady-state situation, in which the rates are not changing, and in-migration equals out-migration in the populations being examined, and when the prevalence is not too high, the following equation applies: Prevalence = Incidence × Duration of Disease"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Relationship between incidence and prevalence»",
+          "texto": "there is a higher prevalence in Hitown people than in Lotown people, not because the risk of disease is higher in Hitown people, but because affected Hitown people survive longer; the prevalence of disease (incidence × duration) is therefore higher in Hitown people than in Lotown people."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c08",
@@ -566,50 +577,92 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "Sensibilidad",
-          "val": "VP / (VP + FN): alta → un negativo descarta (SnNout)"
+          "val": "Capacidad de identificar bien a quienes tienen la enfermedad: VP / (VP + FN)"
         },
         {
           "label": "Especificidad",
-          "val": "VN / (VN + FP): alta → un positivo confirma (SpPin)"
+          "val": "Capacidad de identificar bien a quienes no la tienen: VN / (VN + FP)"
         },
         {
-          "label": "Valores predictivos",
-          "val": "Cambian con la prevalencia: baja prevalencia → VPP baja, VPN sube"
+          "label": "Valor predictivo positivo",
+          "val": "VP / todos los positivos (VP + FP): probabilidad de enfermedad si sale positiva"
         },
         {
-          "label": "Razón de verosimilitud +",
-          "val": "Sensibilidad / (1 − especificidad); > 10 confirma con fuerza"
+          "label": "Valor predictivo negativo",
+          "val": "VN / todos los negativos (VN + FN)"
+        },
+        {
+          "label": "Prevalencia",
+          "val": "A mayor prevalencia, mayor VPP: la misma prueba rinde distinto en población de alto y de bajo riesgo"
         }
       ],
       "redFlag": "Con prevalencia de 1 %, una prueba con sensibilidad y especificidad de 90 % tiene un VPP de solo ≈ 8 %.",
-      "trap": "Decirle a un paciente con prueba positiva que tiene 90 % de probabilidad de estar enfermo porque la sensibilidad es 90 %."
+      "trap": "Decirle a un paciente con prueba positiva que tiene 90 % de probabilidad de estar enfermo porque la sensibilidad es 90 %.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Validity of screening tests»",
+          "texto": "The sensitivity of the test is defined as the ability of the test to correctly identify those who have the disease. The specificity of the test is defined as the ability of the test to correctly identify those who do not have the disease."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Predictive value of a test»",
+          "texto": "To calculate the PPV, we divide the number of true positives by the total number who tested positive (true positives + false positives)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Predictive value of a test»",
+          "texto": "It is calculated by dividing the number of true negatives by all those who tested negative (true negatives + false negatives)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Relationship between positive predictive value and disease prevalence»",
+          "texto": "As we have seen, the higher the prevalence, the higher the predictive value."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f02",
-      "title": "Impacto de un tratamiento: RRA, RRR y NNT",
+      "title": "Impacto de un tratamiento: eficacia, NNT y NNH",
       "badge": "Medidas de efecto",
       "area": "Medidas de asociación e impacto",
       "src": "gordis",
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Reducción absoluta (RRA)",
-          "val": "Riesgo control − riesgo tratados"
+          "label": "Diferencia de riesgo (reducción absoluta)",
+          "val": "Tasa en no tratados − tasa en tratados"
         },
         {
-          "label": "Reducción relativa (RRR)",
-          "val": "RRA / riesgo control"
+          "label": "Eficacia (reducción relativa)",
+          "val": "(Tasa con placebo − tasa con la intervención) / tasa con placebo"
         },
         {
           "label": "NNT",
-          "val": "1 / RRA (redondear hacia arriba)"
+          "val": "1 / (tasa en no tratados − tasa en tratados): pacientes a tratar para evitar un evento; se redondea hacia arriba"
         },
         {
           "label": "NNH",
-          "val": "1 / aumento absoluto del riesgo de daño"
+          "val": "El mismo cálculo con los efectos adversos: tratados para que uno más sufra daño"
         }
       ],
-      "trap": "Dejarse convencer por la RRR: un 50 % de reducción relativa puede ser solo 1 % absoluto (NNT 100)."
+      "trap": "Dejarse convencer por la reducción relativa: 50 % relativo puede ser solo 1 % absoluto (NNT 100).",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Number needed to treat»",
+          "texto": "Another approach, therefore, for expressing the results of randomized trials is to estimate the number of patients who would need to be treated (NNT) to prevent one adverse outcome such as one death."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Number needed to treat»",
+          "texto": "Estimates of NNT are usually rounded up to the next highest whole number."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Number needed to treat»",
+          "texto": "The same approach can also be used to look at the risk of side effects by calculating the number needed to harm (NNH) to cause one additional person to be harmed."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), eficacia",
+          "texto": "This formula tells us the extent of the reduction in disease by use of the vaccine."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f03",
@@ -620,23 +673,54 @@ MP_CONTENIDO.agregar({
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Cohorte (parte de la exposición)",
-          "val": "Incidencia y riesgo relativo (RR)"
+          "label": "Cohorte",
+          "val": "Parte de expuestos y no expuestos, todos sin la enfermedad; el RR se calcula directamente"
         },
         {
-          "label": "Casos y controles (parte de la enfermedad)",
-          "val": "Odds ratio (OR); útil en enfermedades raras"
+          "label": "Casos y controles",
+          "val": "Parte de enfermos (casos) y no enfermos (controles); se estima con odds ratio"
         },
         {
-          "label": "Transversal",
-          "val": "Prevalencia; no establece temporalidad"
+          "label": "Transversal («de prevalencia»)",
+          "val": "Exposición y enfermedad a la vez: casos prevalentes, sin saber si la exposición precedió"
+        },
+        {
+          "label": "Enfermedad rara",
+          "val": "Una cohorte necesitaría una población enorme"
         },
         {
           "label": "Ensayo clínico aleatorizado",
-          "val": "El que mejor demuestra causalidad: controla confusión conocida y desconocida"
+          "val": "Diseño ideal para evaluar eficacia y efectos adversos de una intervención"
         }
       ],
-      "trap": "Calcular riesgo relativo o incidencia en un estudio de casos y controles."
+      "trap": "Calcular riesgo relativo o incidencia en un estudio de casos y controles.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Case-control studies»",
+          "texto": "At this point, we should emphasize that the hallmark of the case-control study is that it begins with people with the disease (cases) and compares them to people without the disease (controls)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Case-control studies»",
+          "texto": "This is in contrast to the design of a cohort study that will be discussed in Chapter 8, which begins with a group of exposed people and compares them to an unexposed group, all of whom are free of the disease at baseline or at the time of enrollment to the study."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Cross-sectional studies»",
+          "texto": "which is the reason why a cross-sectional study is also called a “prevalence study”), because we know that they existed at the time of the study, but we do not know their duration (the interval between the onset of the disease and “today”), or whether the exposure happened before the outcome."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), cohortes y enfermedades raras",
+          "texto": "In contrast, if we conduct a cohort study for a rare disease, an extremely large study population may be needed in order to observe a sufficient number of individuals in the cohort develop the disease in question."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Randomization»",
+          "texto": "The randomized trial is considered the ideal design for evaluating both the efficacy and the side effects of new forms of intervention."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 12 (pp. 240–257), «Calculating the relative risk in cohort studies»",
+          "texto": "In a cohort study the relative risk can be calculated directly."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f04",
@@ -648,7 +732,7 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "Selección",
-          "val": "Los grupos difieren por cómo se eligieron o por pérdidas en el seguimiento"
+          "val": "La forma de elegir casos y controles (o expuestos y no expuestos) crea una asociación que no existe"
         },
         {
           "label": "Información (memoria)",
@@ -656,15 +740,42 @@ MP_CONTENIDO.agregar({
         },
         {
           "label": "Confusión",
-          "val": "Tercer factor ligado a la exposición y causa del desenlace; se controla con aleatorización o ajuste"
+          "val": "Tercer factor que es factor de riesgo de la enfermedad y se asocia a la exposición sin ser resultado de ella"
         },
         {
           "label": "Anticipación (lead time)",
-          "val": "El tamizaje alarga la supervivencia desde el diagnóstico sin cambiar la muerte"
+          "val": "El tamizaje alarga la supervivencia desde el diagnóstico sin retrasar la muerte"
         }
       ],
-      "redFlag": "El beneficio de un tamizaje se demuestra con menor mortalidad, no con mayor supervivencia desde el diagnóstico.",
-      "trap": "Creer que un tamaño de muestra grande corrige un sesgo: solo reduce el error aleatorio."
+      "redFlag": "El beneficio de un tamizaje se demuestra con menor mortalidad por la enfermedad, no con mayor supervivencia desde el diagnóstico.",
+      "trap": "Llamar sesgo a la confusión: el sesgo es un error del estudio; la confusión es un hallazgo real que hay que entender.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), «Selection bias»",
+          "texto": "If the way in which cases and controls, or exposed and unexposed individuals, were selected is such that an apparent association is observed—even if, in reality, exposure and disease are not associated—the apparent association is the result of selection bias."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), «Information bias»",
+          "texto": "This bias operates to enhance recall in cases compared with controls."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), «Confounding»",
+          "texto": "we say that a third factor, factor X, is a confounder if the following are true: 1. Factor X is a known risk factor for disease B. 2. Factor X is associated with exposure A, but is not a result of exposure A."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Lead time bias»",
+          "texto": "Survival seems better because the interval from diagnosis to death is longer, but the patient is not any better off because death has not been delayed."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), confusión frente a sesgo",
+          "texto": "Bias is a result of an error in the way that the study has been carried out, but confounding is a valid finding that describes the nature of the relationship among several factors and the risk of disease."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Lead time bias»",
+          "texto": "Another strategy is to compare mortality from the disease in the entire screened group with that in the unscreened group, rather than just the cumulative survival or its reciprocal, the case fatality rate, in those in whom disease was detected by screening."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f05",
@@ -691,7 +802,8 @@ MP_CONTENIDO.agregar({
           "val": "Incluye 1 en RR u OR; incluye 0 en diferencias"
         }
       ],
-      "trap": "Concluir que dos tratamientos son iguales porque p > 0,05 en un estudio con poco poder."
+      "trap": "Concluir que dos tratamientos son iguales porque p > 0,05 en un estudio con poco poder.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f06",
@@ -719,34 +831,50 @@ MP_CONTENIDO.agregar({
         }
       ],
       "redFlag": "Una prueba excelente no sirve si la probabilidad pre-test es muy baja o muy alta: el resultado casi no cambia la decisión.",
-      "trap": "Sumar el LR a la probabilidad: el LR multiplica odds, no porcentajes."
+      "trap": "Sumar el LR a la probabilidad: el LR multiplica odds, no porcentajes.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f07",
-      "title": "Curva ROC y punto de corte",
+      "title": "Punto de corte: sensibilidad frente a especificidad",
       "badge": "Pruebas diagnósticas",
       "area": "Pruebas diagnósticas",
       "src": "gordis",
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Ejes",
-          "val": "Sensibilidad (eje Y) contra 1 − especificidad (eje X), para cada punto de corte"
-        },
-        {
-          "label": "Área bajo la curva",
-          "val": "0,5 = azar (la diagonal); 1 = prueba perfecta; cuanto más arriba y a la izquierda, mejor"
-        },
-        {
           "label": "Bajar el punto de corte",
           "val": "Más positivos: sube la sensibilidad y baja la especificidad"
         },
         {
-          "label": "Corte «óptimo» (índice de Youden)",
-          "val": "Máximo de sensibilidad + especificidad − 1; no siempre es el clínicamente adecuado"
+          "label": "Subir el punto de corte",
+          "val": "Sube la especificidad y baja la sensibilidad"
+        },
+        {
+          "label": "Cómo elegirlo",
+          "val": "Según la importancia que se dé a los falsos positivos y a los falsos negativos"
+        },
+        {
+          "label": "Costo de los falsos positivos",
+          "val": "Emocional y económico, y la dificultad de «quitar la etiqueta» a quien no estaba enfermo"
         }
       ],
-      "trap": "Elegir el corte solo por el área: si perder un caso es grave (tamizaje de algo letal y tratable), se prioriza sensibilidad."
+      "trap": "Creer que moviendo el punto de corte se gana sensibilidad sin perder especificidad.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Validity of screening tests»",
+          "texto": "Thus, there is a tradeoff between sensitivity and specificity: if we increase the sensitivity by lowering the cutoff level, we decrease the specificity; if we increase the specificity by raising the cutoff level, we decrease the sensitivity."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Validity of screening tests»",
+          "texto": "The choice of a high or a low cutoff level for screening therefore depends on the importance we attach to false positives and false negatives."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Validity of screening tests»",
+          "texto": "False positives are associated with costs—emotional and financial—as well as with the difficulty of “delabeling” a person who tests positive and is later found not to have the disease."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f08",
@@ -757,24 +885,43 @@ MP_CONTENIDO.agregar({
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "En serie (la segunda solo si la primera es positiva)",
-          "val": "Gana especificidad y pierde sensibilidad; útil para confirmar"
+          "label": "En serie (la segunda solo a los positivos)",
+          "val": "Pierde sensibilidad neta y gana especificidad neta: reduce los falsos positivos"
         },
         {
-          "label": "Especificidad neta en serie",
-          "val": "E1 + E2 − (E1 × E2)"
+          "label": "Sensibilidad neta en serie",
+          "val": "S1 × S2 (por ejemplo, 0,70 × 0,90 = 0,63)"
         },
         {
-          "label": "En paralelo (positivo si cualquiera lo es)",
-          "val": "Gana sensibilidad y pierde especificidad; útil para no dejar pasar casos"
+          "label": "Simultáneas (positivo si cualquiera lo es)",
+          "val": "Gana sensibilidad neta y pierde especificidad neta"
         },
         {
-          "label": "Sensibilidad neta en paralelo",
-          "val": "S1 + S2 − (S1 × S2)"
+          "label": "Negativo en simultáneas",
+          "val": "Solo quien sale negativo en todas las pruebas"
         }
       ],
-      "redFlag": "Tamizaje en dos pasos (VIH, sífilis): primero una prueba sensible y luego una específica, es decir, en serie.",
-      "trap": "Las fórmulas suponen pruebas independientes; si miden lo mismo, la ganancia real es menor."
+      "redFlag": "Tamizaje en dos etapas: primero la prueba más barata o menos invasiva y luego, solo a los positivos, la más costosa.",
+      "trap": "Esperar que una segunda prueba a los positivos aumente la sensibilidad: en serie, la sensibilidad neta baja.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Sequential (two-stage) testing»",
+          "texto": "In sequential (or two-stage) screening, a less expensive, less invasive, or less uncomfortable test is generally performed first, and those who screen positive are recalled for further testing with a more expensive, more invasive, or more uncomfortable test, which may have greater sensitivity and specificity. It is hoped that bringing back for further testing only those who screen positive will reduce the problem of false positives."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Use of multiple tests»",
+          "texto": "In sequential testing, when we retest those who tested positive on the first test, there is a loss in net sensitivity and a gain in net specificity."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Sequential (two-stage) testing»",
+          "texto": "which can also be calculated by multiplying the sensitivity of the first test times the sensitivity of the second test"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Use of multiple tests»",
+          "texto": "In simultaneous testing, because an individual who tests positive on any one or multiple tests is considered positive, there is a gain in net sensitivity. However, to be considered negative, a person would have to test negative on all the tests performed. As a result, there is a loss in net specificity."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f09",
@@ -786,22 +933,33 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "Qué mide",
-          "val": "Acuerdo más allá del esperado por azar entre dos observadores o dos mediciones"
+          "val": "Cuánto supera el acuerdo observado al esperado por azar, como proporción de la mejora máxima posible"
         },
         {
           "label": "Fórmula",
-          "val": "(acuerdo observado − acuerdo por azar) / (1 − acuerdo por azar)"
+          "val": "(% acuerdo observado − % esperado por azar) / (100 % − % esperado por azar)"
         },
         {
-          "label": "Interpretación (Landis y Koch)",
-          "val": "> 0,80 casi perfecta · 0,61–0,80 sustancial · 0,41–0,60 moderada · 0,21–0,40 aceptable · ≤ 0,20 leve"
+          "label": "Interpretación (Landis y Koch, citados por Gordis)",
+          "val": "> 0,75 excelente · 0,40 a 0,75 intermedia a buena · < 0,40 pobre"
         },
         {
           "label": "Kappa = 0",
           "val": "El acuerdo es el que daría el azar"
         }
       ],
-      "trap": "Un porcentaje de acuerdo alto no basta: si casi todo es normal, dos observadores coinciden mucho por azar."
+      "trap": "Un porcentaje de acuerdo alto no basta: si casi todo es normal, dos observadores coinciden mucho por azar.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Rationale of the kappa statistic»",
+          "texto": "Thus, kappa quantifies the extent to which the observed agreement that the observers achieved exceeds that which would be expected by chance alone, and expresses it as the proportion of the maximum improvement that could occur beyond the agreement expected by chance alone."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Calculation of the kappa statistic»",
+          "texto": "Landis and Koch 5 suggested that a kappa greater than 0.75 represents excellent agreement beyond chance, a kappa below 0.40 represents poor agreement, and a kappa of 0.40 to 0.75 represents intermediate to good agreement."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f10",
@@ -812,23 +970,42 @@ MP_CONTENIDO.agregar({
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Validez (exactitud)",
-          "val": "Mide lo que dice medir: se acerca al valor real"
+          "label": "Validez",
+          "val": "Los resultados se agrupan alrededor del valor real"
         },
         {
-          "label": "Confiabilidad (precisión, reproducibilidad)",
-          "val": "Da el mismo resultado al repetirla"
+          "label": "Confiabilidad (repetibilidad)",
+          "val": "Da el mismo resultado al repetir la prueba"
         },
         {
-          "label": "Error sistemático",
-          "val": "Afecta la validez (sesgo): todas las mediciones se corren hacia un lado"
+          "label": "Fuentes de variación",
+          "val": "Intrasujeto, intraobservador e interobservador"
         },
         {
-          "label": "Error aleatorio",
-          "val": "Afecta la precisión; se reduce aumentando el número de mediciones o la muestra"
+          "label": "Lo que se busca",
+          "val": "Resultados válidos y confiables a la vez"
         }
       ],
-      "trap": "Una prueba puede ser muy reproducible y estar siempre equivocada: un tensiómetro mal calibrado da cifras estables pero falsas."
+      "trap": "Una prueba puede ser muy reproducible y estar siempre equivocada: un tensiómetro mal calibrado da cifras estables pero falsas.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Relationship between validity and reliability» (Fig. 5.16)",
+          "texto": "The curve is narrow, indicating that the results are quite reliable (repeatable); unfortunately, however, they cluster far from the true value, so they are not valid."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Relationship between validity and reliability» (Fig. 5.17)",
+          "texto": "However, the values obtained cluster around the true value and thus are valid."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Reliability (repeatability) of tests»",
+          "texto": "intrasubject variation (variation within individual subjects), intraobserver variation (variation in the reading of test results by the same reader), and interobserver variation (variation between those reading the test results)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Relationship between validity and reliability»",
+          "texto": "Clearly, what we would like to achieve are results that are both valid and reliable"
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f11",
@@ -840,7 +1017,7 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "Incidencia acumulada (riesgo)",
-          "val": "Casos nuevos / población en riesgo al inicio, en un periodo definido"
+          "val": "Casos nuevos / población en riesgo, en un periodo definido"
         },
         {
           "label": "Densidad de incidencia (tasa)",
@@ -848,19 +1025,41 @@ MP_CONTENIDO.agregar({
         },
         {
           "label": "Prevalencia",
-          "val": "Casos existentes (nuevos y antiguos) / población total, en un momento"
+          "val": "Casos existentes / población total, en un momento dado"
         },
         {
           "label": "Relación",
-          "val": "Prevalencia ≈ incidencia × duración media de la enfermedad (estado estable, enfermedad poco frecuente)"
+          "val": "Prevalencia ≈ incidencia × duración (estado estable y prevalencia no muy alta)"
         }
       ],
-      "redFlag": "Un tratamiento que prolonga la vida sin curar aumenta la prevalencia aunque la incidencia no cambie.",
-      "trap": "En la población en riesgo de la incidencia no entran quienes ya tienen la enfermedad."
+      "trap": "En la población en riesgo de la incidencia no entran quienes ya tienen la enfermedad.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Cumulative incidence»",
+          "texto": "It is defined as the frequency of new cases of a disease that occur during a specified period of time in a population at risk for developing the disease."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Incidence»",
+          "texto": "For the incidence to be meaningful, any individual who is included in the denominator must have the potential to become part of the group that is counted in the numerator."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Incidence rate»",
+          "texto": "When different individuals are observed for different lengths of time, as occurs most commonly in longitudinal studies, we can calculate an incidence rate (also called an incidence density), in which the denominator consists of the sum of the units of time that each individual was at risk and was observed."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Prevalence»",
+          "texto": "Prevalence proportion is defined as the number of affected persons present in the population at a specific time divided by the number of persons in the population at that time"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Relationship between incidence and prevalence»",
+          "texto": "in a steady-state situation, in which the rates are not changing, and in-migration equals out-migration in the populations being examined, and when the prevalence is not too high, the following equation applies: Prevalence = Incidence × Duration of Disease"
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f12",
-      "title": "Mortalidad, letalidad y tasa de ataque",
+      "title": "Mortalidad y letalidad",
       "badge": "Medidas de frecuencia",
       "area": "Medidas de frecuencia",
       "src": "gordis",
@@ -868,22 +1067,41 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "Tasa de mortalidad",
-          "val": "Muertes por una causa / población total en el periodo"
+          "val": "Muertes en un periodo / población a mitad del periodo; lo que se restrinja en el numerador (edad, causa) se restringe en el denominador"
         },
         {
           "label": "Letalidad",
-          "val": "Muertes por la enfermedad / personas con la enfermedad: mide gravedad"
+          "val": "Muertes por la enfermedad en un tiempo dado / personas con la enfermedad: mide gravedad"
         },
         {
-          "label": "Tasa de ataque",
-          "val": "Incidencia acumulada durante un brote: enfermos / expuestos"
-        },
-        {
-          "label": "Tasa de ataque secundaria",
-          "val": "Casos entre contactos de un caso primario / contactos susceptibles"
+          "label": "Mortalidad como reflejo de la incidencia",
+          "val": "Solo si la letalidad es alta y la enfermedad dura poco (rabia no tratada)"
         }
       ],
-      "trap": "Confundir mortalidad con letalidad: una enfermedad rara puede tener baja mortalidad poblacional y letalidad altísima (rabia)."
+      "trap": "Confundir mortalidad con letalidad: una enfermedad rara puede tener baja mortalidad poblacional y letalidad altísima (rabia).",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Case-fatality»",
+          "texto": "Thus, case-fatality is a measure of the severity or fatality of the disease."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), tasas de mortalidad",
+          "texto": "In putting a restriction on age, for example, the same restriction must apply to both the numerator and the denominator, so that every person in the denominator group will be at risk for entering the numerator group."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), mortalidad e incidencia",
+          "texto": "A mortality rate is a good reflection of the incidence rate under two conditions: first, when the case-fatality is high (as in untreated rabies), and second, when the duration of disease (survival) is short (as in COVID-19)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), tasas de mortalidad",
+          "texto": "Note that because the population changes over time, the number of persons in the population at midyear is generally used as an approximation of average population in that year."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Case-fatality»",
+          "texto": "In other words, what percentage of people who have a certain disease die within a certain time after their disease was diagnosed?"
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f13",
@@ -895,22 +1113,41 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "Para qué",
-          "val": "Comparar poblaciones con distinta estructura de edad (una más envejecida tiene más muertes)"
+          "val": "Eliminar el efecto de las diferencias de edad al comparar poblaciones"
         },
         {
           "label": "Método directo",
-          "val": "Aplica las tasas por edad de cada población a una población estándar; da tasas ajustadas comparables"
+          "val": "Aplica las tasas por edad de cada población a una misma población estándar"
         },
         {
-          "label": "Método indirecto",
-          "val": "Aplica tasas estándar a la población estudiada para obtener las muertes esperadas"
+          "label": "Método indirecto (RME)",
+          "val": "Se usa cuando no se conocen las muertes por grupo de edad: muertes observadas / esperadas"
         },
         {
-          "label": "Razón de mortalidad estandarizada (RME)",
-          "val": "Muertes observadas / esperadas; > 1 (o 100 %) = más muertes de las esperadas"
+          "label": "Razón de mortalidad estandarizada",
+          "val": "> 100: más muertes de las esperadas; < 100: menos"
         }
       ],
-      "trap": "Las tasas ajustadas sirven solo para comparar: no son la tasa real de ninguna de las dos poblaciones."
+      "trap": "Las tasas ajustadas sirven solo para comparar: no son la tasa real de ninguna de las dos poblaciones.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Direct age adjustment»",
+          "texto": "In direct age adjustment, a standard population is used in order to eliminate the effects of any differences in age between two or more populations being compared"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Indirect age adjustment»",
+          "texto": "Indirect age adjustment is often used when numbers of deaths for each age-specific stratum are not available."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Indirect age adjustment»",
+          "texto": "An SMR greater than 100 indicates that the observed number of deaths exceeds the expected number, and an SMR less than 100 indicates that the observed number of deaths is less than the expected number."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), tasas ajustadas",
+          "texto": "They do not reflect the true mortality risk of a “real” population because the numerical value of an age-adjusted death rate depends on the standard population used."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f14",
@@ -925,20 +1162,43 @@ MP_CONTENIDO.agregar({
           "val": "Incidencia en expuestos − incidencia en no expuestos"
         },
         {
-          "label": "Fracción atribuible en expuestos",
-          "val": "(RR − 1) / RR: qué parte del riesgo de los expuestos se debe a la exposición"
+          "label": "Proporción atribuible en expuestos",
+          "val": "(Incidencia en expuestos − en no expuestos) / incidencia en expuestos"
         },
         {
           "label": "Riesgo atribuible poblacional",
           "val": "Incidencia en la población total − incidencia en no expuestos"
         },
         {
-          "label": "Fracción atribuible poblacional",
-          "val": "Riesgo atribuible poblacional / incidencia total: depende de cuán frecuente es la exposición"
+          "label": "Proporción atribuible poblacional",
+          "val": "Lo anterior / incidencia total; con la fórmula de Levin depende de la proporción de expuestos y del RR"
         }
       ],
-      "redFlag": "Para decidir políticas de salud pública pesa el riesgo atribuible poblacional, no solo el RR.",
-      "trap": "Un RR alto con una exposición rara puede evitar menos casos en la población que un RR modesto con una exposición frecuente."
+      "redFlag": "Para decidir políticas de salud pública pesa el riesgo atribuible poblacional; el RR sirve para estudiar la etiología.",
+      "trap": "Un RR alto con una exposición rara puede evitar menos casos en la población que un RR modesto con una exposición frecuente.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 13 (pp. 258–267), «Attributable risk»",
+          "texto": "the attributable risk, which is defined as the amount or proportion of disease incidence (or disease risk) that can be attributed to a specific exposure."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 13 (pp. 258–267), riesgo atribuible poblacional",
+          "texto": "The attributable risk for the total population (population attributable risk [PAR]) is a valuable concept for the public health worker."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 13 (pp. 258–267), fórmula de Levin",
+          "texto": "where p is the proportion of the population with the characteristic or exposure and r is the relative risk (or odds ratio)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 13 (pp. 258–267), riesgo relativo frente a atribuible",
+          "texto": "Thus, the attributable risk has major applications in clinical practice and public health whereas the relative risk is valuable in etiologic studies of disease."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 13 (pp. 258–267), «Attributable risk for the exposed group»",
+          "texto": "We could instead ask, “What proportion of the risk in exposed persons is due to the exposure?”"
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f15",
@@ -949,27 +1209,50 @@ MP_CONTENIDO.agregar({
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Odds ratio (tabla 2×2)",
-          "val": "(a × d) / (b × c)"
+          "label": "Odds ratio (tabla 2 × 2)",
+          "val": "(a × d) / (b × c): razón de productos cruzados"
         },
         {
           "label": "Riesgo relativo",
-          "val": "[a / (a + b)] / [c / (c + d)]: requiere incidencias (cohorte o ensayo)"
+          "val": "Riesgo en expuestos / riesgo en no expuestos; en cohortes se calcula directamente"
         },
         {
-          "label": "Enfermedad rara (< 10 %)",
+          "label": "Enfermedad rara",
           "val": "El OR se aproxima al RR"
         },
         {
-          "label": "Enfermedad frecuente",
-          "val": "El OR se aleja de 1 más que el RR: exagera la magnitud de la asociación"
-        },
-        {
           "label": "Valor nulo",
-          "val": "1 en ambos; un IC 95 % que incluye 1 no es significativo"
+          "val": "RR = 1: sin asociación; > 1: asociación positiva; < 1: posible protección"
         }
       ],
-      "trap": "Leer un OR de 3 como «el triple de riesgo» cuando el desenlace es frecuente."
+      "trap": "Leer el OR de un estudio de casos y controles como riesgo relativo cuando la enfermedad no es rara.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 12 (pp. 240–257), «Relative risk»",
+          "texto": "“What is the ratio of the risk of disease in exposed individuals to the risk of disease in unexposed individuals?” This ratio is called the relative risk (RR):"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 12 (pp. 240–257), «Odds ratio»",
+          "texto": "The odds ratio is also known as the cross-products ratio, because it can be obtained by multiplying"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 12 (pp. 240–257), OR como estimador del RR",
+          "texto": "If a disease is rare, both"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 12 (pp. 240–257), OR como estimador del RR",
+          "texto": "the odds ratio will then approximate the relative risk."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 12 (pp. 240–257), tabla 12.4",
+          "texto": "If RR = 1 Risk in exposed equal to risk in unexposed (no association)"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 12 (pp. 240–257), tabla 12.4",
+          "texto": "If RR < 1 Risk in exposed less than risk in unexposed (negative association; possibly protective)"
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f16",
@@ -980,27 +1263,42 @@ MP_CONTENIDO.agregar({
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Curva de Kaplan-Meier",
-          "val": "Proporción sin el evento a lo largo del tiempo; cada escalón es un evento"
+          "label": "Kaplan-Meier",
+          "val": "Sin intervalos fijos: cada muerte (o evento) cierra un intervalo y abre otro"
         },
         {
-          "label": "Censura",
-          "val": "Pacientes que salen sin presentar el evento (fin del estudio, pérdida): aportan tiempo hasta que salen"
-        },
-        {
-          "label": "Hazard ratio (HR)",
-          "val": "Razón de las tasas instantáneas del evento entre grupos; < 1 favorece la intervención"
-        },
-        {
-          "label": "Supuesto del modelo de Cox",
-          "val": "Riesgos proporcionales: el HR se mantiene en el tiempo (curvas que no se cruzan)"
+          "label": "Pérdidas en el seguimiento (censura)",
+          "val": "Se asume que su supervivencia es igual a la de quienes siguen en el estudio"
         },
         {
           "label": "Mediana de supervivencia",
-          "val": "Tiempo en que la curva cruza el 50 %"
+          "val": "Tiempo en que sobrevive la mitad (50 %) de la población estudiada"
+        },
+        {
+          "label": "Mediana frente a media",
+          "val": "La mediana se afecta menos por valores extremos"
         }
       ],
-      "trap": "Leer un HR de 0,70 como «30 % menos eventos al final»: es una razón de tasas, no una reducción de riesgo acumulado."
+      "trap": "Suponer que las pérdidas en el seguimiento no importan: el análisis asume que les fue igual que a los demás, y eso a menudo es dudoso.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «The Kaplan-Meier method»",
+          "texto": "Rather, we identify the exact point in time when each death, or the event of interest, occurred so that each death, or event, terminates the previous interval and a new interval (and a new row in the Kaplan-Meier table) is started."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), supuestos del análisis de supervivencia",
+          "texto": "the second assumption made in survival analysis is that the survival experience of people who are lost to follow-up is the same as the experience of those who are followed up (also named, “not-informative censoring”)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «Median survival time»",
+          "texto": "Another approach to expressing prognosis is the median survival time, which is defined as the length of time that half (50%) of the study population survives."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «Median survival time»",
+          "texto": "First, it is less affected by extremes, whereas the mean can be significantly affected by even a single outlier."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f17",
@@ -1113,58 +1411,100 @@ MP_CONTENIDO.agregar({
     },
     {
       "id": "sp-f21",
-      "title": "Más sesgos del tamizaje: duración, sobrediagnóstico y voluntario sano",
+      "title": "Sesgos del tamizaje: anticipación, duración, sobrediagnóstico y voluntario",
       "badge": "Tamizaje",
       "area": "Diseños, sesgos y causalidad",
       "src": "gordis",
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Sesgo de duración (length bias)",
-          "val": "El tamizaje detecta más los tumores lentos, de mejor pronóstico"
+          "label": "Anticipación (lead time)",
+          "val": "Se diagnostica antes: la supervivencia parece mayor aunque la muerte no se retrasa"
         },
         {
-          "label": "Sobrediagnóstico",
-          "val": "Se detecta enfermedad que nunca habría causado síntomas ni muerte (cáncer de próstata indolente)"
+          "label": "Duración (length-biased sampling)",
+          "val": "El tamizaje detecta selectivamente los casos de mejor pronóstico"
         },
         {
-          "label": "Voluntario sano",
-          "val": "Quien acude al tamizaje suele ser más sano y cuidadoso que quien no acude"
+          "label": "Sobrediagnóstico (según Gordis)",
+          "val": "Sobrelectura: sanos etiquetados como enfermos que inflan la supervivencia de los «casos»"
+        },
+        {
+          "label": "Voluntario",
+          "val": "Quien acude suele ser más sano y adherente que la población general"
         },
         {
           "label": "Cómo se evitan",
-          "val": "Ensayo aleatorizado con mortalidad por la enfermedad (o total) como desenlace"
+          "val": "Ensayo aleatorizado con grupos de pronóstico comparable"
         }
       ],
       "redFlag": "Más casos detectados y mejor supervivencia tras el diagnóstico no prueban que el tamizaje salve vidas.",
-      "trap": "Atribuir al tamizaje el mejor pronóstico de los casos detectados por él."
+      "trap": "Atribuir al tamizaje el mejor pronóstico de los casos detectados por él.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Length-biased sampling (prognostic selection)»",
+          "texto": "The question is: Does screening selectively identify cases of the disease which have a better prognosis?"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Overdiagnosis bias»",
+          "texto": "In addition, because many of the persons with a diagnosis of cancer in the screened group would actually not have cancer and would therefore have a good survival, the results would represent an inflated estimate of survival after screening in persons thought to have cancer"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Referral bias (volunteer bias)»",
+          "texto": "Many studies have shown volunteers to be healthier than the general population and to be more likely to comply (to be adherent) with medical recommendations."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), sesgos y diseño aleatorizado",
+          "texto": "The problem of selection bias that most significantly affects our interpretation of the findings is best addressed by carrying out the comparison with a randomized study in which care is taken that the two groups have comparable initial prognostic profiles"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Lead time bias»",
+          "texto": "Survival seems better because the interval from diagnosis to death is longer, but the patient is not any better off because death has not been delayed."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f22",
-      "title": "Sesgos de Berkson y de Neyman",
+      "title": "Casos prevalentes frente a incidentes",
       "badge": "Sesgos",
       "area": "Diseños, sesgos y causalidad",
       "src": "gordis",
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Berkson (de admisión hospitalaria)",
-          "val": "Casos y controles tomados del hospital: la probabilidad de hospitalizarse depende de la exposición y de la enfermedad"
+          "label": "Casos prevalentes",
+          "val": "Los que existen al momento del estudio; no se sabe cuánto llevan con la enfermedad"
         },
         {
-          "label": "Consecuencia de Berkson",
-          "val": "Asociaciones falsas o distorsionadas que no existen en la población general"
+          "label": "Qué les falta",
+          "val": "Excluyen a quienes murieron pronto después de enfermar"
         },
         {
-          "label": "Neyman (prevalencia-incidencia)",
-          "val": "Se estudian casos prevalentes: faltan los que murieron pronto o se curaron rápido"
+          "label": "Consecuencia",
+          "val": "La exposición puede verse menos en prevalentes que en incidentes (tabaquismo previo y enfisema)"
         },
         {
-          "label": "Cómo evitar Neyman",
-          "val": "Usar casos incidentes (recién diagnosticados)"
+          "label": "Solución",
+          "val": "Usar casos incidentes (nuevos), que además permiten ver la secuencia temporal"
         }
       ],
-      "trap": "Llamar sesgo de memoria a lo que es de Neyman: aquí el problema es quién sobrevive para ser estudiado, no qué recuerda."
+      "trap": "Confundirlo con un sesgo de memoria: el problema es quién sigue vivo para ser estudiado, no qué recuerda.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Cross-sectional studies»",
+          "texto": "In other words, identifying only prevalent cases would exclude those who died sooner after the disease developed but before the study was carried out."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Cross-sectional studies»",
+          "texto": "In view of its biases, the results of a cross-sectional study should be used to generate hypotheses that can then be evaluated using a study design that includes the identification of incident cases and allows establishing the temporal sequence of the exposure and the outcome."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Cross-sectional studies»",
+          "texto": "As a result, past smoking will be observed less frequently in prevalent than in incident cases of emphysema."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f23",
@@ -1195,7 +1535,7 @@ MP_CONTENIDO.agregar({
     },
     {
       "id": "sp-f24",
-      "title": "Control de la confusión y modificación del efecto",
+      "title": "Control de la confusión e interacción",
       "badge": "Confusión",
       "area": "Diseños, sesgos y causalidad",
       "src": "gordis",
@@ -1203,26 +1543,49 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "En el diseño",
-          "val": "Aleatorización (también para confusores desconocidos), restricción y emparejamiento"
+          "val": "Emparejamiento de casos y controles (individual o por grupos)"
         },
         {
           "label": "En el análisis",
-          "val": "Estratificación (Mantel-Haenszel) y regresión multivariable (solo confusores medidos)"
+          "val": "Estratificación o ajuste"
         },
         {
-          "label": "Señal de confusión",
-          "val": "La medida cruda cambia al ajustar, pero es igual en todos los estratos"
+          "label": "Confusión frente a sesgo",
+          "val": "El sesgo es un error del estudio; la confusión es un hallazgo real"
         },
         {
-          "label": "Modificación del efecto (interacción)",
-          "val": "El efecto es distinto en cada estrato: se informa por separado, no se «ajusta»"
+          "label": "Interacción",
+          "val": "Efecto conjunto mayor que el esperado por los efectos separados: se especifica y se reporta, no se controla"
         }
       ],
-      "trap": "Ajustar por una variable intermedia del camino causal (por ejemplo, la presión al estudiar sal y accidente cerebrovascular): borra el efecto real."
+      "trap": "Tratar una interacción como confusión y «ajustarla»: la interacción se reporta.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), control de la confusión",
+          "texto": "As seen in Box 15.2, the issue of confounding can be addressed either in designing and carrying out a study or in analysis of the data."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), control de la confusión",
+          "texto": "Alternatively, we can handle the problem of confounding in the data analysis in one of two ways: stratification or adjustment."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), confusión frente a sesgo",
+          "texto": "Bias is a result of an error in the way that the study has been carried out, but confounding is a valid finding that describes the nature of the relationship among several factors and the risk of disease."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), «Interaction»",
+          "texto": "While confounding is a problem that needs to be addressed at the study design or analysis stage, interaction is an important phenomenon that we should prespecify (preferably) and report."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), «Interaction»",
+          "texto": "interaction is present—that is, an effect greater than would be expected from the independent effects of the two separate factors."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f25",
-      "title": "Criterios de causalidad de Bradford Hill",
+      "title": "Criterios de causalidad",
       "badge": "Causalidad",
       "area": "Diseños, sesgos y causalidad",
       "src": "gordis",
@@ -1230,26 +1593,53 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "Temporalidad",
-          "val": "La exposición precede al efecto: el único criterio indispensable"
+          "val": "La exposición debe ocurrir antes de la enfermedad"
         },
         {
-          "label": "Fuerza y gradiente",
-          "val": "Asociación fuerte (RR alto) y dosis-respuesta"
+          "label": "Fuerza de la asociación",
+          "val": "Medida por el RR (u OR)"
         },
         {
-          "label": "Consistencia",
-          "val": "Se repite en distintos estudios, poblaciones y diseños"
+          "label": "Dosis-respuesta",
+          "val": "Si existe, es fuerte evidencia; su ausencia no descarta causalidad"
         },
         {
-          "label": "Plausibilidad y coherencia",
-          "val": "Tiene sentido biológico y no contradice lo conocido"
+          "label": "Plausibilidad biológica",
+          "val": "Coherencia con el conocimiento biológico actual"
         },
         {
-          "label": "Experimento",
-          "val": "Al quitar la exposición, el efecto disminuye"
+          "label": "Cese de la exposición",
+          "val": "Si al suspenderla baja el riesgo, apoya la causalidad"
         }
       ],
-      "trap": "Exigir especificidad (una causa, un efecto): el tabaco causa muchas enfermedades y aun así es causal."
+      "trap": "Exigir especificidad (una causa, un efecto): su ausencia no niega la causalidad; el tabaco causa muchas enfermedades.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Temporal relationship»",
+          "texto": "It is clear that if a factor is believed to be the cause of a disease, exposure to the factor must occur before the disease develops."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Strength of the association»",
+          "texto": "The strength of the association is measured by the relative risk (or odds ratio)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Dose-response relationship»",
+          "texto": "If a dose-response relationship is present, it is strong evidence for a causal relationship."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Biologic plausibility»",
+          "texto": "Biologic plausibility refers to coherence with the current body of biologic knowledge."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Cessation of exposure»",
+          "texto": "When cessation data are available, they provide helpful supporting evidence for a causal association."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Specificity of the association»",
+          "texto": "However, as with a doseresponse relationship, absence of specificity in no way negates a causal relationship."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f26",
@@ -1349,89 +1739,162 @@ MP_CONTENIDO.agregar({
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Primordial (Strasser, OMS)",
-          "val": "Evita que aparezcan los factores de riesgo en la población: políticas y entornos (menos sal en los alimentos, impuestos a bebidas azucaradas, espacios para la actividad física desde la infancia)"
+          "label": "Primordial",
+          "val": "Evita la exposición al factor de riesgo: actividad física, poca sal y sin bebidas azucaradas desde la infancia para prevenir la hipertensión"
         },
         {
           "label": "Primaria",
-          "val": "Evita que la enfermedad aparezca: vacunas, dejar de fumar, ácido fólico"
+          "val": "Evita que la enfermedad aparezca: vacunación, reducir la exposición a un factor de riesgo"
         },
         {
           "label": "Secundaria",
-          "val": "Detecta la enfermedad temprana, sin síntomas: tamizaje (citología, mamografía)"
+          "val": "Detecta la enfermedad ya iniciada, antes de los síntomas: tamizaje del cáncer"
         },
         {
           "label": "Terciaria",
-          "val": "Limita secuelas y complicaciones de una enfermedad ya establecida: rehabilitación tras un ictus"
-        },
-        {
-          "label": "Cuaternaria (concepto de la medicina familiar, WONCA)",
-          "val": "Evita el daño por exceso de intervenciones médicas (sobrediagnóstico, sobretratamiento)"
+          "val": "Evita complicaciones en quien ya tiene la enfermedad diagnosticada: rehabilitación tras un ictus"
         }
       ],
-      "trap": "Clasificar el tamizaje como prevención primaria (no evita la enfermedad, la detecta antes), o confundir primordial con primaria: la primordial actúa antes de que exista el factor de riesgo; la primaria, sobre personas con el factor de riesgo o expuestas (vacunar, tratar la hipertensión para evitar el ictus)."
+      "trap": "Clasificar el tamizaje como prevención primaria: no evita la enfermedad, la detecta antes.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 1 (pp. 2–20), «Primary, secondary, and tertiary prevention»",
+          "texto": "Primordial prevention denotes the prevention of the exposure to the risk factor of the disease of interest."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 1 (pp. 2–20), «Primary, secondary, and tertiary prevention»",
+          "texto": "For example, primordial prevention of hypertension should start in childhood through physical activity, low-sodium diet, no consumption of sugar-sweetened beverages, etc."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 1 (pp. 2–20), tabla 1.2",
+          "texto": "Primary Preventing the initial development of a disease Immunization, reducing exposure to a risk factor"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 1 (pp. 2–20), «Primary, secondary, and tertiary prevention»",
+          "texto": "Secondary prevention involves identifying people in whom a disease process has already begun, but who have not yet developed clinical signs and symptoms of the illness."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 1 (pp. 2–20), «Primary, secondary, and tertiary prevention»",
+          "texto": "Tertiary prevention denotes preventing complications in those who have already developed signs and symptoms of an illness and have been diagnosed (i.e., people who are in the clinical phase of their illness)."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f30",
-      "title": "Brotes: curva epidémica, R0 e inmunidad colectiva",
+      "title": "Brotes: endemia, epidemia e inmunidad colectiva",
       "badge": "Enfermedades transmisibles",
       "area": "Enfermedades transmisibles",
       "src": "gordis",
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Endemia, epidemia y pandemia",
-          "val": "Lo habitual en una zona · más casos de los esperados · epidemia en varios continentes"
+          "label": "Endemia",
+          "val": "Presencia habitual de una enfermedad en una zona"
         },
         {
-          "label": "Fuente común puntual",
-          "val": "Un solo pico, en el lapso de un periodo de incubación (intoxicación alimentaria)"
+          "label": "Epidemia",
+          "val": "Casos claramente por encima de lo esperado, de fuente común o propagada"
         },
         {
-          "label": "Propagada (persona a persona)",
-          "val": "Picos sucesivos separados por un periodo de incubación"
+          "label": "Pandemia",
+          "val": "Epidemia mundial"
         },
         {
-          "label": "Número reproductivo básico (R0)",
-          "val": "Casos secundarios por caso en una población totalmente susceptible; > 1 la epidemia crece"
+          "label": "Brote por vehículo común (exposición única)",
+          "val": "Explosivo: aumento súbito y rápido de casos, limitados a quienes compartieron la exposición"
         },
         {
-          "label": "Umbral de inmunidad colectiva",
-          "val": "1 − 1/R0: con R0 = 4, hace falta ≈ 75 % de inmunes"
+          "label": "Inmunidad colectiva",
+          "val": "Inmunizando a gran parte de la población, el resto queda protegido"
         }
       ],
-      "trap": "Llamar epidemia solo a muchos casos: un caso de una enfermedad erradicada ya es un brote."
+      "trap": "Contar con la inmunidad colectiva cuando el microorganismo tiene un reservorio fuera del humano: ahí no opera.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Endemic, epidemic, and pandemic»",
+          "texto": "Endemic is defined as the habitual presence of a disease within a given geographic area."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Endemic, epidemic, and pandemic»",
+          "texto": "Epidemic is defined as the occurrence in a community or region of a group of illnesses of similar nature, clearly in excess of normal expectancy and derived from a common or a propagated source"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Endemic, epidemic, and pandemic»",
+          "texto": "Pandemic refers to a worldwide epidemic."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), brotes por vehículo común",
+          "texto": "First, such outbreaks are generally explosive—that is, there is a sudden and rapid increase in the number of cases of the disease or condition in a population."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Herd immunity»",
+          "texto": "We can achieve highly effective protection by immunizing a large part of the population; the remaining part will be protected because of herd immunity."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Herd immunity»",
+          "texto": "If we have a reservoir in which the organism can exist outside the human host, herd immunity will not operate because other means of transmission may be available."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f31",
-      "title": "Aislamiento, cuarentena y periodos de una infección",
+      "title": "Incubación, casos secundarios, aislamiento y cuarentena",
       "badge": "Enfermedades transmisibles",
       "area": "Enfermedades transmisibles",
       "src": "gordis",
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Aislamiento",
-          "val": "Separa a los enfermos (casos) durante el periodo de transmisibilidad"
+          "label": "Periodo de incubación",
+          "val": "De la infección al inicio de los síntomas"
+        },
+        {
+          "label": "Caso primario y secundario",
+          "val": "Primario: se infectó en la exposición; secundario: se contagió de un caso primario"
+        },
+        {
+          "label": "Tasa de ataque secundaria",
+          "val": "Tasa de ataque en susceptibles no expuestos a la fuente que estuvieron en contacto con un caso primario"
+        },
+        {
+          "label": "Aislar al enfermo",
+          "val": "No siempre basta: en muchas enfermedades infantiles el niño ya contagió antes de los síntomas"
         },
         {
           "label": "Cuarentena",
-          "val": "Restringe a los expuestos sanos durante el periodo de incubación máximo"
-        },
-        {
-          "label": "Periodo de incubación",
-          "val": "De la infección a los síntomas"
-        },
-        {
-          "label": "Periodo de latencia",
-          "val": "De la infección a la capacidad de contagiar; si es menor que la incubación, hay contagio antes de los síntomas"
-        },
-        {
-          "label": "Caso índice frente a caso primario",
-          "val": "El primero que llama la atención del sistema · el primero que se infectó"
+          "val": "Retener a quien llega el tiempo suficiente para ver si enferma (de los 40 días de Ragusa)"
         }
       ],
-      "trap": "Invertir cuarentena y aislamiento."
+      "trap": "Creer que aislar al niño cuando aparecen los síntomas corta la transmisión.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Incubation period»",
+          "texto": "The incubation period is defined as the interval from receipt of infection to the time of onset of clinical illness (the onset of recognizable symptoms)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Attack rate»",
+          "texto": "A person who acquires the disease from that exposure (e.g., from a contaminated food) is called a primary case."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Attack rate»",
+          "texto": "A person who acquires the disease from exposure to a primary case is called a secondary case."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Attack rate»",
+          "texto": "The secondary attack rate is therefore defined as the attack rate in susceptible people who were not exposed to the suspected agent who have been exposed to a primary case."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), aislamiento",
+          "texto": "For many common childhood diseases, by the time clinical disease develops in the child, he or she has already transmitted the disease to others. Therefore, isolating such a person at the point at which he or she becomes clinically ill will not necessarily be effective."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), cuarentena",
+          "texto": "In 1377, in the Italian seaport of Ragusa, travelers were detained in an isolated area for 30 days (trentini giorni) after arrival to see whether infection developed."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-f32",
@@ -1462,7 +1925,8 @@ MP_CONTENIDO.agregar({
           "val": "Correlación de Pearson (normal) o Spearman (no normal u ordinal)"
         }
       ],
-      "trap": "Usar t de Student no pareada para mediciones antes y después en los mismos pacientes."
+      "trap": "Usar t de Student no pareada para mediciones antes y después en los mismos pacientes.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f33",
@@ -1489,7 +1953,8 @@ MP_CONTENIDO.agregar({
           "val": "DE describe la dispersión de los datos; EE = DE/√n, la precisión de la media"
         }
       ],
-      "trap": "Presentar el error estándar en lugar de la desviación estándar hace que los datos parezcan menos dispersos."
+      "trap": "Presentar el error estándar en lugar de la desviación estándar hace que los datos parezcan menos dispersos.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f34",
@@ -1520,7 +1985,8 @@ MP_CONTENIDO.agregar({
           "val": "Tiempo hasta un evento: da hazard ratios ajustados"
         }
       ],
-      "trap": "Leer causalidad en una correlación, o creer que r = 0 significa ninguna relación (puede ser no lineal)."
+      "trap": "Leer causalidad en una correlación, o creer que r = 0 significa ninguna relación (puede ser no lineal).",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f35",
@@ -1548,7 +2014,8 @@ MP_CONTENIDO.agregar({
         }
       ],
       "redFlag": "Un estudio pequeño «negativo» no prueba que no haya efecto: mira si calculó la muestra y si el IC incluye un beneficio importante.",
-      "trap": "Pensar que aumentar la muestra corrige un sesgo: solo reduce el error aleatorio."
+      "trap": "Pensar que aumentar la muestra corrige un sesgo: solo reduce el error aleatorio.",
+      "estado": "pendiente"
     }
   ],
   "tarjetas": [
@@ -1556,31 +2023,54 @@ MP_CONTENIDO.agregar({
       "id": 42,
       "src": "gordis",
       "front": "Prueba ideal para descartar enfermedad",
-      "back": "Alta sensibilidad (SnNout)"
+      "back": "Alta sensibilidad (SnNout)",
+      "estado": "pendiente"
     },
     {
       "id": 43,
       "src": "gordis",
       "front": "Prueba ideal para confirmar enfermedad",
-      "back": "Alta especificidad (SpPin)"
+      "back": "Alta especificidad (SpPin)",
+      "estado": "pendiente"
     },
     {
       "id": 44,
       "src": "gordis",
       "front": "Fórmula del NNT",
-      "back": "1 / reducción absoluta del riesgo"
+      "back": "1 / (tasa en no tratados − tasa en tratados), redondeado hacia arriba",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Number needed to treat»",
+          "texto": "Thus if, for example, the mortality rate in the untreated group is 17% and mortality in the treated group is 12%, we would need to treat:"
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": 45,
       "src": "gordis",
       "front": "Medida de asociación en casos y controles",
-      "back": "Odds ratio"
+      "back": "Odds ratio: en casos y controles el riesgo relativo no se calcula directamente",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 12 (pp. 240–257), «Odds ratio in a case-control study»",
+          "texto": "in a case-control study, we cannot calculate the relative risk directly to determine whether there is an association between the exposure and the disease."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": 46,
       "src": "gordis",
       "front": "¿Qué cambia con la prevalencia: sensibilidad o VPP?",
-      "back": "Los valores predictivos (VPP y VPN)"
+      "back": "Los valores predictivos (VPP y VPN)",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 5 (pp. 96–124), «Relationship between positive predictive value and disease prevalence»",
+          "texto": "It is possible that the same test can have a very different predictive value when it is administered to a high-risk (high prevalence) population or to a low-risk (low prevalence) population."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ]
 });
