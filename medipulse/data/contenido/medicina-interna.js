@@ -112,7 +112,18 @@ MP_CONTENIDO.agregar({
       "whyCorrect": "Está dentro de la ventana terapéutica (< 4,5 horas), con TAC sin sangrado y PA < 185/110 mmHg, y sin contraindicaciones: trombólisis IV de inmediato. Con NIHSS de 12 y afasia hay que sospechar una oclusión de gran vaso: se hace angio-TC sin retrasar la trombólisis, para decidir la trombectomía mecánica.",
       "pearl": "Meta de PA ANTES de la trombólisis: < 185/110 mmHg (luego < 180/105). Déficit importante (NIHSS alto, afasia, desviación de la mirada) → buscar oclusión de gran vaso para trombectomía.",
       "trap": "Dar aspirina o bajar demasiado la PA antes de decidir trombólisis compromete la penumbra isquémica.",
-      "estado": "pendiente"
+      "estado": "pendiente",
+      "cita": [
+        {
+          "donde": "AHA/ASA 2026, manejo temprano del ACV isquémico",
+          "texto": "In adult patients with AIS who are eligible for IVT within 4.5 hours of symptom onset, treatment should be initiated as quickly as possible, assuring safe administration and avoiding potential delays associated with additional multimodal neuroimaging, such as CTA/MRA, and CT/MR perfusion imaging."
+        },
+        {
+          "donde": "AHA/ASA 2026, manejo temprano del ACV isquémico",
+          "texto": "Patients with AIS who have elevated BP and are otherwise eligible for treatment with IVT should have their SBP lowered to <185 mm Hg and diastolic blood pressure (DBP) <110 mm Hg before IVT therapy is initiated to reduce hemorrhagic complications."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": 8,
@@ -1217,11 +1228,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 19 años con placa eritematosa pruriginosa de borde activo en la <span class='hy'>cara interna de ambos muslos</span>, frente al escroto. El <span class='hy'>escroto está respetado</span>. ¿Cuál es el diagnóstico más probable?",
       "options": [
         "Candidiasis intertriginosa",
-        "Tiña crural",
         "Psoriasis inversa",
+        "Tiña crural",
         "Dermatitis de contacto"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "La tiña crural afecta la piel del muslo frente al escroto y suele respetar el escroto; el compromiso escrotal orienta a candidiasis. Cuando es posible, se confirma con KOH y microscopía directa.",
       "pearl": "Evita las cremas que combinan antimicótico y corticoide (como clotrimazol-betametasona).",
       "trap": "Tratar con una crema combinada con corticoide potente «para que mejore rápido».",
@@ -1253,11 +1264,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 62 años con dolor torácico opresivo que empezó <span class='hy'>hace 90 minutos</span>. ECG sin elevación del ST. La troponina T de alta sensibilidad a la hora 0 es <span class='hy'>menor de 5 ng/L</span>. ¿Qué haces?",
       "options": [
         "Darle de alta: una troponina tan baja descarta el infarto",
-        "Repetir la troponina a la hora 1 antes de descartar el infarto",
+        "Repetir la troponina a las 12 horas, como con los ensayos antiguos",
         "Llevarlo a coronariografía inmediata por la clínica típica",
-        "Repetir la troponina a las 12 horas, como con los ensayos antiguos"
+        "Repetir la troponina a la hora 1 antes de descartar el infarto"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "El descarte con una sola muestra solo es seguro si la troponina es indetectable o muy baja y el dolor empezó hace más de 3 horas. Con 90 minutos de evolución hay que seguir el algoritmo 0/1 h: medir a la hora 1 y decidir con el valor y el cambio.",
       "pearl": "Algoritmo 0/1 h (hs-cTnT Roche): descarte si < 5 ng/L a la hora 0 (con más de 3 h de dolor), o < 12 a la 0 h y cambio < 3 a la hora 1. Confirmación si ≥ 52 a la 0 h o cambio ≥ 5.",
       "trap": "Aplicar el descarte con muestra única a un dolor de menos de 3 horas: la troponina puede no haber subido aún.",
@@ -1308,12 +1319,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_mi26",
       "vignette": "Hombre de 50 años con <span class='hy'>antecedente de endocarditis infecciosa</span> hace 3 años, sin alergias. Le van a hacer una extracción dental mañana. ¿Qué le indicas?",
       "options": [
-        "Ninguna profilaxis: solo se da a portadores de prótesis valvular",
         "Amoxicilina 2 g oral, 30 a 60 minutos antes del procedimiento",
+        "Ninguna profilaxis: solo se da a portadores de prótesis valvular",
         "Amoxicilina 500 mg cada 8 horas por 7 días después de la extracción",
         "Ciprofloxacino 500 mg oral una hora antes del procedimiento"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "El antecedente de endocarditis es de alto riesgo, y la ESC elevó a clase I la profilaxis antes de procedimientos dentales invasivos en estos pacientes. Va dirigida contra estreptococos del grupo viridans: amoxicilina 2 g oral, 30 a 60 minutos antes. Con alergia a penicilinas: cefalexina, claritromicina, azitromicina o doxiciclina; se evita la clindamicina.",
       "pearl": "Alto riesgo de endocarditis: antecedente de endocarditis, prótesis valvulares, cardiopatías congénitas complejas, dispositivos de asistencia ventricular y reparaciones valvulares transcatéter.",
       "trap": "Dar un esquema de varios días después del procedimiento: la profilaxis es una dosis única antes.",
@@ -1337,11 +1348,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 35 años con 3 días de fiebre, cefalea, conducta extraña y una crisis focal. Glasgow 13. Se tomó la punción lumbar y la PCR para herpes estará <span class='hy'>en 48 horas</span>; la resonancia se hará mañana. ¿Qué haces ahora?",
       "options": [
         "Esperar la PCR para no exponerla a nefrotoxicidad",
-        "Aciclovir IV 10 mg/kg cada 8 horas desde ya",
         "Aciclovir oral, por su buena biodisponibilidad",
+        "Aciclovir IV 10 mg/kg cada 8 horas desde ya",
         "Esperar la resonancia para confirmar el lóbulo temporal"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Ante la sospecha de encefalitis herpética, el aciclovir IV se inicia de inmediato, sin esperar la PCR ni la resonancia: 10 mg/kg cada 8 horas (peso ajustado en obesos), ajustado a la función renal, por 14 a 21 días. La vía oral no sirve por su baja absorción.",
       "pearl": "Solo se suspende el aciclovir en urgencias si la PCR es negativa después de 72 horas, la conciencia es normal y la resonancia y la punción son normales.",
       "trap": "Esperar la confirmación: cada hora sin aciclovir empeora el pronóstico neurológico.",
@@ -1429,11 +1440,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 47 años con consumo crónico de alcohol y desnutrición, traído confuso, con marcha inestable y nistagmo. Glucemia capilar de 58 mg/dL. Vas a pasar dextrosa. ¿Qué debe ir <span class='hy'>antes</span>?",
       "options": [
         "Flumazenil IV para descartar benzodiacepinas",
-        "Tiamina IV 200 mg cada 8 horas",
+        "Lactulosa por posible encefalopatía hepática",
         "Haloperidol IM para poder canalizarlo",
-        "Lactulosa por posible encefalopatía hepática"
+        "Tiamina IV 200 mg cada 8 horas"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Con sospecha de encefalopatía de Wernicke, la tiamina parenteral se da de inmediato y antes de la glucosa: 200 mg IV cada 8 horas por 3 a 5 días, corrigiendo también el magnesio y el folato. La hipoglucemia no se deja sin tratar: la dextrosa va justo después, sin esperar. La tríada clásica (ataxia, alteración oculomotora y encefalopatía) no siempre está completa, por eso la sospecha debe ser amplia.",
       "pearl": "Wernicke: tiamina 200 mg IV cada 8 horas por 3 a 5 días, antes de la glucosa. Los 100 mg IV son la dosis preventiva en la intoxicación alcohólica. No esperar la tríada completa.",
       "trap": "Dar la dosis preventiva (100 mg) a un paciente con Wernicke establecido, o retrasar la glucosa en una hipoglucemia esperando la tiamina.",
@@ -1629,6 +1640,154 @@ MP_CONTENIDO.agregar({
         {
           "donde": "GINA 2026 · Paso 3",
           "texto": "ICS-formoterol should not be used as the reliever for patients taking a different ICS-LABA maintenance treatment, because clinical evidence for safety and efficacy is lacking."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c42",
+      "topic": "Gastroenterología · Peritonitis bacteriana espontánea",
+      "difficulty": "Nivel 2",
+      "src": "jama_cirrosis",
+      "vignette": "Hombre de 58 años con cirrosis y ascitis, con dolor abdominal difuso y febrícula. Paracentesis: <span class='hy'>420 neutrófilos/μL</span>, Gram sin gérmenes. ¿Qué tiene?",
+      "options": [
+        "Ascitis no complicada: repetir en 48 horas",
+        "Peritonitis bacteriana espontánea",
+        "Peritonitis secundaria: cirugía urgente",
+        "Nada: el Gram es negativo"
+      ],
+      "correct": 1,
+      "whyCorrect": "La peritonitis bacteriana espontánea se diagnostica con más de 250 neutrófilos/μL en el líquido ascítico, aunque el Gram y el cultivo sean negativos. Se trata con antibiótico y albúmina.",
+      "pearl": "Toda descompensación o ingreso de un cirrótico con ascitis merece paracentesis diagnóstica.",
+      "trap": "Esperar el cultivo o un Gram positivo para tratar.",
+      "cita": [
+        {
+          "donde": "JAMA 2023, cirrosis",
+          "texto": "Spontaneous bacterial peritonitis is diagnosed after paracentesis with ascites concentrations of neutrophil count greater than 250/μL."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c43",
+      "topic": "Gastroenterología · Encefalopatía hepática",
+      "difficulty": "Nivel 2",
+      "src": "jama_cirrosis",
+      "vignette": "Mujer de 62 años con cirrosis, <span class='hy'>desorientada y con asterixis</span>. Sin sangrado ni infección evidente. ¿Cuál es el tratamiento de primera línea y su meta?",
+      "options": [
+        "Neomicina oral hasta normalizar el amonio sérico del todo",
+        "Lactulosa para lograr 2 a 3 deposiciones blandas al día",
+        "Restringir la proteína de la dieta a cero hasta que despierte",
+        "Flumazenil IV y medir el amonio cada 6 horas para guiar dosis"
+      ],
+      "correct": 1,
+      "whyCorrect": "La lactulosa es la primera línea en la encefalopatía hepática: 10 a 20 g 2 a 3 veces al día, con meta de 2 a 3 deposiciones blandas. La rifaximina 550 mg cada 12 horas se agrega para prevenir recurrencias. La dieta debe ser alta en proteína.",
+      "pearl": "Prevención del sangrado variceal: carvedilol o propranolol. Ascitis: antialdosterónico más diurético de asa.",
+      "trap": "Restringir la proteína: empeora la desnutrición y la sarcopenia.",
+      "cita": [
+        {
+          "donde": "JAMA 2023, cirrosis",
+          "texto": "First-line therapies include carvedilol or propranolol to prevent variceal bleeding, lactulose for hepatic encephalopathy, combination aldosterone antagonists and loop diuretics for ascites, and terlipressin for hepatorenal syndrome."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c44",
+      "topic": "Gastroenterología · Hemorragia digestiva alta no variceal",
+      "difficulty": "Nivel 2",
+      "src": "bmj_hda25",
+      "vignette": "Hombre de 55 años con melenas. PA 118/72, FC 92, sin enfermedad cardiovascular. <span class='hy'>Hb 8,1 g/dL</span>. Un colega propone transfundir 2 unidades y dar ácido tranexámico. ¿Qué haces?",
+      "options": [
+        "Transfundir 2 unidades de glóbulos rojos y ácido tranexámico IV",
+        "No transfundir aún (umbral 7 g/dL) y no dar tranexámico",
+        "Transfundir hasta una hemoglobina de 10 g/dL por seguridad",
+        "Solo ácido tranexámico IV, sin necesidad de endoscopia"
+      ],
+      "correct": 1,
+      "whyCorrect": "En la hemorragia digestiva alta, la estrategia de transfusión es restrictiva: umbral de Hb menor de 7 g/dL en el paciente sin enfermedad cardiovascular. El ácido tranexámico no se recomienda. Se da inhibidor de bomba y endoscopia temprana.",
+      "pearl": "Eritromicina IV antes de la endoscopia mejora la visualización y reduce las endoscopias repetidas.",
+      "trap": "Trasladar el ácido tranexámico del trauma o la hemorragia posparto a la hemorragia digestiva.",
+      "cita": [
+        {
+          "donde": "BMJ 2025, hemorragia digestiva alta",
+          "texto": "Updates in pre-­endoscopic treatment include restrictive transfusion thresholds, thromboelastography-­ guided correction of coagulopathy, avoidance of tranexamic acid and quality of care initiatives focused on resuscitative management."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c45",
+      "topic": "Gastroenterología · Sangrado variceal",
+      "difficulty": "Nivel 3",
+      "src": "bmj_hda25",
+      "vignette": "Hombre de 50 años con cirrosis y <span class='hy'>hematemesis abundante</span>; ya se reanimó. ¿Qué tratamiento farmacológico va junto con la endoscopia temprana?",
+      "options": [
+        "Solo inhibidor de bomba de protones",
+        "Terlipresina más ceftriaxona",
+        "Ácido tranexámico más vitamina K",
+        "Propranolol IV en bolo"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el sangrado variceal se da un vasoactivo (terlipresina) y profilaxis antibiótica (ceftriaxona), con endoscopia temprana: ESGE y AASLD la piden antes de 12 horas. Un curso de 48 horas de terlipresina y ceftriaxona no fue inferior a 5 días tras la hemostasia.",
+      "pearl": "El antibiótico profiláctico en el cirrótico que sangra reduce infecciones, resangrado y mortalidad.",
+      "trap": "Usar el betabloqueador en el sangrado agudo: es para la prevención, no para el episodio.",
+      "cita": [
+        {
+          "donde": "BMJ 2025, hemorragia digestiva alta",
+          "texto": "variceal bleeding, the ESGE and AASLD recommend endoscopy within 12 hours after presentation with variceal bleeding,9 12 whereas the BSG recommends endoscopy within 24 hours."
+        },
+        {
+          "donde": "BMJ 2025, hemorragia digestiva alta",
+          "texto": "A recent RCT demonstrated that a 48-­hour course of terlipressin and ceftriaxone was non-­inferior to 5 days of therapy following haemostasis, suggesting shorter treatment durations may be appropriate in selected patients."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c46",
+      "topic": "Infectología · Sífilis latente tardía",
+      "difficulty": "Nivel 2",
+      "src": "jama_sifilis25",
+      "vignette": "Mujer de 35 años, asintomática, con VDRL reactiva y prueba treponémica positiva; tenía serología negativa hace 3 años y no sabe cuándo se infectó. Examen neurológico normal. ¿Qué tratamiento?",
+      "options": [
+        "Penicilina benzatínica 2,4 millones UI en dosis única hoy",
+        "Penicilina benzatínica 2,4 millones UI semanal por 3 semanas",
+        "Penicilina cristalina IV por 14 días hospitalizada siempre",
+        "Doxiciclina 100 mg cada 12 horas por 7 días como primera línea"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con más de un año (o tiempo desconocido) desde la infección es sífilis latente tardía: penicilina benzatínica 2,4 millones UI IM, tres dosis semanales. La sífilis temprana (primaria, secundaria o latente temprana) recibe una sola dosis.",
+      "pearl": "Neurosífilis, sífilis ocular u ótica: penicilina cristalina IV.",
+      "trap": "Dar una sola dosis a una sífilis latente de duración desconocida.",
+      "cita": [
+        {
+          "donde": "JAMA 2025, sífilis",
+          "texto": "The recommended treatment for syphilis is benzathine penicillin G administered as intramuscular doses of 2.4 million units: a single injection for early stage and 3 weekly injections for late latent stage syphilis."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c47",
+      "topic": "Infectología · Reacción de Jarisch-Herxheimer",
+      "difficulty": "Nivel 2",
+      "src": "jama_sifilis25",
+      "vignette": "Hombre de 28 años con sífilis secundaria. Seis horas después de la penicilina benzatínica tiene <span class='hy'>fiebre, escalofríos, cefalea y más exantema</span>. ¿Qué le dices?",
+      "options": [
+        "Es alergia a la penicilina: no volver a usarla en su vida",
+        "Es una reacción de Jarisch-Herxheimer, no alergia",
+        "Es una falla del tratamiento: repetir la dosis completa ya",
+        "Es neurosífilis: punción lumbar urgente"
+      ],
+      "correct": 1,
+      "whyCorrect": "La reacción de Jarisch-Herxheimer es un empeoramiento transitorio tras el tratamiento (fiebre, escalofríos, cefalea, mialgias, exantema). No es alergia a la penicilina: se maneja con antipiréticos.",
+      "pearl": "Tamizaje de sífilis en la gestante: en el primer control, en el tercer trimestre y en el parto.",
+      "trap": "Etiquetar al paciente como alérgico a la penicilina y quitarle el único tratamiento eficaz.",
+      "cita": [
+        {
+          "donde": "JAMA 2025, sífilis",
+          "texto": "The Jarisch-Herxheimer reaction does not constitute a penicillin allergy."
         }
       ],
       "verificado": "2026-11-23"

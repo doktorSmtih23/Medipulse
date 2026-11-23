@@ -15,12 +15,12 @@ MP_CONTENIDO.agregar({
       "src": "gordis",
       "vignette": "Se evalúa una nueva prueba rápida para VIH con <span class='hy'>sensibilidad 99%</span> y <span class='hy'>especificidad 92%</span>. Un comité quiere usarla en población general. ¿Cuál es el uso más adecuado de esta prueba?",
       "options": [
-        "Como prueba de tamizaje, confirmando los positivos con una prueba más específica",
-        "No sirve porque su especificidad es menor a 95%",
         "Como prueba confirmatoria única antes de iniciar tratamiento",
+        "No sirve porque su especificidad es menor a 95%",
+        "Como prueba de tamizaje, confirmando los positivos con una prueba más específica",
         "Solo en población de alto riesgo porque el VPP no depende de la prevalencia"
       ],
-      "correct": 0,
+      "correct": 2,
       "whyCorrect": "Una sensibilidad muy alta deja pocos falsos negativos: un resultado negativo descarta la enfermedad (SnNout). Por eso es ideal para tamizaje. Los positivos se confirman con una prueba de alta especificidad (SpPin).",
       "pearl": "SnNout: Sensible + Negativo = descarta. SpPin: Específica + Positivo = confirma. Los valores predictivos SÍ cambian con la prevalencia; la sensibilidad y la especificidad no.",
       "trap": "Creer que el VPP es fijo. A menor prevalencia, cae el VPP y aumentan los falsos positivos."
@@ -33,11 +33,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Investigadores identifican a 120 pacientes con <span class='hy'>carcinoma hepatocelular</span> y 240 sin la enfermedad, y revisan <span class='hy'>retrospectivamente</span> su exposición previa a aflatoxinas. ¿Qué diseño es y qué medida de asociación corresponde?",
       "options": [
         "Ensayo clínico · Número necesario a tratar",
-        "Casos y controles · Odds ratio",
+        "Cohorte prospectiva · Riesgo relativo",
         "Transversal · Prevalencia",
-        "Cohorte prospectiva · Riesgo relativo"
+        "Casos y controles · Odds ratio"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Se parte del desenlace (con y sin enfermedad) y se busca la exposición hacia atrás: eso es un estudio de casos y controles. No permite calcular incidencia, así que la medida es el odds ratio.",
       "pearl": "Cohorte: parte de la exposición → RR. Casos y controles: parte de la enfermedad → OR. Útil para enfermedades raras.",
       "trap": "Calcular riesgo relativo en un estudio de casos y controles: no se puede porque el investigador fija la proporción de casos."
