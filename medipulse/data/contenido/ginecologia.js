@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Ginecología",
   "prefijo": "gin",
   "paquete": "starter",
-  "actualizado": "2026-11-22",
+  "actualizado": "2026-11-23",
   "casos": [
     {
       "id": 4,
@@ -87,12 +87,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_ect",
       "vignette": "Mujer de 27 años con amenorrea de 6 semanas, <span class='hy'>dolor en fosa ilíaca izquierda, sangrado vaginal escaso y PA 84/52 mmHg, FC 120 lpm</span>. β-hCG positiva, ecografía transvaginal: útero vacío y líquido libre abundante en fondo de saco de Douglas. ¿Conducta?",
       "options": [
-        "Metotrexato 50 mg/m² IM en dosis única y control de β-hCG",
         "Reanimación y cirugía urgente (laparoscopia o laparotomía)",
+        "Metotrexato 50 mg/m² IM en dosis única y control de β-hCG",
         "Legrado uterino obstétrico por aborto incompleto con sangrado activo",
         "Repetir β-hCG en 48 horas para verificar si se duplica antes de decidir"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Es un embarazo ectópico con dolor importante, inestabilidad hemodinámica y hemoperitoneo: se reanima y se opera de urgencia. NICE indica cirugía como primera línea cuando hay dolor significativo, masa anexial de 35 mm o más, latido fetal visible o hCG de 5.000 UI/L o más; el metotrexato es solo para el ectópico no roto, sin dolor importante.",
       "pearl": "Metotrexato (NICE): sin dolor importante, ectópico no roto, masa < 35 mm, sin latido, hCG < 1.500 UI/L, sin embarazo intrauterino y con seguimiento posible. Con hCG entre 1.500 y 4.999 UI/L se puede elegir metotrexato o cirugía.",
       "trap": "Indicar metotrexato o esperar 48 horas en una paciente hipotensa con hemoperitoneo.",
@@ -563,11 +563,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Gestante de 28 años, sin antecedentes. En la ecografía de las 12 semanas la <span class='hy'>translucencia nucal mide 3,8 mm</span>; el cariotipo resulta normal. ¿Qué estudio cardíaco del feto indicas?",
       "options": [
         "Ninguno, porque el cariotipo es normal",
-        "Ecocardiografía fetal especializada",
         "Solo la ecografía de detalle de las 20 semanas",
+        "Ecocardiografía fetal especializada",
         "Ecocardiograma al recién nacido"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Una translucencia nucal por encima del percentil 99 o de 3,5 mm siempre es indicación de ecocardiografía fetal: se asocia a trisomías 21 y 18 y a cardiopatías, aunque no haya anomalías cromosómicas.",
       "pearl": "Otras indicaciones de ecocardiografía fetal: anomalía en la vista de cuatro cámaras o en los tractos de salida, arritmias fetales, fiebre o ciertas infecciones maternas en el primer trimestre.",
       "trap": "Descartar el riesgo cardíaco porque el cariotipo salió normal.",
@@ -854,6 +854,114 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-22"
+    },
+    {
+      "id": "gin-c28",
+      "topic": "Control prenatal · Diabetes gestacional",
+      "difficulty": "Nivel 1",
+      "src": "res3280",
+      "vignette": "Gestante de 26 años, sin factores de riesgo, con glucemia en ayunas normal en el primer trimestre. Está en la <span class='hy'>semana 25</span>. ¿Qué prueba le corresponde ahora según la ruta materno perinatal?",
+      "options": [
+        "Ninguna: su glucemia inicial del primer trimestre fue normal",
+        "Hemoglobina glicosilada",
+        "Curva de tolerancia oral con 75 g",
+        "Glucemia en ayunas cada mes"
+      ],
+      "correct": 2,
+      "whyCorrect": "La ruta materno perinatal indica la prueba de tolerancia oral a la glucosa con 75 g entre las semanas 24 y 28, aunque la glucemia inicial haya sido normal.",
+      "pearl": "Otras pruebas por semana: ecografía de detalle 18–23 + 6; hemograma en la 28; cultivo rectovaginal para estreptococo del grupo B entre la 35 y la 37.",
+      "trap": "Omitir la curva porque la glucemia del primer trimestre fue normal.",
+      "cita": [
+        {
+          "donde": "Resolución 3280 de 2018 · Ruta materno perinatal, control prenatal",
+          "texto": "Prueba de tolerancia oral a la glucosa (PTOG) con 75 gramos (g) de glucosa. Realizar entre la semana 24 y 28 de gestación."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c29",
+      "topic": "Control prenatal · Aspirina para preeclampsia",
+      "difficulty": "Nivel 2",
+      "src": "res3280",
+      "vignette": "Gestante de 41 años, <span class='hy'>primigestante</span>, sana, en la semana 11. Sin hipertensión, diabetes ni enfermedad renal. ¿Le indicas ácido acetilsalicílico?",
+      "options": [
+        "No: no tiene ningún criterio de alto riesgo para preeclampsia",
+        "Sí: 75 a 100 mg desde la semana 12 hasta el parto",
+        "Sí, pero solo desde la semana 20, cuando aparece la hipertensión",
+        "No: la aspirina se evita en mayores de 40"
+      ],
+      "correct": 1,
+      "whyCorrect": "Tiene dos factores de riesgo moderado (primer embarazo y 40 años o más). Con un criterio de alto riesgo o con dos o más moderados, se indica ácido acetilsalicílico de 75 a 100 mg desde la semana 12 hasta el día del parto.",
+      "pearl": "Alto riesgo (basta uno): trastorno hipertensivo en un embarazo previo, enfermedad renal crónica, lupus o síndrome antifosfolípido, diabetes 1 o 2, hipertensión crónica.",
+      "trap": "Exigir un criterio de alto riesgo y olvidar que dos moderados también lo indican.",
+      "cita": [
+        {
+          "donde": "Resolución 3280 de 2018 · Ruta materno perinatal",
+          "texto": "Prescripción de ácido acetil salicílico de 75 a 100 mg, a partir de la semana 12 de gestación y hasta el día del parto en mujeres con un criterio de alto riesgo"
+        },
+        {
+          "donde": "Resolución 3280 de 2018 · Nota 125",
+          "texto": "Criterios de riesgo moderado para Preeclampsia: • Primer embarazo. • Edad de 40 años o más. • Intervalo intergenésico mayor a 10 años. • Índice de masa corporal mayor o igual a 35 kg/m² en la primera visita. • Antecedentes familiares de preeclampsia. • Embarazo múltiple."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c30",
+      "topic": "Control prenatal · Ácido fólico",
+      "difficulty": "Nivel 1",
+      "src": "res3280",
+      "vignette": "Mujer de 29 años que planea un embarazo. Su primer hijo nació con <span class='hy'>espina bífida</span>. ¿Qué dosis de ácido fólico le indicas?",
+      "options": [
+        "0,4 mg al día, como a toda gestante",
+        "4 mg al día",
+        "1 mg al día solo desde la semana 12",
+        "No requiere: el riesgo no se repite"
+      ],
+      "correct": 1,
+      "whyCorrect": "El ácido fólico previene los defectos del tubo neural: 0,4 mg al día en general, y 4 mg al día en alto riesgo, como el antecedente de un hijo con espina bífida.",
+      "pearl": "Calcio 1.200 mg al día desde la semana 14 para reducir el riesgo de preeclampsia.",
+      "trap": "Dar la dosis estándar a quien tiene un hijo previo con defecto del tubo neural.",
+      "cita": [
+        {
+          "donde": "Resolución 3280 de 2018 · Ruta materno perinatal, suplementación",
+          "texto": "0.4 mg día, en alto riesgo de defectos del tubo neural, la dosis es de 4 mg."
+        },
+        {
+          "donde": "Resolución 3280 de 2018 · Ruta materno perinatal, suplementación",
+          "texto": "Calcio: suplencia con calcio 1.200 mg/día a partir de la semana 14 para disminuir el riesgo de preeclampsia."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c31",
+      "topic": "Tamizaje · Cáncer de cuello uterino",
+      "difficulty": "Nivel 1",
+      "src": "res3280",
+      "vignette": "Mujer de 34 años, en una ciudad, que nunca se ha hecho tamizaje de cuello uterino. ¿Qué prueba y qué esquema le corresponden?",
+      "options": [
+        "Citología cada año hasta tener tres normales seguidas",
+        "Citología cada 3 años (esquema 1-3-3)",
+        "Inspección visual con ácido acético y lugol cada 3 años",
+        "Prueba de ADN-VPH; si es negativa, cada 5 años"
+      ],
+      "correct": 3,
+      "whyCorrect": "Entre los 30 y 65 años el tamizaje es con prueba de ADN del VPH de alto riesgo, en esquema 1-5-5 ante resultados negativos. La citología (1-3-3) es para las de 25 a 29 años. La inspección visual es solo para mujeres de 30 a 50 años en zonas dispersas.",
+      "pearl": "Si la prueba de ADN-VPH es positiva, se hace citología de triaje.",
+      "trap": "Seguir con citología anual por costumbre en una mujer mayor de 30.",
+      "cita": [
+        {
+          "donde": "Resolución 3280 de 2018 · Tamización de cáncer de cuello uterino",
+          "texto": "Citología: La tamización con citología se debe realizar en las mujeres de 25 a 29 años de edad en esquema 1 – 3 - 3 (cada 3 años) ante resultados negativos."
+        },
+        {
+          "donde": "Resolución 3280 de 2018 · Tamización de cáncer de cuello uterino",
+          "texto": "Pruebas de ADN del Virus de Papiloma Humano: La tamización con las pruebas que detectan el ADN de los virus del papiloma humano (VPH) de alto riesgo, se deben realizar a todas las mujeres entre 30 y 65 años de edad, con un esquema 1-5- 5 (cada 5 años) ante resultados negativos."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [

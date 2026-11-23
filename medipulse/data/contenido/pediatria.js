@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Pediatría",
   "prefijo": "ped",
   "paquete": "starter",
-  "actualizado": "2026-11-22",
+  "actualizado": "2026-11-23",
   "casos": [
     {
       "id": 5,
@@ -47,12 +47,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_ge",
       "vignette": "Lactante de 10 meses (peso 9 kg) con diarrea acuosa abundante. Está <span class='hy'>irritable, con ojos hundidos, boca seca, bebe con avidez</span> y el pliegue cutáneo vuelve lentamente (&lt; 2 s). Tolera vía oral. ¿Cómo se rehidrata?",
       "options": [
-        "Líquidos caseros a libre demanda, sin sales de rehidratación oral",
         "SRO de baja osmolaridad 50 mL/kg en 4 horas, más mantenimiento",
+        "Líquidos caseros a libre demanda, sin sales de rehidratación oral",
         "Bolo rápido de solución salina 0.9 % IV a 20 mL/kg y reevaluar",
         "Suspender la lactancia materna y dar loperamida para frenar la diarrea"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Tiene signos de deshidratación clínica, sin choque, y tolera la vía oral. NICE indica SRO de baja osmolaridad: 50 mL/kg en 4 horas para reponer el déficit, más los líquidos de mantenimiento, en tomas pequeñas y frecuentes. La vía IV se reserva para el choque, el deterioro pese a la SRO o el vómito persistente de la SRO.",
       "pearl": "Choque: bolo rápido de 10 mL/kg de solución salina 0.9 %. Durante la rehidratación se continúa la lactancia materna. No dar antibióticos de rutina.",
       "trap": "Pasar a líquidos IV a un niño que bebe y tolera la vía oral, o suspender la lactancia materna.",
@@ -690,7 +690,7 @@ MP_CONTENIDO.agregar({
       "id": "ped-c18",
       "topic": "Neonatología · Tamizaje neonatal ampliado",
       "difficulty": "Nivel 1",
-      "src": "udea_ped26",
+      "src": "res117_26",
       "vignette": "Recién nacido a término, sano, que va a salir de alta a las <span class='hy'>20 horas de vida</span>. La madre pregunta cuándo deben tomarle la muestra de sangre del talón para el tamizaje neonatal ampliado. ¿Qué le respondes?",
       "options": [
         "Ahora mismo, antes de salir, para no perder la oportunidad",
@@ -699,16 +699,20 @@ MP_CONTENIDO.agregar({
         "Al mes de vida, en el primer control"
       ],
       "correct": 2,
-      "whyCorrect": "La tamización neonatal debe hacerse entre las 48 y 72 horas de vida, cuando el neonato ya recibió alimentación, con consentimiento informado de los padres. Una muestra muy temprana puede dar falsos negativos en enfermedades metabólicas que dependen de la ingesta.",
-      "pearl": "Tamizaje metabólico de talón: 48 a 72 horas, después de alimentarse. Si el alta es antes, hay que garantizar la toma después.",
+      "whyCorrect": "La muestra de talón del tamizaje endocrino metabólico se toma idealmente entre las 48 y 72 horas de vida, ya alimentado: una sola muestra en papel filtro para las 7 patologías. Si en un parto vaginal no se puede garantizar ese momento, se puede tomar desde las 24 horas con tres tomas completas de alimentación, registrando el motivo. A las 20 horas aún es muy pronto.",
+      "pearl": "Resolución 117 de 2026: talón ideal a las 48–72 h; excepción desde las 24 h con 3 tomas completas; tiempo máximo, 5 días de vida (la fenilalanina acumulada daña el cerebro). La sangre de cordón se usa para la TSH (hipotiroidismo congénito).",
       "trap": "Tomar la muestra antes del alta temprana «por comodidad»: puede no detectar la enfermedad.",
       "cita": [
         {
-          "donde": "Lo que deberíamos saber sobre el tamizaje neonatal ampliado",
-          "texto": "La tamización neonatal debe realizarse entre las 48 y 72 horas de vida, una vez el neonato haya recibido alimentación se tomará la muestra para la tamización metabólica de sangre del talón"
+          "donde": "Resolución 117 de 2026, Anexo Técnico · Toma de muestra",
+          "texto": "La toma de la muestra de tamizaje neonatal endocrino metabólico básico debe realizarse mediante punción capilar de talón idealmente entre las 48 y 72 horas de vida (una muestra en papel filtro para procesar las pruebas de las 7 patologías)"
+        },
+        {
+          "donde": "Resolución 117 de 2026, Anexo Técnico · Toma de muestra",
+          "texto": "se podrá tomar la muestra de sangre de talón si se cumplen las siguientes condiciones: mínimo 24 horas del nacimiento y tres tomas completas de alimentación"
         }
       ],
-      "verificado": "2026-11-21",
+      "verificado": "2026-11-23",
       "tipo": "datos"
     },
     {
@@ -799,11 +803,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niño de 7 años con <span class='hy'>fractura desplazada de antebrazo</span>; en la escala numérica califica el dolor en <span class='hy'>9/10</span>. ¿Qué analgesia indicas?",
       "options": [
         "Codeína oral cada 6 horas",
-        "Acceso venoso y morfina titulada",
+        "Solo acetaminofén y esperar a yesar",
         "Tramadol oral como opioide de elección",
-        "Solo acetaminofén y esperar a yesar"
+        "Acceso venoso y morfina titulada"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "En dolor moderado a intenso se canaliza una vena y se titulan opioides potentes: la morfina es la primera elección. Los beneficios de los opioides potentes superan a los «débiles»; la codeína tiene problemas de seguridad por su metabolismo variable y el tramadol tiene poca evidencia en niños.",
       "pearl": "La escala numérica sirve desde los 7 a 8 años; en menores o no verbales, la FLACC o las caras.",
       "trap": "Usar codeína por creerla más segura en niños.",
@@ -998,6 +1002,90 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-22"
+    },
+    {
+      "id": "ped-c30",
+      "topic": "Neonatología · Cardiopatía congénita: tamizaje con pulsooximetría",
+      "difficulty": "Nivel 3",
+      "src": "res117_26",
+      "vignette": "Recién nacido de 26 horas, sano, en Bogotá (2.600 m s. n. m.). Pulsooximetría: <span class='hy'>preductal 93 %, postductal 92 %</span>. ¿Cómo se interpreta el tamizaje de cardiopatía congénita compleja?",
+      "options": [
+        "Positivo: está por debajo de 95 %, el corte que fija la norma",
+        "Repetir en una hora: la diferencia de 1 % es dudosa",
+        "Negativo: sobre 92 % a esa altitud y diferencia menor de 4 %",
+        "Positivo: requiere ecocardiograma antes del alta"
+      ],
+      "correct": 2,
+      "whyCorrect": "Por encima de 1.500 m s. n. m. el punto de corte es 92 % (95 % por debajo). Con 92–93 % y una diferencia pre-postductal menor de 4 %, el tamizaje es negativo. Es positivo si la saturación es menor de 90 % en cualquier momento, o si la diferencia es de 4 % o más en la medición repetida.",
+      "pearl": "Un tamizaje negativo no descarta del todo una cardiopatía congénita: si hay signos clínicos, se estudia igual.",
+      "trap": "Usar el corte de 95 % del nivel del mar en una ciudad de altura.",
+      "cita": [
+        {
+          "donde": "Resolución 117 de 2026, Anexo Técnico · Tamizaje de cardiopatía congénita compleja",
+          "texto": "El niño o la niña presente una saturación mayor o igual al punto de corte según la altitud en la primera o en la segunda medición (95% por debajo de los 1.500 m.s.n.m. y 92% por encima de los 1.500 m.s.n.m.) y no tenga una diferencia de 4% o más entre la pulsooximetría pre y postductal en ninguna de las mediciones"
+        },
+        {
+          "donde": "Resolución 117 de 2026, Anexo Técnico · Tamizaje de cardiopatía congénita compleja",
+          "texto": "El resultado del tamizaje será positivo cuando: 1) El niño o la niña presente una saturación menor a 90% en cualquier momento del tamizaje y a cualquier altitud, y 2) Cuando presente una diferencia de 4% o más entre la pulsooximetría pre y postductal (independiente de cuál sea la mayor) en la medición repetida y a cualquier altitud."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c31",
+      "topic": "Neonatología · Hipotiroidismo congénito",
+      "difficulty": "Nivel 2",
+      "src": "res117_26",
+      "vignette": "Recién nacido a término de 60 horas. El tamizaje de talón reporta <span class='hy'>TSH de 14 µUI/mL</span>. Está asintomático. ¿Qué sigue?",
+      "options": [
+        "Nada: el corte en el talón es 20 µUI/mL",
+        "TSH y T4 libre en suero para confirmar",
+        "Levotiroxina sin más pruebas por el riesgo",
+        "Repetir el talón al mes de vida"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el recién nacido a término, una TSH de talón mayor de 10 µUI/mL (mayor de 6 en el prematuro) es un caso probable de hipotiroidismo congénito. El diagnóstico se confirma con TSH y T4 libre en suero (sangre venosa o arterial).",
+      "pearl": "Cortes del tamizaje: cordón ≥ 15 µUI/mL; talón > 10 en el término y > 6 en el prematuro.",
+      "trap": "Tranquilizarse porque el bebé está asintomático: el hipotiroidismo congénito casi nunca da síntomas al nacer.",
+      "cita": [
+        {
+          "donde": "Resolución 117 de 2026, Anexo Técnico · Definiciones",
+          "texto": "o 6 uUI/ml en muestra de sangre de talón en RN prematuros y > 10 uUI/ml en muestra de sangre de talón en RN a término), los cuales son considerados casos probables de hipotiroidismo congénito."
+        },
+        {
+          "donde": "Resolución 117 de 2026, Anexo Técnico · Definiciones",
+          "texto": "Diagnóstico de hipotiroidismo congénito: evaluación de los niveles de TSH y de T4L en muestra de suero (de sangre venosa o arterial)."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c32",
+      "topic": "Neonatología · Fenilcetonuria: plazo del tamizaje de talón",
+      "difficulty": "Nivel 1",
+      "src": "res117_26",
+      "vignette": "Una madre llega con su bebé de 4 días: salieron del hospital antes de tomar la muestra de talón. ¿Qué le dices sobre el plazo?",
+      "options": [
+        "Ya no sirve: pasaron las 72 horas que fija la norma",
+        "Tomarla hoy: el máximo son 5 días de vida",
+        "Esperar al control del mes para tomarla con las vacunas",
+        "Basta con la TSH del cordón que se tomó al nacer"
+      ],
+      "correct": 1,
+      "whyCorrect": "El tamizaje básico se toma idealmente entre las 48 y 72 horas, pero el tiempo máximo es de 5 días de vida: la fenilalanina acumulada en la fenilcetonuria puede causar daño neurológico irreversible desde muy temprano. Con una sola muestra se tamizan 7 patologías.",
+      "pearl": "Las 7 del tamizaje básico: hipotiroidismo congénito, fenilcetonuria, galactosemia, fibrosis quística, hiperplasia suprarrenal congénita, déficit de biotinidasa y defectos de la hemoglobina.",
+      "trap": "Creer que la TSH del cordón cubre el tamizaje: solo mira el hipotiroidismo.",
+      "cita": [
+        {
+          "donde": "Resolución 117 de 2026, Anexo Técnico · Fenilcetonuria",
+          "texto": "El tiempo máximo para la toma de la muestra debe ser de 5 días de vida, dado que el acumulo de fenilalanina por deficiencia enzimática puede generar daño neurológico irreversible desde etapas muy tempranas."
+        },
+        {
+          "donde": "Resolución 117 de 2026, Anexo Técnico · Tamizaje endocrino metabólico básico",
+          "texto": "hipotiroidismo congénito, fenilcetonuria, galactosemia, fibrosis quística, hiperplasia suprarrenal congénita, déficit de biotinidasa o defectos de la hemoglobina"
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [

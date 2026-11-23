@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Epidemiología y Estadística",
   "prefijo": "sp",
   "paquete": "salud-publica",
-  "actualizado": "2026-11-22",
+  "actualizado": "2026-11-23",
   "casos": [
     {
       "id": 19,
@@ -32,12 +32,12 @@ MP_CONTENIDO.agregar({
       "src": "gordis",
       "vignette": "Investigadores identifican a 120 pacientes con <span class='hy'>carcinoma hepatocelular</span> y 240 sin la enfermedad, y revisan <span class='hy'>retrospectivamente</span> su exposición previa a aflatoxinas. ¿Qué diseño es y qué medida de asociación corresponde?",
       "options": [
-        "Casos y controles · Odds ratio",
+        "Ensayo clínico · Número necesario a tratar",
         "Cohorte prospectiva · Riesgo relativo",
         "Transversal · Prevalencia",
-        "Ensayo clínico · Número necesario a tratar"
+        "Casos y controles · Odds ratio"
       ],
-      "correct": 0,
+      "correct": 3,
       "whyCorrect": "Se parte del desenlace (con y sin enfermedad) y se busca la exposición hacia atrás: eso es un estudio de casos y controles. No permite calcular incidencia, así que la medida es el odds ratio.",
       "pearl": "Cohorte: parte de la exposición → RR. Casos y controles: parte de la enfermedad → OR. Útil para enfermedades raras.",
       "trap": "Calcular riesgo relativo en un estudio de casos y controles: no se puede porque el investigador fija la proporción de casos."
@@ -169,11 +169,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Un ensayo clínico con <span class='hy'>80 pacientes</span> compara dos analgésicos y no encuentra diferencia significativa en el dolor (p = 0,30). Los autores reconocen que el estudio tenía un <span class='hy'>poder estadístico de 40 %</span> para detectar la diferencia que consideraban importante. ¿Cuál es la conclusión correcta?",
       "options": [
         "Los dos analgésicos son igual de eficaces para el dolor",
-        "No se puede concluir que sean iguales: alto riesgo de error tipo II",
         "El nuevo analgésico es inferior al de comparación",
+        "No se puede concluir que sean iguales: alto riesgo de error tipo II",
         "Hubo un error tipo I porque el valor de p fue mayor de 0,05 en la comparación"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Con poder de 40 %, el estudio tenía 60 % de probabilidad de no detectar una diferencia real (error tipo II, β). Un resultado no significativo en un estudio con poco poder no demuestra equivalencia: la ausencia de evidencia no es evidencia de ausencia.",
       "pearl": "Error tipo I (α): encontrar una diferencia que no existe. Error tipo II (β): no encontrar una que sí existe. Poder = 1 − β; se busca ≥ 80 %.",
       "trap": "Concluir que los tratamientos son equivalentes porque p > 0,05."
@@ -187,11 +187,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Un grupo publica un <span class='hy'>ensayo clínico aleatorizado</span> que compara una alerta de sepsis basada en inteligencia artificial frente al manejo convencional, con mortalidad como desenlace. ¿Qué guía de reporte corresponde a su informe de resultados?",
       "options": [
         "STROBE",
-        "CONSORT-AI",
+        "SPIRIT-AI",
         "PRISMA-AI",
-        "SPIRIT-AI"
+        "CONSORT-AI"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Los informes de resultados de ensayos clínicos que evalúan una intervención con IA usan CONSORT-AI; sus protocolos usan SPIRIT-AI. PRISMA-AI es para revisiones sistemáticas y metaanálisis sobre IA, y STROBE para estudios observacionales.",
       "pearl": "Guías de reporte por diseño: ECA → CONSORT (protocolo: SPIRIT); observacional → STROBE; revisión sistemática → PRISMA. Con IA, sus extensiones «-AI».",
       "trap": "Confundir la guía del protocolo (SPIRIT) con la del informe de resultados (CONSORT).",
@@ -414,6 +414,78 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-22"
+    },
+    {
+      "id": "sp-c18",
+      "topic": "Salud pública · Mama: tamizaje de cáncer",
+      "difficulty": "Nivel 1",
+      "src": "res3280",
+      "vignette": "Mujer de 52 años, sin antecedentes familiares, en el control de promoción y mantenimiento. ¿Qué tamizaje de mama le corresponde?",
+      "options": [
+        "Ecografía mamaria cada año desde los 40 años",
+        "Mamografía cada 2 años hasta los 69",
+        "Mamografía cada año desde los 40 años de edad",
+        "Solo autoexamen mensual y consulta si nota una masa"
+      ],
+      "correct": 1,
+      "whyCorrect": "La ruta de promoción y mantenimiento indica examen clínico de la mama cada año desde los 40 y mamografía de 2 proyecciones cada 2 años entre los 50 y 69 años. Con BI-RADS 1 o 2, se sigue el mismo esquema.",
+      "pearl": "BI-RADS 3: adelantar el seguimiento según la ruta de cáncer de mama. BI-RADS 4 o 5: búsqueda activa y confirmación diagnóstica.",
+      "trap": "Usar la ecografía como tamizaje poblacional.",
+      "cita": [
+        {
+          "donde": "Resolución 3280 de 2018 · Tamización de cáncer de mama",
+          "texto": "Mujeres a partir de los 40 años: Examen clínico de la mama cada año. Mujeres de 50 a 69 años: Mamografía de 2 proyecciones cada 2 años."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "sp-c19",
+      "topic": "Salud pública · Colon: tamizaje de cáncer colorrectal",
+      "difficulty": "Nivel 1",
+      "src": "res3280",
+      "vignette": "Hombre de 55 años, sin antecedentes familiares ni síntomas. Nunca se ha tamizado para cáncer colorrectal y en su municipio no hay colonoscopia disponible. ¿Qué le ordenas?",
+      "options": [
+        "Sangre oculta inmunoquímica cada 2 años",
+        "Colonoscopia cada 5 años, obligatoria aunque no haya",
+        "Antígeno carcinoembrionario anual como tamizaje",
+        "Nada hasta que tenga sangrado o cambio del hábito"
+      ],
+      "correct": 0,
+      "whyCorrect": "Desde los 50 años, el tamizaje es sangre oculta en materia fecal inmunoquímica cada dos años, o colonoscopia cada diez años si está disponible. Quien tiene factores de riesgo pasa a la ruta de cáncer de colon.",
+      "pearl": "Sangre oculta positiva → colonoscopia.",
+      "trap": "Pedir antígeno carcinoembrionario como tamizaje: no sirve para eso.",
+      "cita": [
+        {
+          "donde": "Resolución 3280 de 2018 · Tamización de cáncer de colon y recto",
+          "texto": "Hombres y mujeres iguales o mayores a 50 años: sangre oculta en materia fecal inmunoquímica cada dos años o colonoscopia cada diez años cuando esta se encuentre disponible."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "sp-c20",
+      "topic": "Salud pública · Próstata: tamizaje de cáncer",
+      "difficulty": "Nivel 2",
+      "src": "res3280",
+      "vignette": "Hombre de 44 años cuyo <span class='hy'>padre tuvo cáncer de próstata</span>. Pregunta si debe tamizarse. ¿Qué le respondes según la ruta?",
+      "options": [
+        "No: el tamizaje empieza a los 50 años para todos los hombres",
+        "Sí: tacto rectal desde los 40 por su antecedente",
+        "Solo PSA anual desde ya, sin tacto rectal",
+        "Biopsia de próstata por el antecedente familiar"
+      ],
+      "correct": 1,
+      "whyCorrect": "Entre los 50 y 75 años se hace tacto rectal y antígeno prostático cada 5 años, con decisión informada. Con factores de riesgo (antecedente familiar o raza negra) el tacto rectal se ofrece desde los 40 años.",
+      "pearl": "PSA y tacto rectal cada 5 años, previa explicación de riesgos y beneficios: decisión compartida.",
+      "trap": "Esperar a los 50 años en un hombre con antecedente familiar.",
+      "cita": [
+        {
+          "donde": "Resolución 3280 de 2018 · Tamización de cáncer de próstata",
+          "texto": "Hombres entre 50 y 75 años: Examen clínico de la próstata (tacto rectal) cada cinco (5) años; o en mayores de 40 años con factores de riesgo (antecedentes familiares o que sean de raza negra)."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [
