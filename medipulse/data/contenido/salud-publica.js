@@ -12,41 +12,59 @@ MP_CONTENIDO.agregar({
       "id": 19,
       "topic": "Epidemiología · Pruebas diagnósticas",
       "difficulty": "Nivel 2",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "Se evalúa una nueva prueba rápida para VIH con <span class='hy'>sensibilidad 99%</span> y <span class='hy'>especificidad 92%</span>. Un comité quiere usarla en población general. ¿Cuál es el uso más adecuado de esta prueba?",
       "options": [
-        "Como prueba confirmatoria única antes de iniciar tratamiento",
-        "No sirve porque su especificidad es menor a 95%",
         "Como prueba de tamizaje, confirmando los positivos con una prueba más específica",
+        "No sirve porque su especificidad es menor a 95%",
+        "Como prueba confirmatoria única antes de iniciar tratamiento",
         "Solo en población de alto riesgo porque el VPP no depende de la prevalencia"
       ],
-      "correct": 2,
+      "correct": 0,
       "whyCorrect": "Una sensibilidad muy alta deja pocos falsos negativos: un resultado negativo descarta la enfermedad (SnNout). Por eso es ideal para tamizaje. Los positivos se confirman con una prueba de alta especificidad (SpPin).",
       "pearl": "SnNout: Sensible + Negativo = descarta. SpPin: Específica + Positivo = confirma. Los valores predictivos SÍ cambian con la prevalencia; la sensibilidad y la especificidad no.",
-      "trap": "Creer que el VPP es fijo. A menor prevalencia, cae el VPP y aumentan los falsos positivos."
+      "trap": "Creer que el VPP es fijo. A menor prevalencia, cae el VPP y aumentan los falsos positivos.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "Si lo que interesa es detectar el mayor número posible de enfermos, se debe usar un test con alta sensibilidad."
+        },
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "La sensibilidad y la especificidad no dependen de la prevalencia."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": 20,
       "topic": "Epidemiología · Diseño de estudios",
       "difficulty": "Nivel 2",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "Investigadores identifican a 120 pacientes con <span class='hy'>carcinoma hepatocelular</span> y 240 sin la enfermedad, y revisan <span class='hy'>retrospectivamente</span> su exposición previa a aflatoxinas. ¿Qué diseño es y qué medida de asociación corresponde?",
       "options": [
         "Ensayo clínico · Número necesario a tratar",
-        "Cohorte prospectiva · Riesgo relativo",
+        "Casos y controles · Odds ratio",
         "Transversal · Prevalencia",
-        "Casos y controles · Odds ratio"
+        "Cohorte prospectiva · Riesgo relativo"
       ],
-      "correct": 3,
+      "correct": 1,
       "whyCorrect": "Se parte del desenlace (con y sin enfermedad) y se busca la exposición hacia atrás: eso es un estudio de casos y controles. No permite calcular incidencia, así que la medida es el odds ratio.",
       "pearl": "Cohorte: parte de la exposición → RR. Casos y controles: parte de la enfermedad → OR. Útil para enfermedades raras.",
-      "trap": "Calcular riesgo relativo en un estudio de casos y controles: no se puede porque el investigador fija la proporción de casos."
+      "trap": "Calcular riesgo relativo en un estudio de casos y controles: no se puede porque el investigador fija la proporción de casos.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "Debido a ello, la fuerza de la asociación no se puede calcular directamente, como en el estudio de cohortes, sino de forma indirecta mediante la odds ratio."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c01",
       "topic": "Lectura crítica · NNT",
       "difficulty": "Nivel 2",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "Un ensayo clínico aleatorizado compara un nuevo antiagregante con placebo en pacientes con infarto. La mortalidad a 1 año fue <span class='hy'>10 % con placebo</span> y <span class='hy'>8 % con el fármaco</span>. El laboratorio anuncia que el fármaco “reduce la mortalidad un 20 %”. ¿Cuántos pacientes hay que tratar durante 1 año para evitar una muerte?",
       "options": [
         "5",
@@ -57,13 +75,20 @@ MP_CONTENIDO.agregar({
       "correct": 2,
       "whyCorrect": "La reducción absoluta del riesgo (RRA) es 10 % − 8 % = 2 % (0,02). El NNT es 1 / RRA = 1 / 0,02 = 50. El 20 % del anuncio es la reducción relativa del riesgo: 2 / 10.",
       "pearl": "NNT = 1 / RRA. La reducción relativa (RRR) se ve siempre más grande que la absoluta; para decidir en un paciente, mira la RRA y el NNT.",
-      "trap": "Calcular el NNT con la reducción relativa (1 / 0,20 = 5)."
+      "trap": "Calcular el NNT con la reducción relativa (1 / 0,20 = 5).",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "Se obtiene como el inverso de la RAR multiplicado por 100, y es el número de pacientes que se deben tratar para prevenir un suceso indeseable adicional."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c02",
       "topic": "Lectura crítica · Intención de tratar",
       "difficulty": "Nivel 3",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "En un ensayo clínico aleatorizado de un antihipertensivo, el <span class='hy'>15 % de los pacientes abandonó el tratamiento</span> por efectos adversos, la mayoría en el grupo intervención. Los autores presentan como resultado principal solo a quienes completaron el tratamiento según el protocolo, y muestran un gran beneficio. ¿Qué análisis debió ser el principal para conservar los beneficios de la aleatorización?",
       "options": [
         "Análisis por protocolo, con los que completaron el tratamiento",
@@ -74,13 +99,20 @@ MP_CONTENIDO.agregar({
       "correct": 3,
       "whyCorrect": "El análisis por intención de tratar incluye a todos los pacientes en el grupo al que fueron aleatorizados, hayan completado o no el tratamiento. Así conserva la comparabilidad que da la aleatorización y refleja lo que pasa en la práctica. Excluir a quienes abandonan, sobre todo si son más en un grupo, rompe esa comparabilidad y exagera el beneficio.",
       "pearl": "En ensayos de superioridad, el análisis principal es por intención de tratar; el análisis por protocolo es complementario.",
-      "trap": "Creer que el análisis por protocolo es más “real” porque solo cuenta a quienes recibieron el tratamiento."
+      "trap": "Creer que el análisis por protocolo es más “real” porque solo cuenta a quienes recibieron el tratamiento.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "Por intención de tratar. El análisis incluye a todos los pacientes que han sido seleccionados y en el grupo en el que fueron asignados, aunque no hayan finalizado el estudio o hayan cambiado de grupo."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c03",
       "topic": "Epidemiología · Valores predictivos",
       "difficulty": "Nivel 3",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "Una prueba de tamizaje tiene <span class='hy'>sensibilidad 90 %</span> y <span class='hy'>especificidad 90 %</span>. Se aplica a 1000 personas de una población donde la <span class='hy'>prevalencia es 1 %</span>. Un paciente tiene un resultado positivo y pregunta qué probabilidad tiene de estar enfermo. ¿Cuál es aproximadamente el valor predictivo positivo?",
       "options": [
         "8 %",
@@ -91,13 +123,20 @@ MP_CONTENIDO.agregar({
       "correct": 0,
       "whyCorrect": "De 1000 personas, 10 están enfermas: la prueba detecta 9 (verdaderos positivos). De las 990 sanas, el 10 % da positivo: 99 falsos positivos. VPP = 9 / (9 + 99) ≈ 8 %. Con prevalencia baja, la mayoría de los positivos son falsos aunque la prueba sea buena.",
       "pearl": "Los valores predictivos dependen de la prevalencia; la sensibilidad y la especificidad no. Con prevalencia baja, el VPP cae y el VPN sube.",
-      "trap": "Responder 90 %, confundiendo la sensibilidad con el valor predictivo positivo."
+      "trap": "Responder 90 %, confundiendo la sensibilidad con el valor predictivo positivo.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "Por el contrario, si la prevalencia de la enfermedad decrece, aumenta el valor predictivo negativo y se reduce el valor predictivo positivo."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c04",
       "topic": "Lectura crítica · Sesgos en tamizaje",
       "difficulty": "Nivel 3",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "Tras implementar un programa de tamizaje de un cáncer, la <span class='hy'>supervivencia a 5 años desde el diagnóstico aumentó</span> de 40 % a 60 %. Sin embargo, la <span class='hy'>mortalidad por ese cáncer en la población no cambió</span>. ¿Qué explica mejor este hallazgo?",
       "options": [
         "El tratamiento mejoró gracias al diagnóstico más temprano",
@@ -108,13 +147,20 @@ MP_CONTENIDO.agregar({
       "correct": 3,
       "whyCorrect": "El tamizaje adelanta el momento del diagnóstico. Si la muerte ocurre en la misma fecha, el tiempo medido desde el diagnóstico se alarga y la supervivencia parece mejor, sin beneficio real. Por eso el desenlace que demuestra beneficio de un tamizaje es la mortalidad, no la supervivencia desde el diagnóstico.",
       "pearl": "Sesgos del tamizaje: anticipación (lead time), duración (length time: detecta más los tumores lentos) y sobrediagnóstico. Se evitan midiendo mortalidad en ensayos aleatorizados.",
-      "trap": "Tomar el aumento de la supervivencia como prueba de que el tamizaje salva vidas."
+      "trap": "Tomar el aumento de la supervivencia como prueba de que el tamizaje salva vidas.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "En este caso la prueba de cribado detecta antes la enfermedad, pero no cambia su pronóstico. Por tanto, el paciente no vive más, si no que vive más tiempo diagnosticado."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c05",
       "topic": "Lectura crítica · Confusión",
       "difficulty": "Nivel 2",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "Un estudio de casos y controles encuentra que tomar <span class='hy'>más de 3 tazas de café al día</span> se asocia con cáncer de páncreas (OR 2,1). En ese estudio, los bebedores de café <span class='hy'>fumaban mucho más</span> que los no bebedores, y el tabaco es causa conocida de cáncer de páncreas. Al ajustar por tabaquismo, la asociación desaparece. ¿Qué fenómeno explica la asociación inicial?",
       "options": [
         "Confusión por tabaquismo",
@@ -125,13 +171,20 @@ MP_CONTENIDO.agregar({
       "correct": 0,
       "whyCorrect": "Un factor de confusión se asocia con la exposición (los bebedores de café fuman más) y es causa del desenlace (el tabaco causa cáncer de páncreas), sin estar en el camino causal. Al ajustar por él, la asociación aparente desaparece.",
       "pearl": "La confusión se controla en el diseño (aleatorización, restricción, pareamiento) o en el análisis (estratificación, regresión multivariada).",
-      "trap": "Llamarlo interacción: en la interacción el efecto cambia según el nivel de un tercer factor, no desaparece al ajustar."
+      "trap": "Llamarlo interacción: en la interacción el efecto cambia según el nivel de un tercer factor, no desaparece al ajustar.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "El sesgo de confusión se debe a la existencia de un factor de confusión, que es esencialmente un factor que está desigualmente distribuido entre los dos grupos de pacientes del estudio, y que se relaciona etiológicamente con la enfermedad final."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c06",
       "topic": "Epidemiología · Estudio de brote",
       "difficulty": "Nivel 2",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "Después de un almuerzo comunitario, varias personas presentan vómito y diarrea en las 6 horas siguientes. De <span class='hy'>120 que comieron ensalada de papa, 60 enfermaron</span>; de <span class='hy'>80 que no la comieron, 4 enfermaron</span>. Con el pollo, enfermaron 30 de 100 que lo comieron y 34 de 100 que no. ¿Cuál es el alimento sospechoso y su riesgo relativo?",
       "options": [
         "Pollo, RR ≈ 0,9",
@@ -142,7 +195,14 @@ MP_CONTENIDO.agregar({
       "correct": 3,
       "whyCorrect": "Tasa de ataque en quienes comieron ensalada: 60/120 = 50 %; en quienes no: 4/80 = 5 %. RR = 50 / 5 = 10. Con el pollo, 30 % frente a 34 %: RR ≈ 0,9, sin asociación. En un brote con población definida se comparan tasas de ataque (un estudio de cohorte retrospectivo).",
       "pearl": "Tasa de ataque = enfermos / expuestos. El alimento sospechoso es el que tiene alta tasa de ataque en los expuestos, baja en los no expuestos y la mayoría de los casos entre quienes lo comieron.",
-      "trap": "Elegir el alimento con más enfermos en números absolutos sin comparar con quienes no lo comieron."
+      "trap": "Elegir el alimento con más enfermos en números absolutos sin comparar con quienes no lo comieron.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "El riesgo relativo (RR) es la medida de asociación en los estudios de cohortes."
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c07",
@@ -165,7 +225,7 @@ MP_CONTENIDO.agregar({
       "id": "sp-c08",
       "topic": "Lectura crítica · Error tipo II",
       "difficulty": "Nivel 3",
-      "src": "gordis",
+      "src": "cto_ep",
       "vignette": "Un ensayo clínico con <span class='hy'>80 pacientes</span> compara dos analgésicos y no encuentra diferencia significativa en el dolor (p = 0,30). Los autores reconocen que el estudio tenía un <span class='hy'>poder estadístico de 40 %</span> para detectar la diferencia que consideraban importante. ¿Cuál es la conclusión correcta?",
       "options": [
         "Los dos analgésicos son igual de eficaces para el dolor",
@@ -176,7 +236,14 @@ MP_CONTENIDO.agregar({
       "correct": 2,
       "whyCorrect": "Con poder de 40 %, el estudio tenía 60 % de probabilidad de no detectar una diferencia real (error tipo II, β). Un resultado no significativo en un estudio con poco poder no demuestra equivalencia: la ausencia de evidencia no es evidencia de ausencia.",
       "pearl": "Error tipo I (α): encontrar una diferencia que no existe. Error tipo II (β): no encontrar una que sí existe. Poder = 1 − β; se busca ≥ 80 %.",
-      "trap": "Concluir que los tratamientos son equivalentes porque p > 0,05."
+      "trap": "Concluir que los tratamientos son equivalentes porque p > 0,05.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Epidemiología y Estadística",
+          "texto": "Se denomina β a la probabilidad de cometer un error tipo II"
+        }
+      ],
+      "verificado": "2026-11-23"
     },
     {
       "id": "sp-c09",

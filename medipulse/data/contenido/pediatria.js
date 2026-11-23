@@ -987,11 +987,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niña de 5 años con miocarditis probable: <span class='hy'>crépitos bibasales, hepatomegalia e ingurgitación yugular</span>, pero extremidades tibias y buen llenado capilar. ¿Qué terapia requiere primero?",
       "options": [
         "Bolos de cristaloides de 20 mL/kg",
-        "Diurético (furosemida)",
         "Dobutamina de entrada por ser miocarditis",
+        "Diurético (furosemida)",
         "Antibiótico empírico por posible sepsis"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Perfil «caliente y húmedo»: perfusión conservada con congestión. Requiere diurético. Los perfiles fríos tienen peor pronóstico y pueden necesitar inotrópicos.",
       "pearl": "Toma BNP o proBNP al ingreso para seguir la respuesta; la troponina, si sospechas miocarditis.",
       "trap": "Dar bolos de líquidos a un niño congestivo por confundirlo con sepsis.",
@@ -1039,11 +1039,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Recién nacido a término de 60 horas. El tamizaje de talón reporta <span class='hy'>TSH de 14 µUI/mL</span>. Está asintomático. ¿Qué sigue?",
       "options": [
         "Nada: el corte en el talón es 20 µUI/mL",
-        "TSH y T4 libre en suero para confirmar",
+        "Repetir el talón al mes de vida",
         "Levotiroxina sin más pruebas por el riesgo",
-        "Repetir el talón al mes de vida"
+        "TSH y T4 libre en suero para confirmar"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "En el recién nacido a término, una TSH de talón mayor de 10 µUI/mL (mayor de 6 en el prematuro) es un caso probable de hipotiroidismo congénito. El diagnóstico se confirma con TSH y T4 libre en suero (sangre venosa o arterial).",
       "pearl": "Cortes del tamizaje: cordón ≥ 15 µUI/mL; talón > 10 en el término y > 6 en el prematuro.",
       "trap": "Tranquilizarse porque el bebé está asintomático: el hipotiroidismo congénito casi nunca da síntomas al nacer.",
@@ -1319,6 +1319,54 @@ MP_CONTENIDO.agregar({
         {
           "donde": "AAP 2026, guía de infección urinaria (8 días a 5 años)",
           "texto": "Key Action Statement 3A: In children 8 to 28 days of age in whom a UTI has been diagnosed, the AAP Guideline Panel suggests parenteral antibiotics with early transition to oral following clinical improvement rather than parenteral antibiotics alone (conditional recommendation, very low certainty of evidence)."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c42",
+      "topic": "Ortopedia · Fracturas fisarias (Salter-Harris)",
+      "difficulty": "Nivel 2",
+      "src": "cto_tm",
+      "vignette": "Niño de 11 años con fractura del tobillo que atraviesa la <span class='hy'>fisis y la epífisis (Salter-Harris III)</span>, con 3 mm de desplazamiento. ¿Qué tratamiento?",
+      "options": [
+        "Yeso cerrado y control radiográfico en 6 semanas",
+        "Reducción quirúrgica y fijación",
+        "Vendaje elástico y carga inmediata del miembro",
+        "Tracción por 3 semanas"
+      ],
+      "correct": 1,
+      "whyCorrect": "Las fracturas que comprometen el cartílago de crecimiento (epifisiólisis) son quirúrgicas en los tipos III y IV con desplazamiento mayor de 2 mm, para evitar la epifisiodesis (cierre prematuro de la fisis), su complicación más frecuente.",
+      "pearl": "Salter-Harris tipos I a V; los III y IV son intraarticulares y atraviesan la fisis.",
+      "trap": "Tratar con yeso una fractura fisaria intraarticular desplazada.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "Las epifisiólisis son las fracturas que interesan al cartílago de crecimiento del niño o fisis; son quirúrgicas las de tipo III y IV con desplazamientos de más de 2 mm, para evitar su complicación más frecuente, la epifisiodesis."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c43",
+      "topic": "Ortopedia · Displasia de cadera",
+      "difficulty": "Nivel 1",
+      "src": "cto_tm",
+      "vignette": "Recién nacida de 3 semanas, podálica, con <span class='hy'>maniobra de Ortolani positiva</span> en la cadera izquierda. ¿Qué estudio confirma el diagnóstico?",
+      "options": [
+        "Radiografía de pelvis",
+        "Ecografía de caderas",
+        "Resonancia de cadera",
+        "Tomografía de pelvis"
+      ],
+      "correct": 1,
+      "whyCorrect": "La ecografía es el método de elección para valorar la cadera del recién nacido, aun cuando no se han osificado los elementos articulares. La sospecha clínica surge con limitación de la abducción o maniobras de Ortolani o Barlow positivas.",
+      "pearl": "En el lactante mayor, cuando la cabeza femoral ya se osificó, la radiografía gana valor.",
+      "trap": "Pedir radiografía en un neonato: la cabeza femoral aún no se ve.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "La ecografía es el método de elección para valorar la patología de la cadera neonatal, aun cuando todavía no se han osificado los elementos articulares, así como para detectar colecciones de líquido."
         }
       ],
       "verificado": "2026-11-23"

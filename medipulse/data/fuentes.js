@@ -33,6 +33,8 @@ const SOURCES = [
   {id:"bmj_hda25", t:"Acute upper gastrointestinal bleeding: state of the art review (Rahman ZU et al.)", r:"BMJ, 2025", y:2025, k:"article"},
   {id:"jama_sifilis25", t:"Syphilis: A Review (Chevalier FJ et al.)", r:"JAMA, 2025; 334", y:2025, k:"article"},
   {id:"nejm_gbs26", t:"Group B Streptococcal Disease (Review, Puopolo KM)", r:"N Engl J Med, 2026; 394", y:2026, k:"article"},
+  {id:"cto_ep", t:"Manual CTO de Medicina y Cirugía, 14.ª edición: Epidemiología y Estadística", r:"CTO Editorial, 2024", y:2024, k:"book"},
+  {id:"cto_tm", t:"Manual CTO de Medicina y Cirugía, 14.ª edición: Traumatología", r:"CTO Editorial, 2024", y:2024, k:"book"},
   {id:"pir_nac26", t:"Pneumonia (Sanguineti GG, San Martin S, Behnam-Terneus M, Cunill-De Sautu B)", r:"Pediatrics in Review, 2026; 47(4)", y:2026, k:"article"},
   {id:"gina26", t:"Global Strategy for Asthma Management and Prevention (GINA), 2026", r:"Global Initiative for Asthma, 2026", y:2026, k:"guideline"},
   {id:"res117_26", norma:true, t:"Resolución 117 de 2026: actualiza el Anexo Técnico 1 de la Resolución 207 de 2024 (Programa de Tamizaje Neonatal)", r:"Ministerio de Salud y Protección Social de Colombia, 2026", y:2026, k:"guideline"},

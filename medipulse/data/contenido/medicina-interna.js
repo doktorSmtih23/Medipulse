@@ -169,11 +169,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Paciente con ERC estadio 5 llega por debilidad muscular. <span class='hy'>K+ sérico 7.1 mEq/L</span> y ECG muestra <span class='hy'>ondas T picudas y ensanchamiento del QRS</span>. ¿Cuál es el primer fármaco a administrar?",
       "options": [
         "Resina de intercambio iónico (poliestireno sulfonato) vía oral",
-        "Furosemida oral y restricción dietética de potasio",
+        "Gluconato de calcio al 10 %, 30 mL IV en 10 minutos",
         "Insulina 10 U con 25 g de glucosa IV como única medida",
-        "Gluconato de calcio al 10 %, 30 mL IV en 10 minutos"
+        "Furosemida oral y restricción dietética de potasio"
       ],
-      "correct": 3,
+      "correct": 1,
       "whyCorrect": "Con hiperkalemia y cambios en el ECG, lo primero es proteger el corazón con calcio IV: gluconato de calcio al 10 %, 30 mL en 10 minutos (o cloruro de calcio al 10 %, 10 mL en 5 minutos, en el contexto de reanimación). El calcio no baja el K+; después se redistribuye y se elimina.",
       "pearl": "UKKA: 1) proteger el corazón (calcio IV); 2) meter K+ a la célula (insulina 10 U con 25 g de glucosa si K+ ≥ 6.5; salbutamol nebulizado 10–20 mg como adyuvante); 3) sacar K+ del cuerpo. El resonio ya no se usa de rutina.",
       "trap": "Empezar por la insulina sin proteger el corazón cuando el ECG ya muestra QRS ancho.",
