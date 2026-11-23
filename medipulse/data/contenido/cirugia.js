@@ -47,12 +47,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_tr",
       "vignette": "Joven sufre herida por arma blanca en hemitórax derecho. Llega con <span class='hy'>disnea severa, PA 70/40 mmHg, ingurgitación yugular, desviación traqueal a la izquierda y abolición del murmullo vesicular derecho</span>. ¿Acción inmediata?",
       "options": [
-        "Descompresión torácica inmediata y luego tubo de tórax",
-        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
         "Pericardiocentesis subxifoidea guiada por ecografía en la sala de reanimación",
+        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
+        "Descompresión torácica inmediata y luego tubo de tórax",
         "Intubación orotraqueal con presión positiva antes de descomprimir el tórax"
       ],
-      "correct": 0,
+      "correct": 2,
       "whyCorrect": "Es un neumotórax a tensión con inestabilidad hemodinámica (hipotensión, ingurgitación yugular, desviación traqueal y murmullo abolido). NICE indica descomprimir antes de cualquier imagen, con toracostomía abierta seguida de tubo de tórax.",
       "pearl": "NICE: preferir la toracostomía abierta a la descompresión con aguja si hay experiencia, y vigilar la recurrencia después de descomprimir.",
       "trap": "Pedir una radiografía antes de descomprimir a un paciente inestable.",
@@ -116,11 +116,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 66 años con fiebre de 39 °C, <span class='hy'>ictericia y dolor en hipocondrio derecho</span>. Además está confuso y con PA 82/50 mmHg. Bilirrubina 6.8 mg/dL. Ecografía: colédoco dilatado de 11 mm con litiasis. ¿Conducta?",
       "options": [
         "Colecistectomía laparoscópica urgente",
-        "Reanimación + antibióticos IV + drenaje biliar urgente (CPRE)",
+        "Colangiorresonancia antes de cualquier tratamiento",
         "Antibióticos orales y CPRE electiva en 6 semanas",
-        "Colangiorresonancia antes de cualquier tratamiento"
+        "Reanimación + antibióticos IV + drenaje biliar urgente (CPRE)"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Es una colangitis aguda definitiva (fiebre, ictericia y dilatación biliar con litiasis) con alteración de la conciencia, que es disfunción neurológica: grado III (grave) según TG18. El tratamiento es soporte, antibiótico y drenaje biliar temprano; la CPRE drena la vía y trata la causa.",
       "pearl": "La tríada de Charcot es muy específica pero poco sensible; TG18 no la usa como criterio diagnóstico. Antibiótico de 4 a 7 días una vez controlado el foco.",
       "trap": "Ir directo a la colecistectomía: la urgencia es drenar la vía biliar, no quitar la vesícula.",

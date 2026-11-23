@@ -163,11 +163,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 27 años, primigestante, con 36 semanas de embarazo. En la ecografía de control el <span class='hy'>bolsillo vertical máximo mide 1,5 cm</span>; el crecimiento fetal es normal, no hay malformaciones, las membranas están íntegras y la monitoría es reactiva. Según la ACOG, ¿en qué momento se considera terminar este embarazo?",
       "options": [
         "Inmediatamente, por cesárea, por el riesgo de compresión del cordón",
-        "A las 41 semanas si persiste el hallazgo en la ecografía",
+        "Entre las 36 y las 37 + 6 semanas, por la vía que corresponda",
         "Solo si aparece restricción del crecimiento fetal en el seguimiento",
-        "Entre las 36 y las 37 + 6 semanas, por la vía que corresponda"
+        "A las 41 semanas si persiste el hallazgo en la ecografía"
       ],
-      "correct": 3,
+      "correct": 1,
       "whyCorrect": "Es un oligohidramnios aislado (idiopático): BVM menor de 2 cm sin malformaciones, restricción del crecimiento ni ruptura de membranas. Por recomendación de la ACOG se considera terminar el embarazo entre las 36 y las 37 + 6 semanas. El oligohidramnios no contraindica el parto vaginal, y en el trabajo de parto se necesita monitoreo fetal continuo por el riesgo de compresión del cordón.",
       "pearl": "Oligohidramnios: BVM < 2 cm o ILA < 5 cm. Se prefiere el BVM porque reduce intervenciones innecesarias sin aumentar los riesgos perinatales.",
       "trap": "Indicar cesárea por el oligohidramnios: la vía la definen las condiciones obstétricas habituales.",

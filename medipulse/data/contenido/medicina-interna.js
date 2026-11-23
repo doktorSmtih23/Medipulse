@@ -1043,12 +1043,12 @@ MP_CONTENIDO.agregar({
       "src": "jama_dem",
       "vignette": "Hombre de <span class='hy'>58 años</span> con deterioro cognitivo de <span class='hy'>inicio rápido</span> en pocos meses, que ya le impide trabajar. Su esposa lo confirma. La RM no muestra infartos ni tumor. ¿Qué evaluación diagnóstica adicional debe considerarse?",
       "options": [
-        "Ninguna: es Alzheimer típico y basta iniciar donepezilo",
         "Estudios de LCR o pruebas genéticas, por ser una demencia atípica",
+        "Ninguna: es Alzheimer típico y basta iniciar donepezilo",
         "Repetir el MoCA en 1 año",
         "Solo pruebas de tiroides y vitamina B12"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Inicio antes de los 65 años, comienzo rápido o compromiso de varios dominios sin afectar la memoria episódica son rasgos de demencia atípica. En esos casos puede considerarse evaluar con biomarcadores en LCR o pruebas genéticas, además de la historia corroborada por un familiar y el examen mental.",
       "pearl": "El diagnóstico de demencia exige pérdida en varios dominios que afecte la vida diaria, corroborada por alguien cercano.",
       "trap": "Etiquetar como Alzheimer típico a un paciente joven con curso rápido.",
@@ -1577,6 +1577,58 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Lancet 2024, Seminar: Dengue",
           "texto": "The requirement for a laboratory test before vaccine administration creates a unique challenge for Dengvaxia implementation."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c40",
+      "topic": "Neumología · Asma leve: AIR",
+      "difficulty": "Nivel 2",
+      "src": "gina26",
+      "vignette": "Mujer de 25 años con asma leve: síntomas una vez por semana, sin despertares. Solo usa salbutamol a demanda. ¿Cuál es el tratamiento preferido según GINA 2026?",
+      "options": [
+        "Seguir con salbutamol a demanda, sin cambios por ahora",
+        "Budesonida-formoterol a dosis baja solo a demanda",
+        "Salmeterol a demanda sin corticoide inhalado",
+        "Montelukast diario como primera línea de mantenimiento"
+      ],
+      "correct": 1,
+      "whyCorrect": "En adultos y adolescentes, el alivio antiinflamatorio solo a demanda con ICS-formoterol a dosis baja (AIR) es el tratamiento preferido de los pasos 1 y 2. Frente al SABA solo, reduce mucho las crisis, el uso de corticoides orales y las consultas urgentes.",
+      "pearl": "Si necesita mantenimiento (pasos 3 y 4), se usa la misma combinación como mantenimiento y rescate (MART).",
+      "trap": "Dejar al paciente con SABA solo porque los síntomas son pocos.",
+      "cita": [
+        {
+          "donde": "GINA 2026 · Tratamiento por pasos",
+          "texto": "Anti-inflammatory reliever treatment with as-needed-only ICS-formoterol (‘AIR-only’) is the preferred treatment for Steps 1 and 2 in adults/adolescents"
+        },
+        {
+          "donde": "GINA 2026 · Tratamiento",
+          "texto": "SABA-only treatment is not recommended by GINA for adults, adolescents or children 6–11 years with asthma."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c41",
+      "topic": "Neumología · Asma: rescate con ICS-formoterol",
+      "difficulty": "Nivel 3",
+      "src": "gina26",
+      "vignette": "Hombre de 40 años con asma en mantenimiento con <span class='hy'>fluticasona-salmeterol</span>. Un colega le sugiere usar budesonida-formoterol como inhalador de rescate. ¿Qué opinas?",
+      "options": [
+        "Es lo ideal: así recibe más corticoide en cada crisis de síntomas",
+        "No: ICS-formoterol no se usa de rescate con otra combinación",
+        "Sí, pero solo para los síntomas nocturnos",
+        "Sí, y suspender la fluticasona-salmeterol de mantenimiento ya"
+      ],
+      "correct": 1,
+      "whyCorrect": "El ICS-formoterol no debe usarse como rescate en pacientes que toman otra combinación ICS-LABA de mantenimiento: no hay evidencia de su seguridad ni eficacia. Si se quiere ese esquema, se pasa a MART: la misma combinación ICS-formoterol como mantenimiento y rescate.",
+      "pearl": "MART: budesonida-formoterol (o beclometasona-formoterol) en un solo inhalador para mantenimiento y alivio.",
+      "trap": "Mezclar dos combinaciones distintas de ICS-LABA.",
+      "cita": [
+        {
+          "donde": "GINA 2026 · Paso 3",
+          "texto": "ICS-formoterol should not be used as the reliever for patients taking a different ICS-LABA maintenance treatment, because clinical evidence for safety and efficacy is lacking."
         }
       ],
       "verificado": "2026-11-23"

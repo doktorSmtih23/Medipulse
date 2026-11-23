@@ -830,12 +830,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_ped26",
       "vignette": "Niño de 6 años tras atropello. <span class='hy'>FC 150, llenado capilar de 4 segundos, pulsos distales débiles</span>; PA 98/60 mmHg (normal para la edad). ¿Cómo lo interpretas?",
       "options": [
-        "Estable, porque la presión es normal",
         "Choque compensado: la hipotensión es tardía",
+        "Estable, porque la presión es normal",
         "Taquicardia solo por dolor y ansiedad",
         "Choque descompensado que ya requiere vasoactivos"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "En niños la taquicardia y la mala perfusión distal son signos tempranos de hipovolemia; la hipotensión y la oliguria son tardías. Esperar a la hipotensión es llegar tarde.",
       "pearl": "Ácido tranexámico en las primeras 3 horas: 15 mg/kg (máximo 1 g) y luego 2 mg/kg/h por 8 horas.",
       "trap": "Descartar el choque porque la presión es normal.",
@@ -855,11 +855,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niña de 8 años, <span class='hy'>25 kg</span>, con trauma abdominal y hemorragia; lleva <span class='hy'>1 hora</span> del evento. ¿Qué dosis de ácido tranexámico?",
       "options": [
         "1 g fijo en bolo, igual que en los adultos",
-        "375 mg y luego 50 mg/h por 8 horas",
+        "Solo si ya pasaron más de 3 horas del trauma",
         "No se usa en menores de 12 años por riesgo de convulsiones",
-        "Solo si ya pasaron más de 3 horas del trauma"
+        "375 mg y luego 50 mg/h por 8 horas"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "En las primeras 3 horas: 15 mg/kg (máximo 1 g) → 375 mg, y luego 2 mg/kg/h por 8 horas → 50 mg/h.",
       "pearl": "Glóbulos rojos 10 a 20 mL/kg; en hemorragia masiva, proporción 1:1:1 con plasma y plaquetas.",
       "trap": "Dar la dosis fija de adulto o usarlo después de 3 horas.",
@@ -1083,6 +1083,114 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Resolución 117 de 2026, Anexo Técnico · Tamizaje endocrino metabólico básico",
           "texto": "hipotiroidismo congénito, fenilcetonuria, galactosemia, fibrosis quística, hiperplasia suprarrenal congénita, déficit de biotinidasa o defectos de la hemoglobina"
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c33",
+      "topic": "Neumología · Neumonía: tratamiento ambulatorio",
+      "difficulty": "Nivel 2",
+      "src": "pir_nac26",
+      "vignette": "Niña de 3 años, vacunada, con 3 días de fiebre, tos y taquipnea; crépitos en la base derecha. SatO₂ 95 %, sin tirajes, come bien. Se maneja en casa. ¿Qué antibiótico y por cuánto tiempo?",
+      "options": [
+        "Amoxicilina 40 mg/kg/día en 3 dosis por 10 días completos",
+        "Amoxicilina 90 mg/kg/día en 2 dosis, 3 a 5 días si mejora",
+        "Azitromicina 5 días como primera línea a esta edad",
+        "Ceftriaxona IM diaria por 3 días en casa y luego oral"
+      ],
+      "correct": 1,
+      "whyCorrect": "La amoxicilina en dosis alta (90 mg/kg/día) es el estándar para la neumonía adquirida en la comunidad, para superar la resistencia del neumococo. En mayores de 6 meses que mejoran, un curso corto de 3 a 5 días no es inferior a 10 días y reduce la exposición a antibióticos.",
+      "pearl": "En menores de 2 años más del 80 % de las neumonías son virales; el VSR es el germen más común en menores de 5.",
+      "trap": "Elegir azitromicina en una preescolar: los atípicos se consideran en mayores de 5 años.",
+      "cita": [
+        {
+          "donde": "Pediatrics in Review 2026, Pneumonia · Tratamiento",
+          "texto": "High-dose amoxicillin (90 mg/kg/d) has been the standard treatment dose for CAP with the intention to overcome S. pneumoniae resistance."
+        },
+        {
+          "donde": "Pediatrics in Review 2026, Pneumonia · Tratamiento",
+          "texto": "In patients older than age 6 months who are improving with amoxicillin, a shorter course of 3 to 5 days is noninferior to a 10-day regimen for clinical response, treatment failure, or readmissions, and reduces antibiotic exposure and, possibly, resistance."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c34",
+      "topic": "Neumología · Neumonía atípica",
+      "difficulty": "Nivel 2",
+      "src": "pir_nac26",
+      "vignette": "Niño de 9 años con 10 días de tos seca, cefalea, malestar y febrícula; crépitos difusos bilaterales. Está estable y se maneja en casa. Se sospecha <span class='hy'>Mycoplasma pneumoniae</span>. ¿Qué indicas?",
+      "options": [
+        "Amoxicilina en dosis alta y control en 48 horas",
+        "Amoxicilina más azitromicina siempre juntas para cubrir todo",
+        "Azitromicina sola, con prueba confirmatoria si hay",
+        "Levofloxacino oral por 7 días por ser la mejor cobertura"
+      ],
+      "correct": 2,
+      "whyCorrect": "Si hay sospecha clínica de atípicos en mayores de 5 años, se considera cubrirlos: la azitromicina se da como agente único, con prueba confirmatoria cuando esté disponible.",
+      "pearl": "Atípicos: Mycoplasma pneumoniae, Chlamydia pneumoniae, Legionella.",
+      "trap": "Sumar siempre amoxicilina y azitromicina «por si acaso».",
+      "cita": [
+        {
+          "donde": "Pediatrics in Review 2026, Pneumonia · Tratamiento",
+          "texto": "recommended to consider coverage for atypical pathogens, such as Mycoplasma pneumoniae, if clinical suspicion is present in children over age 5 years. Azithromycin should be prescribed as a single agent in these cases with conﬁrmatory testing when available (Table 6)."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c35",
+      "topic": "Neumología · Neumonía: estudios",
+      "difficulty": "Nivel 1",
+      "src": "pir_nac26",
+      "vignette": "Niño de 4 años, con vacunas completas, con neumonía clínica no grave que se tratará en casa. La madre pide radiografía y exámenes de sangre «para estar seguros». ¿Qué le explicas?",
+      "options": [
+        "Que la radiografía es obligatoria para diagnosticar",
+        "Que no se necesitan de rutina en el manejo en casa",
+        "Que se necesita procalcitonina para decidir el antibiótico",
+        "Que hay que hacer hemograma y PCR en todos"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el niño que se maneja ambulatoriamente, la radiografía de tórax no es necesaria para confirmar la neumonía, y el hemograma, la PCR y la procalcitonina no se recomiendan de rutina en el niño vacunado. El diagnóstico es clínico.",
+      "pearl": "La radiografía de control tampoco se pide de rutina: solo si la neumonía es recurrente o persistente, o se sospecha una anomalía anatómica.",
+      "trap": "Pedir radiografía y laboratorios a todo niño con neumonía no complicada.",
+      "cita": [
+        {
+          "donde": "Pediatrics in Review 2026, Pneumonia · Diagnóstico",
+          "texto": "routine chest radiographs (CXR) are not necessary for the conﬁrmation of pneumonia in patients treated in the outpatient setting."
+        },
+        {
+          "donde": "Pediatrics in Review 2026, Pneumonia · Diagnóstico",
+          "texto": "Routine measurement of complete blood cell count (CBC) and acute-phase reactants such as C-reactive protein (CRP) and procalcitonin (PCT) are not recommended in fully immunized children with suspected CAP who are candidates for outpatient management."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c36",
+      "topic": "Neumología · Asma: salbutamol solo",
+      "difficulty": "Nivel 2",
+      "src": "gina26",
+      "vignette": "Niño de 8 años con asma: síntomas 2 a 3 veces al mes, que alivia solo con salbutamol inhalado; nunca ha usado corticoide inhalado. ¿Qué cambias?",
+      "options": [
+        "Nada: con síntomas leves basta el salbutamol cuando lo necesite",
+        "Agregar corticoide inhalado: el salbutamol solo no se recomienda",
+        "Montelukast diario en lugar del salbutamol a demanda",
+        "Prednisolona oral en cada crisis, sin corticoide inhalado diario"
+      ],
+      "correct": 1,
+      "whyCorrect": "GINA no recomienda tratar el asma solo con SABA en adultos, adolescentes ni niños de 6 a 11 años: frente a cualquier corticoide inhalado, el SABA solo aumenta el riesgo de muerte por asma y de atención urgente. En niños de 5 a 15 años, budesonida-formoterol a demanda redujo casi a la mitad las crisis frente al SABA solo (estudio CARE).",
+      "pearl": "Todo asmático necesita corticoide inhalado, aunque los síntomas sean leves.",
+      "trap": "Considerar el asma «leve» como asma que no necesita antiinflamatorio.",
+      "cita": [
+        {
+          "donde": "GINA 2026 · Tratamiento",
+          "texto": "SABA-only treatment is not recommended by GINA for adults, adolescents or children 6–11 years with asthma."
+        },
+        {
+          "donde": "GINA 2026 · Novedades",
+          "texto": "Results from the CARE study, in children 5–15 years who were using SABA alone, demonstrated that low-dose budesonide-formoterol, used as-needed for symptom relief, reduced the risk of moderate-severe exacerbations by nearly half, compared with SABA alone."
         }
       ],
       "verificado": "2026-11-23"
