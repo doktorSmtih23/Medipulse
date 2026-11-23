@@ -37,7 +37,7 @@ function srcLine(item){
   const warn = msg => `<div class="srcline" style="color:var(--warn)">⚠ <span>${msg}</span></div>`;
   const upd = (item.updated ? " · ✓ actualizado a la versión nueva con IA, verifícalo" : "") + (item.edited ? " · ✏️ corregido por ti" : "");
   const marca = typeof tieneMarca === "function" && tieneMarca(item) ? warn("Este ítem tiene un signo por verificar en el PDF. Compáralo con la página y corrígelo con ✏️ Corregir.") : "";
-  if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${upd}${s.u?` · <a href="${esc(s.u)}" target="_blank" rel="noopener">abrir la guía</a>`:s.k!=="book"?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>` + citaHtml(item)
+  if (s.builtin) return `<div class="srcline">📚 <span>${esc(s.t)} — ${esc(s.r)}${upd}${s.u?` · <a href="${esc(s.u)}" target="_blank" rel="noopener">abrir la guía</a>`:s.k!=="book" && !s.norma?` · <a href="${pubmed(s.t)}" target="_blank" rel="noopener">buscar en PubMed</a>`:""}</span></div>` + citaHtml(item)
     + (st==="outdated" && !item.updated ? warn("Hay una versión más nueva de esta fuente; este dato podría haber cambiado. Revísalo en Fuentes → Vigencia.") : "") + marca;
   const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : item.pack ? " · de un pack compartido, no revisado por MediPulse: verifícalo" : "";
   const pdf = s.kind==="pdf", where = item.pages && item.pages.length > 1 && !s.apunte && s.kind!=="text" ? ` · págs. ${item.pages.join(", ")}` : item.page ? (s.apunte ? ` · punto ${item.page}` : s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";
@@ -193,7 +193,7 @@ function renderLib(){
   $("#bsCount").textContent = `(${SOURCES.length})`; $("#bsChecked").textContent = SOURCES_CHECKED;
   $("#builtinSrc").innerHTML = SOURCES.slice().sort((a,b)=>b.y-a.y || (cnt[b.id]||0)-(cnt[a.id]||0)).map(s=>`
     <div class="srcitem"><div class="ic">${s.k==="book"?"📕":s.k==="article"?"📰":"📋"}</div>
-      <div style="flex:1;min-width:0"><div class="small"><b>${esc(s.t)}</b></div><div class="xs muted">${esc(s.r)} · ${cnt[s.id]||0} ítems${s.k!=="book"?` · <a class="linkbtn" href="${pubmed(s.t)}" target="_blank" rel="noopener">PubMed</a>`:""}</div>${s.v?`<div class="xs" style="color:var(--warn);margin-top:2px">${esc(s.v)}</div>`:""}</div>
+      <div style="flex:1;min-width:0"><div class="small"><b>${esc(s.t)}</b></div><div class="xs muted">${esc(s.r)} · ${cnt[s.id]||0} ítems${s.k!=="book" && !s.norma?` · <a class="linkbtn" href="${pubmed(s.t)}" target="_blank" rel="noopener">PubMed</a>`:""}</div>${s.v?`<div class="xs" style="color:var(--warn);margin-top:2px">${esc(s.v)}</div>`:""}</div>
       <button class="btn" data-bsrc="${s.id}">Estudiar</button></div>`).join("");
   document.querySelectorAll("[data-bsrc]").forEach(b=>b.onclick=()=>studySource(b.dataset.bsrc));
 }

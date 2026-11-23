@@ -150,3 +150,11 @@ test("si todas las opciones son cifras, van de menor a mayor", () => {
     .filter(q => q.options.some((o, i) => i && cifra(o) < cifra(q.options[i - 1]))).map(donde);
   expect(desordenadas).toEqual([]);
 });
+
+test("una norma colombiana (resolución) no ofrece «buscar en PubMed»; un artículo sí", async ({ page }) => {
+  await page.goto("/");
+  const r = await page.evaluate(() => [srcLine({src: "res117_26"}), srcLine({src: "lancet_dengue"})]);
+  expect(r[0]).toContain("Resolución 117 de 2026");
+  expect(r[0]).not.toContain("PubMed");
+  expect(r[1]).toContain("PubMed");
+});
