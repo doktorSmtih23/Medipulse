@@ -224,11 +224,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niña de 9 años con 5 días de fiebre, <span class='hy'>dolor abdominal intenso, vómitos y diarrea</span>, cefalea e hipotensión. Plaquetas 98.000, linfopenia y troponina elevada. Ecocardiograma: <span class='hy'>función sistólica del ventrículo izquierdo disminuida y derrame pericárdico</span>, coronarias normales. Sin cambios en la mucosa oral. ¿Diagnóstico más probable?",
       "options": [
         "Enfermedad de Kawasaki completa con afectación miocárdica",
-        "Escarlatina con miocarditis estreptocócica",
+        "Síndrome inflamatorio multisistémico pediátrico (MIS-C)",
         "Gastroenteritis con deshidratación y choque hipovolémico",
-        "Síndrome inflamatorio multisistémico pediátrico (MIS-C)"
+        "Escarlatina con miocarditis estreptocócica"
       ],
-      "correct": 3,
+      "correct": 1,
       "whyCorrect": "Los síntomas gastrointestinales prominentes, la cefalea, la trombocitopenia, la linfopenia, la troponina elevada y la disfunción ventricular con derrame pericárdico son más propios del MIS-C. El exantema, la conjuntivitis, los cambios de la mucosa oral y las alteraciones coronarias son más comunes en Kawasaki.",
       "pearl": "El MIS-C entró al diagnóstico diferencial del Kawasaki desde 2020, aunque su frecuencia bajó mucho desde 2022.",
       "trap": "Diagnosticar Kawasaki por la fiebre y la inflamación sin mirar el compromiso gastrointestinal y miocárdico.",

@@ -16,11 +16,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 46 años consulta por dolor en hipocondrio derecho de 36 horas, fiebre de 38.4°C y vómitos. <span class='hy'>Signo de Murphy positivo</span>. Leucocitos 15.200/mm³. Ecografía: litiasis vesicular, pared engrosada de 5 mm y líquido pericolecístico. <span class='hy'>Bilirrubina total y fosfatasa alcalina normales</span>. ¿Conducta?",
       "options": [
         "CPRE urgente antes de cualquier intervención quirúrgica",
-        "Colangiorresonancia obligatoria para descartar colangitis aguda",
+        "Antibioticoterapia IV + colecistectomía laparoscópica temprana",
         "Manejo ambulatorio con analgésicos y colecistectomía electiva en 3 meses",
-        "Antibioticoterapia IV + colecistectomía laparoscópica temprana"
+        "Colangiorresonancia obligatoria para descartar colangitis aguda"
       ],
-      "correct": 3,
+      "correct": 1,
       "whyCorrect": "Tiene un signo local (Murphy), signos sistémicos (fiebre, leucocitosis) e imagen característica: colecistitis aguda definitiva según TG18, sin colestasis. Es leve (grado I) y la paciente tolera la cirugía, así que TG18 indica colecistectomía laparoscópica pronto tras el inicio.",
       "pearl": "TG18 propone la cirugía temprana en quien la tolera, sin importar exactamente cuánto tiempo pasó desde el inicio (ya no exige el límite estricto de 72 h).",
       "trap": "Diferir la colecistectomía varias semanas en una paciente que tolera la cirugía.",
@@ -115,12 +115,12 @@ MP_CONTENIDO.agregar({
       "src": "tg18",
       "vignette": "Hombre de 66 años con fiebre de 39 °C, <span class='hy'>ictericia y dolor en hipocondrio derecho</span>. Además está confuso y con PA 82/50 mmHg. Bilirrubina 6.8 mg/dL. Ecografía: colédoco dilatado de 11 mm con litiasis. ¿Conducta?",
       "options": [
-        "Colecistectomía laparoscópica urgente",
-        "Antibióticos orales y CPRE electiva en 6 semanas",
         "Reanimación + antibióticos IV + drenaje biliar urgente (CPRE)",
+        "Antibióticos orales y CPRE electiva en 6 semanas",
+        "Colecistectomía laparoscópica urgente",
         "Colangiorresonancia antes de cualquier tratamiento"
       ],
-      "correct": 2,
+      "correct": 0,
       "whyCorrect": "Es una colangitis aguda definitiva (fiebre, ictericia y dilatación biliar con litiasis) con alteración de la conciencia, que es disfunción neurológica: grado III (grave) según TG18. El tratamiento es soporte, antibiótico y drenaje biliar temprano; la CPRE drena la vía y trata la causa.",
       "pearl": "La tríada de Charcot es muy específica pero poco sensible; TG18 no la usa como criterio diagnóstico. Antibiótico de 4 a 7 días una vez controlado el foco.",
       "trap": "Ir directo a la colecistectomía: la urgencia es drenar la vía biliar, no quitar la vesícula.",

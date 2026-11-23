@@ -260,10 +260,10 @@ MP_CONTENIDO.agregar({
       "options": [
         "Amiodarona IV en infusión y reevaluar en 24 horas",
         "Metoprolol IV en bolos para control de frecuencia",
-        "Cardioversión eléctrica sincronizada",
-        "Anticoagular 3 semanas y luego cardiovertir"
+        "Anticoagular 3 semanas y luego cardiovertir",
+        "Cardioversión eléctrica sincronizada"
       ],
-      "correct": 2,
+      "correct": 3,
       "whyCorrect": "Toda taquiarritmia con inestabilidad hemodinámica (hipotensión, alteración de conciencia, dolor torácico isquémico o insuficiencia cardíaca aguda) se trata con cardioversión eléctrica sincronizada inmediata, sin importar el tiempo de evolución.",
       "pearl": "Inestable = electricidad. Estable = fármacos (control de frecuencia o de ritmo).",
       "trap": "Dar betabloqueador IV a una paciente hipotensa: empeora el choque.",

@@ -55,12 +55,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_ip",
       "vignette": "Puérpera inmediata tras parto vaginal prolongado presenta <span class='hy'>sangrado vaginal abundante (&gt; 1000 mL), PA 82/50 mmHg, FC 122 lpm y útero blando por encima del ombligo</span>. ¿Causa más probable y primera medida farmacológica?",
       "options": [
-        "Atonía uterina · Masaje uterino bimanual + oxitocina IV + ácido tranexámico",
-        "Desgarro cervical · Sutura inmediata sin uterotónicos",
         "Acretismo placentario · Histerectomía inmediata sin reanimación",
+        "Desgarro cervical · Sutura inmediata sin uterotónicos",
+        "Atonía uterina · Masaje uterino bimanual + oxitocina IV + ácido tranexámico",
         "Coagulopatía primaria · Transfusión aislada de plaquetas"
       ],
-      "correct": 0,
+      "correct": 2,
       "whyCorrect": "Útero blando por encima del ombligo tras un parto prolongado: atonía uterina. NICE indica pedir ayuda, vaciar la vejiga, masaje uterino, uterotónicos y líquidos IV; además de los uterotónicos, ácido tranexámico 1 g IV en 10 minutos, que se repite a los 30 minutos o más si sigue sangrando.",
       "pearl": "El trabajo de parto prolongado, la oxitocina durante el parto, el parto instrumentado, la cesárea y la demora en la salida de la placenta son factores de riesgo de hemorragia posparto.",
       "trap": "Dejar el ácido tranexámico para después: NICE lo indica junto con los uterotónicos.",
@@ -639,11 +639,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Puérpera de 2 horas tras parto vaginal. En la bolsa colectora calibrada se han medido <span class='hy'>350 mL</span>. FC 108 lpm, PA 98/58 mmHg. ¿Cómo la clasificas?",
       "options": [
         "No es hemorragia porque no llega a 500 mL medidos",
-        "Hemorragia posparto, por 300 mL o más con signos anormales",
+        "Sangrado normal del puerperio: revalorar a las 6 horas",
         "Solo cuenta como hemorragia si supera los 1.000 mL",
-        "Sangrado normal del puerperio: revalorar a las 6 horas"
+        "Hemorragia posparto, por 300 mL o más con signos anormales"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "La OMS define hemorragia posparto como 300 mL o más medidos con cualquier signo hemodinámico anormal (pulso >100, índice de choque >1, PAS <100 o PAD <60), o 500 mL o más, lo que ocurra primero en las primeras 24 horas.",
       "pearl": "La vigilancia es especialmente estrecha en las 2 primeras horas tras el parto.",
       "trap": "Esperar a los 500 mL cuando ya hay taquicardia o hipotensión.",
@@ -687,11 +687,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 63 años, posmenopáusica, con distensión abdominal. La ecografía muestra una <span class='hy'>masa anexial multilocular sólida irregular de 12 cm, con ascitis</span>. ¿Qué haces?",
       "options": [
         "Repetir ecografía en 3 meses",
-        "Remitir a ginecología oncológica",
         "Laparoscopia de quistectomía en su hospital",
+        "Remitir a ginecología oncológica",
         "Anticonceptivos orales y nuevo control"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Cumple reglas M de IOTA (tumor multilocular sólido irregular de 100 mm o más y ascitis): alto riesgo de malignidad. Las lesiones de alto riesgo, O-RADS 4 o 5, deben operarse por ginecología oncológica para una citorreducción correcta.",
       "pearl": "Índice de riesgo de malignidad (IRM) de 200 o más: punto de corte para remitir.",
       "trap": "Operarla en un centro sin ginecología oncológica o hacer seguimiento expectante.",
@@ -763,11 +763,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Primípara de 32 años, 8 semanas después de un <span class='hy'>parto con fórceps</span>, siente «bulto y peso en la vagina». La episiotomía cicatrizó bien. Al tacto, el puborrectal no se ancla en el pubis derecho y el <span class='hy'>hiato mide 5 cm</span>. ¿Qué sigue?",
       "options": [
         "Tranquilizar: el periné está íntegro",
-        "Ecografía 3D/4D transperineal",
+        "Pesario y control en un año",
         "Colporrafia posterior inmediata",
-        "Pesario y control en un año"
+        "Ecografía 3D/4D transperineal"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Sospecha de avulsión del elevador del ano, una lesión oculta bajo un periné que se ve sano. Con hiato mayor de 4 cm o falta de contracción, se hace ecografía 3D/4D transperineal, el patrón de oro, y luego fisioterapia de suelo pélvico.",
       "pearl": "Las lesiones ocultas afectan a 1 de cada 3 mujeres tras su primer parto vaginal; fórceps, segunda fase prolongada y feto de más de 4.000 g aumentan el riesgo.",
       "trap": "Descartar lesión porque la episiotomía y el esfínter se ven bien.",
@@ -1011,6 +1011,134 @@ MP_CONTENIDO.agregar({
         {
           "donde": "JAMA 2025, sífilis",
           "texto": "(2) screening 3 times in pregnant individuals (at the first prenatal visit, during the third trimester, and at delivery)"
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c34",
+      "topic": "Obstetricia · Ruptura prematura de membranas pretérmino",
+      "difficulty": "Nivel 2",
+      "src": "cto_gc",
+      "vignette": "Gestante de <span class='hy'>30 semanas</span> con salida de líquido claro por vagina desde hace 3 horas, confirmada. Afebril, sin dolor, monitoría normal, sin contracciones. ¿Qué haces?",
+      "options": [
+        "Tacto vaginal para valorar el cuello y decidir la vía del parto ya",
+        "Conducta expectante con antibiótico y sin tacto vaginal",
+        "Inducir el parto de inmediato por el alto riesgo de infección materna",
+        "Alta con reposo absoluto en casa y control en una semana"
+      ],
+      "correct": 1,
+      "whyCorrect": "En la ruptura prematura de membranas pretérmino sin corioamnionitis, desprendimiento ni compromiso fetal, se opta por conducta expectante con antibiótico sistemático (7 a 10 días, que cubra ureaplasma y estreptococo del grupo B). El tacto vaginal aumenta el riesgo de infección: solo si está en trabajo de parto o se decidió terminar la gestación.",
+      "pearl": "Al ingreso: cultivo vaginorrectal para estreptococo del grupo B y monitoría para detectar taquicardia fetal.",
+      "trap": "Hacer tacto vaginal «para ver cómo está el cuello».",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Ginecología y Obstetricia",
+          "texto": "Dado que el tacto vaginal incrementa el riesgo de infección, únicamente debe realizarse si la paciente se halla en trabajo de parto o si se ha decidido finalizar la gestación."
+        },
+        {
+          "donde": "Manual CTO 14.ª ed., Ginecología y Obstetricia",
+          "texto": "Se recomienda el tratamiento antibiótico sistemático en el manejo expectante de la RPM pretérmino por sus beneficios a corto plazo en la morbilidad materno neonatal."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c35",
+      "topic": "Obstetricia · Neuroprotección fetal",
+      "difficulty": "Nivel 2",
+      "src": "cto_gc",
+      "vignette": "Gestante de <span class='hy'>29 semanas</span> en trabajo de parto pretérmino que no se detuvo; el parto parece inminente. Además de los corticoides, ¿qué le das para proteger al feto?",
+      "options": [
+        "Sulfato de magnesio como neuroprotector",
+        "Progesterona vaginal diaria hasta la semana 36",
+        "Indometacina en dosis alta para frenar las contracciones",
+        "Ningún otro fármaco: los corticoides bastan para todo"
+      ],
+      "correct": 0,
+      "whyCorrect": "Cuando se prevé un parto inminente antes de las 32 semanas, se recomienda sulfato de magnesio como neuroprotector: los prematuros cuyas madres lo recibieron tienen menos parálisis cerebral.",
+      "pearl": "El magnesio aquí no es tocolítico ni anticonvulsivante: es neuroprotección fetal.",
+      "trap": "Omitir el magnesio por no tener preeclampsia.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Ginecología y Obstetricia",
+          "texto": "Se recomienda utilizar el sulfato de magnesio como neuroprotector, cuando se prevea un parto inminente antes de las 32 semanas de gestación."
+        },
+        {
+          "donde": "Manual CTO 14.ª ed., Ginecología y Obstetricia",
+          "texto": "Sulfato de magnesio: los recién nacidos prematuros nacidos de madres que han recibido sulfato de magnesio antes del parto tienen menos probabilidad de presentar parálisis cerebral, gracias a su efecto neuroprotector."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c36",
+      "topic": "Ginecología · Trichomonas vaginalis",
+      "difficulty": "Nivel 1",
+      "src": "cto_gc",
+      "vignette": "Mujer de 26 años con <span class='hy'>leucorrea amarillo-verdosa espumosa</span>, prurito y disuria. Se confirma Trichomonas vaginalis. ¿Qué parte del tratamiento es básica para evitar la reinfección?",
+      "options": [
+        "Óvulos de clotrimazol por 7 días y crema vulvar",
+        "Tratar también a la pareja sexual",
+        "Duchas vaginales diarias con antiséptico por un mes",
+        "Repetir la citología y el frotis en un mes para confirmar"
+      ],
+      "correct": 1,
+      "whyCorrect": "La leucorrea espumosa es característica de Trichomonas vaginalis. Se trata con metronidazol, y el tratamiento de las parejas sexuales es básico para evitar síntomas y prevenir reinfecciones.",
+      "pearl": "Tricomoniasis: es una infección de transmisión sexual; vaginosis bacteriana: no lo es.",
+      "trap": "Tratar solo a la paciente y que vuelva a infectarse.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Ginecología y Obstetricia",
+          "texto": "La leucorrea claramente espumosa es un signo característico de Trichomonas vaginalis. El tratamiento de las parejas sexuales es básico para evitar síntomas y prevenir reinfecciones."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c37",
+      "topic": "Ginecología · Vaginosis bacteriana asintomática",
+      "difficulty": "Nivel 2",
+      "src": "cto_gc",
+      "vignette": "Mujer de 32 años, no gestante, asintomática, en cuya citología de rutina se informa <span class='hy'>flora sugestiva de vaginosis bacteriana</span>. ¿Qué haces?",
+      "options": [
+        "Metronidazol oral a ella y a su pareja por 7 días",
+        "No tratar: solo se tratan las sintomáticas",
+        "Clindamicina vaginal por 7 días aunque no tenga síntomas",
+        "Repetir la citología con cultivo de flujo vaginal en 1 mes"
+      ],
+      "correct": 1,
+      "whyCorrect": "La vaginosis bacteriana es un síndrome polimicrobiano por descenso de lactobacilos, a menudo asintomático; no es una infección de transmisión sexual. Solo deben tratarse las sintomáticas, y no se trata a la pareja.",
+      "pearl": "Vaginosis: flujo grisáceo con olor a pescado, sin inflamación.",
+      "trap": "Tratar a la pareja o a la mujer asintomática.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Ginecología y Obstetricia",
+          "texto": "La Trichomonas vaginalis es responsable de un 80% de vaginosis bacteriana (VB) asintomática, pero solo deben tratarse las VB sintomáticas."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c38",
+      "topic": "Ginecología · Sangrado posmenopáusico con tamoxifeno",
+      "difficulty": "Nivel 3",
+      "src": "cto_gc",
+      "vignette": "Mujer de 61 años con cáncer de mama en <span class='hy'>tratamiento con tamoxifeno</span>, con metrorragia posmenopáusica. La ecografía transvaginal muestra un endometrio de 3 mm. ¿Qué haces?",
+      "options": [
+        "Tranquilizar: con 3 mm el endometrio es fino y no se estudia",
+        "Histeroscopia con biopsia de endometrio",
+        "Repetir la ecografía transvaginal en 6 meses",
+        "Suspender el tamoxifeno y observar si el sangrado cede"
+      ],
+      "correct": 1,
+      "whyCorrect": "En la mujer con tamoxifeno y metrorragia posmenopáusica se hace histeroscopia con biopsia endometrial sin importar lo que muestre la ecografía, porque en ella la ecografía tiene baja sensibilidad y especificidad. El tamoxifeno aumenta el riesgo de cáncer de endometrio.",
+      "pearl": "Los cortes ecográficos del grosor endometrial tampoco aplican a quien sangra durante la terapia hormonal.",
+      "trap": "Confiarse de un endometrio fino en la ecografía de una paciente con tamoxifeno.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Ginecología y Obstetricia",
+          "texto": "Está indicada una HSC con biopsia endometrial en mujeres en tratamiento con tamoxifeno que presenten una metrorragia posmenopáusica, independientemente de los hallazgos de la ecografía vaginal por la baja sensibilidad y especificidad de la misma."
         }
       ],
       "verificado": "2026-11-23"
