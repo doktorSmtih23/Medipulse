@@ -162,12 +162,12 @@ MP_CONTENIDO.agregar({
       "tipo": "datos",
       "vignette": "Mujer de 27 años, primigestante, con 36 semanas de embarazo. En la ecografía de control el <span class='hy'>bolsillo vertical máximo mide 1,5 cm</span>; el crecimiento fetal es normal, no hay malformaciones, las membranas están íntegras y la monitoría es reactiva. Según la ACOG, ¿en qué momento se considera terminar este embarazo?",
       "options": [
-        "Inmediatamente, por cesárea, por el riesgo de compresión del cordón",
         "Entre las 36 y las 37 + 6 semanas, por la vía que corresponda",
+        "A las 41 semanas si persiste el hallazgo en la ecografía",
         "Solo si aparece restricción del crecimiento fetal en el seguimiento",
-        "A las 41 semanas si persiste el hallazgo en la ecografía"
+        "Inmediatamente, por cesárea, por el riesgo de compresión del cordón"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Es un oligohidramnios aislado (idiopático): BVM menor de 2 cm sin malformaciones, restricción del crecimiento ni ruptura de membranas. Por recomendación de la ACOG se considera terminar el embarazo entre las 36 y las 37 + 6 semanas. El oligohidramnios no contraindica el parto vaginal, y en el trabajo de parto se necesita monitoreo fetal continuo por el riesgo de compresión del cordón.",
       "pearl": "Oligohidramnios: BVM < 2 cm o ILA < 5 cm. Se prefiere el BVM porque reduce intervenciones innecesarias sin aumentar los riesgos perinatales.",
       "trap": "Indicar cesárea por el oligohidramnios: la vía la definen las condiciones obstétricas habituales.",
@@ -587,11 +587,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 24 años con sangrado en el primer trimestre. La ecografía muestra un patrón en <span class='hy'>«tormenta de nieve» sin embrión</span> y la β-hCG está muy por encima de lo esperado para la edad gestacional. Desea tener hijos. ¿Cómo se evacúa el útero?",
       "options": [
         "Inducción con misoprostol y luego legrado",
-        "Aspiración por succión",
+        "Metotrexato antes de cualquier evacuación",
         "Histerectomía abdominal total",
-        "Metotrexato antes de cualquier evacuación"
+        "Aspiración por succión"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Es una mola completa. Se evacúa preferiblemente por aspiración por succión. Las prostaglandinas se desaconsejan porque aumentan la hemorragia y, al parecer, la neoplasia trofoblástica posmolar. La histerectomía se reserva para mayores de 40 años o sin deseo reproductivo.",
       "pearl": "Después de evacuar: β-hCG cada 1 a 2 semanas hasta que sea indetectable, y anticoncepción confiable (no DIU) durante la vigilancia.",
       "trap": "Usar misoprostol para «ablandar el cuello» antes de evacuar una mola.",
@@ -959,6 +959,58 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Resolución 3280 de 2018 · Tamización de cáncer de cuello uterino",
           "texto": "Pruebas de ADN del Virus de Papiloma Humano: La tamización con las pruebas que detectan el ADN de los virus del papiloma humano (VPH) de alto riesgo, se deben realizar a todas las mujeres entre 30 y 65 años de edad, con un esquema 1-5- 5 (cada 5 años) ante resultados negativos."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c32",
+      "topic": "Obstetricia · Estreptococo del grupo B",
+      "difficulty": "Nivel 1",
+      "src": "nejm_gbs26",
+      "vignette": "Gestante de 38 semanas en trabajo de parto, con <span class='hy'>cultivo rectovaginal positivo para estreptococo del grupo B</span> a las 36 semanas. Sin alergias. ¿Qué profilaxis intraparto le das?",
+      "options": [
+        "Ninguna si no tiene fiebre ni ruptura prolongada de membranas",
+        "Penicilina G IV (ampicilina como alternativa)",
+        "Clindamicina oral desde la semana 36 hasta el parto",
+        "Antibiótico solo al recién nacido"
+      ],
+      "correct": 1,
+      "whyCorrect": "La profilaxis antibiótica intraparto previene la enfermedad temprana por estreptococo del grupo B. El tratamiento de elección es la penicilina G, y la ampicilina es una alternativa aceptable. Sin profilaxis, cerca de la mitad de los hijos de madres colonizadas se colonizan y el 1 a 2 % hace enfermedad invasiva.",
+      "pearl": "Ruta materno perinatal (Res. 3280): cultivo rectal y vaginal entre las semanas 35 y 37.",
+      "trap": "Omitir la profilaxis porque la madre está afebril.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, estreptococo del grupo B",
+          "texto": "The best available treatment for infections is penicillin G, with ampicillin an acceptable alternative."
+        },
+        {
+          "donde": "NEJM 2026, estreptococo del grupo B",
+          "texto": "In the absence of intrapartum antibiotic prophylaxis, approximately half the infants born to colonized parturient persons are colonized at surface sites, and invasive disease develops in 1 to 2%."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c33",
+      "topic": "Obstetricia · Sífilis en el embarazo",
+      "difficulty": "Nivel 2",
+      "src": "jama_sifilis25",
+      "vignette": "Una gestante tuvo la prueba de sífilis negativa en su primer control prenatal. ¿Cuándo más debe tamizarse según la revisión de JAMA 2025?",
+      "options": [
+        "No más: una prueba negativa basta",
+        "En el tercer trimestre y en el parto",
+        "Solo si aparece una úlcera genital",
+        "Al mes del parto, en el control posparto"
+      ],
+      "correct": 1,
+      "whyCorrect": "La revisión recomienda, como estrategia para prevenir la sífilis, tamizar a la gestante tres veces: en el primer control prenatal, en el tercer trimestre y en el parto. Así se detectan las infecciones adquiridas durante el embarazo y se previene la sífilis congénita.",
+      "pearl": "El tratamiento en la gestante es la penicilina benzatínica: no hay alternativa equivalente.",
+      "trap": "Confiarse de una prueba negativa al inicio del embarazo.",
+      "cita": [
+        {
+          "donde": "JAMA 2025, sífilis",
+          "texto": "(2) screening 3 times in pregnant individuals (at the first prenatal visit, during the third trimester, and at delivery)"
         }
       ],
       "verificado": "2026-11-23"

@@ -878,12 +878,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_ped26",
       "vignette": "Niño de 4 años en UCI, día 5 de ventilación con midazolam, está <span class='hy'>agitado, desconectado y con sueño invertido</span>; la escala CAPD es positiva. ¿Cuál es la medida inicial?",
       "options": [
-        "Aumentar el midazolam para sedarlo más profundamente",
         "Tratar la causa y medidas no farmacológicas",
+        "Aumentar el midazolam para sedarlo más profundamente",
         "Haloperidol IV de entrada a todos los niños con CAPD positiva",
         "Quetiapina como primera línea con eficacia probada en niños"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Lo primero es tratar la causa (incluida la revisión de medicamentos como las benzodiacepinas) y aplicar medidas no farmacológicas: más del 80 % de los niños responden a ellas. Los antipsicóticos quedan para casos refractarios; su eficacia en niños no está establecida.",
       "pearl": "Las benzodiacepinas, los opioides, los anticolinérgicos y los corticoides favorecen el delirium.",
       "trap": "Subir la benzodiacepina, que perpetúa el delirium.",
@@ -906,12 +906,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_ped26",
       "vignette": "Niña de 2 años con palidez. Hb <span class='hy'>9,2 g/dL, VCM 68 fL, RDW aumentado</span>, reticulocitos bajos y <span class='hy'>ferritina 8 ng/mL</span>. Sin pérdidas de sangre. ¿Qué indicas?",
       "options": [
-        "Transfusión de glóbulos rojos a 10 mL/kg hoy mismo",
         "Hierro elemental oral 3 mg/kg/día y orientación nutricional",
+        "Transfusión de glóbulos rojos a 10 mL/kg hoy mismo",
         "Electroforesis de hemoglobina para descartar talasemia antes de tratar",
         "Hierro IV de entrada para corregir más rápido el déficit"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Es anemia microcítica hipocrómica por déficit de hierro (ferritina baja). Se trata con hierro elemental oral a 3 mg/kg/día y orientación nutricional, con control a los 3 meses.",
       "pearl": "Un RDW aumentado apoya la ferropenia: la anisocitosis es típica.",
       "trap": "Transfundir a una niña estable o pedir estudios de talasemia antes de tratar una ferropenia clara.",
@@ -935,11 +935,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Adolescente de 15 años con <span class='hy'>acné inflamatorio moderado</span> en la cara. Otro médico le dejó <span class='hy'>clindamicina tópica sola</span> hace 4 meses. ¿Qué cambias?",
       "options": [
         "Nada: seguir con la clindamicina sola otros 6 meses",
-        "Agregar peróxido de benzoilo o un retinoide",
         "Isotretinoína oral de inmediato, sin pasar por tópicos",
+        "Agregar peróxido de benzoilo o un retinoide",
         "Cambiar a eritromicina tópica sola por resistencia"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Los antibióticos tópicos solo se usan combinados con peróxido de benzoilo o un retinoide, para reducir la resistencia bacteriana. El peróxido no genera resistencia. Los retinoides son el pilar del mantenimiento.",
       "pearl": "La terapia sistémica es para acné moderado a severo, noduloquístico o resistente a los tópicos.",
       "trap": "Dejar un antibiótico tópico en monoterapia por meses.",
@@ -963,11 +963,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Adolescente de 17 años que <span class='hy'>vapea cartuchos de THC</span>, con tos, dolor torácico, disnea, fiebre y vómito de una semana. Opacidades bilaterales y saturación de 89 %. Sin otra causa. ¿Qué es lo indispensable del manejo?",
       "options": [
         "Azitromicina por neumonía atípica, sin preguntar más",
-        "Soporte, oxígeno y suspender ya el vapeo",
+        "Esperar el cultivo antes de cualquier medida",
         "Broncodilatador y alta ambulatoria",
-        "Esperar el cultivo antes de cualquier medida"
+        "Soporte, oxígeno y suspender ya el vapeo"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Es una probable EVALI, ligada sobre todo al acetato de vitamina E de cartuchos de THC. El manejo es de soporte con oxígeno; en los graves, corticoides y ventilación. Suspender de inmediato el vapeo es indispensable.",
       "pearl": "Los síntomas son inespecíficos (respiratorios, fiebre y gastrointestinales), por eso hay que preguntar por el vapeo.",
       "trap": "No preguntar por el vapeo ante una neumonitis en un adolescente.",
@@ -987,11 +987,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niña de 5 años con miocarditis probable: <span class='hy'>crépitos bibasales, hepatomegalia e ingurgitación yugular</span>, pero extremidades tibias y buen llenado capilar. ¿Qué terapia requiere primero?",
       "options": [
         "Bolos de cristaloides de 20 mL/kg",
-        "Diurético (furosemida)",
         "Dobutamina de entrada por ser miocarditis",
+        "Diurético (furosemida)",
         "Antibiótico empírico por posible sepsis"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Perfil «caliente y húmedo»: perfusión conservada con congestión. Requiere diurético. Los perfiles fríos tienen peor pronóstico y pueden necesitar inotrópicos.",
       "pearl": "Toma BNP o proBNP al ingreso para seguir la respuesta; la troponina, si sospechas miocarditis.",
       "trap": "Dar bolos de líquidos a un niño congestivo por confundirlo con sepsis.",
@@ -1039,11 +1039,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Recién nacido a término de 60 horas. El tamizaje de talón reporta <span class='hy'>TSH de 14 µUI/mL</span>. Está asintomático. ¿Qué sigue?",
       "options": [
         "Nada: el corte en el talón es 20 µUI/mL",
-        "TSH y T4 libre en suero para confirmar",
+        "Repetir el talón al mes de vida",
         "Levotiroxina sin más pruebas por el riesgo",
-        "Repetir el talón al mes de vida"
+        "TSH y T4 libre en suero para confirmar"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "En el recién nacido a término, una TSH de talón mayor de 10 µUI/mL (mayor de 6 en el prematuro) es un caso probable de hipotiroidismo congénito. El diagnóstico se confirma con TSH y T4 libre en suero (sangre venosa o arterial).",
       "pearl": "Cortes del tamizaje: cordón ≥ 15 µUI/mL; talón > 10 en el término y > 6 en el prematuro.",
       "trap": "Tranquilizarse porque el bebé está asintomático: el hipotiroidismo congénito casi nunca da síntomas al nacer.",
@@ -1191,6 +1191,182 @@ MP_CONTENIDO.agregar({
         {
           "donde": "GINA 2026 · Novedades",
           "texto": "Results from the CARE study, in children 5–15 years who were using SABA alone, demonstrated that low-dose budesonide-formoterol, used as-needed for symptom relief, reduced the risk of moderate-severe exacerbations by nearly half, compared with SABA alone."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c37",
+      "topic": "Neonatología · Sepsis neonatal temprana",
+      "difficulty": "Nivel 2",
+      "src": "nrdp_sepsisneo26",
+      "vignette": "Recién nacido de 30 horas, hijo de madre con <span class='hy'>ruptura de membranas de 26 horas y fiebre intraparto</span>. Está hipoactivo, succiona mal y tiene 38,4 °C. ¿Cómo la clasificas y qué empiezas?",
+      "options": [
+        "Tardía: cefalexina oral ambulatoria y control en 48 horas",
+        "Temprana: hemocultivo y ampicilina más gentamicina",
+        "Temprana: solo observación clínica por 48 horas sin antibiótico",
+        "Tardía: ceftriaxona sola sin tomar antes el hemocultivo"
+      ],
+      "correct": 1,
+      "whyCorrect": "La sepsis neonatal temprana aparece en las primeras 72 horas por transmisión vertical (de la madre); la tardía, después de las 72 horas, por transmisión horizontal. El hemocultivo sigue siendo el patrón de oro, y el esquema empírico clásico es ampicilina (o penicilina) más gentamicina.",
+      "pearl": "En el mundo, tanto en la temprana como en la tardía predominan los gramnegativos resistentes: el esquema se ajusta a la epidemiología local.",
+      "trap": "Esperar a que el hemocultivo salga positivo para iniciar el antibiótico en un neonato sintomático.",
+      "cita": [
+        {
+          "donde": "Nature Reviews Disease Primers 2026, Neonatal sepsis",
+          "texto": "EONS occurs with vertical pathogen transfer (mother to infant) within 72 h of birth and LONS arises from horizontal pathogen transfer from the environment or caregivers after 72 h."
+        },
+        {
+          "donde": "Nature Reviews Disease Primers 2026, Neonatal sepsis",
+          "texto": "Traditional empirical antibiotic regimens are based on the most likely causative pathogens (namely, ampicillin (or penicillin) plus gentamicin, a third-generation cephalosporin (for example, cefotaxime), or cloxacillin plus amikacin)."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c38",
+      "topic": "Neonatología · Sepsis: punción lumbar",
+      "difficulty": "Nivel 3",
+      "src": "nrdp_sepsisneo26",
+      "vignette": "Neonato de 5 días con sospecha de sepsis, en <span class='hy'>choque y con apneas</span> que requieren ventilación. Ya se tomaron hemocultivos. ¿Qué haces con la punción lumbar?",
+      "options": [
+        "Hacerla ya, antes de iniciar cualquier antibiótico",
+        "Diferirla hasta estabilizarlo; antibiótico ya",
+        "No hacerla nunca en neonatos por el riesgo de herniación",
+        "Hacerla solo si el hemocultivo sale negativo"
+      ],
+      "correct": 1,
+      "whyCorrect": "La punción lumbar se hace cuando hay fuerte sospecha de infección o signos de meningitis, pero se pospone en el neonato inestable (apneas, dificultad respiratoria grave, choque) hasta estabilizarlo. El antibiótico no se retrasa.",
+      "pearl": "También se considera la punción si no mejora con el antibiótico o si el germen del hemocultivo se asocia a meningitis.",
+      "trap": "Retrasar el antibiótico para hacer la punción en un neonato en choque.",
+      "cita": [
+        {
+          "donde": "Nature Reviews Disease Primers 2026, Neonatal sepsis",
+          "texto": "However, lumbar puncture should be postponed in clinically unstable infants, such as those experiencing ongoing apnoea, severe respiratory distress, shock or cardiovascular instability, until their condition is adequately stabilized."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c39",
+      "topic": "Nefrología · Infección urinaria febril",
+      "difficulty": "Nivel 2",
+      "src": "aap_ivu26",
+      "vignette": "Niña de 14 meses con fiebre de 39 °C e infección urinaria confirmada. Tolera la vía oral, está hidratada y en buen estado general. ¿Qué tratamiento indicas?",
+      "options": [
+        "Ceftriaxona IV hospitalizada por 3 días y luego oral",
+        "Antibiótico oral ambulatorio por 7 días o menos",
+        "Antibiótico oral por 14 días",
+        "Hospitalizar y esperar el urocultivo para iniciar"
+      ],
+      "correct": 1,
+      "whyCorrect": "La AAP 2026 recomienda en mayores de 28 días y menores de 5 años el antibiótico oral, en lugar del parenteral o secuencial con hospitalización, y sugiere un curso corto de 7 días o menos.",
+      "pearl": "Entre 8 y 28 días de vida: parenteral con paso temprano a oral cuando mejore.",
+      "trap": "Hospitalizar para antibiótico IV a un lactante estable que tolera la vía oral.",
+      "cita": [
+        {
+          "donde": "AAP 2026, guía de infección urinaria (8 días a 5 años)",
+          "texto": "Key Action Statement 3B: In children older than 28 days and younger than 5 years with UTI, the AAP Guideline Panel recommends oral antibiotics rather than parenteral or sequential antibiotics requiring hospitalization (strong recommendation, very low certainty of evidence)."
+        },
+        {
+          "donde": "AAP 2026, guía de infección urinaria (8 días a 5 años)",
+          "texto": "Key Action Statement 2: In children with UTI, the AAP Guideline Panel suggests a shorter course of antibiotic therapy (≤7 days) rather than a longer (>7 days) course of antibiotic therapy (conditional recommendation, low certainty of evidence)."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c40",
+      "topic": "Nefrología · IVU: imágenes",
+      "difficulty": "Nivel 2",
+      "src": "aap_ivu26",
+      "vignette": "Niño de 2 años, no circuncidado, con su <span class='hy'>primera infección urinaria febril</span> por E. coli, que respondió bien. La ecografía renal y de vías urinarias es normal. ¿Pides cistouretrografía miccional?",
+      "options": [
+        "Sí: siempre tras la primera IVU febril",
+        "No de rutina con ecografía normal",
+        "Sí, y además gammagrafía DMSA",
+        "Solo si la fiebre duró más de 24 horas"
+      ],
+      "correct": 1,
+      "whyCorrect": "La AAP 2026 sugiere no hacer cistouretrografía de rutina tras una primera IVU febril en menores de 5 años con ecografía normal. Es una opción en grupos específicos: menores de 1 mes, germen distinto de E. coli, varones circuncidados, curso complicado o seguimiento poco confiable.",
+      "pearl": "La ecografía renal y de vías urinarias es el estándar para buscar anomalías estructurales.",
+      "trap": "Pedir cistouretrografía a todo niño con su primera IVU febril.",
+      "cita": [
+        {
+          "donde": "AAP 2026, guía de infección urinaria (8 días a 5 años)",
+          "texto": "Key Action Statement 5A: The AAP Guideline Panel suggests against routine VCUG after a ﬁrst febrile UTI in children younger than 5 years who have normal RBUS (conditional recommendation, high certainty of evidence of test accuracy, low certainty of evidence of overall effect)."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c41",
+      "topic": "Nefrología · IVU en el neonato",
+      "difficulty": "Nivel 3",
+      "src": "aap_ivu26",
+      "vignette": "Recién nacido de <span class='hy'>20 días</span> con infección urinaria confirmada, hospitalizado con antibiótico IV. A las 48 horas está afebril y come bien. ¿Qué haces?",
+      "options": [
+        "Completar 14 días de antibiótico IV hospitalizado",
+        "Pasar a antibiótico oral ya que mejoró",
+        "Suspender todo antibiótico porque ya está afebril",
+        "Cambiar a profilaxis antibiótica sola por un año"
+      ],
+      "correct": 1,
+      "whyCorrect": "Entre los 8 y 28 días de vida, la AAP 2026 sugiere antibiótico parenteral con paso temprano a la vía oral tras la mejoría clínica, en lugar de solo parenteral.",
+      "pearl": "Mayores de 28 días y menores de 5 años: oral desde el inicio.",
+      "trap": "Prolongar el antibiótico IV en un neonato que ya mejoró.",
+      "cita": [
+        {
+          "donde": "AAP 2026, guía de infección urinaria (8 días a 5 años)",
+          "texto": "Key Action Statement 3A: In children 8 to 28 days of age in whom a UTI has been diagnosed, the AAP Guideline Panel suggests parenteral antibiotics with early transition to oral following clinical improvement rather than parenteral antibiotics alone (conditional recommendation, very low certainty of evidence)."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c42",
+      "topic": "Ortopedia · Fracturas fisarias (Salter-Harris)",
+      "difficulty": "Nivel 2",
+      "src": "cto_tm",
+      "vignette": "Niño de 11 años con fractura del tobillo que atraviesa la <span class='hy'>fisis y la epífisis (Salter-Harris III)</span>, con 3 mm de desplazamiento. ¿Qué tratamiento?",
+      "options": [
+        "Yeso cerrado y control radiográfico en 6 semanas",
+        "Reducción quirúrgica y fijación",
+        "Vendaje elástico y carga inmediata del miembro",
+        "Tracción por 3 semanas"
+      ],
+      "correct": 1,
+      "whyCorrect": "Las fracturas que comprometen el cartílago de crecimiento (epifisiólisis) son quirúrgicas en los tipos III y IV con desplazamiento mayor de 2 mm, para evitar la epifisiodesis (cierre prematuro de la fisis), su complicación más frecuente.",
+      "pearl": "Salter-Harris tipos I a V; los III y IV son intraarticulares y atraviesan la fisis.",
+      "trap": "Tratar con yeso una fractura fisaria intraarticular desplazada.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "Las epifisiólisis son las fracturas que interesan al cartílago de crecimiento del niño o fisis; son quirúrgicas las de tipo III y IV con desplazamientos de más de 2 mm, para evitar su complicación más frecuente, la epifisiodesis."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c43",
+      "topic": "Ortopedia · Displasia de cadera",
+      "difficulty": "Nivel 1",
+      "src": "cto_tm",
+      "vignette": "Recién nacida de 3 semanas, podálica, con <span class='hy'>maniobra de Ortolani positiva</span> en la cadera izquierda. ¿Qué estudio confirma el diagnóstico?",
+      "options": [
+        "Radiografía de pelvis",
+        "Ecografía de caderas",
+        "Resonancia de cadera",
+        "Tomografía de pelvis"
+      ],
+      "correct": 1,
+      "whyCorrect": "La ecografía es el método de elección para valorar la cadera del recién nacido, aun cuando no se han osificado los elementos articulares. La sospecha clínica surge con limitación de la abducción o maniobras de Ortolani o Barlow positivas.",
+      "pearl": "En el lactante mayor, cuando la cabeza femoral ya se osificó, la radiografía gana valor.",
+      "trap": "Pedir radiografía en un neonato: la cabeza femoral aún no se ve.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "La ecografía es el método de elección para valorar la patología de la cadera neonatal, aun cuando todavía no se han osificado los elementos articulares, así como para detectar colecciones de líquido."
         }
       ],
       "verificado": "2026-11-23"

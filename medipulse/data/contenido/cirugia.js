@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Cirugía",
   "prefijo": "cir",
   "paquete": "starter",
-  "actualizado": "2026-11-22",
+  "actualizado": "2026-11-23",
   "casos": [
     {
       "id": 6,
@@ -47,12 +47,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_tr",
       "vignette": "Joven sufre herida por arma blanca en hemitórax derecho. Llega con <span class='hy'>disnea severa, PA 70/40 mmHg, ingurgitación yugular, desviación traqueal a la izquierda y abolición del murmullo vesicular derecho</span>. ¿Acción inmediata?",
       "options": [
-        "Pericardiocentesis subxifoidea guiada por ecografía en la sala de reanimación",
-        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
         "Descompresión torácica inmediata y luego tubo de tórax",
+        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
+        "Pericardiocentesis subxifoidea guiada por ecografía en la sala de reanimación",
         "Intubación orotraqueal con presión positiva antes de descomprimir el tórax"
       ],
-      "correct": 2,
+      "correct": 0,
       "whyCorrect": "Es un neumotórax a tensión con inestabilidad hemodinámica (hipotensión, ingurgitación yugular, desviación traqueal y murmullo abolido). NICE indica descomprimir antes de cualquier imagen, con toracostomía abierta seguida de tubo de tórax.",
       "pearl": "NICE: preferir la toracostomía abierta a la descompresión con aguja si hay experiencia, y vigilar la recurrencia después de descomprimir.",
       "trap": "Pedir una radiografía antes de descomprimir a un paciente inestable.",
@@ -116,11 +116,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 66 años con fiebre de 39 °C, <span class='hy'>ictericia y dolor en hipocondrio derecho</span>. Además está confuso y con PA 82/50 mmHg. Bilirrubina 6.8 mg/dL. Ecografía: colédoco dilatado de 11 mm con litiasis. ¿Conducta?",
       "options": [
         "Colecistectomía laparoscópica urgente",
-        "Colangiorresonancia antes de cualquier tratamiento",
         "Antibióticos orales y CPRE electiva en 6 semanas",
-        "Reanimación + antibióticos IV + drenaje biliar urgente (CPRE)"
+        "Reanimación + antibióticos IV + drenaje biliar urgente (CPRE)",
+        "Colangiorresonancia antes de cualquier tratamiento"
       ],
-      "correct": 3,
+      "correct": 2,
       "whyCorrect": "Es una colangitis aguda definitiva (fiebre, ictericia y dilatación biliar con litiasis) con alteración de la conciencia, que es disfunción neurológica: grado III (grave) según TG18. El tratamiento es soporte, antibiótico y drenaje biliar temprano; la CPRE drena la vía y trata la causa.",
       "pearl": "La tríada de Charcot es muy específica pero poco sensible; TG18 no la usa como criterio diagnóstico. Antibiótico de 4 a 7 días una vez controlado el foco.",
       "trap": "Ir directo a la colecistectomía: la urgencia es drenar la vía biliar, no quitar la vesícula.",
@@ -612,11 +612,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 28 años con <span class='hy'>dolor anal cortante al defecar</span> y sangre roja en las heces desde hace 2 semanas. Al separar los glúteos se ve un desgarro en la <span class='hy'>línea media posterior</span>. ¿Qué indicas?",
       "options": [
         "Esfinterotomía interna lateral de urgencia en el mismo ingreso",
-        "Fibra, baños de asiento y diltiazem tópico",
+        "Antibiótico oral por posible absceso y control en una semana",
         "Tacto rectal y anoscopia para confirmar",
-        "Antibiótico oral por posible absceso y control en una semana"
+        "Fibra, baños de asiento y diltiazem tópico"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Es una fisura anal aguda (menos de 6 semanas, línea media posterior). El manejo médico es de primera línea: 25 a 30 g de fibra al día, agua, analgesia no opioide, baños de asiento y un relajante del esfínter. Los calcioantagonistas tópicos (diltiazem, nifedipino) son la primera opción: igual de eficaces que los nitratos, con menos efectos adversos y recurrencias.",
       "pearl": "Fisuras laterales o múltiples hacen pensar en VIH, Crohn, tuberculosis o sífilis.",
       "trap": "Operar de urgencia: la esfinterotomía es para la falla del manejo médico y no se hace en urgencias.",
@@ -640,11 +640,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Hombre de 34 años, estable, con herida por arma cortopunzante en hemitórax derecho y <span class='hy'>hemotórax</span> en la radiografía. Hay tubo de 14 Fr y de 32 Fr. ¿Qué calibre usas?",
       "options": [
         "Solo el de 32 Fr: el hemotórax exige gran calibre",
-        "Cualquiera: en trauma los resultados son similares",
         "Ninguno: se observa sin drenaje con radiografía cada 6 horas",
+        "Cualquiera: en trauma los resultados son similares",
         "Dos tubos de gran calibre desde el inicio, anterior y posterior"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Los estudios que comparan tubos de pequeño (14 Fr o menos) y gran calibre en trauma (neumotórax y hemotórax) no muestran diferencias en falla, complicaciones, empiema, tubos adicionales, estancia ni mortalidad.",
       "pearl": "Se inserta en el triángulo de seguridad (pectoral mayor, dorsal ancho, base de la axila), usualmente en el quinto espacio intercostal; la succión no es rutinaria.",
       "trap": "Creer que el hemotórax siempre exige un tubo grueso.",
@@ -664,11 +664,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 25 años tras accidente de moto. <span class='hy'>PA 118/76 mmHg, FC 92</span>, sostenida sin transfusiones. La tomografía muestra una <span class='hy'>lesión hepática AAST grado IV con extravasación de contraste</span>. ¿Qué haces?",
       "options": [
         "Laparotomía inmediata por el grado IV",
-        "Manejo no operatorio con angioembolización",
+        "Alta con control ecográfico ambulatorio en una semana",
         "Empaquetamiento hepático y relaparotomía programada a las 48 horas",
-        "Alta con control ecográfico ambulatorio en una semana"
+        "Manejo no operatorio con angioembolización"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "El tratamiento lo decide el estado hemodinámico, no el grado: estable, va a manejo no operatorio aun con lesión de alto grado. La extravasación de contraste indica angioembolización.",
       "pearl": "Inestable (PAS <90 con signos de choque): cirugía obligatoria con empaquetamiento y control de daños.",
       "trap": "Operar por el grado de la lesión en una paciente estable.",
@@ -863,6 +863,102 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c27",
+      "topic": "Ortopedia · Síndrome compartimental",
+      "difficulty": "Nivel 2",
+      "src": "cto_tm",
+      "vignette": "Hombre de 24 años con fractura de tibia inmovilizada hace 6 horas. Refiere <span class='hy'>dolor desproporcionado que no cede con opioides</span> y que aumenta al extender pasivamente los dedos. Pulsos pedios presentes. ¿Qué haces?",
+      "options": [
+        "Más analgesia y elevar la pierna por encima del corazón",
+        "Retirar el vendaje y fasciotomía urgente si persiste",
+        "Esperar a que desaparezcan los pulsos para operar",
+        "Doppler arterial y control en 12 horas"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es un síndrome compartimental: isquemia muscular con dolor precoz y desproporcionado, que empeora con el estiramiento pasivo. Los pulsos presentes no lo descartan. Se retiran vendajes y yesos, y la fasciotomía es el tratamiento definitivo.",
+      "pearl": "Secuela de no operar a tiempo en el antebrazo: contractura isquémica de Volkmann.",
+      "trap": "Esperar a la ausencia de pulsos: es un signo tardío, cuando el músculo ya está perdido.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "El síndrome compartimental es un cuadro de isquemia muscular con dolor precoz y desproporcionado; la fasciotomía es su tratamiento definitivo."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "cir-c28",
+      "topic": "Ortopedia · Fractura de escafoides",
+      "difficulty": "Nivel 1",
+      "src": "cto_tm",
+      "vignette": "Mujer de 22 años que cayó sobre la mano extendida; dolor en la <span class='hy'>tabaquera anatómica</span>. En las proyecciones de escafoides se ve una fractura sin desplazar. ¿Qué tratamiento?",
+      "options": [
+        "Férula de muñeca por 2 semanas y luego movilizar libremente",
+        "Yeso que incluya el primer dedo por 2 a 3 meses",
+        "Cirugía inmediata en todos los casos",
+        "Vendaje elástico y analgésicos"
+      ],
+      "correct": 1,
+      "whyCorrect": "La fractura de escafoides sin desplazar se trata con yeso que incluye el primer dedo durante 2 a 3 meses. Por la dificultad diagnóstica se piden cuatro proyecciones de escafoides; si se desplaza, se opera.",
+      "pearl": "Dolor en la tabaquera con radiografía normal: inmovilizar y repetir la radiografía a las 2 semanas.",
+      "trap": "Tratarla como un esguince: el escafoides tiene riesgo de seudoartrosis y necrosis.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "Si se visualiza una fractura sin desplazar de escafoides, es necesaria la inmovilización con escayola, incluyendo el primer dedo durante 2 o 3 meses."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "cir-c29",
+      "topic": "Ortopedia · Luxación traumática de cadera",
+      "difficulty": "Nivel 2",
+      "src": "cto_tm",
+      "vignette": "Conductor de 35 años tras choque frontal (rodilla contra el tablero). La pierna está <span class='hy'>acortada, en flexión, aducción y rotación interna</span>. Radiografía: luxación posterior de cadera sin fractura. ¿Qué haces?",
+      "options": [
+        "Tracción y reducción electiva en 1 semana",
+        "Reducción cerrada urgente bajo anestesia",
+        "Artroplastia total de cadera inmediata",
+        "Reposo en cama y radiografía de control"
+      ],
+      "correct": 1,
+      "whyCorrect": "La luxación de cadera es una urgencia: reducción cerrada bajo anestesia lo antes posible, luego estabilización transitoria con tracción y carga parcial por 2 a 3 meses. El retraso aumenta el riesgo de necrosis de la cabeza femoral.",
+      "pearl": "Luxación posterior: flexión, aducción y rotación interna. Vigilar el nervio ciático.",
+      "trap": "Diferir la reducción: la necrosis avascular depende del tiempo.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "La luxación de cadera requiere de urgencia una reducción cerrada bajo anestesia y posterior estabilización transitoria con tracción, pasado lo cual el paciente debe mantener carga parcial durante 2 o 3 meses."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "cir-c30",
+      "topic": "Ortopedia · Fractura abierta",
+      "difficulty": "Nivel 1",
+      "src": "cto_tm",
+      "vignette": "Motociclista de 28 años con <span class='hy'>fractura abierta de tibia</span> y herida de 3 cm. Estable. ¿Qué medidas son las más importantes al inicio?",
+      "options": [
+        "Cerrar la herida en urgencias y alta",
+        "Antibiótico IV en bolo y profilaxis antitetánica",
+        "Esperar el cultivo de la herida para el antibiótico",
+        "Antibiótico oral por 3 días"
+      ],
+      "correct": 1,
+      "whyCorrect": "Lo más importante al inicio de una fractura abierta es el antibiótico intravenoso en bolo y la cobertura antitetánica, seguidos de desbridamiento y estabilización. Se clasifica según Gustilo y Anderson.",
+      "pearl": "Gustilo: I (herida menor de 1 cm), II (1 a 10 cm), III (más de 10 cm o lesión grave de partes blandas).",
+      "trap": "Cerrar la herida sin lavado ni desbridamiento.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "Las medidas más importantes en el inicio del tratamiento de una fractura abierta son la antibioterapia intravenosa en bolo y la cobertura antitetánica."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [
