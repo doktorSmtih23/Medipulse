@@ -57,9 +57,9 @@ test("en una especialidad verificada, todo lo visible trae su cita textual y la 
   expect(mal).toEqual([]);
 });
 
-test("la demostración de Medicina Interna es acotada (máximo 40 casos y 14 fichas)", () => {
+test("la demostración de Medicina Interna es acotada (máximo 60 casos y 14 fichas)", () => {
   const mi = tipo => visibles(tipo).filter(x => x._esp === "Medicina Interna").length;
-  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(40);
+  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(60);
   expect(mi("fichas")).toBeLessThanOrEqual(14);
 });
 
@@ -149,4 +149,12 @@ test("si todas las opciones son cifras, van de menor a mayor", () => {
   const desordenadas = todos("casos").filter(q => q.options.every(o => /^\s*(?:[≥≤<>]\s*)?\d|^(?:CURB65 de|Unos|NNT)/.test(o)))
     .filter(q => q.options.some((o, i) => i && cifra(o) < cifra(q.options[i - 1]))).map(donde);
   expect(desordenadas).toEqual([]);
+});
+
+test("una norma colombiana (resolución) no ofrece «buscar en PubMed»; un artículo sí", async ({ page }) => {
+  await page.goto("/");
+  const r = await page.evaluate(() => [srcLine({src: "res117_26"}), srcLine({src: "lancet_dengue"})]);
+  expect(r[0]).toContain("Resolución 117 de 2026");
+  expect(r[0]).not.toContain("PubMed");
+  expect(r[1]).toContain("PubMed");
 });

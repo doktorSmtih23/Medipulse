@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Medicina Interna",
   "prefijo": "mi",
   "paquete": "starter",
-  "actualizado": "2026-11-21",
+  "actualizado": "2026-11-23",
   "casos": [
     {
       "id": 1,
@@ -43,12 +43,12 @@ MP_CONTENIDO.agregar({
       "src": "ssc26",
       "vignette": "Mujer de 71 años ingresa por fiebre, disuria y confusión. PA 78/46 mmHg, FC 124 lpm, FR 28 rpm, T° 39.1°C, <span class='hy'>lactato sérico 4.4 mmol/L</span>. Ya recibió 30 mL/kg de cristaloides balanceados en la primera hora, pero persiste con <span class='hy'>PAM en 54 mmHg</span>. ¿Cuál es el siguiente paso inmediato?",
       "options": [
-        "Administrar un segundo bolo de 30 mL/kg de solución salina al 0.9%",
         "Iniciar norepinefrina en infusión titulada a la PAM objetivo",
+        "Administrar un segundo bolo de 30 mL/kg de solución salina al 0.9%",
         "Iniciar dopamina como vasopresor de primera línea por vía periférica",
         "Indicar hidrocortisona 200 mg IV en bolo único antes de vasopresores"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Persiste la hipotensión tras la reanimación inicial con cristaloides: se inicia noradrenalina, el vasopresor de primera línea, y se titula a la PAM objetivo. En adultos de 65 años o más, como esta paciente, la SSC 2026 sugiere una PAM inicial de 60–65 mmHg.",
       "pearl": "SSC 2026: noradrenalina de primera línea; se puede iniciar por vía periférica sin esperar el catéter central. PAM inicial 65 mmHg (60–65 en ≥ 65 años).",
       "trap": "Retrasar la noradrenalina hasta tener un acceso venoso central: la SSC 2026 sugiere iniciarla por vía periférica.",
@@ -158,11 +158,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Paciente con ERC estadio 5 llega por debilidad muscular. <span class='hy'>K+ sérico 7.1 mEq/L</span> y ECG muestra <span class='hy'>ondas T picudas y ensanchamiento del QRS</span>. ¿Cuál es el primer fármaco a administrar?",
       "options": [
         "Resina de intercambio iónico (poliestireno sulfonato) vía oral",
-        "Gluconato de calcio al 10 %, 30 mL IV en 10 minutos",
+        "Furosemida oral y restricción dietética de potasio",
         "Insulina 10 U con 25 g de glucosa IV como única medida",
-        "Furosemida oral y restricción dietética de potasio"
+        "Gluconato de calcio al 10 %, 30 mL IV en 10 minutos"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Con hiperkalemia y cambios en el ECG, lo primero es proteger el corazón con calcio IV: gluconato de calcio al 10 %, 30 mL en 10 minutos (o cloruro de calcio al 10 %, 10 mL en 5 minutos, en el contexto de reanimación). El calcio no baja el K+; después se redistribuye y se elimina.",
       "pearl": "UKKA: 1) proteger el corazón (calcio IV); 2) meter K+ a la célula (insulina 10 U con 25 g de glucosa si K+ ≥ 6.5; salbutamol nebulizado 10–20 mg como adyuvante); 3) sacar K+ del cuerpo. El resonio ya no se usa de rutina.",
       "trap": "Empezar por la insulina sin proteger el corazón cuando el ECG ya muestra QRS ancho.",
@@ -552,11 +552,11 @@ MP_CONTENIDO.agregar({
       "vignette": "En un adulto con NAC y derrame pleural, ¿a partir de qué tamaño en imágenes se sugiere toracocentesis diagnóstica temprana?",
       "options": [
         "≥ 5 mm",
-        "≥ 10 mm",
         "≥ 20 mm",
+        "≥ 10 mm",
         "Solo si ocupa más de un tercio del hemitórax"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Con derrame moderado o grande (≥ 10 mm en imágenes) se sugiere toracocentesis diagnóstica temprana para clasificarlo en no complicado o complicado/empiema y decidir el drenaje a tiempo.",
       "pearl": "La TC de tórax no se usa de rutina para confirmar la NAC; se reserva para casos con radiografía negativa o dudosa y alta sospecha.",
       "trap": "Esperar a que el derrame crezca o a que falle el antibiótico para puncionar.",
@@ -654,11 +654,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de <span class='hy'>82 años</span> con disnea de 2 días. FC 96 lpm, SatO₂ 94 %, sin signos de trombosis venosa. La probabilidad clínica de TEP es <span class='hy'>baja a intermedia (menor de 50 %)</span>. <span class='hy'>Dímero D 650 μg/L</span> (FEU). ¿Cuál es el siguiente paso diagnóstico?",
       "options": [
         "AngioTC de tórax, porque el dímero D supera el umbral habitual de 500 μg/L",
-        "Ninguno: está bajo su umbral por edad (820 μg/L); se descarta el TEP",
+        "Ecocardiograma para confirmar o descartar el TEP con certeza",
         "Gammagrafía de ventilación/perfusión para no exponerla al contraste",
-        "Ecocardiograma para confirmar o descartar el TEP con certeza"
+        "Ninguno: está bajo su umbral por edad (820 μg/L); se descarta el TEP"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Con probabilidad clínica baja o intermedia (< 50 %), un dímero D por debajo del umbral ajustado por edad (edad × 10 μg/L desde los 50 años; aquí 820) excluye el TEP y la necesidad de imágenes. En ADJUST-PE, en mayores de 75 años, el umbral ajustado aumentó los pacientes en quienes se descartó el TEP de 6,4 % a 29,7 %, sin falsos negativos adicionales.",
       "pearl": "Umbral ajustado = edad × 10 μg/L (desde los 50 años). A los 82 años: 820 μg/L.",
       "trap": "Usar el corte fijo de 500 μg/L en un anciano: casi todos dan «positivo» y se piden angioTC innecesarias.",
@@ -1043,12 +1043,12 @@ MP_CONTENIDO.agregar({
       "src": "jama_dem",
       "vignette": "Hombre de <span class='hy'>58 años</span> con deterioro cognitivo de <span class='hy'>inicio rápido</span> en pocos meses, que ya le impide trabajar. Su esposa lo confirma. La RM no muestra infartos ni tumor. ¿Qué evaluación diagnóstica adicional debe considerarse?",
       "options": [
-        "Ninguna: es Alzheimer típico y basta iniciar donepezilo",
         "Estudios de LCR o pruebas genéticas, por ser una demencia atípica",
+        "Ninguna: es Alzheimer típico y basta iniciar donepezilo",
         "Repetir el MoCA en 1 año",
         "Solo pruebas de tiroides y vitamina B12"
       ],
-      "correct": 1,
+      "correct": 0,
       "whyCorrect": "Inicio antes de los 65 años, comienzo rápido o compromiso de varios dominios sin afectar la memoria episódica son rasgos de demencia atípica. En esos casos puede considerarse evaluar con biomarcadores en LCR o pruebas genéticas, además de la historia corroborada por un familiar y el examen mental.",
       "pearl": "El diagnóstico de demencia exige pérdida en varios dominios que afecte la vida diaria, corroborada por alguien cercano.",
       "trap": "Etiquetar como Alzheimer típico a un paciente joven con curso rápido.",
@@ -1452,6 +1452,186 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-22"
+    },
+    {
+      "id": "mi-c35",
+      "topic": "Infectología · Dengue con signos de alarma",
+      "difficulty": "Nivel 2",
+      "src": "lancet_dengue",
+      "vignette": "Mujer de 24 años, 70 kg, con dengue en el día 5. La fiebre cedió, pero tiene <span class='hy'>dolor abdominal intenso, vómito persistente y hematocrito en ascenso con plaquetas en descenso</span>. PA 110/70 mmHg. ¿Qué haces?",
+      "options": [
+        "Alta con acetaminofén y control en 48 horas",
+        "Hospitalizar y cristaloide a 5–7 mL/kg/h",
+        "Bolo de 20 mL/kg y repetir hasta normalizar el hematocrito",
+        "Coloide de entrada por la hemoconcentración"
+      ],
+      "correct": 1,
+      "whyCorrect": "Tiene signos de alarma (dolor abdominal, vómito persistente, hemoconcentración con caída de plaquetas) en la fase crítica. Se hospitaliza y se inicia cristaloide (salina 0,9 % o lactato de Ringer) a 5–7 mL/kg/h por 1–2 horas, luego 3–5 mL/kg/h por 2–4 horas y después 2–3 mL/kg/h o menos según la respuesta.",
+      "pearl": "Signos de alarma: dolor abdominal, vómito persistente, acumulación de líquidos, sangrado de mucosas, letargia o inquietud, hepatomegalia mayor de 2 cm y hematocrito en ascenso.",
+      "trap": "Dar de alta porque ya no tiene fiebre: la defervescencia marca el inicio de la fase crítica.",
+      "cita": [
+        {
+          "donde": "Lancet 2024, Seminar: Dengue",
+          "texto": "Patients with any warning signs or inadequate fluid intake should receive intravenous crystalloid solutions (normal 0·9% saline or Ringer’s lactate) at 5–7 mL per kg per h for 1–2 h, then reduced to 3–5 mL per kg per h for 2–4 h, and then reduced to 2–3 mL per kg per h or less according to clinical response."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c36",
+      "topic": "Infectología · Dengue: fase crítica",
+      "difficulty": "Nivel 2",
+      "src": "lancet_dengue",
+      "vignette": "Hombre de 30 años con dengue. En el día 5 la fiebre desaparece y dice sentirse mejor; pide el alta. ¿Qué le dices?",
+      "options": [
+        "Que ya pasó lo peor y puede irse a casa sin controles",
+        "Que la fase crítica suele ser ahora: vigilarlo",
+        "Que puede volver a trabajar mañana",
+        "Que solo vuelva si reaparece la fiebre alta"
+      ],
+      "correct": 1,
+      "whyCorrect": "La fase crítica ocurre en general entre los días 4 y 6 de la enfermedad y suele coincidir con la defervescencia. Ahí aparece la fuga de plasma, que puede llevar al choque; dura unas 48 a 72 horas.",
+      "pearl": "Dengue: fase febril (2 a 7 días) → fase crítica (días 4 a 6, con la defervescencia) → recuperación.",
+      "trap": "Leer la caída de la fiebre como curación.",
+      "cita": [
+        {
+          "donde": "Lancet 2024, Seminar: Dengue",
+          "texto": "Some patients with dengue experience the critical phase, which generally occurs around days 4–6 of illness and often coincides with defervescence."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c37",
+      "topic": "Infectología · Dengue: plaquetas bajas",
+      "difficulty": "Nivel 2",
+      "src": "lancet_dengue",
+      "vignette": "Mujer de 40 años con dengue sin signos de alarma, estable, sin sangrado. Plaquetas de <span class='hy'>18.000/mm³</span>. La familia pide transfusión. ¿Qué haces?",
+      "options": [
+        "Transfundir plaquetas para prevenir sangrado",
+        "No transfundir: no previene el sangrado",
+        "Transfundir plasma fresco congelado",
+        "Dar corticoide para subir las plaquetas"
+      ],
+      "correct": 1,
+      "whyCorrect": "En pacientes con trombocitopenia, la transfusión profiláctica de plaquetas no previene el sangrado y puede contribuir a la sobrecarga de líquidos. La transfusión de sangre se reserva para el sangrado grave.",
+      "pearl": "Los corticoides no mejoraron el curso clínico del dengue en los ensayos.",
+      "trap": "Transfundir por la cifra de plaquetas en un paciente que no sangra.",
+      "cita": [
+        {
+          "donde": "Lancet 2024, Seminar: Dengue",
+          "texto": "Among patients with thrombocytopenia, prophylactic platelet transfusion does not prevent bleeding and could contribute to fluid overload."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c38",
+      "topic": "Infectología · Dengue: diagnóstico",
+      "difficulty": "Nivel 2",
+      "src": "lancet_dengue",
+      "vignette": "Hombre de 22 años con fiebre, cefalea retroocular y mialgias desde hace <span class='hy'>2 días</span>, en zona endémica. ¿Qué prueba confirma mejor el dengue hoy?",
+      "options": [
+        "IgM para dengue",
+        "IgG para dengue",
+        "PCR para dengue o antígeno NS1",
+        "Hemograma seriado como diagnóstico"
+      ],
+      "correct": 2,
+      "whyCorrect": "En los primeros días, el virus se detecta con pruebas moleculares (PCR, de preferencia) o con el antígeno NS1, que puede ser tan sensible como la PCR en los primeros 7 días de una infección primaria. La IgM se detecta desde el día 4.",
+      "pearl": "NS1 menos sensible en la infección secundaria. IgM desde el día 4 hasta unas 12 semanas.",
+      "trap": "Pedir IgM en el día 2 y descartar el dengue con un resultado negativo.",
+      "cita": [
+        {
+          "donde": "Lancet 2024, Seminar: Dengue",
+          "texto": "detection of IgM antibodies from day 4 to approximately 12 weeks post-onset through serological testing (figure 3).110 NAAT assays are the preferred method of dengue diagnosis"
+        },
+        {
+          "donde": "Lancet 2024, Seminar: Dengue",
+          "texto": "NS1 tests can be as sensitive as molecular tests during the first 7 days of symptoms in primary infections, although sensitivity is lower in secondary infections"
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c39",
+      "topic": "Infectología · Dengue: vacuna",
+      "difficulty": "Nivel 3",
+      "src": "lancet_dengue",
+      "vignette": "Niña de 10 años en zona endémica, <span class='hy'>sin antecedente de dengue y con serología negativa</span>. La madre pide Dengvaxia (CYD-TDV). ¿Qué le dices?",
+      "options": [
+        "Que se la aplique: protege igual a seropositivos y seronegativos",
+        "Que no: en seronegativos aumenta el riesgo de dengue grave",
+        "Que se la aplique con un refuerzo a los 6 meses para compensar",
+        "Que espere a los 18 años, cuando la vacuna ya es segura"
+      ],
+      "correct": 1,
+      "whyCorrect": "En los ensayos, los niños sin infección previa vacunados con Dengvaxia que luego se infectaron tuvieron más hospitalizaciones y más dengue grave. Por eso exige demostrar una infección previa antes de vacunar (PCR o NS1 positivos en un episodio, o serología prevacunación).",
+      "pearl": "En los seropositivos, Dengvaxia protegió contra el dengue grave.",
+      "trap": "Vacunar sin confirmar la infección previa.",
+      "cita": [
+        {
+          "donde": "Lancet 2024, Seminar: Dengue",
+          "texto": "However, risk of hospitalisation for dengue and severe dengue was increased among children aged 2–16 years without previous DENV infection who were vaccinated with Dengvaxia and had a subsequent infection over a 5-year follow-up period in the trial"
+        },
+        {
+          "donde": "Lancet 2024, Seminar: Dengue",
+          "texto": "The requirement for a laboratory test before vaccine administration creates a unique challenge for Dengvaxia implementation."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c40",
+      "topic": "Neumología · Asma leve: AIR",
+      "difficulty": "Nivel 2",
+      "src": "gina26",
+      "vignette": "Mujer de 25 años con asma leve: síntomas una vez por semana, sin despertares. Solo usa salbutamol a demanda. ¿Cuál es el tratamiento preferido según GINA 2026?",
+      "options": [
+        "Seguir con salbutamol a demanda, sin cambios por ahora",
+        "Budesonida-formoterol a dosis baja solo a demanda",
+        "Salmeterol a demanda sin corticoide inhalado",
+        "Montelukast diario como primera línea de mantenimiento"
+      ],
+      "correct": 1,
+      "whyCorrect": "En adultos y adolescentes, el alivio antiinflamatorio solo a demanda con ICS-formoterol a dosis baja (AIR) es el tratamiento preferido de los pasos 1 y 2. Frente al SABA solo, reduce mucho las crisis, el uso de corticoides orales y las consultas urgentes.",
+      "pearl": "Si necesita mantenimiento (pasos 3 y 4), se usa la misma combinación como mantenimiento y rescate (MART).",
+      "trap": "Dejar al paciente con SABA solo porque los síntomas son pocos.",
+      "cita": [
+        {
+          "donde": "GINA 2026 · Tratamiento por pasos",
+          "texto": "Anti-inflammatory reliever treatment with as-needed-only ICS-formoterol (‘AIR-only’) is the preferred treatment for Steps 1 and 2 in adults/adolescents"
+        },
+        {
+          "donde": "GINA 2026 · Tratamiento",
+          "texto": "SABA-only treatment is not recommended by GINA for adults, adolescents or children 6–11 years with asthma."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c41",
+      "topic": "Neumología · Asma: rescate con ICS-formoterol",
+      "difficulty": "Nivel 3",
+      "src": "gina26",
+      "vignette": "Hombre de 40 años con asma en mantenimiento con <span class='hy'>fluticasona-salmeterol</span>. Un colega le sugiere usar budesonida-formoterol como inhalador de rescate. ¿Qué opinas?",
+      "options": [
+        "Es lo ideal: así recibe más corticoide en cada crisis de síntomas",
+        "No: ICS-formoterol no se usa de rescate con otra combinación",
+        "Sí, pero solo para los síntomas nocturnos",
+        "Sí, y suspender la fluticasona-salmeterol de mantenimiento ya"
+      ],
+      "correct": 1,
+      "whyCorrect": "El ICS-formoterol no debe usarse como rescate en pacientes que toman otra combinación ICS-LABA de mantenimiento: no hay evidencia de su seguridad ni eficacia. Si se quiere ese esquema, se pasa a MART: la misma combinación ICS-formoterol como mantenimiento y rescate.",
+      "pearl": "MART: budesonida-formoterol (o beclometasona-formoterol) en un solo inhalador para mantenimiento y alivio.",
+      "trap": "Mezclar dos combinaciones distintas de ICS-LABA.",
+      "cita": [
+        {
+          "donde": "GINA 2026 · Paso 3",
+          "texto": "ICS-formoterol should not be used as the reliever for patients taking a different ICS-LABA maintenance treatment, because clinical evidence for safety and efficacy is lacking."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [
