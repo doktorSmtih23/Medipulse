@@ -250,12 +250,12 @@ MP_CONTENIDO.agregar({
       "src": "udea_gin26",
       "vignette": "Mujer de 25 años en el <span class='hy'>día 6 posparto</span> de un parto vaginal sin complicaciones; sus presiones fueron normales durante todo el embarazo. Consulta por cefalea intensa y visión borrosa. PA <span class='hy'>166/108 mmHg</span>, repetida 164/110 mmHg. Plaquetas 168.000, creatinina 0,7. ¿Cuál es el diagnóstico?",
       "options": [
-        "Cefalea pospunción dural",
+        "Preeclampsia posparto con criterios de severidad",
         "Migraña desencadenada por la falta de sueño",
         "Hipertensión crónica no diagnosticada",
-        "Preeclampsia posparto con criterios de severidad"
+        "Cefalea pospunción dural"
       ],
-      "correct": 3,
+      "correct": 0,
       "whyCorrect": "La preeclampsia posparto aparece entre las 48 horas y las 6 semanas después del parto, aun sin hipertensión en el embarazo (de novo). Una PA de 160/110 o más con síntomas neurológicos es de severidad: antihipertensivo de acción rápida en 30 a 60 minutos (labetalol IV, hidralazina IV o nifedipino oral) y sulfato de magnesio, obligatorio con síntomas neurológicos.",
       "pearl": "Hasta el 78 % de las eclampsias del posparto ocurren en mujeres sin hipertensión diagnosticada en el embarazo: toma la presión a toda puérpera que consulte, sea por lo que sea.",
       "trap": "Pensar que el riesgo terminó con el parto, o atribuir la cefalea a la anestesia o a la falta de sueño sin tomar la presión.",
@@ -1139,6 +1139,34 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Manual CTO 14.ª ed., Ginecología y Obstetricia",
           "texto": "Está indicada una HSC con biopsia endometrial en mujeres en tratamiento con tamoxifeno que presenten una metrorragia posmenopáusica, independientemente de los hallazgos de la ecografía vaginal por la baja sensibilidad y especificidad de la misma."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c39",
+      "topic": "Ginecología · Sangrado uterino anormal en la perimenopausia",
+      "difficulty": "Nivel 1",
+      "src": "maturitas_sua24",
+      "vignette": "Mujer de 48 años con <span class='hy'>sangrado menstrual abundante e irregular</span> desde hace 6 meses. Prueba de embarazo negativa; el especuloscopio no muestra lesiones del cuello ni de la vagina. ¿Cuál es el primer estudio?",
+      "options": [
+        "Histerectomía diagnóstica y terapéutica",
+        "Ecografía transvaginal",
+        "Resonancia de pelvis como primera imagen",
+        "Tratar con anticonceptivos sin estudiar"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el sangrado uterino anormal de la perimenopausia, primero se descartan causas cervicales y vaginales con especuloscopia, y el embarazo y las ITS. La ecografía transvaginal es el primer paso ideal; según sus hallazgos se planea la biopsia endometrial o la histeroscopia.",
+      "pearl": "La histerosonografía con solución salina mejora la precisión para pólipos y miomas submucosos.",
+      "trap": "Dar tratamiento hormonal sin descartar lesiones premalignas o malignas.",
+      "cita": [
+        {
+          "donde": "Maturitas 2024, resumen en PubMed",
+          "texto": "Cervical and vaginal causes of abnormal uterine bleeding should be excluded by speculum examination. Sexually transmitted diseases or pregnancy should be ruled out."
+        },
+        {
+          "donde": "Maturitas 2024, resumen en PubMed",
+          "texto": "Transvaginal ultrasound is an ideal first step for the evaluation of perimenopausal abnormal uterine bleeding."
         }
       ],
       "verificado": "2026-11-23"

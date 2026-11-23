@@ -16,11 +16,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Mujer de 46 años consulta por dolor en hipocondrio derecho de 36 horas, fiebre de 38.4°C y vómitos. <span class='hy'>Signo de Murphy positivo</span>. Leucocitos 15.200/mm³. Ecografía: litiasis vesicular, pared engrosada de 5 mm y líquido pericolecístico. <span class='hy'>Bilirrubina total y fosfatasa alcalina normales</span>. ¿Conducta?",
       "options": [
         "CPRE urgente antes de cualquier intervención quirúrgica",
-        "Antibioticoterapia IV + colecistectomía laparoscópica temprana",
+        "Colangiorresonancia obligatoria para descartar colangitis aguda",
         "Manejo ambulatorio con analgésicos y colecistectomía electiva en 3 meses",
-        "Colangiorresonancia obligatoria para descartar colangitis aguda"
+        "Antibioticoterapia IV + colecistectomía laparoscópica temprana"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Tiene un signo local (Murphy), signos sistémicos (fiebre, leucocitosis) e imagen característica: colecistitis aguda definitiva según TG18, sin colestasis. Es leve (grado I) y la paciente tolera la cirugía, así que TG18 indica colecistectomía laparoscópica pronto tras el inicio.",
       "pearl": "TG18 propone la cirugía temprana en quien la tolera, sin importar exactamente cuánto tiempo pasó desde el inicio (ya no exige el límite estricto de 72 h).",
       "trap": "Diferir la colecistectomía varias semanas en una paciente que tolera la cirugía.",
@@ -47,12 +47,12 @@ MP_CONTENIDO.agregar({
       "src": "nice_tr",
       "vignette": "Joven sufre herida por arma blanca en hemitórax derecho. Llega con <span class='hy'>disnea severa, PA 70/40 mmHg, ingurgitación yugular, desviación traqueal a la izquierda y abolición del murmullo vesicular derecho</span>. ¿Acción inmediata?",
       "options": [
-        "Descompresión torácica inmediata y luego tubo de tórax",
-        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
         "Pericardiocentesis subxifoidea guiada por ecografía en la sala de reanimación",
+        "Radiografía de tórax portátil urgente para confirmar el diagnóstico antes de actuar",
+        "Descompresión torácica inmediata y luego tubo de tórax",
         "Intubación orotraqueal con presión positiva antes de descomprimir el tórax"
       ],
-      "correct": 0,
+      "correct": 2,
       "whyCorrect": "Es un neumotórax a tensión con inestabilidad hemodinámica (hipotensión, ingurgitación yugular, desviación traqueal y murmullo abolido). NICE indica descomprimir antes de cualquier imagen, con toracostomía abierta seguida de tubo de tórax.",
       "pearl": "NICE: preferir la toracostomía abierta a la descompresión con aguja si hay experiencia, y vigilar la recurrencia después de descomprimir.",
       "trap": "Pedir una radiografía antes de descomprimir a un paciente inestable.",

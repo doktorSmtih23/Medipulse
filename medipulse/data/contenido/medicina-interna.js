@@ -169,11 +169,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Paciente con ERC estadio 5 llega por debilidad muscular. <span class='hy'>K+ sérico 7.1 mEq/L</span> y ECG muestra <span class='hy'>ondas T picudas y ensanchamiento del QRS</span>. ¿Cuál es el primer fármaco a administrar?",
       "options": [
         "Resina de intercambio iónico (poliestireno sulfonato) vía oral",
-        "Gluconato de calcio al 10 %, 30 mL IV en 10 minutos",
         "Insulina 10 U con 25 g de glucosa IV como única medida",
+        "Gluconato de calcio al 10 %, 30 mL IV en 10 minutos",
         "Furosemida oral y restricción dietética de potasio"
       ],
-      "correct": 1,
+      "correct": 2,
       "whyCorrect": "Con hiperkalemia y cambios en el ECG, lo primero es proteger el corazón con calcio IV: gluconato de calcio al 10 %, 30 mL en 10 minutos (o cloruro de calcio al 10 %, 10 mL en 5 minutos, en el contexto de reanimación). El calcio no baja el K+; después se redistribuye y se elimina.",
       "pearl": "UKKA: 1) proteger el corazón (calcio IV); 2) meter K+ a la célula (insulina 10 U con 25 g de glucosa si K+ ≥ 6.5; salbutamol nebulizado 10–20 mg como adyuvante); 3) sacar K+ del cuerpo. El resonio ya no se usa de rutina.",
       "trap": "Empezar por la insulina sin proteger el corazón cuando el ECG ya muestra QRS ancho.",
@@ -1788,6 +1788,30 @@ MP_CONTENIDO.agregar({
         {
           "donde": "JAMA 2025, sífilis",
           "texto": "The Jarisch-Herxheimer reaction does not constitute a penicillin allergy."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c48",
+      "topic": "Infectología · Malaria grave",
+      "difficulty": "Nivel 2",
+      "src": "malj_malaria22",
+      "vignette": "Hombre de 30 años que volvió hace 10 días de una zona minera del Chocó. Fiebre, ictericia y <span class='hy'>confusión</span>; la gota gruesa muestra Plasmodium falciparum. ¿Cuál es el antimalárico de elección?",
+      "options": [
+        "Cloroquina oral por 3 días",
+        "Artesunato intravenoso",
+        "Quinina intravenosa como primera línea",
+        "Artemeter-lumefantrina oral ambulatoria"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es una malaria grave por P. falciparum (alteración de la conciencia). El tratamiento de elección es el artesunato parenteral, que reemplazó a la quinina porque reduce la mortalidad entre una quinta y una tercera parte en grandes ensayos.",
+      "pearl": "Signos de gravedad: alteración de la conciencia, acidosis, hipoglucemia, anemia grave, falla renal, edema pulmonar, ictericia.",
+      "trap": "Tratar por vía oral a un paciente con malaria grave.",
+      "cita": [
+        {
+          "donde": "Malaria Journal 2022, Severe malaria",
+          "texto": "The key therapeutic advance was the replacement of quinine by artesunate, which had been shown to reduce mortality by between one fifth and one third in very large randomized controlled trials [18, 19]."
         }
       ],
       "verificado": "2026-11-23"

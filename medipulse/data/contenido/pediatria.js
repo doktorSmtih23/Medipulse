@@ -224,11 +224,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Niña de 9 años con 5 días de fiebre, <span class='hy'>dolor abdominal intenso, vómitos y diarrea</span>, cefalea e hipotensión. Plaquetas 98.000, linfopenia y troponina elevada. Ecocardiograma: <span class='hy'>función sistólica del ventrículo izquierdo disminuida y derrame pericárdico</span>, coronarias normales. Sin cambios en la mucosa oral. ¿Diagnóstico más probable?",
       "options": [
         "Enfermedad de Kawasaki completa con afectación miocárdica",
-        "Síndrome inflamatorio multisistémico pediátrico (MIS-C)",
+        "Escarlatina con miocarditis estreptocócica",
         "Gastroenteritis con deshidratación y choque hipovolémico",
-        "Escarlatina con miocarditis estreptocócica"
+        "Síndrome inflamatorio multisistémico pediátrico (MIS-C)"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "Los síntomas gastrointestinales prominentes, la cefalea, la trombocitopenia, la linfopenia, la troponina elevada y la disfunción ventricular con derrame pericárdico son más propios del MIS-C. El exantema, la conjuntivitis, los cambios de la mucosa oral y las alteraciones coronarias son más comunes en Kawasaki.",
       "pearl": "El MIS-C entró al diagnóstico diferencial del Kawasaki desde 2020, aunque su frecuencia bajó mucho desde 2022.",
       "trap": "Diagnosticar Kawasaki por la fiebre y la inflamación sin mirar el compromiso gastrointestinal y miocárdico.",
@@ -1067,11 +1067,11 @@ MP_CONTENIDO.agregar({
       "vignette": "Una madre llega con su bebé de 4 días: salieron del hospital antes de tomar la muestra de talón. ¿Qué le dices sobre el plazo?",
       "options": [
         "Ya no sirve: pasaron las 72 horas que fija la norma",
-        "Tomarla hoy: el máximo son 5 días de vida",
+        "Basta con la TSH del cordón que se tomó al nacer",
         "Esperar al control del mes para tomarla con las vacunas",
-        "Basta con la TSH del cordón que se tomó al nacer"
+        "Tomarla hoy: el máximo son 5 días de vida"
       ],
-      "correct": 1,
+      "correct": 3,
       "whyCorrect": "El tamizaje básico se toma idealmente entre las 48 y 72 horas, pero el tiempo máximo es de 5 días de vida: la fenilalanina acumulada en la fenilcetonuria puede causar daño neurológico irreversible desde muy temprano. Con una sola muestra se tamizan 7 patologías.",
       "pearl": "Las 7 del tamizaje básico: hipotiroidismo congénito, fenilcetonuria, galactosemia, fibrosis quística, hiperplasia suprarrenal congénita, déficit de biotinidasa y defectos de la hemoglobina.",
       "trap": "Creer que la TSH del cordón cubre el tamizaje: solo mira el hipotiroidismo.",
@@ -1367,6 +1367,58 @@ MP_CONTENIDO.agregar({
         {
           "donde": "Manual CTO 14.ª ed., Traumatología",
           "texto": "La ecografía es el método de elección para valorar la patología de la cadera neonatal, aun cuando todavía no se han osificado los elementos articulares, así como para detectar colecciones de líquido."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c44",
+      "topic": "Infectología · Malaria grave en niños",
+      "difficulty": "Nivel 3",
+      "src": "malj_malaria22",
+      "vignette": "Niño de 4 años, 15 kg, de zona endémica, con fiebre alta, postración y <span class='hy'>convulsiones</span>; prueba rápida positiva para P. falciparum. No se puede descartar sepsis. ¿Qué inicias de inmediato?",
+      "options": [
+        "Solo artesunato IV y esperar el hemocultivo antes de cubrir sepsis",
+        "Artesunato IV 3 mg/kg más antibiótico de amplio espectro",
+        "Solo antibiótico hasta confirmar con gota gruesa",
+        "Quinina oral y antipiréticos con control estricto de la temperatura"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el niño es difícil distinguir la malaria grave de la sepsis, por eso se dan juntos el antimalárico parenteral (artesunato 3 mg/kg en menores de 20 kg; 2,4 mg/kg en los mayores) y un antibiótico de amplio espectro, apenas se sospecha.",
+      "pearl": "Cerca de un tercio de los niños diagnosticados con malaria grave tienen en realidad otra causa, sobre todo sepsis.",
+      "trap": "Dar solo el antimalárico y no cubrir la sepsis.",
+      "cita": [
+        {
+          "donde": "Malaria Journal 2022, Severe malaria",
+          "texto": "the difficulty in distinguishing malaria from sepsis in children means that both parenteral anti-malarials (i.e. artesunate 3 mg/kg stat for children < 20 kg and 2.4 mg/kg for larger patients) and broad-spectrum antibiotics should be given together as soon as the diagnosis is suspected [2, 73]."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c45",
+      "topic": "Infectología · Contacto de tuberculosis",
+      "difficulty": "Nivel 2",
+      "src": "lancet_tbninos20",
+      "vignette": "Niño de 3 años que vive con su abuelo, recién diagnosticado de tuberculosis pulmonar bacilífera. El niño está sano, con radiografía normal y <span class='hy'>prueba de infección positiva</span>. ¿Qué haces?",
+      "options": [
+        "Nada: está sano y la radiografía es normal",
+        "Terapia preventiva para tuberculosis",
+        "Tratamiento completo con 4 fármacos",
+        "Repetir la prueba en un año"
+      ],
+      "correct": 1,
+      "whyCorrect": "Los niños menores de 5 años expuestos e infectados tienen el mayor riesgo: sin terapia preventiva, cerca del 19 % desarrolla tuberculosis en 2 años. La terapia preventiva tuvo una efectividad del 91 % en los niños con infección.",
+      "pearl": "En los niños expuestos, la mayoría de los casos aparecen en las primeras semanas: buscar enfermedad activa antes de iniciar la preventiva.",
+      "trap": "Dejar sin tratamiento a un niño pequeño infectado porque está asintomático.",
+      "cita": [
+        {
+          "donde": "Lancet 2020, resumen en PubMed",
+          "texto": "Children not receiving preventive therapy with a positive result for tuberculosis infection had significantly higher 2-year cumulative tuberculosis incidence than children with a negative result for tuberculosis infection, and this incidence was greatest among children below 5 years of age (19·0% [95% CI 8·4-37·4])."
+        },
+        {
+          "donde": "Lancet 2020, resumen en PubMed",
+          "texto": "The effectiveness of preventive therapy was 63% (adjusted HR 0·37 [95% CI 0·30-0·47]) among all exposed children, and 91% (adjusted HR 0·09 [0·05-0·15]) among those with a positive result for tuberculosis infection."
         }
       ],
       "verificado": "2026-11-23"
