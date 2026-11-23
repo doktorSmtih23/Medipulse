@@ -11,7 +11,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 6,
       "topic": "Abdomen Agudo · Vesícula",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "tg18",
       "vignette": "Mujer de 46 años consulta por dolor en hipocondrio derecho de 36 horas, fiebre de 38.4°C y vómitos. <span class='hy'>Signo de Murphy positivo</span>. Leucocitos 15.200/mm³. Ecografía: litiasis vesicular, pared engrosada de 5 mm y líquido pericolecístico. <span class='hy'>Bilirrubina total y fosfatasa alcalina normales</span>. ¿Conducta?",
       "options": [
@@ -43,7 +43,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 10,
       "topic": "Trauma · Tórax",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "nice_tr",
       "vignette": "Joven sufre herida por arma blanca en hemitórax derecho. Llega con <span class='hy'>disnea severa, PA 70/40 mmHg, ingurgitación yugular, desviación traqueal a la izquierda y abolición del murmullo vesicular derecho</span>. ¿Acción inmediata?",
       "options": [
@@ -75,7 +75,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 15,
       "topic": "Abdomen Agudo · Apendicitis",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "wses_app",
       "vignette": "Hombre de 21 años con <span class='hy'>dolor periumbilical que migró a fosa ilíaca derecha</span> hace 14 horas, anorexia, náuseas, T° 37.9°C, Blumberg positivo y leucocitos 14.500/mm³ con neutrofilia. ¿Conducta?",
       "options": [
@@ -111,7 +111,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 24,
       "topic": "Vía biliar · Colangitis",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "tg18",
       "vignette": "Hombre de 66 años con fiebre de 39 °C, <span class='hy'>ictericia y dolor en hipocondrio derecho</span>. Además está confuso y con PA 82/50 mmHg. Bilirrubina 6.8 mg/dL. Ecografía: colédoco dilatado de 11 mm con litiasis. ¿Conducta?",
       "options": [
@@ -147,7 +147,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c01",
       "topic": "Páncreas · Pancreatitis aguda",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "nice_pan",
       "vignette": "Hombre de 52 años, bebedor social, con dolor epigástrico intenso irradiado a la espalda y vómitos desde hace 30 horas. Lipasa 6 veces el valor normal; la ecografía muestra colelitiasis. Al tercer día persiste con <span class='hy'>falla orgánica y criterios de pancreatitis grave</span>, sin fiebre ni signos de infección. ¿Qué indica la guía NICE?",
       "options": [
@@ -183,7 +183,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c02",
       "topic": "Vía biliar · Coledocolitiasis",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_cir25",
       "vignette": "Mujer de 44 años con colelitiasis sintomática y bilirrubinas elevadas, <span class='hy'>sin colangitis ni pancreatitis</span>. La colangiorresonancia muestra 2 cálculos de 5 mm en el colédoco, que mide <span class='hy'>6 mm</span>, y un cístico de 5 mm. El hospital tiene cirujanos con experiencia en exploración laparoscópica de la vía biliar. ¿Cuál es la mejor conducta?",
       "options": [
@@ -211,7 +211,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c03",
       "topic": "Trauma · Recto",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_cir25",
       "vignette": "Hombre de 27 años con herida por arma de fuego de trayectoria transpélvica, <span class='hy'>hemodinámicamente estable</span> y sin irritación peritoneal. La tomografía y la proctoscopia rígida muestran una lesión del recto <span class='hy'>extraperitoneal que compromete menos del 25 % de la circunferencia</span>. ¿Cuál es la conducta?",
       "options": [
@@ -239,7 +239,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c04",
       "topic": "Infecciones · Gangrena de Fournier",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_cir25",
       "vignette": "Hombre de 61 años con diabetes mal controlada, 3 días de dolor perineal <span class='hy'>desproporcionado al examen</span>, edema escrotal y crepitación al palpar. Está febril y taquicárdico. El puntaje LRINEC calculado es de 5. Se inicia la reanimación y el antibiótico de amplio espectro. ¿En cuánto tiempo debe hacerse el desbridamiento quirúrgico?",
       "options": [
@@ -267,7 +267,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c05",
       "topic": "Tórax · Nódulo pulmonar solitario",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Mujer de 56 años, no fumadora, a quien se le hizo una tomografía de abdomen por dolor lumbar. En la base pulmonar derecha aparece un <span class='hy'>nódulo sólido de 7 mm, de bordes lisos</span>, sin otros hallazgos. ¿Qué conducta es la adecuada?",
       "options": [
@@ -295,7 +295,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c06",
       "topic": "Infecciones · Sitio operatorio",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Hombre de 38 años, día 6 después de una apendicectomía abierta. La herida está eritematosa en sus bordes y drena pus. Al abrirla, la infección <span class='hy'>compromete la piel, el tejido celular subcutáneo y la fascia</span>; la cavidad abdominal no tiene colecciones en la ecografía. ¿Cuál es el diagnóstico?",
       "options": [
@@ -327,7 +327,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c07",
       "topic": "Vascular · Disección aguda de aorta",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_urg26",
       "vignette": "Hombre de 58 años, hipertenso, con dolor torácico desgarrante irradiado a la espalda. PA <span class='hy'>186/104 mmHg, FC 108 lpm</span>. La angiotomografía confirma una disección aguda de aorta. Mientras se define la conducta quirúrgica, ¿cuál es el primer fármaco?",
       "options": [
@@ -359,7 +359,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c08",
       "topic": "Vascular · Isquemia aguda de extremidades",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_urg26",
       "vignette": "Mujer de 74 años con fibrilación auricular sin anticoagulación. Desde hace 4 horas tiene dolor y frialdad en la pierna derecha. Hay <span class='hy'>pérdida sensitiva por encima de los dedos y debilidad leve</span> del pie; el Doppler arterial es inaudible. ¿Cuál es la conducta?",
       "options": [
@@ -391,7 +391,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c09",
       "topic": "Esófago · Barrett con displasia de bajo grado",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Hombre de 58 años con reflujo crónico. La endoscopia de alta definición con biopsias muestra <span class='hy'>esófago de Barrett con displasia de bajo grado</span>, confirmada por el patólogo. ¿Cuándo es el siguiente control?",
       "options": [
@@ -419,7 +419,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c10",
       "topic": "Cirugía pediátrica · Invaginación intestinal",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Niño de 14 meses con episodios de llanto intenso y encogimiento de piernas, vómito y deposición con moco y sangre. La ecografía muestra el <span class='hy'>signo de la dona</span>. Está <span class='hy'>hemodinámicamente estable</span>, sin signos de peritonitis. ¿Cuál es el tratamiento de primera línea?",
       "options": [
@@ -447,7 +447,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c11",
       "topic": "Abdomen agudo · Apendicitis no complicada",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_cir25",
       "vignette": "Mujer de 25 años operada por apendicitis aguda. En la apendicectomía laparoscópica se encuentra un <span class='hy'>apéndice inflamado sin perforación ni peritonitis</span>. Recibió la profilaxis antes de la cirugía. ¿Qué antibiótico indicas después?",
       "options": [
@@ -475,7 +475,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c12",
       "topic": "Cirugía pediátrica · Cuerpo extraño",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_cir25",
       "vignette": "Niña de 3 años que se tragó una moneda hace 3 horas. Está <span class='hy'>asintomática</span>, come y traga bien. La radiografía muestra la moneda <span class='hy'>en el estómago</span>. ¿Qué haces?",
       "options": [
@@ -499,7 +499,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c13",
       "topic": "Coloproctología · Absceso anorrectal",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_cir25",
       "vignette": "Hombre de 42 años, diabético, con 3 días de dolor anal pulsátil y una masa fluctuante, roja y caliente <span class='hy'>junto al borde anal</span>. Febrícula. ¿Cuál es el tratamiento?",
       "options": [
@@ -527,7 +527,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c14",
       "topic": "Cabeza y cuello · Nódulo tiroideo",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Mujer de 45 años con un nódulo tiroideo de 2 cm hallado en el examen. La <span class='hy'>TSH está suprimida</span>. ¿Cuál es el siguiente estudio?",
       "options": [
@@ -555,7 +555,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c15",
       "topic": "Colon · Diverticulitis no complicada",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Hombre de 55 años, inmunocompetente, con dolor en fosa ilíaca izquierda y fiebre baja. La tomografía muestra <span class='hy'>diverticulitis del sigmoides con inflamación pericólica, sin absceso ni perforación</span> (Hinchey Ia). Tolera la vía oral. ¿Qué indicas?",
       "options": [
@@ -579,7 +579,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c16",
       "topic": "Cirugía pediátrica · Criptorquidia",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_cir25",
       "vignette": "Lactante de 6 meses con el testículo derecho <span class='hy'>no palpable en el escroto</span> desde el nacimiento; el izquierdo está en su sitio. ¿Qué haces?",
       "options": [
@@ -607,7 +607,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c17",
       "topic": "Coloproctología · Fisura anal aguda",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_cir25",
       "vignette": "Mujer de 28 años con <span class='hy'>dolor anal cortante al defecar</span> y sangre roja en las heces desde hace 2 semanas. Al separar los glúteos se ve un desgarro en la <span class='hy'>línea media posterior</span>. ¿Qué indicas?",
       "options": [
@@ -635,7 +635,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c18",
       "topic": "Trauma · Toracostomía de pequeño calibre",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Hombre de 34 años, estable, con herida por arma cortopunzante en hemitórax derecho y <span class='hy'>hemotórax</span> en la radiografía. Hay tubo de 14 Fr y de 32 Fr. ¿Qué calibre usas?",
       "options": [
@@ -659,7 +659,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c19",
       "topic": "Trauma · Hígado de alto grado",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Mujer de 25 años tras accidente de moto. <span class='hy'>PA 118/76 mmHg, FC 92</span>, sostenida sin transfusiones. La tomografía muestra una <span class='hy'>lesión hepática AAST grado IV con extravasación de contraste</span>. ¿Qué haces?",
       "options": [
@@ -683,7 +683,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c20",
       "topic": "Trauma · REBOA",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_cir25",
       "vignette": "Hombre de 45 años con <span class='hy'>fractura de pelvis inestable</span> y choque hemorrágico que no responde a la reanimación, sin sangrado en tórax ni abdomen. Se decide REBOA. ¿En qué zona y por cuánto tiempo máximo ideal?",
       "options": [
@@ -711,7 +711,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c21",
       "topic": "Trauma · Carótida penetrante",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Hombre de 22 años con herida por arma blanca en zona II del cuello, <span class='hy'>hematoma pulsátil, PA 80/50 mmHg</span> y hemiparesia izquierda de 1 hora. ¿Qué haces?",
       "options": [
@@ -735,7 +735,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c22",
       "topic": "Trauma · Vena cava inferior",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_cir25",
       "vignette": "En laparotomía por herida por arma de fuego, el paciente está <span class='hy'>inestable, con sangrado activo y lesión de colon</span>. Se encuentra una lesión compleja de la <span class='hy'>vena cava infrarrenal</span>. ¿Qué opción es válida?",
       "options": [
@@ -763,7 +763,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c23",
       "topic": "Trauma · Isquemia aguda de extremidad",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Hombre de 30 años con herida por arma de fuego en el muslo y <span class='hy'>pie frío sin pulsos</span>. El cirujano vascular llega en 3 horas. ¿Qué haces mientras tanto?",
       "options": [
@@ -791,7 +791,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c24",
       "topic": "Esófago · Síndrome de Boerhaave",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Hombre de 52 años con <span class='hy'>dolor torácico intenso tras vómitos</span> por ingesta de alcohol, enfisema subcutáneo cervical y taquicardia. ¿Qué estudio pides?",
       "options": [
@@ -819,7 +819,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c25",
       "topic": "Esófago · Hernia hiatal paraesofágica",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_cir25",
       "vignette": "Mujer de 74 años con plenitud posprandial y disnea. Al examen hay <span class='hy'>matidez en la base izquierda y ruidos intestinales en el tórax</span>. Sospechas una hernia hiatal grande. ¿Qué estudio la clasifica mejor?",
       "options": [
@@ -843,7 +843,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c26",
       "topic": "Perioperatorio · Analgesia multimodal",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_cir25",
       "vignette": "Hombre de 48 años con <span class='hy'>consumo crónico de opioides</span> por dolor lumbar, programado para laparotomía. ¿Qué agregas a la analgesia multimodal para controlar el dolor y ahorrar opioides?",
       "options": [
@@ -867,7 +867,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c27",
       "topic": "Ortopedia · Síndrome compartimental",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_tm",
       "vignette": "Hombre de 24 años con fractura de tibia inmovilizada hace 6 horas. Refiere <span class='hy'>dolor desproporcionado que no cede con opioides</span> y que aumenta al extender pasivamente los dedos. Pulsos pedios presentes. ¿Qué haces?",
       "options": [
@@ -891,7 +891,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c28",
       "topic": "Ortopedia · Fractura de escafoides",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "cto_tm",
       "vignette": "Mujer de 22 años que cayó sobre la mano extendida; dolor en la <span class='hy'>tabaquera anatómica</span>. En las proyecciones de escafoides se ve una fractura sin desplazar. ¿Qué tratamiento?",
       "options": [
@@ -915,7 +915,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c29",
       "topic": "Ortopedia · Luxación traumática de cadera",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_tm",
       "vignette": "Conductor de 35 años tras choque frontal (rodilla contra el tablero). La pierna está <span class='hy'>acortada, en flexión, aducción y rotación interna</span>. Radiografía: luxación posterior de cadera sin fractura. ¿Qué haces?",
       "options": [
@@ -939,7 +939,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "cir-c30",
       "topic": "Ortopedia · Fractura abierta",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "cto_tm",
       "vignette": "Motociclista de 28 años con <span class='hy'>fractura abierta de tibia</span> y herida de 3 cm. Estable. ¿Qué medidas son las más importantes al inicio?",
       "options": [

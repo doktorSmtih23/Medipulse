@@ -107,7 +107,7 @@ function saveCands(){
       agregarPropio("c", {id, specialty:c.specialty, front:c.front.trim(), back:c.back.trim(), ctx:c.ctx||"", src:s.id, page:c.page, ai:!!c.ai, auto:!c.ai});
       nc++;
     } else {
-      agregarPropio("q", Object.assign({id, qtype:c.qtype||"caso", tipo:c.tipo||undefined, specialty:c.specialty, topic:c.topic, difficulty:"IA", vignette:esc(c.vignette), options:c.options, correct:c.correct,
+      agregarPropio("q", Object.assign({id, qtype:c.qtype||"caso", tipo:c.tipo||undefined, specialty:c.specialty, topic:c.topic, difficulty:c.level||(gen && gen.level)||"residencia", vignette:esc(c.vignette), options:c.options, correct:c.correct,
         whyCorrect:c.whyCorrect, pearl:c.pearl, trap:c.trap, src:s.id, page:c.page, ai:true, img:c.img||undefined}, extrasIA(c)));
       nq++;
     }

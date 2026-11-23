@@ -39,7 +39,7 @@ const MODOS_PRAC = [
   {k: "filtros", t: "🔧 Con mis filtros", d: "Tú eliges las fuentes, los tipos de pregunta, el tema y el estado."}
 ];
 const PRAC_MAX = 100;
-const prac = () => { const P = S.prac || (S.prac = {specs: [], modo: "azar", n: 20, examen: false}); P.tipos = P.tipos || []; P.fuentes = P.fuentes || []; return P; };
+const prac = () => { const P = S.prac || (S.prac = {specs: [], modo: "azar", n: 20, examen: false}); P.tipos = P.tipos || []; P.fuentes = P.fuentes || []; P.niveles = P.niveles || []; return P; };
 
 // ---- Fuentes por categoría (para «Con mis filtros») ----
 // Cada caso tiene su fuente («src»): una del contenido incluido (data/fuentes.js), un documento del usuario
@@ -97,11 +97,11 @@ function empezarPractica(pool, n, modo, examen, rd){
 }
 function renderBanco(){
   const P = prac(), sp = specsSel(), txt = norm(qQuery.trim());
-  const tipos = P.tipos, fuentes = P.fuentes;
+  const tipos = P.tipos, fuentes = P.fuentes, niveles = P.niveles;
   const enSpec = q => !sp.length || sp.includes(q.specialty), enTipo = q => !tipos.length || tipos.includes(qKind(q));
-  const enFuente = q => !fuentes.length || fuentes.includes(fuenteDe(q).id);
+  const enFuente = q => !fuentes.length || fuentes.includes(fuenteDe(q).id), enNivel = q => !niveles.length || niveles.includes(nivelCaso(q));
   const enEst = q => qSt === "fail" ? isFail(q) : qSt === "new" ? !S.srs["q"+q.id] : qSt === "due" ? isDue("q"+q.id) : true;
-  const base = QUESTIONS.filter(q => enSpec(q) && enTipo(q) && enFuente(q) && qCoincide(q, txt));
+  const base = QUESTIONS.filter(q => enSpec(q) && enTipo(q) && enFuente(q) && enNivel(q) && qCoincide(q, txt));
   const nFail = base.filter(isFail).length, nNew = base.filter(q => !S.srs["q"+q.id]).length, nDue = base.filter(q => isDue("q"+q.id)).length;
   if (qSt === "due" && !nDue) qSt = "all";
   const pool = base.filter(enEst);
@@ -127,11 +127,14 @@ function renderBanco(){
     ${P.modo === "filtros" ? `<div class="filtrosbox stack">
       <input type="search" id="qQuery" placeholder="Tema: TEP, Kawasaki, NNT…" aria-label="Buscar casos por tema">
       <div><div class="xs muted" style="margin-bottom:6px">Tipos de pregunta <span>(elige uno o varios; se mezclan como en el examen)</span></div>
-        <div class="chips" id="qTipos"><button class="chip2${tipos.length ? "" : " on"}" data-qtipo="">Todos</button>${FOCUS.slice(1).map(f => { const c = cuentaF(q => qKind(q) === f.k && enFuente(q));
+        <div class="chips" id="qTipos"><button class="chip2${tipos.length ? "" : " on"}" data-qtipo="">Todos</button>${FOCUS.slice(1).map(f => { const c = cuentaF(q => qKind(q) === f.k && enFuente(q) && enNivel(q));
           return `<button class="chip2${tipos.includes(f.k) ? " on" : ""}" data-qtipo="${f.k}" ${c ? "" : "disabled"}>${f.t} <span class="cnt">${c}</span></button>`; }).join("")}</div></div>
+      <div><div class="xs muted" style="margin-bottom:6px">Dificultad <span>(la misma escala del Taller; lo tuyo sin nivel solo sale con «Todas»)</span></div>
+        <div class="chips" id="qNiveles"><button class="chip2${niveles.length ? "" : " on"}" data-qnivel="">Todas</button>${LEVELS.map(([k, t, d]) => { const c = cuentaF(q => nivelCaso(q) === k && enTipo(q) && enFuente(q));
+          return `<button class="chip2${niveles.includes(k) ? " on" : ""}" data-qnivel="${k}" title="${esc(d)}" ${c ? "" : "disabled"}>${t} <span class="cnt">${c}</span></button>`; }).join("")}</div></div>
       <div><div class="xs muted" style="margin-bottom:6px">Fuentes <span>(${fuentes.length ? `${fuentes.length} elegida${fuentes.length === 1 ? "" : "s"}` : "todas"})</span>${fuentes.length ? ` · <button class="linkbtn xs" id="qFuentesTodas">Todas</button>` : ""}</div>
         <input type="search" id="qFuenteQ" placeholder="Buscar fuente: NAC, sepsis…" aria-label="Buscar una fuente" style="margin-bottom:6px">
-        <div class="stack" style="gap:6px" id="qFuentes">${fuentesHTML(fuentesDelBanco(deSpecs.filter(q => enTipo(q) && qCoincide(q, txt))), fuentes)}</div></div>
+        <div class="stack" style="gap:6px" id="qFuentes">${fuentesHTML(fuentesDelBanco(deSpecs.filter(q => enTipo(q) && enNivel(q) && qCoincide(q, txt))), fuentes)}</div></div>
       <div class="grid2">
         <label class="fld">Estado<select id="qSelSt">${opt("all", `Todos (${base.length})`, qSt === "all")}${opt("new", `Sin responder (${nNew})`, qSt === "new")}${opt("fail", `Mis fallos (${nFail})`, qSt === "fail")}${nDue ? opt("due", `Para repasar (${nDue})`, qSt === "due") : ""}</select></label></div></div>` : ""}
     <div class="row" style="margin-top:12px;gap:8px;align-items:flex-end">
@@ -164,6 +167,8 @@ function renderBanco(){
     q0.oninput = () => { qQuery = q0.value; clearTimeout(renderBanco._t); renderBanco._t = setTimeout(() => { renderBanco._foco = document.activeElement === $("#qQuery"); renderBanco(); }, 250); };
     document.querySelectorAll("#qTipos [data-qtipo]").forEach(b => b.onclick = () => { const k = b.dataset.qtipo;
       P.tipos = !k ? [] : tipos.includes(k) ? tipos.filter(x => x !== k) : [...tipos, k]; if (P.tipos.length === FOCUS.length - 1) P.tipos = []; save(); renderBanco(); });
+    document.querySelectorAll("#qNiveles [data-qnivel]").forEach(b => b.onclick = () => { const k = b.dataset.qnivel;
+      P.niveles = !k ? [] : niveles.includes(k) ? niveles.filter(x => x !== k) : [...niveles, k]; if (P.niveles.length === LEVELS.length) P.niveles = []; save(); renderBanco(); });
     document.querySelectorAll("#qFuentes [data-qsrc]").forEach(b => b.onclick = () => { const id = b.dataset.qsrc;
       P.fuentes = fuentes.includes(id) ? fuentes.filter(x => x !== id) : [...fuentes, id]; save(); renderBanco(); });
     document.querySelectorAll("#qFuentes [data-qcat]").forEach(b => b.onclick = e => { e.preventDefault(); e.stopPropagation();

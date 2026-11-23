@@ -11,7 +11,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 19,
       "topic": "Epidemiología · Pruebas diagnósticas",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_ep",
       "vignette": "Se evalúa una nueva prueba rápida para VIH con <span class='hy'>sensibilidad 99%</span> y <span class='hy'>especificidad 92%</span>. Un comité quiere usarla en población general. ¿Cuál es el uso más adecuado de esta prueba?",
       "options": [
@@ -39,7 +39,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 20,
       "topic": "Epidemiología · Diseño de estudios",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_ep",
       "vignette": "Investigadores identifican a 120 pacientes con <span class='hy'>carcinoma hepatocelular</span> y 240 sin la enfermedad, y revisan <span class='hy'>retrospectivamente</span> su exposición previa a aflatoxinas. ¿Qué diseño es y qué medida de asociación corresponde?",
       "options": [
@@ -63,7 +63,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c01",
       "topic": "Lectura crítica · NNT",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_ep",
       "vignette": "Un ensayo clínico aleatorizado compara un nuevo antiagregante con placebo en pacientes con infarto. La mortalidad a 1 año fue <span class='hy'>10 % con placebo</span> y <span class='hy'>8 % con el fármaco</span>. El laboratorio anuncia que el fármaco “reduce la mortalidad un 20 %”. ¿Cuántos pacientes hay que tratar durante 1 año para evitar una muerte?",
       "options": [
@@ -87,7 +87,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c02",
       "topic": "Lectura crítica · Intención de tratar",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "cto_ep",
       "vignette": "En un ensayo clínico aleatorizado de un antihipertensivo, el <span class='hy'>15 % de los pacientes abandonó el tratamiento</span> por efectos adversos, la mayoría en el grupo intervención. Los autores presentan como resultado principal solo a quienes completaron el tratamiento según el protocolo, y muestran un gran beneficio. ¿Qué análisis debió ser el principal para conservar los beneficios de la aleatorización?",
       "options": [
@@ -111,7 +111,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c03",
       "topic": "Epidemiología · Valores predictivos",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "cto_ep",
       "vignette": "Una prueba de tamizaje tiene <span class='hy'>sensibilidad 90 %</span> y <span class='hy'>especificidad 90 %</span>. Se aplica a 1000 personas de una población donde la <span class='hy'>prevalencia es 1 %</span>. Un paciente tiene un resultado positivo y pregunta qué probabilidad tiene de estar enfermo. ¿Cuál es aproximadamente el valor predictivo positivo?",
       "options": [
@@ -135,7 +135,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c04",
       "topic": "Lectura crítica · Sesgos en tamizaje",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "cto_ep",
       "vignette": "Tras implementar un programa de tamizaje de un cáncer, la <span class='hy'>supervivencia a 5 años desde el diagnóstico aumentó</span> de 40 % a 60 %. Sin embargo, la <span class='hy'>mortalidad por ese cáncer en la población no cambió</span>. ¿Qué explica mejor este hallazgo?",
       "options": [
@@ -159,7 +159,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c05",
       "topic": "Lectura crítica · Confusión",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_ep",
       "vignette": "Un estudio de casos y controles encuentra que tomar <span class='hy'>más de 3 tazas de café al día</span> se asocia con cáncer de páncreas (OR 2,1). En ese estudio, los bebedores de café <span class='hy'>fumaban mucho más</span> que los no bebedores, y el tabaco es causa conocida de cáncer de páncreas. Al ajustar por tabaquismo, la asociación desaparece. ¿Qué fenómeno explica la asociación inicial?",
       "options": [
@@ -183,7 +183,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c06",
       "topic": "Epidemiología · Estudio de brote",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_ep",
       "vignette": "Después de un almuerzo comunitario, varias personas presentan vómito y diarrea en las 6 horas siguientes. De <span class='hy'>120 que comieron ensalada de papa, 60 enfermaron</span>; de <span class='hy'>80 que no la comieron, 4 enfermaron</span>. Con el pollo, enfermaron 30 de 100 que lo comieron y 34 de 100 que no. ¿Cuál es el alimento sospechoso y su riesgo relativo?",
       "options": [
@@ -207,7 +207,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c07",
       "topic": "Epidemiología · Incidencia y prevalencia",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "gordis",
       "vignette": "Se introduce un tratamiento que <span class='hy'>prolonga la supervivencia</span> de los pacientes con una enfermedad crónica, pero <span class='hy'>no la cura</span>. El número de casos nuevos por año se mantiene igual. ¿Qué ocurrirá con la incidencia y la prevalencia en los próximos años?",
       "options": [
@@ -224,7 +224,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c08",
       "topic": "Lectura crítica · Error tipo II",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "cto_ep",
       "vignette": "Un ensayo clínico con <span class='hy'>80 pacientes</span> compara dos analgésicos y no encuentra diferencia significativa en el dolor (p = 0,30). Los autores reconocen que el estudio tenía un <span class='hy'>poder estadístico de 40 %</span> para detectar la diferencia que consideraban importante. ¿Cuál es la conclusión correcta?",
       "options": [
@@ -249,7 +249,7 @@ MP_CONTENIDO.agregar({
       "id": "sp-c09",
       "area": "Ensayos clínicos y lectura crítica",
       "topic": "Lectura crítica · Guías de reporte",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_mi26",
       "vignette": "Un grupo publica un <span class='hy'>ensayo clínico aleatorizado</span> que compara una alerta de sepsis basada en inteligencia artificial frente al manejo convencional, con mortalidad como desenlace. ¿Qué guía de reporte corresponde a su informe de resultados?",
       "options": [
@@ -277,7 +277,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c10",
       "topic": "Pruebas diagnósticas · Dímero D ajustado por edad",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "adjust_pe",
       "vignette": "Mujer de 80 años con disnea súbita. Probabilidad clínica <span class='hy'>no alta</span> (Ginebra simplificado). Dímero D de <span class='hy'>650 µg/L</span>. ¿Qué haces?",
       "options": [
@@ -305,7 +305,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c11",
       "topic": "Lectura crítica · Estudio de manejo diagnóstico",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "adjust_pe",
       "vignette": "En ADJUST-PE, a los pacientes con dímero D entre 500 µg/L y su corte por edad <span class='hy'>no se les hizo angiotomografía ni se les anticoaguló</span>, y se siguieron 3 meses. ¿Qué tipo de estudio es y cuál es su principal limitación?",
       "options": [
@@ -333,7 +333,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c12",
       "topic": "Lectura crítica · Intervalo de confianza y seguridad",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "adjust_pe",
       "vignette": "El criterio de seguridad de ADJUST-PE era que el <span class='hy'>límite superior del IC 95 %</span> de eventos tromboembólicos a 3 meses no pasara de 3 %. Resultado: 1 de 331 pacientes, <span class='hy'>0,3 % (IC 95 % 0,1 % a 1,7 %)</span>. ¿Qué concluyes?",
       "options": [
@@ -361,7 +361,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c13",
       "topic": "Epidemiología · Diferencia absoluta y relativa",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "adjust_pe",
       "vignette": "Con el corte por edad, la proporción de dímeros D negativos subió <span class='hy'>11,6 puntos porcentuales</span>, que equivale a un <span class='hy'>41,2 %</span> más. ¿Qué es cada cifra?",
       "options": [
@@ -385,7 +385,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c14",
       "topic": "Lectura crítica · Validación de un puntaje",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "precise_dapt",
       "vignette": "El puntaje PRECISE-DAPT tuvo un <span class='hy'>índice c de 0,73</span> para sangrado en la cohorte donde se creó, y de <span class='hy'>0,70 y 0,66</span> en dos cohortes de validación externa. ¿Cómo se interpreta?",
       "options": [
@@ -409,7 +409,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c15",
       "topic": "Lectura crítica · Número necesario para dañar",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "precise_dapt",
       "vignette": "En pacientes con PRECISE-DAPT de 25 o más, la doble antiagregación larga (12 a 24 meses) frente a corta (3 a 6) aumentó el sangrado con una <span class='hy'>diferencia absoluta de riesgo de +2,59 %</span>. ¿Cuántos hay que tratar con el esquema largo para causar un sangrado más?",
       "options": [
@@ -433,7 +433,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c16",
       "topic": "Lectura crítica · Interacción entre subgrupos",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "precise_dapt",
       "vignette": "En el análisis de PRECISE-DAPT, la doble antiagregación larga aumentó el sangrado en los de alto riesgo (+2,59 %) pero no en los demás (+0,14 %), con <span class='hy'>p de interacción = 0,007</span>. ¿Qué significa ese valor?",
       "options": [
@@ -457,7 +457,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c17",
       "topic": "Lectura crítica · Desenlace compuesto",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "triton",
       "vignette": "En TRITON-TIMI 38, el desenlace primario (muerte cardiovascular, IAM no fatal o ACV no fatal) bajó de <span class='hy'>12,1 % a 9,9 %</span> con prasugrel. El IAM bajó de <span class='hy'>9,7 % a 7,4 %</span> y la mortalidad global no difirió. ¿Qué concluyes?",
       "options": [
@@ -485,7 +485,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c18",
       "topic": "Salud pública · Mama: tamizaje de cáncer",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "res3280",
       "vignette": "Mujer de 52 años, sin antecedentes familiares, en el control de promoción y mantenimiento. ¿Qué tamizaje de mama le corresponde?",
       "options": [
@@ -509,7 +509,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c19",
       "topic": "Salud pública · Colon: tamizaje de cáncer colorrectal",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "res3280",
       "vignette": "Hombre de 55 años, sin antecedentes familiares ni síntomas. Nunca se ha tamizado para cáncer colorrectal y en su municipio no hay colonoscopia disponible. ¿Qué le ordenas?",
       "options": [
@@ -533,7 +533,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "sp-c20",
       "topic": "Salud pública · Próstata: tamizaje de cáncer",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "res3280",
       "vignette": "Hombre de 44 años cuyo <span class='hy'>padre tuvo cáncer de próstata</span>. Pregunta si debe tamizarse. ¿Qué le respondes según la ruta?",
       "options": [

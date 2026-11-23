@@ -135,7 +135,7 @@ MP_CONTENIDO.agregar({
   "paquete": "salud-publica",          // "starter" (las 4 básicas, versión gratuita) o el módulo al que pertenece
   "actualizado": "2026-11-15",         // cámbialo cada vez que edites el archivo
   "revision": "verificada",            // solo cuando todo lo visible del archivo tiene su cita textual
-  "casos":    [{ "id": "sp-c01", "topic": "…", "difficulty": "Nivel 2", "src": "gordis", "vignette": "…", "options": ["…","…","…","…"], "correct": 0, "whyCorrect": "…", "pearl": "…", "trap": "…" }],
+  "casos":    [{ "id": "sp-c01", "topic": "…", "difficulty": "residencia", "src": "gordis", "vignette": "…", "options": ["…","…","…","…"], "correct": 0, "whyCorrect": "…", "pearl": "…", "trap": "…" }],
   "fichas":   [{ "id": "sp-f01", "title": "…", "badge": "…", "src": "gordis", "thresholds": [{ "label": "…", "val": "…" }], "redFlag": "…", "trap": "…" }],
   "tarjetas": [{ "id": "sp-t01", "src": "gordis", "front": "…", "back": "…" }]
 });
@@ -152,6 +152,8 @@ Reglas:
 - **Opciones sin pistas:** la respuesta correcta no debe delatarse por ser la opción más larga o la más detallada. Escribe los distractores con el mismo nivel de detalle y recorta la correcta a lo esencial (la explicación va en `whyCorrect`). La prueba `tests/contenido.spec.js` falla si la correcta mide más de 1,3 veces la siguiente o si es la más larga en más del 30 % de los casos.
 - **Temas variados en el diagnóstico:** el diagnóstico elige primero un caso por tema (`diagTema`: la primera palabra después de «·» en `topic`). Escribe el `topic` como «Área · Tema concreto» para que esto funcione.
 - **Cita textual:** cada ítem lleva `"cita": [{ "donde": "Recomendación 1.8.1", "texto": "texto literal de la guía" }]` y `"verificado": "AAAA-MM-DD"`. La app la muestra en "Ver la cita textual de la guía"; revisar es comparar el dato con la cita. Se prefieren fuentes de acceso abierto; si la fuente es de suscripción (por ejemplo, una revista), se cita solo el texto breve de la recomendación y el usuario consigue el documento por su cuenta.
+- **Cita obligatoria en todo caso:** la prueba de contenido exige cita y `verificado` a cada caso visible de cualquier especialidad. Las únicas excepciones están en `SIN_CITA_PERMITIDOS` (tests/contenido.spec.js); esa lista solo debe achicarse, y la prueba avisa si guarda un id que ya cumple.
+- **Dificultad:** una sola escala para el banco y el Taller, la de `LEVELS` en `js/taller-ia.js`: `basica`, `residencia`, `dificil`, `avanzada` (Especialista). Los casos creados con IA guardan el nivel elegido al generarlos; los editados conservan el del original; lo importado o propio queda sin nivel. `nivelCaso(q)` (js/perfil.js) lee también las etiquetas viejas «Nivel 1/2/3». El nivel se ve en cada caso (no en simulacro) y se filtra en «Con mis filtros».
 - **`"estado": "pendiente"`** saca un ítem de la app sin borrarlo (sin verificar o fuera de la demostración). Se conserva su id para no perder el progreso; al verificarlo se quita el campo.
 - `npm test` valida todo esto (`tests/contenido.spec.js`): formato, fuentes, ids repetidos o desaparecidos y posición de las respuestas.
 

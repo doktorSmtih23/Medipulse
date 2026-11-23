@@ -83,6 +83,17 @@ function tipoChip(q){
   const k = qKind(q), mio = focusOf().k === k;
   return `<span class="tipo${mio ? " mio" : ""}">${esc(QMETODO[k].t)}${mio ? " · 🎯 tu enfoque" : ""}</span>`;
 }
+// Escala única de dificultad: los mismos niveles del Taller (LEVELS, taller-ia.js) en todo el banco.
+// Acepta las etiquetas viejas "Nivel 1/2/3"; lo importado o propio sin nivel devuelve null.
+const NIVEL_VIEJO = {"Nivel 1": "basica", "Nivel 2": "residencia", "Nivel 3": "dificil"};
+function nivelCaso(q){
+  const d = NIVEL_VIEJO[q && q.difficulty] || (q && q.difficulty);
+  return LEVELS.some(l => l[0] === d) ? d : null;
+}
+function nivelChip(q){
+  const k = nivelCaso(q), l = k && LEVELS.find(x => x[0] === k);
+  return l ? `<span class="nivel" title="Dificultad: ${esc(l[2])}">📶 ${esc(l[1])}</span>` : "";
+}
 // Rótulo de origen para lo que aportó el usuario (no es una pista: no dice el tema).
 function origenChip(q){
   if (q.editada) return `<span class="origen">✏️ Editada por ti</span>`;

@@ -88,6 +88,10 @@ test("dificultad: cuatro niveles, y debajo se lee qué significa el elegido (en 
   await page.click('[data-lv="dificil"]'); await page.click("#cGo");
   await expect(page.locator("#candList")).toBeVisible();
   expect(peticiones.at(-1).messages[0].content.map(b => b.text).join("\n")).toContain("Dificultad: Difícil (distractores muy parecidos");
+  // el nivel elegido queda guardado en cada caso, con la misma escala del banco
+  await page.click('[data-lv="basica"]');   // cambiar el nivel después de generar no altera lo ya generado
+  await page.click("#candSave");
+  expect(await page.evaluate(() => S.userQ.map(q => [q.difficulty, nivelCaso(q)]))).toEqual([["dificil", "dificil"], ["dificil", "dificil"]]);
 });
 
 test("desde Casos → Crear → «Generar desde tu PDF», el documento abre directamente en «🩺 Casos»", async ({ page }) => {

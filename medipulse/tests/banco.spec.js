@@ -294,3 +294,22 @@ test("con mis filtros: varios tipos a la vez (mezclados como en el examen) y fue
   expect(r[0][0]).not.toBe(r[1][0]);
   expect(await sinDesborde(page)).toBe(true);
 });
+
+test("con mis filtros: dificultad con la escala del Taller; Empezar respeta el nivel y cada caso lo muestra (no en simulacro)", async ({ page }) => {
+  await page.click('#qModo [data-modo="filtros"]');
+  await expect(page.locator("#qNiveles [data-qnivel]")).toHaveText([/^Todas/, /^Básica \d+/, /^Examen de residencia \d+/, /^Difícil \d+/, /^Especialista \d+/]);
+  await page.click('#qNiveles [data-qnivel="dificil"]');
+  await expect(page.locator('#qNiveles [data-qnivel="dificil"]')).toHaveClass(/on/);
+  await page.fill("#qN", "5"); await page.locator("#qN").dispatchEvent("change");
+  await page.click("#pr10");
+  const niveles = await page.evaluate(() => sess.stages[0].items.map(it => nivelCaso(qById(it.id))));
+  expect(niveles.length).toBe(5);
+  expect(new Set(niveles)).toEqual(new Set(["dificil"]));
+  await expect(page.locator("#sessBody .nivel")).toHaveText("📶 Difícil");
+  // las etiquetas viejas se leen con la misma escala; lo que no trae nivel no muestra rótulo
+  expect(await page.evaluate(() => [nivelCaso({difficulty: "Nivel 1"}), nivelCaso({difficulty: "Importada"}), nivelChip({difficulty: "IA"})])).toEqual(["basica", null, ""]);
+  // en simulacro no se muestra (sería una pista)
+  await page.evaluate(() => startSession({label: "Simulacro", tag: "fire", stages: [{name: "x", items: [{t: "q", id: 2}], exam: true, limit: 72}]}));
+  await expect(page.locator("#sessBody .vignette")).toBeVisible();
+  await expect(page.locator("#sessBody .nivel")).toHaveCount(0);
+});

@@ -11,7 +11,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 5,
       "topic": "Vía Aérea · Laringotraqueítis",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "afp_croup",
       "vignette": "Niño de 2 años con cuadro de 2 días de rinorrea y febrícula, quien presenta esta noche <span class='hy'>tos perruna (metálica), disfonía y estridor inspiratorio en reposo</span> sin babeo ni posición en trípode. ¿Cuál es la terapia inicial más efectiva?",
       "options": [
@@ -43,7 +43,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 11,
       "topic": "Deshidratación · Gastroenteritis",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "nice_ge",
       "vignette": "Lactante de 10 meses (peso 9 kg) con diarrea acuosa abundante. Está <span class='hy'>irritable, con ojos hundidos, boca seca, bebe con avidez</span> y el pliegue cutáneo vuelve lentamente (&lt; 2 s). Tolera vía oral. ¿Cómo se rehidrata?",
       "options": [
@@ -75,7 +75,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 17,
       "topic": "Neumología · Bronquiolitis",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "nice_bq",
       "vignette": "Lactante de 4 meses previamente sano con coriza hace 3 días, ahora con <span class='hy'>taquipnea, tirajes subcostales, sibilancias espiratorias difusas y SatO2 89%</span>. Sin fiebre alta ni consolidación. ¿Manejo indicado?",
       "options": [
@@ -107,7 +107,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 22,
       "topic": "Vasculitis · Kawasaki",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "aha_kaw",
       "vignette": "Niño de 3 años con <span class='hy'>fiebre de 6 días</span> sin respuesta a antipiréticos, conjuntivitis bilateral sin secreción, labios rojos y fisurados, lengua en fresa, exantema polimorfo, edema de manos y adenopatía cervical de 2 cm. ¿Tratamiento indicado?",
       "options": [
@@ -143,7 +143,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c01",
       "topic": "Vasculitis · Kawasaki de alto riesgo",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "aha_kaw",
       "vignette": "Lactante de <span class='hy'>4 meses</span> con 6 días de fiebre, conjuntivitis bilateral sin secreción, labios rojos y edema de manos y pies. Se diagnostica enfermedad de Kawasaki. El ecocardiograma muestra la descendente anterior con <span class='hy'>Z score 3,1</span>. ¿Tratamiento inicial?",
       "options": [
@@ -183,7 +183,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c02",
       "topic": "Vasculitis · Kawasaki resistente a IGIV",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "aha_kaw",
       "vignette": "Niño de 3 años con Kawasaki tratado con IGIV 2 g/kg y aspirina. <span class='hy'>40 horas después de terminar la infusión</span> sigue con fiebre de 39 °C. ¿Cómo se interpreta y qué haces?",
       "options": [
@@ -219,7 +219,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c03",
       "topic": "Vasculitis · Kawasaki vs MIS-C",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "aha_kaw",
       "vignette": "Niña de 9 años con 5 días de fiebre, <span class='hy'>dolor abdominal intenso, vómitos y diarrea</span>, cefalea e hipotensión. Plaquetas 98.000, linfopenia y troponina elevada. Ecocardiograma: <span class='hy'>función sistólica del ventrículo izquierdo disminuida y derrame pericárdico</span>, coronarias normales. Sin cambios en la mucosa oral. ¿Diagnóstico más probable?",
       "options": [
@@ -252,7 +252,7 @@ MP_CONTENIDO.agregar({
       "id": "ped-c04",
       "qtype": "directa",
       "topic": "Vasculitis · Kawasaki: vacunas tras IGIV",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "aha_kaw",
       "vignette": "Un niño recibió IGIV por enfermedad de Kawasaki. ¿Cuánto tiempo deben diferirse las vacunas vivas (triple viral y varicela)?",
       "options": [
@@ -276,7 +276,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c05",
       "topic": "Vasculitis · Kawasaki con aneurisma gigante",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "aha_kaw",
       "vignette": "Niño de 5 años con Kawasaki y aneurisma de la descendente anterior con <span class='hy'>Z score 12</span> (diámetro 8,5 mm). ¿Qué tratamiento antitrombótico corresponde?",
       "options": [
@@ -316,7 +316,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c06",
       "topic": "Neurología · Síndrome de Tourette",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "nrdp_ts",
       "vignette": "Niño de 9 años con <span class='hy'>parpadeo, muecas y sacudidas del hombro</span>, y <span class='hy'>carraspeo</span> frecuente, varias veces al día, desde hace <span class='hy'>2 años</span>. Dice que antes de cada tic siente una «necesidad» que se alivia al hacerlo, y puede contenerlos un rato. ¿Cuál es el diagnóstico más probable?",
       "options": [
@@ -356,7 +356,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c07",
       "topic": "Neurología · Tics de menos de 1 año",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "nrdp_ts",
       "vignette": "Niña de 7 años con <span class='hy'>parpadeo repetido y carraspeo</span> varias veces al día, que empezaron hace <span class='hy'>4 meses</span>. Examen neurológico normal. ¿Cuál es el diagnóstico más probable?",
       "options": [
@@ -384,7 +384,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c08",
       "topic": "Neurología · Tourette: tratamiento",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "nrdp_ts",
       "vignette": "Adolescente de 13 años con síndrome de Tourette cuyos tics le causan burlas en el colegio y afectan su desempeño. Sin comorbilidades graves. ¿Cuál es el tratamiento de primera línea?",
       "options": [
@@ -420,7 +420,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c09",
       "topic": "Dermatología · Tiña de la cabeza",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "afp_tinea",
       "vignette": "Niño de 6 años con una placa redonda descamativa en el cuero cabelludo, con <span class='hy'>pelos quebrados y puntos negros</span>, de 6 semanas. Ya usó una crema antimicótica sin mejoría. ¿Conducta?",
       "options": [
@@ -464,7 +464,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c10",
       "topic": "Endocrinología · Hipotiroidismo subclínico",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Niña de 9 años, asintomática, con crecimiento normal. En un chequeo le pidieron pruebas tiroideas: <span class='hy'>TSH de 7,2 mU/L con T4 libre normal</span>. No tiene bocio. ¿Cuál es la conducta?",
       "options": [
@@ -492,7 +492,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c11",
       "topic": "Maltrato infantil · Equimosis en el lactante",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Lactante de 3 meses llevado a urgencias porque «se golpeó con la baranda de la cuna». Al examen tiene una <span class='hy'>equimosis en el pabellón auricular izquierdo</span>, sin otras lesiones visibles. Está alerta y come bien. ¿Qué haces?",
       "options": [
@@ -520,7 +520,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c12",
       "topic": "Cuidado crítico · Choque séptico",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_ped26",
       "vignette": "Niño de 4 años con neumonía y choque séptico. Recibió <span class='hy'>40 mL/kg de cristaloides</span> en bolos de 10 mL/kg. Sigue con llenado capilar de 5 segundos, extremidades frías, pulsos débiles y oliguria. Tiene dos accesos periféricos; el catéter central se colocará en una hora. ¿Qué haces ahora?",
       "options": [
@@ -552,7 +552,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c13",
       "topic": "Genética · Síndrome de Down: crecimiento",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_ped26",
       "vignette": "Niño de 2 años con síndrome de Down, activo y sin síntomas. En las curvas de la OMS su peso y talla están por <span class='hy'>debajo del percentil 3</span>; en las curvas específicas para síndrome de Down están en el percentil 40 y siguen su canal. ¿Cuál es la interpretación correcta?",
       "options": [
@@ -577,7 +577,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c14",
       "topic": "Neurología · Síndrome de West",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Lactante de 6 meses con episodios de flexión brusca del tronco y los brazos, de menos de 2 segundos, <span class='hy'>en salvas al despertar</span>. Desde hace 3 semanas dejó de sostener la cabeza. El EEG muestra hipsarritmia. ¿Cuál es la conducta?",
       "options": [
@@ -605,7 +605,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c15",
       "topic": "Hematología · Anemia de células falciformes",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_ped26",
       "vignette": "Niño de 7 años con anemia de células falciformes, asintomático, en su control anual. La ecografía Doppler transcraneal muestra una <span class='hy'>velocidad de 195 cm/s en la arteria cerebral media</span>. Examen neurológico normal. ¿Qué sigue?",
       "options": [
@@ -633,7 +633,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c16",
       "topic": "Nutrición · Alimentación complementaria",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_ped26",
       "vignette": "Lactante de 6 meses, sano, que va a iniciar la alimentación complementaria. La madre no quiere darle huevo porque al hijo de una amiga «le produjo un brote». <span class='hy'>No hay antecedentes de alergia</span> en la familia. ¿Qué le recomiendas?",
       "options": [
@@ -661,7 +661,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c17",
       "topic": "Infecciones perinatales · Citomegalovirus congénito",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Recién nacido de 5 días con microcefalia, ictericia, hepatoesplenomegalia, petequias y trombocitopenia. La ecografía transfontanelar muestra <span class='hy'>calcificaciones periventriculares</span>. ¿Cómo confirmas el diagnóstico y cómo lo tratas?",
       "options": [
@@ -689,7 +689,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c18",
       "topic": "Neonatología · Tamizaje neonatal ampliado",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "res117_26",
       "vignette": "Recién nacido a término, sano, que va a salir de alta a las <span class='hy'>20 horas de vida</span>. La madre pregunta cuándo deben tomarle la muestra de sangre del talón para el tamizaje neonatal ampliado. ¿Qué le respondes?",
       "options": [
@@ -718,7 +718,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c19",
       "topic": "Cardiología · El atleta pediátrico",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_ped26",
       "vignette": "Nadador de 12 años que entrena 10 horas por semana. En el club le encuentran <span class='hy'>frecuencia cardiaca en reposo de 59 lpm</span>. No tiene síntomas, el examen físico es normal y el ECG solo muestra bradicardia sinusal. ¿Cuál es la conducta?",
       "options": [
@@ -746,7 +746,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c20",
       "topic": "Neurología · Convulsión febril simple",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_neuro26",
       "vignette": "Niña de 18 meses con fiebre de 39 °C por un resfriado. Tuvo una <span class='hy'>crisis tónico-clónica generalizada de 2 minutos</span>, única, y a los 30 minutos está alerta, juega y el examen neurológico es normal. ¿Qué estudios pides?",
       "options": [
@@ -774,7 +774,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c21",
       "topic": "Neurología · Perímetro cefálico",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Lactante de 5 meses cuyo perímetro cefálico estaba en el percentil 25 y hoy está en el <span class='hy'>percentil 90</span>, con <span class='hy'>fontanela abombada</span>. El desarrollo va bien. ¿Qué haces?",
       "options": [
@@ -798,7 +798,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c22",
       "topic": "Dolor · Analgesia en dolor intenso",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Niño de 7 años con <span class='hy'>fractura desplazada de antebrazo</span>; en la escala numérica califica el dolor en <span class='hy'>9/10</span>. ¿Qué analgesia indicas?",
       "options": [
@@ -826,7 +826,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c23",
       "topic": "Trauma · Choque hipovolémico en niños",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Niño de 6 años tras atropello. <span class='hy'>FC 150, llenado capilar de 4 segundos, pulsos distales débiles</span>; PA 98/60 mmHg (normal para la edad). ¿Cómo lo interpretas?",
       "options": [
@@ -850,7 +850,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c24",
       "topic": "Trauma · Ácido tranexámico en niños",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_ped26",
       "vignette": "Niña de 8 años, <span class='hy'>25 kg</span>, con trauma abdominal y hemorragia; lleva <span class='hy'>1 hora</span> del evento. ¿Qué dosis de ácido tranexámico?",
       "options": [
@@ -874,7 +874,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c25",
       "topic": "Cuidado crítico · Delirium",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Niño de 4 años en UCI, día 5 de ventilación con midazolam, está <span class='hy'>agitado, desconectado y con sueño invertido</span>; la escala CAPD es positiva. ¿Cuál es la medida inicial?",
       "options": [
@@ -902,7 +902,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c26",
       "topic": "Hematología · Anemia ferropénica",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_ped26",
       "vignette": "Niña de 2 años con palidez. Hb <span class='hy'>9,2 g/dL, VCM 68 fL, RDW aumentado</span>, reticulocitos bajos y <span class='hy'>ferritina 8 ng/mL</span>. Sin pérdidas de sangre. ¿Qué indicas?",
       "options": [
@@ -930,7 +930,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c27",
       "topic": "Dermatología · Acné",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_ped26",
       "vignette": "Adolescente de 15 años con <span class='hy'>acné inflamatorio moderado</span> en la cara. Otro médico le dejó <span class='hy'>clindamicina tópica sola</span> hace 4 meses. ¿Qué cambias?",
       "options": [
@@ -958,7 +958,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c28",
       "topic": "Neumología · Lesión pulmonar por vapeo",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_ped26",
       "vignette": "Adolescente de 17 años que <span class='hy'>vapea cartuchos de THC</span>, con tos, dolor torácico, disnea, fiebre y vómito de una semana. Opacidades bilaterales y saturación de 89 %. Sin otra causa. ¿Qué es lo indispensable del manejo?",
       "options": [
@@ -982,7 +982,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c29",
       "topic": "Cardiología · Falla cardíaca aguda",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_ped26",
       "vignette": "Niña de 5 años con miocarditis probable: <span class='hy'>crépitos bibasales, hepatomegalia e ingurgitación yugular</span>, pero extremidades tibias y buen llenado capilar. ¿Qué terapia requiere primero?",
       "options": [
@@ -1006,7 +1006,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c30",
       "topic": "Neonatología · Cardiopatía congénita: tamizaje con pulsooximetría",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "res117_26",
       "vignette": "Recién nacido de 26 horas, sano, en Bogotá (2.600 m s. n. m.). Pulsooximetría: <span class='hy'>preductal 93 %, postductal 92 %</span>. ¿Cómo se interpreta el tamizaje de cardiopatía congénita compleja?",
       "options": [
@@ -1034,7 +1034,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c31",
       "topic": "Neonatología · Hipotiroidismo congénito",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "res117_26",
       "vignette": "Recién nacido a término de 60 horas. El tamizaje de talón reporta <span class='hy'>TSH de 14 µUI/mL</span>. Está asintomático. ¿Qué sigue?",
       "options": [
@@ -1062,7 +1062,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c32",
       "topic": "Neonatología · Fenilcetonuria: plazo del tamizaje de talón",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "res117_26",
       "vignette": "Una madre llega con su bebé de 4 días: salieron del hospital antes de tomar la muestra de talón. ¿Qué le dices sobre el plazo?",
       "options": [
@@ -1090,7 +1090,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c33",
       "topic": "Neumología · Neumonía: tratamiento ambulatorio",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "pir_nac26",
       "vignette": "Niña de 3 años, vacunada, con 3 días de fiebre, tos y taquipnea; crépitos en la base derecha. SatO₂ 95 %, sin tirajes, come bien. Se maneja en casa. ¿Qué antibiótico y por cuánto tiempo?",
       "options": [
@@ -1118,7 +1118,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c34",
       "topic": "Neumología · Neumonía atípica",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "pir_nac26",
       "vignette": "Niño de 9 años con 10 días de tos seca, cefalea, malestar y febrícula; crépitos difusos bilaterales. Está estable y se maneja en casa. Se sospecha <span class='hy'>Mycoplasma pneumoniae</span>. ¿Qué indicas?",
       "options": [
@@ -1142,7 +1142,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c35",
       "topic": "Neumología · Neumonía: estudios",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "pir_nac26",
       "vignette": "Niño de 4 años, con vacunas completas, con neumonía clínica no grave que se tratará en casa. La madre pide radiografía y exámenes de sangre «para estar seguros». ¿Qué le explicas?",
       "options": [
@@ -1170,7 +1170,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c36",
       "topic": "Neumología · Asma: salbutamol solo",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "gina26",
       "vignette": "Niño de 8 años con asma: síntomas 2 a 3 veces al mes, que alivia solo con salbutamol inhalado; nunca ha usado corticoide inhalado. ¿Qué cambias?",
       "options": [
@@ -1198,7 +1198,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c37",
       "topic": "Neonatología · Sepsis neonatal temprana",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "nrdp_sepsisneo26",
       "vignette": "Recién nacido de 30 horas, hijo de madre con <span class='hy'>ruptura de membranas de 26 horas y fiebre intraparto</span>. Está hipoactivo, succiona mal y tiene 38,4 °C. ¿Cómo la clasificas y qué empiezas?",
       "options": [
@@ -1226,7 +1226,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c38",
       "topic": "Neonatología · Sepsis: punción lumbar",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "nrdp_sepsisneo26",
       "vignette": "Neonato de 5 días con sospecha de sepsis, en <span class='hy'>choque y con apneas</span> que requieren ventilación. Ya se tomaron hemocultivos. ¿Qué haces con la punción lumbar?",
       "options": [
@@ -1250,7 +1250,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c39",
       "topic": "Nefrología · Infección urinaria febril",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "aap_ivu26",
       "vignette": "Niña de 14 meses con fiebre de 39 °C e infección urinaria confirmada. Tolera la vía oral, está hidratada y en buen estado general. ¿Qué tratamiento indicas?",
       "options": [
@@ -1278,7 +1278,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c40",
       "topic": "Nefrología · IVU: imágenes",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "aap_ivu26",
       "vignette": "Niño de 2 años, no circuncidado, con su <span class='hy'>primera infección urinaria febril</span> por E. coli, que respondió bien. La ecografía renal y de vías urinarias es normal. ¿Pides cistouretrografía miccional?",
       "options": [
@@ -1302,7 +1302,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c41",
       "topic": "Nefrología · IVU en el neonato",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "aap_ivu26",
       "vignette": "Recién nacido de <span class='hy'>20 días</span> con infección urinaria confirmada, hospitalizado con antibiótico IV. A las 48 horas está afebril y come bien. ¿Qué haces?",
       "options": [
@@ -1326,7 +1326,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c42",
       "topic": "Ortopedia · Fracturas fisarias (Salter-Harris)",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_tm",
       "vignette": "Niño de 11 años con fractura del tobillo que atraviesa la <span class='hy'>fisis y la epífisis (Salter-Harris III)</span>, con 3 mm de desplazamiento. ¿Qué tratamiento?",
       "options": [
@@ -1350,7 +1350,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c43",
       "topic": "Ortopedia · Displasia de cadera",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "cto_tm",
       "vignette": "Recién nacida de 3 semanas, podálica, con <span class='hy'>maniobra de Ortolani positiva</span> en la cadera izquierda. ¿Qué estudio confirma el diagnóstico?",
       "options": [
@@ -1374,7 +1374,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c44",
       "topic": "Infectología · Malaria grave en niños",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "malj_malaria22",
       "vignette": "Niño de 4 años, 15 kg, de zona endémica, con fiebre alta, postración y <span class='hy'>convulsiones</span>; prueba rápida positiva para P. falciparum. No se puede descartar sepsis. ¿Qué inicias de inmediato?",
       "options": [
@@ -1398,7 +1398,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "ped-c45",
       "topic": "Infectología · Contacto de tuberculosis",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "lancet_tbninos20",
       "vignette": "Niño de 3 años que vive con su abuelo, recién diagnosticado de tuberculosis pulmonar bacilífera. El niño está sano, con radiografía normal y <span class='hy'>prueba de infección positiva</span>. ¿Qué haces?",
       "options": [

@@ -48,12 +48,30 @@ test("el único estado permitido es \"pendiente\"", () => {
   expect(mal).toEqual([]);
 });
 
-test("en una especialidad verificada, todo lo visible trae su cita textual y la fecha de verificación", () => {
+// Excepciones explícitas a la regla de la cita: casos que aún no la tienen porque falta el material.
+// Para sacar uno de aquí, agrégale su cita textual y la fecha; la lista solo debe achicarse.
+const SIN_CITA_PERMITIDOS = ["sp-c07"];
+test("todo caso visible de cualquier especialidad trae su cita textual y la fecha de verificación (salvo la lista de excepciones)", () => {
+  const sinCita = x => !Array.isArray(x.cita) || !x.cita.length || x.cita.some(c => !c.donde || !c.texto || c.texto.length < 20) ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(x.verificado || "");
+  const mal = visibles("casos").filter(x => sinCita(x) && !SIN_CITA_PERMITIDOS.includes(String(x.id))).map(donde);
+  expect(mal).toEqual([]);
+  // la lista no guarda casos que ya cumplen ni ids que no existen
+  const sobran = SIN_CITA_PERMITIDOS.filter(id => { const x = visibles("casos").find(q => String(q.id) === id); return !x || !sinCita(x); });
+  expect(sobran, "quita estos ids de SIN_CITA_PERMITIDOS").toEqual([]);
+});
+
+test("en una especialidad verificada, también las fichas y tarjetas visibles traen su cita y la fecha", () => {
   const verificadas = C.esp.filter(e => e.revision === "verificada").map(e => e.especialidad);
   expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía"]));
-  const mal = ["casos", "fichas", "tarjetas"].flatMap(t => visibles(t)).filter(x => verificadas.includes(x._esp)).filter(x =>
+  const mal = ["fichas", "tarjetas"].flatMap(t => visibles(t)).filter(x => verificadas.includes(x._esp)).filter(x =>
     !Array.isArray(x.cita) || !x.cita.length || x.cita.some(c => !c.donde || !c.texto || c.texto.length < 20) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(x.verificado || "")).map(donde);
+  expect(mal).toEqual([]);
+});
+
+test("la dificultad de cada caso usa la escala única del Taller (basica, residencia, dificil, avanzada)", () => {
+  const mal = todos("casos").filter(q => !["basica", "residencia", "dificil", "avanzada"].includes(q.difficulty)).map(q => `${donde(q)}: ${q.difficulty}`);
   expect(mal).toEqual([]);
 });
 
