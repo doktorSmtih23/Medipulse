@@ -1170,6 +1170,118 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c40",
+      "topic": "Obstetricia · VIH en el embarazo: inicio del tratamiento",
+      "difficulty": "basica",
+      "src": "gpc_vih_ad",
+      "vignette": "Gestante de 22 años, de <span class='hy'>10 semanas</span>, con <span class='hy'>dos pruebas de VIH reactivas</span> en el control prenatal. ¿Cuándo inicias la terapia antirretroviral?",
+      "options": [
+        "De inmediato, tras tomar la muestra de carga viral",
+        "Al terminar el primer trimestre, por teratogenicidad",
+        "Cuando llegue el recuento de CD4",
+        "En la semana 28, como en la profilaxis antigua"
+      ],
+      "correct": 0,
+      "whyCorrect": "En la gestante se inicia la terapia inmediatamente después de dos pruebas reactivas, en cualquier momento del embarazo; antes se toma la muestra para carga viral.",
+      "pearl": "En el embarazo no se espera la confirmación con carga viral ni los CD4 para iniciar.",
+      "trap": "Diferir el inicio hasta el segundo trimestre.",
+      "cita": [
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 11",
+          "texto": "Se recomienda iniciar el tratamiento antirretroviral en pacientes gestantes que reciben diagnóstico de infección por VIH inmediatamente posterior a dos pruebas reactivas, independientemente del momento del embarazo."
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 11, observaciones",
+          "texto": "Obtención de muestra previo al inicio de TAR, para estimación de carga viral"
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c41",
+      "topic": "Obstetricia · VIH en el embarazo: esquema",
+      "difficulty": "dificil",
+      "src": "gpc_vih_ad",
+      "vignette": "Gestante de 26 años, de 18 semanas, sin tratamiento previo para VIH, con carga viral de <span class='hy'>250.000 copias/mL</span>. En su hospital el <span class='hy'>HLA-B*5701 tarda 3 semanas</span>. ¿Qué esquema inicias hoy?",
+      "options": [
+        "Dolutegravir + abacavir/lamivudina",
+        "Atazanavir/ritonavir + abacavir/lamivudina",
+        "Darunavir/ritonavir 800/100 mg una vez al día + TDF/FTC",
+        "Dolutegravir + tenofovir/emtricitabina"
+      ],
+      "correct": 3,
+      "whyCorrect": "DTG + TDF/FTC es un régimen preferido en la gestante. Sin HLA-B*5701 disponible de inmediato se evita el abacavir; el atazanavir con abacavir exige carga viral de hasta 100.000, y el darunavir en el embarazo va 600/100 mg cada 12 horas.",
+      "pearl": "En la gestante, el darunavir/ritonavir se da 600/100 mg cada 12 horas.",
+      "trap": "Iniciar abacavir sin el resultado del HLA-B*5701.",
+      "cita": [
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 14 (regímenes preferidos)",
+          "texto": "Dolutegravir (DTG) + tenofovir disoproxil fumarato (TDF) / emtricitabina (FTC)"
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 14, notas",
+          "texto": "En ausencia del acceso inmediato de la prueba diagnóstica para las gestantes, debiera optarse por alguna de las otras alternativas de primera línea"
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 14, notas",
+          "texto": "La dosis recomendada de DRV /r en gestantes es 600/100 mg cada 12 horas"
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c42",
+      "topic": "Control prenatal · Vacuna contra el VSR",
+      "difficulty": "basica",
+      "src": "pai_esquema26",
+      "vignette": "Gestante de <span class='hy'>24 semanas</span> en control prenatal, con influenza y Tdap ya aplicadas en este embarazo. Pregunta por la vacuna contra el virus sincitial respiratorio. ¿Cuándo se aplica?",
+      "options": [
+        "Hoy mismo, porque ya pasó la semana 20",
+        "Entre las semanas 28 y 36",
+        "Solo en el posparto, para no afectar al feto",
+        "Al recién nacido, no a la madre"
+      ],
+      "correct": 1,
+      "whyCorrect": "La vacuna contra el VSR se aplica una vez por embarazo, entre las semanas 28 y 36, para proteger al bebé desde el nacimiento hasta los 6 meses.",
+      "pearl": "En el embarazo: influenza desde la semana 14, Tdap desde la 20 y VSR entre la 28 y la 36.",
+      "trap": "Confundir la ventana del VSR con la de la Tdap.",
+      "cita": [
+        {
+          "donde": "Esquema de vacunación de Colombia (memoficha MinSalud, julio 2026)",
+          "texto": "Virus Sincitial Respiratorio Única por cada embarazo Entre semana 28 y 36 Enfermedades respiratorias causadas por el Virus Sincitial Respiratorio desde el nacimiento hasta los 6 meses."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c43",
+      "topic": "Control prenatal · Tdap en cada embarazo",
+      "difficulty": "residencia",
+      "src": "pai_jornada26",
+      "vignette": "Gestante de <span class='hy'>21 semanas</span>. En su embarazo anterior, hace 2 años, <span class='hy'>recibió Tdap</span>. ¿Qué haces con la Tdap en este embarazo?",
+      "options": [
+        "Nada: la dosis anterior la protege 10 años",
+        "Aplicar solo Td, porque ya tuvo la Tdap",
+        "Aplicarla ahora: una dosis por embarazo",
+        "Esperar a la semana 36 para aplicarla"
+      ],
+      "correct": 2,
+      "whyCorrect": "La Tdap va una vez en cada embarazo, a partir de la semana 20, para proteger al recién nacido contra la tosferina en sus primeros dos meses de vida.",
+      "pearl": "La Tdap se repite en cada embarazo: el objetivo son los anticuerpos que pasan al bebé.",
+      "trap": "Omitirla porque se aplicó en un embarazo anterior.",
+      "cita": [
+        {
+          "donde": "Lineamiento de la Primera Jornada Nacional de Vacunación 2026 (MinSalud), consideración técnica 1",
+          "texto": "administrar una dosis de vacuna Tdap (Difteria, Tétanos, Tosferina acelular) durante el embarazo, a partir de la semana 20 de gestación, independientemente del área de residencia, con el fin de proteger a los recién nacidos durante sus primeros dos meses de vida, especialmente contra la Tosferina."
+        },
+        {
+          "donde": "Esquema de vacunación de Colombia (memoficha MinSalud, julio 2026)",
+          "texto": "TdaP (Tétanos, Difteria Tosferina acelular) Única por cada embarazo Desde semana 20"
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [

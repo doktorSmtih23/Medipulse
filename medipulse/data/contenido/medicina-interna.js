@@ -1815,6 +1815,174 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c49",
+      "topic": "Infectología · Posexposición al VIH: profilaxis",
+      "difficulty": "residencia",
+      "src": "gpc_vih_ad",
+      "vignette": "Enfermera de 31 años que se pinchó con la aguja usada en un paciente con VIH. Consulta <span class='hy'>30 horas después</span> del accidente. ¿Qué haces?",
+      "options": [
+        "Iniciar ya dolutegravir + emtricitabina/tenofovir",
+        "Nada: la profilaxis solo sirve en las primeras 24 horas",
+        "Esperar una semana y tomar la prueba de VIH de control",
+        "Iniciar zidovudina/lamivudina con lopinavir/ritonavir"
+      ],
+      "correct": 0,
+      "whyCorrect": "Está dentro de las 72 horas: se inicia cuanto antes un esquema de 3 medicamentos como DTG + FTC/TDF. La guía desaconseja la columna de zidovudina/lamivudina y el lopinavir/ritonavir por peor tolerancia y adherencia.",
+      "pearl": "Profilaxis posexposición: lo antes posible y nunca después de 72 horas, con 3 medicamentos.",
+      "trap": "Creer que pasadas 24 horas ya no sirve, o usar el viejo esquema AZT/3TC + LPV/r.",
+      "cita": [
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 5",
+          "texto": "La profilaxis debe iniciarse tan pronto como sea posible y nunca más allá de las 72 horas contadas a partir del momento de la exposición."
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 6",
+          "texto": "No se recomienda usar esquemas basados en lamivudina/zidovudina (3TC/AZT) como columna vertebral o con lopinavir /ritonavir (LPV/r) o atazanavir (ATV) con o sin ritonavir como tercer medicamento para profilaxis post-exposición del VIH en adultos con exposición no ocupacional y ocupacional."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c50",
+      "topic": "Infectología · Inicio de la terapia antirretroviral",
+      "difficulty": "basica",
+      "src": "gpc_vih_ad",
+      "vignette": "Hombre de 29 años, asintomático, con diagnóstico confirmado de VIH. Tiene <span class='hy'>CD4 de 480 células/mm³</span>. ¿Cuándo inicias la terapia antirretroviral?",
+      "options": [
+        "Cuando los CD4 bajen de 350 células/mm³",
+        "Cuando aparezca una enfermedad definitoria de sida",
+        "Cuando los CD4 bajen de 200 células/mm³",
+        "Lo antes posible, en las 4 semanas siguientes"
+      ],
+      "correct": 3,
+      "whyCorrect": "La guía recomienda iniciar la terapia lo más pronto posible tras el diagnóstico, dentro de las 4 semanas, sin esperar a un umbral de CD4 ni a síntomas.",
+      "pearl": "El inicio del tratamiento no depende del recuento de CD4.",
+      "trap": "Esperar a que bajen los CD4, como en guías antiguas.",
+      "cita": [
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 10",
+          "texto": "Se recomienda iniciar el tratamiento antirretroviral en pacientes adolescentes y adultos (mayores de 18 años) que reciben diagnóstico de infección por VIH lo más pronto posible, dentro de las siguientes 4 semanas al diagnóstico."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c51",
+      "topic": "Infectología · Esquema antirretroviral inicial",
+      "difficulty": "dificil",
+      "src": "gpc_vih_ad",
+      "vignette": "Mujer de 34 años, sin tratamiento previo para VIH. Carga viral de <span class='hy'>720.000 copias/mL</span> y <span class='hy'>HLA-B*5701 positivo</span>. Función renal normal. ¿Qué esquema inicial eliges?",
+      "options": [
+        "Dolutegravir/abacavir/lamivudina en una sola tableta",
+        "Dolutegravir más lamivudina, en terapia dual",
+        "Raltegravir con abacavir/lamivudina",
+        "Dolutegravir + tenofovir/emtricitabina"
+      ],
+      "correct": 3,
+      "whyCorrect": "DTG + TDF/FTC es un régimen preferido. El HLA-B*5701 positivo descarta los esquemas con abacavir, y la terapia dual DTG + 3TC se evita con carga viral mayor de 500.000.",
+      "pearl": "Antes de usar abacavir se pide HLA-B*5701; la terapia dual no es para cargas virales muy altas.",
+      "trap": "Elegir la tableta única con abacavir sin mirar el HLA-B*5701.",
+      "cita": [
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 12 (regímenes preferidos)",
+          "texto": "Dolutegravir (DTG) + tenofovir disoproxil fumarato (TDF) / emtricitabina (FTC)"
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 12, nota",
+          "texto": "Evitar su uso como terapia inicial en pacientes que tengan carga viral mayor a 500.000"
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 41",
+          "texto": "Se recomienda realizar la determinación del HLA-B*5701 en toda persona viviendo con VIH antes del inicio de terapia antirretroviral que incluya abacavir."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c52",
+      "topic": "Infectología · Pneumocystis: profilaxis en VIH",
+      "difficulty": "dificil",
+      "src": "gpc_vih_ad",
+      "vignette": "Hombre de 40 años con VIH, recién ingresado al programa, con <span class='hy'>CD4 de 260 células/mm³ (16 %)</span> y <span class='hy'>candidiasis orofaríngea</span>. ¿Qué profilaxis indicas?",
+      "options": [
+        "Trimetoprim sulfametoxazol para Pneumocystis",
+        "Ninguna: los CD4 están por encima de 200",
+        "Fluconazol continuo para prevenir más candidiasis",
+        "Azitromicina semanal para Mycobacterium avium"
+      ],
+      "correct": 0,
+      "whyCorrect": "La candidiasis orofaríngea es por sí sola criterio de profilaxis para Pneumocystis, aunque los CD4 pasen de 200. La profilaxis primaria de candidiasis no se recomienda, y la de MAC solo aplica con CD4 menores de 50 sin poder iniciar la terapia en 4 semanas.",
+      "pearl": "Profilaxis de Pneumocystis: CD4 < 200, CD4 < 14 %, candidiasis orofaríngea o cualquier enfermedad definitoria de sida.",
+      "trap": "Mirar solo el número de CD4 y olvidar la candidiasis orofaríngea.",
+      "cita": [
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 46",
+          "texto": "Se recomienda iniciar la profilaxis primaria para neumonía por Pneumocystis jirovecii con trimetoprim sulfametoxazol* y de manera opcional con dapsona* a toda persona que vive con VIH, incluyendo embarazadas, con o sin tratamiento antirretroviral y que tenga cualquiera de los siguientes criterios: - Recuento de CD4 menor de 200 células/ mm3. - Candidiasis orofaríngea."
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 48",
+          "texto": "No se recomienda usar profilaxis primaria para candidiasis en personas que viven con VIH."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c53",
+      "topic": "Infectología · Criptococo: profilaxis en VIH",
+      "difficulty": "residencia",
+      "src": "gpc_vih_ad",
+      "vignette": "Hombre de 36 años con VIH recién diagnosticado, sin síntomas neurológicos, con <span class='hy'>CD4 de 80 células/mm³</span>. Ya pediste el antígeno de criptococo en suero. Mientras llega el resultado, ¿qué haces?",
+      "options": [
+        "Punción lumbar de rutina antes de decidir",
+        "Anfotericina B hasta tener el resultado",
+        "Fluconazol hasta tener el resultado",
+        "Nada hasta que aparezcan síntomas"
+      ],
+      "correct": 2,
+      "whyCorrect": "Con CD4 menores de 100 se inicia profilaxis con fluconazol hasta tener el antígeno sérico; si es negativo, se suspende.",
+      "pearl": "Si el antígeno de criptococo es negativo, la profilaxis se suspende.",
+      "trap": "Esperar síntomas en un paciente con menos de 100 CD4.",
+      "cita": [
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 42",
+          "texto": "Se sugiere que en personas que viven con VIH se inicie profilaxis para criptococo basado en fluconazol, o con itraconazol (en el caso de contraindicación al fluconazol) cuando se tenga un recuento de CD4 inferior a 100 células/mm 3, hasta tener el reporte de antígeno para criptococo en suero, si el resultado es negativo se deberá suspender la profilaxis."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c54",
+      "topic": "Infectología · Prevención del VIH: PrEP",
+      "difficulty": "residencia",
+      "src": "gpc_vih_ad",
+      "vignette": "Hombre de 24 años, VIH negativo, con <span class='hy'>gonorrea hace 3 meses</span> y relaciones sin condón con parejas de estado desconocido. Pide algo para no infectarse. ¿Qué le ofreces?",
+      "options": [
+        "Solo condón: la PrEP es para parejas serodiscordantes",
+        "Maraviroc diario como primera opción",
+        "Profilaxis posexposición cada vez que se exponga",
+        "Emtricitabina/tenofovir, diaria o a demanda"
+      ],
+      "correct": 3,
+      "whyCorrect": "Tiene riesgo sustancial (ITS reciente y sexo sin condón con parejas de estado desconocido): se recomienda PrEP con FTC/TDF o FTC/TAF, diaria o a demanda según su preferencia. El maraviroc queda solo si las opciones recomendadas están contraindicadas.",
+      "pearl": "Una ITS reciente es criterio de riesgo sustancial para ofrecer PrEP.",
+      "trap": "Limitar la PrEP a parejas serodiscordantes o usar maraviroc como primera línea.",
+      "cita": [
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 1",
+          "texto": "Se recomienda el uso de emtricitabina/tenofovir disoproxil fumarato (FTC/ TDF) diario o emtricitabina/tenofovir alafenamida (FTC/TAF) diario como medicamento para profilaxis preexposición de la infección por VIH en personas mayores de 12 años que se evalúen como de riesgo substancial de adquirir la infección por VIH."
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 1, observaciones",
+          "texto": "antecedentes de una infección de transmisión sexual aguda, historial de sexo transaccional, tener relaciones sexuales sin condón con alguien cuyo estado de infección por el VIH sea desconocido o positivo"
+        },
+        {
+          "donde": "GPC VIH adultos, gestantes y adolescentes 2021, Recomendación 4",
+          "texto": "Se recomienda el uso diario o a demanda de los medicamentos recomendados para profilaxis preexposición en personas que se evalúen como de riesgo substancial de infección por VIH de acuerdo con las preferencias del usuario."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [
