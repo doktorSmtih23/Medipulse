@@ -193,6 +193,7 @@ async function runCasos(){
   try {
     st.innerHTML = `<span class="spin"></span> Claude está leyendo las ${pagesLabel(c.sel)} y redactando los casos. Puede tardar 1–3 minutos; no cierres la app.`;
     cands = await aiGenerate(c.sel, s.title, casosAsk(c));
+    cands.forEach(x => { x.level = gen.level; }); // el nivel elegido viaja con cada caso hasta guardarlo
     st.innerHTML = cands.length ? "" : `<span style="color:var(--warn)">La IA no encontró suficiente información para esos casos en este tema.</span>`;
   } catch(err) {
     st.innerHTML = `<span style="color:var(--bad)">${esc(err.userMsg || ("No se pudo generar: " + (err.message || err)))}</span> · <button class="linkbtn" data-go="guide">ver soluciones</button>`;

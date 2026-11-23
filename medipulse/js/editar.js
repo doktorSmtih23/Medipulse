@@ -236,7 +236,7 @@ function guardarVersion(box){
     topic: fin.topic || q.topic || "Caso editado", vignette: textToVig(fin.vignette), options: fin.options, correct: fin.correct,
     whyCorrect: fin.whyCorrect, pearl: fin.pearl, trap: fin.trap, porOpcion: porOpcion || undefined,
     src: q.src || null, page: q.page || 0, area: q.area, fuenteTxt: q.fuenteTxt, externa: q.externa || undefined,
-    manual: true, editada: true, baseId: String(q.id), cambios: [...acept], ia: edBase.ia || undefined, difficulty: "Editada"};
+    manual: true, editada: true, baseId: String(q.id), cambios: [...acept], ia: edBase.ia || undefined, difficulty: q.difficulty || "Editada"};
   agregarPropio("q", nueva);
   if ($("#edOcultar") && $("#edOcultar").checked) archivar("q" + q.id);
   rebuild(); save(); refreshChips();

@@ -11,7 +11,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 4,
       "topic": "Obstetricia · Trastornos Hipertensivos",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "nice_hta",
       "vignette": "Gestante de 34 semanas consulta por <span class='hy'>cefalea frontal intensa, fosfenos y epigastralgia</span>. PA 168/112 mmHg en dos tomas, proteinuria en tira +++, plaquetas 88.000/mm³, AST 145 U/L. ¿Cuál es el manejo farmacológico prioritario para prevención de eclampsia y control tensional?",
       "options": [
@@ -51,7 +51,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 12,
       "topic": "Hemorragia posparto · Atonía uterina",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "nice_ip",
       "vignette": "Puérpera inmediata tras parto vaginal prolongado presenta <span class='hy'>sangrado vaginal abundante (&gt; 1000 mL), PA 82/50 mmHg, FC 122 lpm y útero blando por encima del ombligo</span>. ¿Causa más probable y primera medida farmacológica?",
       "options": [
@@ -83,7 +83,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 18,
       "topic": "Ginecología · Embarazo Ectópico",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "nice_ect",
       "vignette": "Mujer de 27 años con amenorrea de 6 semanas, <span class='hy'>dolor en fosa ilíaca izquierda, sangrado vaginal escaso y PA 84/52 mmHg, FC 120 lpm</span>. β-hCG positiva, ecografía transvaginal: útero vacío y líquido libre abundante en fondo de saco de Douglas. ¿Conducta?",
       "options": [
@@ -111,7 +111,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 25,
       "topic": "Hemorragia del 3er trimestre",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "rcog_pp",
       "vignette": "Gestante de 32 semanas con <span class='hy'>sangrado vaginal rojo rutilante, indoloro</span>, que empezó en reposo. Útero blando, sin contracciones, FCF 145 lpm. Signos vitales normales. ¿Qué NO debe hacerse hasta tener el diagnóstico por imagen?",
       "options": [
@@ -129,7 +129,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c01",
       "topic": "Obstetricia · Hemorragia de la segunda mitad",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 31 años, G3P2 con dos cesáreas previas, con 31 semanas de gestación. Consulta por <span class='hy'>sangrado vaginal rojo brillante, abundante e indoloro</span> que empezó en reposo. Está hemodinámicamente estable, el útero está blando y no tiene ecografías del tercer trimestre. ¿Cuál es la conducta inicial?",
       "options": [
@@ -157,7 +157,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c02",
       "topic": "Obstetricia · Oligohidramnios",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "tipo": "datos",
       "vignette": "Mujer de 27 años, primigestante, con 36 semanas de embarazo. En la ecografía de control el <span class='hy'>bolsillo vertical máximo mide 1,5 cm</span>; el crecimiento fetal es normal, no hay malformaciones, las membranas están íntegras y la monitoría es reactiva. Según la ACOG, ¿en qué momento se considera terminar este embarazo?",
@@ -190,7 +190,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c03",
       "topic": "Ginecología · Hiperprolactinemia",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 30 años con esquizofrenia en tratamiento con risperidona desde hace 8 meses. Consulta por <span class='hy'>amenorrea de 4 meses y galactorrea</span>. Prueba de embarazo negativa, TSH y creatinina normales. Prolactina: <span class='hy'>85 µg/L</span>. ¿Cuál es la causa más probable de la hiperprolactinemia?",
       "options": [
@@ -218,7 +218,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c04",
       "topic": "Obstetricia · Pérdida gestacional recurrente",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_gin26",
       "vignette": "Mujer de 33 años con <span class='hy'>tres pérdidas gestacionales</span> antes de la semana 10. El estudio muestra <span class='hy'>anticoagulante lúpico positivo en dos determinaciones separadas por 12 semanas</span>; útero, TSH y anticuerpos antiperoxidasa normales. Desea un nuevo embarazo. ¿Qué tratamiento le ofreces?",
       "options": [
@@ -246,7 +246,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c05",
       "topic": "Obstetricia · Hipertensión posparto",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 25 años en el <span class='hy'>día 6 posparto</span> de un parto vaginal sin complicaciones; sus presiones fueron normales durante todo el embarazo. Consulta por cefalea intensa y visión borrosa. PA <span class='hy'>166/108 mmHg</span>, repetida 164/110 mmHg. Plaquetas 168.000, creatinina 0,7. ¿Cuál es el diagnóstico?",
       "options": [
@@ -278,7 +278,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c06",
       "topic": "Obstetricia · Infección intraamniótica",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 24 años, 39 semanas, en trabajo de parto con 6 cm de dilatación y membranas rotas hace 14 horas. Temperatura oral de <span class='hy'>38,4 °C, que persiste a los 30 minutos</span>, y <span class='hy'>frecuencia cardiaca fetal basal de 168 lpm</span>, sin desaceleraciones. ¿Cuál es la conducta?",
       "options": [
@@ -306,7 +306,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c07",
       "topic": "Ginecología · Endometriosis",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 26 años con dismenorrea progresiva y dispareunia profunda de 3 años de evolución. No desea embarazo por ahora. La <span class='hy'>ecografía de mapeo para endometriosis</span> muestra un nódulo en el ligamento uterosacro izquierdo, sin endometriomas. ¿Cuál es el tratamiento de primera línea?",
       "options": [
@@ -334,7 +334,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c08",
       "topic": "Salud mental perinatal · Depresión posparto",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_psiq26",
       "vignette": "Mujer de 27 años, 5 semanas después del parto. En el control dice que llora a diario, no disfruta nada y no puede cuidar a su bebé; la escala de Edimburgo sale alta y refiere <span class='hy'>pensamientos de hacerse daño</span>. ¿Qué haces?",
       "options": [
@@ -362,7 +362,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c09",
       "topic": "Obstetricia · Chagas en el embarazo",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 24 años, 22 semanas de gestación, de un municipio priorizado para Chagas. La tamización con prueba rápida y la confirmación son positivas. Está <span class='hy'>asintomática, con ECG normal</span>: es una infección en fase crónica. ¿Qué haces con el tratamiento antiparasitario?",
       "options": [
@@ -394,7 +394,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c10",
       "topic": "Ginecología · Preservación de la fertilidad",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 29 años, sin hijos, a quien acaban de diagnosticar cáncer de mama. La quimioterapia empezará <span class='hy'>en dos semanas</span> y ella quiere tener hijos en el futuro. ¿Qué es lo indicado?",
       "options": [
@@ -426,7 +426,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c11",
       "topic": "Cardio-obstetricia · Vía del parto",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 30 años con una cardiopatía congénita corregida, en clase funcional I, con 36 semanas de un embarazo normal. Feto cefálico, sin indicaciones obstétricas de cesárea. ¿Cómo y cuándo planeas el parto?",
       "options": [
@@ -454,7 +454,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c12",
       "topic": "Cardio-obstetricia · Válvula mecánica",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_gin26",
       "vignette": "Mujer de 33 años con válvula mitral mecánica, anticoagulada con <span class='hy'>warfarina 3 mg al día</span> con INR en meta, que tiene 7 semanas de embarazo. En su hospital no miden anti-Xa. ¿Qué haces con la anticoagulación?",
       "options": [
@@ -482,7 +482,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c13",
       "topic": "Cardio-obstetricia · Anticoncepción",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_gin26",
       "vignette": "Mujer de 27 años con una cardiopatía con riesgo trombótico, en el posparto inmediato de un parto vaginal. No desea otro embarazo por ahora y pide un método. ¿Qué le ofreces?",
       "options": [
@@ -506,7 +506,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c14",
       "topic": "Cardio-obstetricia · Lactancia",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_gin26",
       "vignette": "Puérpera de 31 años con cardiopatía, en tratamiento con metoprolol y warfarina. Quiere amamantar y pregunta si puede. ¿Qué le dices?",
       "options": [
@@ -530,7 +530,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c15",
       "topic": "Obstetricia · Ecografía intraparto",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_gin26",
       "vignette": "Primigestante en el segundo periodo del parto, con 2 horas de pujo sin descenso claro. La ecografía transperineal muestra un <span class='hy'>ángulo de progresión de 98°</span>. ¿Cómo lo interpretas?",
       "options": [
@@ -558,7 +558,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c16",
       "topic": "Obstetricia · Cardiopatías fetales",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Gestante de 28 años, sin antecedentes. En la ecografía de las 12 semanas la <span class='hy'>translucencia nucal mide 3,8 mm</span>; el cariotipo resulta normal. ¿Qué estudio cardíaco del feto indicas?",
       "options": [
@@ -582,7 +582,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c17",
       "topic": "Ginecología · Mola hidatiforme",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 24 años con sangrado en el primer trimestre. La ecografía muestra un patrón en <span class='hy'>«tormenta de nieve» sin embrión</span> y la β-hCG está muy por encima de lo esperado para la edad gestacional. Desea tener hijos. ¿Cómo se evacúa el útero?",
       "options": [
@@ -610,7 +610,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c18",
       "topic": "Ginecología · Neoplasia trofoblástica posmolar",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_gin26",
       "vignette": "Mujer de 30 años a quien se evacuó una mola completa hace 5 semanas. Controles de β-hCG en los días 1, 7, 14 y 21: <span class='hy'>1.850, 1.820, 1.870 y 1.840 UI/L</span>. Radiografía de tórax normal. ¿Qué tiene?",
       "options": [
@@ -634,7 +634,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c19",
       "topic": "Obstetricia · Hemorragia posparto: definición",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Puérpera de 2 horas tras parto vaginal. En la bolsa colectora calibrada se han medido <span class='hy'>350 mL</span>. FC 108 lpm, PA 98/58 mmHg. ¿Cómo la clasificas?",
       "options": [
@@ -658,7 +658,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c20",
       "topic": "Obstetricia · Hemorragia grave: fibrinógeno",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_gin26",
       "vignette": "Puérpera con hemorragia posparto grave en reanimación. Recibió oxitocina y ácido tranexámico. El laboratorio reporta <span class='hy'>fibrinógeno de 140 mg/dL</span>. ¿Qué es lo más adecuado para corregirlo con menos volumen?",
       "options": [
@@ -682,7 +682,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c21",
       "topic": "Ginecología · Masa anexial",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 63 años, posmenopáusica, con distensión abdominal. La ecografía muestra una <span class='hy'>masa anexial multilocular sólida irregular de 12 cm, con ascitis</span>. ¿Qué haces?",
       "options": [
@@ -710,7 +710,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c22",
       "topic": "Anticoncepción · Lactancia y acetato de medroxiprogesterona",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 26 años, lactancia exclusiva, a las <span class='hy'>3 semanas posparto</span>. Pide la inyección trimestral de acetato de medroxiprogesterona. Según los criterios de la OMS 2025, ¿qué categoría tiene?",
       "options": [
@@ -734,7 +734,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c23",
       "topic": "Anticoncepción · Migraña con aura",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_gin26",
       "vignette": "Mujer de 29 años con <span class='hy'>migraña con aura</span>, en manejo por neurología, que usa anticonceptivos orales combinados. ¿Qué le recomiendas?",
       "options": [
@@ -758,7 +758,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c24",
       "topic": "Obstetricia · Lesiones ocultas del suelo pélvico",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Primípara de 32 años, 8 semanas después de un <span class='hy'>parto con fórceps</span>, siente «bulto y peso en la vagina». La episiotomía cicatrizó bien. Al tacto, el puborrectal no se ancla en el pubis derecho y el <span class='hy'>hiato mide 5 cm</span>. ¿Qué sigue?",
       "options": [
@@ -786,7 +786,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c25",
       "topic": "Ginecología · Tamización de mama en alto riesgo",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Mujer de 32 años cuya <span class='hy'>hermana tuvo cáncer de mama a los 39 años</span>. Sin estudio genético. ¿Desde cuándo inicia la mamografía?",
       "options": [
@@ -810,7 +810,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c26",
       "topic": "Obstetricia · Anticoagulación periparto",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Gestante con trombosis venosa profunda en este embarazo, con <span class='hy'>enoxaparina en dosis terapéutica</span>. Tiene cesárea programada a las 39 semanas. ¿Cuándo aplica la última dosis?",
       "options": [
@@ -834,7 +834,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c27",
       "topic": "Ginecología · Terapia hormonal masculinizante",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_gin26",
       "vignette": "Hombre transgénero de 27 años, con testosterona hace 2 años. En el control, <span class='hy'>hematocrito de 54 %</span>. ¿Qué efecto adverso es y qué riesgo implica?",
       "options": [
@@ -858,7 +858,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c28",
       "topic": "Control prenatal · Diabetes gestacional",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "res3280",
       "vignette": "Gestante de 26 años, sin factores de riesgo, con glucemia en ayunas normal en el primer trimestre. Está en la <span class='hy'>semana 25</span>. ¿Qué prueba le corresponde ahora según la ruta materno perinatal?",
       "options": [
@@ -882,7 +882,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c29",
       "topic": "Control prenatal · Aspirina para preeclampsia",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "res3280",
       "vignette": "Gestante de 41 años, <span class='hy'>primigestante</span>, sana, en la semana 11. Sin hipertensión, diabetes ni enfermedad renal. ¿Le indicas ácido acetilsalicílico?",
       "options": [
@@ -910,7 +910,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c30",
       "topic": "Control prenatal · Ácido fólico",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "res3280",
       "vignette": "Mujer de 29 años que planea un embarazo. Su primer hijo nació con <span class='hy'>espina bífida</span>. ¿Qué dosis de ácido fólico le indicas?",
       "options": [
@@ -938,7 +938,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c31",
       "topic": "Tamizaje · Cáncer de cuello uterino",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "res3280",
       "vignette": "Mujer de 34 años, en una ciudad, que nunca se ha hecho tamizaje de cuello uterino. ¿Qué prueba y qué esquema le corresponden?",
       "options": [
@@ -966,7 +966,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c32",
       "topic": "Obstetricia · Estreptococo del grupo B",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "nejm_gbs26",
       "vignette": "Gestante de 38 semanas en trabajo de parto, con <span class='hy'>cultivo rectovaginal positivo para estreptococo del grupo B</span> a las 36 semanas. Sin alergias. ¿Qué profilaxis intraparto le das?",
       "options": [
@@ -994,7 +994,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c33",
       "topic": "Obstetricia · Sífilis en el embarazo",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "jama_sifilis25",
       "vignette": "Una gestante tuvo la prueba de sífilis negativa en su primer control prenatal. ¿Cuándo más debe tamizarse según la revisión de JAMA 2025?",
       "options": [
@@ -1018,7 +1018,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c34",
       "topic": "Obstetricia · Ruptura prematura de membranas pretérmino",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_gc",
       "vignette": "Gestante de <span class='hy'>30 semanas</span> con salida de líquido claro por vagina desde hace 3 horas, confirmada. Afebril, sin dolor, monitoría normal, sin contracciones. ¿Qué haces?",
       "options": [
@@ -1046,7 +1046,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c35",
       "topic": "Obstetricia · Neuroprotección fetal",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_gc",
       "vignette": "Gestante de <span class='hy'>29 semanas</span> en trabajo de parto pretérmino que no se detuvo; el parto parece inminente. Además de los corticoides, ¿qué le das para proteger al feto?",
       "options": [
@@ -1074,7 +1074,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c36",
       "topic": "Ginecología · Trichomonas vaginalis",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "cto_gc",
       "vignette": "Mujer de 26 años con <span class='hy'>leucorrea amarillo-verdosa espumosa</span>, prurito y disuria. Se confirma Trichomonas vaginalis. ¿Qué parte del tratamiento es básica para evitar la reinfección?",
       "options": [
@@ -1098,7 +1098,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c37",
       "topic": "Ginecología · Vaginosis bacteriana asintomática",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "cto_gc",
       "vignette": "Mujer de 32 años, no gestante, asintomática, en cuya citología de rutina se informa <span class='hy'>flora sugestiva de vaginosis bacteriana</span>. ¿Qué haces?",
       "options": [
@@ -1122,7 +1122,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c38",
       "topic": "Ginecología · Sangrado posmenopáusico con tamoxifeno",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "cto_gc",
       "vignette": "Mujer de 61 años con cáncer de mama en <span class='hy'>tratamiento con tamoxifeno</span>, con metrorragia posmenopáusica. La ecografía transvaginal muestra un endometrio de 3 mm. ¿Qué haces?",
       "options": [
@@ -1146,7 +1146,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "gin-c39",
       "topic": "Ginecología · Sangrado uterino anormal en la perimenopausia",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "maturitas_sua24",
       "vignette": "Mujer de 48 años con <span class='hy'>sangrado menstrual abundante e irregular</span> desde hace 6 meses. Prueba de embarazo negativa; el especuloscopio no muestra lesiones del cuello ni de la vagina. ¿Cuál es el primer estudio?",
       "options": [

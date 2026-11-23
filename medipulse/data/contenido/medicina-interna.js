@@ -11,7 +11,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 1,
       "topic": "Cardiología · SCA",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "acc_acs",
       "vignette": "Hombre de 62 años con HTA y tabaquismo consulta por <span class='hy'>dolor retroesternal opresivo de 90 minutos</span> irradiado a mandíbula y diaforesis. PA 135/85 mmHg, FC 92 lpm, SatO2 96%. ECG muestra <span class='hy'>supradesnivel del ST de 3 mm en V1-V4</span>. El centro cuenta con sala de hemodinamia disponible en 45 minutos. ¿Cuál es la conducta de reperfusión prioritaria?",
       "options": [
@@ -39,7 +39,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 2,
       "topic": "Sepsis · Reanimación",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "ssc26",
       "vignette": "Mujer de 71 años ingresa por fiebre, disuria y confusión. PA 78/46 mmHg, FC 124 lpm, FR 28 rpm, T° 39.1°C, <span class='hy'>lactato sérico 4.4 mmol/L</span>. Ya recibió 30 mL/kg de cristaloides balanceados en la primera hora, pero persiste con <span class='hy'>PAM en 54 mmHg</span>. ¿Cuál es el siguiente paso inmediato?",
       "options": [
@@ -71,7 +71,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 3,
       "topic": "Endocrinología · Crisis Hiperglucémica",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "ada_cri",
       "vignette": "Joven de 22 años con DM1 ingresa por vómitos y respiración de Kussmaul. Glucemia 480 mg/dL, pH arterial 7.14, HCO3 10 mEq/L, cetonuria +++, Na+ 132 mEq/L, <span class='hy'>K+ sérico 3.1 mEq/L</span>. ¿Qué acción es obligatoria ANTES de iniciar la infusión de insulina?",
       "options": [
@@ -99,7 +99,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 7,
       "topic": "Neurología · ACV Isquémico",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "aha_acv",
       "vignette": "Hombre de 68 años llega a urgencias con <span class='hy'>hemiparesia derecha y afasia de inicio súbito hace 2 horas</span>. NIHSS 12. <span class='hy'>TAC cerebral simple sin hemorragia</span> ni signos de infarto extenso. PA 172/94 mmHg, glucemia 118 mg/dL, sin cirugías recientes ni anticoagulación. ¿Conducta inmediata?",
       "options": [
@@ -128,7 +128,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 8,
       "topic": "Toxicología · Antídotos",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "apap",
       "vignette": "Paciente de 19 años traído por ingesta intencional de <span class='hy'>25 tabletas de acetaminofén (12.5 g) hace 3 horas</span>. Asintomático, signos vitales normales. ¿Cuál es la conducta más apropiada en urgencias?",
       "options": [
@@ -146,7 +146,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 9,
       "topic": "Infectología · Meningitis",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "who_men",
       "vignette": "Adulto de 35 años con fiebre, cefalea intensa, rigidez de nuca y petequias en tronco. Glasgow 13/15, sin déficit focal ni papiledema. ¿Cuál es la secuencia correcta?",
       "options": [
@@ -164,7 +164,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 13,
       "topic": "Nefrología · Hiperkalemia",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "ukka_k",
       "vignette": "Paciente con ERC estadio 5 llega por debilidad muscular. <span class='hy'>K+ sérico 7.1 mEq/L</span> y ECG muestra <span class='hy'>ondas T picudas y ensanchamiento del QRS</span>. ¿Cuál es el primer fármaco a administrar?",
       "options": [
@@ -196,7 +196,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 14,
       "topic": "Anafilaxia · Vía Aérea",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "rcuk_ana",
       "vignette": "Mujer de 28 años desarrolla <span class='hy'>urticaria generalizada, estridor laríngeo, sibilancias y PA 80/50 mmHg</span> 10 minutos después de recibir penicilina IM. ¿Tratamiento de primera línea?",
       "options": [
@@ -225,7 +225,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 16,
       "topic": "Neumología · TEP",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "aha_tep",
       "vignette": "Mujer de 54 años en posoperatorio de reemplazo de cadera presenta <span class='hy'>disnea súbita, dolor pleurítico, FC 116 lpm, FR 26 rpm y SatO2 88%</span>. PA 115/75 mmHg. Probabilidad clínica por Wells: 7.5 puntos (alta). ¿Estudio diagnóstico de elección?",
       "options": [
@@ -254,7 +254,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 21,
       "topic": "Cardiología · Arritmias",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "acc_fa",
       "vignette": "Mujer de 70 años con palpitaciones de 6 horas. FC 168 lpm irregular, <span class='hy'>PA 76/48 mmHg</span>, diaforética y somnolienta. ECG: fibrilación auricular con respuesta ventricular rápida. ¿Conducta inmediata?",
       "options": [
@@ -272,7 +272,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 23,
       "topic": "Toxicología · Organofosforados",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "goldf",
       "vignette": "Agricultor de 40 años traído tras fumigar sin protección. Presenta <span class='hy'>miosis puntiforme, sialorrea, broncorrea, bradicardia</span>, diarrea y fasciculaciones. ¿Antídoto de primera línea?",
       "options": [
@@ -290,7 +290,7 @@ MP_CONTENIDO.agregar({
     {
       "id": 26,
       "topic": "Nefrología · Hiponatremia",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "eu_hna",
       "vignette": "Mujer de 74 años con náuseas y somnolencia leve de 1 semana de evolución tras iniciar tiazida. <span class='hy'>Na⁺ 112 mEq/L</span>, sin convulsiones. Se inicia corrección. ¿Cuál es el límite de corrección en las primeras 24 h?",
       "options": [
@@ -308,7 +308,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c01",
       "topic": "Cardiología · Insuficiencia cardíaca",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "esc_ic26",
       "vignette": "Hombre de 68 años con disnea de esfuerzo progresiva y edema maleolar. NT-proBNP 1.200 pg/mL. El ecocardiograma muestra <span class='hy'>FEVI 45 %</span>. Según la guía ESC 2026 de insuficiencia cardíaca, ¿cómo se clasifica?",
       "options": [
@@ -336,7 +336,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c02",
       "topic": "Neumología · Neumonía adquirida en la comunidad",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "nice_nm",
       "vignette": "Mujer de 72 años con fiebre, tos productiva y crepitantes en la base derecha; la radiografía muestra consolidación. Está <span class='hy'>orientada</span>, FR 24 rpm, PA 128/76 mmHg, <span class='hy'>urea en sangre 9 mmol/L</span>. Según NICE, ¿cuál es su CURB65 y qué se considera para el lugar de atención?",
       "options": [
@@ -372,7 +372,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c03",
       "topic": "Neumología · NAC ambulatoria",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "acin_nac26",
       "vignette": "Hombre de 42 años, sin comorbilidades ni antibióticos en los últimos 90 días, con 3 días de tos productiva y fiebre. FC 104 lpm, <span class='hy'>FR 22 rpm</span>, PA 124/78 mmHg, <span class='hy'>SatO₂ 95 %</span> al aire ambiente, orientado. Crepitantes basales derechos y consolidación en la radiografía. <span class='hy'>CRB-65: 0</span>. ¿Conducta?",
       "options": [
@@ -412,7 +412,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c04",
       "topic": "Neumología · NAC hospitalizada",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "acin_nac26",
       "vignette": "Mujer de 74 años con hipertensión, 4 días de fiebre y tos, ahora <span class='hy'>confusa</span>. FR 24 rpm, PA 112/70 mmHg, SatO₂ 93 %. Infiltrado en el lóbulo inferior izquierdo. <span class='hy'>CURB-65: 2</span>. Sin hospitalizaciones, antibióticos recientes ni cultivos previos con SAMR o Pseudomonas, y sin criterios de UCI. ¿Tratamiento empírico?",
       "options": [
@@ -448,7 +448,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c05",
       "topic": "Neumología · NAC grave",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "acin_nac26",
       "vignette": "Hombre de 63 años con NAC: <span class='hy'>FR 34 rpm</span>, <span class='hy'>PaO₂/FiO₂ 220</span>, <span class='hy'>infiltrados multilobares</span>, confusión y BUN 28 mg/dL. PA 100/62 mmHg sin vasopresores. Sin factores de riesgo para SAMR ni Pseudomonas. Ingresa a la UCI. ¿Esquema antibiótico empírico?",
       "options": [
@@ -496,7 +496,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c06",
       "topic": "Neumología · NAC e influenza",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "acin_nac26",
       "vignette": "Mujer de 58 años hospitalizada por NAC no grave, con ceftriaxona. Lleva <span class='hy'>5 días de síntomas</span> y la PCR para <span class='hy'>influenza A es positiva</span>. Está estable. ¿Qué conducta agregas?",
       "options": [
@@ -529,7 +529,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c07",
       "qtype": "directa",
       "topic": "Neumología · NAC: duración del antibiótico",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "acin_nac26",
       "vignette": "Según la guía colombiana de NAC 2026, ¿cuánto debe durar el antibiótico en un adulto con NAC no grave que mejora y está clínicamente estable?",
       "options": [
@@ -558,7 +558,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c08",
       "qtype": "directa",
       "topic": "Neumología · NAC con derrame",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "acin_nac26",
       "vignette": "En un adulto con NAC y derrame pleural, ¿a partir de qué tamaño en imágenes se sugiere toracocentesis diagnóstica temprana?",
       "options": [
@@ -591,7 +591,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c09",
       "qtype": "critica",
       "topic": "Nefrología · Lectura crítica: CONFIDENCE",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "confidence",
       "vignette": "El ensayo CONFIDENCE aleatorizó (1:1:1) a adultos con ERC, albuminuria y diabetes tipo 2, ya con IECA o ARA II, a finerenona, empagliflozina o ambas. El desenlace primario fue el <span class='hy'>cambio de la relación albúmina/creatinina urinaria a 180 días</span>. La combinación la redujo 29 % más que la finerenona y 32 % más que la empagliflozina (p menor de 0,001). ¿Cuál es la principal limitación para la práctica?",
       "options": [
@@ -632,7 +632,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c10",
       "qtype": "critica",
       "topic": "Nefrología · Lectura crítica: interpretar el resultado",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "confidence",
       "vignette": "En CONFIDENCE, la combinación de finerenona y empagliflozina frente a finerenona sola tuvo una <span class='hy'>razón de 0,71 (IC 95 % 0,61 a 0,82)</span> en el cambio de la relación albúmina/creatinina urinaria a 180 días. ¿Cómo se interpreta?",
       "options": [
@@ -660,7 +660,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c11",
       "topic": "Neumología · TEP: dímero D ajustado por edad",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "tep26",
       "vignette": "Mujer de <span class='hy'>82 años</span> con disnea de 2 días. FC 96 lpm, SatO₂ 94 %, sin signos de trombosis venosa. La probabilidad clínica de TEP es <span class='hy'>baja a intermedia (menor de 50 %)</span>. <span class='hy'>Dímero D 650 μg/L</span> (FEU). ¿Cuál es el siguiente paso diagnóstico?",
       "options": [
@@ -696,7 +696,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c12",
       "topic": "Neumología · TEP: algoritmo YEARS",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "tep26",
       "vignette": "Hombre de 45 años con dolor torácico pleurítico. <span class='hy'>Sin signos de trombosis venosa profunda, sin hemoptisis</span>, y el TEP <span class='hy'>no es el diagnóstico más probable</span>. <span class='hy'>Dímero D 800 μg/L</span>. Según el algoritmo YEARS, ¿cuál es la conducta diagnóstica?",
       "options": [
@@ -724,7 +724,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c13",
       "topic": "Neumología · TEP: alta probabilidad",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "tep26",
       "vignette": "Hombre de 60 años en el día 5 de una cirugía de cadera, con disnea súbita, <span class='hy'>pierna derecha edematosa y dolorosa</span>, FC 118 lpm y SatO₂ 89 %. PA 118/74 mmHg. La probabilidad clínica de TEP es <span class='hy'>alta (mayor de 50 %)</span>. ¿Cuál es el estudio diagnóstico indicado?",
       "options": [
@@ -764,7 +764,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c14",
       "topic": "Neumología · TEP sin angioTC posible",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "tep26",
       "vignette": "Mujer de 54 años con <span class='hy'>anafilaxia previa al contraste yodado</span>, sospecha de TEP, estable, y dímero D elevado. No se le puede hacer angioTC. ¿Cuál es el estudio diagnóstico de elección?",
       "options": [
@@ -800,7 +800,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c15",
       "topic": "Neumología · TEP en el embarazo",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "tep26",
       "vignette": "Gestante de 28 semanas con disnea y taquicardia. Tiene <span class='hy'>criterios YEARS que sugieren TEP</span> y la <span class='hy'>radiografía de tórax es normal</span>. Requiere imagen. ¿Cuál es el estudio diagnóstico razonable?",
       "options": [
@@ -833,7 +833,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c16",
       "qtype": "directa",
       "topic": "Cardiología · PRECISE-DAPT",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "precise_dapt",
       "vignette": "Con el puntaje PRECISE-DAPT (edad, depuración de creatinina, hemoglobina, leucocitos y sangrado espontáneo previo), ¿desde qué valor se considera alto riesgo de sangrado, en el que la doble antiagregación larga aumenta el sangrado?",
       "options": [
@@ -865,7 +865,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c17",
       "topic": "Cardiología · Prasugrel: a quién no",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "triton",
       "vignette": "Hombre de 66 años, 78 kg, con IAM sin elevación del ST y angioplastia programada. Tuvo un <span class='hy'>ataque isquémico transitorio hace 2 años</span>. ¿Qué inhibidor P2Y12 no debe usarse por este antecedente?",
       "options": [
@@ -890,7 +890,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c18",
       "qtype": "critica",
       "topic": "Cardiología · Lectura crítica: TRITON-TIMI 38",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "triton",
       "vignette": "En TRITON-TIMI 38 (13.608 pacientes con SCA y angioplastia programada), el desenlace primario ocurrió en <span class='hy'>12,1 % con clopidogrel y 9,9 % con prasugrel</span>; el sangrado mayor, en <span class='hy'>1,8 % y 2,4 %</span>. ¿Cuántos pacientes hay que tratar con prasugrel en vez de clopidogrel para evitar un evento, y cuántos para causar un sangrado mayor?",
       "options": [
@@ -926,7 +926,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c19",
       "topic": "Cardiología · SCA con anticoagulación oral",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "acc_antiag26",
       "vignette": "Mujer de 72 años con <span class='hy'>fibrilación auricular anticoagulada</span> que presenta un SCA tratado con angioplastia y stent. Recibe triple terapia (aspirina, clopidogrel y anticoagulante oral). ¿Qué conducta antitrombótica sigue?",
       "options": [
@@ -950,7 +950,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c20",
       "topic": "Neurología · Hidrocefalia de presión normal",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "jama_inph",
       "vignette": "Hombre de 76 años con 1 año de <span class='hy'>marcha lenta, de base amplia, «magnética»</span>, con dificultad para girar, y <span class='hy'>urgencia urinaria</span>. Fuerza y sensibilidad normales. La RM muestra <span class='hy'>ventriculomegalia (índice de Evans 0,34)</span>. ¿Qué prueba confirma el diagnóstico y predice la respuesta a la derivación?",
       "options": [
@@ -1002,7 +1002,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c21",
       "topic": "Neurología · HPN vs Parkinson vs Alzheimer",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "jama_inph",
       "vignette": "Mujer de 79 años con marcha lenta de <span class='hy'>base amplia</span> que «se pega al piso», le cuesta levantarse de la silla y girar. Desde hace meses tiene <span class='hy'>urgencia e incontinencia urinaria</span> y lentitud mental. La memoria episódica está relativamente conservada. La TC muestra ventrículos grandes. ¿Cuál es el diagnóstico más probable?",
       "options": [
@@ -1050,7 +1050,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c22",
       "topic": "Neurología · Demencia atípica",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "jama_dem",
       "vignette": "Hombre de <span class='hy'>58 años</span> con deterioro cognitivo de <span class='hy'>inicio rápido</span> en pocos meses, que ya le impide trabajar. Su esposa lo confirma. La RM no muestra infartos ni tumor. ¿Qué evaluación diagnóstica adicional debe considerarse?",
       "options": [
@@ -1087,7 +1087,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c23",
       "qtype": "directa",
       "topic": "Neurología · Tamizaje cognitivo (MoCA)",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "jama_dem",
       "vignette": "En el Montreal Cognitive Assessment (MoCA, de 0 a 30 puntos), ¿por debajo de qué puntaje se recomienda una evaluación de seguimiento?",
       "options": [
@@ -1119,7 +1119,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c24",
       "topic": "Neurología · Dolor neuropático: graduación",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "nrdp_np",
       "vignette": "Mujer de 61 años con diabetes y dolor quemante en ambos pies, en distribución de «calcetín». En el examen, el roce suave con un algodón le produce dolor (<span class='hy'>alodinia</span>) y hay hipoestesia en la misma zona. Aún no tiene estudios de conducción nerviosa. Según el sistema de graduación, ¿cómo se clasifica el diagnóstico de dolor neuropático?",
       "options": [
@@ -1155,7 +1155,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c25",
       "topic": "Neurología · Dolor neuropático: tratamiento",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "nrdp_np",
       "vignette": "Hombre de 66 años con neuropatía diabética dolorosa que le impide dormir. Función renal normal. ¿Cuál es una opción de primera línea?",
       "options": [
@@ -1187,7 +1187,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c26",
       "topic": "Dermatología · Onicomicosis",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "afp_tinea",
       "vignette": "Hombre de 52 años con la uña del primer dedo del pie <span class='hy'>engrosada, amarillenta y friable</span> desde hace 2 años. Pide tratamiento oral. ¿Cuál es el siguiente paso diagnóstico?",
       "options": [
@@ -1223,7 +1223,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c27",
       "topic": "Dermatología · Tiña crural vs candidiasis",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "afp_tinea",
       "vignette": "Hombre de 19 años con placa eritematosa pruriginosa de borde activo en la <span class='hy'>cara interna de ambos muslos</span>, frente al escroto. El <span class='hy'>escroto está respetado</span>. ¿Cuál es el diagnóstico más probable?",
       "options": [
@@ -1259,7 +1259,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c28",
       "topic": "Cardiología · Troponina de alta sensibilidad",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_mi26",
       "vignette": "Hombre de 62 años con dolor torácico opresivo que empezó <span class='hy'>hace 90 minutos</span>. ECG sin elevación del ST. La troponina T de alta sensibilidad a la hora 0 es <span class='hy'>menor de 5 ng/L</span>. ¿Qué haces?",
       "options": [
@@ -1287,7 +1287,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c29",
       "topic": "Endocrinología · Hiperaldosteronismo primario",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_mi26",
       "vignette": "Mujer de 45 años con hipertensión de 2 años, controlada con enalapril y amlodipino. <span class='hy'>Potasio normal</span>, sin incidentalomas. Nunca la han tamizado para causas secundarias. ¿Qué es lo indicado?",
       "options": [
@@ -1315,7 +1315,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c30",
       "topic": "Infectología · Profilaxis de endocarditis",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_mi26",
       "vignette": "Hombre de 50 años con <span class='hy'>antecedente de endocarditis infecciosa</span> hace 3 años, sin alergias. Le van a hacer una extracción dental mañana. ¿Qué le indicas?",
       "options": [
@@ -1343,7 +1343,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c31",
       "topic": "Neurología · Encefalitis herpética",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_neuro26",
       "vignette": "Mujer de 35 años con 3 días de fiebre, cefalea, conducta extraña y una crisis focal. Glasgow 13. Se tomó la punción lumbar y la PCR para herpes estará <span class='hy'>en 48 horas</span>; la resonancia se hará mañana. ¿Qué haces ahora?",
       "options": [
@@ -1375,7 +1375,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c32",
       "topic": "Neurología · Síndrome de Guillain-Barré",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "udea_neuro26",
       "vignette": "Hombre de 28 años que 2 semanas después de una diarrea presenta debilidad ascendente y arreflexia. Hoy <span class='hy'>no logra caminar 10 metros sin ayuda</span>. Capacidad vital normal. ¿Cuál es el tratamiento?",
       "options": [
@@ -1403,7 +1403,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c33",
       "topic": "Neurología · Síndrome vestibular agudo",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "udea_neuro26",
       "vignette": "Hombre de 66 años, diabético, con vértigo continuo desde hace 10 horas, náuseas y <span class='hy'>nistagmo espontáneo</span>. Al hacer el test de impulso cefálico <span class='hy'>no aparece sacada correctiva</span> hacia ningún lado. ¿Cómo lo interpretas?",
       "options": [
@@ -1435,7 +1435,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c34",
       "topic": "Toxicología · Encefalopatía de Wernicke",
-      "difficulty": "Nivel 1",
+      "difficulty": "basica",
       "src": "udea_psiq26",
       "vignette": "Hombre de 47 años con consumo crónico de alcohol y desnutrición, traído confuso, con marcha inestable y nistagmo. Glucemia capilar de 58 mg/dL. Vas a pasar dextrosa. ¿Qué debe ir <span class='hy'>antes</span>?",
       "options": [
@@ -1467,7 +1467,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c35",
       "topic": "Infectología · Dengue con signos de alarma",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "lancet_dengue",
       "vignette": "Mujer de 24 años, 70 kg, con dengue en el día 5. La fiebre cedió, pero tiene <span class='hy'>dolor abdominal intenso, vómito persistente y hematocrito en ascenso con plaquetas en descenso</span>. PA 110/70 mmHg. ¿Qué haces?",
       "options": [
@@ -1491,7 +1491,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c36",
       "topic": "Infectología · Dengue: fase crítica",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "lancet_dengue",
       "vignette": "Hombre de 30 años con dengue. En el día 5 la fiebre desaparece y dice sentirse mejor; pide el alta. ¿Qué le dices?",
       "options": [
@@ -1515,7 +1515,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c37",
       "topic": "Infectología · Dengue: plaquetas bajas",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "lancet_dengue",
       "vignette": "Mujer de 40 años con dengue sin signos de alarma, estable, sin sangrado. Plaquetas de <span class='hy'>18.000/mm³</span>. La familia pide transfusión. ¿Qué haces?",
       "options": [
@@ -1539,7 +1539,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c38",
       "topic": "Infectología · Dengue: diagnóstico",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "lancet_dengue",
       "vignette": "Hombre de 22 años con fiebre, cefalea retroocular y mialgias desde hace <span class='hy'>2 días</span>, en zona endémica. ¿Qué prueba confirma mejor el dengue hoy?",
       "options": [
@@ -1567,7 +1567,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c39",
       "topic": "Infectología · Dengue: vacuna",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "lancet_dengue",
       "vignette": "Niña de 10 años en zona endémica, <span class='hy'>sin antecedente de dengue y con serología negativa</span>. La madre pide Dengvaxia (CYD-TDV). ¿Qué le dices?",
       "options": [
@@ -1595,7 +1595,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c40",
       "topic": "Neumología · Asma leve: AIR",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "gina26",
       "vignette": "Mujer de 25 años con asma leve: síntomas una vez por semana, sin despertares. Solo usa salbutamol a demanda. ¿Cuál es el tratamiento preferido según GINA 2026?",
       "options": [
@@ -1623,7 +1623,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c41",
       "topic": "Neumología · Asma: rescate con ICS-formoterol",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "gina26",
       "vignette": "Hombre de 40 años con asma en mantenimiento con <span class='hy'>fluticasona-salmeterol</span>. Un colega le sugiere usar budesonida-formoterol como inhalador de rescate. ¿Qué opinas?",
       "options": [
@@ -1647,7 +1647,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c42",
       "topic": "Gastroenterología · Peritonitis bacteriana espontánea",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "jama_cirrosis",
       "vignette": "Hombre de 58 años con cirrosis y ascitis, con dolor abdominal difuso y febrícula. Paracentesis: <span class='hy'>420 neutrófilos/μL</span>, Gram sin gérmenes. ¿Qué tiene?",
       "options": [
@@ -1671,7 +1671,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c43",
       "topic": "Gastroenterología · Encefalopatía hepática",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "jama_cirrosis",
       "vignette": "Mujer de 62 años con cirrosis, <span class='hy'>desorientada y con asterixis</span>. Sin sangrado ni infección evidente. ¿Cuál es el tratamiento de primera línea y su meta?",
       "options": [
@@ -1695,7 +1695,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c44",
       "topic": "Gastroenterología · Hemorragia digestiva alta no variceal",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "bmj_hda25",
       "vignette": "Hombre de 55 años con melenas. PA 118/72, FC 92, sin enfermedad cardiovascular. <span class='hy'>Hb 8,1 g/dL</span>. Un colega propone transfundir 2 unidades y dar ácido tranexámico. ¿Qué haces?",
       "options": [
@@ -1719,7 +1719,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c45",
       "topic": "Gastroenterología · Sangrado variceal",
-      "difficulty": "Nivel 3",
+      "difficulty": "dificil",
       "src": "bmj_hda25",
       "vignette": "Hombre de 50 años con cirrosis y <span class='hy'>hematemesis abundante</span>; ya se reanimó. ¿Qué tratamiento farmacológico va junto con la endoscopia temprana?",
       "options": [
@@ -1747,7 +1747,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c46",
       "topic": "Infectología · Sífilis latente tardía",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "jama_sifilis25",
       "vignette": "Mujer de 35 años, asintomática, con VDRL reactiva y prueba treponémica positiva; tenía serología negativa hace 3 años y no sabe cuándo se infectó. Examen neurológico normal. ¿Qué tratamiento?",
       "options": [
@@ -1771,7 +1771,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c47",
       "topic": "Infectología · Reacción de Jarisch-Herxheimer",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "jama_sifilis25",
       "vignette": "Hombre de 28 años con sífilis secundaria. Seis horas después de la penicilina benzatínica tiene <span class='hy'>fiebre, escalofríos, cefalea y más exantema</span>. ¿Qué le dices?",
       "options": [
@@ -1795,7 +1795,7 @@ MP_CONTENIDO.agregar({
     {
       "id": "mi-c48",
       "topic": "Infectología · Malaria grave",
-      "difficulty": "Nivel 2",
+      "difficulty": "residencia",
       "src": "malj_malaria22",
       "vignette": "Hombre de 30 años que volvió hace 10 días de una zona minera del Chocó. Fiebre, ictericia y <span class='hy'>confusión</span>; la gota gruesa muestra Plasmodium falciparum. ¿Cuál es el antimalárico de elección?",
       "options": [

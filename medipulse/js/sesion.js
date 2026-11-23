@@ -51,7 +51,7 @@ function renderQ(q, exam){
   $("#sessBody").innerHTML = `
     ${sess.prueba ? `<div class="note" style="margin-bottom:10px"><b>▶ Probando tu versión</b> tal como la verá quien la responda. No se guarda ni cuenta en tu progreso.</div>` : ""}
     <div class="card">
-      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span>${exam ? (q.qtype && q.qtype!=="caso" ? `<span class="muted">${qtLabel(q.qtype)}</span>` : "") : tipoChip(q)}${origenChip(q)}<div class="spacer"></div>
+      <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span>${exam ? (q.qtype && q.qtype!=="caso" ? `<span class="muted">${qtLabel(q.qtype)}</span>` : "") : tipoChip(q) + nivelChip(q)}${origenChip(q)}<div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
       ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCDE"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
