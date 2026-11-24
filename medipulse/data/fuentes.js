@@ -51,7 +51,7 @@ const SOURCES = [
   {id:"udea_ped26", t:"Memorias del XLII Curso de actualización en Pediatría 2026", r:"Universidad de Antioquia, Facultad de Medicina, 2026", y:2026, k:"book"},
   {id:"udea_gin26", t:"Memorias del XXXIV Curso de actualización en Ginecología y Obstetricia 2026", r:"Universidad de Antioquia, Facultad de Medicina, 2026", y:2026, k:"book"},
   {id:"udea_cir25", t:"Memorias del VIII Curso de actualización en Cirugía general 2025", r:"Universidad de Antioquia, Facultad de Medicina, 2025", y:2025, k:"book"},
-  {id:"gordis",   t:"Gordis Epidemiología, 7ª edición (Celentano DD, Szklo M, Farag Y)", r:"Elsevier, 2025", y:2025, k:"book"},
+  {id:"gordis",   t:"Gordis Epidemiology, 7th edition (Celentano D, Szklo M, Farag YMK)", r:"Elsevier, 2025", y:2025, k:"book"},
   {id:"guyatt",   t:"Users' Guides to the Medical Literature: A Manual for Evidence-Based Clinical Practice, 3ª edición (Guyatt G, Rennie D, Meade MO, Cook DJ)", r:"JAMA / McGraw-Hill Education, 2015", y:2015, k:"book"},
   {id:"wilson_jungner", t:"Principles and practice of screening for disease (Wilson JMG, Jungner G)", r:"OMS, Public Health Papers n.º 34, 1968", y:1968, k:"book", v:"Antiguo, pero sigue siendo la referencia de los criterios de tamizaje"},
   {id:"acc_fa",   t:"2023 ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation", r:"Circulation, 2023", y:2023, k:"guideline", v:"Guía estadounidense vigente"},

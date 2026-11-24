@@ -1746,6 +1746,78 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c58",
+      "topic": "Vacunación · Pentavalente: esquema acortado por tosferina",
+      "difficulty": "residencia",
+      "src": "pai_jornada26",
+      "vignette": "Lactante sano de <span class='hy'>6 semanas de vida</span>, sin vacunas después de las del recién nacido. Hay brote de tosferina en el país y rige el esquema acortado. ¿Qué haces con la pentavalente?",
+      "options": [
+        "Aplicar hoy la primera dosis",
+        "Esperar a los 2 meses para la primera dosis",
+        "Aplicar solo la Tdap a la madre y esperar",
+        "Esperar a los 3 meses y aplicar dos dosis juntas"
+      ],
+      "correct": 0,
+      "whyCorrect": "En el esquema acortado la pentavalente (o hexavalente) se inicia desde las 6 semanas de vida (1,5 meses), con 6 semanas entre dosis.",
+      "pearl": "Esquema acortado: 1,5, 3 y 4,5 meses; los refuerzos siguen a los 18 meses y a los 5 años. Es transitorio, mientras dure el brote.",
+      "trap": "Esperar a los 2 meses como en el esquema habitual durante el brote.",
+      "cita": [
+        {
+          "donde": "Lineamiento de la Primera Jornada Nacional de Vacunación 2026 (MinSalud), consideración técnica 1",
+          "texto": "El esquema acortado consiste en administrar las dosis de la vacuna pentavalente o hexavalente (según corresponda) con un intervalo de 6 semanas entre cada aplicación, iniciando a partir de los 1.5 meses de edad, es decir, desde las 6 semanas de vida."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c59",
+      "topic": "Vacunación · Pentavalente: refuerzos en el esquema acortado",
+      "difficulty": "dificil",
+      "src": "pai_jornada26",
+      "vignette": "Lactante que recibió la pentavalente a la <span class='hy'>1,5 meses, 3 meses y 4,5 meses</span> por el esquema acortado. La madre pregunta si los refuerzos también se adelantan. ¿Qué le dices?",
+      "options": [
+        "Sí: el primer refuerzo va a los 12 meses",
+        "Sí: ambos refuerzos se adelantan 6 semanas",
+        "No: siguen a los 18 meses y a los 5 años",
+        "No necesita refuerzos con tres dosis tempranas"
+      ],
+      "correct": 2,
+      "whyCorrect": "El acortamiento solo cambia las tres primeras dosis; el primer y segundo refuerzo se mantienen a los 18 meses y a los 5 años.",
+      "pearl": "Lo que se acorta es el intervalo entre las tres primeras dosis (6 semanas), no los refuerzos.",
+      "trap": "Adelantar también los refuerzos.",
+      "cita": [
+        {
+          "donde": "Lineamiento de la Primera Jornada Nacional de Vacunación 2026 (MinSalud), consideración técnica 1",
+          "texto": "Se mantienen las edades de aplicación del primer y segundo refuerzo a los 18 meses y cinco años con pentavalente y DPT"
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c60",
+      "topic": "Vacunación · Hexavalente en menores de 1.500 g",
+      "difficulty": "dificil",
+      "src": "pai_jornada26",
+      "vignette": "Prematuro de 30 semanas que nació en marzo de 2025 con <span class='hy'>1.200 g</span>. Va a iniciar el esquema y no ha recibido pentavalente ni hexavalente. ¿Qué vacuna le corresponde por el PAI?",
+      "options": [
+        "Pentavalente, igual que los nacidos a término",
+        "Ninguna hasta que pese más de 2.500 g",
+        "Hexavalente solo si paga por fuera del PAI",
+        "Hexavalente acelular del PAI"
+      ],
+      "correct": 3,
+      "whyCorrect": "Desde 2025 el PAI incluye la hexavalente acelular para niños con peso al nacer menor de 1.500 g, nacidos desde el 1 de enero de 2025 y sin vacunación previa con hexavalente o pentavalente.",
+      "pearl": "Peso al nacer < 1.500 g → hexavalente acelular del PAI, prematuro o a término.",
+      "trap": "Diferir la vacunación del prematuro hasta que gane peso.",
+      "cita": [
+        {
+          "donde": "Lineamiento de la Primera Jornada Nacional de Vacunación 2026 (MinSalud), consideración técnica 3",
+          "texto": "Población infantil con peso al nacer menor a 1.500 gramos, que sean prematuros o a término, nacidos a partir del 1 de enero de 2025 sin antecedente de vacunación con hexavalente o pentavalente."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [
