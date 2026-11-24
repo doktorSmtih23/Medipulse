@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Epidemiología y Estadística",
   "prefijo": "sp",
   "paquete": "salud-publica",
-  "actualizado": "2026-11-23",
+  "actualizado": "2026-11-24",
   "casos": [
     {
       "id": 19,
@@ -779,7 +779,7 @@ MP_CONTENIDO.agregar({
     },
     {
       "id": "sp-f05",
-      "title": "Significancia, errores α y β, e intervalos de confianza",
+      "title": "Errores tipo I y II, y poder",
       "badge": "Bioestadística",
       "area": "Bioestadística",
       "src": "gordis",
@@ -787,23 +787,45 @@ MP_CONTENIDO.agregar({
       "thresholds": [
         {
           "label": "Error tipo I (α)",
-          "val": "Encontrar una diferencia que no existe; se acepta 5 % (p < 0,05)"
+          "val": "Concluir que hay diferencia entre los tratamientos cuando no la hay"
         },
         {
           "label": "Error tipo II (β)",
-          "val": "No encontrar una diferencia que sí existe"
+          "val": "No detectar una diferencia que sí existe"
         },
         {
           "label": "Poder",
-          "val": "1 − β; se busca ≥ 80 %"
+          "val": "1 − β: probabilidad de detectar la diferencia si existe"
         },
         {
-          "label": "IC 95 % no significativo",
-          "val": "Incluye 1 en RR u OR; incluye 0 en diferencias"
+          "label": "Valores habituales",
+          "val": "α de 0,05 o 0,01; poder de 80 % o 90 %"
         }
       ],
-      "trap": "Concluir que dos tratamientos son iguales porque p > 0,05 en un estudio con poco poder.",
-      "estado": "pendiente"
+      "trap": "Tomar un ensayo pequeño sin diferencias como prueba de que los tratamientos son iguales: puede ser un error tipo II.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Sample size»",
+          "texto": "There are times when there is no difference between the therapies, but on the basis of the samples of subjects included in our study, we erroneously conclude that they differ (cell c). This is called a type I error."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Sample size»",
+          "texto": "It is also possible that there really is a difference between the therapies, but on the basis of the samples included in our study we erroneously conclude that there is no difference (cell b); this is called a type II error."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Sample size»",
+          "texto": "This probability, 1 − β, is called the power of the study."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Sample size»",
+          "texto": "values of 0.05 or 0.01 are commonly used in research."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Sample size»",
+          "texto": "powers of 80% or 90% are commonly used."
+        }
+      ],
+      "verificado": "2026-11-24"
     },
     {
       "id": "sp-f06",
@@ -1325,7 +1347,8 @@ MP_CONTENIDO.agregar({
           "val": "Pacientes, tratantes o evaluadores no saben qué recibió cada uno: protege la medición"
         }
       ],
-      "trap": "Confundir ocultamiento de la asignación con cegamiento: el ocultamiento siempre es posible, el cegamiento no (cirugía frente a fármaco)."
+      "trap": "Confundir ocultamiento de la asignación con cegamiento: el ocultamiento siempre es posible, el cegamiento no (cirugía frente a fármaco).",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f18",
@@ -1353,7 +1376,8 @@ MP_CONTENIDO.agregar({
         }
       ],
       "redFlag": "En no inferioridad, la ITT puede favorecer una falsa conclusión de no inferioridad: se revisan ITT y por protocolo, y deben coincidir.",
-      "trap": "Concluir superioridad o equivalencia de un estudio diseñado solo para no inferioridad."
+      "trap": "Concluir superioridad o equivalencia de un estudio diseñado solo para no inferioridad.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f19",
@@ -1380,7 +1404,8 @@ MP_CONTENIDO.agregar({
           "val": "Mirar qué componente impulsa el efecto: si es el más leve, el beneficio importa menos"
         }
       ],
-      "trap": "Aceptar un fármaco nuevo solo porque baja un marcador, sin datos de desenlaces clínicos."
+      "trap": "Aceptar un fármaco nuevo solo porque baja un marcador, sin datos de desenlaces clínicos.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f20",
@@ -1407,7 +1432,8 @@ MP_CONTENIDO.agregar({
           "val": "Plausible biológicamente y repetido en otros estudios"
         }
       ],
-      "trap": "Concluir que un fármaco «solo sirve en mujeres» porque el subgrupo de hombres no fue significativo: eso suele ser falta de poder."
+      "trap": "Concluir que un fármaco «solo sirve en mujeres» porque el subgrupo de hombres no fue significativo: eso suele ser falta de poder.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f21",
@@ -1531,7 +1557,8 @@ MP_CONTENIDO.agregar({
           "val": "Incluir a quienes ya toleraron el fármaco años excluye a quienes se dañaron al inicio"
         }
       ],
-      "trap": "Aceptar un beneficio de un estudio observacional cuando un ensayo aleatorizado del mismo fármaco no lo encontró."
+      "trap": "Aceptar un beneficio de un estudio observacional cuando un ensayo aleatorizado del mismo fármaco no lo encontró.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f24",
@@ -1670,7 +1697,8 @@ MP_CONTENIDO.agregar({
           "val": "Gráfico en embudo (funnel plot) asimétrico: faltan estudios pequeños negativos"
         }
       ],
-      "trap": "Confiar en un metaanálisis con I² alto sin preguntar por qué los estudios difieren."
+      "trap": "Confiar en un metaanálisis con I² alto sin preguntar por qué los estudios difieren.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f27",
@@ -1701,7 +1729,8 @@ MP_CONTENIDO.agregar({
           "val": "Fuerte o débil (condicional): depende también del balance beneficio-daño, valores y costos"
         }
       ],
-      "trap": "Creer que una recomendación fuerte exige evidencia de certeza alta: puede haber recomendaciones fuertes con certeza baja."
+      "trap": "Creer que una recomendación fuerte exige evidencia de certeza alta: puede haber recomendaciones fuertes con certeza baja.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f28",
@@ -1728,7 +1757,8 @@ MP_CONTENIDO.agregar({
           "val": "Hay recursos para diagnosticar y tratar; el costo es razonable; el tamizaje es un proceso continuo"
         }
       ],
-      "trap": "Tamizar solo porque existe una prueba sensible: sin tratamiento eficaz en fase temprana, el tamizaje no aporta y puede dañar."
+      "trap": "Tamizar solo porque existe una prueba sensible: sin tratamiento eficaz en fase temprana, el tamizaje no aporta y puede dañar.",
+      "estado": "pendiente"
     },
     {
       "id": "sp-f29",
@@ -1990,32 +2020,703 @@ MP_CONTENIDO.agregar({
     },
     {
       "id": "sp-f35",
-      "title": "Tamaño de muestra: qué lo aumenta",
+      "title": "Tamaño de muestra: qué hay que definir",
       "badge": "Bioestadística",
       "area": "Bioestadística",
       "src": "gordis",
       "accent": "#b45309",
       "thresholds": [
         {
-          "label": "Diferencia a detectar más pequeña",
-          "val": "Más pacientes"
+          "label": "1. Diferencia a detectar",
+          "val": "Cuánto mejor se espera que sea la nueva terapia"
         },
         {
-          "label": "Más poder (de 80 % a 90 %)",
-          "val": "Más pacientes"
+          "label": "2. Respuesta en un grupo",
+          "val": "Estimación de la respuesta con el tratamiento actual"
         },
         {
-          "label": "α más exigente (de 0,05 a 0,01)",
-          "val": "Más pacientes"
+          "label": "3. Nivel de significancia",
+          "val": "α"
         },
         {
-          "label": "Más variabilidad del desenlace o eventos más raros",
-          "val": "Más pacientes"
+          "label": "4. Poder deseado",
+          "val": "1 − β"
+        },
+        {
+          "label": "5. Prueba de una o dos colas",
+          "val": "Si solo interesa una dirección del efecto o ambas"
         }
       ],
-      "redFlag": "Un estudio pequeño «negativo» no prueba que no haya efecto: mira si calculó la muestra y si el IC incluye un beneficio importante.",
-      "trap": "Pensar que aumentar la muestra corrige un sesgo: solo reduce el error aleatorio.",
-      "estado": "pendiente"
+      "trap": "Calcular la muestra sin fijar antes la diferencia que se quiere detectar: es el primer dato que se necesita.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), Recuadro 11.2",
+          "texto": "What Must Be Specified to Estimate the Sample Size Needed in a Randomized Trial? 1. The difference in response rates to be detected 2. An estimate of the response rate in one of the groups 3. Level of statistical significance (α) 4. The value of the power desired (1 − β) 5. Whether the test should be one-sided or two-sided"
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f36",
+      "title": "Validez interna y externa",
+      "badge": "Validez",
+      "area": "Diseños, sesgos y causalidad",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Validez externa (generalización)",
+          "val": "Poder aplicar los resultados a una población más amplia que la estudiada"
+        },
+        {
+          "label": "Validez interna",
+          "val": "Aleatorización bien hecha y sin otros sesgos: las diferencias se atribuyen a la intervención"
+        },
+        {
+          "label": "Por qué el ensayo es el estándar de oro",
+          "val": "La aleatorización impide que los investigadores influyan en la asignación"
+        }
+      ],
+      "trap": "Suponer que un ensayo con buena validez interna se aplica a cualquier población.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Generalizability of results»",
+          "texto": "Our ability to apply the results obtained in our study population to a broader population is called the generalizability, or external validity, of the study."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Generalizability of results»",
+          "texto": "A randomized trial is internally valid if the randomization has been properly done and the study is free of other biases and is without any of the major methodologic problems that have been discussed."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Generalizability of results»",
+          "texto": "Randomized trials are considered the gold standard of study designs because randomization, if correctly conducted, prevents biases on the part of the study investigators from influencing the treatment assignment for each patient."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f37",
+      "title": "Fases de los ensayos clínicos",
+      "badge": "Ensayos clínicos",
+      "area": "Diseños, sesgos y causalidad",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Fase I",
+          "val": "20 a 80 pacientes: seguridad, dosis seguras y efectos tóxicos"
+        },
+        {
+          "label": "Fase II",
+          "val": "100 a 300 pacientes: eficacia y más datos de seguridad"
+        },
+        {
+          "label": "Fase III",
+          "val": "Ensayos aleatorizados grandes (1.000 a 3.000 o más); si los pasa, el medicamento se aprueba"
+        },
+        {
+          "label": "Fase IV",
+          "val": "Después de la comercialización: vigilancia de efectos adversos, sin aleatorización"
+        }
+      ],
+      "trap": "Llamar ensayo aleatorizado a la fase IV: es vigilancia poscomercialización.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Phases of randomized trials»",
+          "texto": "These trials are clinical pharmacologic studies—small studies of 20 to 80 patients that look at safety issues with the new drug or other treatment."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Phases of randomized trials»",
+          "texto": "Phase II studies consist of clinical investigations of 100 to 300 patients in order to evaluate the efficacy of the new drug or treatment and to further assess its relative safety."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Phases of randomized trials»",
+          "texto": "These studies are large-scale randomized controlled trials for efficacy and relative safety. These studies often include 1000 to 3000 or more participants."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 11 (pp. 219–239), «Phases of randomized trials»",
+          "texto": "Phase IV studies are not randomized studies and are not really trials at all, unlike phase I, II, and III trials."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f38",
+      "title": "Ensayos: aleatorización, enmascaramiento y diseños",
+      "badge": "Ensayos clínicos",
+      "area": "Diseños, sesgos y causalidad",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Aleatorización",
+          "val": "Asignación impredecible: evita los sesgos del investigador; su aporte a la comparabilidad incluye variables no medidas"
+        },
+        {
+          "label": "Aleatorización estratificada",
+          "val": "Se estratifica por las variables importantes y se aleatoriza dentro de cada estrato"
+        },
+        {
+          "label": "Doble enmascaramiento",
+          "val": "Ni participantes ni personal saben el grupo; clave con desenlaces subjetivos"
+        },
+        {
+          "label": "Cruzado planeado",
+          "val": "Cada grupo recibe un tratamiento y luego se cambia al otro"
+        },
+        {
+          "label": "Factorial",
+          "val": "Dos tratamientos independientes probados en la misma población"
+        }
+      ],
+      "trap": "Creer que el placebo basta para que el paciente esté enmascarado.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Randomization»",
+          "texto": "If we randomize properly, we achieve non-predictability of the next assignment; we do not have to worry that any subjective biases of the investigators, either overt or covert, may be introduced into the process of selecting patients for one treatment group or the other."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Randomization»",
+          "texto": "Another benefit of randomization is that to whatever extent it contributes to comparability, this contribution applies both to variables we can measure and to variables that we cannot measure and may not even be aware of"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Stratified randomization»",
+          "texto": "In stratified randomization, we first stratify (stratum = layer or level) our study population by each variable that we consider important and then randomize participants to treatment groups within each stratum."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Masking»",
+          "texto": "The masking of both participants and study personnel is called “double masking.”"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Masking»",
+          "texto": "However, use of a placebo does not automatically guarantee that the patients are masked (blinded)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Factorial design»",
+          "texto": "Assuming that two drugs are to be tested, the anticipated outcomes for the two drugs are different, and their modes of action are independent, one can economically use the same study population for testing both drugs."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f39",
+      "title": "Incumplimiento y análisis por intención de tratar",
+      "badge": "Ensayos clínicos",
+      "area": "Diseños, sesgos y causalidad",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Incumplimiento",
+          "val": "Abierto (abandonos) o encubierto (deja de tomar el tratamiento sin decirlo)"
+        },
+        {
+          "label": "Intención de tratar",
+          "val": "Se analiza según el grupo asignado al azar, sin importar lo que recibió: el análisis más conservador"
+        },
+        {
+          "label": "Según lo recibido (as treated)",
+          "val": "Rompe la aleatorización: equivale a analizar un estudio de cohorte"
+        }
+      ],
+      "trap": "Analizar según lo que cada paciente recibió «porque es más real»: se pierden los beneficios de la aleatorización.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Noncompliance»",
+          "texto": "Noncompliance may be overt or covert: On the one hand, people may overtly articulate their refusal to comply or may stop participating in the study."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Crossover»",
+          "texto": "In other words, we would compare the patients according to the treatment to which they were originally randomized, regardless of what treatment actually occurred."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Crossover»",
+          "texto": "Although it may be counterintuitive, it is the most conservative analysis of randomized trials, and also highly regarded by regulatory authorities for the purpose of new drug approvals."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 10 (pp. 200–218), «Crossover»",
+          "texto": "If, however, we analyze according to the treatment that the patients actually receive (as treated analysis), we will have broken, and therefore lost the benefits of, the randomization."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f40",
+      "title": "Estudios ecológicos y falacia ecológica",
+      "badge": "Diseños",
+      "area": "Diseños, sesgos y causalidad",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Estudio ecológico",
+          "val": "Solo hay datos de grupos (países, regiones), no de cada persona"
+        },
+        {
+          "label": "Falacia ecológica",
+          "val": "Atribuir a los individuos una característica que como individuos no tienen"
+        },
+        {
+          "label": "Ejemplo",
+          "val": "Cobertura de BCG por país y mortalidad por COVID-19: hipótesis luego descartada"
+        }
+      ],
+      "trap": "Concluir que una persona vacunada se protege porque los países con más vacunación tuvieron menos muertes.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Ecologic studies»",
+          "texto": "This problem is called the ecologic fallacy—we may be ascribing to members of a group some characteristic that they in fact do not possess as individuals."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Ecologic studies»",
+          "texto": "This problem arises in an ecologic study because data are only available for groups; we do not have exposure and outcome data for each person in the population."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Ecologic studies»",
+          "texto": "The hypothesis of the association between BCG vaccination and COVID-19 clinical outcomes was later dismissed by further research."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f41",
+      "title": "Casos y controles: emparejamiento y controles múltiples",
+      "badge": "Diseños",
+      "area": "Diseños, sesgos y causalidad",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Emparejar",
+          "val": "Igualar casos y controles en un posible confusor"
+        },
+        {
+          "label": "Emparejar por muchas variables",
+          "val": "Cada vez es más difícil encontrar un control adecuado"
+        },
+        {
+          "label": "Lo que se pierde",
+          "val": "La característica emparejada ya no se puede estudiar como factor de riesgo"
+        },
+        {
+          "label": "Controles múltiples",
+          "val": "Aumentan el poder, pero la ganancia es poca más allá de 4 controles por caso"
+        },
+        {
+          "label": "Proporción de casos",
+          "val": "La fija el investigador: no refleja la prevalencia de la enfermedad"
+        }
+      ],
+      "trap": "Emparejar por la misma variable que se quiere estudiar como causa.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Matching»",
+          "texto": "Therefore, the more variables on which we choose to match, the more difficult it will be to find a suitable control."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Matching»",
+          "texto": "once we have matched controls to cases according to a given characteristic, we cannot study that characteristic."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Use of multiple controls»",
+          "texto": "Practically speaking, a noticeable increase in power is gained only up to a ratio of about 1 case to 4 controls."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 7 (pp. 151–180), «Use of multiple controls»",
+          "texto": "Because the proportion of the entire study population that consists of cases is determined by the ratio of controls per case, and this proportion is determined by the investigator, it clearly does not reflect the true prevalence of the disease in the population in which the study is carried out."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f42",
+      "title": "Mortalidad proporcional y años potenciales de vida perdidos",
+      "badge": "Medidas de frecuencia",
+      "area": "Medidas de frecuencia",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Mortalidad proporcional",
+          "val": "Muertes por una causa / total de muertes: no es una tasa"
+        },
+        {
+          "label": "Su límite",
+          "val": "Dos comunidades con igual mortalidad proporcional (30 %) pueden tener tasas distintas (3 y 6 por 1.000)"
+        },
+        {
+          "label": "Años potenciales de vida perdidos",
+          "val": "Miden la muerte prematura: pesa más morir joven; se usan para fijar prioridades"
+        }
+      ],
+      "trap": "Leer la mortalidad proporcional como si fuera el riesgo de morir por esa causa.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Proportionate mortality»",
+          "texto": "Another commonly used measure of mortality is proportionate mortality, which is not a rate."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Proportionate mortality»",
+          "texto": "Proportionate mortality from heart disease 30% 30% Mortality rate from heart disease 3/1,000 6/1,000"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Years of potential life lost»",
+          "texto": "YPLL is a measure of premature mortality, or early death."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 4 (pp. 67–95), «Years of potential life lost»",
+          "texto": "YPLL recognizes that death occurring in a person at a younger age clearly involves a greater loss of future productive years than death occurring at an older age."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f43",
+      "title": "Pronóstico: supervivencia a 5 años y supervivencia relativa",
+      "badge": "Análisis de supervivencia",
+      "area": "Medidas de asociación e impacto",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Supervivencia a 5 años",
+          "val": "Proporción de pacientes vivos 5 años después del diagnóstico o del inicio del tratamiento"
+        },
+        {
+          "label": "Su problema",
+          "val": "Se distorsiona con los programas de tamizaje que adelantan el diagnóstico"
+        },
+        {
+          "label": "Supervivencia relativa",
+          "val": "Supervivencia observada / supervivencia esperada si no tuvieran la enfermedad"
+        },
+        {
+          "label": "Cuándo importa",
+          "val": "En edades avanzadas, con alta mortalidad por otras causas"
+        }
+      ],
+      "trap": "Comparar la supervivencia observada de ancianos y jóvenes sin tener en cuenta la mortalidad esperada por la edad.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «Five-year survival»",
+          "texto": "The 5-year survival is the proportion of patients who are alive 5 years after treatment begins or 5 years after diagnosis."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «Five-year survival»",
+          "texto": "One problem with the use of 5-year survival has become more prominent in recent years with the advent of better screening programs."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «Relative survival»",
+          "texto": "Relative survival is thus defined as the ratio of the observed survival to the expected survival:"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «Relative survival»",
+          "texto": "When we look at the older age groups, which have high rates of mortality from other causes, there is a large difference between the observed and the relative survival."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f44",
+      "title": "Migración de estadio",
+      "badge": "Análisis de supervivencia",
+      "area": "Medidas de asociación e impacto",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Qué es",
+          "val": "Un mejor diagnóstico pasa a estadios más avanzados a pacientes con micrometástasis antes no detectadas"
+        },
+        {
+          "label": "Su efecto",
+          "val": "La supervivencia mejora en cada estadio aunque el tratamiento no haya cambiado"
+        },
+        {
+          "label": "Qué hacer",
+          "val": "Descartarla antes de atribuir la mejoría a la atención médica"
+        }
+      ],
+      "trap": "Atribuir a un mejor tratamiento la mejoría de la supervivencia por estadio cuando cambió la forma de diagnosticar.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «Stage migration»",
+          "texto": "The apparent improvements in survival in both stage I and stage II patients result only from the changed classification of patients with micro-metastases in the later period."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 6 (pp. 125–150), «Stage migration»",
+          "texto": "It is therefore important to exclude the possibility of stage migration before attributing any apparent improvement in prognosis to improved effectiveness of medical care."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f45",
+      "title": "Vigilancia y prevalencia puntual o de periodo",
+      "badge": "Medidas de frecuencia",
+      "area": "Medidas de frecuencia",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Vigilancia pasiva",
+          "val": "Usa la notificación obligatoria; reporta el prestador o el funcionario de salud"
+        },
+        {
+          "label": "Vigilancia activa",
+          "val": "Personal contratado busca los casos: el reporte suele ser más exacto"
+        },
+        {
+          "label": "Prevalencia puntual",
+          "val": "«¿Tiene asma actualmente?»"
+        },
+        {
+          "label": "Prevalencia de periodo",
+          "val": "«¿Ha tenido asma en los últimos n años?»"
+        },
+        {
+          "label": "Incidencia acumulada",
+          "val": "«¿Alguna vez ha tenido asma?»"
+        }
+      ],
+      "trap": "Llamar prevalencia de periodo a la pregunta «¿alguna vez…?»: en la encuesta mide incidencia acumulada.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Passive and active surveillance»",
+          "texto": "Passive surveillance denotes surveillance in which available data on reportable diseases are used, or in which disease reporting is mandated or requested by the government or the local health authority, with the responsibility for the reporting often falling on the health care provider or district health officer."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), «Passive and active surveillance»",
+          "texto": "Reporting is generally more accurate when surveillance is active than when it is passive because active surveillance is conducted by individuals who have been specifically employed and trained to carry out this responsibility."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 3 (pp. 43–66), Tabla 3.1",
+          "texto": "Interview Question Type of Measure “Do you currently have asthma?” Point prevalence “Have you had asthma during the last [ n ] years?” Period prevalence “Have you ever had asthma?” Cumulative incidence"
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f46",
+      "title": "Causa necesaria y suficiente",
+      "badge": "Causalidad",
+      "area": "Diseños, sesgos y causalidad",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Necesaria y suficiente",
+          "val": "Sin el factor nunca hay enfermedad y con él siempre: casi no ocurre en humanos"
+        },
+        {
+          "label": "Necesaria pero no suficiente",
+          "val": "Hacen falta otros factores (H. pylori, junto con tabaco o nitratos, en el cáncer gástrico)"
+        },
+        {
+          "label": "Suficiente pero no necesaria",
+          "val": "Produce la enfermedad por sí solo, pero otros factores también"
+        },
+        {
+          "label": "Ni suficiente ni necesaria",
+          "val": "Como cada factor de riesgo coronario"
+        }
+      ],
+      "trap": "Exigir que una causa produzca la enfermedad en todos los expuestos: la mayoría de las causas no son suficientes.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Types of causal relationships»",
+          "texto": "If a relationship is causal, four types of causal relationships are possible: (1) necessary and sufficient; (2) necessary but not sufficient; (3) sufficient but not necessary; and (4) neither sufficient nor necessary."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Types of causal relationships»",
+          "texto": "A one-to-one relationship of exposure to disease, which is a consequence of a necessary and sufficient relationship, rarely if ever occurs in humans."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Types of causal relationships»",
+          "texto": "Thus, in addition to H. pylori, individuals must be exposed to other risk factors (e.g., smoking and intake of foods containing nitrates) to develop gastric cancer."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 14 (pp. 268–287), «Types of causal relationships»",
+          "texto": "Each of these CHD risk factors is neither sufficient nor necessary."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f47",
+      "title": "Clasificación errónea diferencial y no diferencial",
+      "badge": "Sesgos",
+      "area": "Diseños, sesgos y causalidad",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Diferencial",
+          "val": "El error es distinto entre grupos: puede crear una asociación falsa o esconder una real"
+        },
+        {
+          "label": "No diferencial",
+          "val": "Igual inexactitud en todos los grupos: con dos categorías diluye el RR u OR hacia 1"
+        },
+        {
+          "label": "Ejemplo de diferencial",
+          "val": "Madres de niños con malformaciones que recuerdan más infecciones en el embarazo"
+        }
+      ],
+      "trap": "Creer que el error no diferencial produce asociaciones falsas: lo usual es que las acerque a 1.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), «Misclassification»",
+          "texto": "In differential misclassification, the proportion of misclassification differs in different study groups."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), «Misclassification»",
+          "texto": "A differential misclassification bias can lead either to an apparent association even if one does not really exist or to an apparent lack of association when one does in fact exist."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 15 (pp. 288–305), «Misclassification»",
+          "texto": "The usual effect of nondifferential misclassification when there are two exposure categories is that the relative risk (RR) or OR tends to be diluted, and it is shifted toward 1.0."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f48",
+      "title": "Historia natural de la enfermedad y tamizaje",
+      "badge": "Tamizaje",
+      "area": "Tamizaje y prevención",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Fase preclínica detectable",
+          "val": "Desde que la prueba puede detectar la enfermedad hasta que aparecen los síntomas"
+        },
+        {
+          "label": "Punto crítico",
+          "val": "Antes de él el tratamiento es más eficaz o más fácil (cáncer de mama: paso a los ganglios axilares)"
+        },
+        {
+          "label": "Supuesto 1 para tamizar",
+          "val": "Casi todos los casos clínicos pasan antes por una fase preclínica detectable"
+        },
+        {
+          "label": "Supuesto 2 para tamizar",
+          "val": "Sin intervención, casi todos los casos preclínicos progresan a la fase clínica"
+        }
+      ],
+      "trap": "Tamizar una enfermedad cuyos casos preclínicos casi nunca progresan: no hay beneficio que buscar.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Natural history of disease»",
+          "texto": "The interval from this point to the development of signs and symptoms is the detectable preclinical phase of the disease"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Critical point»",
+          "texto": "This is a point in the natural history before which treatment is more effective and/or less difficult to administer."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Critical point»",
+          "texto": "For example, in a patient with breast cancer, one critical point would be that at which the disease spreads from the breast to the axillary lymph nodes."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 18 (pp. 354–380), «Pattern of disease progression»",
+          "texto": "1. All or most clinical cases of a disease first go through a detectable preclinical phase. 2. In the absence of intervention, all or most cases in a preclinical phase progress to a clinical phase."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f49",
+      "title": "Tríada epidemiológica, portadores e infección inaparente",
+      "badge": "Enfermedades transmisibles",
+      "area": "Enfermedades transmisibles",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "Tríada epidemiológica",
+          "val": "Interacción del huésped, el agente y el ambiente"
+        },
+        {
+          "label": "Portador",
+          "val": "Alberga el microorganismo sin enfermedad clínica; puede ser breve o crónico (Mary Mallon, fiebre tifoidea)"
+        },
+        {
+          "label": "Concepto del iceberg",
+          "val": "Contar solo los casos clínicos no basta: en la polio prevacunal la mayoría era subclínica"
+        }
+      ],
+      "trap": "Explicar la propagación de una infección contando solo los casos con síntomas.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), introducción",
+          "texto": "It results from an interaction of the host (a person), the agent (e.g., a bacterium), and the environment (e.g., polluted air)."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Carrier status»",
+          "texto": "Carrier status may be of limited duration or may be chronic, lasting for months or years."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Carrier status»",
+          "texto": "Carrier status also refers to those individuals who have the causative organism without a clinical disease."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Clinical and subclinical disease»",
+          "texto": "The iceberg concept is important because it is not sufficient to count only the clinically apparent cases we see; for example, most cases of polio in pre-vaccine days were subclinical—that is, many people who contracted polio infection were not clinically ill."
+        }
+      ],
+      "verificado": "2026-11-24"
+    },
+    {
+      "id": "sp-f50",
+      "title": "Investigación de un brote",
+      "badge": "Enfermedades transmisibles",
+      "area": "Enfermedades transmisibles",
+      "src": "gordis",
+      "accent": "#b45309",
+      "thresholds": [
+        {
+          "label": "1. Confirmar el brote",
+          "val": "Definir los casos y la población en riesgo; ver si los casos superan claramente lo esperado; calcular tasas de ataque"
+        },
+        {
+          "label": "2. Describir",
+          "val": "Distribución de los casos por tiempo y lugar"
+        },
+        {
+          "label": "3. Hipótesis",
+          "val": "A partir de lo conocido, la analogía con otras enfermedades y los hallazgos"
+        },
+        {
+          "label": "4. Probarlas",
+          "val": "Analizar los datos (por ejemplo, con casos y controles)"
+        },
+        {
+          "label": "5. Controlar y comunicar",
+          "val": "Medidas de control y prevención, informe escrito y comunicación"
+        },
+        {
+          "label": "Tabla cruzada",
+          "val": "Para identificar, entre varios alimentos, el responsable de un brote"
+        }
+      ],
+      "trap": "Empezar a buscar la fuente sin confirmar que los casos superan lo esperado.",
+      "cita": [
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Steps in an outbreak investigation»",
+          "texto": "c. Determine whether the observed number of cases clearly exceeds the expected number. d. Calculate the attack rates."
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Steps in an outbreak investigation»",
+          "texto": "Communicate findings to those involved in policy development and implementation and to the public"
+        },
+        {
+          "donde": "Gordis Epidemiology 7ª ed., cap. 2 (pp. 21–42), «Cross-tabulation»",
+          "texto": "When confronted with several possible causal agents, as is often the case in a food-borne disease outbreak, a very helpful method for determining which of the possible agents is suspected to be the cause is called cross-tabulation."
+        }
+      ],
+      "verificado": "2026-11-24"
     }
   ],
   "tarjetas": [
@@ -2072,5 +2773,6 @@ MP_CONTENIDO.agregar({
       ],
       "verificado": "2026-11-23"
     }
-  ]
+  ],
+  "revision": "verificada"
 });

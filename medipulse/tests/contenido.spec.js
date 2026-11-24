@@ -63,7 +63,7 @@ test("todo caso visible de cualquier especialidad trae su cita textual y la fech
 
 test("en una especialidad verificada, también las fichas y tarjetas visibles traen su cita y la fecha", () => {
   const verificadas = C.esp.filter(e => e.revision === "verificada").map(e => e.especialidad);
-  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía"]));
+  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía", "Epidemiología y Estadística"]));
   const mal = ["fichas", "tarjetas"].flatMap(t => visibles(t)).filter(x => verificadas.includes(x._esp)).filter(x =>
     !Array.isArray(x.cita) || !x.cita.length || x.cita.some(c => !c.donde || !c.texto || c.texto.length < 20) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(x.verificado || "")).map(donde);
