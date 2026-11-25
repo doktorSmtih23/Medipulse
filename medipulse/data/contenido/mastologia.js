@@ -166,6 +166,102 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "mas-c07",
+      "topic": "Lesiones con atipia · Resonancia tras hiperplasia ductal atípica",
+      "difficulty": "residencia",
+      "src": "asbrs_atipia26",
+      "vignette": "Mujer de 50 años con <span class='hy'>hiperplasia ductal atípica</span> en biopsia con aguja gruesa de calcificaciones, concordante. Le indicarán escisión diagnóstica. ¿Pides resonancia antes para buscar un cáncer oculto?",
+      "options": [
+        "Sí, y si es normal se cancela la cirugía",
+        "Sí, para decidir la extensión de la mastectomía",
+        "Sí, siempre se pide con toda atipia",
+        "No: no es necesaria ni cambia la decisión"
+      ],
+      "correct": 3,
+      "whyCorrect": "Con un diagnóstico concordante de HDA en mamografía no hace falta más imagen. La resonancia para buscar cáncer oculto no es necesaria y no debe cambiar la decisión de hacer la escisión diagnóstica.",
+      "pearl": "Tampoco se indica una resección más amplia ni mastectomía por una HDA, aunque la zona en la imagen sea extensa.",
+      "trap": "Usar la resonancia para decidir si se opera.",
+      "cita": [
+        {
+          "donde": "ASBrS/SBI/CAP 2026, JAMA Surgery 2026;161(10), Tabla 2, enunciado 2a",
+          "texto": "No additional diagnostic imaging workup is necessary for concordant, mammographic diagnosis of ADH on core biopsy. The use of MRI to assess for the presence of occult malignancy after a core needle biopsy showing ADH is not necessary and should not influence the decision for diagnostic excision."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "mas-c08",
+      "topic": "Lesiones con atipia · Cálculo del riesgo",
+      "difficulty": "dificil",
+      "src": "asbrs_atipia26",
+      "vignette": "Mujer de 45 años con diagnóstico reciente de <span class='hy'>hiperplasia lobulillar atípica</span>, sin antecedente de cáncer. Quieres estimar su riesgo de cáncer de mama para asesorarla. ¿Qué tienes en cuenta?",
+      "options": [
+        "Gail y Tyrer-Cuzick sobreestiman su riesgo",
+        "El modelo de Gail es el indicado en atipia",
+        "Tyrer-Cuzick v8 es el único modelo validado aquí",
+        "Su riesgo es el de la población general"
+      ],
+      "correct": 0,
+      "whyCorrect": "Los modelos de Gail, Tyrer-Cuzick (v7 y v8) y del Breast Cancer Screening Consortium no deben usarse en HLA ni CLIS clásico: sobreestiman el riesgo. Se recomienda una evaluación integral del riesgo con un profesional con experiencia.",
+      "pearl": "Sí tiene un riesgo aumentado de por vida: se asesora y se ofrecen estrategias de reducción, incluida la quimioprevención.",
+      "trap": "Calcular el riesgo con Gail y asesorar con esa cifra.",
+      "cita": [
+        {
+          "donde": "ASBrS/SBI/CAP 2026, JAMA Surgery 2026;161(10), Tabla 3, enunciado 1c",
+          "texto": "The Gail breast cancer risk-assessment model, Tyrer-Cuzick Risk Calculator v.7 and v.8 model, and Breast Cancer Screening Consortium risk model should not be used to estimate breast cancer risk in patients with ALH or C-LCIS as they overestimate risk for women with these diagnoses."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "mas-c09",
+      "topic": "Lesiones con atipia · Seguimiento de la HDA observada",
+      "difficulty": "residencia",
+      "src": "asbrs_atipia26",
+      "vignette": "Mujer de 57 años con <span class='hy'>hiperplasia ductal atípica focal</span> en calcificaciones, sin masa ni distorsión, más de la mitad de las calcificaciones muestreadas y concordancia. El equipo decide <span class='hy'>observar sin escisión</span>. ¿Qué seguimiento propones?",
+      "options": [
+        "Resonancia de mama cada 6 meses durante 5 años",
+        "Mamografía a los 6 meses y luego tamizaje",
+        "Biopsia repetida cada año",
+        "Ninguno: vuelve al tamizaje habitual en 2 años"
+      ],
+      "correct": 1,
+      "whyCorrect": "Si cumple los criterios para no operar, se puede considerar una mamografía a los 6 meses antes de volver al tamizaje según la edad. La resonancia anual se considera después de una evaluación integral del riesgo.",
+      "pearl": "Los criterios para observar sin escisión son: no palpable, solo calcificaciones, HDA focal, más del 50 % muestreado y concordancia.",
+      "trap": "Pedir resonancia seriada a toda paciente observada.",
+      "cita": [
+        {
+          "donde": "ASBrS/SBI/CAP 2026, JAMA Surgery 2026;161(10), Tabla 2, enunciado 7a",
+          "texto": "For those patients with ADH who met the aforementioned selection criteria for omission of diagnostic excision, a 6-mo follow-up mammogram may be considered before returning to age-appropriate screening. Annual MRI surveillance may be considered after a comprehensive risk assessment and a discussion of the risks and benefits."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "mas-c10",
+      "topic": "Lesiones con atipia · Quimioprevención en el CLIS pleomórfico",
+      "difficulty": "residencia",
+      "src": "asbrs_atipia26",
+      "vignette": "Mujer de 52 años, sin antecedente de cáncer, con <span class='hy'>carcinoma lobulillar in situ pleomórfico, receptor de estrógeno positivo</span>, ya extirpado con margen negativo. ¿Qué más le ofreces?",
+      "options": [
+        "Mastectomía bilateral como única opción",
+        "Radioterapia de toda la mama de rutina",
+        "Quimioprevención y asesoría del riesgo",
+        "Nada más: la escisión fue curativa"
+      ],
+      "correct": 2,
+      "whyCorrect": "Con CLIS pleomórfico o florido se asesora sobre el riesgo aumentado de por vida. Si el receptor de estrógeno es positivo, se ofrece quimioprevención; si no se conoce, se considera en todas.",
+      "pearl": "En el CLIS pleomórfico y florido la magnitud del riesgo futuro aún es incierta, pero se trata como lesión de alto riesgo.",
+      "trap": "Dar de alta sin hablar de quimioprevención porque el margen quedó negativo.",
+      "cita": [
+        {
+          "donde": "ASBrS/SBI/CAP 2026, JAMA Surgery 2026;161(10), Tabla 3, enunciado 1b",
+          "texto": "Patients diagnosed with P-LCIS or F-LCIS with no personal history of breast cancer should be counseled about their increased lifetime risk of breast cancer. If estrogen receptor status is available, chemoprevention should be offered to those with estrogen receptor–positive P-LCIS or F-LCIS; otherwise, chemoprevention should be considered for all patients."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [],
