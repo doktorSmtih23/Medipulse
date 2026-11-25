@@ -59,7 +59,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `data/especialidades.js` | `SPECS` y `SPEC_COLOR` |
 | `data/fuentes.js` | Referencias (`SOURCES`), vigencia y a qué caso corresponde cada una |
 | `data/contenido/registro.js` | Registro `MP_CONTENIDO` (se carga antes que las especialidades) |
-| `data/contenido/<especialidad>.js` | **Contenido incluido de cada especialidad** (casos, fichas HY y tarjetas): `medicina-interna`, `cirugia`, `pediatria`, `ginecologia` (paquete `starter`, las 4 básicas) y `salud-publica` (módulo aparte). Una urgencia va en la especialidad del paciente |
+| `data/contenido/<especialidad>.js` | **Contenido incluido de cada especialidad** (casos, fichas HY y tarjetas): `medicina-interna`, `cirugia`, `pediatria`, `ginecologia` (paquete `starter`, las 4 básicas), `salud-publica` y `ortopedia` (módulos aparte). Una especialidad nueva entra en `SPECS` (data/especialidades.js), su archivo en index.html y sw.js, y suma 10 casos al diagnóstico. Una urgencia va en la especialidad del paciente |
 | `data/contenido/armar.js` | Junta todo en `BUILTIN_Q`, `HY_CARDS` y `BUILTIN_F` (va después de las especialidades) |
 | `js/estado.js` | Estado `S` (localStorage, clave `medipulse_v2`), repaso espaciado (`grade`, cajas Leitner), selección de ítems |
 | `js/especialidades.js` | 🏷️ Mis especialidades (dueño de `S.especialidades`): además de las 5 básicas (`SPECS`), las que crea el usuario para sus fuentes. `ESPS()` da todas; tarjeta en Fuentes para crear, renombrar y eliminar (sus ítems pasan a otra); opción «➕ Nueva especialidad…» en los selectores (`ESP_NUEVA_OPT`); en la revisión de lo generado, ofrece crear el área que no existe (`espSugeridasHTML`) |

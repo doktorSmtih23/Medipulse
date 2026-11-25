@@ -1,14 +1,14 @@
 // ===================================================================
 // MIS ESPECIALIDADES
 // ===================================================================
-// Además de las 5 básicas (SPECS, data/especialidades.js), el usuario puede crear especialidades para sus
+// Además de las 6 incluidas (SPECS, data/especialidades.js), el usuario puede crear especialidades para sus
 // fuentes (Neurología, Psiquiatría…). Aparecen en Casos, Fichas, Crear, Mis apuntes, Progreso y
-// vulnerabilidades. El diagnóstico, el plan semanal y las sugerencias de Hoy siguen con las 5 básicas: miden
+// vulnerabilidades. El diagnóstico, el plan semanal y las sugerencias de Hoy siguen con las 6 incluidas: miden
 // lo que tiene alta probabilidad de salir en el examen.
 // Este archivo es el dueño de S.especialidades.
 const ESP_COLORES = ["#2563eb", "#9333ea", "#c2410c", "#0f766e", "#be123c", "#4d7c0f", "#a16207", "#0369a1", "#7e22ce", "#15803d"];
 const espPropias = () => S.especialidades || (S.especialidades = []);
-// Todas las especialidades: las 5 básicas y las del usuario.
+// Todas las especialidades: las 6 incluidas y las del usuario.
 const ESPS = () => [...SPECS, ...espPropias().map(e => e.nombre)];
 const esBasica = n => SPECS.includes(n);
 // Si ya existe con otra escritura («neurologia» y «Neurología»), devuelve la que existe.

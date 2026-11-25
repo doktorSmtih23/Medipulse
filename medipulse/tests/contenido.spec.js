@@ -9,7 +9,7 @@ const IDS_HISTORICOS = {
   fichas: ["hy1", "hy2", "hy3", "hy4", "hy5", "hy6"],
   tarjetas: Array.from({length: 53}, (_, i) => i + 1)
 };
-const ARCHIVOS = ["medicina-interna", "cirugia", "pediatria", "ginecologia", "salud-publica"];
+const ARCHIVOS = ["medicina-interna", "cirugia", "pediatria", "ginecologia", "salud-publica", "ortopedia"];
 
 let C;   // contenido tal como lo carga la app
 test.beforeAll(async ({ browser }) => {
@@ -32,9 +32,9 @@ test("hay un archivo por especialidad, sin repetir", () => {
   for (const e of C.esp) expect(e.actualizado, e.especialidad).toMatch(/^\d{4}-\d{2}-\d{2}$/);
 });
 
-test("el starter pack son las 4 básicas y Epidemiología y Estadística va aparte", () => {
+test("el starter pack son las 4 básicas; Epidemiología y Estadística y Ortopedia y Traumatología van aparte", () => {
   const paq = Object.fromEntries(C.esp.map(e => [e.especialidad, e.paquete]));
-  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Epidemiología y Estadística": "salud-publica"});
+  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Epidemiología y Estadística": "salud-publica", "Ortopedia y Traumatología": "ortopedia"});
 });
 
 const visibles = tipo => todos(tipo).filter(x => x.estado !== "pendiente");
@@ -63,7 +63,7 @@ test("todo caso visible de cualquier especialidad trae su cita textual y la fech
 
 test("en una especialidad verificada, también las fichas y tarjetas visibles traen su cita y la fecha", () => {
   const verificadas = C.esp.filter(e => e.revision === "verificada").map(e => e.especialidad);
-  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía", "Epidemiología y Estadística"]));
+  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía", "Epidemiología y Estadística", "Ortopedia y Traumatología"]));
   const mal = ["fichas", "tarjetas"].flatMap(t => visibles(t)).filter(x => verificadas.includes(x._esp)).filter(x =>
     !Array.isArray(x.cita) || !x.cita.length || x.cita.some(c => !c.donde || !c.texto || c.texto.length < 20) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(x.verificado || "")).map(donde);
