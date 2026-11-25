@@ -197,22 +197,28 @@ test.describe("arma tu práctica", () => {
   });
 });
 
-test.describe("auditoría a ciegas al final del modo examen", () => {
-  test("se marca la confianza sin ver el resultado; luego nota real, frágiles y errores con seguridad", async ({ page }) => {
+test.describe("auditoría a ciegas en el modo examen", () => {
+  test("se marca la confianza al responder, sin ver el resultado; al terminar va directo a la nota real", async ({ page }) => {
     await page.evaluate(() => startSession({label: "Simulacro", tag: "fire", stages: [{name: "x", exam: true, limit: 999, items: [{t: "q", id: 2}, {t: "q", id: 3}, {t: "q", id: 4}]}]}));
     const r = await page.evaluate(() => [2, 3, 4].map(i => qById(i).correct));
     const mal = c => (c + 1) % 4;
+    // antes de elegir no se pregunta nada
+    await expect(page.locator("#confRow [data-conf]")).toHaveCount(0);
     // 1: correcta y segura · 2: correcta al azar · 3: incorrecta y segura
-    await page.click(`#opts .opt >> nth=${r[0]}`); await page.click("#nextBtn");
-    await page.click(`#opts .opt >> nth=${r[1]}`); await page.click("#nextBtn");
-    await page.click(`#opts .opt >> nth=${mal(r[2])}`); await page.click("#nextBtn");
-    await page.click("#auditGo");
-    // a ciegas: no se ve cuál es la correcta ni el porcentaje
+    await page.click(`#opts .opt >> nth=${r[0]}`);
+    // a ciegas: no se ve cuál es la correcta
     await expect(page.locator("#sessBody .opt.right")).toHaveCount(0);
-    await expect(page.locator("#sessBody .big")).toHaveCount(0);
-    await page.click('#confBtns [data-conf="seguro"]');
-    await page.keyboard.press("3");   // al azar
-    await page.click('#confBtns [data-conf="seguro"]');
+    await page.click('#confRow [data-conf="seguro"]');
+    await expect(page.locator('#confRow [data-conf="seguro"]')).toHaveClass(/on/);
+    await page.click("#nextBtn");
+    await page.click(`#opts .opt >> nth=${r[1]}`); await page.click('#confRow [data-conf="azar"]'); await page.click("#nextBtn");
+    await page.click(`#opts .opt >> nth=${mal(r[2])}`); await page.click('#confRow [data-conf="seguro"]');
+    // al volver a una pregunta, la marca sigue ahí
+    await page.click("#prevBtn");
+    await expect(page.locator('#confRow [data-conf="azar"]')).toHaveClass(/on/);
+    await page.click("#nextBtn"); await page.click("#nextBtn");
+    // sin pantalla de auditoría: directo a la nota
+    await expect(page.locator("#auditGo")).toHaveCount(0);
     await expect(page.locator("#sessBody")).toContainText("Nota real (solo aciertos seguros): 33 %");
     await expect(page.locator("#sessBody .audtag.peligro")).toHaveCount(1);
     await expect(page.locator("#sessBody .audtag.fragil")).toHaveCount(1);
@@ -225,6 +231,26 @@ test.describe("auditoría a ciegas al final del modo examen", () => {
     await page.evaluate(() => { QUESTIONS.slice(5, 12).forEach(q => S.srs["q" + q.id] = {b: 1, due: Date.now() + 9e9, n: 1, ok: 1, last: 2}); renderBanco(); });
     await page.click('#qModo [data-modo="vuln"]');
     await expect(page.locator("#qVuln")).toContainText("1 error con seguridad");
+  });
+
+  test("si cambias de opción, la marca se borra y vuelves a marcar", async ({ page }) => {
+    await page.evaluate(() => startSession({label: "Simulacro", tag: "fire", stages: [{name: "x", exam: true, limit: 999, items: [{t: "q", id: 2}]}]}));
+    await page.click("#opts .opt >> nth=0"); await page.click('#confRow [data-conf="dude"]');
+    await page.click("#opts .opt >> nth=1");
+    await expect(page.locator("#confRow .chip2.on")).toHaveCount(0);
+  });
+
+  test("las que quedaron sin marcar se pueden marcar al final o ver el resultado sin ellas", async ({ page }) => {
+    await page.evaluate(() => startSession({label: "Simulacro", tag: "fire", stages: [{name: "x", exam: true, limit: 999, items: [{t: "q", id: 2}, {t: "q", id: 3}]}]}));
+    await page.click("#opts .opt >> nth=0"); await page.click('#confRow [data-conf="seguro"]'); await page.click("#nextBtn");
+    await page.click("#opts .opt >> nth=0"); await page.click("#nextBtn");
+    await expect(page.locator("#sessBody h3")).toContainText("Te falta 1 por marcar");
+    await page.click("#auditGo");
+    await expect(page.locator("#sessCount")).toHaveText("1 / 1");
+    await expect(page.locator("#sessBody .big")).toHaveCount(0);
+    await page.keyboard.press("2");   // dudé
+    await expect(page.locator("#sessBody .big")).toContainText("%");
+    expect(await page.evaluate(() => S.resp.slice(-2).map(e => e.c))).toEqual(["seguro", "dude"]);
   });
 
   test("se puede ver el resultado sin auditar", async ({ page }) => {

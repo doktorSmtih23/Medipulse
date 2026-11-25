@@ -32,7 +32,7 @@ document.addEventListener("click", e => {
   box.querySelectorAll("[data-mot]").forEach(x => x.classList.toggle("on", x.dataset.mot === r.m));
 });
 
-// ---------- Auditoría a ciegas (al final del modo examen) ----------
+// ---------- Auditoría a ciegas (modo examen: se marca al responder) ----------
 // Cómo respondió el usuario cada pregunta, marcado ANTES de saber si acertó.
 const CONFIANZA = [
   {k: "seguro", t: "✅ Seguro", d: "Sé por qué es esa"},
