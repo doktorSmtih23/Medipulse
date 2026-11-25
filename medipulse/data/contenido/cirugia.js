@@ -1571,6 +1571,362 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c58",
+      "topic": "Páncreas · Diagnóstico de pancreatitis aguda",
+      "difficulty": "basica",
+      "src": "iap25",
+      "vignette": "Mujer de 40 años con <span class='hy'>dolor epigástrico agudo irradiado a la espalda</span> y <span class='hy'>lipasa 5 veces el límite superior</span>. En la ecografía hay colelitiasis; el páncreas no se ve por interposición de gas. ¿Qué te falta para diagnosticar pancreatitis aguda?",
+      "options": [
+        "Tomografía contrastada de abdomen para confirmar",
+        "Nada más: ya cumple dos de tres criterios",
+        "Amilasa además de la lipasa",
+        "Resonancia magnética de páncreas"
+      ],
+      "correct": 1,
+      "whyCorrect": "El diagnóstico exige 2 de 3 criterios: dolor abdominal superior agudo, lipasa o amilasa mayor de 3 veces el límite superior, e imagen compatible. Con dolor típico y lipasa 5 veces, el diagnóstico está hecho sin imagen del páncreas.",
+      "pearl": "La ecografía al ingreso sirve para buscar cálculos (causa), no para diagnosticar la pancreatitis.",
+      "trap": "Pedir tomografía para «confirmar» cuando ya se cumplen dos criterios.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 1",
+          "texto": "Acute pancreatitis (AP) should be diagnosed based on the fulfillment of two out of three criteria: (i) clinical- acute upper abdominal pain, (ii) biochemical-elevated pancreatic enzymes (serum lipase or amylase concentration >3 times upper limit of normal) and (iii) imaging- features of acute pancreatic inflammation with or without necrosis on abdominal imaging, typically computed tomography or ultrasonography (USG)."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c59",
+      "topic": "Páncreas · Cuándo pedir tomografía en pancreatitis",
+      "difficulty": "residencia",
+      "src": "iap25",
+      "vignette": "Hombre de 45 años, bebedor, con pancreatitis aguda diagnosticada por dolor típico y lipasa elevada. Lleva <span class='hy'>10 horas de síntomas</span>, está estable y responde al manejo. El residente quiere una tomografía hoy para medir la gravedad. ¿Qué haces?",
+      "options": [
+        "Tomografía contrastada hoy para medir la necrosis",
+        "Resonancia hoy en lugar de tomografía",
+        "Tomografía sin contraste a las 24 horas",
+        "No pedirla; solo si no mejora, a las 72-96 h"
+      ],
+      "correct": 3,
+      "whyCorrect": "La tomografía inicial se pide si hay duda diagnóstica o si no responde al manejo o empeora. Para evaluar la gravedad, el mejor momento es al menos 72 a 96 horas después del inicio de los síntomas.",
+      "pearl": "La tomografía temprana de rutina (antes de 48 h) no está recomendada.",
+      "trap": "Pedir tomografía al ingreso en un paciente que va bien y ya tiene diagnóstico.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 7",
+          "texto": "Initial CT assessment in AP should be done if there is (i) diagnostic uncertainty and (ii) failure to respond to conservative treatment or clinical deterioration. The optimal timing for initial conventional CT to assess severity is at least 72–96 hours after the onset of symptoms."
+        },
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Comentarios a la recomendación 7",
+          "texto": "However, routine early CT within 48 hours is not recommended in AP"
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c60",
+      "topic": "Páncreas · Líquidos en pancreatitis aguda",
+      "difficulty": "residencia",
+      "src": "iap25",
+      "vignette": "Mujer de 38 años con pancreatitis aguda leve. <span class='hy'>PA 118/74 mmHg, FC 88</span>, sin signos de hipovolemia. ¿Qué líquidos indicas según la IAP 2025?",
+      "options": [
+        "Solución salina 0,9 % a 3 ml/kg/h",
+        "Bolo de 20 ml/kg y Ringer a 3 ml/kg/h",
+        "Lactato de Ringer a 1,5 ml/kg/h",
+        "Dextrosa al 5 % a 1,5 ml/kg/h"
+      ],
+      "correct": 2,
+      "whyCorrect": "Se usa lactato de Ringer a un ritmo moderado de 1,5 ml/kg/h. El bolo se da solo si hay hipovolemia o hipotensión al ingreso, y se añaden líquidos según el hematocrito y los signos clínicos.",
+      "pearl": "En el ensayo que comparó líquidos agresivos (bolo de 20 ml/kg y 3 ml/kg/h) con moderados, la sobrecarga de volumen fue de 21 % frente a 6 %, y se detuvo antes de tiempo.",
+      "trap": "Reanimar con volúmenes agresivos a todo paciente con pancreatitis.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 10",
+          "texto": "Lactated Ringer's solution should be used for fluid therapy in patients with acute pancreatitis."
+        },
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 11",
+          "texto": "A moderate fluid infusion rate of 1.5 ml/kg/h is recommended. A fluid bolus is recommended if the patient has hypovolemia or hypotension at presentation. Additional fluids may be given depending on hematocrit and clinical signs of hypovolemia."
+        },
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Comentarios a la recomendación 11",
+          "texto": "an incidence of fluid overload in 21 % of patients in the aggressive fluids arm vs. 6 % in patients receiving moderate fluids (p < 0.01)."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c61",
+      "topic": "Páncreas · Cuándo reiniciar la vía oral",
+      "difficulty": "basica",
+      "src": "iap25",
+      "vignette": "Hombre de 50 años con pancreatitis aguda leve. En el <span class='hy'>segundo día</span> el dolor está controlado, <span class='hy'>tiene hambre y no vomita</span>. La lipasa sigue elevada. ¿Qué dieta indicas?",
+      "options": [
+        "Dieta sólida baja en grasa desde ya",
+        "Ayuno hasta que la lipasa se normalice",
+        "Sonda nasoyeyunal y nutrición enteral",
+        "Nutrición parenteral total por 5 días"
+      ],
+      "correct": 0,
+      "whyCorrect": "En la pancreatitis leve o moderada se inicia la vía oral en cuanto el paciente tenga apetito y no vomite. Es seguro empezar con una dieta sólida regular baja en grasa; no hay que esperar a que la lipasa baje ni pasar por líquidos claros.",
+      "pearl": "Si no tolera la vía oral, nutrición enteral por sonda, idealmente en las primeras 72 horas.",
+      "trap": "Esperar a que la lipasa se normalice para dar comida.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 22",
+          "texto": "In patients with predicted mild to moderate pancreatitis, oral feeding can be started as soon as possible when patients have an appetite and there is no vomiting. It is safe to start oral feeding with a regular, low-fat, solid diet."
+        },
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 23",
+          "texto": "Early enteral tube feeding, preferably within 72 hours of the onset of acute pancreatitis, is recommended if patients cannot tolerate oral feeding."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c62",
+      "topic": "Páncreas · Necrosis infectada",
+      "difficulty": "dificil",
+      "src": "iap25",
+      "vignette": "Hombre de 55 años con pancreatitis necrosante. En el <span class='hy'>día 12</span> tiene fiebre y la tomografía muestra <span class='hy'>gas en la colección necrótica</span>, aún mal delimitada. Recibe antibiótico de amplio espectro, está estable y sin falla orgánica nueva. ¿Qué haces?",
+      "options": [
+        "Necrosectomía abierta urgente",
+        "Seguir antibiótico y diferir el drenaje",
+        "Suspender el antibiótico y observar",
+        "Drenaje percutáneo y necrosectomía hoy mismo"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con necrosis infectada estable, se mantiene el antibiótico y la intervención se difiere hasta que la colección se encapsule (necrosis encapsulada), lo que toma unas 3 a 4 semanas. Luego se sigue el abordaje escalonado: drenaje percutáneo o endoscópico y, si hace falta, necrosectomía mínimamente invasiva.",
+      "pearl": "Un drenaje antes de 4 semanas puede servir si falla el manejo médico, siempre que la colección ya esté al menos parcialmente encapsulada.",
+      "trap": "Operar de entrada una necrosis infectada estable y mal delimitada.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 37",
+          "texto": "Interventional treatment should be delayed in patients with suspected or confirmed infected necrotizing pancreatitis, if possible, to allow for the collection to become ‘walled-off’ (Walled off necrosis; WON) with better demarcation and liquefaction of the necrosis, which generally takes around 3–4 weeks."
+        },
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 40",
+          "texto": "The step-up approach consisting of initial antibiotics, then percutaneous drainage or endoscopic transluminal drainage followed, if necessary, by minimally invasive necrosectomy via the retroperitoneal route or per-oral endoscopic necrosectomy is recommended for suspected or confirmed infected necrotizing pancreatitis."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c63",
+      "topic": "Páncreas · Pancreatitis por hipercalcemia",
+      "difficulty": "dificil",
+      "src": "iap25",
+      "vignette": "Mujer de 60 años con pancreatitis aguda y <span class='hy'>calcio sérico de 14,8 mg/dL</span>. Está <span class='hy'>somnolienta</span>. ¿Con qué líquido haces la expansión de volumen?",
+      "options": [
+        "Lactato de Ringer a 1,5 ml/kg/h",
+        "Lactato de Ringer y vitamina D",
+        "Restricción de líquidos y furosemida sola",
+        "Solución salina isotónica"
+      ],
+      "correct": 3,
+      "whyCorrect": "Con calcio mayor de 14 mg/dL o alteración del estado de conciencia se baja el calcio de urgencia: expansión de volumen con solución salina isotónica, no con lactato de Ringer, y sin suplementos de calcio ni vitamina D. Luego se mide la PTH para buscar hiperparatiroidismo primario.",
+      "pearl": "Es la excepción a la regla del lactato de Ringer en pancreatitis.",
+      "trap": "Usar lactato de Ringer por costumbre en la pancreatitis con hipercalcemia grave.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Afirmación de buena práctica 63",
+          "texto": "In addition, patients with serum calcium levels >14 mg/dL or hypercalcemia accompanied by altered sensorium require emergent measures to reduce serum calcium levels, including volume expansion with isotonic saline (and not lactated Ringer's solution), and avoidance of calcium supplements and Vitamin D."
+        },
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Afirmación de buena práctica 62",
+          "texto": "Patients with AP and elevated serum calcium levels should be further evaluated by measuring serum parathyroid hormone (PTH)."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c64",
+      "topic": "Páncreas · Pancreatitis por hipertrigliceridemia",
+      "difficulty": "residencia",
+      "src": "iap25",
+      "vignette": "Hombre de 42 años <span class='hy'>diabético</span> con pancreatitis aguda y <span class='hy'>triglicéridos de 2.400 mg/dL</span>. No tiene falla orgánica. Además del manejo estándar, ¿qué usas primero para bajar los triglicéridos?",
+      "options": [
+        "Plasmaféresis de entrada",
+        "Fibrato por vía oral desde el ingreso",
+        "Insulina intravenosa",
+        "Heparina no fraccionada por 2 semanas"
+      ],
+      "correct": 2,
+      "whyCorrect": "La insulina es la primera línea para bajar los triglicéridos en la pancreatitis por hipertrigliceridemia: recomendada en diabéticos y opcional en no diabéticos. La plasmaféresis se considera solo si hay falla orgánica persistente con triglicéridos altos, sobre todo con falla renal.",
+      "pearl": "Ayuno las primeras 48 horas y luego dieta blanda baja en grasa por vía oral.",
+      "trap": "Ir directo a la plasmaféresis en un paciente sin falla orgánica.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 64",
+          "texto": "Besides the standard care for acute pancreatitis, insulin is recommended in diabetics and may be considered in non-diabetic patients as the first- line therapy to reduce serum triglyceride (TG) levels for hypertriglyceridemia-associated acute pancreatitis (HTGP)."
+        },
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 65",
+          "texto": "In patients with HTGP, plasmapheresis may be considered in case of persistent organ failure with high TG levels, particularly in patients with acute renal failure."
+        },
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 66",
+          "texto": "Patients with HTGP should fast for the first 48 hours, followed by an oral low-fat soft diet."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c65",
+      "topic": "Páncreas · CPRE en pancreatitis biliar",
+      "difficulty": "residencia",
+      "src": "iap25",
+      "vignette": "Mujer de 47 años con pancreatitis biliar <span class='hy'>predicha grave</span>. <span class='hy'>Sin fiebre ni ictericia</span>, bilirrubina 1,8 mg/dL y colédoco no dilatado. ¿Indicas CPRE temprana?",
+      "options": [
+        "No hacer CPRE temprana",
+        "Sí, CPRE en las primeras 24 h por ser grave",
+        "Sí, CPRE en 72 h para prevenir la necrosis",
+        "Sí, papilotomía y prótesis de rutina"
+      ],
+      "correct": 0,
+      "whyCorrect": "La CPRE temprana no está indicada en la pancreatitis biliar sin colangitis, sea leve o grave. Se hace CPRE temprana cuando hay colangitis aguda, y de forma electiva si la colangiorresonancia o la ecoendoscopia muestran un cálculo en el colédoco.",
+      "pearl": "Gravedad no es lo mismo que obstrucción: lo que manda la CPRE temprana es la colangitis.",
+      "trap": "Indicar CPRE solo porque la pancreatitis es grave.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 28",
+          "texto": "ii. Early ERCP/ES is not recommended in predicted severe acute biliary pancreatitis without acute cholangitis (Strong recommendation; moderate quality evidence) iii. Early ERCP/ES is recommended in patients with acute biliary pancreatitis and acute cholangitis"
+        },
+        {
+          "donde": "ASGE guideline on choledocholithiasis, Gastrointest Endosc 2019;89:1075-105, Pregunta 2",
+          "texto": "In patients with gallstone pancreatitis without cholangitis or biliary obstruction/choledocholithiasis we recommend against urgent (<48 hours) ERCP."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c66",
+      "topic": "Vía biliar · Coledocolitiasis de riesgo alto",
+      "difficulty": "residencia",
+      "src": "asge19",
+      "vignette": "Mujer de 50 años con cólico biliar e ictericia, sin fiebre. <span class='hy'>Bilirrubina total 5,2 mg/dL</span>. Ecografía: colelitiasis y <span class='hy'>colédoco de 9 mm</span>, sin cálculo visible en la vía biliar. ¿Qué sigue según la ASGE?",
+      "options": [
+        "Colangiorresonancia antes de decidir",
+        "CPRE directa",
+        "Colecistectomía sin estudiar la vía biliar",
+        "Ecoendoscopia antes de decidir"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es riesgo alto: bilirrubina mayor de 4 mg/dL con colédoco dilatado (más de 6 mm con vesícula). Los criterios de riesgo alto son ese, un cálculo visto en el colédoco o la colangitis, y llevan directo a CPRE.",
+      "pearl": "Riesgo intermedio (pruebas hepáticas alteradas, edad mayor de 55 años o colédoco dilatado solo): colangiorresonancia, ecoendoscopia o estudio intraoperatorio.",
+      "trap": "Pedir más imágenes a una paciente que ya cumple criterio de riesgo alto.",
+      "cita": [
+        {
+          "donde": "ASGE guideline on choledocholithiasis, Gastrointest Endosc 2019;89:1075-105, Pregunta 6",
+          "texto": "we suggest the following HIGH-RISK criteria to directly prompt ERCP for suspected choledocholithiasis: (1) CBD stone on ultrasound or cross-sectional imaging or (2) Total bilirubin >4 mg/dL AND dilated common bile duct on imaging (>6 mm with gallbladder in situ) or (3) Ascending cholangitis."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c67",
+      "topic": "Vía biliar · Coledocolitiasis de riesgo intermedio",
+      "difficulty": "residencia",
+      "src": "asge19",
+      "vignette": "Hombre de <span class='hy'>62 años</span> con colelitiasis sintomática. Fosfatasa alcalina y transaminasas <span class='hy'>levemente elevadas</span>, bilirrubina 1,6 mg/dL. Colédoco de 5 mm, sin cálculos visibles. ¿Qué sigue?",
+      "options": [
+        "CPRE diagnóstica",
+        "Colecistectomía sin estudiar la vía biliar",
+        "Tomografía de abdomen con contraste",
+        "Colangiorresonancia o ecoendoscopia"
+      ],
+      "correct": 3,
+      "whyCorrect": "Tiene riesgo intermedio (pruebas hepáticas alteradas y edad mayor de 55 años) sin criterios de riesgo alto. Se confirma con colangiorresonancia o ecoendoscopia (o colangiografía o ecografía intraoperatorias); la elección depende de la experiencia local y la disponibilidad.",
+      "pearl": "La CPRE diagnóstica se evita: tiene riesgo y poco beneficio.",
+      "trap": "Ir a CPRE sin confirmar el cálculo en un paciente de riesgo intermedio.",
+      "cita": [
+        {
+          "donde": "ASGE guideline on choledocholithiasis, Gastrointest Endosc 2019;89:1075-105, Pregunta 6",
+          "texto": "In patients with INTERMEDIATE-RISK criteria of abnormal liver tests or age >55 years or dilated CBD on ultrasound, we suggest EUS, MRCP, laparoscopic intraoperative cholangiography (IOC), or laparoscopic intraoperative ultrasound for further evaluation."
+        },
+        {
+          "donde": "ASGE guideline on choledocholithiasis, Gastrointest Endosc 2019;89:1075-105, Pregunta 1",
+          "texto": "In patients with intermediate risk of choledocholithiasis we suggest either EUS or MRCP given high specificity; consider factors including patient preference, local expertise, and availability."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c68",
+      "topic": "Vía biliar · Colelitiasis sintomática de riesgo bajo",
+      "difficulty": "basica",
+      "src": "asge19",
+      "vignette": "Mujer de 35 años con cólicos biliares a repetición. <span class='hy'>Pruebas hepáticas normales</span> y <span class='hy'>colédoco de 4 mm</span> en la ecografía. ¿Qué haces?",
+      "options": [
+        "Colangiorresonancia antes de operar",
+        "Colecistectomía sin colangiografía",
+        "CPRE antes de la colecistectomía",
+        "Colecistectomía con colangiografía intraoperatoria"
+      ],
+      "correct": 1,
+      "whyCorrect": "Sin ningún factor de riesgo de coledocolitiasis (pruebas hepáticas normales, menor de 55 años, colédoco no dilatado), la ASGE sugiere colecistectomía sin colangiografía intraoperatoria.",
+      "pearl": "Los factores de riesgo intermedio son pruebas hepáticas alteradas, edad mayor de 55 años y colédoco dilatado en la ecografía.",
+      "trap": "Estudiar la vía biliar en una paciente sin ningún factor de riesgo.",
+      "cita": [
+        {
+          "donde": "ASGE guideline on choledocholithiasis, Gastrointest Endosc 2019;89:1075-105, Pregunta 6",
+          "texto": "For patients with symptomatic cholelithiasis without any of these risk factors, we suggest cholecystecomy without IOC."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c69",
+      "topic": "Páncreas · Colecistectomía tras pancreatitis biliar leve",
+      "difficulty": "basica",
+      "src": "iap25",
+      "vignette": "Mujer de 41 años con <span class='hy'>pancreatitis biliar leve</span>. Al tercer día ya no tiene dolor y tolera la dieta. ¿Cuándo indicas la colecistectomía?",
+      "options": [
+        "Alta y colecistectomía en 6 a 8 semanas",
+        "Alta sin cirugía si no vuelve a doler",
+        "Colecistectomía antes del alta",
+        "CPRE con papilotomía en lugar de cirugía"
+      ],
+      "correct": 2,
+      "whyCorrect": "En la pancreatitis biliar leve, la colecistectomía temprana en la misma hospitalización es segura y previene la recurrencia. La ASGE recomienda lo mismo.",
+      "pearl": "Si se hizo CPRE con papilotomía, igual se recomienda la colecistectomía cuando el paciente pueda operarse.",
+      "trap": "Dar de alta y programar la cirugía para semanas después.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 84",
+          "texto": "Early cholecystectomy during index admission for mild biliary pancreatitis is safe and is recommended to prevent recurrence of acute pancreatitis."
+        },
+        {
+          "donde": "ASGE guideline on choledocholithiasis, Gastrointest Endosc 2019;89:1075-105, Pregunta 5",
+          "texto": "Same-admission cholecystectomy is recommended for patients with mild gallstone pancreatitis."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c70",
+      "topic": "Páncreas · Colecistectomía tras pancreatitis necrosante",
+      "difficulty": "residencia",
+      "src": "iap25",
+      "vignette": "Hombre de 58 años con <span class='hy'>pancreatitis biliar necrosante</span> y <span class='hy'>colecciones peripancreáticas</span>. En el día 15 mejora y tolera la vía oral. ¿Cuándo se hace la colecistectomía?",
+      "options": [
+        "Colecistectomía antes del alta",
+        "Colecistectomía abierta y necrosectomía urgente",
+        "No operar: basta con la CPRE",
+        "Diferirla hasta que resuelvan las colecciones"
+      ],
+      "correct": 3,
+      "whyCorrect": "En la pancreatitis moderada o grave, sobre todo necrosante con colecciones, la colecistectomía se difiere hasta que las colecciones casi se hayan resuelto. La colecistectomía en la misma hospitalización es para la pancreatitis leve.",
+      "pearl": "Leve: antes del alta. Necrosante con colecciones: diferida.",
+      "trap": "Aplicar la regla de la pancreatitis leve a una necrosante.",
+      "cita": [
+        {
+          "donde": "IAP Revised Guidelines on Acute Pancreatitis 2025, Pancreatology 2025, Recomendación 85",
+          "texto": "Cholecystectomy should be delayed in patients with moderate and severe acute pancreatitis, in particular, those with necrotizing pancreatitis and peripancreatic fluid collections, until the collections nearly resolve."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [
