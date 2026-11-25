@@ -1467,6 +1467,110 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c54",
+      "topic": "Vía biliar · Gravedad de la colecistitis aguda",
+      "difficulty": "residencia",
+      "src": "tg18_dx",
+      "vignette": "Mujer de 55 años con dolor en el hipocondrio derecho y fiebre <span class='hy'>desde hace 4 días</span>. Murphy positivo, leucocitos 14.000. La ecografía confirma colecistitis aguda. No tiene disfunción de órganos. ¿Qué grado tiene según Tokio 2018?",
+      "options": [
+        "Grado I (leve)",
+        "Grado II (moderada)",
+        "Grado III (grave)",
+        "No se puede graduar sin tomografía"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es grado II porque los síntomas llevan más de 72 horas. Basta uno de estos: leucocitos mayores de 18.000, masa dolorosa palpable en el hipocondrio derecho, más de 72 h de evolución o inflamación local marcada (gangrena, absceso, peritonitis biliar, colecistitis enfisematosa).",
+      "pearl": "Grado III es el que tiene disfunción de órganos; grado I, el que no cumple criterios de II ni de III.",
+      "trap": "Graduar solo por los leucocitos y olvidar el tiempo de evolución.",
+      "cita": [
+        {
+          "donde": "Tokyo Guidelines 2018: diagnostic criteria and severity grading of acute cholecystitis, J Hepatobiliary Pancreat Sci 2018;25:41-54, Tabla de gravedad",
+          "texto": "“Grade II” acute cholecystitis is associated with any one of the following conditions: 1. Elevated WBC count (>18,000/mm3) 2. Palpable tender mass in the right upper abdominal quadrant 3. Duration of complaints >72 h 4. Marked local inflammation (gangrenous cholecystitis, pericholecystic abscess, hepatic abscess, biliary peritonitis, emphysematous cholecystitis)"
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c55",
+      "topic": "Vía biliar · Sospecha frente a diagnóstico definitivo",
+      "difficulty": "basica",
+      "src": "tg18_dx",
+      "vignette": "Hombre de 48 años en urgencias con <span class='hy'>Murphy positivo, temperatura de 38,4 °C y proteína C reactiva alta</span>. Todavía no le han hecho ningún estudio de imagen. Según Tokio 2018, ¿en qué categoría está y qué sigue?",
+      "options": [
+        "Sospecha; ecografía abdominal para confirmar",
+        "Diagnóstico definitivo; operar sin imágenes",
+        "Diagnóstico definitivo; pedir gammagrafía",
+        "Sospecha; tomografía con contraste de entrada"
+      ],
+      "correct": 0,
+      "whyCorrect": "Un signo local (Murphy, dolor o masa en el hipocondrio derecho) más uno sistémico (fiebre, PCR o leucocitos elevados) da sospecha. El diagnóstico definitivo exige además la imagen, y la ecografía abdominal es el primer estudio.",
+      "pearl": "El signo de Murphy solo tiene sensibilidad de 20,5 % (especificidad 87,5 %): no basta para descartar.",
+      "trap": "Dar el diagnóstico por definitivo sin imagen.",
+      "cita": [
+        {
+          "donde": "Tokyo Guidelines 2018: diagnostic criteria and severity grading of acute cholecystitis, J Hepatobiliary Pancreat Sci 2018;25:41-54, Criterios diagnósticos",
+          "texto": "Suspected diagnosis: one item in A + one item in B Definite diagnosis: one item in A + one item in B + C"
+        },
+        {
+          "donde": "Tokyo Guidelines 2018: diagnostic criteria and severity grading of acute cholecystitis, J Hepatobiliary Pancreat Sci 2018;25:41-54, Imágenes",
+          "texto": "Abdominal US should be the first method of diagnostic imaging used for acute cholecystitis."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c56",
+      "topic": "Vía biliar · Colecistitis grado II con alto riesgo quirúrgico",
+      "difficulty": "residencia",
+      "src": "tg18_flow",
+      "vignette": "Hombre de 78 años con colecistitis aguda <span class='hy'>grado II</span>, con <span class='hy'>Charlson de 7 y ASA III</span>. ¿Qué recomienda Tokio 2018?",
+      "options": [
+        "Colecistectomía laparoscópica temprana en las primeras 72 h",
+        "Tratamiento médico o drenaje, y colecistectomía luego",
+        "Colecistectomía abierta de urgencia",
+        "Antibiótico y alta sin cirugía posterior"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el grado II se hace colecistectomía laparoscópica temprana si Charlson es 5 o menos y ASA 2 o menos. Si no, primero tratamiento médico o drenaje de la vesícula, y la colecistectomía después.",
+      "pearl": "Riesgo quirúrgico en grado I y II: Charlson 6 o más y ASA 3 o más.",
+      "trap": "Operar de inmediato a todo paciente con colecistitis sin mirar su riesgo.",
+      "cita": [
+        {
+          "donde": "Tokyo Guidelines 2018: flowchart for the management of acute cholecystitis, J Hepatobiliary Pancreat Sci 2018;25:55-72, Resumen",
+          "texto": "For Grade II AC, if patients meet the criteria of CCI ≤5 and ASA-PS ≤2, TG18 recommends early Lap-C performed by experienced surgeons; and if not, after medical treatment and/or gallbladder drainage, Lap-C would be indicated."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c57",
+      "topic": "Vía biliar · Colecistitis grado III con factores predictivos negativos",
+      "difficulty": "dificil",
+      "src": "tg18_flow",
+      "vignette": "Mujer de 81 años con colecistitis aguda <span class='hy'>grado III</span>, con <span class='hy'>bilirrubina total de 3,1 mg/dL y confusión</span>. Ya recibe antibiótico y soporte. ¿Qué haces?",
+      "options": [
+        "Drenaje biliar temprano y cirugía diferida",
+        "Colecistectomía laparoscópica urgente",
+        "Solo antibiótico, sin drenaje ni cirugía",
+        "Colecistectomía abierta en las primeras 6 h"
+      ],
+      "correct": 0,
+      "whyCorrect": "La ictericia (bilirrubina 2 mg/dL o más), la disfunción neurológica y la respiratoria son factores predictivos negativos en el grado III: aumentan la mortalidad quirúrgica. Si no es candidata a cirugía temprana, se hace drenaje biliar temprano o urgente y la colecistectomía cuando mejore.",
+      "pearl": "La disfunción renal y la cardiovascular son «fallas favorables»: suelen revertir con el soporte y no contraindican la cirugía temprana en un centro con experiencia.",
+      "trap": "Operar de urgencia a una paciente con factores predictivos negativos.",
+      "cita": [
+        {
+          "donde": "Tokyo Guidelines 2018: flowchart for the management of acute cholecystitis, J Hepatobiliary Pancreat Sci 2018;25:55-72, Factores predictivos",
+          "texto": "Based on these studies, the TG18 guidelines define neurological dysfunction, respiratory dysfunction, and coexistence of jaundice (TBil ≥2 mg/dl) as negative predictive factors in Grade III AC, as multivariate analysis has shown these independent factors to be associated with a significant increase surgical mortality rates (mortality rate within 30 days of surgery)."
+        },
+        {
+          "donde": "Tokyo Guidelines 2018: flowchart for the management of acute cholecystitis, J Hepatobiliary Pancreat Sci 2018;25:55-72, Resumen",
+          "texto": "If the patient is not considered suitable for early surgery, TG18 recommends early/urgent biliary drainage followed by delayed Lap-C once the patient’s overall condition has improved."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [

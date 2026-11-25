@@ -111,6 +111,12 @@ const SOURCES = [
   {id:"jama_cadera26", t:"Hip Fractures: A Review (Johannesdottir F et al.)", r:"JAMA, 2026", y:2026, k:"article"},
   {id:"udea_toracoab22", t:"Enfoque del paciente con trauma toracoabdominal (Castaño AL, Jaramillo SL), en Memorias del curso de actualización en Cirugía general", r:"Universidad de Antioquia, Facultad de Medicina, 2022", y:2022, k:"book"},
   {id:"teas_nvpo26", t:"Transcutaneous Electrical Acupoint Stimulation vs Metoclopramide for Moderate to Severe Postoperative Nausea and Vomiting: A Randomized Clinical Trial", r:"JAMA Surgery, 2026;161(3):268-273", y:2026, k:"article"},
+  {id:"tg18_dx", t:"Tokyo Guidelines 2018: diagnostic criteria and severity grading of acute cholecystitis (Yokoe M et al.)", r:"Journal of Hepato-Biliary-Pancreatic Sciences, 2018;25:41-54", y:2018, k:"guideline"},
+  {id:"tg18_flow", t:"Tokyo Guidelines 2018: flowchart for the management of acute cholecystitis (Okamoto K et al.)", r:"Journal of Hepato-Biliary-Pancreatic Sciences, 2018;25:55-72", y:2018, k:"guideline"},
+  {id:"jama_prostatitis25", t:"Prostatitis: A Review (Borgert BJ, Wallen EM, Pham MN)", r:"JAMA, 2025;334(11)", y:2025, k:"article"},
+  {id:"afp_itu26", t:"Recurrent UTI in Women: Diagnosis and Management (Zwahlen D et al.)", r:"American Family Physician, 2026;113(6):568-577", y:2026, k:"article"},
+  {id:"nejm_goteborg24", t:"Results after Four Years of Screening for Prostate Cancer with PSA and MRI (GÖTEBORG-2)", r:"New England Journal of Medicine, 2024;391:1083-95", y:2024, k:"article"},
+  {id:"rcna_sobrediag21", t:"Overdiagnosis and Risks of Breast Cancer Screening (Neal CH, Helvie MA)", r:"Radiologic Clinics of North America, 2021;59:19-27", y:2021, k:"article"},
   {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));

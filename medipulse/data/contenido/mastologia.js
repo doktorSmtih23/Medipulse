@@ -262,6 +262,86 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "mas-c11",
+      "topic": "Tamizaje · Sobrediagnóstico",
+      "difficulty": "residencia",
+      "src": "rcna_sobrediag21",
+      "vignette": "Una mujer de 84 años tuvo un carcinoma detectado por mamografía de tamizaje y murió 2 años después por un infarto, antes de que el cáncer diera síntomas. ¿Cómo se llama este fenómeno?",
+      "options": [
+        "Sobrediagnóstico tipo I",
+        "Falso positivo de la mamografía",
+        "Sesgo de tiempo de espera puro",
+        "Cáncer de intervalo"
+      ],
+      "correct": 0,
+      "whyCorrect": "Sobrediagnóstico es un cáncer detectado en el tamizaje que no habría dado síntomas ni daño en la vida de la paciente. El tipo I (obligado) es el que no se habría manifestado antes de morir por otra causa, como la enfermedad cardiovascular. El tipo II es un cáncer muy indolente o que incluso regresa.",
+      "pearl": "Al ajustar por tiempo de adelanto e incidencia de fondo, las estimaciones más confiables de sobrediagnóstico son menores de 10 %.",
+      "trap": "Confundir sobrediagnóstico con falso positivo: en el sobrediagnóstico sí hay cáncer.",
+      "cita": [
+        {
+          "donde": "Overdiagnosis and Risks of Breast Cancer Screening, Radiol Clin N Am 2021;59:19-27, Sobrediagnóstico",
+          "texto": "Overdiagnosis is the concept that breast cancer detected at screening may not become clinically apparent or harm a patient in her lifetime."
+        },
+        {
+          "donde": "Overdiagnosis and Risks of Breast Cancer Screening, Radiol Clin N Am 2021;59:19-27, Sobrediagnóstico",
+          "texto": "Type I overdiagnosis, which has also been referred to as obligate overdiagnosis, is a screen-detected cancer that would not have become clinically evident prior to a patient’s death from a noncancer etiology, such as cardiovascular disease."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "mas-c12",
+      "topic": "Tamizaje · Magnitud del sobrediagnóstico",
+      "difficulty": "dificil",
+      "src": "rcna_sobrediag21",
+      "vignette": "Una paciente leyó que «un tercio de los cánceres de mama del tamizaje son sobrediagnóstico». Según esta revisión, al ajustar por tiempo de adelanto e incidencia de fondo, ¿cuánto es?",
+      "options": [
+        "Alrededor de 30 %",
+        "Más de 50 %",
+        "Entre 20 y 25 %",
+        "Menos de 10 %"
+      ],
+      "correct": 3,
+      "whyCorrect": "Las estimaciones dependen de la tendencia de la incidencia de fondo, del tiempo de adelanto de la mamografía, del seguimiento, de la edad de la población y de si se incluye el carcinoma ductal in situ. Ajustando por tiempo de adelanto e incidencia de fondo, las más confiables son menores de 10 %.",
+      "pearl": "La mamografía de tamizaje contribuyó a una reducción de 40 % en la mortalidad por cáncer de mama en Estados Unidos (1989 a 2016).",
+      "trap": "Citar cifras de sobrediagnóstico sin ajustar por el tiempo de adelanto.",
+      "cita": [
+        {
+          "donde": "Overdiagnosis and Risks of Breast Cancer Screening, Radiol Clin N Am 2021;59:19-27, Estimación",
+          "texto": "When lead time and background incidence of breast cancer are adjusted for, the most reliable estimates of breast cancer overdiagnosis are less than 10%."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "mas-c13",
+      "topic": "Tamizaje · Riesgos de la mamografía",
+      "difficulty": "basica",
+      "src": "rcna_sobrediag21",
+      "vignette": "A una mujer de 48 años le recomiendan biopsia por un hallazgo de la mamografía de tamizaje y el resultado es <span class='hy'>benigno</span>. ¿Cómo se clasifica este resultado entre los riesgos del tamizaje?",
+      "options": [
+        "Biopsia falsa positiva",
+        "Sobrediagnóstico del cáncer",
+        "Cáncer de intervalo",
+        "Sobretratamiento"
+      ],
+      "correct": 0,
+      "whyCorrect": "Una biopsia falsa positiva ocurre cuando la recomendación de biopsia de un hallazgo mamográfico termina en un resultado benigno. Los riesgos del tamizaje son sobrediagnóstico y sobretratamiento, mamografía falsa positiva, biopsia falsa positiva y radiación.",
+      "pearl": "El falso positivo se considera un daño por la ansiedad que causa y por el uso de recursos.",
+      "trap": "Llamar sobrediagnóstico a una biopsia benigna: en el sobrediagnóstico sí hay cáncer.",
+      "cita": [
+        {
+          "donde": "Overdiagnosis and Risks of Breast Cancer Screening, Radiol Clin N Am 2021;59:19-27, Biopsia y mamografía falsas positivas",
+          "texto": "A false-positive biopsy (FPB) occurs when a recommendation for biopsy of a mammographic detected finding results in a benign pathologic result."
+        },
+        {
+          "donde": "Overdiagnosis and Risks of Breast Cancer Screening, Radiol Clin N Am 2021;59:19-27, Introducción",
+          "texto": "The risks of screening mammography include overdiagnosis/overtreatment, false-positive screening, false-positive biopsy, and radiation exposure."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [],

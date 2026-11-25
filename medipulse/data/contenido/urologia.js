@@ -274,6 +274,198 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c11",
+      "topic": "Infección urinaria · Prostatitis bacteriana aguda",
+      "difficulty": "residencia",
+      "src": "jama_prostatitis25",
+      "vignette": "Hombre de 52 años con <span class='hy'>fiebre de 39 °C, escalofríos</span>, disuria y dolor perineal. Al tacto, la próstata está caliente y muy dolorosa. ¿Qué haces?",
+      "options": [
+        "Pedir PSA para descartar un cáncer de próstata",
+        "Hemocultivos y antibiótico de amplio espectro",
+        "Masaje prostático para tomar el cultivo de secreción",
+        "Alfa-bloqueador y control en un mes"
+      ],
+      "correct": 1,
+      "whyCorrect": "La prostatitis bacteriana aguda es una infección urinaria con compromiso de la próstata, casi siempre por gramnegativos (E. coli, Klebsiella, Pseudomonas). Se tratan con antibiótico de amplio espectro (ceftriaxona, piperacilina-tazobactam o ciprofloxacina) por 2 a 4 semanas. Se toman hemocultivos si hay fiebre: 21 % tiene bacteriemia.",
+      "pearl": "El PSA no está indicado en la evaluación de la prostatitis aguda.",
+      "trap": "Pedir PSA o hacer masaje prostático en una prostatitis aguda.",
+      "cita": [
+        {
+          "donde": "Prostatitis: A Review, JAMA 2025;334(11), Resumen",
+          "texto": "First-line therapy for acute prostatitis is broad-spectrum intravenous or oral antibiotics, such as intravenous piperacillin-tazobactam, ceftriaxone, or oral ciprofloxacin, which has a 92% to 97% success rate when prescribed for 2 to 4 weeks for people with febrile UTI and acute prostatitis."
+        },
+        {
+          "donde": "Prostatitis: A Review, JAMA 2025;334(11), Evaluación",
+          "texto": "Blood cultures should be obtained for patients with fever because 21% of patients with acute bacterial prostatitis have bacteremia."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c12",
+      "topic": "Infección urinaria · Prostatitis bacteriana crónica",
+      "difficulty": "residencia",
+      "src": "jama_prostatitis25",
+      "vignette": "Hombre de 58 años con <span class='hy'>infecciones urinarias a repetición por la misma cepa de E. coli</span> y molestia pélvica intermitente. ¿Cuál es el tratamiento de primera línea?",
+      "options": [
+        "Nitrofurantoína por 5 días como en la cistitis",
+        "Ciprofloxacina por 3 días",
+        "Alfa-bloqueador sin antibiótico",
+        "Fluoroquinolona al menos 4 semanas"
+      ],
+      "correct": 3,
+      "whyCorrect": "La prostatitis bacteriana crónica es una infección persistente de la próstata que se presenta como infecciones urinarias recurrentes por la misma cepa. Se trata con levofloxacina o ciprofloxacina al menos 4 semanas.",
+      "pearl": "Hasta 74 % la causan gramnegativos como E. coli. El PSA no sirve para diagnosticarla y puede subir por la inflamación.",
+      "trap": "Tratarla con un ciclo corto como una cistitis.",
+      "cita": [
+        {
+          "donde": "Prostatitis: A Review, JAMA 2025;334(11), Resumen",
+          "texto": "Chronic bacterial prostatitis is defined as a persistent bacterial infection of the prostate, typically presenting as recurrent UTIs from the same strain."
+        },
+        {
+          "donde": "Prostatitis: A Review, JAMA 2025;334(11), Tratamiento",
+          "texto": "Chronic bacterial prostatitis should be treated with at least 4 weeks of oral fluoroquinolones."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c13",
+      "topic": "Dolor pélvico · Prostatitis crónica / dolor pélvico crónico",
+      "difficulty": "residencia",
+      "src": "jama_prostatitis25",
+      "vignette": "Hombre de 36 años con <span class='hy'>dolor pélvico desde hace 5 meses</span>, polaquiuria y chorro débil. Urocultivo negativo, residuo posmiccional normal y sin otra causa. ¿Qué tratamiento oral de primera línea indicas?",
+      "options": [
+        "Ciprofloxacina por 4 semanas",
+        "Ibuprofeno por 6 meses",
+        "Alfa-bloqueador",
+        "Pregabalina como primera opción"
+      ],
+      "correct": 2,
+      "whyCorrect": "El síndrome de prostatitis crónica o dolor pélvico crónico es dolor pélvico de al menos 3 meses con síntomas urinarios, sin infección, cáncer, obstrucción ni retención. Con síntomas urinarios, la primera línea oral es un alfa-bloqueador (tamsulosina, alfuzosina).",
+      "pearl": "Los antiinflamatorios, la pregabalina y el extracto de polen dan cambios modestos en el puntaje de síntomas.",
+      "trap": "Dar antibiótico prolongado con urocultivo negativo.",
+      "cita": [
+        {
+          "donde": "Prostatitis: A Review, JAMA 2025;334(11), Resumen",
+          "texto": "Chronic prostatitis/chronic pelvic pain syndrome (CP/CPPS) presents as pelvic pain or discomfort for at least 3 months and is associated with urinary symptoms, such as urinary frequency."
+        },
+        {
+          "donde": "Prostatitis: A Review, JAMA 2025;334(11), Resumen",
+          "texto": "First-line oral therapy for CP/CPPS with urinary symptoms is α-blockers (eg, tamsulosin, alfuzosin; ΔNIH-CPSI score difference vs placebo = −10.8 to −4.8)."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c14",
+      "topic": "Infección urinaria · Infección urinaria recurrente en la mujer",
+      "difficulty": "basica",
+      "src": "afp_itu26",
+      "vignette": "Mujer de 34 años con su <span class='hy'>tercera cistitis del año</span>; las dos anteriores fueron en marzo y julio. ¿Cómo la clasificas y qué pides en cada episodio?",
+      "options": [
+        "ITU recurrente; uroanálisis y urocultivo",
+        "No es recurrente: necesita 4 episodios al año",
+        "ITU recurrente; solo tratar sin cultivo",
+        "Cistitis aislada; ecografía renal y cistoscopia"
+      ],
+      "correct": 0,
+      "whyCorrect": "ITU recurrente es 2 o más en 6 meses o 3 o más en un año. En cada episodio se pide uroanálisis y urocultivo con antibiograma: confirma la infección, guía el tratamiento y distingue persistencia de la misma bacteria de reinfección.",
+      "pearl": "Las imágenes o la cistoscopia se reservan para banderas rojas: hematuria persistente, sospecha de litiasis, anomalías estructurales o pielonefritis recurrente.",
+      "trap": "Tratar cada episodio a ciegas sin cultivo.",
+      "cita": [
+        {
+          "donde": "Recurrent UTI in Women, Am Fam Physician 2026;113(6):568-577, Resumen",
+          "texto": "Recurrent urinary tract infection (UTI) is defined as two or more UTIs within 6 months or three or more within 1 year."
+        },
+        {
+          "donde": "Recurrent UTI in Women, Am Fam Physician 2026;113(6):568-577, Resumen",
+          "texto": "When women present with recurrent UTI symptoms, urinalysis and urine culture should be obtained."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c15",
+      "topic": "Infección urinaria · Bacteriuria asintomática",
+      "difficulty": "basica",
+      "src": "afp_itu26",
+      "vignette": "Mujer de 70 años, sin síntomas urinarios, con un <span class='hy'>urocultivo de control con más de 100.000 UFC/mL de E. coli</span>. No está embarazada ni la van a operar. ¿Qué haces?",
+      "options": [
+        "Nitrofurantoína por 5 días",
+        "No tratarla",
+        "Fosfomicina dosis única",
+        "Ciprofloxacina por 7 días"
+      ],
+      "correct": 1,
+      "whyCorrect": "La bacteriuria asintomática no se trata, salvo en embarazadas o antes de un procedimiento urológico invasivo. Puede resolverse sola.",
+      "pearl": "Incontinencia y vejiga hiperactiva en mujeres mayores se confunden a menudo con infección y llevan a antibióticos innecesarios.",
+      "trap": "Tratar un urocultivo positivo sin síntomas.",
+      "cita": [
+        {
+          "donde": "Recurrent UTI in Women, Am Fam Physician 2026;113(6):568-577, Resumen",
+          "texto": "Asymptomatic bacteriuria should not be treated, except in patients who are pregnant or undergoing invasive urologic procedures."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c16",
+      "topic": "Infección urinaria · Duración del tratamiento y seguimiento",
+      "difficulty": "residencia",
+      "src": "afp_itu26",
+      "vignette": "Mujer de 29 años con ITU recurrente tratada con éxito. Pregunta si un tratamiento más largo o un urocultivo de control evitarán nuevas infecciones. ¿Qué le dices?",
+      "options": [
+        "Sí: 14 días de antibiótico reducen la recurrencia",
+        "Sí: siempre se repite el cultivo al terminar",
+        "Alargar el tratamiento no reduce la recurrencia",
+        "Necesita cistoscopia tras cada episodio"
+      ],
+      "correct": 2,
+      "whyCorrect": "Un tratamiento más largo no reduce la recurrencia. Tampoco se repiten pruebas al terminar el antibiótico en mujeres no embarazadas, salvo que sigan los síntomas.",
+      "pearl": "La prevención empieza con cambios de conducta e higiene; luego, profilaxis antibiótica con decisión compartida.",
+      "trap": "Alargar el antibiótico o pedir urocultivo de control a toda paciente.",
+      "cita": [
+        {
+          "donde": "Recurrent UTI in Women, Am Fam Physician 2026;113(6):568-577, Resumen",
+          "texto": "Longer duration of therapy does not reduce the risk of recurrent UTI."
+        },
+        {
+          "donde": "Recurrent UTI in Women, Am Fam Physician 2026;113(6):568-577, Seguimiento",
+          "texto": "Physicians should not perform follow-up testing after completion of antibiotics in nonpregnant patients unless symptoms persist."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c17",
+      "topic": "Cáncer de próstata · Tamizaje con PSA y resonancia",
+      "difficulty": "dificil",
+      "src": "nejm_goteborg24",
+      "vignette": "En el ensayo GÖTEBORG-2, a hombres de 50 a 60 años con PSA de 3 ng/mL o más se les hizo resonancia: un grupo recibía biopsia sistemática y otro solo biopsia dirigida a lesiones de la resonancia. ¿Qué mostró omitir la biopsia si la resonancia era negativa?",
+      "options": [
+        "Aumentó al doble los cánceres avanzados detectados",
+        "No cambió el sobrediagnóstico",
+        "Duplicó los eventos adversos graves de la biopsia",
+        "Bajó más de la mitad los cánceres insignificantes"
+      ],
+      "correct": 3,
+      "whyCorrect": "La biopsia solo dirigida por resonancia redujo el diagnóstico de cáncer clínicamente insignificante (RR 0,43), sin diferencia significativa en el cáncer clínicamente significativo (RR 0,84; IC 0,66 a 1,07). El riesgo de un cáncer incurable fue muy bajo.",
+      "pearl": "El sobrediagnóstico es el gran daño del tamizaje con PSA: la resonancia antes de la biopsia lo reduce.",
+      "trap": "Creer que omitir la biopsia sistemática deja pasar más cánceres avanzados: no hubo diferencia significativa (15 frente a 23).",
+      "cita": [
+        {
+          "donde": "GÖTEBORG-2, N Engl J Med 2024;391:1083-95, Resultados",
+          "texto": "The relative risk of detecting clinically insignificant cancer in the MRI-targeted biopsy group as compared with the systematic biopsy group was 0.43 (95% confidence interval [CI], 0.32 to 0.57; P<0.001)"
+        },
+        {
+          "donde": "GÖTEBORG-2, N Engl J Med 2024;391:1083-95, Conclusiones",
+          "texto": "In this trial, omitting biopsy in patients with negative MRI results eliminated more than half of diagnoses of clinically insignificant prostate cancer, and the associated risk of having incurable cancer diagnosed at screening or as interval cancer was very low."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [],
