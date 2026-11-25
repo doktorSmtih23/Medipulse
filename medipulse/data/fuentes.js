@@ -117,6 +117,8 @@ const SOURCES = [
   {id:"afp_itu26", t:"Recurrent UTI in Women: Diagnosis and Management (Zwahlen D et al.)", r:"American Family Physician, 2026;113(6):568-577", y:2026, k:"article"},
   {id:"nejm_goteborg24", t:"Results after Four Years of Screening for Prostate Cancer with PSA and MRI (GÖTEBORG-2)", r:"New England Journal of Medicine, 2024;391:1083-95", y:2024, k:"article"},
   {id:"rcna_sobrediag21", t:"Overdiagnosis and Risks of Breast Cancer Screening (Neal CH, Helvie MA)", r:"Radiologic Clinics of North America, 2021;59:19-27", y:2021, k:"article"},
+  {id:"iap25", t:"International Association of Pancreatology Revised Guidelines on Acute Pancreatitis 2025 (IAP/APA/EPC/IPC/JPS Working Group)", r:"Pancreatology, 2025", y:2025, k:"guideline"},
+  {id:"asge19", t:"ASGE guideline on the role of endoscopy in the evaluation and management of choledocholithiasis (Buxbaum JL et al.)", r:"Gastrointestinal Endoscopy, 2019;89:1075-105", y:2019, k:"guideline"},
   {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
