@@ -166,6 +166,114 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c07",
+      "topic": "Litiasis urinaria · Hipercalciuria",
+      "difficulty": "residencia",
+      "src": "nrdp_litiasis26",
+      "vignette": "Hombre de 47 años con <span class='hy'>cálculos de oxalato de calcio recurrentes</span>. La orina de 24 h muestra <span class='hy'>hipercalciuria</span>; ya toma suficiente agua y come calcio normal. ¿Qué fármaco puede reducir las recurrencias?",
+      "options": [
+        "Furosemida a dosis bajas",
+        "Tiazida o indapamida",
+        "Suplemento de calcio con la comida",
+        "Bicarbonato de sodio cada 8 horas"
+      ],
+      "correct": 1,
+      "whyCorrect": "En quien forma cálculos de calcio con hipercalciuria, las tiazidas o los diuréticos parecidos a las tiazidas (indapamida) pueden reducir las recurrencias, según ensayos y revisiones sistemáticas.",
+      "pearl": "La sal aumenta la calciuria: limitar el sodio a menos de 100 mmol al día puede reducir la hipercalciuria y la recurrencia.",
+      "trap": "Usar un diurético de asa, que aumenta la calciuria.",
+      "cita": [
+        {
+          "donde": "Kidney stones, Nature Reviews Disease Primers 2026;12:74, Prevención farmacológica",
+          "texto": "Specifically for calcium stone formers with hypercalciuria (calcium oxalate or calcium phosphate), prescription of thiazides or thiazide-like diuretics (that is, indapamide) may reduce recurrences according to historical randomized controlled trials (RCTs) and systematic reviews."
+        },
+        {
+          "donde": "Kidney stones, Nature Reviews Disease Primers 2026;12:74, Prevención",
+          "texto": "High sodium intake increases urinary calcium excretion through shared transport mechanisms in the renal tubule; restriction to <100 mmol sodium per day may reduce hypercalciuria and stone recurrence."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c08",
+      "topic": "Litiasis urinaria · Cálculo de ácido úrico",
+      "difficulty": "residencia",
+      "src": "nrdp_litiasis26",
+      "vignette": "Hombre de 58 años con gota y un <span class='hy'>cálculo renal radiolúcido de ácido úrico</span> de 12 mm, sin obstrucción ni infección. La orina tiene <span class='hy'>pH de 5,0</span>. ¿Qué tratamiento puede disolverlo?",
+      "options": [
+        "Litotricia extracorpórea de urgencia",
+        "Acidificar la orina con vitamina C",
+        "Restringir el calcio de la dieta",
+        "Citrato de potasio para alcalinizar"
+      ],
+      "correct": 3,
+      "whyCorrect": "El citrato disuelve los cálculos de ácido úrico puros porque alcaliniza la orina. En un estudio con 24 pacientes que iban para cirugía, el citrato de potasio (solo o con alopurinol) los disolvió por completo en 67 %.",
+      "pearl": "El ácido úrico precipita en orina ácida (pH menor de 5,5): por eso se alcaliniza.",
+      "trap": "Mandar a cirugía un cálculo de ácido úrico sin intentar disolverlo.",
+      "cita": [
+        {
+          "donde": "Kidney stones, Nature Reviews Disease Primers 2026;12:74, Tratamiento médico",
+          "texto": "Citrate therapy effectively dissolves pure uric acid stones through urinary alkalinization, with dissolution time varying by stone size and degree of alkalinization."
+        },
+        {
+          "donde": "Kidney stones, Nature Reviews Disease Primers 2026;12:74, Tratamiento médico",
+          "texto": "In a retrospective study in 24 patients with uric acid stones initially referred for surgery, medical dissolution therapy with potassium citrate (alone or with allopurinol) achieved complete stone resolution in 67% of patients and partial reduction (mean 68% decrease in stone burden) in 33% of patients."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c09",
+      "topic": "Litiasis urinaria · Hipocitraturia",
+      "difficulty": "basica",
+      "src": "nrdp_litiasis26",
+      "vignette": "Mujer de 36 años con cálculos de calcio. La orina de 24 h muestra <span class='hy'>citrato de 250 mg/día</span>. Además del agua, ¿qué bebida le suma beneficio?",
+      "options": [
+        "Jugos de frutas cítricas",
+        "Bebidas colas",
+        "Té negro concentrado",
+        "Leche entera en abundancia"
+      ],
+      "correct": 0,
+      "whyCorrect": "La hipocitraturia (citrato urinario menor de 320 mg/día) quita el efecto inhibidor del citrato sobre la cristalización del calcio. El agua es la base, pero los jugos cítricos suman porque aumentan el citrato urinario y alcalinizan la orina.",
+      "pearl": "El citrato inhibe la cristalización del calcio; también el magnesio y la proteína de Tamm-Horsfall son inhibidores en la orina.",
+      "trap": "Olvidar el citrato urinario en el estudio metabólico.",
+      "cita": [
+        {
+          "donde": "Kidney stones, Nature Reviews Disease Primers 2026;12:74, Fisiopatología",
+          "texto": "Hypocitraturia is characterized by urinary citrate excretion of <320 mg/day and reduces the natural inhibitory effect of citrate on calcium crystallization."
+        },
+        {
+          "donde": "Kidney stones, Nature Reviews Disease Primers 2026;12:74, Prevención",
+          "texto": "In general, water is the main component of fluid therapy, although citrus fruit juices show an additional beneficial effect through increasing urinary citrates and urine alkalinization."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "uro-c10",
+      "topic": "Litiasis urinaria · Catéter doble J tras ureteroscopia",
+      "difficulty": "dificil",
+      "src": "nrdp_litiasis26",
+      "vignette": "Mujer de 44 años a quien le hicieron una <span class='hy'>ureteroscopia sin complicaciones</span> por un cálculo ureteral. Pregunta si es obligatorio dejarle catéter doble J. ¿Qué dice la evidencia?",
+      "options": [
+        "Siempre se deja, durante al menos 6 semanas completas",
+        "Sin él aumentan las urgencias y reoperaciones",
+        "El beneficio de dejarlo de rutina es incierto",
+        "Solo se deja en los hombres"
+      ],
+      "correct": 2,
+      "whyCorrect": "Cada vez más cirujanos no dejan doble J después de una ureteroscopia no complicada: una revisión Cochrane encontró un beneficio incierto sobre las consultas de urgencia no planeadas y las intervenciones adicionales.",
+      "pearl": "El doble J se ha usado para asegurar el drenaje en los primeros días, porque el edema y los fragmentos pequeños pueden obstruir.",
+      "trap": "Creer que el doble J es obligatorio después de toda ureteroscopia.",
+      "cita": [
+        {
+          "donde": "Kidney stones, Nature Reviews Disease Primers 2026;12:74, Manejo quirúrgico",
+          "texto": "An increasing number of surgeons are not inserting double-J ureteral stents after uncomplicated ureteroscopies, and a Cochrane review reported uncertain benefit of stent placement regarding unplanned emergency room visits and ancillary interventions."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [],

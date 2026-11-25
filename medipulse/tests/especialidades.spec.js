@@ -71,8 +71,8 @@ test("Urología y Mastología vienen incluidas: salen en Casos con sus casos, no
     diag: SPECS.includes("Urología") || SPECS.includes("Mastología"),
     color: SPEC_COLOR["Urología"] !== "#123456"
   }));
-  expect(r).toEqual({esps: ["Urología", "Mastología"], propias: 0, uro: 7, masto: 6, diag: false, color: true});
+  expect(r).toEqual({esps: ["Urología", "Mastología"], propias: 0, uro: 11, masto: 10, diag: false, color: true});
   await page.click("nav [data-go=banco]");
   await expect(page.locator('#qSpecs [data-sp="Urología"]')).toContainText("Urología");
-  await expect(page.locator('#qSpecs [data-sp="Mastología"]')).toContainText("Mastología 6");
+  await expect(page.locator('#qSpecs [data-sp="Mastología"]')).toContainText("Mastología 10");
 });
