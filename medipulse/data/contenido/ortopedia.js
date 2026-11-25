@@ -626,6 +626,102 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c27",
+      "topic": "Traumatología · Síndrome compartimental",
+      "difficulty": "residencia",
+      "src": "cto_tm",
+      "vignette": "Hombre de 24 años con fractura de tibia inmovilizada hace 6 horas. Refiere <span class='hy'>dolor desproporcionado que no cede con opioides</span> y que aumenta al extender pasivamente los dedos. Pulsos pedios presentes. ¿Qué haces?",
+      "options": [
+        "Más analgesia y elevar la pierna por encima del corazón",
+        "Retirar el vendaje y fasciotomía urgente si persiste",
+        "Esperar a que desaparezcan los pulsos para operar",
+        "Doppler arterial y control en 12 horas"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es un síndrome compartimental: isquemia muscular con dolor precoz y desproporcionado, que empeora con el estiramiento pasivo. Los pulsos presentes no lo descartan. Se retiran vendajes y yesos, y la fasciotomía es el tratamiento definitivo.",
+      "pearl": "Secuela de no operar a tiempo en el antebrazo: contractura isquémica de Volkmann.",
+      "trap": "Esperar a la ausencia de pulsos: es un signo tardío, cuando el músculo ya está perdido.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "El síndrome compartimental es un cuadro de isquemia muscular con dolor precoz y desproporcionado; la fasciotomía es su tratamiento definitivo."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "cir-c28",
+      "topic": "Traumatología · Fractura de escafoides",
+      "difficulty": "basica",
+      "src": "cto_tm",
+      "vignette": "Mujer de 22 años que cayó sobre la mano extendida; dolor en la <span class='hy'>tabaquera anatómica</span>. En las proyecciones de escafoides se ve una fractura sin desplazar. ¿Qué tratamiento?",
+      "options": [
+        "Férula de muñeca por 2 semanas y luego movilizar libremente",
+        "Yeso que incluya el primer dedo por 2 a 3 meses",
+        "Cirugía inmediata en todos los casos",
+        "Vendaje elástico y analgésicos"
+      ],
+      "correct": 1,
+      "whyCorrect": "La fractura de escafoides sin desplazar se trata con yeso que incluye el primer dedo durante 2 a 3 meses. Por la dificultad diagnóstica se piden cuatro proyecciones de escafoides; si se desplaza, se opera.",
+      "pearl": "Dolor en la tabaquera con radiografía normal: inmovilizar y repetir la radiografía a las 2 semanas.",
+      "trap": "Tratarla como un esguince: el escafoides tiene riesgo de seudoartrosis y necrosis.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "Si se visualiza una fractura sin desplazar de escafoides, es necesaria la inmovilización con escayola, incluyendo el primer dedo durante 2 o 3 meses."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "cir-c29",
+      "topic": "Traumatología · Luxación traumática de cadera",
+      "difficulty": "residencia",
+      "src": "cto_tm",
+      "vignette": "Conductor de 35 años tras choque frontal (rodilla contra el tablero). La pierna está <span class='hy'>acortada, en flexión, aducción y rotación interna</span>. Radiografía: luxación posterior de cadera sin fractura. ¿Qué haces?",
+      "options": [
+        "Tracción y reducción electiva en 1 semana",
+        "Reducción cerrada urgente bajo anestesia",
+        "Artroplastia total de cadera inmediata",
+        "Reposo en cama y radiografía de control"
+      ],
+      "correct": 1,
+      "whyCorrect": "La luxación de cadera es una urgencia: reducción cerrada bajo anestesia lo antes posible, luego estabilización transitoria con tracción y carga parcial por 2 a 3 meses. El retraso aumenta el riesgo de necrosis de la cabeza femoral.",
+      "pearl": "Luxación posterior: flexión, aducción y rotación interna. Vigilar el nervio ciático.",
+      "trap": "Diferir la reducción: la necrosis avascular depende del tiempo.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "La luxación de cadera requiere de urgencia una reducción cerrada bajo anestesia y posterior estabilización transitoria con tracción, pasado lo cual el paciente debe mantener carga parcial durante 2 o 3 meses."
+        }
+      ],
+      "verificado": "2026-11-23"
+    },
+    {
+      "id": "cir-c30",
+      "topic": "Traumatología · Fractura abierta",
+      "difficulty": "basica",
+      "src": "cto_tm",
+      "vignette": "Motociclista de 28 años con <span class='hy'>fractura abierta de tibia</span> y herida de 3 cm. Estable. ¿Qué medidas son las más importantes al inicio?",
+      "options": [
+        "Cerrar la herida en urgencias y alta",
+        "Antibiótico oral por 3 días",
+        "Esperar el cultivo de la herida para el antibiótico",
+        "Antibiótico IV en bolo y profilaxis antitetánica"
+      ],
+      "correct": 3,
+      "whyCorrect": "Lo más importante al inicio de una fractura abierta es el antibiótico intravenoso en bolo y la cobertura antitetánica, seguidos de desbridamiento y estabilización. Se clasifica según Gustilo y Anderson.",
+      "pearl": "Gustilo: I (herida menor de 1 cm), II (1 a 10 cm), III (más de 10 cm o lesión grave de partes blandas).",
+      "trap": "Cerrar la herida sin lavado ni desbridamiento.",
+      "cita": [
+        {
+          "donde": "Manual CTO 14.ª ed., Traumatología",
+          "texto": "Las medidas más importantes en el inicio del tratamiento de una fractura abierta son la antibioterapia intravenosa en bolo y la cobertura antitetánica."
+        }
+      ],
+      "verificado": "2026-11-23"
     }
   ],
   "fichas": [

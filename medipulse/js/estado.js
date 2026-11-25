@@ -33,10 +33,16 @@ function rebuild(){
 rebuild();
 // Si guardar falla (almacenamiento lleno o bloqueado), se avisa en Hoy para que el usuario descargue su copia.
 let SAVE_FAILED = false;
+// El navegador da unos 5 MB por sitio para el progreso (los PDF van aparte, en IndexedDB). Desde 3,5 MB se avisa
+// en Hoy, antes de que se llene: así hay tiempo de descargar la copia.
+const ESPACIO_AVISO = 3.5e6;
+let ESPACIO_USADO = (() => { try { return (localStorage.getItem(KEY) || "").length * 2; } catch(e) { return 0; } })();
 function save(){
   let ok = true;
-  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) { ok = !CAN_STORE; }
-  if (SAVE_FAILED === ok) { SAVE_FAILED = !ok; if (typeof renderDataWarn === "function") renderDataWarn(); }
+  const txt = JSON.stringify(S), alto = ESPACIO_USADO > ESPACIO_AVISO;
+  ESPACIO_USADO = txt.length * 2;   // localStorage guarda texto en UTF-16: 2 bytes por carácter
+  try { localStorage.setItem(KEY, txt); } catch(e) { ok = !CAN_STORE; }
+  if (SAVE_FAILED === ok || alto !== ESPACIO_USADO > ESPACIO_AVISO) { SAVE_FAILED = !ok; if (typeof renderDataWarn === "function") renderDataWarn(); }
 }
 
 const todayKey = (d=new Date()) => new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);

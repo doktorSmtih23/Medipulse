@@ -1,7 +1,7 @@
 // ===================================================================
 // MIS ESPECIALIDADES
 // ===================================================================
-// Además de las 6 incluidas (SPECS, data/especialidades.js), el usuario puede crear especialidades para sus
+// Además de las incluidas (SPECS y SPECS_MODULOS, data/especialidades.js), el usuario puede crear especialidades para sus
 // fuentes (Neurología, Psiquiatría…). Aparecen en Casos, Fichas, Crear, Mis apuntes, Progreso y
 // vulnerabilidades. El diagnóstico, el plan semanal y las sugerencias de Hoy siguen con las 6 incluidas: miden
 // lo que tiene alta probabilidad de salir en el examen.
@@ -9,12 +9,17 @@
 const ESP_COLORES = ["#2563eb", "#9333ea", "#c2410c", "#0f766e", "#be123c", "#4d7c0f", "#a16207", "#0369a1", "#7e22ce", "#15803d"];
 const espPropias = () => S.especialidades || (S.especialidades = []);
 // Todas las especialidades: las 6 incluidas y las del usuario.
-const ESPS = () => [...SPECS, ...espPropias().map(e => e.nombre)];
-const esBasica = n => SPECS.includes(n);
+const ESPS = () => [...SPECS, ...SPECS_MODULOS, ...espPropias().map(e => e.nombre)];
+const esBasica = n => SPECS.includes(n) || SPECS_MODULOS.includes(n);
 // Si ya existe con otra escritura («neurologia» y «Neurología»), devuelve la que existe.
 const espExistente = n => ESPS().find(x => norm(x) === norm(String(n || "").trim()));
 // Los colores de las propias se suman a los de las básicas.
-function espColores(){ espPropias().forEach(e => { SPEC_COLOR[e.nombre] = e.color; }); }
+// Si el usuario ya había creado una que ahora viene incluida (p. ej. «Urología»), queda solo la incluida: sus
+// casos y fichas siguen ahí porque se guardan con el nombre de la especialidad. Corre al cargar y al importar.
+function espColores(){
+  if (espPropias().some(e => esBasica(e.nombre))) S.especialidades = espPropias().filter(e => !esBasica(e.nombre));
+  espPropias().forEach(e => { SPEC_COLOR[e.nombre] = e.color; });
+}
 espColores();
 
 // Crea una especialidad y devuelve su nombre (o el de la que ya existía). No guarda: guarda quien llama.
@@ -57,7 +62,7 @@ const espCuantos = n => QUESTIONS.filter(q => q.specialty === n).length + HYS.fi
 function renderEspCard(){
   const box = $("#espCard"); if (!box) return;
   const props = espPropias();
-  box.innerHTML = plegable("misesp", `<b>🏷️ Mis especialidades</b> <span class="xs muted">${SPECS.length} básicas${props.length ? ` + ${props.length} tuya${props.length === 1 ? "" : "s"}` : ""}</span>`, `
+  box.innerHTML = plegable("misesp", `<b>🏷️ Mis especialidades</b> <span class="xs muted">${SPECS.length + SPECS_MODULOS.length} incluidas${props.length ? ` + ${props.length} tuya${props.length === 1 ? "" : "s"}` : ""}</span>`, `
     <p class="xs muted" style="margin:6px 0">Para tus fuentes de otras áreas (Neurología, Psiquiatría…). Aparecen en Casos, Fichas, Crear y Progreso. El diagnóstico sigue con las ${SPECS.length} básicas.</p>
     ${props.map(e => `<div class="srcitem"><span class="dot" style="background:${e.color}"></span><div style="flex:1;min-width:0"><b class="small">${esc(e.nombre)}</b><div class="xs muted">${espCuantos(e.nombre)} casos y fichas</div></div>
       <button class="btn ghost sm" data-esren="${esc(e.nombre)}">✏️ Renombrar</button><button class="btn ghost sm" data-esdel="${esc(e.nombre)}" style="color:var(--bad)">Eliminar</button></div>`).join("")}

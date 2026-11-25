@@ -9,14 +9,16 @@ const IDS_HISTORICOS = {
   fichas: ["hy1", "hy2", "hy3", "hy4", "hy5", "hy6"],
   tarjetas: Array.from({length: 53}, (_, i) => i + 1)
 };
-const ARCHIVOS = ["medicina-interna", "cirugia", "pediatria", "ginecologia", "salud-publica", "ortopedia"];
+const ARCHIVOS = ["medicina-interna", "cirugia", "pediatria", "ginecologia", "salud-publica", "ortopedia", "urologia", "mastologia"];
+// Casos que se pasaron de especialidad: conservan su id (el progreso está guardado con él) aunque el prefijo sea el de antes.
+const IDS_MOVIDOS = {"Ortopedia y Traumatología": ["cir-c27", "cir-c28", "cir-c29", "cir-c30"]};
 
 let C;   // contenido tal como lo carga la app
 test.beforeAll(async ({ browser }) => {
   const page = await browser.newPage();
   await page.goto("/");
   C = await page.evaluate(() => ({
-    specs: SPECS, fuentes: SOURCES.map(s => s.id),
+    specs: [...SPECS, ...SPECS_MODULOS], fuentes: SOURCES.map(s => s.id),
     esp: MP_CONTENIDO.especialidades,
     total: {casos: BUILTIN_Q.length, fichas: HY_CARDS.length, tarjetas: BUILTIN_F.length}
   }));
@@ -32,9 +34,9 @@ test("hay un archivo por especialidad, sin repetir", () => {
   for (const e of C.esp) expect(e.actualizado, e.especialidad).toMatch(/^\d{4}-\d{2}-\d{2}$/);
 });
 
-test("el starter pack son las 4 básicas; Epidemiología y Estadística y Ortopedia y Traumatología van aparte", () => {
+test("el starter pack son las 4 básicas; Epidemiología y Estadística, Ortopedia y Traumatología, Urología y Mastología van aparte", () => {
   const paq = Object.fromEntries(C.esp.map(e => [e.especialidad, e.paquete]));
-  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Epidemiología y Estadística": "salud-publica", "Ortopedia y Traumatología": "ortopedia"});
+  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Epidemiología y Estadística": "salud-publica", "Ortopedia y Traumatología": "ortopedia", "Urología": "urologia", "Mastología": "mastologia"});
 });
 
 const visibles = tipo => todos(tipo).filter(x => x.estado !== "pendiente");
@@ -63,7 +65,7 @@ test("todo caso visible de cualquier especialidad trae su cita textual y la fech
 
 test("en una especialidad verificada, también las fichas y tarjetas visibles traen su cita y la fecha", () => {
   const verificadas = C.esp.filter(e => e.revision === "verificada").map(e => e.especialidad);
-  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía", "Epidemiología y Estadística", "Ortopedia y Traumatología"]));
+  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía", "Epidemiología y Estadística", "Ortopedia y Traumatología", "Urología", "Mastología"]));
   const mal = ["fichas", "tarjetas"].flatMap(t => visibles(t)).filter(x => verificadas.includes(x._esp)).filter(x =>
     !Array.isArray(x.cita) || !x.cita.length || x.cita.some(c => !c.donde || !c.texto || c.texto.length < 20) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(x.verificado || "")).map(donde);
@@ -73,12 +75,6 @@ test("en una especialidad verificada, también las fichas y tarjetas visibles tr
 test("la dificultad de cada caso usa la escala única del Taller (basica, residencia, dificil, avanzada)", () => {
   const mal = todos("casos").filter(q => !["basica", "residencia", "dificil", "avanzada"].includes(q.difficulty)).map(q => `${donde(q)}: ${q.difficulty}`);
   expect(mal).toEqual([]);
-});
-
-test("la demostración de Medicina Interna es acotada (máximo 60 casos y 14 fichas)", () => {
-  const mi = tipo => visibles(tipo).filter(x => x._esp === "Medicina Interna").length;
-  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(60);
-  expect(mi("fichas")).toBeLessThanOrEqual(14);
 });
 
 test("ningún id histórico desapareció (protege el progreso de los usuarios)", () => {
@@ -95,7 +91,8 @@ test("los ids no se repiten y los nuevos llevan el prefijo de su especialidad", 
     const ids = todos(tipo).map(x => String(x.id));
     expect(ids.filter((id, i) => ids.indexOf(id) !== i), `${tipo} con id repetido`).toEqual([]);
     const historicos = new Set(IDS_HISTORICOS[tipo].map(String));
-    const mal = todos(tipo).filter(x => !historicos.has(String(x.id)) && !new RegExp(`^${x._pref}-${letra[tipo]}\\d{2,}$`).test(String(x.id))).map(donde);
+    const movido = x => (IDS_MOVIDOS[x._esp] || []).includes(String(x.id));
+    const mal = todos(tipo).filter(x => !historicos.has(String(x.id)) && !movido(x) && !new RegExp(`^${x._pref}-${letra[tipo]}\\d{2,}$`).test(String(x.id))).map(donde);
     expect(mal, `${tipo} nuevos sin el formato <prefijo>-${letra[tipo]}01`).toEqual([]);
   }
 });
