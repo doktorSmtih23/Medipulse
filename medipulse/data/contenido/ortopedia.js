@@ -722,6 +722,186 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23"
+    },
+    {
+      "id": "ort-c25",
+      "topic": "Traumatología · Luxación de rodilla con índice tobillo-brazo bajo",
+      "difficulty": "residencia",
+      "src": "ocna_rodilla25",
+      "vignette": "Hombre de 23 años con luxación de rodilla en un partido de fútbol, ya reducida. Los <span class='hy'>pulsos distales se palpan</span>, pero el <span class='hy'>índice tobillo-brazo es 0,8</span>. ¿Qué sigue?",
+      "options": [
+        "Angiotomografía y cirugía vascular urgente",
+        "Alta con rodillera y control en una semana",
+        "Resonancia de rodilla para planear la cirugía",
+        "Repetir el índice tobillo-brazo en 24 horas"
+      ],
+      "correct": 0,
+      "whyCorrect": "Con índice tobillo-brazo menor de 0,9 se pide angiotomografía y valoración urgente por cirugía vascular. Palpar los pulsos no basta: hasta en 30 % de las lesiones de la arteria poplítea los pulsos están presentes.",
+      "pearl": "El retraso en el diagnóstico vascular es lo que más empeora el pronóstico: las amputaciones aumentan cuando pasan más de 8 horas.",
+      "trap": "Descartar la lesión vascular porque los pulsos se palpan.",
+      "cita": [
+        {
+          "donde": "Acute Management of Traumatic Knee Dislocations, Orthop Clin N Am 2025;56:299-304, Puntos clave",
+          "texto": "Ankle Brachial Indices should be performed on all suspected knee dislocations, and if less than 0.9, advanced imaging in the form of a computed tomography angiogram should be obtained with emergent vascular consultation."
+        },
+        {
+          "donde": "Acute Management of Traumatic Knee Dislocations, Orthop Clin N Am 2025;56:299-304, Pronóstico",
+          "texto": "palpable pulses alone do not rule out arterial injury, as it has been reported that pulses can be present in about 30% of cases with a popliteal artery lesion."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "ort-c26",
+      "topic": "Traumatología · Luxación de rodilla con índice tobillo-brazo normal",
+      "difficulty": "residencia",
+      "src": "ocna_rodilla25",
+      "vignette": "Mujer de 30 años con luxación de rodilla reducida en urgencias. Pulsos simétricos e <span class='hy'>índice tobillo-brazo de 1,0</span>. La radiografía muestra reducción concéntrica. ¿Qué haces?",
+      "options": [
+        "Arteriografía de rutina antes de darle de alta del servicio",
+        "Alta hoy mismo con muletas y rodillera",
+        "Hospitalizar 24 a 48 h con controles vasculares",
+        "Fijador externo inmediato en el quirófano"
+      ],
+      "correct": 2,
+      "whyCorrect": "Con índice mayor de 0,9 y pulsos simétricos no se recomienda la arteriografía de rutina ni la interconsulta vascular. Pero se hospitaliza al menos 24 a 48 horas con controles vasculares seriados: puede aparecer una trombosis por lesión de la íntima o un síndrome compartimental.",
+      "pearl": "Entre 40 y 60 % de las luxaciones de rodilla llegan ya reducidas en la primera radiografía: sospéchala en todo trauma de rodilla con dolor.",
+      "trap": "Dar de alta porque el índice inicial fue normal.",
+      "cita": [
+        {
+          "donde": "Acute Management of Traumatic Knee Dislocations, Orthop Clin N Am 2025;56:299-304, Evaluación vascular",
+          "texto": "if ABI’s are greater than 0.9 and the pulse examination is symmetric, consultation is generally not recommended. In addition, routine use of angiography is not recommended unless these same criteria are met."
+        },
+        {
+          "donde": "Acute Management of Traumatic Knee Dislocations, Orthop Clin N Am 2025;56:299-304, Puntos clave",
+          "texto": "Patients should be monitored for a minimum of 24 to 48 hours with serial examinations to detect delayed vascular injury or compartment syndrome."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "ort-c27",
+      "topic": "Traumatología · Luxación abierta de rodilla",
+      "difficulty": "residencia",
+      "src": "ocna_rodilla25",
+      "vignette": "Hombre de 35 años con <span class='hy'>luxación abierta de rodilla</span> tras un choque de moto, sin lesión vascular. ¿Qué estabilización corresponde después del desbridamiento?",
+      "options": [
+        "Solo rodillera articulada desde el primer día",
+        "Yeso cerrado sobre la herida por 6 semanas",
+        "Reconstrucción de ligamentos en la misma cirugía",
+        "Fijador externo"
+      ],
+      "correct": 3,
+      "whyCorrect": "Las 3 indicaciones de fijador externo en la luxación aguda de rodilla son la luxación abierta (permite manejar y vigilar los tejidos blandos), la lesión vascular y la reducción que no se mantiene con férula o rodillera.",
+      "pearl": "Si hay lesión vascular, el fijador externo se pone antes de revascularizar, coordinando con cirugía vascular.",
+      "trap": "Cerrar la herida con un yeso o reconstruir ligamentos de urgencia.",
+      "cita": [
+        {
+          "donde": "Acute Management of Traumatic Knee Dislocations, Orthop Clin N Am 2025;56:299-304, Puntos clave",
+          "texto": "Indications for external fixator application include inability to maintain reduction, open injury, and vascular injury."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "ort-c28",
+      "topic": "Traumatología · Lesión del nervio peroneo en la luxación de rodilla",
+      "difficulty": "dificil",
+      "src": "ocna_rodilla25",
+      "vignette": "Hombre de 27 años con luxación de rodilla con lesión de la esquina posterolateral. Al examen tiene <span class='hy'>pie caído</span>. La herida es cerrada y no hay sospecha de sección del nervio. ¿Qué haces con el nervio?",
+      "options": [
+        "Explorar el nervio de urgencia en la misma cirugía",
+        "No explorarlo ahora; órtesis tobillo-pie",
+        "Neurorrafia en las primeras 6 horas",
+        "Electromiografía urgente antes de reducir"
+      ],
+      "correct": 1,
+      "whyCorrect": "El nervio peroneo común es el que más se lesiona (16 a 40 %), sobre todo si hay lesión posterolateral, y solo se recupera en 20 a 50 %. Sin herida abierta ni sección evidente reparable, no se explora de inmediato: se maneja con órtesis tobillo-pie o transferencia tendinosa.",
+      "pearl": "También puede lesionarse el nervio tibial: el examen neurológico inicial debe ser completo.",
+      "trap": "Explorar de urgencia todo nervio lesionado en una luxación cerrada.",
+      "cita": [
+        {
+          "donde": "Acute Management of Traumatic Knee Dislocations, Orthop Clin N Am 2025;56:299-304, Pronóstico y complicaciones",
+          "texto": "Unless there is an open traumatic wound or obvious repairable transection, immediate nerve exploration is not indicated. In most cases, patients are either managed with an ankle foot orthosis or tendon transfer surgery."
+        },
+        {
+          "donde": "Acute Management of Traumatic Knee Dislocations, Orthop Clin N Am 2025;56:299-304, Pronóstico y complicaciones",
+          "texto": "In addition to vascular injury, nerve injuries are quite common, with common peroneal nerve injury rates ranging from 16% to 40%."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "ort-c29",
+      "topic": "Traumatología · Prevención secundaria tras fractura de cadera",
+      "difficulty": "basica",
+      "src": "jama_cadera26",
+      "vignette": "Mujer de 78 años operada por <span class='hy'>fractura de cadera</span> tras una caída en casa. Antes del alta, ¿qué debe incluir el plan para evitar otra fractura?",
+      "options": [
+        "Solo calcio y vitamina D, sin otro fármaco",
+        "Esperar la densitometría a los 2 años para decidir",
+        "Antirresortivo, fisioterapia y prevenir caídas",
+        "Reposo prolongado en cama para proteger la cadera"
+      ],
+      "correct": 2,
+      "whyCorrect": "Tras una fractura de cadera se indica fisioterapia, estrategias contra las caídas (ejercicios de fuerza, retirar fármacos que las favorecen, como antidepresivos) y un antirresortivo: bifosfonato (alendronato, ácido zoledrónico) o denosumab.",
+      "pearl": "La mortalidad al año de una fractura de cadera es de 22 % (mediana).",
+      "trap": "Dar de alta solo con calcio y vitamina D.",
+      "cita": [
+        {
+          "donde": "Hip Fractures: A Review, JAMA 2026, Resumen",
+          "texto": "Patients with hip fracture benefit from physical therapy and fall reduction strategies, such as muscle-strengthening exercises and modifying medications associated with increased fall risk, such as antidepressants, and should be treated with antiresorptive medications, such as bisphosphonates (alendronate, zoledronic acid) or denosumab to prevent subsequent fracture."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "ort-c30",
+      "topic": "Traumatología · Clasificación de la fractura de cadera",
+      "difficulty": "basica",
+      "src": "jama_cadera26",
+      "vignette": "Hombre de 82 años con fractura de cadera tras una caída. ¿Cuál de estas fracturas es <span class='hy'>extracapsular</span> y además la más frecuente?",
+      "options": [
+        "Intertrocantérica",
+        "Del cuello femoral",
+        "De la cabeza femoral",
+        "Subcapital desplazada"
+      ],
+      "correct": 0,
+      "whyCorrect": "Las intracapsulares son las del cuello femoral (34 %) y las de la cabeza (raras). Las extracapsulares son las intertrocantéricas (48 %, la más frecuente) y las subtrocantéricas (5,8 %).",
+      "pearl": "La edad es el gran factor de riesgo: el riesgo sube 35 % por cada 5 años.",
+      "trap": "Clasificar la fractura del cuello femoral como extracapsular.",
+      "cita": [
+        {
+          "donde": "Hip Fractures: A Review, JAMA 2026, Resumen",
+          "texto": "Intracapsular hip fractures include femoral neck (34%) and femoral head (rare). Extracapsular fractures consist of intertrochanteric (48%) and subtrochanteric fractures (5.8%)."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "ort-c31",
+      "topic": "Traumatología · Pronóstico de la fractura de cadera",
+      "difficulty": "residencia",
+      "src": "jama_cadera26",
+      "vignette": "La hija de una paciente de 80 años operada por fractura de cadera pregunta qué esperar en el primer año. ¿Qué le dices, según los datos?",
+      "options": [
+        "Casi todos vuelven a su estado previo al mes",
+        "La mortalidad al año es menor de 5 %",
+        "Ninguno recupera la marcha sin ayuda",
+        "Al año fallece cerca de 1 de cada 5"
+      ],
+      "correct": 3,
+      "whyCorrect": "La mediana de mortalidad al año es de 22 %, y solo 42 a 71 % recupera su nivel previo de actividades básicas de la vida diaria a los 6 meses.",
+      "pearl": "En Estados Unidos (2008 a 2017), la mortalidad al año fue de 26,9 % en hombres y 18,5 % en mujeres.",
+      "trap": "Subestimar la mortalidad de la fractura de cadera.",
+      "cita": [
+        {
+          "donde": "Hip Fractures: A Review, JAMA 2026, Resumen",
+          "texto": "The median 1-year mortality rate after a hip fracture is 22% and approximately 42% to 71% of patients regain their prefracture level of basic activities of daily living within 6 months."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [
