@@ -100,6 +100,8 @@ const SOURCES = [
   {id:"acog_cort",t:"ACOG Committee Opinion No. 713: Antenatal Corticosteroid Therapy for Fetal Maturation", r:"Obstetrics & Gynecology, 2017 · con actualización focalizada", y:2017, k:"guideline", v:"Sigue vigente con actualizaciones focalizadas"},
   {id:"williams", t:"Williams Obstetricia, 27ª edición", r:"McGraw-Hill", y:2025, k:"book"},
   {id:"nrdp_litiasis26", t:"Kidney stones (Primer)", r:"Nature Reviews Disease Primers, 2026;12:74", y:2026, k:"article"},
+  {id:"nrdp_hernia25", t:"Groin hernia (Primer)", r:"Nature Reviews Disease Primers, 2025;11:47", y:2025, k:"article"},
+  {id:"suc_divert24", t:"Current Management of Diverticulitis (Domas E, Starks K, Kanneganti S)", r:"Surgical Clinics of North America, 2024;104:529-543", y:2024, k:"article"},
   {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));

@@ -863,6 +863,186 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-22"
+    },
+    {
+      "id": "cir-c31",
+      "topic": "Pared abdominal · Hernia inguinal en la mujer",
+      "difficulty": "residencia",
+      "src": "nrdp_hernia25",
+      "vignette": "Mujer de 47 años, sana, con una <span class='hy'>hernia inguinal derecha asintomática</span> que encontró al bañarse. Se reduce fácil. Pregunta si puede esperar sin operarse. ¿Qué le recomiendas?",
+      "options": [
+        "Espera vigilante con control anual en consulta",
+        "Reparación quirúrgica programada",
+        "Faja inguinal y control solo si aparece dolor",
+        "Ecografía cada 6 meses para medir el defecto"
+      ],
+      "correct": 1,
+      "whyCorrect": "La espera vigilante es segura en hombres sanos y asintomáticos, pero no está validada ni se recomienda en mujeres: en ellas la incarceración y la estrangulación son más frecuentes.",
+      "pearl": "En la mujer piensa también en hernia femoral: es más frecuente en ellas y es la que más se estrangula.",
+      "trap": "Extender a la mujer la espera vigilante que se acepta en el hombre asintomático.",
+      "cita": [
+        {
+          "donde": "Groin hernia, Nature Reviews Disease Primers 2025;11:47, Manejo",
+          "texto": "While watchful waiting has been found to be safe in otherwise healthy and asymptomatic male patients, it is not a validated or recommended option in female patients due to a higher rate of incarceration and strangulation."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c32",
+      "topic": "Pared abdominal · Espera vigilante en la hernia inguinal",
+      "difficulty": "residencia",
+      "src": "nrdp_hernia25",
+      "vignette": "Hombre de 63 años, sano, con una <span class='hy'>hernia inguinal izquierda pequeña, sin síntomas</span>, reductible. No quiere operarse por ahora. ¿Qué le explicas?",
+      "options": [
+        "Debe operarse ya: el riesgo de estrangulación es alto",
+        "La espera es segura, pero la mayoría termina operándose",
+        "Solo se opera si la hernia mide más de 5 cm",
+        "La espera vigilante solo se permite en menores de 50 años"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el hombre sano y asintomático la espera vigilante es segura: el riesgo de complicaciones que obliguen a cirugía urgente es bajo. Pero un tercio se opera a los 3 años y dos tercios a los 10, sobre todo porque aparece dolor.",
+      "pearl": "Cirugía urgente frente a programada: la mortalidad a 30 días va de 0 a 11,8 % frente a 0 a 1,7 %.",
+      "trap": "Decir que toda hernia asintomática debe operarse ya por riesgo de estrangulación.",
+      "cita": [
+        {
+          "donde": "Groin hernia, Nature Reviews Disease Primers 2025;11:47, Manejo",
+          "texto": "Watchful waiting was associated with a low risk of progression to symptomatic hernia or complications requiring emergency surgery for incarceration or strangulation. However, one-third of the patients crossed over to surgery after 3 years and two-thirds after 10 years, mainly owing to pain progression."
+        },
+        {
+          "donde": "Groin hernia, Nature Reviews Disease Primers 2025;11:47, Mortalidad",
+          "texto": "A systematic review indicates that emergency hernia repairs have a 30-day mortality rate of 0–11.8%, compared with 0–1.7% for elective repairs, representing a 26-fold increase."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c33",
+      "topic": "Pared abdominal · Técnica de reparación abierta",
+      "difficulty": "basica",
+      "src": "nrdp_hernia25",
+      "vignette": "Hombre de 55 años con <span class='hy'>hernia inguinal sintomática</span> que se operará por vía abierta, con anestesia local. ¿Cuál es la técnica abierta de referencia?",
+      "options": [
+        "Lichtenstein, con malla y sin tensión",
+        "Bassini, con sutura de los tejidos",
+        "Shouldice, reparación en varios planos",
+        "McVay, al ligamento de Cooper"
+      ],
+      "correct": 0,
+      "whyCorrect": "La técnica de Lichtenstein (malla sin tensión) es la técnica abierta mejor evaluada y la preferida: buenos resultados, curva de aprendizaje corta y se puede hacer con anestesia local. Es el patrón con el que se comparan las demás.",
+      "pearl": "Las reparaciones sin malla (con tejido propio) se prefieren en niños, adolescentes y en quien tuvo complicaciones por una malla.",
+      "trap": "Elegir una reparación con tejido en un adulto sin contraindicación para la malla.",
+      "cita": [
+        {
+          "donde": "Groin hernia, Nature Reviews Disease Primers 2025;11:47, Manejo",
+          "texto": "The Lichtenstein technique, popularized by Irving Lichtenstein in the 1980s and refined by Dr Parviz Amid, is the best evaluated and most utilized open mesh-based technique and is the preferred open approach for inguinal hernia repair owing to its favourable outcomes, short learning curve and ability to be performed under local anaesthesia."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c34",
+      "topic": "Cirugía pediátrica · Hernia inguinal del prematuro",
+      "difficulty": "residencia",
+      "src": "nrdp_hernia25",
+      "vignette": "Lactante de 2 meses, nacido a las <span class='hy'>32 semanas</span>, con una <span class='hy'>hernia inguinal derecha</span> que se reduce sola. Está asintomático. ¿Qué le dices a la mamá?",
+      "options": [
+        "Esperar: casi todas cierran solas antes del año",
+        "Usar un braguero hasta que cumpla los 2 años",
+        "Programar la reparación quirúrgica",
+        "Operar solo si llega a incarcerarse"
+      ],
+      "correct": 2,
+      "whyCorrect": "En niños la hernia inguinal se incarcera en 7 % de los casos y en 11 % de los prematuros: casi siempre requiere reparación quirúrgica.",
+      "pearl": "En niños y adolescentes se prefiere la reparación con tejido propio, sin malla.",
+      "trap": "Esperar a que cierre sola u operar solo si se incarcera.",
+      "cita": [
+        {
+          "donde": "Groin hernia, Nature Reviews Disease Primers 2025;11:47, Epidemiología",
+          "texto": "The risk of incarceration is 7% in all paediatric cases, with 11% in preterm children, necessitating surgical repair in nearly all instances."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c35",
+      "topic": "Pared abdominal · Diagnóstico de la hernia inguinal",
+      "difficulty": "basica",
+      "src": "nrdp_hernia25",
+      "vignette": "Hombre de 40 años con un <span class='hy'>abultamiento inguinal reductible que aumenta al toser</span>; al examen la hernia es evidente. ¿Qué estudio pides antes de remitirlo a cirugía?",
+      "options": [
+        "Ecografía inguinal para confirmar el diagnóstico",
+        "Tomografía de abdomen y pelvis con contraste",
+        "Resonancia magnética de la región inguinal",
+        "Ninguno: el diagnóstico es clínico"
+      ],
+      "correct": 3,
+      "whyCorrect": "El examen físico es la base del diagnóstico. Las imágenes se reservan para cuando la clínica no es clara: hernia oculta o masa atípica. Casi la mitad de los pacientes con hernia evidente recibe una ecografía innecesaria.",
+      "pearl": "Si hay síntomas pero no se palpa la masa (obesidad, mujer con posible hernia femoral), sí se pide ecografía dinámica o tomografía.",
+      "trap": "Pedir ecografía de rutina a una hernia clínicamente evidente.",
+      "cita": [
+        {
+          "donde": "Groin hernia, Nature Reviews Disease Primers 2025;11:47, Diagnóstico",
+          "texto": "In 2021, an Australian study revealed that nearly half of the patients referred to a surgeon with clinically apparent inguinal hernias also underwent unnecessary groin ultrasounds. Imaging should be reserved for cases where the clinical presentation is unclear and the surgeon is uncertain of the diagnosis."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c36",
+      "topic": "Colon · Diverticulitis perforada con peritonitis purulenta",
+      "difficulty": "dificil",
+      "src": "suc_divert24",
+      "vignette": "Hombre de 59 años con diverticulitis sigmoidea y <span class='hy'>peritonitis purulenta generalizada (Hinchey III)</span>. Está <span class='hy'>hemodinámicamente estable</span> tras la reanimación. ¿Qué cirugía es la más adecuada?",
+      "options": [
+        "Lavado peritoneal laparoscópico sin resección",
+        "Sigmoidectomía con anastomosis primaria",
+        "Colostomía en asa, sin resecar el sigmoides",
+        "Drenaje percutáneo y antibiótico sin cirugía"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el paciente sin compromiso hemodinámico por la sepsis, la evidencia reciente apoya la resección con anastomosis primaria, con o sin ileostomía de protección, en lugar del Hartmann. El lavado laparoscópico no se recomienda en la peritonitis purulenta o fecaloidea.",
+      "pearl": "Las dos opciones de resección son con anastomosis primaria (con o sin ileostomía) o sin anastomosis (Hartmann); la anastomosis se apoya cuando la sepsis no compromete la hemodinamia.",
+      "trap": "Hacer lavado laparoscópico: en el ensayo LOLA tuvo más eventos adversos y se detuvo antes de tiempo.",
+      "cita": [
+        {
+          "donde": "Current Management of Diverticulitis, Surg Clin N Am 2024;104:529-543, Manejo quirúrgico",
+          "texto": "Recent data have supported primary anastomosis with or without proximal diversion in patients who are not hemodynamically compromised by sepsis."
+        },
+        {
+          "donde": "Current Management of Diverticulitis, Surg Clin N Am 2024;104:529-543, Lavado laparoscópico",
+          "texto": "Laparoscopic lavage is not recommended in cases of feculent or purulent peritonitis."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c37",
+      "topic": "Colon · Colonoscopia después de la diverticulitis complicada",
+      "difficulty": "residencia",
+      "src": "suc_divert24",
+      "vignette": "Mujer de 62 años que se recupera de una <span class='hy'>diverticulitis complicada con absceso</span>, tratada con drenaje percutáneo y antibiótico. Nunca se ha hecho colonoscopia. ¿Qué sigue?",
+      "options": [
+        "Colonoscopia a las 6 semanas",
+        "Colonoscopia solo si hay sangrado rectal",
+        "Tomografía de control cada año por 5 años",
+        "Colectomía urgente antes del alta"
+      ],
+      "correct": 0,
+      "whyCorrect": "Tras una diverticulitis complicada se hace colonoscopia a las 6 semanas para descartar un cáncer que acompañe al cuadro: el riesgo es de 11 % frente a 0,7 % en la no complicada. Se omite si tuvo una colonoscopia de buena calidad en el último año.",
+      "pearl": "Los abscesos pequeños (menos de 5 cm) que responden a drenaje y antibiótico no siempre requieren colectomía de intervalo.",
+      "trap": "Omitir la colonoscopia porque el cuadro ya se resolvió.",
+      "cita": [
+        {
+          "donde": "Current Management of Diverticulitis, Surg Clin N Am 2024;104:529-543, Evaluación tras la recuperación",
+          "texto": "After recovery from an episode of acute complicated diverticulitis, patients should be evaluated endoscopically with a colonoscopy at 6 weeks after the initial episode to evaluate for concomitant malignancy."
+        },
+        {
+          "donde": "Current Management of Diverticulitis, Surg Clin N Am 2024;104:529-543, Evaluación tras la recuperación",
+          "texto": "Meta-analyses performed showed that the risk of concomitant malignancy in patients with complicated diverticulitis was 11% (vs 0.7% in patients with uncomplicated disease)."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [
