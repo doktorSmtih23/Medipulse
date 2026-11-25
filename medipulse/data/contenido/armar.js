@@ -7,7 +7,7 @@ const mpVisible = x => x.estado !== "pendiente";
 MP_CONTENIDO.especialidades.forEach(e => {
   const specialty = e.especialidad;
   (e.casos || []).filter(mpVisible).forEach(q => BUILTIN_Q.push(Object.assign({specialty}, q)));
-  (e.fichas || []).filter(mpVisible).forEach(h => HY_CARDS.push(Object.assign({specialty, accent: SPEC_COLOR[specialty]}, h)));
+  (e.fichas || []).filter(mpVisible).forEach(h => HY_CARDS.push(Object.assign({specialty}, h)));
   (e.tarjetas || []).filter(mpVisible).forEach(c => BUILTIN_F.push(Object.assign({specialty}, c)));
 });
 let QUESTIONS = BUILTIN_Q;

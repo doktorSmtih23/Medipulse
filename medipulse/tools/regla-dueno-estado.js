@@ -11,7 +11,7 @@ const DUENOS = {
   sources: "fuentes",
   focus: "perfil",
   sims: "sesion", hints: "sesion",
-  theme: "ui",
+  theme: "ui", palette: "ui",
   check: "vigencia",
   notes: "mbe",
   reports: "reportes",

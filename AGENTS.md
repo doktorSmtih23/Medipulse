@@ -54,17 +54,17 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | Archivo | Qué contiene |
 |---|---|
 | `index.html` | Solo la estructura de las pantallas (vistas `v-*`) y la barra inferior |
-| `css/app.css` | Todos los estilos. Colores como variables (`--bg`, `--accent`…) con tema claro y oscuro |
+| `css/app.css` | Todos los estilos. Colores como variables (`--bg`, `--accent`, `--on-accent` para texto sobre el acento, `--pulse`, `--go`…) para 4 combinaciones (`data-pal`: bosque, petroleo, marino, turquesa) en claro y oscuro (`data-theme`; sin él, sigue al teléfono). Nunca un color fijo: siempre la variable |
 | `data/servidor.js` | Dirección y clave pública (publishable) del servidor de la beta. Solo se activa en https fuera de `localhost`: en el computador y en las pruebas se entra sin correo. Nunca la clave secreta |
-| `data/especialidades.js` | `SPECS` y `SPEC_COLOR` |
+| `data/especialidades.js` | `SPECS`, `SPEC_PALETAS` (colores de cada especialidad por combinación) y `SPEC_COLOR` (los vigentes; lo actualiza `applyTheme`) |
 | `data/fuentes.js` | Referencias (`SOURCES`), vigencia y a qué caso corresponde cada una |
 | `data/contenido/registro.js` | Registro `MP_CONTENIDO` (se carga antes que las especialidades) |
 | `data/contenido/<especialidad>.js` | **Contenido incluido de cada especialidad** (casos, fichas HY y tarjetas): `medicina-interna`, `cirugia`, `pediatria`, `ginecologia` (paquete `starter`, las 4 básicas), `salud-publica` y `ortopedia` (módulos aparte). Una especialidad nueva entra en `SPECS` (data/especialidades.js), su archivo en index.html y sw.js, y suma 10 casos al diagnóstico. Una urgencia va en la especialidad del paciente |
 | `data/contenido/armar.js` | Junta todo en `BUILTIN_Q`, `HY_CARDS` y `BUILTIN_F` (va después de las especialidades) |
-| `js/estado.js` | Estado `S` (localStorage, clave `medipulse_v2`), repaso espaciado (`grade`, cajas Leitner), selección de ítems |
+| `js/estado.js` | Estado `S` (localStorage, clave `medipulse_v2`), repaso espaciado (`grade`, cajas Leitner), selección de ítems; `contarCaso(spec, ok)` es la única forma de sumar un caso respondido al registro del día (total y por especialidad) |
 | `js/especialidades.js` | 🏷️ Mis especialidades (dueño de `S.especialidades`): además de las 5 básicas (`SPECS`), las que crea el usuario para sus fuentes. `ESPS()` da todas; tarjeta en Fuentes para crear, renombrar y eliminar (sus ítems pasan a otra); opción «➕ Nueva especialidad…» en los selectores (`ESP_NUEVA_OPT`); en la revisión de lo generado, ofrece crear el área que no existe (`espSugeridasHTML`) |
-| `js/ui.js` | Utilidades de interfaz (`$`, `esc`, `toast`, navegación `go`) y `plegable()`: las listas van plegadas y recuerdan si el usuario las abrió (`PLEG`) |
-| `js/hoy.js` | Pantalla Hoy, modos por energía |
+| `js/ui.js` | Utilidades de interfaz (`$`, `esc`, `toast`, navegación `go`), Apariencia (🌓: combinación de colores `S.palette` y modo `S.theme`, se guarda en el dispositivo) y `plegable()`: las listas van plegadas y recuerdan si el usuario las abrió (`PLEG`) |
+| `js/hoy.js` | Pantalla Hoy: pulso hacia la meta diaria, «Seguir» (siguiente paso y por qué), recuadro que cambia cada día (perla, pregunta relámpago, tu semana, reto de 3 minutos), «Tu examen completo» (áreas de la más baja a la más alta, flechas 7 días contra 7 anteriores con `S.log[día].esp`; más de 6 → «Ver las N», más de 12 → barra en 3 grupos) y modos por energía |
 | `js/sesion.js` | Motor de sesión: casos, tarjetas, simulacro, resumen, atajos |
 | `js/banco.js` | Banco de casos: «Arma tu práctica» (varias especialidades, 1 a 100 casos, al azar / mis vulnerabilidades / con filtros, modo examen) y «Explorar el banco» (búsqueda, tipo, estado, lista sin tema ni fuente) |
 | `js/vulnerabilidades.js` | Registro de respuestas (`S.resp`, con el motivo del fallo que marca el usuario), rendimiento por tipo × especialidad, casos que se fallan una y otra vez, patrón de error auditoría a ciegas del modo examen (`CONFIANZA`, `marcarConfianza`: un acierto sin certeza vuelve mañana al repaso; nota real, aciertos frágiles y errores con seguridad) y elección de casos por vulnerabilidad (`elegirVulnerables`) o al azar balanceado (`elegirAlAzar`). Todo se calcula en el dispositivo |

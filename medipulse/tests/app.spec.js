@@ -134,11 +134,30 @@ test("ninguna pantalla se desborda a 360 px", async ({ page }) => {
   expect(anchas).toEqual([]);
 });
 
-test("tema oscuro aplica sus colores", async ({ page }) => {
+test("Apariencia: 4 combinaciones de color y modo claro, oscuro o automático; se guarda y cambia los colores de las especialidades", async ({ page }) => {
+  const fondo = () => page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  expect(await page.evaluate(() => document.documentElement.dataset.pal)).toBe("bosque");
   await page.click("#themeBtn");
-  const fondo = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  await page.click("#themeBtn");
-  expect(fondo).not.toBe(await page.evaluate(() => getComputedStyle(document.body).backgroundColor));
+  await expect(page.locator("#apariencia")).toBeVisible();
+  await expect(page.locator("#apariencia .pal")).toHaveCount(4);
+  await page.click('#apariencia [data-modo="light"]');
+  const claro = await fondo();
+  await page.click('#apariencia [data-modo="dark"]');
+  const oscuro = await fondo();
+  expect(oscuro).not.toBe(claro);
+  expect(await page.evaluate(() => S.theme)).toBe("dark");
+  await page.click('#apariencia [data-pal="turquesa"]');
+  expect(await fondo()).toBe("rgb(11, 18, 32)");               // turquesa oscuro: los colores de antes
+  expect(await page.evaluate(() => [S.palette, SPEC_COLOR["Cirugía"]])).toEqual(["turquesa", "#7c3aed"]);
+  await page.click('#apariencia [data-pal="petroleo"]');
+  expect(await page.evaluate(() => SPEC_COLOR["Cirugía"])).toBe("#e36414");
+  await page.click('#apariencia [data-modo="auto"]');
+  expect(await page.evaluate(() => S.theme)).toBe(null);
+  await page.click('#apariencia button[value="cerrar"]');
+  await expect(page.locator("#apariencia")).toBeHidden();
+  // Se guarda en el dispositivo.
+  await page.reload();
+  expect(await page.evaluate(() => [document.documentElement.dataset.pal, S.palette])).toEqual(["petroleo", "petroleo"]);
 });
 
 test("lo creado con la antigua especialidad Urgencias pasa a Medicina Interna", async ({ page }) => {
@@ -188,11 +207,13 @@ test("Hoy sin respuestas no inventa un «punto débil»: propone el diagnóstico
 });
 
 test.describe("Hoy rediseñado", () => {
-  test("perla del día arriba y ordenada en viñetas; «Ponerla a prueba» abre su caso; Hoy con anillo y meta que elige el usuario", async ({ page }) => {
+  test("perla del día ordenada en viñetas; «Ponerla a prueba» abre su caso; Hoy con pulso, «Seguir» y meta que elige el usuario", async ({ page }) => {
     await page.goto("/");
-    // La perla va antes que todo lo demás de Hoy.
-    const orden = await page.evaluate(() => [...document.querySelectorAll("#v-hoy .stack > *")].map(e => e.id || e.className).slice(0, 4));
-    expect(orden.indexOf("pearlCard")).toBeLessThan(orden.indexOf("todayCard"));
+    // Arriba el pulso de hoy, luego el siguiente paso y el recuadro que cambia (con la perla).
+    const orden = await page.evaluate(() => [...document.querySelectorAll("#v-hoy .stack > *")].map(e => e.id));
+    expect(orden.indexOf("todayCard")).toBeLessThan(orden.indexOf("suggestCard"));
+    expect(orden.indexOf("suggestCard")).toBeLessThan(orden.indexOf("rotaBox"));
+    await expect(page.locator("#rotaBox #pearlCard")).toHaveCount(1);
     const r = await page.evaluate(() => [
       perlaHTML("UKKA: 1) proteger el corazón (calcio IV); 2) meter K+ a la célula (insulina 10 U; salbutamol nebulizado); 3) sacar K+ del cuerpo. El resonio ya no se usa de rutina."),
       perlaHTML("NICE: antibiótico por 5 días. Gravedad moderada: amoxicilina."),
@@ -201,11 +222,12 @@ test.describe("Hoy rediseñado", () => {
     expect(r[0]).toContain("El resonio ya no se usa de rutina");
     expect(r[1]).toContain("<b>Gravedad moderada:</b> amoxicilina");
     expect(r[2]).toBe("<p>En NAC por influenza no se sugieren corticosteroides.</p>");
-    await expect(page.locator("#todayCard .anillo")).toContainText("de 25 min");
+    await expect(page.locator("#todayCard .pulso-min")).toContainText("de 25 min");
+    await expect(page.locator("#todayCard .pulso-pie")).toContainText("faltan 25 min");
     await page.selectOption("#metaMin", "45");
-    await expect(page.locator("#todayCard .anillo")).toContainText("de 45 min");
+    await expect(page.locator("#todayCard .pulso-min")).toContainText("de 45 min");
     expect(await page.evaluate(() => S.metaMin)).toBe(45);
-    await expect(page.locator("#todayCard .racha7 .d")).toHaveCount(7);
+    await expect(page.locator("#semCard .racha7 .d")).toHaveCount(7);
     await expect(page.locator("#suggestCard")).toContainText("Tu siguiente paso");
     await expect(page.locator("#pearlCard")).not.toContainText("Guardar como ficha");   // sale de un caso: se gestiona con el caso
     await page.click("#perlaCaso");

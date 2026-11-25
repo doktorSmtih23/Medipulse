@@ -7,7 +7,7 @@ const BOX_DAYS = [0, 1, 3, 7, 16, 35];
 // En algunos visores (por ejemplo, la vista previa de un solo archivo) el navegador bloquea el
 // almacenamiento. La app funciona igual, en memoria, y avisa que nada se guarda al cerrar.
 const CAN_STORE = (()=>{ try { localStorage.setItem("medipulse_t", "1"); localStorage.removeItem("medipulse_t"); return true; } catch(e) { return false; } })();
-const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, userQ:[], userC:[], sources:[], seq:0, check:{}, over:{}, hidden:{}, notes:[], reports:[], exam:"", focus:"mixto", hints:false, tpls:[], userH:[], apuntes:[], resp:[], prac:{specs:[], modo:"azar", n:20, examen:false}, estudio:{cfg:{ritmo:"25/5"}, ses:[], informes:[], actual:null}, metaPdf:null, perlas:{vista:{}, sabe:{}, hoy:null}, especialidades:[]});
+const BLANK = () => ({srs:{}, log:{}, sims:[], theme:null, palette:"bosque", userQ:[], userC:[], sources:[], seq:0, check:{}, over:{}, hidden:{}, notes:[], reports:[], exam:"", focus:"mixto", hints:false, tpls:[], userH:[], apuntes:[], resp:[], prac:{specs:[], modo:"azar", n:20, examen:false}, estudio:{cfg:{ritmo:"25/5"}, ses:[], informes:[], actual:null}, metaPdf:null, perlas:{vista:{}, sabe:{}, hoy:null}, especialidades:[]});
 let S = BLANK();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
 // "Urgencias" dejó de ser un área aparte (una urgencia va en la especialidad del paciente):
@@ -41,6 +41,12 @@ function save(){
 
 const todayKey = (d=new Date()) => new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
 function logToday(){ const k = todayKey(); return S.log[k] || (S.log[k] = {sec:0,q:0,ok:0,c:0}); }
+// Cuenta un caso respondido en el registro de hoy: el total y por especialidad ([respondidos, acertados]),
+// para las flechas de «Tu examen completo» en Hoy (últimos 7 días contra los 7 anteriores).
+function contarCaso(spec, ok){
+  const l = logToday(); l.q++; if (ok) l.ok++;
+  const e = l.esp || (l.esp = {}), x = e[spec] || (e[spec] = [0, 0]); x[0]++; if (ok) x[1]++;
+}
 
 // ---------- Lo que guarda el usuario: sus ítems, su repaso y lo archivado ----------
 // Este archivo es el único que escribe en S.userQ, S.userC, S.userH, S.seq, S.srs, S.hidden y S.over.
