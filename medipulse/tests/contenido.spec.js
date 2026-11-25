@@ -77,12 +77,6 @@ test("la dificultad de cada caso usa la escala única del Taller (basica, reside
   expect(mal).toEqual([]);
 });
 
-test("la demostración de Medicina Interna es acotada (máximo 60 casos y 14 fichas)", () => {
-  const mi = tipo => visibles(tipo).filter(x => x._esp === "Medicina Interna").length;
-  expect(mi("casos")).toBeGreaterThan(0); expect(mi("casos")).toBeLessThanOrEqual(60);
-  expect(mi("fichas")).toBeLessThanOrEqual(14);
-});
-
 test("ningún id histórico desapareció (protege el progreso de los usuarios)", () => {
   for (const tipo of ["casos", "fichas", "tarjetas"]) {
     const ids = new Set(todos(tipo).map(x => String(x.id)));

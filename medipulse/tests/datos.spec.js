@@ -94,3 +94,12 @@ test("las imágenes de fichas y preguntas viajan en la copia y se restauran al c
   await expect.poll(() => page.evaluate(async k => { imgMem.clear(); return await imgGet(k); }, key)).toBe(IMG);
   expect(await page.evaluate(() => "_imagenes" in S)).toBe(false);
 });
+
+test("si el progreso guardado pasa de 3,5 MB, Hoy avisa antes de que el navegador se llene", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#dataWarn")).not.toContainText("ya ocupa");
+  await page.evaluate(() => { S.notes.push({id: "relleno", texto: "x".repeat(1.8e6)}); save(); });
+  await expect(page.locator("#dataWarn")).toContainText("Tu progreso ya ocupa 3,6 MB");
+  await page.evaluate(() => { S.notes = S.notes.filter(n => n.id !== "relleno"); save(); });
+  await expect(page.locator("#dataWarn")).not.toContainText("ya ocupa");
+});

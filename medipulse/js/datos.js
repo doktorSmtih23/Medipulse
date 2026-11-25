@@ -63,6 +63,8 @@ function renderDataWarn(){
   let html = "";
   if (SAVE_FAILED) html = `<div class="note trap" role="alert"><b>No se pudo guardar tu progreso.</b> El almacenamiento del navegador está lleno o bloqueado. Descarga tu copia ahora para no perder lo que has hecho.
     <div class="row" style="margin-top:8px"><button class="btn sm primary" data-dw="exp">⬇ Descargar copia</button></div></div>`;
+  else if (ESPACIO_USADO > ESPACIO_AVISO) html = `<div class="note trap" role="alert"><b>Tu progreso ya ocupa ${(ESPACIO_USADO / 1e6).toFixed(1).replace(".", ",")} MB de unos 5 MB que da el navegador.</b> Descarga tu copia ahora: si se llena, lo nuevo deja de guardarse. Archivar casos y fichas propios que ya no uses libera espacio.
+    <div class="row" style="margin-top:8px"><button class="btn sm primary" data-dw="exp">⬇ Descargar copia</button></div></div>`;
   else if (CAN_STORE && isIOS() && !isInstalled() && !S.iosWarnOk) html = `<div class="note pearl"><b>En iPhone, agrega MediPulse a la pantalla de inicio.</b> Safari puede borrar los datos de un sitio que no abres en 7 días. Toca Compartir → «Agregar a pantalla de inicio» y abre la app desde ahí.
     <div class="row" style="margin-top:8px"><button class="btn sm primary" data-go="instalar">📲 Ver cómo</button><button class="btn sm ghost" data-dw="ios">Entendido</button></div></div>`;
   else if (CAN_STORE && /Android/i.test(navigator.userAgent) && !isInstalled() && !S.iosWarnOk) html = `<div class="note"><b>Instala MediPulse en tu celular</b>: se abre a pantalla completa y funciona sin internet.
