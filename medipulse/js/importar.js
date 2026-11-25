@@ -18,7 +18,7 @@ C) ...
 D) ...
 (E) ..., solo si el examen usa 5 opciones)
 Respuesta correcta: [letra]
-Especialidad: [Medicina Interna | Pediatría | Ginecología | Cirugía | Epidemiología y Estadística]
+Especialidad: [Medicina Interna | Pediatría | Ginecología | Cirugía | Epidemiología y Estadística | Ortopedia y Traumatología]
 Tipo: [Conducta | Diagnóstico | Lectura crítica | Datos duros]
 Tema: [tema en pocas palabras]
 Análisis de las opciones:

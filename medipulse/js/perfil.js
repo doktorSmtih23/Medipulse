@@ -132,7 +132,7 @@ function startDiag(){
   const st = specStats();
   const specs = shuffle(SPECS).sort((a,b)=>st[a].seen/st[a].total - st[b].seen/st[b].total).slice(0,5);
   const items = specs.flatMap(s=>pickQuestions(1, {spec:s}));
-  startSession({label:"Diagnóstico", tag:"norm", diag:true, stages:[{name:"Diagnóstico rápido · 5 áreas", items}]});
+  startSession({label:"Diagnóstico", tag:"norm", diag:true, stages:[{name:`Diagnóstico rápido · ${SPECS.length} áreas`, items}]});
 }
 function diagSummary(results){
   const rows = results.map(r=>{ const q = qById(r.id); return q ? {spec:q.specialty, ok:r.ok} : null; }).filter(Boolean);

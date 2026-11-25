@@ -262,8 +262,8 @@ test("«Salud Pública» pasó a «Epidemiología y Estadística», también en 
     d.userQ = [{id: "u1", specialty: "Salud Pública", topic: "NNT", vignette: "v", options: ["a", "b", "c", "d"], correct: 0, whyCorrect: "", pearl: "", trap: ""}];
     d.prac = {specs: ["Salud Pública"], modo: "azar", n: 20, examen: false}; localStorage.setItem("medipulse_v2", JSON.stringify(d)); });
   await page.reload();
-  const r = await page.evaluate(() => [SPECS.at(-1), qById("u1").specialty, S.prac.specs, specCanon("Salud publica"), specCanon("Bioestadística"), specCanon("Pediatría")]);
-  expect(r).toEqual(["Epidemiología y Estadística", "Epidemiología y Estadística", ["Epidemiología y Estadística"], "Epidemiología y Estadística", "Epidemiología y Estadística", "Pediatría"]);
+  const r = await page.evaluate(() => [SPECS[4], qById("u1").specialty, S.prac.specs, specCanon("Salud publica"), specCanon("Bioestadística"), specCanon("Pediatría"), specCanon("traumatología")]);
+  expect(r).toEqual(["Epidemiología y Estadística", "Epidemiología y Estadística", ["Epidemiología y Estadística"], "Epidemiología y Estadística", "Epidemiología y Estadística", "Pediatría", "Ortopedia y Traumatología"]);
   await page.click("nav [data-go=banco]");
   await expect(page.locator('#qSpecs [data-sp="Epidemiología y Estadística"]')).toHaveClass(/on/);
   expect(await sinDesborde(page)).toBe(true);

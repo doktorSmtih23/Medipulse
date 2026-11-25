@@ -1818,6 +1818,62 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23"
+    },
+    {
+      "id": "ped-c65",
+      "topic": "Dermatología · Acné: antibiótico oral",
+      "difficulty": "residencia",
+      "src": "euroguiderm_acne26",
+      "vignette": "Adolescente de 16 años con <span class='hy'>acné papulopustuloso</span> que recibe <span class='hy'>doxiciclina oral desde hace 3 meses</span> con buena respuesta. La madre pregunta si la sigue «un año más para que no vuelva». ¿Qué le dices?",
+      "options": [
+        "Seguirla un año más: así no vuelve el acné",
+        "No pasar de 3 meses de antibiótico",
+        "Cambiarla a minociclina, que es más segura",
+        "Dejarla de por vida a dosis más bajas"
+      ],
+      "correct": 1,
+      "whyCorrect": "Se recomienda limitar el antibiótico sistémico para el acné a 3 meses; prolongarlo debe ser excepcional por el riesgo de resistencia. Doxiciclina y limeciclina se prefieren sobre minociclina y tetraciclina.",
+      "pearl": "Los ensayos de antibiótico oral en acné duran sobre todo 12 semanas.",
+      "trap": "Mantener el antibiótico oral meses o años.",
+      "cita": [
+        {
+          "donde": "EuroGuiDerm acné, actualización 2026, duración del antibiótico",
+          "texto": "It is emphasized that systemic antibiotic treatment beyond 3 months should remain exceptional and should be carefully weighed against the risk of resistance."
+        },
+        {
+          "donde": "EuroGuiDerm acné, actualización 2026, elección del antibiótico",
+          "texto": "Doxycycline and lymecycline can be recommended in preference to minocycline and tetracycline."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "ped-c66",
+      "topic": "Dermatología · Dermatitis atópica: corticoide sistémico",
+      "difficulty": "residencia",
+      "src": "euroguiderm_ae25",
+      "vignette": "Niño de 8 años con <span class='hy'>dermatitis atópica moderada a grave</span>. Mejoró mucho con un ciclo corto de prednisolona y los padres piden <span class='hy'>dejarla de forma continua</span>. ¿Qué les dices?",
+      "options": [
+        "Seguirla meses para mantener la remisión",
+        "No: no da remisión y el rebote es común",
+        "Seguirla, pero solo en días alternos",
+        "Cambiarla por un corticoide de depósito"
+      ],
+      "correct": 1,
+      "whyCorrect": "La guía recomienda no usar corticoides sistémicos a largo plazo en la dermatitis atópica: en niños y adultos no inducen remisión duradera y el rebote rápido es frecuente.",
+      "pearl": "Todo tratamiento sistémico se combina con emolientes y, cuando haga falta, antiinflamatorio tópico.",
+      "trap": "Mantener el corticoide oral porque mejoró rápido.",
+      "cita": [
+        {
+          "donde": "EuroGuiDerm dermatitis atópica, actualización 2025, glucocorticoides sistémicos",
+          "texto": "We recommend against the long-term use of systemic glucocorticosteroids in AE patients."
+        },
+        {
+          "donde": "EuroGuiDerm dermatitis atópica, actualización 2025, glucocorticoides sistémicos",
+          "texto": "In studies conducted on children and adults, systemic glucocorticosteroids do not induce long-term remission and swift rebound is common."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [

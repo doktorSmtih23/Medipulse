@@ -76,7 +76,7 @@ function citaEnTexto(cita, texto){
 }
 // Frases copiadas tal cual del documento que respaldan el ítem, con su página. La app comprueba que estén en el PDF.
 const CITAS_T = {type:"array", items:{type:"object", additionalProperties:false, required:["texto","page"], properties:{texto:{type:"string"}, page:{type:"integer"}}}};
-// El esquema de la respuesta: la especialidad se elige entre las 5 básicas y las del usuario.
+// El esquema de la respuesta: la especialidad se elige entre las 6 incluidas y las del usuario.
 const genSchema = (ESPS_IA = ESPS()) => ({
   type:"object", additionalProperties:false, required:["questions","fichas"],
   properties:{

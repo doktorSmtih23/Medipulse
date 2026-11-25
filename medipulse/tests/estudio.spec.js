@@ -334,10 +334,13 @@ test.describe("tipo de material", () => {
     await page.click('[data-estpl="ia"]');
     await expect(page.locator("#estPlNota")).toContainText("con la página de cada dato");
     await page.click("#estGo");
+    // primero esperar a que la petición salga (si no, «preparando» aún no aparece y la espera pasa de largo)
+    await expect.poll(() => peticiones.some(p => p.tools[0].name === "report_plantilla")).toBe(true);
     await expect(page.locator("#estBox")).not.toContainText("preparando");
     const pide = peticiones.find(p => p.tools[0].name === "report_plantilla");
     expect(pide.system).toContain('"nohace" (Lo que no se hace)');
     expect(Object.keys(pide.tools[0].input_schema.properties)).toEqual(["aplica", "hace", "nohace", "umbrales", "cambios"]);
+    await expect(page.locator("#estSaltar, #estLeer").first()).toBeVisible();   // esperar a que la pantalla siguiente cargue
     if (await page.locator("#estSaltar").count()) await page.click("#estSaltar");
     await page.click("#estLeer");
     await expect(page.locator('[data-pleg="estbusca"]')).toContainText("¿Qué umbral decide hospitalizar?");
