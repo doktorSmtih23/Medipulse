@@ -91,7 +91,11 @@ function bindIndice(){
 }
 // Redibuja solo el índice cuando termina de calcularse, sin cerrar «Elegir páginas a mano» ni borrar
 // lo que el usuario ya escribió ahí (si no, la sección se cerraba en medio de la escritura).
+// Si el usuario está escribiendo en «Desde» o «Hasta», espera a que salga del campo: redibujar en medio de
+// la escritura mezclaba lo tecleado con el valor anterior («2» quedaba «21»).
 function refrescarIndice(){
+  const activo = document.activeElement;
+  if (activo && /^man(From|To)$/.test(activo.id)) { activo.addEventListener("blur", () => setTimeout(refrescarIndice), {once: true}); return; }
   const box = $("#indBox"), d = box.querySelector("details.custom"), abierto = d && d.open;
   const desde = $("#manFrom") && $("#manFrom").value, hasta = $("#manTo") && $("#manTo").value, foco = document.activeElement && document.activeElement.id;
   box.innerHTML = indiceHTML(); bindIndice();
