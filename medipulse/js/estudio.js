@@ -56,10 +56,13 @@ function estAviso(){
 setInterval(() => { if (estAct()) estTic(); }, 1000);
 
 // ---------- pantalla ----------
+// Cada dibujo de la pantalla lleva un turno: el formulario inicial espera a que cargue el documento y,
+// si en ese tiempo empezó la sesión o hubo otro dibujo, no se dibuja encima de la pantalla nueva.
+let estTurno = 0;
 async function renderEstudio(){
   const box = $("#estBox"); if (!box) return;
-  const a = estAct();
-  if (!a) return renderEstInicio(box);
+  const a = estAct(), turno = ++estTurno;
+  if (!a) return renderEstInicio(box, turno);
   estPantalla(!!a.fase);
   ({preparando: estPreparando, antes: estAntes, leer: estLeer, recordar: estRecordar, descanso: estDescanso, listo: estListo, cierre: estCierre})[a.paso](box, a);
 }
@@ -79,10 +82,11 @@ function estCabecera(a, sub){
 function estBindCab(box, a){ $("#estSalir").onclick = () => { a.paso = "cierre"; if (a.fase && a.fase.tipo === "leer") estCerrarBloque(a, false); a.fase = null; save(); renderEstudio(); }; }
 
 // ---------- inicio ----------
-async function renderEstInicio(box){
+async function renderEstInicio(box, turno){
   const docs = S.sources.filter(s => s.kind !== "pack").slice().reverse(), r = estRitmo();
   const s = estNuevo.src && S.sources.find(x => x.id === estNuevo.src);
   if (s) { try { await getRec(s.id); if (!indiceAlDia(s)) await buildIndice(s); } catch(e) {} }   // el texto también dice si es un estudio original
+  if (turno !== estTurno || estAct()) return;   // llegó tarde: ya hay otra pantalla
   const items = s && s.indice ? s.indice.items : [];
   const ses = estD().ses, paper = estEsPaper(s), tipo = estNuevo.tipo || estTipoAuto(s, estNuevo.tema), T = estTipo(tipo);
   box.innerHTML = `
