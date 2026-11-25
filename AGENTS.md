@@ -56,10 +56,10 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `index.html` | Solo la estructura de las pantallas (vistas `v-*`) y la barra inferior |
 | `css/app.css` | Todos los estilos. Colores como variables (`--bg`, `--accent`, `--on-accent` para texto sobre el acento, `--pulse`, `--go`…) para 4 combinaciones (`data-pal`: bosque, petroleo, marino, turquesa) en claro y oscuro (`data-theme`; sin él, sigue al teléfono). Nunca un color fijo: siempre la variable |
 | `data/servidor.js` | Dirección y clave pública (publishable) del servidor de la beta. Solo se activa en https fuera de `localhost`: en el computador y en las pruebas se entra sin correo. Nunca la clave secreta |
-| `data/especialidades.js` | `SPECS`, `SPEC_PALETAS` (colores de cada especialidad por combinación) y `SPEC_COLOR` (los vigentes; lo actualiza `applyTheme`) |
+| `data/especialidades.js` | `SPECS` (las 6 que entran al diagnóstico), `SPECS_MODULOS` (incluidas pero fuera del diagnóstico: Urología y Mastología), `SPEC_PALETAS` (colores de cada especialidad por combinación) y `SPEC_COLOR` (los vigentes; lo actualiza `applyTheme`) |
 | `data/fuentes.js` | Referencias (`SOURCES`), vigencia y a qué caso corresponde cada una |
 | `data/contenido/registro.js` | Registro `MP_CONTENIDO` (se carga antes que las especialidades) |
-| `data/contenido/<especialidad>.js` | **Contenido incluido de cada especialidad** (casos, fichas HY y tarjetas): `medicina-interna`, `cirugia`, `pediatria`, `ginecologia` (paquete `starter`, las 4 básicas), `salud-publica` y `ortopedia` (módulos aparte). Una especialidad nueva entra en `SPECS` (data/especialidades.js), su archivo en index.html y sw.js, y suma 10 casos al diagnóstico. Una urgencia va en la especialidad del paciente |
+| `data/contenido/<especialidad>.js` | **Contenido incluido de cada especialidad** (casos, fichas HY y tarjetas): `medicina-interna`, `cirugia`, `pediatria`, `ginecologia` (paquete `starter`, las 4 básicas), `salud-publica`, `ortopedia`, `urologia` y `mastologia` (módulos aparte). Una especialidad nueva va en `SPECS_MODULOS` mientras tenga pocos casos (sale en Casos, Fichas y Progreso, no en el diagnóstico) y pasa a `SPECS` cuando tenga unos 10 casos (suma 10 al diagnóstico); su archivo va en index.html, sw.js y `ARCHIVOS` de tests/contenido.spec.js. Una urgencia va en la especialidad del paciente |
 | `data/contenido/armar.js` | Junta todo en `BUILTIN_Q`, `HY_CARDS` y `BUILTIN_F` (va después de las especialidades) |
 | `js/estado.js` | Estado `S` (localStorage, clave `medipulse_v2`), repaso espaciado (`grade`, cajas Leitner), selección de ítems; `contarCaso(spec, ok)` es la única forma de sumar un caso respondido al registro del día (total y por especialidad) |
 | `js/especialidades.js` | 🏷️ Mis especialidades (dueño de `S.especialidades`): además de las 5 básicas (`SPECS`), las que crea el usuario para sus fuentes. `ESPS()` da todas; tarjeta en Fuentes para crear, renombrar y eliminar (sus ítems pasan a otra); opción «➕ Nueva especialidad…» en los selectores (`ESP_NUEVA_OPT`); en la revisión de lo generado, ofrece crear el área que no existe (`espSugeridasHTML`) |
@@ -142,6 +142,7 @@ MP_CONTENIDO.agregar({
 ```
 
 Reglas:
+- **Pasar un caso a otra especialidad:** se mueve al archivo de la otra especialidad con su mismo id y se anota en `IDS_MOVIDOS` (tests/contenido.spec.js). Fractura, luxación y síndrome compartimental son Ortopedia, no Cirugía.
 - **Los `id` nunca se cambian ni se reutilizan:** el progreso de cada usuario se guarda con ellos. Los ítems anteriores conservan su id numérico (casos 1–26, tarjetas 1–53) o `hy1`–`hy6`. Los nuevos usan `<prefijo>-c01`, `<prefijo>-f01` y `<prefijo>-t01`, y siguen la numeración del archivo. Para corregir un ítem, se edita su texto; si queda obsoleto, se reemplaza su contenido, sin borrar el id.
 - `src` es el `id` de una fuente de `data/fuentes.js`. Toda fuente nueva va ahí, con título, revista u organización y año reales. Si una guía tiene una versión más nueva, se usa la nueva.
 - `vignette` admite solo el resaltado `<span class='hy'>…</span>`; los signos `<` y `>` del texto se escriben `&lt;` y `&gt;`.

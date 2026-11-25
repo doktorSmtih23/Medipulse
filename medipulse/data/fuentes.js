@@ -98,6 +98,8 @@ const SOURCES = [
   {id:"aap_oma",  t:"AAP Clinical Practice Guideline: The Diagnosis and Management of Acute Otitis Media", r:"Pediatrics, 2013", y:2013, k:"guideline", v:"Antigua, pero la AAP no ha publicado una versión más nueva"},
   {id:"aap_bili", t:"AAP Clinical Practice Guideline Revision: Management of Hyperbilirubinemia in the Newborn ≥ 35 Weeks", r:"Pediatrics, 2022", y:2022, k:"guideline"},
   {id:"acog_cort",t:"ACOG Committee Opinion No. 713: Antenatal Corticosteroid Therapy for Fetal Maturation", r:"Obstetrics & Gynecology, 2017 · con actualización focalizada", y:2017, k:"guideline", v:"Sigue vigente con actualizaciones focalizadas"},
-  {id:"williams", t:"Williams Obstetricia, 27ª edición", r:"McGraw-Hill", y:2025, k:"book"}
+  {id:"williams", t:"Williams Obstetricia, 27ª edición", r:"McGraw-Hill", y:2025, k:"book"},
+  {id:"nrdp_litiasis26", t:"Kidney stones (Primer)", r:"Nature Reviews Disease Primers, 2026;12:74", y:2026, k:"article"},
+  {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));

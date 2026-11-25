@@ -86,7 +86,7 @@ test("tu examen completo: de la más baja a la más alta, flechas solo con datos
   await expect(filas.nth(2).locator(".tend")).toHaveText("→");           // igual
   await expect(filas.nth(1).locator(".tend")).toHaveText("");             // Ginecología: sin registro por día
   await expect(page.locator("#areasCard .areas-barra i")).toHaveCount(3);
-  await expect(page.locator("#areasCard")).toContainText("3 sin datos todavía");
+  await expect(page.locator("#areasCard")).toContainText("5 sin datos todavía");
   await filas.nth(0).click();
   await expect(page.locator("#sessBody")).toBeVisible();
 });
@@ -98,10 +98,10 @@ test("con muchas especialidades: 6 filas y «Ver las N»; más de 12 agrupa la b
     window.specStats = () => st; save(); renderHoy();
   });
   await expect(page.locator("#areasCard .area")).toHaveCount(6);
-  await expect(page.locator("#areasMas")).toHaveText("Ver las 15 especialidades ›");
+  await expect(page.locator("#areasMas")).toHaveText("Ver las 17 especialidades ›");
   await expect(page.locator("#areasCard .areas-barra.grupos i")).toHaveCount(3);
   await page.click("#areasMas");
-  await expect(page.locator("#areasCard .area")).toHaveCount(15);
+  await expect(page.locator("#areasCard .area")).toHaveCount(17);
   expect(await sinDesborde(page)).toBe(true);
 });
 
