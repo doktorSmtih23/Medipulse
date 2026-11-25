@@ -90,7 +90,7 @@ function answerQ(q, o, exam){
   const ok = o===q.correct, prueba = !!sess.prueba;
   let ri = null;
   if (!prueba) { addTime(); grade("q"+q.id, ok?2:0);
-    const l=logToday(); l.q++; if(ok) l.ok++;
+    contarCaso(q.specialty, ok);
     ri = registrarRespuesta(q, o, ok, false); save(); }
   sess.results.push({t:"q",id:q.id,ok,ri});
   $("#opts").classList.add("done"); $(".vignette").classList.add("hints"); $("#skipRow") && $("#skipRow").remove();
@@ -182,7 +182,7 @@ function finishExam(timeUp){
   const st=stage(); let ok=0;
   const rs = st.items.map((it,i)=>{
     const q=qById(it.id), a=sess.answers[sess.si+":"+i], good=a===q.correct; if(good) ok++;
-    grade("q"+q.id, good?2:0); const l=logToday(); l.q++; if(good) l.ok++;
+    grade("q"+q.id, good?2:0); contarCaso(q.specialty, good);
     const ri = registrarRespuesta(q, a, good, true);
     sess.results.push({t:"q",id:q.id,ok:good,ri});
     return {q, a, good, ri, i};

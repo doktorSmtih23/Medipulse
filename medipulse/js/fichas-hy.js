@@ -13,7 +13,8 @@ function pickHY(n, spec){
   const out = []; for (const h of [...due, ...unseen, ...rest]) { if (!out.includes(h)) out.push(h); if (out.length >= n) break; }
   return out.map(h=>({t:"h", id:h.id}));
 }
-const hyAccent = h => h.accent || SPEC_COLOR[h.specialty] || "var(--accent)";
+// El color propio de una ficha se respeta; si es el de su especialidad, sigue la combinación de colores vigente.
+const hyAccent = h => (h.accent && !colorDePaleta(h.specialty, h.accent) ? h.accent : SPEC_COLOR[h.specialty]) || h.accent || "var(--accent)";
 function hyCardHTML(c){
   return `<div class="card hycard" style="border-top-color:${hyAccent(c)}">
     <div class="row"><span class="tag">${esc(c.badge || "Ficha HY")}</span><span class="xs muted">${esc(c.specialty)}</span>${c.relevance ? `<div class="spacer"></div><span class="stars xs" title="Relevancia ${c.relevance} de 5">${"★".repeat(c.relevance)}${"☆".repeat(5-c.relevance)}</span>` : ""}</div>

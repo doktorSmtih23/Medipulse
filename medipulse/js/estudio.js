@@ -184,7 +184,7 @@ function estQuiz(box, a, cual){
   estBindCab(box, a);
   box.querySelectorAll("[data-eo]").forEach(b => b.onclick = () => {
     resp[q.id] = +b.dataset.eo;
-    if (cual === "post") { const ok = +b.dataset.eo === q.correct; grade("q" + q.id, ok ? 2 : 0); const l = logToday(); l.q++; if (ok) l.ok++; registrarRespuesta(q, +b.dataset.eo, ok, false); }
+    if (cual === "post") { const ok = +b.dataset.eo === q.correct; grade("q" + q.id, ok ? 2 : 0); contarCaso(q.specialty, ok); registrarRespuesta(q, +b.dataset.eo, ok, false); }
     save(); renderEstudio(); });
   $("#estSaltar") && ($("#estSaltar").onclick = () => { a.pre = {ids: [], resp: {}}; save(); renderEstudio(); });   // sin pre-test no hay post-test
 }

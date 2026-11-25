@@ -12,20 +12,25 @@ function renderHoy(){
   const l = logToday(), st = streak(), due = dueKeys().length;
   renderHoyCard(l, st, due);
   const weak = weakestSpec();
-  let sug;
-  if (due>0) sug = `Tienes <b>${due} repaso${due>1?"s":""}</b> pendiente${due>1?"s":""}. Es lo que más rinde: estás a punto de olvidarlo.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDue">Repasar ahora</button></div>`;
+  // El siguiente paso: un botón grande («Seguir») y debajo por qué se eligió. s = {id, t: lo que hace, sub, por, mas}.
+  let s;
+  if (due>0) s = {id: "doDue", t: "Repasar ahora", sub: `${due} repaso${due>1?"s":""} pendiente${due>1?"s":""}`, por: "Es lo que más rinde: estás a punto de olvidarlo."};
   else if (!diagHecho()) { const p = diagProgreso();
-    sug = p.hechos ? `Vas en <b>${p.hechos} de ${p.total}</b> casos de tu diagnóstico. Termínalo y te armo un plan con tus puntos débiles; mientras tanto, lo personalizado espera.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDiag">🎯 Seguir el diagnóstico</button></div>`
-      : `<b>Primero, tu diagnóstico.</b> Antes de recomendarte qué estudiar necesito conocerte: ${p.total} casos en bloques de ${DIAG_BLOQUE} (unos 12 minutos cada uno), un cuestionario de cómo estudias y un caso de juicio clínico. Puedes hacerlo por partes.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDiag">🎯 Empezar el diagnóstico</button></div>`; }
+    s = p.hechos ? {id: "doDiag", t: "🎯 Seguir el diagnóstico", sub: `Vas en ${p.hechos} de ${p.total} casos`, por: "Termínalo y te armo un plan con tus puntos débiles; mientras tanto, lo personalizado espera."}
+      : {id: "doDiag", t: "🎯 Empezar el diagnóstico", sub: `${p.total} casos en bloques de ${DIAG_BLOQUE}`, por: `<b>Primero, tu diagnóstico.</b> Antes de recomendarte qué estudiar necesito conocerte: los casos (unos 12 minutos cada bloque), un cuestionario de cómo estudias y un caso de juicio clínico. Puedes hacerlo por partes.`}; }
   else if (diagFocoHoy() && diagFocoHoy().qs.length) { const f = diagFocoHoy();
-    sug = `Según tu diagnóstico, hoy toca <b>${esc(QMETODO[f.tipo].t)}</b> en <b>${esc(f.area)}</b>: tu punto más débil. ${f.qs.length} casos, primero los que toca repasar y los que no has visto.<div class="row" style="margin-top:10px"><button class="btn primary" id="doFoco">🎯 Empezar · ${f.qs.length} casos</button><button class="btn sm ghost" data-go="diag">Ver mi plan</button></div>`; }
-  else if (!l.sec && st>0) sug = `Llevas <b>${st} día${st>1?"s":""}</b> de racha. Aunque hoy no tengas ganas, con <b>dos fichas</b> la mantienes.<div class="row" style="margin-top:10px"><button class="btn" id="doOne">Mantener racha (1 min)</button></div>`;
-  else if (newUserItems().length) sug = `Tienes <b>${newUserItems().length} ítems nuevos</b> generados de tus PDF sin estudiar. Lo que acabas de leer se fija mejor si lo practicas hoy.<div class="row" style="margin-top:10px"><button class="btn primary" id="doNew">Practicar lo nuevo</button></div>`;
-  else if (!SPECS.some(x => specStats()[x].n >= 3)) sug = `Todavía no sé cuál es tu punto más débil: necesito que respondas algunos casos. Empieza por el <b>diagnóstico rápido</b>: 5 casos, uno por área, y desde ahí te recomiendo.<div class="row" style="margin-top:10px"><button class="btn primary" id="doDiag">🎯 Hacer el diagnóstico</button></div>`;
-  else sug = `Tu punto más débil ahora: <b>${weak}</b>. Una ronda de 5 casos de ese tema te dará el mayor avance.<div class="row" style="margin-top:10px"><button class="btn" id="doWeak">5 casos de ${weak}</button></div>`;
+    s = {id: "doFoco", t: `Seguir · ${f.qs.length} casos`, sub: `${esc(QMETODO[f.tipo].t)} · ${esc(f.area)}`, por: `Según tu diagnóstico, es tu punto más débil. Primero los que toca repasar y los que no has visto.`,
+      mas: `<button class="btn sm sig-sec" data-go="diag">Ver mi plan</button>`}; }
+  else if (!l.sec && st>0) s = {id: "doOne", t: "Mantener racha", sub: "2 fichas · 1 min", por: `Llevas <b>${st} día${st>1?"s":""}</b> de racha. Aunque hoy no tengas ganas, con dos fichas la mantienes.`};
+  else if (newUserItems().length) s = {id: "doNew", t: "Practicar lo nuevo", sub: `${newUserItems().length} ítems de tus PDF sin estudiar`, por: "Lo que acabas de leer se fija mejor si lo practicas hoy."};
+  else if (!SPECS.some(x => specStats()[x].n >= 3)) s = {id: "doDiag", t: "🎯 Hacer el diagnóstico", sub: "Empieza por aquí", por: "Todavía no sé cuál es tu punto más débil: necesito que respondas algunos casos. Con el diagnóstico te recomiendo desde el primer día."};
+  else { const x = specStats()[weak];
+    s = {id: "doWeak", t: `Seguir · 5 casos`, sub: `${esc(weak)} · ${Math.round(x.ok / x.n * 100)} % de aciertos`, por: "Elegido porque es tu área más baja: una ronda de 5 casos de ese tema."}; }
   // Con la parte 1 hecha, sea cual sea el paso de hoy, se recuerda lo que falta del diagnóstico.
-  if (diagFaltan().length) sug += `<span class="xs muted" style="display:block;margin-top:10px">Para completar tu plan te falta ${diagFaltan().join(" y ")}. <button class="linkbtn xs" id="doDiagResto">Terminar el diagnóstico</button></span>`;
-  $("#suggestCard").innerHTML = `<h3 style="font-size:16px">💡 Tu siguiente paso</h3><p style="margin:6px 0 0" class="small">${sug}</p>`;
+  const resto = diagFaltan().length ? `<p class="xs sig-resto">Para completar tu plan te falta ${diagFaltan().join(" y ")}. <button class="linkbtn xs" id="doDiagResto">Terminar el diagnóstico</button></p>` : "";
+  $("#suggestCard").innerHTML = `<p class="sig-k">💡 Tu siguiente paso</p>
+    <button class="seguir" id="${s.id}"><span><b>${s.t}</b><small>${s.sub}</small></span><span class="flecha" aria-hidden="true">›</span></button>
+    <p class="sig-por small">${s.por}</p>${s.mas ? `<div class="row" style="margin-top:8px">${s.mas}</div>` : ""}${resto}`;
   $("#doDue") && ($("#doDue").onclick = startDue);
   $("#doDiag") && ($("#doDiag").onclick = () => go("diag"));
   $("#doDiagResto") && ($("#doDiagResto").onclick = diagIrAlInicio);
@@ -33,8 +38,9 @@ function renderHoy(){
   $("#doNew") && ($("#doNew").onclick = ()=>startSession({label:"Mis PDF",tag:"norm",stages:[{name:"Nuevo de tus fuentes",items:newUserItems().slice(0,15)}]}));
   $("#doOne") && ($("#doOne").onclick = ()=>startSession({label:"Mantener racha",tag:"lazy",stages:[{name:"Fichas",items:pickHY(2)}]}));
   $("#doWeak") && ($("#doWeak").onclick = ()=>startSession({label:"Tema débil",tag:"norm",stages:[{name:weak,items:pickQuestions(5,{spec:weak})}]}));
+  renderRota(st);
+  renderAreas();
   renderDirected();
-  renderPerla();
   refreshChips();
 }
 // ¿Qué estudiar hoy? Áreas ordenadas por precisión (las no exploradas primero). La práctica del enfoque está en Mi enfoque (perfil.js).
@@ -130,31 +136,141 @@ function renderPerla(){
     save(); toast("El caso vuelve mañana en tus repasos ✓"); renderPerla(); };
   $("#perlaSabe").onclick = () => { const E = perlaEst(); E.sabe[p.id] = Date.now(); E.hoy = null; save(); toast("No vuelve en 60 días. Otra perla:"); renderPerla(); };
 }
-// «Hoy» diagramado: anillo hacia la meta diaria (minutos, la elige el usuario), casos, fichas y
-// repasos, y la racha de los últimos 7 días.
+// El pulso de hoy: los minutos estudiados contra la meta diaria (la elige el usuario). La línea de
+// electrocardiograma se llena hasta la meta; debajo, casos, fichas, repasos y racha.
 const META_MIN = [15, 25, 45, 60, 90];
+const ECG = "0,30 30,30 38,24 44,30 56,30 62,6 70,44 78,30 98,30 108,22 120,30 150,30 158,24 164,30 176,30 182,6 190,44 198,30 218,30 228,22 240,30 270,30 278,24 284,30 296,30 302,6 310,44 318,30 350,30";
+// Altura de la línea en una x (ahí va el punto que late): la línea se llena de izquierda a derecha.
+function ecgY(x){
+  const P = ECG.split(" ").map(p => p.split(",").map(Number));
+  for (let i = 1; i < P.length; i++) if (x <= P[i][0]) { const [a, b] = [P[i-1], P[i]]; return a[1] + (b[1] - a[1]) * (x - a[0]) / Math.max(1e-6, b[0] - a[0]); }
+  return 30;
+}
 function renderHoyCard(l, st, due){
-  const meta = S.metaMin || 25, min = Math.round(l.sec / 60), frac = Math.min(1, min / meta), R = 50, C = 2 * Math.PI * R;
+  const meta = S.metaMin || 25, min = Math.round(l.sec / 60), frac = Math.min(1, min / meta), x = 350 * frac, lleno = frac >= 1;
+  $("#todayCard").innerHTML = `
+    <div class="pulso-min"><span><b>${min}</b> de ${meta} min</span>
+      <label class="metamin">Meta<select id="metaMin" aria-label="Meta diaria en minutos">${META_MIN.map(m => `<option value="${m}" ${m === meta ? "selected" : ""}>${m} min</option>`).join("")}</select></label></div>
+    <div class="ecg-caja"><svg class="ecg" viewBox="0 0 350 48" preserveAspectRatio="none" role="img" aria-label="${min} de ${meta} minutos de tu meta diaria">
+      <polyline class="ecg-base" points="${ECG}"/>
+      <clipPath id="ecgLleno"><rect class="ecg-clip" x="0" y="-10" width="${x.toFixed(1)}" height="70"/></clipPath>
+      ${frac > 0 ? `<polyline class="ecg-on${lleno ? " lleno" : ""}" points="${ECG}" clip-path="url(#ecgLleno)"/>` : ""}
+      </svg><i class="ecg-pto${lleno ? " lleno" : ""}" style="left:${(frac * 100).toFixed(1)}%;top:${(ecgY(x) / 48 * 100).toFixed(1)}%"></i></div>
+    <div class="pulso-pie"><span>Tu pulso de hoy</span><b>${lleno ? "✓ Meta cumplida" : `faltan ${meta - min} min`}</b></div>
+    <div class="pulso-datos"><span>🩺 <b>${l.q}</b> caso${l.q === 1 ? "" : "s"}${l.q ? ` · ${Math.round(l.ok / l.q * 100)} % ✓` : ""}</span><span>💎 <b>${l.c}</b> ficha${l.c === 1 ? "" : "s"}</span>
+      <span>🔁 ${due ? `<b>${due}</b> repaso${due === 1 ? "" : "s"}` : "repasos al día ✓"}</span><span>🔥 ${st ? `<b>${st}</b> día${st === 1 ? "" : "s"}` : "empieza hoy"}</span></div>`;
+  $("#metaMin").onchange = e => { S.metaMin = +e.target.value; save(); renderHoy(); };
+}
+
+// Recuadro que cambia: perla del día, pregunta relámpago, tu semana y reto de 3 minutos. Se desliza de lado;
+// cada día abre en uno distinto para que Hoy no se vea siempre igual. Si el usuario lo mueve, se queda ahí.
+let rotaDia = null;
+function renderRota(st){
+  renderPerla(); renderRelampago(); renderSemana(st); renderReto();
+  const pista = $("#rotaPista"), slides = [...pista.children].filter(x => !x.hidden), dots = $("#rotaDots");
+  dots.innerHTML = slides.map((x, i) => `<button type="button" data-rota="${i}" aria-label="${esc(x.dataset.nombre)}"></button>`).join("");
+  const x0 = i => slides[i].offsetLeft - slides[0].offsetLeft;
+  const ir = (i, suave) => pista.scrollTo({left: x0(i), behavior: suave ? "smooth" : "auto"});
+  const marcar = () => { let i = 0; slides.forEach((_, k) => { if (Math.abs(x0(k) - pista.scrollLeft) < Math.abs(x0(i) - pista.scrollLeft)) i = k; });
+    dots.querySelectorAll("button").forEach((b, k) => { b.classList.toggle("on", k === i); b.setAttribute("aria-current", k === i); });
+    pista.style.height = slides[i].offsetHeight + "px"; };   // el recuadro toma la altura del que se ve
+  dots.querySelectorAll("button").forEach(b => b.onclick = () => ir(+b.dataset.rota, true));
+  pista.onscroll = () => { clearTimeout(pista._t); pista._t = setTimeout(marcar, 60); };
+  if (rotaDia !== todayKey()) { rotaDia = todayKey(); const n = Math.floor(Date.now() / DAY); ir(n % slides.length, false); }
+  marcar();
+}
+// Pregunta relámpago: un caso corto que no has visto, se responde aquí mismo con un toque y cuenta como
+// cualquier caso (repaso, aciertos del día, vulnerabilidades). Es la misma durante el día.
+let relHoy = null;
+function relPregunta(){
+  const dia = todayKey();
+  if (relHoy && relHoy.dia === dia) { const q = qById(relHoy.id); if (q) return q; }
+  const corta = q => !S.hidden["q" + q.id] && q.vignette && q.vignette.length < 420 && q.options.every(o => o.length < 90);
+  const pool = QUESTIONS.filter(corta), nuevos = pool.filter(q => !S.srs["q" + q.id]), base = nuevos.length ? nuevos : pool;
+  if (!base.length) return null;
+  const q = base[[...dia].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 1e9, 7) % base.length];
+  relHoy = {dia, id: String(q.id), o: null};
+  return q;
+}
+function renderRelampago(){
+  const box = $("#relCard"), q = relPregunta(); box.hidden = !q; if (!q) return;
+  const o = relHoy.o, hecho = o != null, ok = o === q.correct;
+  box.innerHTML = `<div class="rota-k"><b>⚡ PREGUNTA RELÁMPAGO</b><span class="muted">${esc(q.specialty)}</span></div>
+    <p class="vignette rel-v">${q.vignette}</p>
+    <div class="rel-ops">${q.options.map((x, i) => `<button class="rel-op${hecho && i === q.correct ? " ok" : ""}${hecho && i === o && !ok ? " bad" : ""}" data-rel="${i}" ${hecho ? "disabled" : ""}><b>${"ABCDE"[i]}</b> ${esc(x)}</button>`).join("")}</div>
+    ${hecho ? `<p class="small rel-fb ${ok ? "ok" : "bad"}"><b>${ok ? "✓ Correcto." : `✗ Era la ${"ABCDE"[q.correct]}. Vuelve en tu repaso.`}</b> ${esc(q.whyCorrect || "")}</p>` : `<p class="xs muted" style="margin:8px 0 0">Responde con un toque: cuenta como cualquier caso.</p>`}`;
+  box.querySelectorAll("[data-rel]").forEach(b => b.onclick = () => {
+    const e = +b.dataset.rel, bien = e === q.correct;
+    grade("q" + q.id, bien ? 2 : 0); contarCaso(q.specialty, bien); registrarRespuesta(q, e, bien, false); relHoy.o = e; save(); renderHoy();
+  });
+}
+// Suma del registro entre «desde» y «hasta» días atrás (0 = hoy).
+function sumaDias(desde, hasta){
+  const r = {sec: 0, q: 0, ok: 0, c: 0, dias: 0};
+  for (let i = desde; i < hasta; i++) { const x = S.log[todayKey(new Date(Date.now() - i * DAY))]; if (!x) continue;
+    r.sec += x.sec || 0; r.q += x.q || 0; r.ok += x.ok || 0; r.c += x.c || 0; if (x.sec > 0 || x.q > 0 || x.c > 0) r.dias++; }
+  return r;
+}
+const FLECHA = {up: '<span class="tend up" title="Subió">↑</span>', down: '<span class="tend down" title="Bajó">↓</span>', igual: '<span class="tend" title="Igual">→</span>'};
+const flechaDe = (a, b, margen) => a - b >= margen ? FLECHA.up : b - a >= margen ? FLECHA.down : FLECHA.igual;
+function renderSemana(st){
+  const a = sumaDias(0, 7), b = sumaDias(7, 14), pa = a.q >= 3 ? Math.round(a.ok / a.q * 100) : null, pb = b.q >= 3 ? Math.round(b.ok / b.q * 100) : null;
+  const hayAntes = b.dias > 0;
+  const fila = (t, va, vb, fl) => `<div class="sem-f"><span>${t}</span><b>${va}</b><span class="muted">${hayAntes ? vb : "—"}</span>${hayAntes ? fl : "<span></span>"}</div>`;
   const dias = [...Array(7)].map((_, i) => { const d = new Date(Date.now() - (6 - i) * DAY), x = S.log[todayKey(d)];
     return {ini: d.toLocaleDateString("es", {weekday: "narrow"}).toUpperCase(), on: !!(x && (x.sec > 0 || x.q > 0 || x.c > 0)), hoy: i === 6}; });
-  const fila = (ic, t, v, pct, color) => `<div class="r"><span>${ic}</span><span>${t}</span><b>${v}</b></div>${pct == null ? "" : `<div class="bar"><i style="width:${Math.min(100, pct)}%;background:${color}"></i></div>`}`;
-  $("#todayCard").innerHTML = `
-    <div class="row"><h3 style="font-size:16px">Hoy</h3><div class="spacer"></div>${l.sec > 0 || l.c > 0 || l.q > 0 ? '<span class="tag" style="background:var(--ok-soft);color:var(--ok)">✓ Racha asegurada</span>' : '<span class="tag">Aún sin estudiar</span>'}</div>
-    <div class="hoyd">
-      <div><div class="anillo" role="img" aria-label="${min} de ${meta} minutos de tu meta diaria">
-        <svg width="118" height="118" viewBox="0 0 118 118"><circle cx="59" cy="59" r="${R}" fill="none" stroke="var(--subtle)" stroke-width="11"/>
-          ${frac > 0 ? `<circle cx="59" cy="59" r="${R}" fill="none" stroke="${frac >= 1 ? "var(--ok)" : "var(--accent)"}" stroke-width="11" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - frac)).toFixed(1)}"/>` : ""}</svg>
-        <div class="c"><b>${min}</b><span>de ${meta} min</span></div></div>
-        <label class="metamin">Meta<select id="metaMin" aria-label="Meta diaria en minutos">${META_MIN.map(m => `<option value="${m}" ${m === meta ? "selected" : ""}>${m} min</option>`).join("")}</select></label></div>
-      <div class="met">
-        ${fila("🩺", "Casos", l.q ? `${l.q} · ${Math.round(l.ok / l.q * 100)} % ✓` : "0", l.q * 10, "var(--accent)")}
-        ${fila("💎", "Fichas", l.c, l.c * 10, "var(--warn)")}
-        ${fila("🔁", "Repasos", due ? `${due} pendiente${due === 1 ? "" : "s"}` : "al día ✓", null)}
-      </div>
-    </div>
+  $("#semCard").innerHTML = `<div class="rota-k"><b>📅 TU SEMANA</b><span class="muted">últimos 7 días</span></div>
+    <div class="sem-f sem-cab"><span></span><span>Esta</span><span>Anterior</span><span></span></div>
+    ${fila("⏱️ Minutos", Math.round(a.sec / 60), Math.round(b.sec / 60), flechaDe(a.sec / 60, b.sec / 60, 5))}
+    ${fila("🩺 Casos", a.q, b.q, flechaDe(a.q, b.q, 3))}
+    ${fila("✓ Aciertos", pa == null ? "—" : pa + " %", pb == null ? "—" : pb + " %", pa != null && pb != null ? flechaDe(pa, pb, 3) : "<span></span>")}
+    ${fila("📆 Días", a.dias, b.dias, flechaDe(a.dias, b.dias, 1))}
+    ${hayAntes ? "" : `<p class="xs muted" style="margin:6px 0 0">La comparación aparece cuando tengas una semana anterior registrada.</p>`}
     <div class="racha7" aria-label="Tus últimos 7 días">${dias.map(d => `<span class="d${d.on ? " on" : ""}${d.hoy ? " hoy" : ""}">${d.ini}</span>`).join("")}
       <span class="small" style="margin-left:4px">${st ? `🔥 <b>${st} día${st === 1 ? "" : "s"}</b>` : "Empieza tu racha hoy"}</span></div>`;
-  $("#metaMin").onchange = e => { S.metaMin = +e.target.value; save(); renderHoy(); };
+}
+function renderReto(){
+  const w = weakestSpec();
+  $("#retoCard").innerHTML = `<div class="rota-k"><b>⏱️ RETO DE 3 MINUTOS</b><span class="muted">contra el reloj</span></div>
+    <p class="reto-t">3 casos de <b>${esc(w)}</b> en 3 minutos.</p>
+    <p class="xs muted" style="margin:0 0 10px">Como en el examen: sin pistas y con el reloj corriendo. Al final ves cuáles fallaste y por qué.</p>
+    <button class="btn primary" id="doReto">Aceptar el reto</button>`;
+  $("#doReto").onclick = () => startSession({label: "Reto de 3 minutos", tag: "fire", stages: [{name: "Reto · " + w, items: pickQuestions(3, {spec: w}), exam: true, limit: 180}]});
+}
+
+// Tu examen completo: el porcentaje de aciertos de cada especialidad con datos (3 respuestas o más), de la más
+// baja a la más alta, con la flecha de los últimos 7 días contra los 7 anteriores (sin flecha si falta con qué
+// comparar). Con muchas especialidades la barra se agrupa en tres y la lista muestra 6 con «Ver las N».
+const AREA_NIVEL = p => p < 50 ? "baja" : p < 60 ? "riesgo" : "bien";
+let areasTodas = false;
+const AREA_CORTO = {"Medicina Interna": "M. Interna", "Epidemiología y Estadística": "Epidemiología", "Ortopedia y Traumatología": "Ortopedia"};
+function tendenciaEsp(spec){
+  const v = (a, b) => { let n = 0, ok = 0;
+    for (let i = a; i < b; i++) { const x = S.log[todayKey(new Date(Date.now() - i * DAY))]; const e = !x ? null : spec ? x.esp && x.esp[spec] : [x.q, x.ok];
+      if (e) { n += e[0] || 0; ok += e[1] || 0; } }
+    return n >= 3 ? ok / n * 100 : null; };
+  const a = v(0, 7), b = v(7, 14);
+  return a == null || b == null ? "" : flechaDe(a, b, 3);
+}
+function renderAreas(){
+  const st = specStats(), con = ESPS().filter(s => st[s] && st[s].n >= 3).map(s => ({s, p: Math.round(st[s].ok / st[s].n * 100)})).sort((a, b) => a.p - b.p);
+  const sin = ESPS().length - con.length;
+  if (!con.length) { $("#areasCard").innerHTML = `<div class="areas-cab"><span>TU EXAMEN COMPLETO</span></div>
+    <p class="small muted" style="margin:8px 0 0">Responde 3 casos o más de un área y aquí verás su porcentaje de aciertos y si va subiendo o bajando.</p>`; return; }
+  const n = con.reduce((a, x) => a + st[x.s].n, 0), ok = con.reduce((a, x) => a + st[x.s].ok, 0);
+  const grupos = con.length > 12;
+  const barra = grupos
+    ? ["bien", "riesgo", "baja"].map(k => { const c = con.filter(x => AREA_NIVEL(x.p) === k).length;
+        return c ? `<i class="nv-${k}" style="flex:${c}" title="${c}">${c} ${({bien: "bien", riesgo: "en riesgo", baja: "bajas"})[k]}</i>` : ""; }).join("")
+    : con.slice().reverse().map(x => `<i class="nv-${AREA_NIVEL(x.p)}" style="opacity:${(.4 + x.p / 170).toFixed(2)}" title="${esc(x.s)}: ${x.p} %"></i>`).join("");
+  const vis = areasTodas ? con : con.slice(0, 6);
+  $("#areasCard").innerHTML = `<div class="areas-cab"><span>TU EXAMEN COMPLETO</span><b>${Math.round(ok / n * 100)} % global ${tendenciaEsp(null)}</b></div>
+    <div class="areas-barra${grupos ? " grupos" : ""}">${barra}</div>
+    <div class="areas-lista">${vis.map(x => `<button class="area" data-aspec="${esc(x.s)}" title="${esc(x.s)}: 5 casos"><span class="dot" style="background:${SPEC_COLOR[x.s]}"></span><span class="area-n">${esc(AREA_CORTO[x.s] || x.s)}</span><b class="nv-t-${AREA_NIVEL(x.p)}">${x.p}</b>${tendenciaEsp(x.s) || '<span class="tend"></span>'}</button>`).join("")}</div>
+    ${con.length > 6 ? `<button class="linkbtn areas-mas" id="areasMas">${areasTodas ? "Ver menos" : `Ver las ${con.length} especialidades ›`}</button>` : ""}
+    <p class="xs muted" style="margin:8px 0 0">Bajas: menos de 50 %. En riesgo: 50 a 59 %. Toca un área para 5 casos.${sin ? ` ${sin} sin datos todavía.` : ""}</p>`;
+  $("#areasMas") && ($("#areasMas").onclick = () => { areasTodas = !areasTodas; renderAreas(); });
+  document.querySelectorAll("[data-aspec]").forEach(b => b.onclick = () => startSession({label: "Estudio dirigido", tag: "norm", stages: [{name: b.dataset.aspec, items: pickQuestions(5, {spec: b.dataset.aspec})}]}));
 }
 
 // La perla se escribe en una línea; para leerla de un vistazo se ordena sola: el rótulo inicial
