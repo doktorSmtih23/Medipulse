@@ -28,6 +28,11 @@
     <div class="stack">
       <div id="dataWarn"></div>
       <div class="hoy-cab"><span id="hoyFecha"></span> · <span id="greet">Hola</span></div>
+      <div class="enfoque" id="enfoqueBox">
+        <label class="examsel" style="margin-top:0">🎯 Mi enfoque<select id="focusSel" aria-label="Tipo de pregunta que quieres reforzar"></select></label>
+        <p class="xs muted" id="focusDesc" style="margin:4px 0 0"></p>
+        <div id="focusBox"></div>
+      </div>
       <div class="pulso" id="todayCard"></div>
       <div class="sigpaso" id="suggestCard"></div>
       <div class="rota" id="rotaBox">
@@ -47,9 +52,6 @@
           <button class="norm" data-mode="normal"><span class="em">🙂</span><b>Normal</b><small>25 min</small></button>
           <button class="fire" data-mode="beast"><span class="em">🔥</span><b>A tope</b><small>90 min</small></button>
         </div>
-        <label class="examsel" style="margin-top:8px">🎯 Mi enfoque<select id="focusSel" aria-label="Tipo de pregunta que quieres reforzar"></select></label>
-        <p class="xs muted" id="focusDesc" style="margin:4px 0 0"></p>
-        <div id="focusBox"></div>
       </div>
       <div class="card" id="pdfCard" hidden></div>
       <div class="atajos">

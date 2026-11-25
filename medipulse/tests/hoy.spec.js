@@ -104,3 +104,11 @@ test("con muchas especialidades: 6 filas y «Ver las N»; más de 12 agrupa la b
   await expect(page.locator("#areasCard .area")).toHaveCount(15);
   expect(await sinDesborde(page)).toBe(true);
 });
+
+test("los estilos de Apariencia no pisan los selectores de Casos y Crear (mismo nombre de clase)", async ({ page }) => {
+  await page.evaluate(() => go("banco"));
+  const casos = await page.locator("#qModo button").first().evaluate(e => [getComputedStyle(e).borderTopWidth, getComputedStyle(e.parentElement).backgroundColor]);
+  expect(casos).toEqual(["2px", "rgba(0, 0, 0, 0)"]);   // tarjetas con borde, sin franja de fondo
+  await page.click("#themeBtn");
+  await expect(page.locator("#apariencia .modo-seg button")).toHaveCount(3);
+});

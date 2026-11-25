@@ -466,11 +466,12 @@ label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap
 .pal-mini svg{width:100%;height:16px;display:block}.pal-mini i{display:block;height:12px;border-radius:6px}
 .pal-n{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:13px;font-weight:700;margin-top:6px}
 .pal-ck{flex:none;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:12px;display:grid;place-items:center}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--subtle);border-radius:14px;padding:4px;gap:4px}
-.seg button{border:0;background:none;padding:10px 0;border-radius:10px;font-size:14px;font-weight:700;color:var(--muted)}
-.seg button.on{background:var(--panel);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.modo-seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--subtle);border-radius:14px;padding:4px;gap:4px}
+.modo-seg button{border:0;background:none;padding:10px 0;border-radius:10px;font-size:14px;font-weight:700;color:var(--muted)}
+.modo-seg button.on{background:var(--panel);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 /* Hoy (js/hoy.js): pulso, «Seguir», recuadro que cambia y tu examen completo */
 .hoy-cab{font-size:13.5px;color:var(--muted);font-weight:600}
+.enfoque{margin-top:-4px}.enfoque .examsel{color:var(--text)}
 .pulso{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:14px 16px 12px;box-shadow:var(--shadow)}
 .pulso-min{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:17px;font-weight:700;color:var(--muted)}
 .pulso-min b{font-size:34px;font-weight:900;color:var(--text);letter-spacing:-.02em}
