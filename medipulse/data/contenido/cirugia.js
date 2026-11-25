@@ -1043,6 +1043,298 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c38",
+      "topic": "Trauma · Hemotórax masivo",
+      "difficulty": "residencia",
+      "src": "wses_torax25",
+      "vignette": "Hombre de 24 años con herida por arma cortopunzante en el hemitórax izquierdo. Al pasar el tubo de tórax salen <span class='hy'>1.600 mL de sangre</span> y sigue hipotenso pese a la reanimación. ¿Qué sigue?",
+      "options": [
+        "Segundo tubo de tórax y observar el drenaje",
+        "Tomografía de tórax antes de decidir",
+        "Toracotomía para controlar el sangrado",
+        "Videotoracoscopia programada al día siguiente"
+      ],
+      "correct": 2,
+      "whyCorrect": "Se opera ante inestabilidad hemodinámica con sangrado intratorácico activo: más de 1.500 mL al poner el tubo, o más de 200 mL/h durante 3 horas seguidas sin otra causa.",
+      "pearl": "Hemotórax masivo: más de 1.500 mL de sangre en la cavidad. Se reconoce pronto, se drena y se repone sangre.",
+      "trap": "Llevar a tomografía a un paciente inestable que sigue sangrando por el tubo.",
+      "cita": [
+        {
+          "donde": "WSES-AAST, Thoracic trauma, World J Emerg Surg 2025;20:78, Hemotórax",
+          "texto": "Surgery should be considered in case of hemodynamic instability and active intrathoracic bleeding (more than 1500 mL of blood or more than 200 mL/h over 3 consecutive hours without other causes of bleeding)."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c39",
+      "topic": "Trauma · Neumotórax abierto",
+      "difficulty": "basica",
+      "src": "wses_torax25",
+      "vignette": "Hombre de 30 años con una <span class='hy'>herida soplante en el hemitórax derecho</span> tras un impacto de arma de fuego. Taquipneico, con burbujeo por la herida. ¿Cuál es el manejo inicial?",
+      "options": [
+        "Cerrar la herida con sutura en urgencias y vigilar",
+        "Intubar y esperar la radiografía de tórax",
+        "Toracotomía de reanimación inmediata",
+        "Apósito oclusivo en 3 lados y tubo de tórax"
+      ],
+      "correct": 3,
+      "whyCorrect": "El neumotórax abierto se maneja primero con un apósito oclusivo sellado en tres lados; después se pone el tubo de tórax y se repara el defecto de la pared.",
+      "pearl": "El apósito en 3 lados funciona como válvula: deja salir el aire y no lo deja entrar.",
+      "trap": "Cerrar herméticamente la herida sin tubo: convierte el neumotórax abierto en uno a tensión.",
+      "cita": [
+        {
+          "donde": "WSES-AAST, Thoracic trauma, World J Emerg Surg 2025;20:78, Neumotórax",
+          "texto": "Open PNX should be initially managed with a three-sided occlusive dressing then tube thoracostomy and chest wall defect repair should be performed."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c40",
+      "topic": "Trauma · Tórax inestable",
+      "difficulty": "residencia",
+      "src": "wses_torax25",
+      "vignette": "Mujer de 52 años tras un choque de moto. Tiene <span class='hy'>tórax inestable</span> por fracturas de 5 costillas en dos sitios. Está <span class='hy'>hemodinámicamente estable</span>. ¿Qué tratamiento de las fracturas debe considerarse?",
+      "options": [
+        "Estabilización quirúrgica de las costillas",
+        "Solo analgesia y fisioterapia respiratoria intensiva",
+        "Vendaje compresivo del tórax por 6 semanas",
+        "Ventilación mecánica como fijación interna"
+      ],
+      "correct": 0,
+      "whyCorrect": "La estabilización quirúrgica de las fracturas costales debe considerarse en todo paciente con tórax inestable que esté hemodinámicamente estable: los estudios muestran mejores resultados que el manejo no operatorio.",
+      "pearl": "Si en la misma cirugía hay sospecha de lesión de órganos o un hemotórax o neumotórax que persiste pese al tubo, se considera videotoracoscopia.",
+      "trap": "Usar la ventilación mecánica para «fijar» el tórax.",
+      "cita": [
+        {
+          "donde": "WSES-AAST, Thoracic trauma, World J Emerg Surg 2025;20:78, Fracturas costales",
+          "texto": "Surgical stabilization of rib fractures should be considered in all hemodynamically stable patients presenting with a flail chest (LoE Moderate, GoR Moderate)."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c41",
+      "topic": "Trauma · Neumotórax oculto",
+      "difficulty": "residencia",
+      "src": "wses_torax25",
+      "vignette": "Hombre de 35 años, estable, con trauma cerrado de tórax. La radiografía en decúbito es normal, pero la tomografía muestra un <span class='hy'>neumotórax pequeño, de 2 cm en el ápice</span>. No necesita ventilación mecánica. ¿Qué haces?",
+      "options": [
+        "Tubo de tórax de inmediato",
+        "Observación sin drenaje",
+        "Toracotomía exploratoria",
+        "Aspiración con aguja cada 6 horas"
+      ],
+      "correct": 1,
+      "whyCorrect": "El neumotórax oculto pequeño (hasta 3,5 cm en el ápice) se puede observar: puede no necesitar drenaje.",
+      "pearl": "Se llama oculto porque no se ve en la radiografía en decúbito y aparece en la tomografía o en el EFAST.",
+      "trap": "Poner tubo a todo neumotórax que aparece en la tomografía.",
+      "cita": [
+        {
+          "donde": "WSES-AAST, Thoracic trauma, World J Emerg Surg 2025;20:78, Neumotórax",
+          "texto": "Small (rim up to 3.5 cm at the pulmonary apex) or lately diagnosed small occult PNX can be observed and may not require drainage."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c42",
+      "topic": "Trauma · Lesión de colon",
+      "difficulty": "residencia",
+      "src": "wses_colon26",
+      "vignette": "Hombre de 28 años con herida por arma cortopunzante en el abdomen, <span class='hy'>hemodinámicamente estable</span>. En la laparotomía hay una <span class='hy'>laceración pequeña del colon transverso</span>, no destructiva. ¿Qué haces?",
+      "options": [
+        "Colostomía en asa de rutina",
+        "Reparación primaria del colon",
+        "Resección y colostomía terminal",
+        "Reparación primaria con ileostomía de protección"
+      ],
+      "correct": 1,
+      "whyCorrect": "En el paciente estable se prefiere la reparación primaria o la resección con anastomosis antes que la derivación de rutina. Si la lesión es de bajo grado, basta la reparación primaria.",
+      "pearl": "No se recomienda dejar ileostomía o colostomía de protección de rutina después de reparar o anastomosar.",
+      "trap": "Hacer colostomía por costumbre, como se hacía antes.",
+      "cita": [
+        {
+          "donde": "WSES, Colon and rectal injuries, JAMA Surgery 2026, Recomendación 3.1",
+          "texto": "We recommend primary repair or resection with anastomosis over routine fecal diversion in hemodynamically stable patients with intraperitoneal colon injury; for low-grade injuries, primary repair alone is preferred over resection with anastomosis."
+        },
+        {
+          "donde": "WSES, Colon and rectal injuries, JAMA Surgery 2026, Recomendación 4.1",
+          "texto": "We suggest against the routine use of protective ileostomy or loop colostomy after primary repair or resection with anastomosis in adult traumatic colon injury."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c43",
+      "topic": "Trauma · Antibiótico tras lesión intestinal",
+      "difficulty": "basica",
+      "src": "wses_colon26",
+      "vignette": "Mujer de 33 años operada por una <span class='hy'>herida de colon</span> por arma cortopunzante: se reparó y se cerró sin complicaciones. ¿Hasta cuándo das el antibiótico?",
+      "options": [
+        "Por 7 días, por la contaminación fecal",
+        "Hasta que retiren los puntos de la piel",
+        "Máximo 24 horas tras controlar el foco",
+        "Por 14 días si hubo heces en la cavidad"
+      ],
+      "correct": 2,
+      "whyCorrect": "El antibiótico posoperatorio se suspende dentro de las 24 horas siguientes al control definitivo del foco y el cierre. Prolongarlo no previene más infecciones del sitio operatorio y aumenta los efectos adversos.",
+      "pearl": "Otras recomendaciones de la misma guía: las anastomosis con grapas y manuales son equivalentes, y en pacientes seleccionados se aconseja la nutrición enteral temprana.",
+      "trap": "Alargar el antibiótico «por si acaso» porque hubo contaminación.",
+      "cita": [
+        {
+          "donde": "WSES, Colon and rectal injuries, JAMA Surgery 2026, Recomendación 15",
+          "texto": "We recommend discontinuing postoperative antibiotic regimens within 24 h after definitive source control and closure of traumatic bowel injuries."
+        },
+        {
+          "donde": "WSES, Colon and rectal injuries, JAMA Surgery 2026, Recomendación 15",
+          "texto": "Continuing antibiotic prophylaxis beyond this 24-h window yields no additional benefit in preventing surgical site infection and increases the risk of adverse effects."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c44",
+      "topic": "Trauma · Lesión destructiva del recto",
+      "difficulty": "dificil",
+      "src": "wses_colon26",
+      "vignette": "Hombre de 26 años, <span class='hy'>hemodinámicamente estable</span>, con herida por arma de fuego de alta energía y una <span class='hy'>lesión destructiva del recto</span> que deja bordes sanos y bien perfundidos tras resecar. ¿Qué cirugía sugiere la guía?",
+      "options": [
+        "Colostomía terminal sin resecar el recto lesionado",
+        "Reparación primaria simple de los bordes de la herida",
+        "Solo drenaje presacro y lavado del recto distal",
+        "Resección y anastomosis, con o sin ostomía"
+      ],
+      "correct": 3,
+      "whyCorrect": "En el paciente estable con lesión destructiva del recto se sugiere resección con anastomosis primaria, con o sin ostomía de derivación, cuando sea posible. La colostomía se reserva para lesiones destructivas de alta energía que no dejan bordes sanos o para la inestabilidad como parte del control de daños.",
+      "pearl": "Lesión no destructiva con buena irrigación: reparación primaria si es técnicamente posible en el paciente estable.",
+      "trap": "Hacer colostomía a toda lesión destructiva, aunque el paciente esté estable y los bordes queden sanos.",
+      "cita": [
+        {
+          "donde": "WSES, Colon and rectal injuries, JAMA Surgery 2026, Recomendación 9.2",
+          "texto": "In stable patients with destructive rectal injury, we suggest resection and primary anastomosis with or without diverting ostomy, when feasible."
+        },
+        {
+          "donde": "WSES, Colon and rectal injuries, JAMA Surgery 2026, Recomendación 9.3",
+          "texto": "We recommend reserving colostomy for selected cases of destructive high-energy rectal injuries that are difficult to excise leaving healthy, well-perfused edges, or for hemodynamic instability as part of damage-control surgery."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c45",
+      "topic": "Trauma · Reanimación de control de daños",
+      "difficulty": "residencia",
+      "src": "sangre_total26",
+      "vignette": "Hombre de 31 años con herida penetrante en el abdomen, <span class='hy'>PA 70/40 y FC 140</span>, en choque hemorrágico. Va para cirugía. ¿Con qué reanimas mientras llega al quirófano?",
+      "options": [
+        "Hemoderivados balanceados o sangre total",
+        "2 litros de cristaloide y después reevaluar",
+        "Coloides sintéticos para expandir el volumen",
+        "Vasopresor para llegar a PA sistólica de 120"
+      ],
+      "correct": 0,
+      "whyCorrect": "La reanimación de control de daños entiende el trauma como una «falla de la sangre»: se pasó de reanimar con cristaloides a dar temprano hemoderivados balanceados. La sangre total muestra un claro beneficio de supervivencia en el trauma penetrante; en el cerrado los resultados son mixtos.",
+      "pearl": "La sangre total reduce el total de transfusiones y simplifica la logística frente a los componentes separados.",
+      "trap": "Empezar con litros de cristaloide antes de la sangre.",
+      "cita": [
+        {
+          "donde": "Current Clinical Implications of Whole Blood in Trauma Resuscitation, Curr Anesthesiol Rep 2026;16:12, Introducción",
+          "texto": "The Damage Control Resuscitation paradigm, which recognizes trauma as a cause of ‘blood failure,’ has driven a transition from crystalloid-based to early balanced blood product resuscitation as part of a multifaceted approach to management."
+        },
+        {
+          "donde": "Current Clinical Implications of Whole Blood in Trauma Resuscitation, Curr Anesthesiol Rep 2026;16:12, Resumen",
+          "texto": "Recent prospective randomized trials and observational studies indicate a pronounced survival advantage in penetrating trauma, whereas blunt trauma phenotypes exhibit mixed outcomes and potential coagulopathy risks."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c46",
+      "topic": "Quemaduras · Escisión temprana",
+      "difficulty": "residencia",
+      "src": "burn_sepsis26",
+      "vignette": "Mujer de 40 años con <span class='hy'>quemaduras profundas en el 35 % de la superficie corporal</span>, ya reanimada y estable al tercer día. ¿Qué medida es la que más reduce la mortalidad por sepsis de la quemadura?",
+      "options": [
+        "Antibiótico profiláctico sistémico hasta el alta",
+        "Escisión tangencial temprana e injerto",
+        "Curaciones diarias esperando que la escara se desprenda",
+        "Cultivos de vigilancia diarios de la herida"
+      ],
+      "correct": 1,
+      "whyCorrect": "El avance más importante para reducir la mortalidad por sepsis de la herida fue la escisión tangencial temprana con injerto: se retira la escara, que es tejido necrótico y avascular donde crecen las bacterias, usualmente en los primeros 7 días.",
+      "pearl": "El antibiótico profiláctico para los procedimientos quirúrgicos no debe pasar de 24 a 48 horas.",
+      "trap": "Esperar a que la escara se desprenda sola.",
+      "cita": [
+        {
+          "donde": "Sepsis in the major burn patient, Crit Care Sepsis Severe Infect 2026;1:16, Manejo quirúrgico",
+          "texto": "The single most important advance in reducing mortality from burn wound sepsis has been the adoption of early tangential excision and grafting."
+        },
+        {
+          "donde": "Sepsis in the major burn patient, Crit Care Sepsis Severe Infect 2026;1:16, Manejo antimicrobiano",
+          "texto": "The duration of therapy should be the shortest effective course, and prophylactic antibiotics for surgical procedures should not exceed 24–48 hours."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c47",
+      "topic": "Quemaduras · Sospecha de sepsis en el gran quemado",
+      "difficulty": "dificil",
+      "src": "burn_sepsis26",
+      "vignette": "Hombre de 45 años con quemaduras del 50 %, en el día 8. Desde el ingreso tiene <span class='hy'>fiebre, taquicardia y leucocitosis</span>. Hoy aparecen <span class='hy'>trombocitopenia, hiperglucemia nueva e intolerancia a la nutrición enteral</span>. ¿Qué haces?",
+      "options": [
+        "Nada nuevo: es la respuesta inflamatoria de la quemadura",
+        "Esperar a que la procalcitonina pase de 2 ng/mL",
+        "Buscar el foco e iniciar antibiótico empírico",
+        "Bajar la nutrición enteral a la mitad y vigilar"
+      ],
+      "correct": 2,
+      "whyCorrect": "La fiebre, la taquicardia y la leucocitosis aparecen en muchos quemados sin infección. Por eso la American Burn Association usa criterios propios: con sospecha clínica y 3 o más de sus 6 predictores (temperatura extrema, taquicardia progresiva, taquipnea, trombocitopenia, hiperglucemia, intolerancia enteral) se busca el foco y se inicia antibiótico empírico.",
+      "pearl": "Los criterios de respuesta inflamatoria sistémica no sirven en el gran quemado: los cumple sin estar infectado.",
+      "trap": "Atribuir todo a la respuesta inflamatoria de la quemadura.",
+      "cita": [
+        {
+          "donde": "Sepsis in the major burn patient, Crit Care Sepsis Severe Infect 2026;1:16, Diagnóstico",
+          "texto": "Many burn patients fulfil systemic inflammatory response syndrome criteria (fever, tachycardia, tachypnoea and leukocytosis) in the absence of infection, limiting the specificity of these diagnostic parameters."
+        },
+        {
+          "donde": "Sepsis in the major burn patient, Crit Care Sepsis Severe Infect 2026;1:16, Criterios de la American Burn Association",
+          "texto": "A clinical suspicion of infection, in addition to meeting at least 3 of the 6 burn-specific predictors, should prompt an investigation for the infectious source and initiation of empiric systemic antibiotics. These include abnormalities such as extreme temperature changes, progressive tachycardia, tachypnoea, thrombocytopenia, hyperglycaemia, and intolerance to enteral feeding."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c48",
+      "topic": "Perioperatorio · Presión negativa en la incisión",
+      "difficulty": "dificil",
+      "src": "inpwt_ssi26",
+      "vignette": "Un metaanálisis de 85 ensayos (16.980 pacientes) compara la <span class='hy'>terapia de presión negativa en la incisión cerrada</span> con el apósito estándar. ¿Qué conclusión es correcta?",
+      "options": [
+        "Reduce la infección de órgano y espacio y la mortalidad",
+        "No cambia la infección superficial ni la profunda",
+        "Su beneficio no tiene ningún costo en efectos adversos",
+        "NNT 21 para evitar 1 infección; NNH 18 para ampollas"
+      ],
+      "correct": 3,
+      "whyCorrect": "Redujo la infección global, la profunda y la superficial, pero no la de órgano y espacio, los reingresos ni la mortalidad. Hay que tratar 21 pacientes para evitar una infección, y por cada 18 aparece una ampolla en la piel: el beneficio y el daño son de tamaño parecido.",
+      "pearl": "Por eso los autores proponen usarla de forma selectiva en pacientes de alto riesgo.",
+      "trap": "Leer solo la reducción relativa del riesgo sin mirar el NNT y el NNH.",
+      "cita": [
+        {
+          "donde": "Incisional NPWT for prevention of SSI, JAMA Surgery 2026, Resultados",
+          "texto": "The number needed to treat was 21 for SSI; the number needed to harm was 18 for skin blistering and 11 for device-related adverse events."
+        },
+        {
+          "donde": "Incisional NPWT for prevention of SSI, JAMA Surgery 2026, Resultados",
+          "texto": "No significant differences were observed for organ-space SSI, readmission, or mortality."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [
