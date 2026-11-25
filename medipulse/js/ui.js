@@ -39,7 +39,7 @@ function renderApariencia(){
         <i style="background:${boton}"></i><i style="background:${det};width:60%"></i></span>
         <span class="pal-n">${nom}${id === pal ? ' <span class="pal-ck">✓</span>' : ""}</span></button>`).join("")}</div>
     <p class="hoja-lbl">MODO</p>
-    <div class="seg">${[["light", "☀️ Claro"], ["dark", "🌙 Oscuro"], ["auto", "🔄 Automático"]].map(([v, t]) =>
+    <div class="modo-seg">${[["light", "☀️ Claro"], ["dark", "🌙 Oscuro"], ["auto", "🔄 Automático"]].map(([v, t]) =>
       `<button type="button" data-modo="${v}" class="${v === modo ? "on" : ""}" aria-pressed="${v === modo}">${t}</button>`).join("")}</div>
     <p class="xs muted" style="margin-top:8px">Automático sigue el modo de tu teléfono.</p>
   </form>`;
