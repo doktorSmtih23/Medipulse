@@ -66,6 +66,16 @@ test("si el índice termina de cargar mientras se eligen páginas a mano, no se 
   await expect(page.locator("#manFrom")).toHaveValue("2");
 });
 
+test("si el índice termina de cargar justo mientras se escribe en «Desde», lo tecleado no se mezcla con lo anterior", async ({ page }) => {
+  await page.click("#genCard summary:has-text('Elegir páginas a mano')");
+  await page.focus("#manFrom"); await page.keyboard.press("Control+A");
+  await page.evaluate(() => refrescarIndice());     // el índice termina en medio de la escritura
+  await page.keyboard.insertText("2");
+  await expect(page.locator("#manFrom")).toHaveValue("2");   // antes quedaba «21»
+  await page.fill("#manTo", "3"); await page.click("#manGo");
+  await expect(page.locator("#genCard")).toContainText("Tema: Págs. 2–3");
+});
+
 test("recomendaciones por grado: GRADE en español (texto y tabla resumen, sin repetir), en contra, buena práctica, y AHA con la clase arriba", async ({ page }) => {
   const r = await page.evaluate(() => recsPorGrado({nums: [6, 28, 10], pages: [
     "Recomendación 1.1 Sugerimos realizar una radiografía de tórax en pacientes adultos con sospecha de NAC. (Débil, Moderada calidad).\nRecomendación 3.1 Recomendamos no usar la tomografía de tórax de rutina para confirmar el diagnós -\ntico de NAC. (Fuerte, Moderada calidad).\nPunto de buena práctica Antes de procesar una muestra de esputo se debe evaluar su calidad con los criterios de Murray-Washington. La NAC sigue siendo frecuente.",
