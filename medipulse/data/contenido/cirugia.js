@@ -1335,6 +1335,138 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c49",
+      "topic": "Trauma · Herida toracoabdominal izquierda en paciente estable",
+      "difficulty": "residencia",
+      "src": "udea_toracoab22",
+      "vignette": "Hombre de 25 años con <span class='hy'>herida por arma cortopunzante toracoabdominal izquierda</span>. Está <span class='hy'>estable, sin irritación peritoneal</span> y la radiografía de tórax es normal. ¿Qué estudio recomiendas para descartar lesión del diafragma?",
+      "options": [
+        "Tomografía de tórax y abdomen con contraste",
+        "Laparoscopia diagnóstica",
+        "Ecografía E-FAST y alta si es negativa",
+        "Observación 24 horas sin estudios"
+      ],
+      "correct": 1,
+      "whyCorrect": "La laparoscopia es el estándar de referencia: diagnostica y repara en el mismo acto, con valor predictivo negativo de 96 %. La tomografía no basta para descartar la lesión: se le escapan entre 12 y 63 % de las heridas del diafragma.",
+      "pearl": "Se prefiere la laparoscopia a la toracoscopia: las lesiones del tórax suelen resolverse con un tubo, pero 53 a 88,9 % de los pacientes estables tienen lesiones abdominales que pueden requerir cirugía.",
+      "trap": "Dar de alta con una tomografía o una ecografía normales.",
+      "cita": [
+        {
+          "donde": "Memorias UdeA 2022, Enfoque del paciente con trauma toracoabdominal, Laparoscopia y toracoscopia",
+          "texto": "Debido a una mayor capacidad diagnóstica de la laparoscopia frente a los estudios de imagen disponibles se recomienda recurrir a ella en los pacientes estables hemodinámicamente, sin signos de irritación y trauma penetrante toracoabdominal."
+        },
+        {
+          "donde": "Memorias UdeA 2022, Enfoque del paciente con trauma toracoabdominal, Tomografía computarizada",
+          "texto": "El alto porcentaje de lesiones inadvertidas en la tomografía, que varía del 12 % al 63 % hacen que la TAC no sea suficiente para descartar trauma diafragmático."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c50",
+      "topic": "Trauma · Límites del área toracoabdominal",
+      "difficulty": "basica",
+      "src": "udea_toracoab22",
+      "vignette": "Mujer de 30 años con una herida por arma cortopunzante en la <span class='hy'>región lateral izquierda, a nivel del séptimo espacio intercostal</span>. ¿Por qué debes sospechar lesión del diafragma?",
+      "options": [
+        "La herida está en el área toracoabdominal",
+        "Toda herida torácica lesiona el diafragma",
+        "El diafragma solo se lesiona por debajo de las costillas",
+        "Solo si hay neumotórax en la radiografía"
+      ],
+      "correct": 0,
+      "whyCorrect": "La región toracoabdominal va, por arriba, del cuarto espacio intercostal adelante, el sexto en la región lateral y la punta de la escápula (octavo espacio) atrás. Una herida en esa zona puede lesionar el diafragma y vísceras del tórax y del abdomen.",
+      "pearl": "La lesión del diafragma es izquierda en 75 a 80 % de los casos; la bilateral es rara (3 %).",
+      "trap": "Manejar como herida solo torácica una lesión por debajo del cuarto espacio anterior o del sexto lateral.",
+      "cita": [
+        {
+          "donde": "Memorias UdeA 2022, Enfoque del paciente con trauma toracoabdominal, Introducción",
+          "texto": "En 1989, Madden describió los límites superiores de la región toracoabdominal así: cuarto espacio intercostal en la zona anterior, sexto espacio intercostal en la región lateral, y a nivel posterior el ángulo inferior de la escápula que corresponde al octavo espacio intercostal."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c51",
+      "topic": "Trauma · Herida diafragmática aislada",
+      "difficulty": "residencia",
+      "src": "udea_toracoab22",
+      "vignette": "En la laparoscopia de un paciente estable con herida toracoabdominal izquierda se encuentra una <span class='hy'>laceración de 1 cm del diafragma</span>, sin otras lesiones. ¿Qué haces?",
+      "options": [
+        "Dejarla: los defectos pequeños cierran solos",
+        "Observar y repetir la laparoscopia en 48 h",
+        "Reparar la laceración del diafragma",
+        "Solo dejar tubo de tórax y antibiótico"
+      ],
+      "correct": 2,
+      "whyCorrect": "Las heridas aisladas del diafragma también se reparan: el movimiento continuo con la respiración hace muy improbable que el defecto cierre solo; al contrario, crece y da complicaciones como la hernia.",
+      "pearl": "La diferencia de presión entre abdomen y pleura (7 a 20 cmH2O, y en el trauma cerrado puede pasar de 100) empuja las vísceras por el defecto.",
+      "trap": "Pensar que un defecto pequeño del diafragma cicatriza solo.",
+      "cita": [
+        {
+          "donde": "Memorias UdeA 2022, Enfoque del paciente con trauma toracoabdominal, Enfoque diagnóstico y terapéutico",
+          "texto": "Esto también aplica para las heridas diafragmáticas aisladas, ya que su continuo movimiento en relación con la mecánica respiratoria hace muy improbable un cierre espontáneo del defecto, y por el contrario, suelen progresar en tamaño y generar complicaciones."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c52",
+      "topic": "Trauma · Hernia diafragmática traumática tardía",
+      "difficulty": "dificil",
+      "src": "udea_toracoab22",
+      "vignette": "Hombre de 38 años con <span class='hy'>herida por arma cortopunzante toracoabdominal izquierda hace 2 años</span>, manejada sin cirugía. Ahora consulta por plenitud temprana, dolor toracoabdominal y vómito. La radiografía muestra un <span class='hy'>nivel hidroaéreo en el hemitórax izquierdo</span>. ¿Qué víscera es la que más se hernia de ese lado?",
+      "options": [
+        "Bazo",
+        "Intestino grueso",
+        "Hígado",
+        "Estómago"
+      ],
+      "correct": 3,
+      "whyCorrect": "Es una hernia diafragmática traumática que pasó inadvertida. Del lado izquierdo se hernian, en orden: estómago, bazo, colon, hígado, intestino delgado y epiplón. Si se complica, la mortalidad llega a 60 % y a 80 % si la víscera se estrangula.",
+      "pearl": "La mayoría de las hernias crónicas se diagnostican en los 3 años siguientes, pero pueden aparecer hasta 20 años después. Del lado derecho el hígado protege y, si hay hernia, suele ser el hígado.",
+      "trap": "Atribuir los síntomas a otra causa sin recordar la herida antigua.",
+      "cita": [
+        {
+          "donde": "Memorias UdeA 2022, Enfoque del paciente con trauma toracoabdominal, Epidemiología",
+          "texto": "Los órganos que más frecuentemente se hernian al lado izquierdo son, en orden de frecuencia, el estómago, bazo, intestino grueso, hígado, intestino delgado y omento."
+        },
+        {
+          "donde": "Memorias UdeA 2022, Enfoque del paciente con trauma toracoabdominal, Epidemiología",
+          "texto": "Cuando esto ocurre, la mortalidad puede ascender hasta un 60 % y en casos de estrangulamiento de la víscera herniada, puede ser tan alta como del 80 %."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c53",
+      "topic": "Perioperatorio · Náusea y vómito posoperatorios",
+      "difficulty": "dificil",
+      "src": "teas_nvpo26",
+      "vignette": "En un ensayo con 232 mujeres con náusea y vómito posoperatorios moderados a graves tras cirugía de tiroides o de columna cervical, la estimulación eléctrica del punto PC6 logró remisión a las 2 h en 77,6 % frente a 55,2 % con metoclopramida. El NNT fue 4,46. ¿Cómo lo interpretas?",
+      "options": [
+        "Hay que tratar 446 pacientes para lograr 1 mejoría",
+        "Cerca de 5 tratadas logran 1 remisión adicional",
+        "Sirve igual para hombres y cualquier cirugía",
+        "El NNT bajo prueba que no hubo sesgo"
+      ],
+      "correct": 1,
+      "whyCorrect": "Un NNT de 4,46 quiere decir que, por cada 5 pacientes tratadas con estimulación en vez de metoclopramida, 1 más logra alivio importante. La recaída a las 24 h también fue menor: 12,2 % frente a 56,3 %.",
+      "pearl": "Límite del estudio: solo incluyó mujeres y cirugías con poco dolor posoperatorio, así que no se puede generalizar.",
+      "trap": "Leer el NNT como un número de cientos o asumir que el resultado sirve para cualquier paciente.",
+      "cita": [
+        {
+          "donde": "TEAS vs Metoclopramide for PONV, JAMA Surgery 2026;161(3):268-273, Resultados",
+          "texto": "This translated to a 50% reduction in PONV risk with TEAS (risk ratio, 0.50; 95% CI, 0.34-0.73). The attributable risk difference was 22% (95% CI, 11.0%-35.0%), yielding a number needed to treat of 4.46 (95% CI, 2.85-9.42), indicating that 1 additional case of significant relief is achieved per 5 patients treated with TEAS."
+        },
+        {
+          "donde": "TEAS vs Metoclopramide for PONV, JAMA Surgery 2026;161(3):268-273, Limitaciones",
+          "texto": "First, the generalizability of our findings is constrained by the gender-restricted sampling strategy for the reason noted above."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [
