@@ -109,6 +109,8 @@ const SOURCES = [
   {id:"inpwt_ssi26", t:"Incisional Negative Pressure Wound Therapy for Prevention of Surgical Site Infection: A Systematic Review and Meta-Analysis", r:"JAMA Surgery, 2026", y:2026, k:"article"},
   {id:"ocna_rodilla25", t:"Acute Management of Traumatic Knee Dislocations (Adams JD, Roward LG)", r:"Orthopedic Clinics of North America, 2025;56:299-304", y:2025, k:"article"},
   {id:"jama_cadera26", t:"Hip Fractures: A Review (Johannesdottir F et al.)", r:"JAMA, 2026", y:2026, k:"article"},
+  {id:"udea_toracoab22", t:"Enfoque del paciente con trauma toracoabdominal (Castaño AL, Jaramillo SL), en Memorias del curso de actualización en Cirugía general", r:"Universidad de Antioquia, Facultad de Medicina, 2022", y:2022, k:"book"},
+  {id:"teas_nvpo26", t:"Transcutaneous Electrical Acupoint Stimulation vs Metoclopramide for Moderate to Severe Postoperative Nausea and Vomiting: A Randomized Clinical Trial", r:"JAMA Surgery, 2026;161(3):268-273", y:2026, k:"article"},
   {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
