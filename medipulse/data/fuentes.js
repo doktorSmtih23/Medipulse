@@ -100,6 +100,13 @@ const SOURCES = [
   {id:"acog_cort",t:"ACOG Committee Opinion No. 713: Antenatal Corticosteroid Therapy for Fetal Maturation", r:"Obstetrics & Gynecology, 2017 · con actualización focalizada", y:2017, k:"guideline", v:"Sigue vigente con actualizaciones focalizadas"},
   {id:"williams", t:"Williams Obstetricia, 27ª edición", r:"McGraw-Hill", y:2025, k:"book"},
   {id:"nrdp_litiasis26", t:"Kidney stones (Primer)", r:"Nature Reviews Disease Primers, 2026;12:74", y:2026, k:"article"},
+  {id:"nrdp_hernia25", t:"Groin hernia (Primer)", r:"Nature Reviews Disease Primers, 2025;11:47", y:2025, k:"article"},
+  {id:"suc_divert24", t:"Current Management of Diverticulitis (Domas E, Starks K, Kanneganti S)", r:"Surgical Clinics of North America, 2024;104:529-543", y:2024, k:"article"},
+  {id:"wses_torax25", t:"Thoracic trauma: WSES-AAST guidelines", r:"World Journal of Emergency Surgery, 2025;20:78", y:2025, k:"guideline"},
+  {id:"wses_colon26", t:"Management of Colon and Rectal Injuries From Blunt and Penetrating Trauma: Evidence-Based Recommendations From the World Society of Emergency Surgery", r:"JAMA Surgery, 2026", y:2026, k:"guideline"},
+  {id:"sangre_total26", t:"Current Clinical Implications of Whole Blood in Trauma Resuscitation", r:"Current Anesthesiology Reports, 2026;16:12", y:2026, k:"article"},
+  {id:"burn_sepsis26", t:"Sepsis in the major burn patient (McGovern C et al.)", r:"Critical Care: Sepsis and Severe Infection, 2026;1:16", y:2026, k:"article"},
+  {id:"inpwt_ssi26", t:"Incisional Negative Pressure Wound Therapy for Prevention of Surgical Site Infection: A Systematic Review and Meta-Analysis", r:"JAMA Surgery, 2026", y:2026, k:"article"},
   {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
