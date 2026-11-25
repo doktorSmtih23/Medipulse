@@ -1282,6 +1282,66 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23"
+    },
+    {
+      "id": "gin-c44",
+      "topic": "Ginecología · Terapia hormonal de la menopausia",
+      "difficulty": "residencia",
+      "src": "nrc_menop24",
+      "vignette": "Mujer de 52 años, <span class='hy'>con útero</span>, con última menstruación hace 2 años y <span class='hy'>bochornos intensos</span> que no la dejan dormir. Sin contraindicaciones. ¿Qué le ofreces?",
+      "options": [
+        "Estrógeno más progestágeno para los síntomas",
+        "Estrógeno solo, porque protege el corazón",
+        "Nada: la terapia hormonal es solo para prevenir infartos",
+        "Estrógeno solo, iniciado a los 65 años"
+      ],
+      "correct": 0,
+      "whyCorrect": "La terapia hormonal es lo más eficaz para los bochornos moderados a graves; con útero se combina estrógeno y progestágeno. Puede tener beneficio cardiovascular antes de los 60 años o en los primeros 10 años tras la menopausia, pero no se indica para prevenir enfermedad cardiovascular.",
+      "pearl": "Sin útero, basta el estrógeno solo.",
+      "trap": "Dar estrógeno solo a una mujer con útero.",
+      "cita": [
+        {
+          "donde": "Nat Rev Cardiol 2024, transición menopáusica y riesgo cardiovascular, terapia hormonal",
+          "texto": "Menopausal hormone therapy (MHT) is the most effective strategy to manage moderate-to-severe hot flushes and night sweats that can adversely affect sleep, daytime functioning and quality of life"
+        },
+        {
+          "donde": "Nat Rev Cardiol 2024, transición menopáusica y riesgo cardiovascular, terapia hormonal",
+          "texto": "Women with an intact uterus require combined progestogen and oestrogen therapy, whereas those without a uterus can use oestrogen alone. MHT might have cardioprotective benefits for women aged <60 years who are within 10 years of menopause, but should not be used for the express purpose of cardiovascul"
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "gin-c45",
+      "topic": "Obstetricia · Dermatitis atópica en el embarazo",
+      "difficulty": "dificil",
+      "src": "euroguiderm_ae25",
+      "vignette": "Gestante de 20 semanas con <span class='hy'>brote de dermatitis atópica</span> en los brazos y el tronco. Ya usa emolientes. Pide «una inyección de corticoide cada mes» para estar tranquila. ¿Qué le indicas?",
+      "options": [
+        "Prednisolona diaria hasta el parto",
+        "Corticoide de depósito mensual hasta el parto",
+        "Suspender emolientes y aplicar antisépticos a diario",
+        "Emolientes y corticoide tópico clase II o III"
+      ],
+      "correct": 3,
+      "whyCorrect": "En la gestante, los emolientes son la base y se recomiendan corticoides tópicos de clase II o III, de forma reactiva o proactiva. Los corticoides sistémicos no se usan a largo plazo; la prednisolona solo como rescate corto.",
+      "pearl": "Los antisépticos no se recomiendan como medida de rutina.",
+      "trap": "Dar corticoide sistémico prolongado durante el embarazo.",
+      "cita": [
+        {
+          "donde": "EuroGuiDerm dermatitis atópica, actualización 2025, embarazo",
+          "texto": "In pregnant women with AE, we recommend against long term use of systemic corticosteroids - as we do in all AE patients. In pregnant women with AE, we suggest prednisolone only as short term rescue therapy for acute flares."
+        },
+        {
+          "donde": "EuroGuiDerm dermatitis atópica, actualización 2025, embarazo",
+          "texto": "Basic emollient therapy is key in the treatment of AE also during pregnancy and must be proposed to pregnant women with AE as a basic daily therapy."
+        },
+        {
+          "donde": "EuroGuiDerm dermatitis atópica, actualización 2025, embarazo",
+          "texto": "TCS Reactive or proactive use of TCS class II or III is recommended."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [

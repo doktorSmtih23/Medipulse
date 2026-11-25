@@ -1983,6 +1983,70 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23"
+    },
+    {
+      "id": "mi-c55",
+      "topic": "Hematología · PTT inmune",
+      "difficulty": "residencia",
+      "src": "jama_ttp25",
+      "vignette": "Mujer de 34 años con <span class='hy'>confusión y cefalea</span>. Tiene hemoglobina de 8 g/dL con <span class='hy'>esquistocitos</span>, plaquetas de 12.000/µL, LDH alta y creatinina de 1,1 mg/dL. Se pidió la actividad de ADAMTS13. ¿Qué haces mientras llega?",
+      "options": [
+        "Recambio plasmático, corticoides y rituximab",
+        "Transfundir plaquetas y esperar ADAMTS13",
+        "Solo corticoides orales y control en 1 semana",
+        "Hemodiálisis urgente por microangiopatía"
+      ],
+      "correct": 0,
+      "whyCorrect": "La PTT inmune se trata de inmediato con recambio plasmático, corticoides y rituximab: así la supervivencia pasa de casi cero a cerca del 93 %. Su hallazgo patognomónico es la microangiopatía trombótica con ADAMTS13 menor del 10 %.",
+      "pearl": "Los síntomas neurológicos (cefalea, confusión, convulsiones) son frecuentes al inicio; los puntajes PLASMIC o FRENCH estiman la probabilidad.",
+      "trap": "Esperar el resultado de ADAMTS13 para empezar el tratamiento.",
+      "cita": [
+        {
+          "donde": "JAMA 2025, revisión de PTT inmune, resumen",
+          "texto": "Prompt initiation of therapy with therapeutic plasma exchange, corticosteroids, and rituximab improves survival with iTTP from almost zero to approximately 93%."
+        },
+        {
+          "donde": "JAMA 2025, revisión de PTT inmune, diagnóstico",
+          "texto": "The pathognomonic finding of iTTP is thrombotic microangiopathy with ADAMTS13 activity less than 10%, although patients with ADAMTS13 activity of 10% to 20% may have iTTP."
+        },
+        {
+          "donde": "JAMA 2025, revisión de PTT inmune, presentación",
+          "texto": "Common presenting symptoms are neurologic (eg, headache, confusion, or seizures [39%-80%]) and abdominal pain (35%-39%)."
+        }
+      ],
+      "verificado": "2026-11-25"
+    },
+    {
+      "id": "mi-c56",
+      "topic": "Gastroenterología · Intestino irritable",
+      "difficulty": "basica",
+      "src": "nrdp_ibs26",
+      "vignette": "Mujer de 29 años con <span class='hy'>dolor abdominal recurrente</span> que mejora al defecar y alterna diarrea y estreñimiento desde hace 1 año. <span class='hy'>Sin sangrado, sin pérdida de peso, sin anemia</span> ni antecedente familiar de cáncer colorrectal. ¿Qué haces?",
+      "options": [
+        "Colonoscopia para descartar enfermedad orgánica",
+        "Calprotectina, endoscopia alta y colonoscopia",
+        "Tomografía de abdomen con contraste",
+        "Diagnóstico positivo, sin colonoscopia"
+      ],
+      "correct": 3,
+      "whyCorrect": "El colon irritable se diagnostica de forma positiva con los síntomas, el contexto y pocas pruebas dirigidas si no hay signos de alarma; la colonoscopia no está indicada de rutina sin ellos.",
+      "pearl": "Alarma: anemia, sangrado rectal, pérdida de peso, diarrea nocturna, inicio después de los 50 años o antecedente familiar de cáncer colorrectal, EII o celiaquía.",
+      "trap": "Pedir colonoscopia a todo paciente con colon irritable.",
+      "cita": [
+        {
+          "donde": "Nat Rev Dis Primers 2026, síndrome de intestino irritable, diagnóstico",
+          "texto": "A positive diagnosis of IBS should be established based on characteristic symptoms, clinical context and limited, targeted testing in the absence of alarm features."
+        },
+        {
+          "donde": "Nat Rev Dis Primers 2026, síndrome de intestino irritable, diagnóstico",
+          "texto": "Alarm features include anaemia, rectal bleeding, unintentional weight loss, nocturnal diarrhoea, new symptom onset after 50 years of age, and a family history of colorectal cancer, IBD or coeliac disease."
+        },
+        {
+          "donde": "Nat Rev Dis Primers 2026, síndrome de intestino irritable, diagnóstico",
+          "texto": "Colonoscopy is not indicated routinely in patients with suspected IBS without alarm features."
+        }
+      ],
+      "verificado": "2026-11-25"
     }
   ],
   "fichas": [
