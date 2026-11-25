@@ -1,5 +1,10 @@
 // Arranque: tema, pantalla Hoy y modo sin conexión.
 applyTheme(); renderHoy();
+// Versión de un solo archivo liviana (tools/un-archivo.js): trae solo las 4 básicas y lo dice en Casos.
+if (window.MP_SOLO_BASICAS && $("#soloBasicas")) {
+  $("#soloBasicas").hidden = false;
+  $("#soloBasicas").innerHTML = `Esta versión de un solo archivo trae los casos de las 4 básicas. ${esc(window.MP_SOLO_BASICAS.join(", ").replace(/, ([^,]*)$/, " y $1"))} están en <a href="${APP_URL}" target="_blank" rel="noopener">la app web</a>.`;
+}
 if (!CAN_STORE) {
   const n = document.createElement("div"); n.className = "previewnote";
   n.innerHTML = `👀 <b>Vista previa:</b> puedes usar todo, pero tu progreso, tu clave y tus PDF se borran al cerrar. Para guardarlos, <a href="${APP_URL}" target="_blank" rel="noopener">abre la app en el navegador</a>.`;

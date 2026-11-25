@@ -10,7 +10,7 @@ const ctx = {MP_CONTENIDO: {especialidades: [], agregar(d){ this.especialidades.
 vm.createContext(ctx);
 const dir = path.join(RAIZ, "data/contenido");
 const archivos = fs.readdirSync(dir).filter(f => f.endsWith(".js") && !["registro.js", "armar.js"].includes(f));
-let total = 0, casos = 0;
+let total = 0, casos = 0, kbStarter = 0, casosStarter = 0;
 const filas = archivos.map(f => {
   const txt = fs.readFileSync(path.join(dir, f), "utf8");
   vm.runInContext(txt, ctx);
@@ -19,6 +19,7 @@ const filas = archivos.map(f => {
   const kb = Buffer.byteLength(JSON.stringify(e)) / 1024;
   const n = (e.casos || []).filter(vis).length;
   total += kb; casos += n;
+  if (e.paquete === "starter") { kbStarter += kb; casosStarter += n; }
   return [e.especialidad, n, (e.fichas || []).filter(vis).length, kb];
 }).sort((a, b) => b[3] - a[3]);
 
@@ -31,6 +32,8 @@ console.log("Total".padEnd(30), String(casos).padStart(5), "      ", total.toFix
 const unico = path.join(RAIZ, "medipulse-un-archivo.html");
 if (fs.existsSync(unico)) {
   const t = fs.statSync(unico).size, libre = LIM_ARCHIVO_UNICO - t;
-  console.log(`\nArchivo único: ${(t / 1024).toFixed(0)} de ${(LIM_ARCHIVO_UNICO / 1024).toFixed(0)} KB · quedan ${(libre / 1024).toFixed(0)} KB ≈ ${Math.max(0, Math.floor(libre / 1024 / kbCaso))} casos más`);
+  // El archivo único lleva solo las 4 básicas (paquete "starter"); con --completo, todo.
+  const kbB = kbStarter / Math.max(1, casosStarter);
+  console.log(`\nArchivo único (solo las 4 básicas): ${(t / 1024).toFixed(0)} de ${(LIM_ARCHIVO_UNICO / 1024).toFixed(0)} KB · quedan ${(libre / 1024).toFixed(0)} KB ≈ ${Math.max(0, Math.floor(libre / 1024 / kbB))} casos más de las básicas`);
 }
 console.log(`Contenido: ${(total / 1024).toFixed(2)} de ${(AVISO_CONTENIDO / 1024 / 1024).toFixed(0)} MB antes de cargar por especialidad · quedan ≈ ${Math.max(0, Math.floor((AVISO_CONTENIDO / 1024 - total) / kbCaso))} casos`);
