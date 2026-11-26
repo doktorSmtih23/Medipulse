@@ -112,3 +112,31 @@ test("los estilos de Apariencia no pisan los selectores de Casos y Crear (mismo 
   await page.click("#themeBtn");
   await expect(page.locator("#apariencia .modo-seg button")).toHaveCount(3);
 });
+
+test.describe("usuario nuevo de verdad (sin modo de prueba)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.evaluate(() => { localStorage.removeItem("medipulse_prueba"); localStorage.removeItem("medipulse_bienvenida"); });
+    await page.reload();
+  });
+  test("bienvenida de 3 pasos la primera vez; «Explorar primero» la cierra y no vuelve", async ({ page }) => {
+    await expect(page.locator("#bienvenida")).toContainText("Bienvenido a MediPulse");
+    expect(await sinDesborde(page)).toBe(true);
+    await page.click("#bienvSig");
+    await expect(page.locator("#bienvenida")).toContainText("Así se usa");
+    await page.click("#bienvSig");
+    await expect(page.locator("#bienvenida")).toContainText("Empieza por tu diagnóstico");
+    await page.click("#bienvFin");
+    await expect(page.locator("#bienvenida")).toHaveCount(0);
+    await page.reload();
+    await expect(page.locator("#bienvenida")).toHaveCount(0);
+  });
+  test("«Empezar el diagnóstico» lleva al diagnóstico; Hoy sin enfoque, sin «Tu examen completo» y sin atajo repetido", async ({ page }) => {
+    await page.click("#bienvSaltar");
+    await expect(page.locator("#enfoqueBox")).toBeHidden();
+    await expect(page.locator("#areasCard")).toBeHidden();
+    await expect(page.locator("#diagBtn")).toBeHidden();
+    await page.evaluate(() => localStorage.removeItem("medipulse_bienvenida")); await page.reload();
+    await page.click("#bienvSig"); await page.click("#bienvSig"); await page.click("#bienvDiag");
+    await expect(page.locator("#v-diag")).toBeVisible();
+  });
+});

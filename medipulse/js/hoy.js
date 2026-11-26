@@ -28,6 +28,13 @@ function renderHoy(){
     s = {id: "doWeak", ico: "💪", t: `Seguir · 5 casos`, sub: `${esc(weak)} · ${Math.round(x.ok / x.n * 100)} % de aciertos`, por: "Elegido porque es tu área más baja: una ronda de 5 casos de ese tema."}; }
   // Con la parte 1 hecha, sea cual sea el paso de hoy, se recuerda lo que falta del diagnóstico.
   const resto = diagFaltan().length ? `<p class="xs sig-resto">Para completar tu plan te falta ${diagFaltan().join(" y ")}. <button class="linkbtn xs" id="doDiagResto">Terminar el diagnóstico</button></p>` : "";
+  // Usuario nuevo (sin respuestas y sin diagnóstico): Hoy se queda con lo esencial. El enfoque y «Tu examen
+  // completo» aparecen cuando hay algo que ajustar o que mostrar; el atajo «Diagnóstico» no repite el paso siguiente.
+  const nuevo = !Object.keys(S.srs).length && !(S.resp || []).length && !diagHecho();
+  $("#enfoqueBox").hidden = nuevo; $("#areasCard").hidden = nuevo;
+  $("#diagBtn").hidden = s.id === "doDiag";
+  $(".atajos").classList.toggle("dos", s.id === "doDiag");
+  if (nuevo && !$("#bienvenida")) bienvenida();
   $("#suggestCard").innerHTML = `<p class="sig-k">💡 Tu siguiente paso</p>
     <button class="seguir" id="${s.id}"><span class="sig-ico" aria-hidden="true">${s.ico || "▶"}</span><span class="sig-txt"><b>${s.t}</b><small>${s.sub}</small></span><span class="flecha" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
     <p class="sig-por small">${s.por}</p>${s.mas ? `<div class="row" style="margin-top:8px">${s.mas}</div>` : ""}${resto}`;
@@ -310,4 +317,33 @@ function perlaHTML(texto){
   const tag = num ? "ol" : "ul";
   return `${titulo ? `<div class="perla-t">${esc(titulo)}</div>` : ""}<${tag} class="perla-l">${items.map(x => `<li>${perlaItem(x)}</li>`).join("")}</${tag}>`
     + (num && notas && notas.length ? `<ul class="perla-l nota">${notas.map(x => `<li>${perlaItem(x)}</li>`).join("")}</ul>` : "");
+}
+
+// ---------- Bienvenida (solo la primera vez, en este dispositivo) ----------
+// Tres pantallas: qué es, cómo se usa y por dónde empezar. Se guarda en localStorage que ya se vio.
+const BIENV = [
+  {ico: "🩺", t: "Bienvenido a MediPulse", d: "Te prepara para el examen de residencia: casos tipo examen, repaso de lo que fallas y estudio desde tus propias guías."},
+  {ico: "🧭", t: "Así se usa", lista: [["🏠", "Hoy", "te dice qué hacer cada día"], ["🩺", "Casos", "practica y descubre dónde fallas"], ["💎", "Fichas", "datos clave para repasar"], ["📚", "Fuentes", "tus PDF y guías"]],
+    d: "Todo se guarda en tu celular."},
+  {ico: "🎯", t: "Empieza por tu diagnóstico", d: "60 casos en bloques de 10, unos 12 minutos cada uno. Puedes hacerlo por partes. Con eso te digo qué estudiar primero."}
+];
+function bienvenida(paso = 0){
+  try { if (localStorage.getItem("medipulse_bienvenida")) return; } catch(e) { return; }
+  let d = $("#bienvenida");
+  if (!d) { d = document.createElement("div"); d.id = "bienvenida"; d.className = "bienv"; d.setAttribute("role", "dialog"); d.setAttribute("aria-modal", "true"); document.body.appendChild(d); }
+  const b = BIENV[paso], ult = paso === BIENV.length - 1;
+  d.innerHTML = `<div class="bienv-in">
+    <button class="linkbtn xs bienv-saltar" id="bienvSaltar">Saltar</button>
+    <div class="bienv-ico" aria-hidden="true">${b.ico}</div>
+    <h2>${b.t}</h2>
+    ${b.lista ? `<div class="bienv-lista">${b.lista.map(([i, t, x]) => `<div><span>${i}</span><p><b>${t}</b> · ${x}</p></div>`).join("")}</div>` : ""}
+    <p class="muted">${b.d}</p>
+    <div class="bienv-dots">${BIENV.map((_, i) => `<i class="${i === paso ? "on" : ""}"></i>`).join("")}</div>
+    ${ult ? `<button class="btn primary block" id="bienvDiag">🎯 Empezar el diagnóstico</button><button class="btn ghost block" id="bienvFin">Explorar primero</button>`
+      : `<button class="btn primary block" id="bienvSig">Siguiente</button>`}</div>`;
+  const cerrar = () => { try { localStorage.setItem("medipulse_bienvenida", "1"); } catch(e) {} d.remove(); };
+  $("#bienvSaltar").onclick = cerrar;
+  $("#bienvSig") && ($("#bienvSig").onclick = () => bienvenida(paso + 1));
+  $("#bienvFin") && ($("#bienvFin").onclick = cerrar);
+  $("#bienvDiag") && ($("#bienvDiag").onclick = () => { cerrar(); go("diag"); });
 }
