@@ -29,7 +29,13 @@ MP_CONTENIDO.agregar({
           "texto": "La sospecha de artritis séptica justifica la artrotomía urgente de la cadera para su adecuada descompresión, lavado y posterior drenaje; la artrocentesis con jeringa y aguja es insuficiente. Simultáneamente, es necesario el empleo de antibioterapia intravenosa."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: artrotomía urgente para descomprimir, lavar y drenar, con antibiótico IV.",
+        "No: la artrocentesis con aguja es insuficiente.",
+        "No: la sospecha de artritis séptica obliga a la artrotomía urgente.",
+        "No: la afectación ósea en la radiografía aparece a las 2 a 3 semanas; no se espera a verla."
+      ]
     },
     {
       "id": "ort-c02",
@@ -57,7 +63,13 @@ MP_CONTENIDO.agregar({
           "texto": "La mayor parte de los casos remiten en 1-4 semanas. El único tratamiento necesario es sintomático: observación, reposo y analgésicos o antiinflamatorios."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: es afebril, con buen estado general y exámenes que descartan infección.",
+        "No: el tratamiento de la sinovitis transitoria es solo sintomático.",
+        "No: el tratamiento de la sinovitis transitoria es solo sintomático.",
+        "Correcta: sinovitis transitoria: reposo, analgésicos y observación."
+      ]
     },
     {
       "id": "ort-c03",
@@ -85,7 +97,13 @@ MP_CONTENIDO.agregar({
           "texto": "La clínica se presenta con claudicación insidiosa de la marcha, dolor moderado y limitación de la movilidad de la cadera, especialmente abducción y rotación interna. Los estudios de laboratorio son negativos."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: los laboratorios son normales y el inicio es insidioso.",
+        "No: la epifisiólisis es del adolescente.",
+        "Correcta: 4 a 8 años, claudicación insidiosa y limitación de la abducción y la rotación interna.",
+        "No: el cuadro de un niño de 6 años con claudicación insidiosa y laboratorio normal es el del Perthes."
+      ]
     },
     {
       "id": "ort-c04",
@@ -113,7 +131,13 @@ MP_CONTENIDO.agregar({
           "texto": "se tratan mediante fijación in situ, sin reducción (por riesgo de necrosis) con un tornillo canulado."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: no se reduce, por el riesgo de necrosis.",
+        "Correcta: fijación in situ con tornillo canulado, sin reducir.",
+        "No: el tratamiento es la fijación in situ con tornillo canulado.",
+        "No: el tratamiento es la fijación in situ con tornillo canulado."
+      ]
     },
     {
       "id": "ort-c05",
@@ -137,7 +161,13 @@ MP_CONTENIDO.agregar({
           "texto": "El tratamiento de esta deformidad debe comenzarse lo antes posible; si es posible, el primer día de vida. En los pies zambos flexibles, se realiza tratamiento conservador con yesos sucesivos que progresivamente corrigen el aducto, el varo y el equino (“método de Ponseti”)"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la cirugía queda para los pies rígidos o que no responden a los yesos.",
+        "No: el tratamiento debe empezar lo antes posible, idealmente el primer día de vida.",
+        "Correcta: lo antes posible, con yesos sucesivos de Ponseti.",
+        "No: el pie plano valgo flexible es fisiológico; este pie en equino, varo y aducto es un pie zambo."
+      ]
     },
     {
       "id": "ort-c06",
@@ -161,7 +191,13 @@ MP_CONTENIDO.agregar({
           "texto": "La osteocondrosis más frecuente, el Osgood-Schlatter, es una apofisitis de la tuberosidad tibial anterior en niños deportivamente activos hacia los 13-14 años."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: es un adolescente deportista con dolor y abultamiento en la tuberosidad tibial: Osgood-Schlatter.",
+        "Correcta: apofisitis de la tuberosidad tibial anterior en un niño deportista de 13 años.",
+        "No: el dolor y el abultamiento están en la tuberosidad tibial anterior: Osgood-Schlatter.",
+        "No: el dolor y el abultamiento están en la tuberosidad tibial anterior: Osgood-Schlatter."
+      ]
     },
     {
       "id": "ort-c07",
@@ -185,7 +221,13 @@ MP_CONTENIDO.agregar({
           "texto": "Jóvenes: osteosíntesis con tornillos Edad avanzada: • Osteosíntesis, si no está desplazada • Artroplastia, si está desplazada"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la osteosíntesis en la edad avanzada es para la fractura no desplazada.",
+        "No: en la edad avanzada la fractura desplazada se trata con artroplastia.",
+        "No: en la edad avanzada la fractura desplazada se trata con artroplastia.",
+        "Correcta: anciana con fractura desplazada: artroplastia."
+      ]
     },
     {
       "id": "ort-c08",
@@ -209,7 +251,13 @@ MP_CONTENIDO.agregar({
           "texto": "El nervio axilar o circunflejo se encarga de inervar al deltoides y al redondo menor, por lo que su lesión producirá un área de hipoestesia en la cara lateral del hombro y una dificultad a la abducción."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la hipoestesia lateral del hombro y la dificultad para la abducción son del nervio axilar.",
+        "No: la lesión neurológica característica de la luxación anterior es la del nervio axilar.",
+        "No: el radial es el de la fractura de la diáfisis humeral.",
+        "Correcta: nervio axilar (circunflejo): hipoestesia lateral del hombro y dificultad para la abducción."
+      ]
     },
     {
       "id": "ort-c09",
@@ -233,7 +281,13 @@ MP_CONTENIDO.agregar({
           "texto": "La lesión del radial suele ser una neuroapraxia que normalmente se recupera en 3 o 4 meses, y que solo requiere abordaje quirúrgico si empeora al intentar la inmovilización con tratamiento conservador o en las fracturas abiertas"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: suele ser una neuroapraxia radial que se recupera en 3 o 4 meses.",
+        "No: solo se opera si empeora con el tratamiento conservador o si la fractura es abierta.",
+        "No: la mano caída en la fractura de la diáfisis humeral es del nervio radial.",
+        "No: la mano caída en la fractura de la diáfisis humeral es del nervio radial."
+      ]
     },
     {
       "id": "ort-c10",
@@ -261,7 +315,13 @@ MP_CONTENIDO.agregar({
           "texto": "1. Insuficiencia respiratoria a raíz de un síndrome de distrés respiratorio del adulto (SDRA). 2. Sintomatología neurológica cambiante (con predominio de afectación del nivel de consciencia). 3. Petequias en tórax, axila, raíz del cuello y conjuntiva."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: insuficiencia respiratoria, alteración neurológica y petequias tras fractura femoral: embolia grasa.",
+        "No: las petequias y la alteración neurológica orientan a embolia grasa.",
+        "No: la tríada con petequias tras la fractura de fémur es la de la embolia grasa.",
+        "No: la tríada respiratoria, neurológica y de petequias es la de la embolia grasa."
+      ]
     },
     {
       "id": "ort-c11",
@@ -285,7 +345,13 @@ MP_CONTENIDO.agregar({
           "texto": "La maniobra de Thompson ayuda en el diagnóstico y se realiza colocando al paciente en decúbito prono y comprimiendo la masa gemelar, sin obtener una flexión plantar pasiva, al estar roto el tendón de Aquiles"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el Lachman es una maniobra de la rodilla.",
+        "Correcta: maniobra de Thompson sin flexión plantar: rotura del Aquiles.",
+        "No: el McMurray es una maniobra de la rodilla.",
+        "No: comprimir la pantorrilla en decúbito prono es la maniobra de Thompson."
+      ]
     },
     {
       "id": "ort-c12",
@@ -309,7 +375,13 @@ MP_CONTENIDO.agregar({
           "texto": "tanto a 30° de flexión (maniobra de Lachman, más sensible), como a 90° de flexión (test del cajón anterior, especialmente llamativo con la pierna en rotación externa)"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el cajón posterior explora el cruzado posterior.",
+        "No: la lesión que se sospecha es la del cruzado anterior; la más sensible es el Lachman.",
+        "Correcta: Lachman a 30° de flexión, la más sensible para el cruzado anterior.",
+        "No: la maniobra más sensible para el cruzado anterior es el Lachman."
+      ]
     },
     {
       "id": "ort-c13",
@@ -333,7 +405,13 @@ MP_CONTENIDO.agregar({
           "texto": "Tumor típico de adultos jóvenes que ocasiona dolor sordo e intenso, de predominio nocturno, que cede con AAS (ácido acetilsalicílico) y otros AINE. Radiológicamente constan de un nidus lítico de pequeño tamaño (< 1 cm), rodeado de una zona de hueso engrosado y denso. Su localización más frecuente es el fémur proximal."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: adulto joven, dolor nocturno que cede con aspirina y nidus menor de 1 cm: osteoma osteoide.",
+        "No: el nidus lítico menor de 1 cm con hueso denso y dolor que cede con aspirina es un osteoma osteoide.",
+        "No: el cuadro típico del adulto joven con nidus pequeño es el osteoma osteoide.",
+        "No: el nidus lítico menor de 1 cm rodeado de hueso denso es el del osteoma osteoide."
+      ]
     },
     {
       "id": "ort-c14",
@@ -361,7 +439,13 @@ MP_CONTENIDO.agregar({
           "texto": "Clínicamente, cursa con dolor, síndrome constitucional y febrícula. Las pruebas de laboratorio muestran aumento de la fosfatasa alcalina, y radiológicamente aparece como una lesión lítica con áreas blásticas, patrón permeativo y reacción perióstica (sol naciente, triángulo de Codman)"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el tumor de células gigantes es epifisario y del adulto de 20 a 40 años.",
+        "Correcta: segunda década, metáfisis del fémur distal, sol naciente y triángulo de Codman.",
+        "No: la reacción perióstica en sol naciente con fosfatasa alcalina alta orienta a osteosarcoma.",
+        "No: la lesión metafisaria con sol naciente y triángulo de Codman orienta a osteosarcoma."
+      ]
     },
     {
       "id": "ort-c15",
@@ -389,7 +473,13 @@ MP_CONTENIDO.agregar({
           "texto": "La quimioterapia neoadyuvante (preoperatoria y posoperatoria) ha sido el factor que más ha contribuido a mejorar la supervivencia de pacientes con osteosarcoma y sarcoma de Ewing."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: quimioterapia preoperatoria y posoperatoria con resección de márgenes amplios.",
+        "No: el tratamiento es la resección amplia con quimioterapia.",
+        "No: el curetaje es un margen intralesional; se hace resección amplia.",
+        "No: se intenta preservar el miembro, y la quimioterapia neoadyuvante es lo que más mejoró la supervivencia."
+      ]
     },
     {
       "id": "ort-c16",
@@ -421,7 +511,13 @@ MP_CONTENIDO.agregar({
           "texto": "Es frecuente que presenten reacción perióstica en “capas de cebolla”. Pueden confundirse fácilmente con osteomielitis."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: se confunde con osteomielitis, pero el diagnóstico definitivo requiere biopsia.",
+        "Correcta: biopsia: sarcoma de Ewing, con la translocación t(11;22) en el 95 %.",
+        "No: el diagnóstico definitivo del Ewing requiere biopsia.",
+        "No: el nidus menor de 1 cm es del osteoma osteoide."
+      ]
     },
     {
       "id": "ort-c17",
@@ -449,7 +545,13 @@ MP_CONTENIDO.agregar({
           "texto": "Radiológicamente, suele presentarse como un tumor con múltiples cavidades (multiloculado)"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el osteosarcoma es metafisario y de la segunda década.",
+        "No: el quiste óseo esencial es de niños y adolescentes.",
+        "Correcta: lesión epifisaria multiloculada en una mujer de 20 a 40 años: tumor de células gigantes.",
+        "No: la lesión epifisaria multiloculada de la tibia proximal a los 30 años es un tumor de células gigantes."
+      ]
     },
     {
       "id": "ort-c18",
@@ -477,7 +579,13 @@ MP_CONTENIDO.agregar({
           "texto": "Si la lesión no ocasiona síntomas por su prominencia (compresión vasculonerviosa, irritación local con bursitis, resaltes tendinosos o musculares), no requiere tratamiento."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: si no da síntomas no se trata; y si se reseca, se espera a que termine el crecimiento.",
+        "No: es el tumor óseo benigno más frecuente y no da síntomas.",
+        "No: el osteocondroma es benigno; si no da síntomas no se trata.",
+        "Correcta: el osteocondroma asintomático no requiere tratamiento."
+      ]
     },
     {
       "id": "ort-c19",
@@ -501,7 +609,13 @@ MP_CONTENIDO.agregar({
           "texto": "Tumor típico de niños y adolescentes que se desarrolla de forma central (a diferencia del quiste óseo aneurismático, que suele ser excéntrico) junto a las fisis. Su localización más frecuente es el húmero proximal, seguido del fémur proximal. Suele ser asintomático hasta que ocasiona la producción de una fractura patológica."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el quiste óseo aneurismático suele ser excéntrico.",
+        "Correcta: lesión central junto a la fisis del húmero proximal en un niño con fractura: quiste óseo esencial.",
+        "No: la lesión central bien delimitada junto a la fisis con fractura por caída menor es un quiste óseo esencial.",
+        "No: el tumor de células gigantes es de 20 a 40 años y epifisario."
+      ]
     },
     {
       "id": "ort-c20",
@@ -529,7 +643,13 @@ MP_CONTENIDO.agregar({
           "texto": "Estos tumores son resistentes a la radioterapia y quimioterapia, por lo que el tratamiento de elección es la resección quirúrgica."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el condrosarcoma es resistente a la radioterapia.",
+        "No: el condrosarcoma es resistente a la quimioterapia.",
+        "Correcta: el tratamiento de elección es la resección quirúrgica.",
+        "No: es un tumor maligno; el tratamiento de elección es la resección quirúrgica."
+      ]
     },
     {
       "id": "ort-c21",
@@ -553,7 +673,13 @@ MP_CONTENIDO.agregar({
           "texto": "Radiológicamente, lo más frecuente es que ocasionen lesiones líticas; el carcinoma de próstata es el más comúnmente responsable de lesiones osteoblásticas"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el carcinoma de próstata es el que más da lesiones osteoblásticas.",
+        "No: las metástasis suelen ser líticas; las osteoblásticas son sobre todo de próstata.",
+        "No: el mieloma da lesiones líticas en sacabocados.",
+        "Correcta: el carcinoma de próstata es el que más da metástasis osteoblásticas."
+      ]
     },
     {
       "id": "ort-c22",
@@ -577,7 +703,13 @@ MP_CONTENIDO.agregar({
           "texto": "En pacientes con criterios de fractura inminente (dolor al soportar peso, tamaño superior a 2,5-3 cm y afectación de más del 50% de la cortical) y con fracturas patológicas, el tratamiento quirúrgico, asociado a radioterapia posoperatoria y al tratamiento oncológico específico del tumor, mejora la supervivencia y calidad de vida de estos pacientes"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: los bifosfonatos no sustituyen la estabilización.",
+        "No: cumple criterios de fractura inminente; no se espera a que ocurra.",
+        "No: con fractura inminente se asocia la cirugía y la radioterapia al tratamiento oncológico.",
+        "Correcta: criterios de fractura inminente: fijación quirúrgica y radioterapia."
+      ]
     },
     {
       "id": "ort-c23",
@@ -601,7 +733,13 @@ MP_CONTENIDO.agregar({
           "texto": "Todos los estudios de imagen deben completarse antes de realizar la biopsia, ya que de lo contrario puede ocasionar imágenes artefactuales. La biopsia debe realizarla el cirujano que vaya a realizar la resección definitiva del tumor y su trayecto no debe comprometer zonas de difícil resección posterior."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: todos los estudios de imagen se completan antes de la biopsia.",
+        "No: la biopsia excisional solo se hace en tumores benignos.",
+        "Correcta: completar la imagen y que biopsie el cirujano que hará la resección.",
+        "No: se necesita biopsia, hecha después de completar la imagen."
+      ]
     },
     {
       "id": "ort-c24",
@@ -625,7 +763,13 @@ MP_CONTENIDO.agregar({
           "texto": "La localización más frecuente del encondroma son las falanges de las manos. Generalmente son asintomáticos, a menos que ocasionen una fractura patológica. Como otros tumores de estirpe condral, suelen presentar calcificaciones centrales. Únicamente requieren observación"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: el encondroma asintomático solo requiere observación.",
+        "No: el encondroma asintomático solo requiere observación.",
+        "No: es una lesión benigna; solo requiere observación.",
+        "No: es una lesión benigna; solo requiere observación."
+      ]
     },
     {
       "id": "cir-c27",
@@ -649,7 +793,13 @@ MP_CONTENIDO.agregar({
           "texto": "El síndrome compartimental es un cuadro de isquemia muscular con dolor precoz y desproporcionado; la fasciotomía es su tratamiento definitivo."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el dolor desproporcionado que no cede con opioides indica síndrome compartimental; más analgesia no lo trata.",
+        "Correcta: retirar vendajes y yesos; la fasciotomía es el tratamiento definitivo.",
+        "No: la ausencia de pulsos es un signo tardío, cuando el músculo ya está perdido.",
+        "No: los pulsos presentes no descartan el síndrome compartimental; no se espera."
+      ]
     },
     {
       "id": "cir-c28",
@@ -673,7 +823,13 @@ MP_CONTENIDO.agregar({
           "texto": "Si se visualiza una fractura sin desplazar de escafoides, es necesaria la inmovilización con escayola, incluyendo el primer dedo durante 2 o 3 meses."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la fractura sin desplazar se inmoviliza con yeso que incluye el primer dedo por 2 a 3 meses.",
+        "Correcta: yeso que incluye el primer dedo durante 2 a 3 meses.",
+        "No: se opera si se desplaza; esta no está desplazada.",
+        "No: tratarla como un esguince es la trampa: hay riesgo de seudoartrosis y necrosis."
+      ]
     },
     {
       "id": "cir-c29",
@@ -697,7 +853,13 @@ MP_CONTENIDO.agregar({
           "texto": "La luxación de cadera requiere de urgencia una reducción cerrada bajo anestesia y posterior estabilización transitoria con tracción, pasado lo cual el paciente debe mantener carga parcial durante 2 o 3 meses."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la reducción es urgente; el retraso aumenta el riesgo de necrosis de la cabeza femoral.",
+        "Correcta: reducción cerrada urgente bajo anestesia.",
+        "No: el tratamiento es la reducción cerrada urgente bajo anestesia.",
+        "No: es una urgencia; se reduce lo antes posible."
+      ]
     },
     {
       "id": "cir-c30",
@@ -721,7 +883,13 @@ MP_CONTENIDO.agregar({
           "texto": "Las medidas más importantes en el inicio del tratamiento de una fractura abierta son la antibioterapia intravenosa en bolo y la cobertura antitetánica."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: cerrar la herida sin lavado ni desbridamiento es la trampa.",
+        "No: lo indicado es el antibiótico intravenoso en bolo.",
+        "No: el antibiótico IV se da en bolo desde el inicio.",
+        "Correcta: antibiótico IV en bolo y cobertura antitetánica."
+      ]
     },
     {
       "id": "ort-c25",
@@ -749,7 +917,13 @@ MP_CONTENIDO.agregar({
           "texto": "palpable pulses alone do not rule out arterial injury, as it has been reported that pulses can be present in about 30% of cases with a popliteal artery lesion."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: índice menor de 0,9: angiotomografía y valoración vascular urgente.",
+        "No: los pulsos se palpan hasta en 30 % de las lesiones de la poplítea; con índice de 0,8 se estudia.",
+        "No: con índice menor de 0,9 lo urgente es la angiotomografía.",
+        "No: con índice menor de 0,9 se estudia ya; el retraso empeora el pronóstico."
+      ]
     },
     {
       "id": "ort-c26",
@@ -777,7 +951,13 @@ MP_CONTENIDO.agregar({
           "texto": "Patients should be monitored for a minimum of 24 to 48 hours with serial examinations to detect delayed vascular injury or compartment syndrome."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: con índice mayor de 0,9 y pulsos simétricos no se recomienda la arteriografía de rutina.",
+        "No: se hospitaliza al menos 24 a 48 horas por el riesgo de lesión vascular tardía.",
+        "Correcta: hospitalizar 24 a 48 horas con controles vasculares seriados.",
+        "No: las indicaciones de fijador externo son luxación abierta, lesión vascular o reducción que no se mantiene."
+      ]
     },
     {
       "id": "ort-c27",
@@ -801,7 +981,13 @@ MP_CONTENIDO.agregar({
           "texto": "Indications for external fixator application include inability to maintain reduction, open injury, and vascular injury."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la luxación abierta es indicación de fijador externo.",
+        "No: el fijador externo permite manejar y vigilar los tejidos blandos.",
+        "No: la estabilización indicada en la luxación abierta es el fijador externo.",
+        "Correcta: la luxación abierta es una indicación de fijador externo."
+      ]
     },
     {
       "id": "ort-c28",
@@ -829,7 +1015,13 @@ MP_CONTENIDO.agregar({
           "texto": "In addition to vascular injury, nerve injuries are quite common, with common peroneal nerve injury rates ranging from 16% to 40%."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: sin herida abierta ni sección evidente no se explora de inmediato.",
+        "Correcta: no se explora ahora; se maneja con órtesis tobillo-pie.",
+        "No: sin herida abierta ni sección reparable no se explora de inmediato.",
+        "No: el manejo del nervio sin sección evidente es con órtesis tobillo-pie."
+      ]
     },
     {
       "id": "ort-c29",
@@ -853,7 +1045,13 @@ MP_CONTENIDO.agregar({
           "texto": "Patients with hip fracture benefit from physical therapy and fall reduction strategies, such as muscle-strengthening exercises and modifying medications associated with increased fall risk, such as antidepressants, and should be treated with antiresorptive medications, such as bisphosphonates (alendronate, zoledronic acid) or denosumab to prevent subsequent fracture."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: se indica un antirresortivo además de la fisioterapia y la prevención de caídas.",
+        "No: el antirresortivo se indica tras la fractura de cadera.",
+        "Correcta: antirresortivo, fisioterapia y estrategias contra las caídas.",
+        "No: se indica fisioterapia y ejercicios de fuerza."
+      ]
     },
     {
       "id": "ort-c30",
@@ -877,7 +1075,13 @@ MP_CONTENIDO.agregar({
           "texto": "Intracapsular hip fractures include femoral neck (34%) and femoral head (rare). Extracapsular fractures consist of intertrochanteric (48%) and subtrochanteric fractures (5.8%)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: la intertrocantérica es extracapsular y la más frecuente (48 %).",
+        "No: la del cuello femoral es intracapsular.",
+        "No: la de la cabeza femoral es intracapsular y rara.",
+        "No: la subcapital es del cuello femoral, intracapsular."
+      ]
     },
     {
       "id": "ort-c31",
@@ -901,7 +1105,13 @@ MP_CONTENIDO.agregar({
           "texto": "The median 1-year mortality rate after a hip fracture is 22% and approximately 42% to 71% of patients regain their prefracture level of basic activities of daily living within 6 months."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: solo 42 a 71 % recupera su nivel previo de actividades a los 6 meses.",
+        "No: la mediana de mortalidad al año es de 22 %.",
+        "No: 42 a 71 % recupera su nivel previo de actividades a los 6 meses.",
+        "Correcta: la mediana de mortalidad al año es de 22 %, cerca de 1 de cada 5."
+      ]
     }
   ],
   "fichas": [

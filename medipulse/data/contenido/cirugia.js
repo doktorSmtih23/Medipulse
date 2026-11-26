@@ -38,7 +38,13 @@ MP_CONTENIDO.agregar({
           "texto": "If a patient is deemed capable of withstanding surgery for AC, we propose early surgery regardless of exactly how much time has passed since onset."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: no hay colestasis (bilirrubina y fosfatasa normales); es una colecistitis aguda leve.",
+        "No: no hay datos de colangitis; el diagnóstico de colecistitis aguda ya está hecho.",
+        "No: diferir la colecistectomía en quien tolera la cirugía es la trampa.",
+        "Correcta: colecistitis aguda grado I: antibiótico y colecistectomía laparoscópica temprana."
+      ]
     },
     {
       "id": 10,
@@ -70,7 +76,13 @@ MP_CONTENIDO.agregar({
           "texto": "Use open thoracostomy instead of needle decompression if the expertise is available, followed by a chest drain via the thoracostomy in patients who are breathing spontaneously. · Observe patients after chest decompression for signs of recurrence of the tension pneumothorax."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: la desviación traqueal y el murmullo abolido indican neumotórax a tensión, no taponamiento.",
+        "No: con inestabilidad se descomprime antes de cualquier imagen.",
+        "Correcta: descompresión torácica inmediata y luego tubo de tórax.",
+        "No: con neumotórax a tensión e inestabilidad se descomprime de inmediato."
+      ]
     },
     {
       "id": 15,
@@ -106,7 +118,13 @@ MP_CONTENIDO.agregar({
           "texto": "We suggest the use of antibiotics as an alternative to appendectomy for the treatment of uncomplicated appendicitis in adult patients, provided there is appropriate clinical monitoring and shared decision-making."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: apendicectomía laparoscópica en las primeras 24 horas del ingreso.",
+        "No: es un cuadro típico de apendicitis no complicada.",
+        "No: el antibiótico sin cirugía exige vigilancia clínica y decisión compartida; no es un manejo ambulatorio sin control.",
+        "No: es una apendicitis; se opera en las primeras 24 horas."
+      ]
     },
     {
       "id": 24,
@@ -142,7 +160,13 @@ MP_CONTENIDO.agregar({
           "texto": "Once the source of infection is controlled, antimicrobial therapy for patients with acute cholangitis is recommended for the duration of 4 to 7 days."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: colangitis grado III: reanimación, antibiótico y drenaje biliar urgente.",
+        "No: es una colangitis grave; el drenaje biliar es temprano, no electivo.",
+        "No: la urgencia es drenar la vía biliar, no quitar la vesícula.",
+        "No: el diagnóstico ya está hecho; lo urgente es soporte, antibiótico y drenaje biliar."
+      ]
     },
     {
       "id": "cir-c01",
@@ -178,7 +202,13 @@ MP_CONTENIDO.agregar({
           "texto": "Do not assume that a person's acute pancreatitis is alcohol-related just because they drink alcohol."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: NICE indica no ofrecer antimicrobianos profilácticos.",
+        "No: se ofrece nutrición enteral en las primeras 72 horas; la parenteral solo si la enteral falla.",
+        "Correcta: nutrición enteral en las primeras 72 horas, sin antibiótico profiláctico.",
+        "No: no se asume que la causa es el alcohol solo porque bebe; además tiene colelitiasis."
+      ]
     },
     {
       "id": "cir-c02",
@@ -206,7 +236,13 @@ MP_CONTENIDO.agregar({
           "texto": "excepto los pacientes con pancreatitis aguda y colangitis en los que se opta por la CPRE preoperatoria"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "No: la CPRE preoperatoria se prefiere en colangitis o pancreatitis, que no tiene.",
+        "No: con cálculos en el colédoco, la exploración en el mismo acto lo resuelve en un solo procedimiento.",
+        "No: con un colédoco de 6 mm la coledocotomía aumenta el riesgo de estenosis.",
+        "Correcta: colecistectomía con exploración transcística en el mismo acto."
+      ]
     },
     {
       "id": "cir-c03",
@@ -234,7 +270,13 @@ MP_CONTENIDO.agregar({
           "texto": "el lavado rectal puede estar asociado a mayor mortalidad y morbilidad infecciosa en comparación con la no realización de lavado"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "No: las «cuatro D» ya no son la regla; el lavado distal se asocia a más morbilidad infecciosa.",
+        "No: la lesión no destructiva se maneja de forma conservadora o con reparación primaria.",
+        "No: las guías favorecen no hacer ostomía en lesiones no destructivas.",
+        "Correcta: lesión extraperitoneal de menos del 25 %: conservador o reparación primaria, sin ostomía."
+      ]
     },
     {
       "id": "cir-c04",
@@ -262,7 +304,13 @@ MP_CONTENIDO.agregar({
           "texto": "un puntaje menor de 6 no reduce significativamente la probabilidad post- test de fascitis necrosante en pacientes con moderado riesgo, en la medida que un paciente pre-test tiene probabilidad de 50 % y con LRINEC continúa con riesgo del 27,3 %"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "No: un LRINEC menor de 6 no descarta la fascitis necrosante.",
+        "No: las imágenes no deben demorar la cirugía.",
+        "No: el desbridamiento se hace en las primeras 6 a 12 horas.",
+        "Correcta: desbridamiento agresivo en 6 a 12 horas, repetido cada 24 a 72 horas."
+      ]
     },
     {
       "id": "cir-c05",
@@ -290,7 +338,13 @@ MP_CONTENIDO.agregar({
           "texto": "La probabilidad de malignidad es inferior a 1 % para los NP menores de 6 mm y del 1 - 2 % para los de 6 - 8 mm"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "No: en nódulos de 8 mm o menos el PET tiene muy baja sensibilidad.",
+        "No: los nódulos de 8 mm o menos son difícilmente accesibles a la biopsia.",
+        "Correcta: nódulo sólido de 8 mm o menos: seguimiento con tomografía.",
+        "No: en nódulos sólidos de 8 mm o menos se propone observación; el riesgo de malignidad es de 1 a 2 %."
+      ]
     },
     {
       "id": "cir-c06",
@@ -322,7 +376,13 @@ MP_CONTENIDO.agregar({
           "texto": "los antibióticos están indicados únicamente cuando hay eritema considerable de la piel u otros signos de celulitis o cuando hay signos sistémicos de infección como fiebre o leucocitosis (mayor a 12.000 cel/mm3)"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "No: compromete también la fascia; eso la hace incisional profunda.",
+        "No: no hay colecciones en la cavidad; no compromete el órgano o espacio manipulado.",
+        "Correcta: compromete piel, subcutáneo y fascia: incisional profunda.",
+        "No: la infección del sitio operatorio se define dentro de los primeros 30 días."
+      ]
     },
     {
       "id": "cir-c07",
@@ -354,7 +414,13 @@ MP_CONTENIDO.agregar({
           "texto": "Metas: Frecuencia Cardiaca: 60 a 70 lpm Presión arterial sistólica 100 - 120 mmHg"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: un vasodilatador solo produce taquicardia refleja; primero el betabloqueador.",
+        "No: el manejo es antiimpulso: primero betabloqueador IV.",
+        "No: el manejo es antiimpulso: primero betabloqueador IV.",
+        "Correcta: betabloqueador IV hasta FC de 60 a 70; después, vasodilatador si hace falta."
+      ]
     },
     {
       "id": "cir-c08",
@@ -386,7 +452,13 @@ MP_CONTENIDO.agregar({
           "texto": "Bolo inicial: 80 UI/kg IV Infusión continua: 18 UI/kg/h, ajustada según TPTa"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: isquemia aguda IIb: heparina no fraccionada IV y revascularización urgente.",
+        "No: es una urgencia vascular; esperar estudios pone en riesgo la extremidad.",
+        "No: tratarla como una claudicación crónica es la trampa.",
+        "No: la amputación se plantea en el estadio III; esta extremidad (IIb) es salvable."
+      ]
     },
     {
       "id": "cir-c09",
@@ -414,7 +486,13 @@ MP_CONTENIDO.agregar({
           "texto": "la tasa anual de progresión a adenocarcinoma de esófago para aquellos pacientes sin displasia era de 0,2 al 0,5 %, con displasia de bajo grado 0,54 % y de alto grado 1,73 %"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: displasia de bajo grado: nueva endoscopia con biopsias a los 6 meses.",
+        "No: el control cada 3 a 5 años es para el Barrett sin displasia.",
+        "No: lo indicado es vigilancia endoscópica a los 6 meses; la progresión anual es de 0,54 %.",
+        "No: con displasia de bajo grado se hace una nueva endoscopia con biopsias a los 6 meses."
+      ]
     },
     {
       "id": "cir-c10",
@@ -442,7 +520,13 @@ MP_CONTENIDO.agregar({
           "texto": "el 75 % ocurre en los primeros dos años de vida y el 90 % en los primeros tres. El 95 % de los casos son idiopáticos"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: la cirugía inmediata se reserva para el niño inestable o con peritonitis o perforación.",
+        "No: el colon por enema con bario quedó desplazado por la ecografía, porque es invasivo e irradia.",
+        "Correcta: en el niño estable, reducción con enema guiado por ecografía.",
+        "No: la primera línea en el niño estable es la reducción radiológica."
+      ]
     },
     {
       "id": "cir-c11",
@@ -470,7 +554,13 @@ MP_CONTENIDO.agregar({
           "texto": "estos pacientes si se benefician de tratamiento antibiótico postquirúrgico de 4-5 días"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: en la apendicitis no complicada no se requieren antibióticos en el posoperatorio.",
+        "No: los 4 a 5 días de antibiótico son para la apendicitis complicada.",
+        "No: en la apendicitis no complicada no se requieren antibióticos en el posoperatorio.",
+        "No: en la apendicitis no complicada no se requieren antibióticos en el posoperatorio."
+      ]
     },
     {
       "id": "cir-c12",
@@ -494,7 +584,13 @@ MP_CONTENIDO.agregar({
           "texto": "Monedas: Por lo general, estas pasan espontáneamente al estómago y en un tiempo máximo de 4 semanas presentan salida espontánea. Sólo requiere extracción vía endoscópica o quirúrgica aquellas que: • Producen síntomas. • Que estén en el esófago al momento de la evaluación. • Si el objeto no avanza durante 3 – 4 días."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: una moneda en el estómago sin síntomas no se extrae de rutina.",
+        "No: las monedas salen solas en un máximo de 4 semanas; se observa.",
+        "Correcta: asintomática y en el estómago: observar; sale sola en un máximo de 4 semanas.",
+        "No: se extrae solo si da síntomas, está en el esófago o no avanza en 3 a 4 días."
+      ]
     },
     {
       "id": "cir-c13",
@@ -522,7 +618,13 @@ MP_CONTENIDO.agregar({
           "texto": "Sólo está indicado el empaquetamiento de las heridas si hay sangrado después del drenaje."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: sin drenaje, el absceso no se resuelve.",
+        "No: el tratamiento del absceso anorrectal es el drenaje quirúrgico.",
+        "No: la fístula se trata en el mismo acto solo si el compromiso del esfínter es mínimo y claro.",
+        "Correcta: drenaje quirúrgico sobre el área más fluctuante, cerca del borde anal."
+      ]
     },
     {
       "id": "cir-c14",
@@ -550,7 +652,13 @@ MP_CONTENIDO.agregar({
           "texto": "ayuda en la diferenciación de los nódulos no funcionales, que tienen indicación de ACAF, de los nódulos hiperfuncionantes."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: con TSH suprimida, primero se define si el nódulo es funcionante con gammagrafía.",
+        "No: con TSH suprimida, el siguiente estudio es la gammagrafía.",
+        "No: primero se define si el nódulo es funcionante con gammagrafía.",
+        "Correcta: TSH suprimida: gammagrafía para saber si el nódulo es funcionante."
+      ]
     },
     {
       "id": "cir-c15",
@@ -574,7 +682,13 @@ MP_CONTENIDO.agregar({
           "texto": "El uso racional de antibióticos y los estudios han respaldado evitar el uso de antibióticos en diverticulitis Hinchey 0 y Ia, lo que demuestra que no hay diferencias clínicas en la recurrencia, complicaciones, tiempo de recuperación y necesidad de manejo quirúrgico."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: Hinchey Ia: manejo del dolor sin antibiótico.",
+        "No: en Hinchey 0 y Ia los antibióticos no cambian la recurrencia, las complicaciones ni la recuperación.",
+        "No: es una diverticulitis no complicada; el pilar es el manejo del dolor.",
+        "No: no hay absceso que drenar."
+      ]
     },
     {
       "id": "cir-c16",
@@ -602,7 +716,13 @@ MP_CONTENIDO.agregar({
           "texto": "después de los 6 meses, el descenso espontáneo del testículo es poco probable"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: después de los 6 meses el descenso espontáneo es poco probable.",
+        "No: las guías recomiendan la orquidopexia antes de los 18 meses.",
+        "Correcta: remitir a los 6 meses para orquidopexia antes de los 18 meses.",
+        "No: lo indicado es remitir ya a cirugía pediátrica."
+      ]
     },
     {
       "id": "cir-c17",
@@ -630,7 +750,13 @@ MP_CONTENIDO.agregar({
           "texto": "La opción de manejo quirúrgico está indicada para pacientes que fallan al manejo médico, esta no se realiza en situaciones de emergencia, y comprende la esfinterotomía interna lateral."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: la esfinterotomía es para la falla del manejo médico y no se hace en urgencias.",
+        "No: es una fisura anal aguda en la línea media posterior, no un absceso.",
+        "No: el desgarro en la línea media posterior ya hace el diagnóstico; se inicia manejo médico.",
+        "Correcta: manejo médico con fibra, baños de asiento y diltiazem tópico."
+      ]
     },
     {
       "id": "cir-c18",
@@ -654,7 +780,13 @@ MP_CONTENIDO.agregar({
           "texto": "se han encontrado similares resultados clínicos, sin diferencias significativas con respecto a falla terapéutica, complicaciones relacionadas con la inserción del tubo, desarrollo de empiema, necesidad de tubos adicionales, tiempo de estancia hospitalaria, admisión UCI, estancia UCI ni mortalidad en el contexto de trauma (neumo/hemotórax)"
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: en trauma los tubos de pequeño calibre dan resultados similares, también en el hemotórax.",
+        "No: tiene un hemotórax; se drena.",
+        "Correcta: en trauma los tubos de 14 Fr o menos y los de gran calibre dan resultados similares.",
+        "No: no hay diferencias entre calibres; no se necesitan dos tubos gruesos."
+      ]
     },
     {
       "id": "cir-c19",
@@ -678,7 +810,13 @@ MP_CONTENIDO.agregar({
           "texto": "se considera que el manejo quirúrgico es una medida obligatoria en pacientes inestables, mientras que el manejo no operatorio se realiza en pacientes hemodinámicamente estables incluso en pacientes con lesiones de alto grado."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: el tratamiento lo decide el estado hemodinámico, no el grado.",
+        "No: la extravasación de contraste indica angioembolización.",
+        "No: el empaquetamiento y el control de daños son para la paciente inestable.",
+        "Correcta: estable: manejo no operatorio con angioembolización por la extravasación."
+      ]
     },
     {
       "id": "cir-c20",
@@ -706,7 +844,13 @@ MP_CONTENIDO.agregar({
           "texto": "Zona 3: ≤30 minutos, con un máximo de 59 minutos."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: la zona 1 es para la hemorragia abdominal.",
+        "No: la zona 2 está contraindicada.",
+        "Correcta: hemorragia pélvica: zona 3, idealmente 30 minutos o menos.",
+        "No: la zona 1 es para la hemorragia abdominal y la oclusión tiene límite de tiempo."
+      ]
     },
     {
       "id": "cir-c21",
@@ -730,7 +874,13 @@ MP_CONTENIDO.agregar({
           "texto": "Pacientes inestables, pacientes con déficit neurológico agudo secundario a un trauma penetrante de carótida, el manejo es netamente quirúrgico y se debería realizar un reparo primario."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: la imagen es para pacientes estables; este está inestable con déficit neurológico.",
+        "Correcta: inestable con déficit neurológico: cirugía inmediata con reparo primario.",
+        "No: se busca el reparo primario, no la ligadura sistemática.",
+        "No: el manejo es quirúrgico inmediato."
+      ]
     },
     {
       "id": "cir-c22",
@@ -758,7 +908,13 @@ MP_CONTENIDO.agregar({
           "texto": "La ligadura de la VCI generalmente no se realiza en lesiones suprarrenales y retrohepáticas."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "Correcta: en el segmento infrarrenal la ligadura se tolera y es una opción en el inestable.",
+        "No: con contaminación intestinal no se usa injerto protésico.",
+        "No: en control de daños no se insiste en una reconstrucción larga.",
+        "No: el sangrado se controla en la cirugía; la ligadura infrarrenal es una opción."
+      ]
     },
     {
       "id": "cir-c23",
@@ -786,7 +942,13 @@ MP_CONTENIDO.agregar({
           "texto": "diversas guías internacionales han recomendado priorizar estrategias de revascularización temprana y utilizar medidas de control temporal como el uso de shunts arteriales en entornos donde la reparación definitiva no es inmediata (6)."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: la ventana de 6 horas se está revaluando; el salvamento cae después de 3 horas.",
+        "Correcta: shunt arterial temporal y revascularización temprana.",
+        "No: se priorizan la revascularización temprana y los shunts arteriales.",
+        "No: el salvamento cae de forma notable después de 3 horas; no se espera."
+      ]
     },
     {
       "id": "cir-c24",
@@ -814,7 +976,13 @@ MP_CONTENIDO.agregar({
           "texto": "Esofagograma: implica el consumo de material de contraste (idealmente hidrosoluble por el riesgo de mediastinitis química con el bario) para visualizar el lumen esofágico y detectar fugas."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: el estudio de elección es la tomografía con contraste o la esofagografía por TC.",
+        "Correcta: tomografía con contraste o esofagografía por TC.",
+        "No: el bario causa mediastinitis química; si se usa esofagograma, el contraste es hidrosoluble.",
+        "No: el cuadro tras vómitos con enfisema subcutáneo sugiere Boerhaave; se estudia con tomografía."
+      ]
     },
     {
       "id": "cir-c25",
@@ -838,7 +1006,13 @@ MP_CONTENIDO.agregar({
           "texto": "la radiografía contrastada de las vías digestivas altas (radiografía de esófago, estómago y duodeno) es el método de elección porque permite realizar una clasificación más adecuada del tipo de hernia, ya que se puede visualizar la ubicación de la UGE y descartar la presencia de un vólvulo asociado."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "Correcta: la radiografía contrastada ubica la unión gastroesofágica y clasifica la hernia.",
+        "No: el método de elección es la radiografía contrastada de vías digestivas altas.",
+        "No: las pruebas funcionales no clasifican la anatomía de la hernia.",
+        "No: las pruebas funcionales no clasifican la anatomía de la hernia."
+      ]
     },
     {
       "id": "cir-c26",
@@ -862,7 +1036,13 @@ MP_CONTENIDO.agregar({
           "texto": "Otro escenario en donde ha demostrado gran impacto es en el manejo de dolor de pacientes con consumo crónico de opioides, que representa un gran reto por el fenómeno de tolerancia en estos pacientes (21,22)."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: subir solo el opioide en un paciente con tolerancia es la trampa.",
+        "Correcta: ketamina en infusión, efectiva en quien consume opioides de forma crónica.",
+        "No: lo que suma en el paciente con consumo crónico de opioides es la ketamina en infusión.",
+        "No: lo que suma en el paciente con consumo crónico de opioides es la ketamina en infusión."
+      ]
     },
     {
       "id": "cir-c31",
@@ -886,7 +1066,13 @@ MP_CONTENIDO.agregar({
           "texto": "While watchful waiting has been found to be safe in otherwise healthy and asymptomatic male patients, it is not a validated or recommended option in female patients due to a higher rate of incarceration and strangulation."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la espera vigilante no está validada ni se recomienda en mujeres.",
+        "Correcta: en la mujer se programa la reparación por más incarceración y estrangulación.",
+        "No: en la mujer se recomienda la reparación, por más incarceración y estrangulación.",
+        "No: en la mujer se recomienda la reparación, por más incarceración y estrangulación."
+      ]
     },
     {
       "id": "cir-c32",
@@ -914,7 +1100,13 @@ MP_CONTENIDO.agregar({
           "texto": "A systematic review indicates that emergency hernia repairs have a 30-day mortality rate of 0–11.8%, compared with 0–1.7% for elective repairs, representing a 26-fold increase."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: en el hombre sano y asintomático el riesgo de complicaciones urgentes es bajo.",
+        "Correcta: la espera es segura, pero un tercio se opera a los 3 años y dos tercios a los 10.",
+        "No: en el hombre sano y asintomático la espera vigilante es segura.",
+        "No: en el hombre sano y asintomático la espera vigilante es segura."
+      ]
     },
     {
       "id": "cir-c33",
@@ -938,7 +1130,13 @@ MP_CONTENIDO.agregar({
           "texto": "The Lichtenstein technique, popularized by Irving Lichtenstein in the 1980s and refined by Dr Parviz Amid, is the best evaluated and most utilized open mesh-based technique and is the preferred open approach for inguinal hernia repair owing to its favourable outcomes, short learning curve and ability to be performed under local anaesthesia."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: Lichtenstein, la técnica abierta con malla mejor evaluada y preferida.",
+        "No: las reparaciones con tejido se prefieren en niños, adolescentes o tras complicaciones de malla.",
+        "No: la técnica abierta de referencia es Lichtenstein, con malla.",
+        "No: la técnica abierta de referencia es Lichtenstein, con malla."
+      ]
     },
     {
       "id": "cir-c34",
@@ -962,7 +1160,13 @@ MP_CONTENIDO.agregar({
           "texto": "The risk of incarceration is 7% in all paediatric cases, with 11% in preterm children, necessitating surgical repair in nearly all instances."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la hernia del prematuro se incarcera en 11 % y casi siempre requiere cirugía.",
+        "No: casi siempre requiere reparación quirúrgica.",
+        "Correcta: programar la reparación; en prematuros se incarcera en 11 %.",
+        "No: esperar a que se incarcere es la trampa; se programa la reparación."
+      ]
     },
     {
       "id": "cir-c35",
@@ -986,7 +1190,13 @@ MP_CONTENIDO.agregar({
           "texto": "In 2021, an Australian study revealed that nearly half of the patients referred to a surgeon with clinically apparent inguinal hernias also underwent unnecessary groin ultrasounds. Imaging should be reserved for cases where the clinical presentation is unclear and the surgeon is uncertain of the diagnosis."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: con una hernia clínicamente evidente la ecografía es innecesaria.",
+        "No: las imágenes se reservan para cuando la clínica no es clara.",
+        "No: las imágenes se reservan para cuando la clínica no es clara.",
+        "Correcta: el diagnóstico es clínico."
+      ]
     },
     {
       "id": "cir-c36",
@@ -1014,7 +1224,13 @@ MP_CONTENIDO.agregar({
           "texto": "Laparoscopic lavage is not recommended in cases of feculent or purulent peritonitis."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el lavado laparoscópico no se recomienda en la peritonitis purulenta.",
+        "Correcta: sin compromiso hemodinámico, resección con anastomosis primaria.",
+        "No: lo indicado es resecar; sin compromiso hemodinámico, con anastomosis primaria.",
+        "No: con peritonitis purulenta generalizada se hace resección."
+      ]
     },
     {
       "id": "cir-c37",
@@ -1042,7 +1258,13 @@ MP_CONTENIDO.agregar({
           "texto": "Meta-analyses performed showed that the risk of concomitant malignancy in patients with complicated diverticulitis was 11% (vs 0.7% in patients with uncomplicated disease)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: colonoscopia a las 6 semanas para descartar un cáncer concomitante (11 %).",
+        "No: se hace colonoscopia a las 6 semanas aunque no haya sangrado.",
+        "No: lo indicado es la colonoscopia a las 6 semanas.",
+        "No: los abscesos pequeños que responden a drenaje y antibiótico no siempre requieren colectomía."
+      ]
     },
     {
       "id": "cir-c38",
@@ -1066,7 +1288,13 @@ MP_CONTENIDO.agregar({
           "texto": "Surgery should be considered in case of hemodynamic instability and active intrathoracic bleeding (more than 1500 mL of blood or more than 200 mL/h over 3 consecutive hours without other causes of bleeding)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: más de 1.500 mL al poner el tubo con inestabilidad indica cirugía.",
+        "No: no se lleva a tomografía a un paciente inestable que sigue sangrando.",
+        "Correcta: más de 1.500 mL con inestabilidad: toracotomía.",
+        "No: con inestabilidad y sangrado activo se opera ya."
+      ]
     },
     {
       "id": "cir-c39",
@@ -1090,7 +1318,13 @@ MP_CONTENIDO.agregar({
           "texto": "Open PNX should be initially managed with a three-sided occlusive dressing then tube thoracostomy and chest wall defect repair should be performed."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: cerrar herméticamente sin tubo puede convertirlo en un neumotórax a tensión.",
+        "No: el manejo inicial es el apósito oclusivo en 3 lados.",
+        "No: el manejo inicial es el apósito oclusivo en 3 lados y luego el tubo de tórax.",
+        "Correcta: apósito oclusivo en 3 lados, luego tubo de tórax y reparación de la pared."
+      ]
     },
     {
       "id": "cir-c40",
@@ -1114,7 +1348,13 @@ MP_CONTENIDO.agregar({
           "texto": "Surgical stabilization of rib fractures should be considered in all hemodynamically stable patients presenting with a flail chest (LoE Moderate, GoR Moderate)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: con tórax inestable y estabilidad hemodinámica se considera la estabilización quirúrgica.",
+        "No: la estabilización quirúrgica da mejores resultados que el manejo no operatorio.",
+        "No: lo que se considera es la estabilización quirúrgica de las costillas.",
+        "No: usar la ventilación mecánica para «fijar» el tórax es la trampa."
+      ]
     },
     {
       "id": "cir-c41",
@@ -1138,7 +1378,13 @@ MP_CONTENIDO.agregar({
           "texto": "Small (rim up to 3.5 cm at the pulmonary apex) or lately diagnosed small occult PNX can be observed and may not require drainage."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el neumotórax oculto pequeño puede no necesitar drenaje.",
+        "Correcta: neumotórax oculto de hasta 3,5 cm en el ápice: observación.",
+        "No: el neumotórax oculto pequeño se observa.",
+        "No: el neumotórax oculto pequeño se observa sin drenaje."
+      ]
     },
     {
       "id": "cir-c42",
@@ -1166,7 +1412,13 @@ MP_CONTENIDO.agregar({
           "texto": "We suggest against the routine use of protective ileostomy or loop colostomy after primary repair or resection with anastomosis in adult traumatic colon injury."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: en el paciente estable se prefiere la reparación primaria a la derivación de rutina.",
+        "Correcta: lesión de bajo grado en el paciente estable: reparación primaria.",
+        "No: en la lesión de bajo grado basta la reparación primaria.",
+        "No: no se recomienda la ileostomía de protección de rutina."
+      ]
     },
     {
       "id": "cir-c43",
@@ -1194,7 +1446,13 @@ MP_CONTENIDO.agregar({
           "texto": "Continuing antibiotic prophylaxis beyond this 24-h window yields no additional benefit in preventing surgical site infection and increases the risk of adverse effects."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el antibiótico se suspende dentro de las 24 horas del control del foco.",
+        "No: el antibiótico se suspende dentro de las 24 horas del control del foco.",
+        "Correcta: máximo 24 horas tras el control definitivo del foco y el cierre.",
+        "No: prolongarlo no previene más infecciones y aumenta los efectos adversos."
+      ]
     },
     {
       "id": "cir-c44",
@@ -1222,7 +1480,13 @@ MP_CONTENIDO.agregar({
           "texto": "We recommend reserving colostomy for selected cases of destructive high-energy rectal injuries that are difficult to excise leaving healthy, well-perfused edges, or for hemodynamic instability as part of damage-control surgery."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la colostomía se reserva para bordes que no quedan sanos o para la inestabilidad.",
+        "No: la reparación primaria es para la lesión no destructiva; esta es destructiva.",
+        "No: lo sugerido en la lesión destructiva del paciente estable es resección y anastomosis.",
+        "Correcta: resección y anastomosis primaria, con o sin ostomía de derivación."
+      ]
     },
     {
       "id": "cir-c45",
@@ -1250,7 +1514,13 @@ MP_CONTENIDO.agregar({
           "texto": "Recent prospective randomized trials and observational studies indicate a pronounced survival advantage in penetrating trauma, whereas blunt trauma phenotypes exhibit mixed outcomes and potential coagulopathy risks."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: reanimación de control de daños con hemoderivados balanceados o sangre total.",
+        "No: empezar con litros de cristaloide antes de la sangre es la trampa.",
+        "No: la reanimación de control de daños usa hemoderivados balanceados tempranos.",
+        "No: la reanimación de control de daños usa hemoderivados balanceados tempranos."
+      ]
     },
     {
       "id": "cir-c46",
@@ -1278,7 +1548,13 @@ MP_CONTENIDO.agregar({
           "texto": "The duration of therapy should be the shortest effective course, and prophylactic antibiotics for surgical procedures should not exceed 24–48 hours."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el antibiótico profiláctico para cirugía no debe pasar de 24 a 48 horas.",
+        "Correcta: la escisión tangencial temprana con injerto es el avance que más redujo la mortalidad por sepsis.",
+        "No: esperar a que la escara se desprenda deja el tejido necrótico donde crecen las bacterias.",
+        "No: lo que más reduce la mortalidad por sepsis es retirar la escara con escisión temprana."
+      ]
     },
     {
       "id": "cir-c47",
@@ -1306,7 +1582,13 @@ MP_CONTENIDO.agregar({
           "texto": "A clinical suspicion of infection, in addition to meeting at least 3 of the 6 burn-specific predictors, should prompt an investigation for the infectious source and initiation of empiric systemic antibiotics. These include abnormalities such as extreme temperature changes, progressive tachycardia, tachypnoea, thrombocytopenia, hyperglycaemia, and intolerance to enteral feeding."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: cumple 3 o más predictores de la American Burn Association: se busca el foco.",
+        "No: con sospecha clínica y 3 o más predictores se inicia antibiótico empírico.",
+        "Correcta: sospecha clínica con 3 o más predictores: buscar el foco y antibiótico empírico.",
+        "No: la intolerancia enteral es uno de los predictores de sepsis; se busca el foco."
+      ]
     },
     {
       "id": "cir-c48",
@@ -1334,7 +1616,13 @@ MP_CONTENIDO.agregar({
           "texto": "No significant differences were observed for organ-space SSI, readmission, or mortality."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: no redujo la infección de órgano y espacio ni la mortalidad.",
+        "No: sí redujo la infección superficial y la profunda.",
+        "No: el NNH fue 18 para ampollas y 11 para eventos adversos del dispositivo.",
+        "Correcta: NNT 21 para evitar una infección y NNH 18 para ampollas."
+      ]
     },
     {
       "id": "cir-c49",
@@ -1362,7 +1650,13 @@ MP_CONTENIDO.agregar({
           "texto": "El alto porcentaje de lesiones inadvertidas en la tomografía, que varía del 12 % al 63 % hacen que la TAC no sea suficiente para descartar trauma diafragmático."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: a la tomografía se le escapan entre 12 y 63 % de las heridas del diafragma.",
+        "Correcta: laparoscopia diagnóstica, que diagnostica y repara en el mismo acto.",
+        "No: una ecografía o una tomografía normales no descartan la lesión del diafragma.",
+        "No: en la herida toracoabdominal estable se recurre a la laparoscopia."
+      ]
     },
     {
       "id": "cir-c50",
@@ -1386,7 +1680,13 @@ MP_CONTENIDO.agregar({
           "texto": "En 1989, Madden describió los límites superiores de la región toracoabdominal así: cuarto espacio intercostal en la zona anterior, sexto espacio intercostal en la región lateral, y a nivel posterior el ángulo inferior de la escápula que corresponde al octavo espacio intercostal."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: el sexto espacio lateral es el límite superior del área toracoabdominal.",
+        "No: el riesgo es por estar en el área toracoabdominal, no por ser una herida torácica cualquiera.",
+        "No: el área toracoabdominal empieza en el cuarto espacio adelante y el sexto lateral.",
+        "No: el riesgo depende de la ubicación en el área toracoabdominal, no del neumotórax."
+      ]
     },
     {
       "id": "cir-c51",
@@ -1410,7 +1710,13 @@ MP_CONTENIDO.agregar({
           "texto": "Esto también aplica para las heridas diafragmáticas aisladas, ya que su continuo movimiento en relación con la mecánica respiratoria hace muy improbable un cierre espontáneo del defecto, y por el contrario, suelen progresar en tamaño y generar complicaciones."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: por el movimiento respiratorio el defecto no cierra solo; crece.",
+        "No: las heridas aisladas del diafragma se reparan.",
+        "Correcta: las heridas aisladas del diafragma también se reparan.",
+        "No: el defecto del diafragma se repara; si no, crece y da complicaciones."
+      ]
     },
     {
       "id": "cir-c52",
@@ -1438,7 +1744,13 @@ MP_CONTENIDO.agregar({
           "texto": "Cuando esto ocurre, la mortalidad puede ascender hasta un 60 % y en casos de estrangulamiento de la víscera herniada, puede ser tan alta como del 80 %."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el bazo es el segundo en frecuencia del lado izquierdo.",
+        "No: del lado izquierdo, el más frecuente es el estómago.",
+        "No: el hígado se hernia sobre todo del lado derecho.",
+        "Correcta: del lado izquierdo, el estómago es la víscera que más se hernia."
+      ]
     },
     {
       "id": "cir-c53",
@@ -1466,7 +1778,13 @@ MP_CONTENIDO.agregar({
           "texto": "First, the generalizability of our findings is constrained by the gender-restricted sampling strategy for the reason noted above."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: un NNT de 4,46 significa cerca de 5 pacientes, no 446.",
+        "Correcta: por cada 5 tratadas con estimulación, 1 más logra la remisión.",
+        "No: el estudio solo incluyó mujeres; no se puede generalizar.",
+        "No: el NNT mide el tamaño del efecto, no la ausencia de sesgo."
+      ]
     },
     {
       "id": "cir-c54",
@@ -1490,7 +1808,13 @@ MP_CONTENIDO.agregar({
           "texto": "“Grade II” acute cholecystitis is associated with any one of the following conditions: 1. Elevated WBC count (>18,000/mm3) 2. Palpable tender mass in the right upper abdominal quadrant 3. Duration of complaints >72 h 4. Marked local inflammation (gangrenous cholecystitis, pericholecystic abscess, hepatic abscess, biliary peritonitis, emphysematous cholecystitis)"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: más de 72 horas de evolución ya la hacen grado II.",
+        "Correcta: grado II por más de 72 horas de síntomas.",
+        "No: el grado III exige disfunción de órganos, que no tiene.",
+        "No: el grado se define con criterios clínicos y de laboratorio."
+      ]
     },
     {
       "id": "cir-c55",
@@ -1518,7 +1842,13 @@ MP_CONTENIDO.agregar({
           "texto": "Abdominal US should be the first method of diagnostic imaging used for acute cholecystitis."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: signo local más sistémico es sospecha; la ecografía confirma.",
+        "No: el diagnóstico definitivo exige además la imagen.",
+        "No: sin imagen es solo sospecha, y el primer estudio es la ecografía.",
+        "No: el primer estudio de imagen es la ecografía abdominal."
+      ]
     },
     {
       "id": "cir-c56",
@@ -1542,7 +1872,13 @@ MP_CONTENIDO.agregar({
           "texto": "For Grade II AC, if patients meet the criteria of CCI ≤5 and ASA-PS ≤2, TG18 recommends early Lap-C performed by experienced surgeons; and if not, after medical treatment and/or gallbladder drainage, Lap-C would be indicated."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la colecistectomía temprana en grado II exige Charlson de 5 o menos y ASA de 2 o menos.",
+        "Correcta: con Charlson 7 y ASA III, primero tratamiento médico o drenaje y luego colecistectomía.",
+        "No: no cumple criterios para cirugía temprana; primero tratamiento médico o drenaje.",
+        "No: tras el tratamiento médico o el drenaje está indicada la colecistectomía."
+      ]
     },
     {
       "id": "cir-c57",
@@ -1570,7 +1906,13 @@ MP_CONTENIDO.agregar({
           "texto": "If the patient is not considered suitable for early surgery, TG18 recommends early/urgent biliary drainage followed by delayed Lap-C once the patient’s overall condition has improved."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: con factores predictivos negativos, drenaje biliar temprano y colecistectomía diferida.",
+        "No: la ictericia y la disfunción neurológica aumentan la mortalidad quirúrgica.",
+        "No: si no es candidata a cirugía temprana, se hace drenaje biliar temprano.",
+        "No: operar de urgencia con factores predictivos negativos es la trampa."
+      ]
     },
     {
       "id": "cir-c58",
@@ -1594,7 +1936,13 @@ MP_CONTENIDO.agregar({
           "texto": "Acute pancreatitis (AP) should be diagnosed based on the fulfillment of two out of three criteria: (i) clinical- acute upper abdominal pain, (ii) biochemical-elevated pancreatic enzymes (serum lipase or amylase concentration >3 times upper limit of normal) and (iii) imaging- features of acute pancreatic inflammation with or without necrosis on abdominal imaging, typically computed tomography or ultrasonography (USG)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: ya cumple dos de tres criterios; no hace falta imagen del páncreas.",
+        "Correcta: dolor típico y lipasa mayor de 3 veces: diagnóstico hecho.",
+        "No: basta la lipasa o la amilasa mayor de 3 veces el límite superior.",
+        "No: ya cumple dos de tres criterios; no hace falta imagen."
+      ]
     },
     {
       "id": "cir-c59",
@@ -1622,7 +1970,13 @@ MP_CONTENIDO.agregar({
           "texto": "However, routine early CT within 48 hours is not recommended in AP"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la tomografía temprana de rutina (antes de 48 horas) no está recomendada.",
+        "No: no hay duda diagnóstica ni mala evolución que justifique imagen hoy.",
+        "No: para la gravedad, el mejor momento es a las 72 a 96 horas, y solo si no mejora.",
+        "Correcta: no pedirla; si no mejora, a las 72 a 96 horas."
+      ]
     },
     {
       "id": "cir-c60",
@@ -1654,7 +2008,13 @@ MP_CONTENIDO.agregar({
           "texto": "an incidence of fluid overload in 21 % of patients in the aggressive fluids arm vs. 6 % in patients receiving moderate fluids (p < 0.01)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: se usa lactato de Ringer a 1,5 ml/kg/h.",
+        "No: el bolo es solo si hay hipovolemia o hipotensión; los líquidos agresivos dieron más sobrecarga.",
+        "Correcta: lactato de Ringer a 1,5 ml/kg/h.",
+        "No: el líquido recomendado es el lactato de Ringer."
+      ]
     },
     {
       "id": "cir-c61",
@@ -1682,7 +2042,13 @@ MP_CONTENIDO.agregar({
           "texto": "Early enteral tube feeding, preferably within 72 hours of the onset of acute pancreatitis, is recommended if patients cannot tolerate oral feeding."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: con apetito y sin vómito, dieta sólida baja en grasa desde ya.",
+        "No: no hay que esperar a que la lipasa baje.",
+        "No: la sonda es para quien no tolera la vía oral; él tiene hambre y no vomita.",
+        "No: tolera la vía oral; se inicia dieta oral."
+      ]
     },
     {
       "id": "cir-c62",
@@ -1710,7 +2076,13 @@ MP_CONTENIDO.agregar({
           "texto": "The step-up approach consisting of initial antibiotics, then percutaneous drainage or endoscopic transluminal drainage followed, if necessary, by minimally invasive necrosectomy via the retroperitoneal route or per-oral endoscopic necrosectomy is recommended for suspected or confirmed infected necrotizing pancreatitis."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: operar de entrada una necrosis infectada estable y mal delimitada es la trampa.",
+        "Correcta: seguir el antibiótico y diferir la intervención hasta que la colección se encapsule.",
+        "No: hay necrosis infectada; se mantiene el antibiótico.",
+        "No: la intervención se difiere hasta que la colección se encapsule."
+      ]
     },
     {
       "id": "cir-c63",
@@ -1738,7 +2110,13 @@ MP_CONTENIDO.agregar({
           "texto": "Patients with AP and elevated serum calcium levels should be further evaluated by measuring serum parathyroid hormone (PTH)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: con calcio mayor de 14 mg/dL la expansión se hace con solución salina, no con lactato de Ringer.",
+        "No: se evitan los suplementos de calcio y vitamina D.",
+        "No: la medida urgente es la expansión de volumen con solución salina isotónica.",
+        "Correcta: expansión de volumen con solución salina isotónica."
+      ]
     },
     {
       "id": "cir-c64",
@@ -1770,7 +2148,13 @@ MP_CONTENIDO.agregar({
           "texto": "Patients with HTGP should fast for the first 48 hours, followed by an oral low-fat soft diet."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la plasmaféresis se considera solo con falla orgánica persistente.",
+        "No: la primera línea para bajar los triglicéridos es la insulina.",
+        "Correcta: insulina como primera línea, recomendada en diabéticos.",
+        "No: la primera línea para bajar los triglicéridos es la insulina."
+      ]
     },
     {
       "id": "cir-c65",
@@ -1798,7 +2182,13 @@ MP_CONTENIDO.agregar({
           "texto": "In patients with gallstone pancreatitis without cholangitis or biliary obstruction/choledocholithiasis we recommend against urgent (<48 hours) ERCP."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: sin colangitis no está indicada la CPRE temprana, aunque sea grave.",
+        "No: la gravedad no indica la CPRE temprana; la colangitis sí.",
+        "No: sin colangitis ni obstrucción no se hace CPRE temprana.",
+        "No: sin colangitis ni obstrucción no se hace CPRE."
+      ]
     },
     {
       "id": "cir-c66",
@@ -1822,7 +2212,13 @@ MP_CONTENIDO.agregar({
           "texto": "we suggest the following HIGH-RISK criteria to directly prompt ERCP for suspected choledocholithiasis: (1) CBD stone on ultrasound or cross-sectional imaging or (2) Total bilirubin >4 mg/dL AND dilated common bile duct on imaging (>6 mm with gallbladder in situ) or (3) Ascending cholangitis."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: ya cumple un criterio de riesgo alto; va directo a CPRE.",
+        "Correcta: bilirrubina mayor de 4 mg/dL con colédoco dilatado: CPRE directa.",
+        "No: tiene riesgo alto de coledocolitiasis; hay que tratar la vía biliar.",
+        "No: ya cumple un criterio de riesgo alto; va directo a CPRE."
+      ]
     },
     {
       "id": "cir-c67",
@@ -1850,7 +2246,13 @@ MP_CONTENIDO.agregar({
           "texto": "In patients with intermediate risk of choledocholithiasis we suggest either EUS or MRCP given high specificity; consider factors including patient preference, local expertise, and availability."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: en el riesgo intermedio no se va a CPRE sin confirmar el cálculo.",
+        "No: tiene riesgo intermedio; se estudia la vía biliar.",
+        "No: se confirma con colangiorresonancia o ecoendoscopia.",
+        "Correcta: riesgo intermedio: colangiorresonancia o ecoendoscopia."
+      ]
     },
     {
       "id": "cir-c68",
@@ -1874,7 +2276,13 @@ MP_CONTENIDO.agregar({
           "texto": "For patients with symptomatic cholelithiasis without any of these risk factors, we suggest cholecystecomy without IOC."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: sin factores de riesgo no se estudia la vía biliar.",
+        "Correcta: sin factores de riesgo, colecistectomía sin colangiografía intraoperatoria.",
+        "No: sin factores de riesgo no se estudia la vía biliar.",
+        "No: sin factores de riesgo se sugiere colecistectomía sin colangiografía."
+      ]
     },
     {
       "id": "cir-c69",
@@ -1902,7 +2310,13 @@ MP_CONTENIDO.agregar({
           "texto": "Same-admission cholecystectomy is recommended for patients with mild gallstone pancreatitis."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: en la pancreatitis biliar leve se opera en la misma hospitalización.",
+        "No: la colecistectomía previene la recurrencia de la pancreatitis.",
+        "Correcta: colecistectomía en la misma hospitalización.",
+        "No: aun con papilotomía se recomienda la colecistectomía."
+      ]
     },
     {
       "id": "cir-c70",
@@ -1926,7 +2340,13 @@ MP_CONTENIDO.agregar({
           "texto": "Cholecystectomy should be delayed in patients with moderate and severe acute pancreatitis, in particular, those with necrotizing pancreatitis and peripancreatic fluid collections, until the collections nearly resolve."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la colecistectomía antes del alta es para la pancreatitis leve.",
+        "No: en la necrosante con colecciones la colecistectomía se difiere.",
+        "No: la colecistectomía se hace, pero diferida.",
+        "Correcta: diferirla hasta que las colecciones casi se hayan resuelto."
+      ]
     },
     {
       "id": "cir-c71",
