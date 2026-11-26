@@ -164,3 +164,33 @@ test("un texto sin preguntas lo dice; antes del diagnóstico el simulacro está 
   await expect(page.locator("#rcGo")).toHaveCount(0);
   await expect(page.locator("#qRecons")).toContainText("diagnóstico");
 });
+
+// ---------- parte 2: crear casos con el estilo de un examen ----------
+const PATRON = {id: "rc1", univ: "UdeA", anio: "2026", total: 70, fecha: 1, titulo: "x",
+  perfil: {n: 100, areas: {"Medicina Interna": 100}, tipos: {conducta: 50, diagnostico: 30, critica: 0, datos: 20}, casos: 80, conOpc: 90, palabras: 35, temas: []},
+  muestras: ["Paciente de 42 años con fiebre y cefalea de 3 días, ¿cuál es la conducta inicial?", "Vida media plaquetas"]};
+
+test("el estilo de un examen se describe para la IA: solo la forma, con preguntas de muestra, y el contenido sale del documento", async ({ page }) => {
+  const t = await page.evaluate(p => { S.recons = [p]; return rcEstiloLinea("rc1"); }, PATRON);
+  expect(t).toContain("Estilo del examen UdeA 2026");
+  expect(t).toContain("80 % son casos clínicos");
+  expect(t).toContain("unas 35 palabras");
+  expect(t).toContain("conducta clínica 50 %");
+  expect(t).toContain("nunca de los ejemplos");
+  expect(t).toContain("- Paciente de 42 años");
+  expect(t).not.toContain("Vida media");   // muestras muy cortas no sirven de ejemplo de forma
+  // reparto por tipo de pregunta entre las clases del Taller (dos clases de diagnóstico se reparten su parte)
+  const r = await page.evaluate(() => rcRepartirClases("rc1", CASO_TIPOS.revision, 10));
+  expect(r).toEqual({conducta: 5, diagnostico: 2, diferenciales: 1, datos: 2});
+});
+
+test("sin clave de IA: el prompt para otra IA lleva el estilo elegido", async ({ page }) => {
+  await page.evaluate(p => { S.recons = [p]; save(); newType = "i"; go("new"); }, PATRON);
+  await page.click("summary:has-text('Prompt para tu IA')");
+  await expect(page.locator("#impPrompt")).not.toContainText("Estilo del examen");
+  await page.click('[data-iest="rc1"]');
+  await expect(page.locator("#impPrompt")).toContainText("Estilo del examen UdeA 2026");
+  await expect(page.locator('[data-iest="rc1"]')).toHaveClass(/on/);
+  await page.click('[data-iest=""]');
+  await expect(page.locator("#impPrompt")).not.toContainText("Estilo del examen");
+});

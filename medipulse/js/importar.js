@@ -167,6 +167,9 @@ function organizarTexto(texto){
 }
 
 // ---------- pantalla ----------
+// El prompt para otra IA, con el estilo de un examen si se eligió (reconstrucciones.js).
+let impEstilo = null;
+const promptIA = () => PROMPT_IA + (impEstilo && typeof rcEstiloLinea === "function" ? "\n\n" + rcEstiloLinea(impEstilo) : "");
 function renderImportar(box){
   box.innerHTML = `
     <div class="stack">
@@ -175,17 +178,21 @@ function renderImportar(box){
       <div class="row" style="gap:6px"><button class="btn primary" id="impGo">🧩 Organizar</button></div>
       <details class="custom"><summary>📋 Prompt para tu IA: preguntas desde tu fuente, listas para pegar aquí</summary><div class="stack" style="margin-top:8px">
         <p class="xs muted" style="margin:0"><b>Con tu fuente:</b> copia este prompt y pégalo en Gemini, ChatGPT u otra IA, sin cambiar nada. Tu IA te pedirá la fuente (el PDF, el texto o una foto), sacará sola el título y el año, te mostrará el mapa conceptual y luego te preguntará qué temas, cuántas preguntas, de qué tipo y si quieres 4 o 5 opciones. Usará solo ese documento y dirá la página de cada pregunta.</p>
+        ${typeof rcLista === "function" && rcLista().length ? `<div><div class="xs muted" style="margin-bottom:6px">Estilo de examen (opcional): tu IA imita cómo pregunta ese examen; el contenido sigue saliendo de tu fuente</div><div id="impEstilo">${rcEstiloChips(impEstilo, "data-iest")}</div></div>` : ""}
         <button class="btn sm" data-copiar="prompt">📋 Copiar el prompt completo</button>
-        <pre class="prompt">${esc(PROMPT_IA)}</pre>
+        <pre class="prompt" id="impPrompt">${esc(promptIA())}</pre>
         <p class="xs muted" style="margin:0"><b>¿Ya tienes una skill o un prompt propio</b> (por ejemplo, uno que arma un mapa conceptual del documento y luego hace preguntas)? No lo cambies: agrega al final solo este bloque de formato.</p>
         <button class="btn sm" data-copiar="formato">📋 Copiar solo el formato</button>
         <pre class="prompt">${esc(FORMATO_IA)}</pre></div></details>
       <div id="impOut" class="stack"></div>
     </div>`;
   box.querySelectorAll("[data-copiar]").forEach(b => b.onclick = () => {
-    const txt = b.dataset.copiar === "formato" ? FORMATO_IA : PROMPT_IA, ok = b.dataset.copiar === "formato" ? "Formato copiado ✓ Pégalo al final de tu skill" : "Prompt copiado ✓ Pégalo en tu IA con tu documento";
+    const txt = b.dataset.copiar === "formato" ? FORMATO_IA : promptIA(), ok = b.dataset.copiar === "formato" ? "Formato copiado ✓ Pégalo al final de tu skill" : "Prompt copiado ✓ Pégalo en tu IA con tu documento";
     try { navigator.clipboard.writeText(txt).then(() => toast(ok), () => toast("Selecciona el texto de abajo y cópialo a mano")); } catch(e) { toast("Selecciona el texto de abajo y cópialo a mano"); }
   });
+  const bindEstilo = () => box.querySelectorAll("[data-iest]").forEach(b => b.onclick = () => { impEstilo = b.dataset.iest || null;
+    $("#impEstilo").innerHTML = rcEstiloChips(impEstilo, "data-iest"); $("#impPrompt").textContent = promptIA(); bindEstilo(); });
+  bindEstilo();
   $("#impGo").onclick = () => {
     impCands = organizarTexto($("#impTxt").value).filter(q => q.vignette && q.options.length >= 4);
     if (!impCands.length) { $("#impOut").innerHTML = `<p class="small" style="margin:0;color:var(--bad)">No encontré una pregunta con al menos 4 opciones: A), B), C) y D). Revisa que cada opción empiece con su letra.</p>`; return; }

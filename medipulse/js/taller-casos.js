@@ -114,6 +114,10 @@ function casosHTML(){
       <div class="chips">${c.partes.map((p, i) => `<button class="chip2${c.partesOn.has(p) ? " on" : ""}" data-cparte="${i}">${esc(p)}</button>`).join("")}</div></div>` : ""}
     <div><div class="fld" style="margin-bottom:6px">Dificultad</div><div class="chips">${LEVELS.map(([k, l]) => `<button class="chip2${gen.level === k ? " on" : ""}" data-lv="${k}">${l}</button>`).join("")}</div>
       <p class="xs muted" id="cNivel" style="margin:6px 0 0">${nivelTxt(gen.level)}</p></div>
+    ${rcLista().length ? `<div><div class="fld" style="margin-bottom:6px">Estilo de examen <span class="xs muted">(de tus reconstrucciones)</span></div>${rcEstiloChips(gen.estilo, "data-cest")}
+      ${gen.estilo ? `<p class="xs muted" style="margin:6px 0 0">La IA imita cómo pregunta ese examen: largo, tono, casos clínicos o preguntas directas. El contenido y la respuesta salen solo de este documento. Se le envían el patrón y hasta 4 preguntas de muestra.</p>
+        <button class="btn sm" id="cRepartir" style="margin-top:6px">⚖️ Repartir los ${total} casos como ese examen</button>` : ""}</div>`
+      : `<p class="xs muted" style="margin:0">¿Quieres que pregunte como una universidad? Mide una reconstrucción en Casos → 🏛️ Simulacro estilo universidad.</p>`}
     <details class="custom" id="cMas" ${gen.casosMas ? "open" : ""}><summary>Más opciones: idioma, instrucciones, plantillas</summary><div class="stack" style="margin-top:10px">
       ${tpls.length ? `<div class="row" style="gap:6px"><span class="xs muted">Mis plantillas:</span>${tpls.map((x, i) => `<button class="chip2" data-tpl="${i}">${esc(x.name)}</button>`).join("")}</div>` : ""}
       <div class="grid2">
@@ -147,6 +151,11 @@ function bindCasos(){
   $("#cTema").onchange = e => { const v = e.target.value; gen.tema = v === "" ? null : +v; gen.manual = null; const x = temaActual();
     gen.topic = x ? x.title : ""; if (x) gen.rdPage = x.from; gen.casos = null; renderGen(); };
   $("#cMas").ontoggle = () => { gen.casosMas = $("#cMas").open; };
+  // Estilo de examen (reconstrucciones.js): imitar la forma y, si se quiere, el reparto por tipo de pregunta.
+  box.querySelectorAll("[data-cest]").forEach(b => b.onclick = () => { gen.estilo = b.dataset.cest || null; refrescar(); });
+  $("#cRepartir") && ($("#cRepartir").onclick = () => { const r = rcRepartirClases(gen.estilo, c.tipos, casosTotal(c));
+    if (!r) return toast("Ese examen no tiene preguntas de los tipos de este documento");
+    c.tipos.forEach(x => { c.cant[x.k] = Math.min(CASOS_MAX_TIPO, r[x.k] || 0); }); refrescar(); });
   $("#gLang").onchange = () => { gen.lang = $("#gLang").value; };
   $("#gLabel").oninput = () => { gen.label = $("#gLabel").value; };
   $("#gInstr").oninput = () => { gen.instr = $("#gInstr").value; };
@@ -176,6 +185,7 @@ function casosAsk(c){
     partes.length && partes.length < c.partes.length ? `Reparte los casos entre estas partes del documento: ${partes.join("; ")}.` : "",
     `Dificultad: ${lv[1]} (${lv[2]}).`,
     gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos del documento tal como aparecen.",
+    gen.estilo ? rcEstiloLinea(gen.estilo) : "",
     gen.instr.trim() ? `Instrucciones del médico: ${gen.instr.trim()}` : ""
   ].filter(Boolean).join("\n") + focusLine();
 }
