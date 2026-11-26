@@ -2047,6 +2047,58 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "mi-c57",
+      "topic": "Infectología · Dengue con signos de alarma en el adulto mayor",
+      "difficulty": "residencia",
+      "src": "ops_dengue20",
+      "vignette": "Paciente de <span class='hy'>72 años</span> con hipertensión y diabetes, que pesa 70 kg. Cursa el quinto día de dengue y desde la mañana <span class='hy'>vomita todo lo que recibe y se queja de epigastralgia intensa</span>. Presión 118/76. ¿Qué volumen de carga eliges?",
+      "options": [
+        "10 mL/kg durante la primera hora",
+        "5 mL/kg durante la primera hora",
+        "20 mL/kg en 15 minutos, repetible",
+        "Ninguno: tolerancia oral forzada"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con signos de alarma y comorbilidad o edad avanzada, la OPS usa cargas más pequeñas: cristaloide 5 mL/kg en 1 hora y reevaluar. Si mejora, baja a 4 mL/kg/h; si no, repite la carga de 5 mL/kg hasta 3 veces antes de manejarlo como dengue grave.",
+      "pearl": "Sin comorbilidad, la carga inicial es de 10 mL/kg en 1 hora.",
+      "trap": "Usar en el adulto mayor la misma carga que en el joven sano.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Líquidos en dengue con signos de alarma, comorbilidad o adulto mayor",
+          "texto": "Solución cristaloide (Hartman o SSN 0.9%) 5 ml/kg en 1 h."
+        }
+      ],
+      "verificado": "2026-11-26"
+    },
+    {
+      "id": "mi-c58",
+      "topic": "Infectología · Dengue grave: choque que no mejora",
+      "difficulty": "dificil",
+      "src": "jim_dengue24",
+      "vignette": "Mujer de 30 años con choque por dengue. Recibió tres bolos de cristaloide y sigue hipotensa y taquicárdica. El <span class='hy'>hematocrito bajó de 48 % a 36 %</span> sin mejoría clínica. ¿Qué sospechas?",
+      "options": [
+        "Que ya se recuperó: el hematocrito bajó",
+        "Sobrecarga de volumen: dar furosemida",
+        "Que ya no hay extravasación de plasma",
+        "Sangrado oculto: buscarlo y tratarlo"
+      ],
+      "correct": 3,
+      "whyCorrect": "Un hematocrito que baja sin mejoría clínica, o con choque que persiste, obliga a buscar sangrado oculto. Ese descenso no es hemodilución ni recuperación. En el choque persistente, la OPS pide además evaluar la función de bomba, la acidosis y la necesidad de aminas.",
+      "pearl": "Un hematocrito que baja solo indica mejoría si el paciente está estable.",
+      "trap": "Leer la caída del hematocrito como buena respuesta a los líquidos.",
+      "cita": [
+        {
+          "donde": "Severe dengue in the intensive care unit, J Intensive Med 2024;4:16-33, Management",
+          "texto": "When hematocrit declines without clinical improvement or maintenance of hypovolemic shock, occult bleeding must be investigated."
+        },
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Choque por dengue grave (grupo C)",
+          "texto": "Evaluar la acidosis persistente y el riesgo de hemorragia (oculta) y tratarlas;"
+        }
+      ],
+      "verificado": "2026-11-26"
     }
   ],
   "fichas": [

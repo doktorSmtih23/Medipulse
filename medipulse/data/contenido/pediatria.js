@@ -1874,6 +1874,218 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "ped-c67",
+      "topic": "Infectología · Dengue: caso sospechoso en niños",
+      "difficulty": "basica",
+      "src": "ops_dengue20",
+      "vignette": "Niño de 6 años que vive en Villavicencio, con <span class='hy'>fiebre de 3 días sin foco aparente</span>. No tiene exantema, vómito ni dolor retroorbitario. El examen físico es normal. ¿Cómo lo clasificas?",
+      "options": [
+        "Fiebre sin foco: hemocultivo y antibiótico",
+        "No es dengue: le faltan dos manifestaciones",
+        "Caso sospechoso de dengue",
+        "Hay que esperar el exantema para sospecharlo"
+      ],
+      "correct": 2,
+      "whyCorrect": "En el adulto, el caso sospechoso exige fiebre de 2 a 7 días y dos o más manifestaciones (náusea o vómito, exantema, cefalea o dolor retroorbitario, mialgias, petequias o torniquete positivo, leucopenia). En el niño que vive o viajó a zona de transmisión basta la fiebre aguda sin foco aparente.",
+      "pearl": "Ser caso sospechoso obliga a clasificar la gravedad y el grupo de manejo, aunque todavía no haya confirmación por laboratorio.",
+      "trap": "Aplicar al niño la definición del adulto y descartar el dengue por falta de síntomas.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Definición de caso sospechoso",
+          "texto": "También se considera caso sospechoso a todo niño que reside o haya viajado en los últimos 14 días a una zona con transmisión de dengue que presenta cuadro febril agudo, por lo general, de 2 a 7 días de evolución, sin foco aparente."
+        }
+      ],
+      "verificado": "2026-11-26"
+    },
+    {
+      "id": "ped-c68",
+      "topic": "Infectología · Dengue en el lactante",
+      "difficulty": "residencia",
+      "src": "ops_dengue20",
+      "vignette": "Lactante de <span class='hy'>9 meses</span> con dengue en el día 3, sin signos de alarma. Recibe bien el seno y orina cada 4 horas. La madre puede volver al hospital. ¿En qué grupo de manejo está?",
+      "options": [
+        "Grupo A: manejo en casa con control diario",
+        "Grupo B1: remisión para observación",
+        "Grupo B2: líquidos intravenosos",
+        "Grupo C: cuidado intensivo"
+      ],
+      "correct": 1,
+      "whyCorrect": "Aunque tolera la vía oral y orina, tener 1 año o menos es una condición asociada que lo saca del grupo A. Pasa al grupo B1: remisión a una unidad de dengue u hospital para observación. Las otras condiciones de B1 incluyen embarazo, 65 años o más, comorbilidades y riesgo social.",
+      "pearl": "B2 es para el dengue con signos de alarma (líquidos IV) y C para el dengue grave.",
+      "trap": "Mandarlo a casa porque está hidratado: la edad sola lo hace de riesgo.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Grupos de intervención",
+          "texto": "Presentan enfermedad o condiciones asociadas: ▪ Embarazo ▪ ≤ 1 año ▪ ≥ 65 años"
+        },
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Algoritmo para la atención de casos sospechosos",
+          "texto": "Grupo B1: Posible remisión a unidad de dengue para observación y atención de su infección y afecciones asociadas"
+        }
+      ],
+      "verificado": "2026-11-26"
+    },
+    {
+      "id": "ped-c69",
+      "topic": "Infectología · Dengue: fiebre en casa",
+      "difficulty": "basica",
+      "src": "ops_dengue20",
+      "vignette": "Niña de 8 años, 25 kg, con dengue sin signos de alarma en manejo en casa (grupo A). La madre pregunta qué le da para la fiebre. ¿Qué indicas?",
+      "options": [
+        "Ibuprofeno 10 mg/kg cada 8 h",
+        "Ácido acetilsalicílico cada 6 h",
+        "Naproxeno 5 mg/kg cada 12 h",
+        "Acetaminofén 10 mg/kg cada 6 h"
+      ],
+      "correct": 3,
+      "whyCorrect": "En el grupo A la OPS indica acetaminofén por vía oral, 10 mg/kg cada 6 horas en niños, con medios físicos y abundantes líquidos orales. La aspirina y los antiinflamatorios no esteroideos no se recomiendan por el riesgo de sangrado y la trombocitopenia.",
+      "pearl": "La OPS acepta también metamizol 10 mg/kg cada 6 h como alternativa en niños.",
+      "trap": "Dar ibuprofeno porque «baja mejor la fiebre».",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Manejo de dengue sin signos de alarma (grupos A y B1)",
+          "texto": "Niños: acetaminofén V.O 10mg/kg cada 6 h."
+        },
+        {
+          "donde": "Dengue: A Growing Problem With New Interventions, Pediatrics 2022;149(6):e2021055522, Case Management",
+          "texto": "because of the risk of bleeding and thrombocytopenia, aspirin and nonsteroidal anti-inflammatory drugs are not recommended."
+        }
+      ],
+      "verificado": "2026-11-26"
+    },
+    {
+      "id": "ped-c70",
+      "topic": "Infectología · Dengue con signos de alarma en niños",
+      "difficulty": "residencia",
+      "src": "ops_dengue20",
+      "vignette": "Niño de 10 años, 30 kg, previamente sano, en el día 5 de dengue. La fiebre cedió ayer y ahora tiene <span class='hy'>dolor abdominal intenso y vómito persistente</span>. PA 100/65 mmHg, llenado capilar de 2 s. ¿Cómo inicias los líquidos según la OPS?",
+      "options": [
+        "Cristaloide 10 mL/kg en 1 hora y reevaluar",
+        "Bolo de 20 mL/kg en 15 minutos",
+        "Suero oral a libre demanda y control en 24 horas",
+        "Coloide 10 mL/kg de entrada por la hemoconcentración"
+      ],
+      "correct": 0,
+      "whyCorrect": "Tiene signos de alarma sin choque y sin comorbilidad: grupo B2. La OPS inicia con cristaloide (Hartmann o solución salina 0,9 %) a 10 mL/kg en 1 hora y reevalúa. Si mejora, baja a 5–7 mL/kg/h; si no, repite la carga de 10 mL/kg hasta 3 veces antes de manejarlo como dengue grave.",
+      "pearl": "Otras fuentes (seminario del Lancet 2024) empiezan con 5–7 mL/kg/h. Para el examen en Colombia, la referencia habitual es la OPS.",
+      "trap": "Pasar 20 mL/kg en 15 minutos a un paciente sin choque: ese bolo es para el grupo C.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Líquidos en dengue con signos de alarma (grupo B2)",
+          "texto": "Solución cristaloide (Hartman o solución salina normal 0.9%) 10ml/kg en 1 h."
+        }
+      ],
+      "verificado": "2026-11-26"
+    },
+    {
+      "id": "ped-c71",
+      "topic": "Infectología · Dengue: después de la primera carga",
+      "difficulty": "residencia",
+      "src": "ops_dengue20",
+      "vignette": "Niña de 12 años con dengue con signos de alarma recibió cristaloide 10 mL/kg en 1 hora. <span class='hy'>El dolor abdominal cedió, orina bien y los signos vitales se estabilizaron</span>. ¿Qué sigue?",
+      "options": [
+        "Repetir la carga de 10 mL/kg",
+        "Suspender los líquidos y dar la vía oral",
+        "Bajar a 5–7 mL/kg/h por 2–4 h",
+        "Pasar un bolo de 20 mL/kg"
+      ],
+      "correct": 2,
+      "whyCorrect": "Con mejoría clínica después de la primera carga se reduce el goteo a 5–7 mL/kg/h por 2–4 horas, con monitoreo horario. Si sigue mejorando, se baja a 3–5 y luego a 2–4 mL/kg/h por 24–48 horas. La carga se repite solo si no mejora.",
+      "pearl": "La mejoría se ve en la desaparición de los signos de alarma, signos vitales estables, diuresis normal o aumentada y hematocrito que baja en un paciente estable.",
+      "trap": "Cortar los líquidos de golpe en plena fase crítica.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Líquidos en dengue con signos de alarma (grupo B2)",
+          "texto": "Reevaluar: Hay mejoría clínica Reducir goteo a 5 a 7 ml/kg/h y continúe por 2-4 h + monitoreo horario al paciente."
+        }
+      ],
+      "verificado": "2026-11-26"
+    },
+    {
+      "id": "ped-c72",
+      "topic": "Infectología · Choque por dengue en niños",
+      "difficulty": "residencia",
+      "src": "ops_dengue20",
+      "vignette": "Niño de 7 años, 22 kg, en el día 5 de dengue. Está frío, con <span class='hy'>PA 90/74 mmHg, FC 140 y llenado capilar de 4 s</span>. ¿Qué haces primero?",
+      "options": [
+        "Cristaloide 10 mL/kg en 1 hora",
+        "Transfundir plaquetas",
+        "Cristaloide 20 mL/kg en 15–30 minutos",
+        "Furosemida por el riesgo de sobrecarga"
+      ],
+      "correct": 2,
+      "whyCorrect": "Tiene choque por extravasación de plasma: presión de pulso de 16 mmHg (menor de 20), taquicardia y llenado capilar lento. Es grupo C: ABC, oxígeno y cristaloide 20 mL/kg en 15–30 minutos; se reevalúa y, si persiste el choque, se repite el bolo.",
+      "pearl": "En el choque por dengue la presión arterial sistólica puede ser normal al principio: lo que baja primero es la presión de pulso.",
+      "trap": "Esperar la hipotensión para tratar el choque.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Líquidos en choque por dengue grave (grupo C)",
+          "texto": "Solución cristaloide (Hartman o solución salina normal 0.9%) 20ml/kg en 15-30 min"
+        },
+        {
+          "donde": "Severe dengue in the intensive care unit, J Intensive Med 2024;4:16-33, Clinical manifestations",
+          "texto": "shock – defined as tachycardia, narrowing of the pulse pressure (a difference in systolic and diastolic pressure less than 20 mmHg), delayed capillary filling, and hypotension"
+        }
+      ],
+      "verificado": "2026-11-26"
+    },
+    {
+      "id": "ped-c73",
+      "topic": "Infectología · Signos de alarma del dengue",
+      "difficulty": "basica",
+      "src": "ops_dengue20",
+      "vignette": "Niña de 9 años en el día 4 de dengue. ¿Cuál de estos hallazgos <span class='hy'>NO</span> es un signo de alarma?",
+      "options": [
+        "Hepatomegalia de 3 cm bajo el reborde costal",
+        "Prueba del torniquete positiva",
+        "Sangrado de encías",
+        "Letargo"
+      ],
+      "correct": 1,
+      "whyCorrect": "Las petequias o la prueba del torniquete positiva son parte de la definición del dengue sin signos de alarma. Los signos de alarma son: dolor abdominal intenso o a la palpación, vómitos persistentes, acumulación de líquidos, sangrado de mucosas, letargo o irritabilidad, hipotensión postural, hepatomegalia mayor de 2 cm y hematocrito en ascenso progresivo.",
+      "pearl": "Los signos de alarma suelen aparecer cerca de la caída de la fiebre: es el inicio de la fase crítica.",
+      "trap": "Tomar las petequias como signo de alarma y hospitalizar por eso solo.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Clasificación de gravedad",
+          "texto": "Petequias o prueba del torniquete (+)"
+        },
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Clasificación de gravedad (signos de alarma)",
+          "texto": "7. Hepatomegalia >2 cm 8. Aumento progresivo del hematocrito"
+        }
+      ],
+      "verificado": "2026-11-26"
+    },
+    {
+      "id": "ped-c74",
+      "topic": "Infectología · Dengue: criterios de alta",
+      "difficulty": "residencia",
+      "src": "ops_dengue20",
+      "vignette": "Niño de 11 años hospitalizado por dengue con signos de alarma, en el día 7. <span class='hy'>Lleva 24 horas sin fiebre, pero con acetaminofén</span>; come bien y orina normal. Plaquetas de 60.000 a 85.000 en 24 h; ya no recibe líquidos IV y el hematocrito está estable. ¿Le das el alta?",
+      "options": [
+        "Sí: plaquetas en ascenso y hematocrito estable sin LEV",
+        "Sí: ya come y orina bien",
+        "No: debe estar 48 h sin fiebre ni antipiréticos",
+        "No: debe tener más de 100.000 plaquetas"
+      ],
+      "correct": 2,
+      "whyCorrect": "Para el alta se necesitan las dos cosas: criterios clínicos (48 horas sin fiebre sin antipiréticos y mejoría del estado general) y de laboratorio (plaquetas en ascenso y hematocrito estable sin líquidos IV). Cumple los de laboratorio, pero su fiebre controlada con acetaminofén no cuenta.",
+      "pearl": "No hay un número de plaquetas para el alta: importa la tendencia ascendente.",
+      "trap": "Contar como «sin fiebre» la que está controlada con antipiréticos.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Criterios de alta",
+          "texto": "Ausencia de fiebre por 48 horas sin administración de antipiréticos"
+        },
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Criterios de alta",
+          "texto": "Tendencia ascendente del recuento de plaquetas"
+        }
+      ],
+      "verificado": "2026-11-26"
     }
   ],
   "fichas": [
