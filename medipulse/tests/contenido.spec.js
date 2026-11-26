@@ -9,7 +9,7 @@ const IDS_HISTORICOS = {
   fichas: ["hy1", "hy2", "hy3", "hy4", "hy5", "hy6"],
   tarjetas: Array.from({length: 53}, (_, i) => i + 1)
 };
-const ARCHIVOS = ["medicina-interna", "cirugia", "pediatria", "ginecologia", "salud-publica", "ortopedia", "urologia", "mastologia"];
+const ARCHIVOS = ["medicina-interna", "cirugia", "pediatria", "ginecologia", "salud-publica", "ortopedia", "urologia", "mastologia", "psiquiatria"];
 // Casos que se pasaron de especialidad: conservan su id (el progreso está guardado con él) aunque el prefijo sea el de antes.
 const IDS_MOVIDOS = {"Ortopedia y Traumatología": ["cir-c27", "cir-c28", "cir-c29", "cir-c30"]};
 
@@ -34,9 +34,9 @@ test("hay un archivo por especialidad, sin repetir", () => {
   for (const e of C.esp) expect(e.actualizado, e.especialidad).toMatch(/^\d{4}-\d{2}-\d{2}$/);
 });
 
-test("el starter pack son las 4 básicas; Epidemiología y Estadística, Ortopedia y Traumatología, Urología y Mastología van aparte", () => {
+test("el starter pack son las 4 básicas; Epidemiología y Estadística, Ortopedia y Traumatología, Urología, Mastología y Psiquiatría van aparte", () => {
   const paq = Object.fromEntries(C.esp.map(e => [e.especialidad, e.paquete]));
-  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Epidemiología y Estadística": "salud-publica", "Ortopedia y Traumatología": "ortopedia", "Urología": "urologia", "Mastología": "mastologia"});
+  expect(paq).toEqual({"Medicina Interna": "starter", "Cirugía": "starter", "Pediatría": "starter", "Ginecología": "starter", "Epidemiología y Estadística": "salud-publica", "Ortopedia y Traumatología": "ortopedia", "Urología": "urologia", "Mastología": "mastologia", "Psiquiatría": "psiquiatria"});
 });
 
 const visibles = tipo => todos(tipo).filter(x => x.estado !== "pendiente");
@@ -65,7 +65,7 @@ test("todo caso visible de cualquier especialidad trae su cita textual y la fech
 
 test("en una especialidad verificada, también las fichas y tarjetas visibles traen su cita y la fecha", () => {
   const verificadas = C.esp.filter(e => e.revision === "verificada").map(e => e.especialidad);
-  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía", "Epidemiología y Estadística", "Ortopedia y Traumatología", "Urología", "Mastología"]));
+  expect(verificadas).toEqual(expect.arrayContaining(["Medicina Interna", "Pediatría", "Ginecología", "Cirugía", "Epidemiología y Estadística", "Ortopedia y Traumatología", "Urología", "Mastología", "Psiquiatría"]));
   const mal = ["fichas", "tarjetas"].flatMap(t => visibles(t)).filter(x => verificadas.includes(x._esp)).filter(x =>
     !Array.isArray(x.cita) || !x.cita.length || x.cita.some(c => !c.donde || !c.texto || c.texto.length < 20) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(x.verificado || "")).map(donde);

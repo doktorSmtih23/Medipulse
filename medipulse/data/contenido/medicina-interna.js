@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Medicina Interna",
   "prefijo": "mi",
   "paquete": "starter",
-  "actualizado": "2026-11-23",
+  "actualizado": "2026-11-26",
   "casos": [
     {
       "id": 1,
@@ -2129,6 +2129,206 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-26"
+    },
+    {
+      "id": "mi-c59",
+      "topic": "Neumología · EPOC: diagnóstico con espirometría",
+      "difficulty": "basica",
+      "src": "gold26",
+      "vignette": "Hombre de 61 años, fumador de 35 paquetes-año, con disnea de esfuerzo y tos con expectoración desde hace 2 años. Espirometría: <span class='hy'>FEV1/FVC 0,64 antes y 0,66 después del broncodilatador</span>. ¿Qué concluyes?",
+      "options": [
+        "Es asma: mejoró algo con el broncodilatador",
+        "Confirma EPOC: la relación posbroncodilatador es menor de 0,7",
+        "Falta una tomografía de tórax para confirmar el enfisema",
+        "No se puede afirmar hasta repetirla en 3 meses sin fumar"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con clínica y exposición compatibles, una relación FEV1/FVC menor de 0,7 después del broncodilatador confirma la EPOC: es la obstrucción no totalmente reversible. La espirometría posbroncodilatador es obligatoria para el diagnóstico.",
+      "pearl": "El diagnóstico de EPOC exige espirometría: FEV1/FVC posbroncodilatador < 0,7.",
+      "trap": "Pedir una tomografía para «confirmar» o llamar asma a cualquier mejoría con el broncodilatador.",
+      "cita": [
+        {
+          "donde": "GOLD 2026 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
+          "texto": "spirometry with post-bronchodilator FEV1/FVC < 0.7 is mandatory to establish the diagnosis of COPD."
+        },
+        {
+          "donde": "GOLD 2026 Pocket Guide, Definition and overview · Diagnostic criteria",
+          "texto": "the presence of non- fully reversible airflow obstruction (i.e., FEV1/FVC < 0.7 post-bronchodilation) measured by spirometry confirms the diagnosis of COPD."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: la relación sigue por debajo de 0,7 después del broncodilatador: la obstrucción no es totalmente reversible.",
+        "Correcta: con clínica y exposición, FEV1/FVC posbroncodilatador menor de 0,7 confirma la EPOC.",
+        "No: el diagnóstico lo da la espirometría posbroncodilatador, no la tomografía.",
+        "No: con FEV1/FVC posbroncodilatador menor de 0,7 y un cuadro compatible el diagnóstico ya está confirmado."
+      ]
+    },
+    {
+      "id": "mi-c60",
+      "topic": "Neumología · EPOC: espirometría prebroncodilatador normal",
+      "difficulty": "residencia",
+      "src": "gold26",
+      "vignette": "Mujer de 55 años, exfumadora, con tos crónica. En la espirometría <span class='hy'>prebroncodilatador la relación FEV1/FVC es 0,79</span>. El técnico pregunta si debe repetirla después del broncodilatador para descartar EPOC. ¿Qué respondes?",
+      "options": [
+        "No hace falta: una prebroncodilatador normal descarta la EPOC",
+        "Sí: solo la posbroncodilatador puede descartar la enfermedad",
+        "Sí: y además una tomografía, porque la espirometría no descarta",
+        "No: la EPOC se descarta con la clínica, sin espirometría"
+      ],
+      "correct": 0,
+      "whyCorrect": "La espirometría posbroncodilatador es obligatoria para confirmar la EPOC, pero una espirometría prebroncodilatador sin obstrucción ya sirve para descartarla.",
+      "pearl": "Prebroncodilatador: sirve para descartar. Posbroncodilatador: obligatoria para confirmar.",
+      "trap": "Creer que siempre hace falta la posbroncodilatador, también para descartar.",
+      "cita": [
+        {
+          "donde": "GOLD 2026 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
+          "texto": "Pre-bronchodilator spirometry can be used to exclude a diagnosis of COPD."
+        },
+        {
+          "donde": "GOLD 2026 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
+          "texto": "spirometry with post-bronchodilator FEV1/FVC < 0.7 is mandatory to establish the diagnosis of COPD."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "Correcta: una espirometría prebroncodilatador sin obstrucción sirve para descartar la EPOC.",
+        "No: la posbroncodilatador es obligatoria para confirmar; para descartar basta la prebroncodilatador.",
+        "No: la espirometría prebroncodilatador sí puede descartar la EPOC; la tomografía no es necesaria para eso.",
+        "No: la EPOC se confirma o se descarta con espirometría, no solo con la clínica."
+      ]
+    },
+    {
+      "id": "mi-c61",
+      "topic": "Neumología · EPOC: escalar con una exacerbación moderada (GOLD 2026)",
+      "difficulty": "dificil",
+      "src": "gold26_cambios",
+      "vignette": "Hombre de 68 años con EPOC en tratamiento de mantenimiento con un broncodilatador de acción larga. En el último año tuvo <span class='hy'>una sola exacerbación moderada</span>, tratada en casa con prednisolona y antibiótico, sin hospitalización. ¿Qué indica GOLD 2026?",
+      "options": [
+        "Esperar una segunda exacerbación antes de modificar el tratamiento",
+        "Escalar solo si alguna exacerbación requirió hospitalización",
+        "Considerar escalar el tratamiento: una exacerbación moderada ya basta",
+        "Suspender el broncodilatador porque no previno la exacerbación"
+      ],
+      "correct": 2,
+      "whyCorrect": "GOLD 2026 ajustó los criterios: incluso una exacerbación moderada o grave aumenta el riesgo de nuevos eventos, y ese umbral de una exacerbación moderada se usa ahora para considerar escalar el tratamiento. La meta es un estado de baja actividad, sin exacerbaciones.",
+      "pearl": "GOLD 2026: la meta es «baja actividad de la enfermedad», sin exacerbaciones; una moderada ya justifica considerar escalar.",
+      "trap": "Esperar más exacerbaciones o una hospitalización para actuar.",
+      "cita": [
+        {
+          "donde": "GOLD Report 2026: Key Changes Summary, cambio iv",
+          "texto": "The threshold of one moderate exacerbation should now be used to consider treatment escalation, with the aim of achieving a low disease activity state characterized by no exacerbations."
+        },
+        {
+          "donde": "GOLD Report 2026: Key Changes Summary, cambio iv",
+          "texto": "even one moderate or severe exacerbation prior to initiating maintenance pharmacological therapy increases the risk of subsequent events"
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: GOLD 2026 usa el umbral de una sola exacerbación moderada para considerar escalar.",
+        "No: no hace falta una hospitalización; una exacerbación moderada ya es el umbral.",
+        "Correcta: una exacerbación moderada ya basta para considerar escalar, buscando cero exacerbaciones.",
+        "No: la meta es reducir la actividad de la enfermedad escalando, no retirar el tratamiento."
+      ]
+    },
+    {
+      "id": "mi-c62",
+      "topic": "Neumología · EPOC: tamizaje de cáncer de pulmón",
+      "difficulty": "residencia",
+      "src": "gold26",
+      "vignette": "Mujer de 63 años de zona rural, <span class='hy'>nunca fumadora</span>, con EPOC por <span class='hy'>humo de leña</span>. Leyó que las personas con EPOC deben hacerse una tomografía cada año. ¿Qué le recomiendas sobre el tamizaje de cáncer de pulmón?",
+      "options": [
+        "Tomografía de baja dosis cada año, como a los fumadores",
+        "Radiografía de tórax cada año en lugar de tomografía",
+        "No se recomienda: falta evidencia en EPOC no ligada al tabaco",
+        "Tomografía de baja dosis solo si el FEV1 es menor de 50 %"
+      ],
+      "correct": 2,
+      "whyCorrect": "GOLD recomienda una tomografía de baja dosis anual para tamizar cáncer de pulmón en los pacientes con antecedente de tabaquismo, como en la población general. En la EPOC no asociada al tabaco no se recomienda el tamizaje, por falta de evidencia.",
+      "pearl": "Tamizaje de cáncer de pulmón en EPOC: tomografía de baja dosis anual si hay tabaquismo; no si la EPOC no es por tabaco.",
+      "trap": "Extender el tamizaje a toda EPOC, sin mirar si hubo tabaquismo.",
+      "cita": [
+        {
+          "donde": "GOLD 2026 Pocket Guide, COPD and multimorbidity · Key points",
+          "texto": "An annual LDCT scan is recommended for lung cancer screening in patients with a smoking history, similar to recommendations for the general population. Screening for lung cancer in patients with COPD not associated with tobacco smoking is not recommended due to lack of evidence."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: la tomografía anual se recomienda a quienes tienen antecedente de tabaquismo; ella nunca fumó.",
+        "No: el método de tamizaje que menciona GOLD es la tomografía de baja dosis, y en su caso no se recomienda tamizar.",
+        "Correcta: en la EPOC no asociada al tabaco no se recomienda el tamizaje por falta de evidencia.",
+        "No: GOLD no condiciona el tamizaje al FEV1 sino al antecedente de tabaquismo."
+      ]
+    },
+    {
+      "id": "mi-c63",
+      "topic": "Neumología · EPOC: cigarrillo electrónico para dejar de fumar",
+      "difficulty": "basica",
+      "src": "gold26",
+      "vignette": "Hombre de 57 años con EPOC que fuma 15 cigarrillos al día y quiere dejar de fumar. Pregunta si <span class='hy'>pasarse al cigarrillo electrónico</span> es la mejor forma. ¿Qué le ofreces?",
+      "options": [
+        "Cigarrillo electrónico: es la ayuda más segura y efectiva",
+        "Consejería con reemplazo de nicotina o fármacos para dejar de fumar",
+        "Reducir a 5 cigarrillos al día, sin otra ayuda",
+        "Esperar a que tenga una exacerbación para motivarlo"
+      ],
+      "correct": 1,
+      "whyCorrect": "La consejería, el reemplazo de nicotina y la farmacoterapia aumentan de forma confiable la abstinencia a largo plazo. Por ahora no hay evidencia de la efectividad ni de la seguridad del cigarrillo electrónico como ayuda para dejar de fumar.",
+      "pearl": "GOLD: no hay evidencia que apoye el cigarrillo electrónico para dejar de fumar.",
+      "trap": "Recomendar el vapeo como si fuera un tratamiento probado.",
+      "cita": [
+        {
+          "donde": "GOLD 2026 Pocket Guide, Prevention and management of COPD · Key points",
+          "texto": "Nicotine replacement and pharmacotherapy reliably increase long-term smoking abstinence rates. Legislative smoking bans and counseling, delivered by healthcare professionals, improve quit rates. There is no evidence to support the effectiveness and safety of e-cigarettes as a smoking cessation aid at present."
+        },
+        {
+          "donde": "GOLD 2026 Pocket Guide, Prevention and management of COPD · Key points",
+          "texto": "All individuals who smoke should be strongly encouraged and supported to quit."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: GOLD dice que no hay evidencia de su efectividad ni de su seguridad para dejar de fumar.",
+        "Correcta: consejería con reemplazo de nicotina o farmacoterapia aumentan la abstinencia a largo plazo.",
+        "No: GOLD recomienda apoyar a todo fumador para dejar de fumar, no solo reducir.",
+        "No: a todo fumador se le debe animar y apoyar para dejar de fumar desde ya."
+      ]
+    },
+    {
+      "id": "mi-c64",
+      "topic": "Neumología · EPOC: definición de exacerbación",
+      "difficulty": "residencia",
+      "src": "gold26",
+      "vignette": "Mujer de 70 años con EPOC que consulta por <span class='hy'>más disnea, más tos y esputo purulento desde hace 4 días</span>, con taquipnea. ¿Qué es lo correcto sobre este cuadro?",
+      "options": [
+        "No es exacerbación: debe durar más de 14 días",
+        "Es exacerbación, pero hay que buscar neumonía y otras causas",
+        "Es exacerbación y siempre la causa una bacteria",
+        "No es exacerbación si no hay fiebre"
+      ],
+      "correct": 1,
+      "whyCorrect": "La exacerbación es un evento agudo con empeoramiento de los síntomas en pocos días (hasta 14): más disnea, tos y esputo, a veces con taquipnea o taquicardia. Las infecciones y la contaminación son las causas más frecuentes, pero otras condiciones, como la neumonía, pueden simularla o empeorarla.",
+      "pearl": "Exacerbación de EPOC: empeoramiento en pocos días, hasta 14. Siempre busca lo que la simula, empezando por la neumonía.",
+      "trap": "Atribuir todo a una exacerbación bacteriana sin buscar neumonía u otras causas.",
+      "cita": [
+        {
+          "donde": "GOLD 2026 Pocket Guide, Management of exacerbations · Key points",
+          "texto": "An exacerbation of COPD is an acute event with symptoms worsening over a few days (up to 14 days) and characterized by increased dyspnea and/or cough and sputum that may be accompanied by tachypnea and/or tachycardia."
+        },
+        {
+          "donde": "GOLD 2026 Pocket Guide, Management of exacerbations · Key points",
+          "texto": "Although COPD exacerbations are most frequently caused by infections (viral, bacteria) or environmental pollutants, other conditions can mimic or worsen exacerbation-like symptoms. These include pneumonia,"
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: el empeoramiento de la exacerbación ocurre en pocos días, hasta 14; no debe durar más.",
+        "Correcta: cumple la definición, y otras condiciones como la neumonía pueden simularla o empeorarla.",
+        "No: las causas más frecuentes son infecciones virales o bacterianas y la contaminación, no siempre una bacteria.",
+        "No: la definición se basa en el empeoramiento de disnea, tos y esputo; no exige fiebre."
+      ]
     }
   ],
   "fichas": [
