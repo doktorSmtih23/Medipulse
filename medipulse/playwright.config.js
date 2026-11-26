@@ -19,7 +19,7 @@ module.exports = defineConfig({
     trace: "off",
     // Las pruebas corren en modo de prueba (sin los candados del diagnóstico); las del diagnóstico
     // lo apagan para probar los candados (tests/diagnostico.spec.js).
-    storageState: {cookies: [], origins: [{origin: `http://localhost:${PORT}`, localStorage: [{name: "medipulse_prueba", value: "1"}]}]}
+    storageState: {cookies: [], origins: [{origin: `http://localhost:${PORT}`, localStorage: [{name: "medipulse_prueba", value: "1"}, {name: "medipulse_bienvenida", value: "1"}]}]}
   },
   webServer: {
     command: `node tests/servidor.js ${PORT}`,
