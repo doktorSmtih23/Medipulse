@@ -65,6 +65,7 @@ const SOURCES = [
   {id:"rcog_pp",  t:"RCOG Green-top Guideline No. 27a: Placenta Praevia and Placenta Accreta", r:"BJOG, 2018", y:2018, k:"guideline", v:"Sigue siendo la versión vigente del RCOG"},
   {id:"eu_hna",   t:"Clinical practice guideline on diagnosis and treatment of hyponatraemia (ESE/ESICM/ERA-EDTA)", r:"European Journal of Endocrinology, 2014", y:2014, k:"guideline", v:"Antigua, pero sigue siendo la guía europea de referencia"},
   {id:"aha_rcp",  t:"2025 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care", r:"Circulation, 2025", y:2025, k:"guideline"},
+  {id:"acc_ejercicio26", t:"Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement (Myers J et al.)", r:"JACC, 2026", y:2026, k:"guideline"},
   {id:"goldf",    t:"Goldfrank's Toxicologic Emergencies, 12ª edición", r:"McGraw-Hill", y:2024, k:"book"},
   {id:"acin_nac26", t:"Guía de práctica clínica para el diagnóstico y tratamiento de la neumonía adquirida en la comunidad (Asociación Colombiana de Infectología)", r:"Infectio, 2026", y:2026, k:"guideline"},
   {id:"confidence", t:"Finerenone with Empagliflozin in Chronic Kidney Disease and Type 2 Diabetes (ensayo CONFIDENCE, Agarwal R et al.)", r:"N Engl J Med, 2025", y:2025, k:"article"},

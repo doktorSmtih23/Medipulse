@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Pediatría",
   "prefijo": "ped",
   "paquete": "starter",
-  "actualizado": "2026-11-23",
+  "actualizado": "2026-11-26",
   "casos": [
     {
       "id": 5,
@@ -2116,6 +2116,44 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-26"
+    },
+    {
+      "id": "ped-c75",
+      "topic": "Urgencias pediátricas · Atragantamiento en el lactante (AHA 2025)",
+      "difficulty": "dificil",
+      "src": "aha_rcp",
+      "vignette": "Una madre llega con su bebé de 8 meses que se ahoga con un trozo de banano: <span class='hy'>no emite sonidos y tiene los labios morados</span>, pero está despierto. Ya lo tienes boca abajo sobre tu antebrazo y le diste 5 golpes en la espalda. ¿Qué alternas con los golpes?",
+      "options": [
+        "5 compresiones torácicas con el talón de una mano",
+        "5 compresiones abdominales suaves con dos dedos juntos",
+        "Dos respiraciones boca a boca y nariz, y repetir golpes",
+        "Nada más: solo golpes en la espalda hasta que llore"
+      ],
+      "correct": 0,
+      "whyCorrect": "En el lactante con obstrucción grave se alternan ciclos de 5 golpes en la espalda con 5 compresiones torácicas hasta que salga el objeto o pierda la conciencia. Las compresiones abdominales no se recomiendan en lactantes por el riesgo de lesionar órganos abdominales. Las compresiones torácicas se hacen con el talón de una mano.",
+      "pearl": "Lactante con obstrucción grave: compresiones torácicas con el talón de una mano (técnica nueva de 2025).",
+      "trap": "Hacer compresiones abdominales en un lactante.",
+      "cita": [
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Pediatric BLS · Foreign-Body Airway Obstruction",
+          "texto": "2025 (Updated): For infants with severe FBAO, repeated cycles of 5 back blows alternating with 5 chest thrusts should be performed until the object is expelled or the infant becomes unresponsive."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Pediatric BLS · Foreign-Body Airway Obstruction",
+          "texto": "Why: Abdominal thrusts are not recom- mended for infants, given the potential to cause abdominal organ injury."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Pediatric BLS · Foreign-Body Airway Obstruction",
+          "texto": "The heel-of-1-hand technique for chest thrusts is now recommended for infants with severe FBAO."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "Correcta: en el lactante se alternan con 5 compresiones torácicas, con el talón de una mano.",
+        "No: las compresiones abdominales no se recomiendan en lactantes por el riesgo de lesión abdominal.",
+        "No: mientras está consciente se alternan golpes en la espalda y compresiones torácicas hasta que salga el objeto.",
+        "No: los golpes se alternan con 5 compresiones torácicas, en ciclos repetidos."
+      ]
     }
   ],
   "fichas": [

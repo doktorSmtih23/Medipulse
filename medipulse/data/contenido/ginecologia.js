@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Ginecología",
   "prefijo": "gin",
   "paquete": "starter",
-  "actualizado": "2026-11-23",
+  "actualizado": "2026-11-26",
   "casos": [
     {
       "id": 4,
@@ -1408,6 +1408,40 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-26"
+    },
+    {
+      "id": "gin-c47",
+      "topic": "Obstetricia · Atragantamiento en el embarazo avanzado",
+      "difficulty": "residencia",
+      "src": "aha_rcp",
+      "vignette": "Gestante de 36 semanas se atraganta en la sala de espera: <span class='hy'>no puede hablar ni toser</span> y está consciente. ¿Qué maniobras haces?",
+      "options": [
+        "Golpes en la espalda y compresiones abdominales, como en cualquier adulto",
+        "Solo golpes en la espalda: en el embarazo no se hace ninguna compresión",
+        "Golpes en la espalda alternados con 5 compresiones torácicas",
+        "Acostarla en decúbito lateral izquierdo y esperar que tosa"
+      ],
+      "correct": 2,
+      "whyCorrect": "En el adulto con obstrucción grave se alternan 5 golpes en la espalda con 5 compresiones abdominales. En el embarazo avanzado, o si no se le puede rodear el abdomen, se usan 5 compresiones torácicas en lugar de las abdominales.",
+      "pearl": "Embarazo avanzado u obesidad que impide rodear el abdomen: compresiones torácicas en vez de abdominales.",
+      "trap": "Hacer compresiones abdominales sobre un útero de 36 semanas.",
+      "cita": [
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult FBAO Algorithm (Figura 6)",
+          "texto": "For patients in the late stages of pregnancy, or when the rescuer is unable to encircle the patient’s abdomen, 5 chest thrusts should be used instead."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult BLS · Foreign-Body Airway Obstruction",
+          "texto": "2025 (Updated): For adults with severe FBAO, repeated cycles of 5 back blows (slaps) followed by 5 abdominal thrusts should be performed until the object is expelled or the person becomes unresponsive."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: en el embarazo avanzado se cambian las compresiones abdominales por torácicas.",
+        "No: sí se hacen compresiones, pero torácicas en lugar de abdominales.",
+        "Correcta: golpes en la espalda alternados con 5 compresiones torácicas.",
+        "No: no puede toser ni hablar; es una obstrucción grave y hay que actuar de inmediato."
+      ]
     }
   ],
   "fichas": [
