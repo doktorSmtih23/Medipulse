@@ -491,7 +491,13 @@ MP_CONTENIDO.agregar({
           "texto": "Overall mortality did not differ significantly between treatment groups."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: la mortalidad global no difirió entre los grupos; el compuesto bajó por otro componente.",
+        "Correcta: el infarto bajó 2,3 puntos, casi lo mismo que el compuesto (2,2): él explica el beneficio.",
+        "No: los componentes no bajaron igual; el infarto explica casi toda la reducción y la mortalidad no cambió.",
+        "No: el compuesto sí es válido, pero se lee mirando cada componente por separado."
+      ]
     },
     {
       "id": "sp-c18",

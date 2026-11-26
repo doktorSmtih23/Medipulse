@@ -46,7 +46,13 @@ MP_CONTENIDO.agregar({
           "texto": "Do not use diazepam, phenytoin or other anticonvulsants as an alternative to magnesium sulfate in women with eclampsia."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: con hipertensión grave y signos de severidad: sulfato de magnesio (4 g IV en 5–15 min y 1 g/h) más labetalol, nifedipino o hidralazina.",
+        "No: es una preeclampsia con signos de gravedad e hipertensión grave: no es de manejo ambulatorio, y NICE indica tratarla de inmediato con labetalol, nifedipino oral o hidralazina IV.",
+        "No: el diazepam no reemplaza al sulfato de magnesio, y el losartán (ARA-II) se suspende en el embarazo.",
+        "No: la furosemida no está entre los fármacos que indica NICE y no previene la eclampsia; con signos de severidad no se difiere el manejo."
+      ]
     },
     {
       "id": 12,
@@ -273,7 +279,13 @@ MP_CONTENIDO.agregar({
           "texto": "hasta el 78 % de las mujeres que desarrollan eclampsia en este periodo no presentaron hipertensión diagnosticada durante la gestación"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "Correcta: PA de 160/110 o más entre las 48 horas y las 6 semanas posparto, con síntomas neurológicos: preeclampsia posparto severa.",
+        "No: atribuir la cefalea al sueño sin mirar la presión es la trampa; aquí hay 166/108 y 164/110 mmHg.",
+        "No: tuvo presiones normales en todo el embarazo; la preeclampsia posparto puede aparecer de novo.",
+        "No: fue un parto vaginal y no se menciona anestesia; atribuir la cefalea a la anestesia sin mirar la presión es la trampa."
+      ]
     },
     {
       "id": "gin-c06",
@@ -905,7 +917,13 @@ MP_CONTENIDO.agregar({
           "texto": "Criterios de riesgo moderado para Preeclampsia: • Primer embarazo. • Edad de 40 años o más. • Intervalo intergenésico mayor a 10 años. • Índice de masa corporal mayor o igual a 35 kg/m² en la primera visita. • Antecedentes familiares de preeclampsia. • Embarazo múltiple."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: no tiene criterios de alto riesgo, pero sí dos moderados (primer embarazo y 40 años o más), y eso también indica aspirina.",
+        "Correcta: con dos o más criterios moderados, ácido acetilsalicílico de 75 a 100 mg desde la semana 12 hasta el parto.",
+        "No: la aspirina se inicia a partir de la semana 12, para prevenir; no se espera a la hipertensión.",
+        "No: tener 40 años o más es un criterio de riesgo para preeclampsia, no una contraindicación."
+      ]
     },
     {
       "id": "gin-c30",
@@ -961,7 +979,13 @@ MP_CONTENIDO.agregar({
           "texto": "Pruebas de ADN del Virus de Papiloma Humano: La tamización con las pruebas que detectan el ADN de los virus del papiloma humano (VPH) de alto riesgo, se deben realizar a todas las mujeres entre 30 y 65 años de edad, con un esquema 1-5- 5 (cada 5 años) ante resultados negativos."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la citología anual con tres normales no es el esquema de la Resolución 3280; además, a los 34 años no se tamiza con citología.",
+        "No: la citología 1-3-3 es para las mujeres de 25 a 29 años.",
+        "No: la inspección visual es solo para mujeres de 30 a 50 años en zonas dispersas; ella vive en una ciudad.",
+        "Correcta: de 30 a 65 años, prueba de ADN-VPH de alto riesgo, cada 5 años si es negativa (1-5-5)."
+      ]
     },
     {
       "id": "gin-c32",
@@ -1041,7 +1065,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se recomienda el tratamiento antibiótico sistemático en el manejo expectante de la RPM pretérmino por sus beneficios a corto plazo en la morbilidad materno neonatal."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el tacto vaginal aumenta el riesgo de infección; solo se hace en trabajo de parto o si se decidió terminar la gestación.",
+        "Correcta: sin corioamnionitis, desprendimiento ni compromiso fetal: conducta expectante con antibiótico sistemático y sin tacto.",
+        "No: sin signos de infección ni compromiso fetal a las 30 semanas, se opta por conducta expectante.",
+        "No: el manejo expectante empieza al ingreso con antibiótico sistemático, cultivo para estreptococo del grupo B y monitoría; no es reposo en casa."
+      ]
     },
     {
       "id": "gin-c35",
@@ -1069,7 +1099,13 @@ MP_CONTENIDO.agregar({
           "texto": "Sulfato de magnesio: los recién nacidos prematuros nacidos de madres que han recibido sulfato de magnesio antes del parto tienen menos probabilidad de presentar parálisis cerebral, gracias a su efecto neuroprotector."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: parto inminente antes de las 32 semanas: sulfato de magnesio como neuroprotector (menos parálisis cerebral).",
+        "No: ante un parto inminente antes de las 32 semanas, lo que se recomienda para proteger al feto es el sulfato de magnesio.",
+        "No: el trabajo de parto no se detuvo y el parto es inminente: lo que falta es la neuroprotección, no otro tocolítico.",
+        "No: los corticoides no dan la neuroprotección; el magnesio se suma aunque no haya preeclampsia."
+      ]
     },
     {
       "id": "gin-c36",
@@ -1117,7 +1153,13 @@ MP_CONTENIDO.agregar({
           "texto": "La Trichomonas vaginalis es responsable de un 80% de vaginosis bacteriana (VB) asintomática, pero solo deben tratarse las VB sintomáticas."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: no se trata a la pareja (no es una infección de transmisión sexual) ni a la mujer asintomática.",
+        "Correcta: la vaginosis bacteriana solo se trata si da síntomas.",
+        "No: cambiar de fármaco o de vía no cambia la regla: sin síntomas no se trata.",
+        "No: sin síntomas la conducta no cambia (solo se tratan las sintomáticas), así que repetir estudios no aporta."
+      ]
     },
     {
       "id": "gin-c38",

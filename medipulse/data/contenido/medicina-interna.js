@@ -66,7 +66,13 @@ MP_CONTENIDO.agregar({
           "texto": "In adults with septic shock, we “suggest” starting vasopressors peripherally to restore mean arterial pressure rather than delaying initiation until central venous access is secured."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: hipotensión que persiste tras los cristaloides: noradrenalina, el vasopresor de primera línea, titulada a la PAM objetivo.",
+        "No: ya recibió 30 mL/kg y sigue con PAM de 54 mmHg; el siguiente paso es el vasopresor.",
+        "No: el de primera línea es la noradrenalina, no la dopamina. Lo que sí se puede iniciar por vía periférica es la noradrenalina.",
+        "No: lo que falta tras los líquidos es el vasopresor de primera línea (noradrenalina); la hidrocortisona no lo reemplaza."
+      ]
     },
     {
       "id": 3,
@@ -94,7 +100,13 @@ MP_CONTENIDO.agregar({
           "texto": "bicarbonate administration should be considered if the acidosis is severe (i.e., pH <7.0)"
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: con K+ menor de 3.5 mmol/L se repone potasio primero y la insulina se difiere hasta que supere 3.5.",
+        "No: el bicarbonato solo se considera si el pH es menor de 7.0; aquí es 7.14.",
+        "No: la insulina mete potasio a la célula; con K+ de 3.1 puede causar arritmias letales.",
+        "No: el problema urgente es el potasio, no el sodio."
+      ]
     },
     {
       "id": 7,
@@ -626,7 +638,13 @@ MP_CONTENIDO.agregar({
           "texto": "The trial used a surrogate end point, and we did not follow the participants long enough to adequately measure differences among groups in cardiovascular outcomes or clinical kidney disease progression."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: fue aleatorizado (1:1:1) y doble ciego.",
+        "No: el resultado fue significativo (p menor de 0,001).",
+        "No: tuvo comparadores activos: cada fármaco solo frente a la combinación.",
+        "Correcta: la albuminuria es un desenlace sustituto; no se midieron eventos cardiovasculares ni progresión clínica de la enfermedad renal."
+      ]
     },
     {
       "id": "mi-c10",
@@ -945,7 +963,13 @@ MP_CONTENIDO.agregar({
           "texto": "In patients with ACS who require oral anticoagulant therapy, aspirin should be discontinued after 1–4 wks of triple antithrombotic therapy, with continued use of a P2Y12 inhibitor (preferably clopidogrel) and an oral anticoagulant to reduce bleeding risk."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: prolongar la triple terapia multiplica el sangrado; la aspirina se suspende a las 1 a 4 semanas.",
+        "No: con fibrilación auricular necesita el anticoagulante; lo que se suspende es la aspirina.",
+        "Correcta: la aspirina se suspende tras 1 a 4 semanas; sigue clopidogrel más el anticoagulante oral.",
+        "No: con anticoagulante oral, el inhibidor P2Y12 preferido es clopidogrel, y la triple terapia no se prolonga."
+      ]
     },
     {
       "id": "mi-c20",
@@ -1370,7 +1394,13 @@ MP_CONTENIDO.agregar({
           "texto": "La vía de administración debe ser siempre intravenosa, ya que la forma oral no es útil debido a su baja absorción"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: el tratamiento se inicia de inmediato, sin esperar la PCR. El riesgo renal se maneja ajustando la dosis a la función renal, no retrasando el aciclovir.",
+        "No: la vía oral no sirve por su baja absorción; el aciclovir en la encefalitis siempre es intravenoso.",
+        "Correcta: aciclovir IV 10 mg/kg cada 8 horas apenas se sospecha, sin esperar PCR ni resonancia.",
+        "No: tampoco se espera la resonancia. Cada hora sin aciclovir empeora el pronóstico neurológico."
+      ]
     },
     {
       "id": "mi-c32",

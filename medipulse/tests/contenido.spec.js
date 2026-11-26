@@ -173,3 +173,12 @@ test("una norma colombiana (resolución) no ofrece «buscar en PubMed»; un art�
   expect(r[0]).not.toContain("PubMed");
   expect(r[1]).toContain("PubMed");
 });
+
+test("el análisis de cada opción (porOpcion), si está, trae una frase por opción y solo la correcta empieza con «Correcta»", () => {
+  const malos = todos("casos").filter(q => q.porOpcion).filter(q => !Array.isArray(q.porOpcion) || q.porOpcion.length !== q.options.length
+    || q.porOpcion.some(t => typeof t !== "string" || t.trim().length < 15)
+    || q.porOpcion.some((t, i) => /^Correcta\b/.test(t) !== (i === q.correct))).map(donde);
+  expect(malos).toEqual([]);
+  // Los temas que más se repiten en el examen ya lo tienen
+  expect(todos("casos").filter(q => q.porOpcion).length).toBeGreaterThanOrEqual(18);
+});

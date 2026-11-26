@@ -283,7 +283,7 @@ function examResults(){
       ${imgTag(q.img)}<p class="small" style="margin:10px 0">${q.vignette}</p>
       <p class="small" style="margin:0">Tu respuesta: <b>${a==null?"(sin responder)":esc(q.options[a])}</b>${cf ? ` · la marcaste como <b>${cf.t}</b>` : ""}<br>Correcta: <b style="color:var(--ok)">${esc(q.options[q.correct])}</b></p>
       ${cl && cl.msg ? `<p class="xs" style="margin:6px 0 0">${esc(cl.msg)}</p>` : ""}
-      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p>${good ? "" : motivoHTML(ri)}${q.pearl ? `<div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>` : ""}${srcLine(q)}<div style="margin-top:6px"><button class="linkbtn xs" data-rep="q${q.id}">🚩 Reportar un error</button><div class="repslot"></div></div></details>`; });
+      <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p>${porOpcionHTML(q, a)}${good ? "" : motivoHTML(ri)}${q.pearl ? `<div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>` : ""}${srcLine(q)}<div style="margin-top:6px"><button class="linkbtn xs" data-rep="q${q.id}">🚩 Reportar un error</button><div class="repslot"></div></div></details>`; });
   $("#sessBody").innerHTML = `<div class="card center stack">
       ${timeUp?'<span class="tag" style="background:var(--bad-soft);color:var(--bad)">Se acabó el tiempo</span>':""}
       <div class="big" style="color:${pct>=70?"var(--ok)":pct>=50?"var(--warn)":"var(--bad)"}">${pct}%</div>

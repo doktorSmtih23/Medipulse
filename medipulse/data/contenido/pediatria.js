@@ -70,7 +70,13 @@ MP_CONTENIDO.agregar({
           "texto": "During rehydration therapy: continue breastfeeding"
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: deshidratación sin choque que tolera la vía oral: SRO de baja osmolaridad 50 mL/kg en 4 horas, más mantenimiento.",
+        "No: NICE indica SRO de baja osmolaridad, no líquidos caseros, para reponer el déficit.",
+        "No: el bolo IV es para el choque. Este niño bebe y tolera la vía oral.",
+        "No: durante la rehidratación se continúa la lactancia materna."
+      ]
     },
     {
       "id": 17,
@@ -769,7 +775,13 @@ MP_CONTENIDO.agregar({
           "texto": "Aunque el riesgo de meningitis bacteriana en una convulsión febril simple es bajo (aproximadamente 3%), este riesgo aumenta hasta cerca del 9% en las convulsiones febriles complejas."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: en la convulsión febril simple con recuperación completa no se indican de rutina EEG ni neuroimagen: no predicen recurrencia ni epilepsia.",
+        "No: la edad sola no la indica; con buen estado general, recuperación completa y examen normal, el riesgo de meningitis es bajo (cerca del 3 %).",
+        "No: los análisis de sangre tampoco se indican de rutina en la convulsión febril simple.",
+        "Correcta: convulsión febril simple: ningún estudio de rutina; observar al menos 6 horas y educar a la familia."
+      ]
     },
     {
       "id": "ped-c21",
@@ -1221,7 +1233,13 @@ MP_CONTENIDO.agregar({
           "texto": "Traditional empirical antibiotic regimens are based on the most likely causative pathogens (namely, ampicillin (or penicillin) plus gentamicin, a third-generation cephalosporin (for example, cefotaxime), or cloxacillin plus amikacin)."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: aparece en las primeras 72 horas, así que es temprana, y el esquema empírico es ampicilina más gentamicina, no cefalexina oral.",
+        "Correcta: temprana (antes de 72 horas, transmisión vertical): hemocultivo y ampicilina más gentamicina.",
+        "No: es temprana, pero está sintomático: no se espera sin antibiótico.",
+        "No: es temprana, no tardía, y el hemocultivo, que es el patrón de oro, se toma antes del antibiótico."
+      ]
     },
     {
       "id": "ped-c38",
@@ -1393,7 +1411,13 @@ MP_CONTENIDO.agregar({
           "texto": "the difficulty in distinguishing malaria from sepsis in children means that both parenteral anti-malarials (i.e. artesunate 3 mg/kg stat for children < 20 kg and 2.4 mg/kg for larger patients) and broad-spectrum antibiotics should be given together as soon as the diagnosis is suspected [2, 73]."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: en el niño no se puede distinguir bien la malaria grave de la sepsis; el antibiótico no se difiere.",
+        "Correcta: artesunato parenteral (3 mg/kg en menores de 20 kg) y antibiótico de amplio espectro juntos, apenas se sospecha.",
+        "No: la prueba rápida ya es positiva para P. falciparum y hay signos de malaria grave: el antimalárico va de inmediato.",
+        "No: con postración y convulsiones es malaria grave: el antimalárico debe ser parenteral, no oral."
+      ]
     },
     {
       "id": "ped-c45",
@@ -1745,7 +1769,13 @@ MP_CONTENIDO.agregar({
           "texto": "VPH: Personas Inmunocomprometidas deben recibir 2 dosis a los 0 y 6 meses."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la dosis única es para los sanos de 9 a 17 años; con inmunosupresión son 2 dosis.",
+        "Correcta: en inmunosuprimidos de la misma edad, 2 dosis a los 0 y 6 meses.",
+        "No: MinSalud indica para los inmunocomprometidos 2 dosis (0 y 6 meses), no 3.",
+        "No: la inmunosupresión no la excluye; cambia el esquema a 2 dosis."
+      ]
     },
     {
       "id": "ped-c58",

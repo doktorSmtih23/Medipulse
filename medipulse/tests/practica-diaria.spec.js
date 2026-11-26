@@ -123,3 +123,20 @@ test("si no hay fichas del tema fallado, se dice cuál y dónde crearlas", async
   await expect(page.locator("#sessBody")).toContainText("Todavía no hay fichas de umbrales y dosis de este tema");
   await expect(page.locator("#sessBody")).toContainText("«Crear pregunta o ficha»");
 });
+
+test("análisis de cada opción: en la práctica se abre con tu respuesta marcada y en la revisión del simulacro también", async ({ page }) => {
+  await page.evaluate(() => localStorage.setItem("medipulse_confianza", "0"));
+  const q = await page.evaluate(() => { const q = QUESTIONS.find(x => x.porOpcion); startSession({label: "x", tag: "norm", stages: [{name: "x", items: [{t: "q", id: q.id}]}]});
+    return {id: q.id, mal: (q.correct + 1) % q.options.length, txt: q.porOpcion}; });
+  await page.click(`#opts .opt >> nth=${q.mal}`);
+  await expect(page.locator("#fbBox details.custom[open]")).toContainText("Análisis de cada opción");
+  await expect(page.locator("#fbBox .porop.mia")).toContainText(q.txt[q.mal]);
+  expect(await sinDesborde(page)).toBe(true);
+  // Simulacro: en la revisión final
+  await page.evaluate(id => { endSession(false); startSession({label: "s", tag: "fire", stages: [{name: "s", items: [{t: "q", id}], exam: true, limit: 72}]}); }, q.id);
+  await page.click(`#opts .opt >> nth=${q.mal}`);
+  await page.click('#confRow [data-conf="seguro"]');
+  await page.click("#nextBtn");
+  await page.click("#sessBody details.card summary");
+  await expect(page.locator("#sessBody details.card .porop.mia")).toContainText(q.txt[q.mal]);
+});

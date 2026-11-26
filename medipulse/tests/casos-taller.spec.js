@@ -5,7 +5,8 @@ const { vigilarErrores, simularIA, abrirConClave, subirPdf, sinDesborde } = requ
 
 const CASOS = {fichas: [], questions: [
   {qtype: "caso", clase: "diferenciales", specialty: "Medicina Interna", area: "Neurología", topic: "Parkinson · Diferenciales", vignette: "Hombre de 70 años con temblor…",
-    options: ["Parkinson", "Temblor esencial", "Parálisis supranuclear", "Atrofia multisistémica"], correct: 0, whyCorrect: "Por el temblor de reposo.", pearl: "", trap: "", page: 1, citas: []},
+    options: ["Parkinson", "Temblor esencial", "Parálisis supranuclear", "Atrofia multisistémica"], correct: 0, whyCorrect: "Por el temblor de reposo.", pearl: "", trap: "", page: 1, citas: [],
+    porOpcion: ["Correcta: temblor de reposo.", "No: es de acción.", "No: da caídas tempranas.", "No: da disautonomía."]},
   {qtype: "critica", clase: "diseno", specialty: "Medicina Interna", area: "Neurología", topic: "Ensayo · Diseño", vignette: "¿Qué sesgo…?",
     options: ["Selección", "Memoria", "Detección", "Ninguno"], correct: 2, whyCorrect: "Por el cegamiento.", pearl: "", trap: "", page: 1, citas: []}]};
 
@@ -76,6 +77,9 @@ test("crear casos: la petición pide cada clase con su cantidad, sin fichas, y c
   expect(peticiones.at(-1).system).toContain("La opción correcta no debe delatarse por ser la más larga");
   await page.click("#candSave");
   expect(await page.evaluate(() => S.userQ.map(q => [q.topic, q.tipo]))).toEqual([["Parkinson · Diferenciales", "diagnostico"], ["Ensayo · Diseño", "critica"]]);
+  // El análisis de cada opción se pide y se guarda (el segundo caso no lo trae: queda sin él)
+  expect(peticiones.at(-1).system).toContain('"porOpcion" tiene una frase por opción');
+  expect(await page.evaluate(() => S.userQ.map(q => q.porOpcion && q.porOpcion[1]))).toEqual(["No: es de acción.", undefined]);
 });
 
 test("dificultad: cuatro niveles, y debajo se lee qué significa el elegido (en el celular no hay texto emergente)", async ({ page }) => {
