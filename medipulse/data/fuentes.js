@@ -64,6 +64,7 @@ const SOURCES = [
   {id:"aha_kaw",  t:"Update on Diagnosis and Management of Kawasaki Disease: A Scientific Statement From the AHA", r:"Circulation, 2024", y:2024, k:"guideline"},
   {id:"rcog_pp",  t:"RCOG Green-top Guideline No. 27a: Placenta Praevia and Placenta Accreta", r:"BJOG, 2018", y:2018, k:"guideline", v:"Sigue siendo la versión vigente del RCOG"},
   {id:"eu_hna",   t:"Clinical practice guideline on diagnosis and treatment of hyponatraemia (ESE/ESICM/ERA-EDTA)", r:"European Journal of Endocrinology, 2014", y:2014, k:"guideline", v:"Antigua, pero sigue siendo la guía europea de referencia"},
+  {id:"mer_hta26", t:"Hipertensión arterial: diagnóstico, metas, tratamiento, crisis, resistencia y embarazo (Guía en resumen v1.3, basada en AHA/ACC 2025, ESC 2024 e ISH 2026)", r:"Medicina en Resumen, octubre de 2026", y:2026, k:"book", v:"Resumen secundario: compara las guías; no reemplaza la guía AHA/ACC 2025 completa"},
   {id:"aha_rcp",  t:"2025 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care", r:"Circulation, 2025", y:2025, k:"guideline"},
   {id:"acc_ejercicio26", t:"Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement (Myers J et al.)", r:"JACC, 2026", y:2026, k:"guideline"},
   {id:"goldf",    t:"Goldfrank's Toxicologic Emergencies, 12ª edición", r:"McGraw-Hill", y:2024, k:"book"},
