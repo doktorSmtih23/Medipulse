@@ -3,7 +3,7 @@
 Esta es la referencia para decidir qué se construye y qué no. Cualquier función nueva, venga de Claude, de Gemini o de una persona, debe servir a lo que dice este documento.
 
 ## En una frase
-MediPulse convierte el material que un médico ya tiene (guías, artículos y sus propios apuntes) en un plan de estudio eficiente, y le avisa cuando ese material deja de estar vigente.
+MediPulse convierte el material que un médico ya tiene (guías, artículos y sus propios apuntes) en un plan de estudio eficiente, y le da una herramienta para revisar rápido artículos y guías y estar al día.
 
 ## Para quién
 1. **Quien prepara el examen de residencia** (usuario principal). Tiene poco tiempo, mucho temario y una fecha límite.
@@ -22,11 +22,11 @@ Es el mismo usuario en dos momentos: si MediPulse lo ayuda a entrar a la residen
 - **Estudia lo importante:** extrae lo high-yield de cualquier documento, y cada dato cita su página.
 - **Recuérdalo:** repaso espaciado, preguntas tipo examen y simulacros.
 - **Adáptate a tu energía:** desde 5 minutos sin ganas hasta un bloque de 90 a tope.
-- **Sigue vigente:** avisa cuando una fuente tiene una versión nueva y qué de lo estudiado cambió.
+- **Revisa rápido:** audita un artículo o una guía en minutos (veredicto, algoritmo, qué hacer y qué no, umbrales), cada dato con su página.
 - **Llega preparado al pase de visita:** revisión de tema y pase de revista desde la guía o el artículo.
 
 ## Diferenciador
-1. **La vigencia.** Ninguna alternativa (bancos de preguntas, Anki, resúmenes en PDF, grupos de WhatsApp) avisa cuando lo que estudiaste quedó desactualizado.
+1. **Revisión rápida de artículos y guías.** En minutos se ve el veredicto, el algoritmo, qué hacer y qué no y los umbrales, cada uno con su página, y lo revisado se vuelve ficha o caso. MediPulse **no avisa** cuando una guía cambia de versión: vigilar cada fuente sería demasiado para el alcance de la app.
 2. **Estudiar desde el material propio, incluidos los apuntes.** Muchos colegas toman nota en cuadernos o en GoodNotes, y esas notas se quedan ahí. En MediPulse los apuntes se escriben en **📓 Mis apuntes** (una libreta por semana o rotación, una entrada por día, puntos numerados) y cada punto se vuelve ficha high-yield o preguntas con un toque.
 
 **La app no lee escritura a mano** (fotos de cuaderno ni PDF de GoodNotes o Notability). Se probó con notas reales: la IA lee bien la mayoría, pero confunde abreviaturas, palabras sueltas y cifras, y un error en una dosis o un umbral es justo lo que no puede pasar. Además, el PDF de GoodNotes trae un texto reconocido automáticamente que sale muy dañado. Por eso: los apuntes se escriben en la app (con atajos de teclado y el dictado del celular) o se pega el texto; las capturas que se aceptan son de texto impreso (algoritmos, tablas, gráficas).
@@ -59,5 +59,5 @@ Consecuencias para el diseño:
 Una función nueva entra si responde que sí a alguna de estas preguntas, y no rompe lo de "Qué NO es":
 1. ¿Ayuda a aprobar el examen con menos tiempo?
 2. ¿Ayuda al residente a llegar preparado al pase de visita?
-3. ¿Mantiene al usuario al día con la versión vigente?
+3. ¿Ayuda a revisar rápido un artículo o una guía para estar al día?
 4. ¿Convierte material que el usuario ya tiene en estudio útil?
