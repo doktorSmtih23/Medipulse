@@ -18,8 +18,9 @@ module.exports = defineConfig({
     viewport: {width: 360, height: 800},   // primero celular: sin desplazamiento horizontal a 360 px
     trace: "off",
     // Las pruebas corren en modo de prueba (sin los candados del diagnóstico); las del diagnóstico
-    // lo apagan para probar los candados (tests/diagnostico.spec.js).
-    storageState: {cookies: [], origins: [{origin: `http://localhost:${PORT}`, localStorage: [{name: "medipulse_prueba", value: "1"}, {name: "medipulse_bienvenida", value: "1"}]}]}
+    // lo apagan para probar los candados (tests/diagnostico.spec.js). La pregunta de confianza en la práctica
+    // está apagada para que un toque en una opción muestre la respuesta; tests/practica-diaria.spec.js la prende.
+    storageState: {cookies: [], origins: [{origin: `http://localhost:${PORT}`, localStorage: [{name: "medipulse_prueba", value: "1"}, {name: "medipulse_bienvenida", value: "1"}, {name: "medipulse_confianza", value: "0"}]}]}
   },
   webServer: {
     command: `node tests/servidor.js ${PORT}`,

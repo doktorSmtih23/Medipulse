@@ -14,7 +14,10 @@ function renderHoy(){
   const weak = weakestSpec();
   // El siguiente paso: un botón grande («Seguir») y debajo por qué se eligió. s = {id, t: lo que hace, sub, por, mas}.
   let s;
-  if (due>0) s = {id: "doDue", ico: "🔁", t: "Repasar ahora", sub: `${due} repaso${due>1?"s":""} pendiente${due>1?"s":""}`, por: "Es lo que más rinde: estás a punto de olvidarlo."};
+  const frag = dueKeys().filter(k => S.srs[k].frag).length, ref = due > 0 ? null : refuerzoPendiente();
+  if (due>0) s = {id: "doDue", ico: "🔁", t: "Repasar ahora", sub: `${due} repaso${due>1?"s":""} pendiente${due>1?"s":""}${frag ? ` · ${frag} acertada${frag>1?"s":""} sin seguridad` : ""}`, por: `Es lo que más rinde: estás a punto de olvidarlo.${frag ? " Incluye lo que acertaste dudando o al azar: un acierto sin seguridad todavía no es un dato que sepas." : ""}`};
+  // Una celda (tipo de pregunta × especialidad) con 3 fallos o más en 14 días: bloque de refuerzo.
+  else if (ref) s = {id: "doRef", ico: "🧱", t: "Bloque de refuerzo", sub: `${esc(refuerzoTitulo(ref))} · ${ref.items.length} casos`, por: refuerzoPor(ref)};
   // Residente o especialista (lo eligió en la bienvenida) sin documentos todavía: revisión rápida de un artículo.
   else if (perfilUso() === "residente" && !(S.sources || []).length && !diagHecho())
     s = {id: "doGuia", ico: "🔬", t: "Revisa un artículo", sub: "Sube el PDF de un artículo o una guía", por: "En minutos ves el veredicto, el algoritmo, qué hacer y qué no, y los umbrales, cada uno con su página. El diagnóstico sigue disponible si quieres medirte."};
@@ -42,6 +45,7 @@ function renderHoy(){
     <button class="seguir" id="${s.id}"><span class="sig-ico" aria-hidden="true">${s.ico || "▶"}</span><span class="sig-txt"><b>${s.t}</b><small>${s.sub}</small></span><span class="flecha" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
     <p class="sig-por small">${s.por}</p>${s.mas ? `<div class="row" style="margin-top:8px">${s.mas}</div>` : ""}${resto}`;
   $("#doDue") && ($("#doDue").onclick = startDue);
+  $("#doRef") && ($("#doRef").onclick = () => empezarRefuerzo(ref));
   $("#doDiag") && ($("#doDiag").onclick = () => go("diag"));
   $("#doGuia") && ($("#doGuia").onclick = () => go("mbe"));
   $("#doDiagResto") && ($("#doDiagResto").onclick = diagIrAlInicio);

@@ -56,7 +56,8 @@ function renderQ(q, exam){
       ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCDE"[i]}" title="Tachar"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 17 10 7l4 10M7.6 13h4.8"/><path d="M4 12h16" stroke-width="2.2"/></svg></button></div>`).join("")}</div>
       ${tacharAyuda()}
-      ${exam ? `<div id="confRow">${confRowHTML(k)}</div>` : metodoPregunta(q)}
+      <div id="confRow">${exam ? confRowHTML(k) : ""}</div>
+      ${exam ? "" : metodoPregunta(q)}
       <div id="fbBox"></div>
       ${exam || sess.prueba ? "" : `<div class="row" id="skipRow" style="margin-top:10px"><div class="spacer"></div><button class="btn ghost sm" id="skipBtn">Pasar esta pregunta →</button></div>`}
     </div>
@@ -88,26 +89,36 @@ function renderQ(q, exam){
 // Ayuda para el botón de tachar, hasta que se use por primera vez.
 const tacharVisto = () => { try { return localStorage.getItem("medipulse_tachar") === "1"; } catch(e) { return true; } };
 const tacharAyuda = () => tacharVisto() ? "" : `<p class="xs muted" id="tacharAyuda" style="margin:8px 0 0">Toca el botón de la derecha de una opción para <b>tacharla</b> cuando la descartes.</p>`;
-function answerQ(q, o, exam){
+function answerQ(q, o, exam, c){
   if (sess.state!=="ask") return;
   if (exam){ const k = sess.si+":"+sess.i;
     if (sess.answers[k] !== o) delete sess.conf[k];   // si cambias de opción, vuelves a marcar cómo la respondiste
     sess.answers[k]=o; document.querySelectorAll("#opts .opt").forEach((b,i)=>b.classList.toggle("sel",i===o));
     $("#confRow").innerHTML = confRowHTML(k); bindConfRow(k);
     const m = document.querySelector('.simmap [data-j="'+sess.i+'"]'); m && m.classList.add("ans"); return; }
-  sess.state="fb"; const ayuda = $("#tacharAyuda"); if (ayuda) ayuda.remove();
+  // Práctica: antes de ver la respuesta, cómo la respondiste (un toque; se puede saltar o apagar).
+  if (c === undefined && !sess.prueba && confPractica()) {
+    document.querySelectorAll("#opts .opt").forEach((b,i)=>b.classList.toggle("sel",i===o));
+    $("#confRow").innerHTML = confPreguntaHTML();
+    document.querySelectorAll("#confRow [data-confp]").forEach(b=>b.onclick=()=>answerQ(q, o, false, b.dataset.confp));
+    $("#confVer").onclick = ()=>answerQ(q, o, false, null);
+    $("#confNo").onclick = ()=>{ ponerConfPractica(false); answerQ(q, o, false, null); };
+    return; }
+  sess.state="fb"; $("#confRow").innerHTML = ""; const ayuda = $("#tacharAyuda"); if (ayuda) ayuda.remove();
   const ok = o===q.correct, prueba = !!sess.prueba;
   let ri = null;
-  if (!prueba) { addTime(); grade("q"+q.id, ok?2:0);
+  const cl = c ? clasifConfianza(ok, c) : null;
+  if (!prueba) { addTime(); grade("q"+q.id, ok?2:0); if (ok) ajustarPorConfianza("q"+q.id, c);
     contarCaso(q.specialty, ok);
-    ri = registrarRespuesta(q, o, ok, false); save(); }
-  sess.results.push({t:"q",id:q.id,ok,ri});
+    ri = registrarRespuesta(q, o, ok, false, c); save(); }
+  sess.results.push({t:"q",id:q.id,ok,ri,c:c||undefined});
   $("#opts").classList.add("done"); $(".vignette").classList.add("hints"); $("#skipRow") && $("#skipRow").remove();
   document.querySelectorAll("#opts .opt").forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add("right"); else if(i===o) b.classList.add("wrong"); });
   $("#fbBox").innerHTML = `
     <div class="stack" style="margin-top:14px">
       <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b>${q.area ? ` · Área: ${esc(q.area)}` : ""}</div>
       <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":prueba?"✗ Incorrecto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
+      ${cl && cl.msg ? `<div class="note xs audnota ${cl.k}"><b>${cl.t}.</b> ${esc(cl.msg)}</div>` : ""}
       ${ok || prueba ? "" : motivoHTML(ri)}
       ${porOpcionHTML(q, o)}
       ${q.pearl ? `<div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>` : ""}
@@ -128,6 +139,16 @@ function answerQ(q, o, exam){
     $("#archBtn").replaceWith(Object.assign(document.createElement("span"), {className: "xs muted archivado", textContent: "🗄️ Archivado: no volverá a salir. Lo restauras en Casos, al final de la lista."})); };
   $("#nextBtn").onclick=()=>{ if (prueba) return terminarPrueba(); sess.i++; renderItem(); };
   $("#nextBtn").focus({preventScroll:true});
+}
+
+// Confianza en la práctica: se pregunta al elegir la opción y antes de ver la respuesta. Se apaga con
+// «No preguntarme» y se vuelve a prender en Practicar. Es una preferencia de este dispositivo.
+const confPractica = () => { try { return localStorage.getItem("medipulse_confianza") !== "0"; } catch(e) { return true; } };
+const ponerConfPractica = on => { try { localStorage.setItem("medipulse_confianza", on ? "1" : "0"); } catch(e) {} };
+function confPreguntaHTML(){
+  return `<div class="confrow"><p class="xs" style="margin:10px 0 6px"><b>¿Qué tan seguro estás?</b> <span class="muted">Al tocar ves la respuesta.</span></p>
+    <div class="chips">${CONFIANZA.map(x=>`<button class="chip2" data-confp="${x.k}" title="${esc(x.d)}">${x.t}</button>`).join("")}</div>
+    <div class="row" style="margin-top:4px"><button class="linkbtn xs" id="confVer">Ver sin marcar</button><div class="spacer"></div><button class="linkbtn xs muted" id="confNo">No preguntarme más</button></div></div>`;
 }
 
 // Auditoría a ciegas mientras respondes (modo examen): al elegir una opción, marcas cómo la respondiste.
@@ -283,6 +304,7 @@ function endSession(showSummary){
   const s=sess; sess=null; refreshChips(); document.body.classList.remove("en-sesion");
   if (!showSummary) return;
   const q=s.results.filter(r=>r.t==="q"), c=s.results.filter(r=>r.t!=="q");
+  const ff = s.prueba ? {n: 0} : fichasDeFallos(s.results), ref = s.prueba ? null : refuerzoPendiente();
   const qok=q.filter(r=>r.ok).length, mins=Math.max(1,Math.round((Date.now()-s.start)/6e4));
   currentView="sess"; document.body.classList.remove("en-sesion");   // en el resumen vuelve la barra
   $("#sessBar").style.width="100%";
@@ -299,10 +321,14 @@ function endSession(showSummary){
     ${s.diag ? diagSummary(q) : ""}
     ${enfoqueResumen(s.results)}
     ${vulnResumen(s.results)}
+    ${fichasFallosHTML(ff)}
+    ${ref ? `<div class="note trap" style="text-align:left;margin:0"><b>🧱 Bloque de refuerzo: ${esc(refuerzoTitulo(ref))}</b><div class="xs" style="margin-top:4px">${refuerzoPor(ref)}</div><button class="btn sm" id="refBtn" style="margin-top:8px">Hacer el bloque · ${ref.items.length} casos</button></div>` : ""}
     <p class="muted small" style="margin:0">🔥 Racha: <b>${streak()}</b> día${streak()===1?"":"s"}. ${s.lazy?"Lo difícil era empezar. ¿Y si haces otros 5 minutos ahora que ya entraste en ritmo?":"Lo que fallaste vuelve en tu repaso en el momento justo."}</p>
     ${s.lazy?'<button class="btn primary block" id="moreBtn">Otros 5 minutos 💪</button>':""}
     <button class="btn ${s.lazy?"ghost":"primary"} block" data-go="hoy">Volver a Hoy</button></div>`;
   $("#diagGo") && ($("#diagGo").onclick = ()=>{ const sp = $("#diagGo").dataset.spec; startSession({label:sp, tag:"norm", stages:[{name:sp, items:pickQuestions(5,{spec:sp})}]}); });
+  $("#fichasFallo") && ($("#fichasFallo").onclick = ()=>startSession({label:"Fichas de lo que fallaste", tag:"norm", stages:[{name:"Umbrales, dosis y algoritmos", items:ff.fichas.map(h=>({t:"h", id:h.id}))}]}));
+  $("#refBtn") && ($("#refBtn").onclick = ()=>empezarRefuerzo(ref));
   $("#moreBtn") && ($("#moreBtn").onclick=()=>startSession({label:"Sin ganas (+5)",tag:"lazy",lazy:true,stages:[{name:"5 casos rápidos",items:pickQuestions(3)},{name:"Fichas",items:pickHY(3)}]}));
 }
 
@@ -313,7 +339,7 @@ document.addEventListener("keydown", e=>{
   if (!it) { if(e.key==="Enter"){ $("#contBtn")?.click(); } return; }
   if (it.t==="q"){
     if (/^[1-5]$/.test(e.key) && sess.state==="ask"){ document.querySelectorAll("#opts .opt")[+e.key-1]?.click(); }
-    else if (e.key==="Enter"){ e.preventDefault(); $("#nextBtn")?.click(); }
+    else if (e.key==="Enter"){ e.preventDefault(); ($("#confVer") || $("#nextBtn"))?.click(); }
   } else if (it.t==="c"){
     if ((e.key===" "||e.key==="Enter") && sess.state==="ask"){ e.preventDefault(); flipC(cById(it.id)); }
     else if (/^[1-3]$/.test(e.key) && sess.state==="flip"){ gradeC(cById(it.id), +e.key-1); }

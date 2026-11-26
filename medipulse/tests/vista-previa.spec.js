@@ -37,5 +37,7 @@ test("en un visor sin almacenamiento funciona en memoria y lo avisa", async ({ p
   await f.locator("#aiDet summary").click(); await f.locator("#keyIn").fill("sk-ant-prueba"); await f.locator("#keySave").click();
   await expect(f.locator("#toast")).toContainText("no se guarda");   // no dice "guardada" si no la guardó
   await f.locator("nav [data-go=banco]").click(); await f.locator("#pr10").click(); await f.locator("#opts .opt >> nth=1").click();
+  // Sin almacenamiento la pregunta de confianza queda prendida (es lo predeterminado): se ve sin marcar
+  await f.locator("#confVer").click();
   await expect(f.locator("#fbBox .fb")).toBeVisible();
 });

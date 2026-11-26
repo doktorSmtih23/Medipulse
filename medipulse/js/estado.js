@@ -83,6 +83,14 @@ function grade(key, g){
   if (g === 0) { r.b = 0; r.due = Date.now() + 10*6e4; }
   else if (g === 1) { r.due = Date.now() + DAY; }
   else { r.b = Math.min(r.b+1, BOX_DAYS.length-1); r.due = Date.now() + BOX_DAYS[r.b]*DAY; }
+  delete r.frag;
+  save();
+}
+// Un acierto sin seguridad no cuenta como dominado: vuelve mañana. Si dudaste, baja un escalón;
+// si adivinaste o no lo sabías, vuelve al principio, junto con lo que fallaste.
+function ajustarPorConfianza(key, c){
+  const r = S.srs[key]; if (!r || !c || c === "seguro") return;
+  r.b = c === "dude" ? Math.max(0, r.b - 1) : 0; r.due = Date.now() + DAY; r.last = 1; r.frag = 1;
   save();
 }
 const isDue = k => S.srs[k] && S.srs[k].due <= Date.now();

@@ -568,3 +568,9 @@ body.en-sesion{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 .sw[aria-checked="true"]{border-color:var(--accent)}
 .sw[aria-checked="true"] i{background:var(--accent)}
 .sw[aria-checked="true"] i::after{left:16px}
+/* Aviso de confianza tras responder en la práctica (seguro/dudé/al azar cruzado con el resultado) */
+.audnota{margin:0}
+.audnota.peligro{border-color:var(--bad)}
+.audnota.fragil,.audnota.vacio{border-color:var(--warn)}
+.confrow .linkbtn{font-size:13px;min-height:40px}
+.confrow .linkbtn.muted{color:var(--muted)}

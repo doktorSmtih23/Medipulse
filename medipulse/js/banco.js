@@ -139,10 +139,11 @@ function renderBanco(){
         <label class="fld">Estado<select id="qSelSt">${opt("all", `Todos (${base.length})`, qSt === "all")}${opt("new", `Sin responder (${nNew})`, qSt === "new")}${opt("fail", `Mis fallos (${nFail})`, qSt === "fail")}${nDue ? opt("due", `Para repasar (${nDue})`, qSt === "due") : ""}</select></label></div></div>` : ""}
     <div class="row" style="margin-top:12px;gap:8px;align-items:flex-end">
       <label class="fld cantidad"><span>Cantidad de casos</span><input type="number" id="qN" min="1" max="${max}" value="${n}" inputmode="numeric"></label>
-      <div class="chips" id="qNs">${[10, 20, 50, 100].filter(x => x < max).map(x => `<button class="chip2${n === x ? " on" : ""}" data-n="${x}">${x}</button>`).join("")}<button class="chip2${n === max ? " on" : ""}" data-n="${max}">${max === PRAC_MAX ? "100 (máximo)" : `Todos (${max})`}</button></div></div>
+      <div class="chips" id="qNs">${[10, 20, 60, 100].filter(x => x < max).map(x => `<button class="chip2${n === x ? " on" : ""}" data-n="${x}">${x}</button>`).join("")}<button class="chip2${n === max ? " on" : ""}" data-n="${max}">${max === PRAC_MAX ? "100 (máximo)" : `Todos (${max})`}</button></div></div>
     <p class="xs muted" style="margin:4px 0 0" id="qDisp">${fuente.length} caso${fuente.length === 1 ? "" : "s"} ${P.modo === "vuln" ? `de tus vulnerabilidades` : `disponible${fuente.length === 1 ? "" : "s"} con esta selección`} · máximo ${PRAC_MAX} por práctica.</p>
     ${hecho ? "" : `<p class="xs muted" style="margin:8px 0 0" id="qLibres">${libres ? `Antes del diagnóstico tienes <b>${libres} caso${libres === 1 ? "" : "s"} libre${libres === 1 ? "" : "s"}</b> hoy.` : ""} 🔒 El modo examen (simulacro) se abre con tu diagnóstico.</p>${libres ? "" : `<div style="margin-top:8px" id="qCand">${diagCandadoHTML("Seguir practicando hoy")}</div>`}`}
     <label class="row check" style="margin-top:10px;gap:8px;align-items:flex-start" ${hecho ? "" : "hidden"}><input type="checkbox" id="qExam" ${P.examen ? "checked" : ""}><span class="small"><b>⏱️ Modo examen</b><br><span class="xs muted">Con tiempo (~72 s por caso) y sin explicaciones hasta el final. Al elegir cada respuesta marcas si la respondiste seguro, dudando o al azar, sin saber si acertaste.${n >= 40 ? " Con " + n + " casos ya es un simulacro." : ""}</span></span></label>
+    <label class="row check" style="margin-top:10px;gap:8px;align-items:flex-start" ${P.examen && hecho ? "hidden" : ""}><input type="checkbox" id="qConf" ${confPractica() ? "checked" : ""}><span class="small"><b>🎯 Marcar mi confianza</b><br><span class="xs muted">Antes de ver la respuesta: seguro, dudé, al azar o no lo sabía. Lo que aciertes sin seguridad vuelve mañana a tu repaso, con lo que fallaste.</span></span></label>
     <button class="btn primary block" id="pr10" style="margin-top:12px" ${fuente.length ? "" : "disabled"}>${P.examen ? "⏱️ Empezar simulacro" : P.modo === "vuln" ? "🎯 Practicar mis vulnerabilidades" : "Empezar"} · ${n} caso${n === 1 ? "" : "s"}${P.examen ? ` · ${fmt(n * 72)}` : ""}</button>
     <div class="grid3" style="margin-top:12px">
       <div class="kpi"><b>${deSpecs.length}</b><span>casos</span></div>
@@ -183,9 +184,10 @@ function renderBanco(){
   document.querySelectorAll("#qNs [data-n]").forEach(b => b.onclick = () => { P.n = +b.dataset.n; save(); renderBanco(); });
   $("#qN").onchange = e => { P.n = Math.max(1, Math.min(PRAC_MAX, Math.round(+e.target.value) || 1)); save(); renderBanco(); };
   $("#qExam").onchange = e => { P.examen = e.target.checked; save(); renderBanco(); };
+  $("#qConf").onchange = e => ponerConfPractica(e.target.checked);
   $("#pr10").onclick = () => empezarPractica(fuente, n, P.modo, P.examen, rd);
   // Sin datos no hay vulnerabilidades que practicar: ni cantidad ni botón, solo qué falta para detectarlas.
-  if ((P.modo === "vuln" && (!rd.suficiente || !hecho)) || !libres) [$("#qN").closest(".row"), $("#qDisp"), $("#qExam").closest("label"), $("#pr10")].forEach(e => e.hidden = true);
+  if ((P.modo === "vuln" && (!rd.suficiente || !hecho)) || !libres) [$("#qN").closest(".row"), $("#qDisp"), $("#qExam").closest("label"), $("#qConf").closest("label"), $("#pr10")].forEach(e => e.hidden = true);
 
   // ---- Tus vulnerabilidades (dentro de la opción) ----
   $("#vulnAzar") && ($("#vulnAzar").onclick = () => { P.modo = "azar"; save(); renderBanco(); });
