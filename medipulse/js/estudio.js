@@ -89,16 +89,7 @@ async function renderEstInicio(box, turno){
   if (turno !== estTurno || estAct()) return;   // llegó tarde: ya hay otra pantalla
   const items = s && s.indice ? s.indice.items : [];
   const ses = estD().ses, paper = estEsPaper(s), tipo = estNuevo.tipo || estTipoAuto(s, estNuevo.tema), T = estTipo(tipo);
-  box.innerHTML = `
-    <div class="card stack">
-      <h3 style="font-size:16px">Nueva sesión</h3>
-      <label class="fld">¿Qué vas a estudiar?<select id="estDoc"><option value="">Solo un tema (sin documento)</option>${docs.map(d => `<option value="${esc(d.id)}" ${estNuevo.src === d.id ? "selected" : ""}>${esc(d.title)}</option>`).join("")}</select></label>
-      <label class="fld">Tema<input type="text" id="estTema" value="${esc(estNuevo.tema)}" placeholder="${esc(T.ej)}"></label>
-      ${paper ? "" : `<div class="xs muted">Tipo de material <span class="muted">· cambia la plantilla de lectura y las preguntas</span></div>
-      <div class="chips" id="estTipos">${Object.entries(EST_TIPOS).map(([k, x]) => `<button class="chip2${k === tipo ? " on" : ""}" data-esttipo="${k}">${x.n}</button>`).join("")}</div>`}
-      ${estEsPaper(s) ? `<div class="dupaviso repetida" role="note" id="estNotaPaper">🔬 Es un <b>estudio original</b> (${esc(DESIGNS[estDiseno(s)].replace(/^\S+\s/, ""))}). Los estudios se analizan en el <button class="linkbtn" data-go="mbe">laboratorio MBE</button>; aquí puedes leerlo con el reloj y tus propias preguntas, pero <b>sin IA</b>, para no gastar en algo que MBE hace mejor. <button class="linkbtn" id="estNoPaper">¿Es una revisión?</button></div>` : ""}
-      ${items.length ? `<label class="fld">Subtema <span class="xs muted">(opcional)</span><select id="estInd"><option value="-1">Todo el documento</option>${items.map((x, i) => `<option value="${i}" ${estNuevo.indice === i ? "selected" : ""}>${esc(x.title)} (${x.from === x.to ? `pág. ${x.from}` : `págs. ${x.from}–${x.to}`})</option>`).join("")}</select></label>` : ""}
-      ${!estEsPaper(s) && estNuevo.indice >= 0 && items[estNuevo.indice] && estSoloMetodos(items[estNuevo.indice].title) ? `<div class="dupaviso repetida" role="note" id="estNotaMet">⚠️ Elegiste solo <b>${esc(items[estNuevo.indice].title)}</b>: ahí no están los resultados y las preguntas saldrían de detalles sin valor. Mejor elige <b>Todo el documento</b> o los resultados.</div>` : ""}
+  const opciones = `
       <div class="xs muted">Ritmo (pomodoro)</div>
       <div class="chips">${EST_RITMOS.map(x => `<button class="chip2${x.k === r.k ? " on" : ""}" data-ritmo="${x.k}">${x.k} · ${x.n}</button>`).join("")}</div>
       <p class="xs muted" style="margin:0">${r.t} min de lectura y ${r.d} de descanso; cada 4 bloques, un descanso de ${r.l}.</p>
@@ -112,9 +103,20 @@ async function renderEstInicio(box, turno){
         <p class="xs muted" style="margin:0">Mientras lees se llena: ${T.pl.map(x => x[1].replace(/^\S+\s/, "").toLowerCase()).join(", ")}.</p>
         ${getKey() ? `<div class="chips"><button class="chip2${estNuevo.plIA ? "" : " on"}" data-estpl="yo">✍️ La lleno yo</button><button class="chip2${estNuevo.plIA ? " on" : ""}" data-estpl="ia">🤖 Que la IA la llene</button></div>
         <p class="xs muted" style="margin:0" id="estPlNota">${estNuevo.plIA ? `La IA la llena ${s ? "desde tu documento, con la página de cada dato" : "con el conocimiento médico vigente"} (${aiEstimateLine(s ? 30000 : 500, {outTokens: 2000})}). Tú la estudias con el reloj y al terminar cada bloque la escribes de memoria, igual que siempre.` : "Llenarla tú fija más lo que lees. Si no tienes tiempo, la IA puede llenarla."}</p>`
-          : `<p class="xs muted" style="margin:0">Con tu clave de API, la IA puede llenarla por ti.</p>`}</div>`}
+          : `<p class="xs muted" style="margin:0">Con tu clave de API, la IA puede llenarla por ti.</p>`}</div>`}`;
+  box.innerHTML = `
+    <div class="card stack">
+      <h3 style="font-size:16px">Nueva sesión</h3>
+      <label class="fld">¿Qué vas a estudiar?<select id="estDoc"><option value="">Solo un tema (sin documento)</option>${docs.map(d => `<option value="${esc(d.id)}" ${estNuevo.src === d.id ? "selected" : ""}>${esc(d.title)}</option>`).join("")}</select></label>
+      <label class="fld">Tema<input type="text" id="estTema" value="${esc(estNuevo.tema)}" placeholder="${esc(T.ej)}"></label>
+      ${paper ? "" : `<div class="xs muted">Tipo de material <span class="muted">· cambia la plantilla de lectura y las preguntas</span></div>
+      <div class="chips" id="estTipos">${Object.entries(EST_TIPOS).map(([k, x]) => `<button class="chip2${k === tipo ? " on" : ""}" data-esttipo="${k}">${x.n}</button>`).join("")}</div>`}
+      ${estEsPaper(s) ? `<div class="dupaviso repetida" role="note" id="estNotaPaper">🔬 Es un <b>estudio original</b> (${esc(DESIGNS[estDiseno(s)].replace(/^\S+\s/, ""))}). Los estudios se analizan en el <button class="linkbtn" data-go="mbe">laboratorio MBE</button>; aquí puedes leerlo con el reloj y tus propias preguntas, pero <b>sin IA</b>, para no gastar en algo que MBE hace mejor. <button class="linkbtn" id="estNoPaper">¿Es una revisión?</button></div>` : ""}
+      ${items.length ? `<label class="fld">Subtema <span class="xs muted">(opcional)</span><select id="estInd"><option value="-1">Todo el documento</option>${items.map((x, i) => `<option value="${i}" ${estNuevo.indice === i ? "selected" : ""}>${esc(x.title)} (${x.from === x.to ? `pág. ${x.from}` : `págs. ${x.from}–${x.to}`})</option>`).join("")}</select></label>` : ""}
+      ${!estEsPaper(s) && estNuevo.indice >= 0 && items[estNuevo.indice] && estSoloMetodos(items[estNuevo.indice].title) ? `<div class="dupaviso repetida" role="note" id="estNotaMet">⚠️ Elegiste solo <b>${esc(items[estNuevo.indice].title)}</b>: ahí no están los resultados y las preguntas saldrían de detalles sin valor. Mejor elige <b>Todo el documento</b> o los resultados.</div>` : ""}
       <button class="btn primary block" id="estGo">▶ Empezar la sesión</button>
       <p class="xs" style="margin:0;color:var(--bad)" id="estErr"></p>
+      ${plegable("estopc", `<b class="small">⚙️ Opciones de la sesión</b> <span class="xs muted">ritmo ${r.k}, preguntas y plantilla</span>`, `<div class="stack" style="margin-top:8px">${opciones}</div>`)}
     </div>
     ${paper ? "" : `<div class="card">${plegable("estguia", `<b>📘 Cómo estudiar ${T.como}</b>`, estGuiaHTML(tipo))}</div>`}
     <div class="card stack" id="estAnalisis">${estAnalisisHTML()}</div>

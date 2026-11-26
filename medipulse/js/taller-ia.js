@@ -45,7 +45,7 @@ function bindAuto(){
 async function runAuto(){
   if (genBusy) return;
   const st = $("#aStatus"), s = cur();
-  if (!getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return go("lib"); }
+  if (!getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return irAClave(); }
   const sel = autoSel();
   if (!sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
   const chars = sel.pages.reduce((x,p)=>x+p.length, 0);

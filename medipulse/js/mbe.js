@@ -90,15 +90,14 @@ function renderMbe(){
   const b = MBE[mbeType];
   $("#mbeTabs").innerHTML = Object.entries(MBE).map(([k,v])=>`<button class="btn${k===mbeType?" on":""}" data-mt="${k}">${v.icon} ${v.name}</button>`).join("");
   document.querySelectorAll("[data-mt]").forEach(x=>x.onclick=()=>{ mbeType = x.dataset.mt; renderMbe(); });
-  $("#mbeGuide").innerHTML = `
-    <div class="row xs" style="gap:6px"><span class="tag">${b.icon} ${esc(b.name)}</span><span class="muted">⏱ lectura de ${b.time}</span></div>
-    <h3 style="font-size:18px">${esc(b.title)}</h3>
-    <p class="small" style="margin:0">${esc(b.intro)}</p>
+  $("#mbeGuide").innerHTML = plegable("mbeguia", `<b>📖 Método para leer: ${esc(b.name)}</b> <span class="xs muted">⏱ ${b.time}</span>`, `
+    <h3 style="font-size:17px;margin:8px 0 0">${esc(b.title)}</h3>
+    <p class="small" style="margin:6px 0">${esc(b.intro)}</p>
     <ol class="mbesteps">${b.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
     <div class="note trap"><b>🚨 Trampa metodológica:</b> ${esc(b.pitfall)}</div>
-    <div class="mbeex"><div class="xs muted">📌 Ejemplo desglosado · ${esc(b.ex.src)}</div><h4>${esc(b.ex.title)}</h4>
+    ${plegable("mbeej", `<span class="small">📌 Ver un ejemplo desglosado</span>`, `<div class="mbeex"><div class="xs muted">${esc(b.ex.src)}</div><h4>${esc(b.ex.title)}</h4>
       <dl>${b.ex.grid.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
-      <div class="note pearl"><b>💡 Lo que cambia tu conducta:</b> ${esc(b.ex.take)}</div></div>`;
+      <div class="note pearl"><b>💡 Lo que cambia tu conducta:</b> ${esc(b.ex.take)}</div></div>`)}`);
   renderMbeDocs(); renderDistill(); renderNotes(); calcRR(); calcDx();
 }
 function renderDistill(){
@@ -106,6 +105,7 @@ function renderDistill(){
   $("#mbeForm").innerHTML = `
     <div class="grid2"><label class="fld">Tipo<select id="dType">${Object.entries(MBE).map(([k,v])=>`<option value="${k}" ${k===mbeType?"selected":""}>${v.icon} ${v.name}</option>`).join("")}</select></label>
       <label class="fld">Especialidad<select id="dSpec">${ESPS().map(s=>`<option>${s}</option>`).join("")}${ESP_NUEVA_OPT}</select></label></div>
+    <p class="xs muted" style="margin:0">Al terminar un estudio o una guía, escribe lo esencial. Queda en «Mis lecturas» y lo puedes convertir en una ficha high-yield.</p>
     <label class="fld">Título del estudio, guía o revisión<input type="text" id="dTitle" placeholder="p. ej. PARADIGM-HF"></label>
     ${b.labels.map((l,i)=>`<label class="fld">${esc(l)}<textarea id="dF${i}" rows="2"></textarea></label>`).join("")}
     <label class="fld">Perla de examen o “no hacer”<textarea id="dF3" rows="2"></textarea></label>

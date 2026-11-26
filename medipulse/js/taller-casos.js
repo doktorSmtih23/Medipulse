@@ -192,7 +192,7 @@ function casosAsk(c){
 async function runCasos(){
   if (genBusy) return;
   const st = $("#cStatus"), s = cur(), c = gen.casos;
-  if (!getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return go("lib"); }
+  if (!getKey()) { toast("Primero guarda tu clave de API en Fuentes."); return irAClave(); }
   if (!c || !c.sel) return st.innerHTML = `<span style="color:var(--bad)">No encuentro el texto en este dispositivo. Vuelve a agregar la fuente.</span>`;
   const chars = c.sel.pages.reduce((x, p) => x + p.length, 0);
   if (chars < 200) return st.innerHTML = `<span style="color:var(--bad)">Esas páginas no tienen texto que se pueda leer.</span>`;

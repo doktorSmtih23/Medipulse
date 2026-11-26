@@ -118,7 +118,7 @@ function showCapture(box, dataUrl, ctx){
   };
   const ai = box.querySelector("[data-cap-ai]");
   ai && (ai.onclick = async () => {
-    if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); go("lib"); const k = $("#keyIn"); k && (k.scrollIntoView({behavior: "smooth", block: "center"}), k.focus({preventScroll: true})); return; }
+    if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); irAClave(); return; }
     if (genBusy) return; genBusy = true; ai.disabled = true; ai.innerHTML = `<span class="spin"></span> Analizando la imagen…`;
     try {
       const key = await imgPut(dataUrl);

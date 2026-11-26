@@ -34,7 +34,7 @@ test("en un visor sin almacenamiento funciona en memoria y lo avisa", async ({ p
   const f = page.frameLocator("iframe");
   await expect(f.locator(".previewnote")).toBeVisible();
   await f.locator("nav [data-go=lib]").click();
-  await f.locator("#keyIn").fill("sk-ant-prueba"); await f.locator("#keySave").click();
+  await f.locator("#aiDet summary").click(); await f.locator("#keyIn").fill("sk-ant-prueba"); await f.locator("#keySave").click();
   await expect(f.locator("#toast")).toContainText("no se guarda");   // no dice "guardada" si no la guardó
   await f.locator("nav [data-go=banco]").click(); await f.locator("#pr10").click(); await f.locator("#opts .opt >> nth=1").click();
   await expect(f.locator("#fbBox .fb")).toBeVisible();

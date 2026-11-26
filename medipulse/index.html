@@ -144,8 +144,8 @@
       <div class="card" id="vigCard"></div>
       <div class="card" id="repCard"></div>
       <div class="card">
-        <h3 style="font-size:16px">🤖 Generación con IA (opcional)</h3>
-        <div id="aiBox" style="margin-top:8px"></div>
+        <details class="pleg" data-pleg="aibox" id="aiDet"><summary><b style="font-size:16px">🤖 Generación con IA (opcional)</b> <span class="xs muted" id="aiEstado"></span></summary>
+        <div id="aiBox" style="margin-top:8px"></div></details>
       </div>
       <div class="card">
         <details><summary style="cursor:pointer"><b style="font-size:16px">Referencias del contenido incluido</b> <span class="xs muted" id="bsCount"></span></summary>
@@ -309,11 +309,11 @@
   <!-- ============ LABORATORIO MBE ============ -->
   <section class="view" id="v-mbe">
     <div class="stack">
-      <div><h2>Laboratorio de lectura crítica</h2><p class="muted small" style="margin:4px 0 0">Cada tipo de documento se lee distinto. Elige qué vas a leer hoy: verás el método en 5 pasos, un ejemplo real desglosado y un espacio para resumir lo que leíste y volverlo ficha high-yield.</p></div>
+      <div><h2>Laboratorio de lectura crítica</h2><p class="muted small" style="margin:4px 0 0">Audita un PDF o resume lo que leíste. El método de cada tipo de documento está más abajo, plegado.</p></div>
       <div class="card stack" id="mbeDocs"></div>
       <div class="filters wrap" id="mbeTabs"></div>
+      <div class="card stack"><h3 style="font-size:16px">📝 Resume lo que leíste</h3><div class="stack" id="mbeForm"></div></div>
       <div class="card stack" id="mbeGuide"></div>
-      <div class="card stack"><h3 style="font-size:16px">📝 Resume lo que leíste</h3><p class="xs muted" style="margin:0">Al terminar un estudio o una guía, escribe lo esencial en 4 campos. Queda en «Mis lecturas» y lo puedes convertir en una ficha high-yield.</p><div class="stack" id="mbeForm"></div></div>
       <div class="card"><div class="row"><h3 style="font-size:16px">Mis lecturas</h3><span class="chip" id="mbeNotesN">0</span></div><div id="mbeNotes" style="margin-top:6px"></div></div>
       <div class="card stack" id="mbeCalc"><h3 style="font-size:16px">🧮 Calculadoras</h3>
         <p class="xs muted" style="margin:0">Para hacer tus propios cálculos: escribes los números de cualquier estudio que estés leyendo y te dan el resultado al instante.</p>

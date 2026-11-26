@@ -112,7 +112,7 @@ test("con un documento: al recordar se puede comparar con la revisión de tema d
   const id = await page.evaluate(() => S.sources.at(-1).id);
   await page.selectOption("#estDoc", id);
   await expect(page.locator("#estTema")).not.toHaveValue("");   // el tema se llena con el título del documento
-  await page.uncheck("#estGuiaIA");
+  await page.click('[data-pleg="estopc"] summary'); await page.uncheck("#estGuiaIA");
   await page.click("#estGo");
   if (await page.locator("#estSaltar").count()) await page.click("#estSaltar");
   await page.click("#estLeer"); await terminarBloque(page);
@@ -127,7 +127,7 @@ test.describe("preguntas de búsqueda activa", () => {
     errores = vigilarErrores(page); await page.goto("/");
     await page.click("nav [data-go=estudio]");
     await page.fill("#estTema", "Tema sin casos xyz");
-    await page.fill("#estMias", "¿Cuál es el criterio diagnóstico?\n¿Cuál es la primera línea?");
+    await page.click('[data-pleg="estopc"] summary'); await page.fill("#estMias", "¿Cuál es el criterio diagnóstico?\n¿Cuál es la primera línea?");
     await page.click("#estGo");
     await expect(page.locator("#estBox")).toContainText("Lee buscando la respuesta a estas preguntas");
     await page.click("#estLeer");
@@ -176,7 +176,7 @@ test.describe("preguntas de búsqueda activa", () => {
     await page.click("nav [data-go=estudio]");
     await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
     await expect(page.locator("#estNotaPaper")).toContainText("laboratorio MBE");
-    await expect(page.locator("#estGuiaIA")).toHaveCount(0);
+    await page.click('[data-pleg="estopc"] summary'); await expect(page.locator("#estGuiaIA")).toHaveCount(0);
     await expect(page.locator("#estMias")).toBeVisible();   // abierto: con un estudio, las preguntas las escribes tú
     await page.fill("#estMias", "¿Cuál fue el NNT?");
     await page.click("#estGo");
@@ -330,7 +330,7 @@ test.describe("tipo de material", () => {
     await page.evaluate(() => { const s = S.sources.at(-1); s.design = "GPC"; s.title = "Guía de práctica clínica de la NAC"; save(); });
     await page.click("nav [data-go=estudio]");
     await page.selectOption("#estDoc", await page.evaluate(() => S.sources.at(-1).id));
-    await expect(page.locator('[data-estpl="yo"]')).toHaveClass(/on/);       // por defecto la llena el usuario
+    await page.click('[data-pleg="estopc"] summary'); await expect(page.locator('[data-estpl="yo"]')).toHaveClass(/on/);       // por defecto la llena el usuario
     await page.click('[data-estpl="ia"]');
     await expect(page.locator("#estPlNota")).toContainText("con la página de cada dato");
     await page.click("#estGo");
