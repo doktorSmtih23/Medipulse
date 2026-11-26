@@ -485,10 +485,14 @@ label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap
 .pulso-pie{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px}.pulso-pie b{color:var(--text)}
 .pulso-datos{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}.pulso-datos b{color:var(--text)}
 .sig-k{margin:0 0 6px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.seguir{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border:0;border-radius:20px;background:var(--go);color:#fff;text-align:left;box-shadow:var(--shadow);transition:transform .15s}
+.seguir{width:100%;display:flex;align-items:center;gap:14px;padding:14px 14px 14px 14px;border:0;border-radius:18px;background:linear-gradient(135deg,var(--go),color-mix(in srgb,var(--go) 80%,#000));color:#fff;text-align:left;box-shadow:0 6px 18px color-mix(in srgb,var(--go) 30%,transparent);transition:transform .15s,box-shadow .15s}
+.seguir:hover{box-shadow:0 8px 22px color-mix(in srgb,var(--go) 38%,transparent)}
 .seguir:active{transform:scale(.98)}
-.seguir b{display:block;font-size:19px;line-height:1.25}.seguir small{display:block;font-size:13px;opacity:.9;margin-top:2px}
-.seguir .flecha{flex:none;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--go);display:grid;place-items:center;font-size:26px;font-weight:900;line-height:1}
+.seguir .sig-ico{flex:none;width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.16);display:grid;place-items:center;font-size:22px;line-height:1}
+.seguir .sig-txt{flex:1;min-width:0}
+.seguir b{display:block;font-size:18px;line-height:1.25}.seguir small{display:block;font-size:13px;opacity:.85;margin-top:3px}
+.seguir .flecha{flex:none;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;display:grid;place-items:center;transition:transform .15s,background .15s}
+.seguir:hover .flecha{background:rgba(255,255,255,.28);transform:translateX(2px)}
 .sig-por{margin:8px 2px 0;color:var(--muted)}.sig-por b{color:var(--text)}
 .sig-resto{margin:8px 2px 0;color:var(--muted)}
 .rota-pista{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;scrollbar-width:none;align-items:flex-start;overscroll-behavior-x:contain;transition:height .25s}
