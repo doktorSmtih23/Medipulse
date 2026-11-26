@@ -84,7 +84,13 @@ MP_CONTENIDO.agregar({
           "texto": "Continue to assess risk factors for postpartum haemorrhage during labour … These can include: induction or augmentation of labour with oxytocin or prostaglandins · prolonged first or second stage of labour · sepsis · oxytocin use during labour · precipitate labour · birth with forceps or ventouse · caesarean birth · shoulder dystocia · delay in delivery of the placenta."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: no se omite la reanimación; y el útero blando por encima del ombligo tras un parto prolongado orienta a atonía.",
+        "No: el útero blando por encima del ombligo indica atonía, y NICE indica uterotónicos de inmediato.",
+        "Correcta: atonía uterina: masaje, uterotónicos y ácido tranexámico 1 g IV junto con ellos.",
+        "No: el cuadro es de atonía uterina; la primera medida es masaje, uterotónicos, líquidos y ácido tranexámico."
+      ]
     },
     {
       "id": 18,
@@ -112,7 +118,13 @@ MP_CONTENIDO.agregar({
           "texto": "Offer systemic methotrexate to women who: have no significant pain and have an unruptured tubal ectopic pregnancy with an adnexal mass smaller than 35 mm with no visible heartbeat and have a serum hCG level less than 1,500 IU/litre and do not have an intrauterine pregnancy (as confirmed on an ultrasound scan) and are able to return for follow-up."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: ectópico con dolor, inestabilidad y hemoperitoneo: reanimar y operar de urgencia.",
+        "No: el metotrexato es solo para el ectópico no roto, sin dolor importante; ella está hipotensa con hemoperitoneo.",
+        "No: el útero vacío con hemoperitoneo y β-hCG positiva indican un ectópico roto, no un aborto incompleto.",
+        "No: esperar 48 horas en una paciente hipotensa con hemoperitoneo es la trampa; se opera de urgencia."
+      ]
     },
     {
       "id": 25,
@@ -158,7 +170,13 @@ MP_CONTENIDO.agregar({
           "texto": "La manifestación clínica característica de la placenta previa es el sangrado vaginal de inicio súbito, con sangre roja brillante, generalmente abundante e indoloro"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "Correcta: estabilizar y ubicar la placenta con ecografía, nunca tacto vaginal antes.",
+        "No: el tacto vaginal sin descartar placenta previa puede desencadenar una hemorragia masiva.",
+        "No: antes de cualquier maniobra hay que estabilizar y ubicar la placenta con ecografía.",
+        "No: el sangrado abundante en la segunda mitad exige estabilizar y ubicar la placenta, no manejo ambulatorio."
+      ]
     },
     {
       "id": "gin-c02",
@@ -191,7 +209,13 @@ MP_CONTENIDO.agregar({
           "texto": "se diagnostica cuando el índice de líquido amniótico (ILA) es <5 cm o cuando el bolsillo vertical máximo (BVM) mide menos de 2 cm"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "Correcta: oligohidramnios aislado: terminar entre las 36 y las 37 + 6 semanas (ACOG).",
+        "No: la ACOG considera terminar entre las 36 y las 37 + 6 semanas, no esperar a las 41.",
+        "No: con oligohidramnios aislado se considera terminar entre las 36 y las 37 + 6 semanas, sin esperar otro hallazgo.",
+        "No: el oligohidramnios no contraindica el parto vaginal; la vía la definen las condiciones obstétricas."
+      ]
     },
     {
       "id": "gin-c03",
@@ -219,7 +243,13 @@ MP_CONTENIDO.agregar({
           "texto": "En aquellos pacientes con valores menores a 200 µg/L deberían considerarse otras causas diferentes a los prolactinomas, incluidos los medicamentos, falla renal, enfermedad hepática, hipotiroidismo, entre otros."
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "Correcta: los antipsicóticos son de las causas farmacológicas más comunes, y la prolactina es menor de 200 µg/L.",
+        "No: con prolactina menor de 200 µg/L se consideran primero causas distintas al prolactinoma, como los medicamentos.",
+        "No: la paciente toma risperidona; los antipsicóticos son la causa farmacológica más común de hiperprolactinemia.",
+        "No: con prolactina menor de 200 µg/L y un antipsicótico, primero se piensa en la causa farmacológica."
+      ]
     },
     {
       "id": "gin-c04",
@@ -247,7 +277,13 @@ MP_CONTENIDO.agregar({
           "texto": "ha demostrado de manera concluyente que el uso de aspirina, heparina o su combinación no mejora las tasas de nacidos vivos en mujeres con PGR inexplicada"
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "Correcta: síndrome antifosfolípido: aspirina desde antes de concebir y heparina profiláctica con embarazo viable.",
+        "No: el tratamiento estándar en el síndrome antifosfolípido es aspirina más heparina.",
+        "No: el tratamiento estándar en el síndrome antifosfolípido es aspirina en dosis bajas más heparina profiláctica.",
+        "No: eso aplica a la pérdida recurrente inexplicada; con síndrome antifosfolípido sí se tratan."
+      ]
     },
     {
       "id": "gin-c05",
@@ -313,7 +349,13 @@ MP_CONTENIDO.agregar({
           "texto": "La infección intraamniótica (IAI) aislada no suele justificar la realización de una cesárea, por lo que la vía del parto debe individualizarse según el contexto clínico."
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "No: la infección intraamniótica aislada no justifica la cesárea; la vía se individualiza.",
+        "No: hay fiebre de 38 a 38,9 °C persistente con taquicardia fetal: se inicia antibiótico intraparto ya.",
+        "No: con infección intraamniótica sospechada se inicia antibiótico intraparto a la madre.",
+        "Correcta: antibiótico intraparto y seguir el trabajo de parto; cesárea solo por otra indicación."
+      ]
     },
     {
       "id": "gin-c07",
@@ -341,7 +383,13 @@ MP_CONTENIDO.agregar({
           "texto": "para las pacientes con endometriosis y dolor pélvico que no buscan un embarazo, la terapia de primera línea es la supresión hormonal con anticonceptivos combinados de estrógeno y progestina o solo progestinas, de forma continua. También está como segunda línea los análogos o antagonistas de la GnRH."
         }
       ],
-      "verificado": "2026-11-17"
+      "verificado": "2026-11-17",
+      "porOpcion": [
+        "No: la ecografía de mapeo o la resonancia bastan; exigir laparoscopia retrasa el tratamiento.",
+        "No: los análogos o antagonistas de GnRH son de segunda línea.",
+        "Correcta: supresión hormonal continua con anticonceptivos combinados o progestinas, de primera línea.",
+        "No: la primera línea en quien tiene dolor y no busca embarazo es la supresión hormonal."
+      ]
     },
     {
       "id": "gin-c08",
@@ -369,7 +417,13 @@ MP_CONTENIDO.agregar({
           "texto": "a partir del uso de herramientas como el test de Whooley y la escala de depresión de Edimburgo"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: con deterioro funcional e ideación autolesiva no es tristeza posparto; hay que actuar hoy.",
+        "No: lo indicado es remitir a salud mental con enfoque perinatal.",
+        "No: con ideación autolesiva no se espera al próximo control.",
+        "Correcta: depresión con deterioro funcional e ideación autolesiva: remitir con enfoque perinatal."
+      ]
     },
     {
       "id": "gin-c09",
@@ -401,7 +455,13 @@ MP_CONTENIDO.agregar({
           "texto": "En los recién nacidos expuestos a la enfermedad el seguimiento descartará o confirmará la transmisión congénita para la cual el tratamiento precoz es altamente efectivo."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: la infección crónica no justifica tratamiento durante el embarazo.",
+        "No: en fase crónica no se trata en ningún trimestre del embarazo, por riesgos de teratogenicidad inciertos.",
+        "Correcta: no tratar en el embarazo; tratar después de la lactancia y seguir al recién nacido.",
+        "No: la fase crónica sí se trata, pero después de la lactancia exclusiva."
+      ]
     },
     {
       "id": "gin-c10",
@@ -433,7 +493,13 @@ MP_CONTENIDO.agregar({
           "texto": "Dado que el inicio de quimioterapia estaba programado en dos semanas, se inició estimulación ovárica en esquema random-start"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: la preservación se discute al diagnóstico; después de la quimioterapia ya no protege la fertilidad.",
+        "No: los análogos de la GnRH son complementarios, no sustitutivos.",
+        "No: con estimulación random-start se vitrifican ovocitos sin retrasar la quimioterapia.",
+        "Correcta: remitir ya; con dos semanas, estimulación random-start y vitrificación de ovocitos."
+      ]
     },
     {
       "id": "gin-c11",
@@ -461,7 +527,13 @@ MP_CONTENIDO.agregar({
           "texto": "La cesárea queda reservada para indicaciones estrictamente obstétricas o situaciones cardíacas específicas (ej. diámetro aórtico >45 mm en Marfan o falla cardíaca aguda intratable)."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: parto vaginal a término; la cesárea se reserva para indicaciones obstétricas o cardíacas específicas.",
+        "No: programar una cesárea solo porque hay cardiopatía es un error común.",
+        "No: se favorece el parto vaginal a término; la cardiopatía no obliga a un parto prematuro.",
+        "No: la cesárea se reserva para indicaciones obstétricas o cardíacas específicas, y aquí no las hay."
+      ]
     },
     {
       "id": "gin-c12",
@@ -489,7 +561,13 @@ MP_CONTENIDO.agregar({
           "texto": "se contraindica el uso de HBPM si no se dispone de dichos niveles."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: sin niveles de anti-Xa la heparina de bajo peso molecular está contraindicada.",
+        "No: la trombosis de la válvula mecánica tiene una mortalidad mayor de 80 %; no se suspende la anticoagulación.",
+        "No: la anticoagulación más eficaz para prevenir la trombosis valvular es el antagonista de la vitamina K.",
+        "Correcta: con warfarina menor de 5 mg al día el riesgo de embriopatía es bajo (menor de 3 %)."
+      ]
     },
     {
       "id": "gin-c13",
@@ -513,7 +591,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se deben ofrecer métodos de larga duración (LARC), como el dispositivo intrauterino (DIU) de levonorgestrel, que evitan los riesgos trombóticos de los estrógenos."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: los estrógenos tienen riesgo trombótico; se ofrecen métodos de larga duración sin estrógenos.",
+        "No: es un método combinado con estrógenos, que tienen riesgo trombótico.",
+        "No: es un método combinado con estrógenos, que tienen riesgo trombótico.",
+        "Correcta: DIU de levonorgestrel, de larga duración y sin el riesgo trombótico de los estrógenos."
+      ]
     },
     {
       "id": "gin-c14",
@@ -537,7 +621,13 @@ MP_CONTENIDO.agregar({
           "texto": "La mayoría de los betabloqueadores, antihipertensivos y anticoagulantes (incluyendo la warfarina y la heparina) tienen un paso mínimo a la leche materna y son seguros para el lactante."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: la warfarina pasa muy poco a la leche y es segura para el lactante.",
+        "No: la mayoría de los betabloqueadores pasan muy poco a la leche y son seguros.",
+        "No: tanto la warfarina como la heparina son seguras en la lactancia; no hace falta cambiar.",
+        "Correcta: puede amamantar; estos fármacos pasan muy poco a la leche y son seguros."
+      ]
     },
     {
       "id": "gin-c15",
@@ -565,7 +655,13 @@ MP_CONTENIDO.agregar({
           "texto": "la estación fetal de 0 corresponde a una AoP de 116°"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: un ángulo de progresión menor de 105° se asocia a alto riesgo de fracaso del parto vaginal.",
+        "No: con un ángulo menor de 105° la cabeza está alta; instrumentar es la trampa.",
+        "No: un ángulo de 98° está por debajo de 105°: alto riesgo de fracaso, no progreso normal.",
+        "No: el ángulo de progresión predice el resultado del parto."
+      ]
     },
     {
       "id": "gin-c16",
@@ -589,7 +685,13 @@ MP_CONTENIDO.agregar({
           "texto": "Translucencia nucal aumentada: en percentil > 99 o 3.5mm siempre se debe realizar ecocardiografía fetal ya que se asocia a trisomía 21, 18 y alteraciones cardíacas, aunque no presenten anomalías cromosómicas."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: una translucencia nucal de 3,5 mm o más se asocia a cardiopatías aunque el cariotipo sea normal.",
+        "No: con translucencia nucal de 3,5 mm o más siempre se indica ecocardiografía fetal.",
+        "Correcta: translucencia nucal de 3,5 mm o más: ecocardiografía fetal siempre.",
+        "No: la ecocardiografía se indica en el feto, no se espera al nacimiento."
+      ]
     },
     {
       "id": "gin-c17",
@@ -617,7 +719,13 @@ MP_CONTENIDO.agregar({
           "texto": "El uso de prostaglandinas está desaconsejado, ya que se asocia con mayor riesgo de hemorragia y parece haber mayor incidencia de neoplasia trofoblástica gestacional (NTG) pos molar (2, 5)."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: las prostaglandinas se desaconsejan en la mola: más hemorragia y, al parecer, más neoplasia posmolar.",
+        "No: el tratamiento de la mola es la evacuación uterina, preferiblemente por aspiración.",
+        "No: la histerectomía se reserva para mayores de 40 años o sin deseo reproductivo; ella desea hijos.",
+        "Correcta: evacuación por aspiración por succión."
+      ]
     },
     {
       "id": "gin-c18",
@@ -641,7 +749,13 @@ MP_CONTENIDO.agregar({
           "texto": "Meseta de β-hCG Al menos cuatro valores consecutivos medidos en los días 1, 7, 14 y 21, con una variación ≤10%. Aumento de β-hCG Incremento ≥10% en tres valores consecutivos medidos en los días 1, 7 y 14."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: cuatro valores consecutivos que varían 10 % o menos son una meseta: ya es neoplasia.",
+        "No: tras la evacuación de una mola, una β-hCG que no desciende cumple el criterio de neoplasia trofoblástica.",
+        "Correcta: meseta de β-hCG en los días 1, 7, 14 y 21 (criterio FIGO): neoplasia trofoblástica posmolar.",
+        "No: la meseta de β-hCG cumple el criterio FIGO de neoplasia trofoblástica."
+      ]
     },
     {
       "id": "gin-c19",
@@ -665,7 +779,13 @@ MP_CONTENIDO.agregar({
           "texto": "pérdida de sanguínea medida objetivamente de ≥300 mL sumado a cualquier signo hemodinámico anormal (pulso >100 lpm, índice de choque >1, presión arterial sistólica <100 mmHg o presión arterial diastólica <60 mmHg), o sangrado medido objetivamente de ≥500 mL, lo que ocurra primero en las 24 horas posteriores al nacimiento"
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: 300 mL o más con un signo hemodinámico anormal ya es hemorragia posparto.",
+        "No: tiene 350 mL medidos con pulso mayor de 100 y PAD menor de 60: es hemorragia posparto.",
+        "No: la OMS la define desde 300 mL con signos anormales o 500 mL.",
+        "Correcta: 300 mL o más medidos con un signo hemodinámico anormal: hemorragia posparto."
+      ]
     },
     {
       "id": "gin-c20",
@@ -689,7 +809,13 @@ MP_CONTENIDO.agregar({
           "texto": "En todos estos casos, el punto de corte crítico indicativo de transfusión es 200 mg/dl. El fibrinógeno puede ser corregido de tres formas que tienen concentraciones distintas: con plasma, que tiene 2,5 g/l; crioprecipitado, que tiene 15 g/l; o también con concentrado de fibrinógeno, que trae 20 g/l."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: más volumen diluye el fibrinógeno.",
+        "No: el plasma tiene solo 2,5 g/L de fibrinógeno; requiere mucho más volumen.",
+        "Correcta: el crioprecipitado (15 g/L) y el concentrado (20 g/L) lo reponen con menos volumen.",
+        "No: el fibrinógeno está por debajo de 200 mg/dL, el punto crítico para transfundir."
+      ]
     },
     {
       "id": "gin-c21",
@@ -717,7 +843,13 @@ MP_CONTENIDO.agregar({
           "texto": "Deben ser operadas específicamente por ginecología oncológica todas las pacientes con lesiones de alto riesgo o quienes tengan evidencia clínica de enfermedad avanzada"
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: cumple reglas M de IOTA con ascitis: alto riesgo de malignidad; no se espera.",
+        "No: las lesiones de alto riesgo deben operarse por ginecología oncológica.",
+        "Correcta: alto riesgo de malignidad: remitir a ginecología oncológica.",
+        "No: es una masa de alto riesgo de malignidad; debe operarse por ginecología oncológica."
+      ]
     },
     {
       "id": "gin-c22",
@@ -741,7 +873,13 @@ MP_CONTENIDO.agregar({
           "texto": "el cambio en la clasificación del acetato de medroxiprogesterona de depósito (inyección trimestral) de categoría 3 a categoría 2."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: la OMS 2025 la clasifica en categoría 2 en las lactantes del posparto.",
+        "No: esa era la clasificación anterior; la OMS 2025 la pasó a categoría 2.",
+        "Correcta: la OMS 2025 la pasó de categoría 3 a 2 en las lactantes del posparto.",
+        "No: en este periodo es categoría 2; los de solo progestágeno son categoría 1 después de las 6 semanas."
+      ]
     },
     {
       "id": "gin-c23",
@@ -765,7 +903,13 @@ MP_CONTENIDO.agregar({
           "texto": "En mujeres con migraña con aura, los métodos hormonales combinados se clasifican como categoría 4 debido al aumento significativo del riesgo de accidente cerebrovascular asociado al estrógeno."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: en la migraña con aura todos los métodos combinados son categoría 4.",
+        "No: el anillo también lleva estrógeno y es categoría 4 en la migraña con aura.",
+        "Correcta: método sin estrógeno, como el DIU de cobre o uno de solo progestágeno.",
+        "No: cualquier método combinado con estrógeno es categoría 4 en la migraña con aura."
+      ]
     },
     {
       "id": "gin-c24",
@@ -793,7 +937,13 @@ MP_CONTENIDO.agregar({
           "texto": "¿se observa un hiato >4 cm o falta de contracción voluntaria? - SÍ: realizar Ecografía 3D/4D de suelo pélvico."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: la avulsión del elevador es una lesión oculta bajo un periné que se ve sano.",
+        "No: primero se confirma la lesión con ecografía 3D/4D transperineal.",
+        "No: primero se confirma la lesión con ecografía 3D/4D transperineal, el patrón de oro.",
+        "Correcta: hiato mayor de 4 cm: ecografía 3D/4D transperineal, el patrón de oro."
+      ]
     },
     {
       "id": "gin-c25",
@@ -817,7 +967,13 @@ MP_CONTENIDO.agregar({
           "texto": "Tradicionalmente se ha recomendado que las parientes inicien tamización mamográfica 10 años antes de la edad de presentación en el caso índice, pero no antes de los 30 años."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: con una pariente en primer grado se inicia 10 años antes de la edad del caso índice.",
+        "No: se inicia 10 años antes de la edad del caso índice (aquí 29), pero no antes de los 30: le corresponde ya.",
+        "Correcta: 10 años antes del caso índice y no antes de los 30: le corresponde ya.",
+        "No: la tamización en alto riesgo es con mamografía (y resonancia), no solo ante síntomas."
+      ]
     },
     {
       "id": "gin-c26",
@@ -841,7 +997,13 @@ MP_CONTENIDO.agregar({
           "texto": "las pacientes con HBPM en dosis bajas toman su última dosis 12 horas antes del procedimiento; las pacientes con HBPM en dosis intermedias o terapéuticas toman su última dosis 24 horas antes del procedimiento."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: con dosis terapéuticas la última dosis es 24 horas antes.",
+        "Correcta: con HBPM en dosis terapéuticas, la última dosis es 24 horas antes.",
+        "No: 12 horas antes es para dosis profilácticas.",
+        "No: la última dosis terapéutica es 24 horas antes del procedimiento."
+      ]
     },
     {
       "id": "gin-c27",
@@ -865,7 +1027,13 @@ MP_CONTENIDO.agregar({
           "texto": "La eritrocitosis (hematocrito >50 %) es tal vez el efecto secundario más frecuente en los hombres transgénero y confieren un mayor riesgo de eventos trombóticos o cardiovasculares."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: un hematocrito de 54 % es eritrocitosis, no anemia.",
+        "Correcta: eritrocitosis (hematocrito mayor de 50 %), con riesgo trombótico y cardiovascular.",
+        "No: un hematocrito de 54 % es eritrocitosis, no déficit de hierro.",
+        "No: el efecto adverso es la eritrocitosis (hematocrito mayor de 50 %)."
+      ]
     },
     {
       "id": "gin-c28",
@@ -889,7 +1057,13 @@ MP_CONTENIDO.agregar({
           "texto": "Prueba de tolerancia oral a la glucosa (PTOG) con 75 gramos (g) de glucosa. Realizar entre la semana 24 y 28 de gestación."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la curva se hace entre las semanas 24 y 28 aunque la glucemia inicial haya sido normal.",
+        "No: la ruta materno perinatal indica la curva de tolerancia oral con 75 g.",
+        "Correcta: curva de tolerancia oral con 75 g entre las semanas 24 y 28.",
+        "No: la prueba indicada entre las semanas 24 y 28 es la curva de tolerancia oral con 75 g."
+      ]
     },
     {
       "id": "gin-c29",
@@ -951,7 +1125,13 @@ MP_CONTENIDO.agregar({
           "texto": "Calcio: suplencia con calcio 1.200 mg/día a partir de la semana 14 para disminuir el riesgo de preeclampsia."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: 0,4 mg es la dosis general; con un hijo previo con espina bífida es de 4 mg.",
+        "Correcta: alto riesgo de defectos del tubo neural: 4 mg al día.",
+        "No: en alto riesgo la dosis es de 4 mg al día.",
+        "No: el antecedente de un hijo con espina bífida es de alto riesgo: 4 mg al día."
+      ]
     },
     {
       "id": "gin-c31",
@@ -1013,7 +1193,13 @@ MP_CONTENIDO.agregar({
           "texto": "In the absence of intrapartum antibiotic prophylaxis, approximately half the infants born to colonized parturient persons are colonized at surface sites, and invasive disease develops in 1 to 2%."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con cultivo positivo se da profilaxis intraparto aunque esté afebril.",
+        "Correcta: penicilina G IV intraparto; ampicilina como alternativa aceptable.",
+        "No: la profilaxis es intraparto, con penicilina G o ampicilina.",
+        "No: la profilaxis intraparto a la madre previene la enfermedad temprana del recién nacido."
+      ]
     },
     {
       "id": "gin-c33",
@@ -1037,7 +1223,13 @@ MP_CONTENIDO.agregar({
           "texto": "(2) screening 3 times in pregnant individuals (at the first prenatal visit, during the third trimester, and at delivery)"
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: una prueba negativa al inicio no detecta la sífilis adquirida durante el embarazo.",
+        "Correcta: tamizar también en el tercer trimestre y en el parto.",
+        "No: el tamizaje se repite en el tercer trimestre y en el parto, sin esperar síntomas.",
+        "No: el tamizaje recomendado es en el primer control, el tercer trimestre y el parto."
+      ]
     },
     {
       "id": "gin-c34",
@@ -1129,7 +1321,13 @@ MP_CONTENIDO.agregar({
           "texto": "La leucorrea claramente espumosa es un signo característico de Trichomonas vaginalis. El tratamiento de las parejas sexuales es básico para evitar síntomas y prevenir reinfecciones."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la tricomoniasis se trata con metronidazol, no con antimicóticos.",
+        "Correcta: tratar a la pareja sexual es básico para prevenir la reinfección.",
+        "No: lo básico para evitar la reinfección es tratar a la pareja sexual.",
+        "No: lo básico para evitar la reinfección es tratar a la pareja sexual."
+      ]
     },
     {
       "id": "gin-c37",
@@ -1183,7 +1381,13 @@ MP_CONTENIDO.agregar({
           "texto": "Está indicada una HSC con biopsia endometrial en mujeres en tratamiento con tamoxifeno que presenten una metrorragia posmenopáusica, independientemente de los hallazgos de la ecografía vaginal por la baja sensibilidad y especificidad de la misma."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con tamoxifeno la ecografía tiene baja sensibilidad y especificidad; un endometrio fino no la descarta.",
+        "Correcta: con tamoxifeno y metrorragia, histeroscopia con biopsia sin importar la ecografía.",
+        "No: se indica histeroscopia con biopsia sin importar la ecografía.",
+        "No: el sangrado con tamoxifeno exige histeroscopia con biopsia."
+      ]
     },
     {
       "id": "gin-c39",
@@ -1211,7 +1415,13 @@ MP_CONTENIDO.agregar({
           "texto": "Transvaginal ultrasound is an ideal first step for the evaluation of perimenopausal abnormal uterine bleeding."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: primero se estudia; la ecografía transvaginal es el primer paso.",
+        "Correcta: la ecografía transvaginal es el primer paso ideal.",
+        "No: el primer paso ideal es la ecografía transvaginal.",
+        "No: dar hormonas sin estudiar puede pasar por alto lesiones premalignas o malignas."
+      ]
     },
     {
       "id": "gin-c40",
@@ -1239,7 +1449,13 @@ MP_CONTENIDO.agregar({
           "texto": "Obtención de muestra previo al inicio de TAR, para estimación de carga viral"
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: iniciar de inmediato tras dos pruebas reactivas, después de tomar la carga viral.",
+        "No: se inicia en cualquier momento del embarazo, sin esperar al segundo trimestre.",
+        "No: en el embarazo no se esperan los CD4 para iniciar.",
+        "No: se inicia de inmediato tras dos pruebas reactivas."
+      ]
     },
     {
       "id": "gin-c41",
@@ -1271,7 +1487,13 @@ MP_CONTENIDO.agregar({
           "texto": "La dosis recomendada de DRV /r en gestantes es 600/100 mg cada 12 horas"
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: sin el HLA-B*5701 disponible se evita el abacavir.",
+        "No: evita el abacavir sin HLA-B*5701, y el atazanavir con abacavir exige carga viral de hasta 100.000.",
+        "No: en la gestante el darunavir/ritonavir va 600/100 mg cada 12 horas.",
+        "Correcta: dolutegravir más tenofovir/emtricitabina, régimen preferido sin necesitar el HLA-B*5701."
+      ]
     },
     {
       "id": "gin-c42",
@@ -1295,7 +1517,13 @@ MP_CONTENIDO.agregar({
           "texto": "Virus Sincitial Respiratorio Única por cada embarazo Entre semana 28 y 36 Enfermedades respiratorias causadas por el Virus Sincitial Respiratorio desde el nacimiento hasta los 6 meses."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la ventana del VSR es entre las semanas 28 y 36; la semana 20 es la de la Tdap.",
+        "Correcta: una dosis entre las semanas 28 y 36.",
+        "No: se aplica a la madre entre las semanas 28 y 36 para proteger al bebé desde el nacimiento.",
+        "No: se aplica a la madre en el embarazo, entre las semanas 28 y 36."
+      ]
     },
     {
       "id": "gin-c43",
@@ -1323,7 +1551,13 @@ MP_CONTENIDO.agregar({
           "texto": "TdaP (Tétanos, Difteria Tosferina acelular) Única por cada embarazo Desde semana 20"
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la Tdap se aplica en cada embarazo.",
+        "No: la indicada es la Tdap, una dosis por embarazo.",
+        "Correcta: una dosis de Tdap en cada embarazo, desde la semana 20.",
+        "No: se aplica desde la semana 20; no hay razón para esperar a la 36."
+      ]
     },
     {
       "id": "gin-c44",
@@ -1351,7 +1585,13 @@ MP_CONTENIDO.agregar({
           "texto": "Women with an intact uterus require combined progestogen and oestrogen therapy, whereas those without a uterus can use oestrogen alone. MHT might have cardioprotective benefits for women aged <60 years who are within 10 years of menopause, but should not be used for the express purpose of cardiovascul"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: con útero, estrógeno más progestágeno para los bochornos.",
+        "No: con útero se necesita progestágeno, y la terapia hormonal no se indica para proteger el corazón.",
+        "No: la terapia hormonal es lo más eficaz para los bochornos; no se indica para prevenir enfermedad cardiovascular.",
+        "No: tiene útero y bochornos ahora; necesita estrógeno más progestágeno."
+      ]
     },
     {
       "id": "gin-c45",
@@ -1383,7 +1623,13 @@ MP_CONTENIDO.agregar({
           "texto": "TCS Reactive or proactive use of TCS class II or III is recommended."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la prednisolona solo se usa como rescate corto, no a largo plazo.",
+        "No: los corticoides sistémicos no se usan a largo plazo.",
+        "No: los emolientes son la base, y los antisépticos no son de rutina.",
+        "Correcta: emolientes y corticoide tópico de clase II o III."
+      ]
     },
     {
       "id": "gin-c46",
@@ -1407,7 +1653,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se sugiere hospitalizar aquellos pacientes que presenten dengue más cualquiera de lo siguiente: • Dengue con signos de alarma • Dengue grave • Intolerancia a la vía oral • Dificultad respiratoria • Acortamiento de la presión de pulso • Prolongación de llenado capilar (mayor de 2 segundos) • Hipotensión arterial • Insuficiencia renal aguda • Embarazo • Coagulopatía"
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "Correcta: el embarazo es criterio de hospitalización en dengue, aunque no haya signos de alarma.",
+        "No: la gestante con dengue se hospitaliza aunque esté estable.",
+        "No: los líquidos IV se dan si no tolera la vía oral o si aparecen signos de alarma.",
+        "No: lo indicado es hospitalizar y valorar el binomio madre e hijo."
+      ]
     },
     {
       "id": "gin-c47",
