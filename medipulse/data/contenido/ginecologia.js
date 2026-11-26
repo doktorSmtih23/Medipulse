@@ -1342,6 +1342,30 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "gin-c46",
+      "topic": "Infecciones en el embarazo · Dengue en la gestante",
+      "difficulty": "residencia",
+      "src": "ops_dengue20",
+      "vignette": "Gestante de <span class='hy'>28 semanas</span> con dengue en el día 3, sin signos de alarma. Tolera la vía oral, orina bien y está estable. ¿Qué haces?",
+      "options": [
+        "Hospitalizar",
+        "Manejo en casa con control en 48 h",
+        "Iniciar líquidos IV a 10 mL/kg en 1 h",
+        "Terminar el embarazo"
+      ],
+      "correct": 0,
+      "whyCorrect": "El embarazo es criterio de hospitalización en dengue, aunque no haya signos de alarma: la gestante está en el grupo B1, con valoración del binomio madre e hijo. Los líquidos IV se dan si no tolera la vía oral o si aparecen signos de alarma.",
+      "pearl": "Otros criterios de hospitalización: signos de alarma, dengue grave, intolerancia oral, dificultad respiratoria, presión de pulso estrecha, llenado capilar mayor de 2 s, hipotensión, falla renal y coagulopatía.",
+      "trap": "Manejar a la gestante como cualquier dengue sin signos de alarma en casa.",
+      "cita": [
+        {
+          "donde": "OPS, Algoritmos para el manejo clínico de los casos de dengue, 2020, Criterios de hospitalización",
+          "texto": "Se sugiere hospitalizar aquellos pacientes que presenten dengue más cualquiera de lo siguiente: • Dengue con signos de alarma • Dengue grave • Intolerancia a la vía oral • Dificultad respiratoria • Acortamiento de la presión de pulso • Prolongación de llenado capilar (mayor de 2 segundos) • Hipotensión arterial • Insuficiencia renal aguda • Embarazo • Coagulopatía"
+        }
+      ],
+      "verificado": "2026-11-26"
     }
   ],
   "fichas": [

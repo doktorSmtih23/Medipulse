@@ -119,6 +119,9 @@ const SOURCES = [
   {id:"rcna_sobrediag21", t:"Overdiagnosis and Risks of Breast Cancer Screening (Neal CH, Helvie MA)", r:"Radiologic Clinics of North America, 2021;59:19-27", y:2021, k:"article"},
   {id:"iap25", t:"International Association of Pancreatology Revised Guidelines on Acute Pancreatitis 2025 (IAP/APA/EPC/IPC/JPS Working Group)", r:"Pancreatology, 2025", y:2025, k:"guideline"},
   {id:"asge19", t:"ASGE guideline on the role of endoscopy in the evaluation and management of choledocholithiasis (Buxbaum JL et al.)", r:"Gastrointestinal Endoscopy, 2019;89:1075-105", y:2019, k:"guideline"},
+  {id:"ops_dengue20", t:"Algoritmos para el manejo clínico de los casos de dengue (Programa Regional de Enfermedades Arbovirales)", r:"Organización Panamericana de la Salud, junio de 2020", y:2020, k:"guideline"},
+  {id:"peds_dengue22", t:"Dengue: A Growing Problem With New Interventions (Wong JM et al.)", r:"Pediatrics, 2022;149(6):e2021055522", y:2022, k:"article"},
+  {id:"jim_dengue24", t:"Severe dengue in the intensive care unit (Tejo AM et al.)", r:"Journal of Intensive Medicine, 2024;4:16-33", y:2024, k:"article"},
   {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"}
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
