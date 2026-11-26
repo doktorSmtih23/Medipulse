@@ -2329,6 +2329,408 @@ MP_CONTENIDO.agregar({
         "No: las causas más frecuentes son infecciones virales o bacterianas y la contaminación, no siempre una bacteria.",
         "No: la definición se basa en el empeoramiento de disnea, tos y esputo; no exige fiebre."
       ]
+    },
+    {
+      "id": "mi-c65",
+      "topic": "Urgencias · Atragantamiento en el adulto (AHA 2025)",
+      "difficulty": "basica",
+      "src": "aha_rcp",
+      "vignette": "En un restaurante, un hombre de 55 años se lleva las manos al cuello: <span class='hy'>no puede hablar, no tose y está cianótico</span>. Está consciente. ¿Qué haces según la AHA 2025?",
+      "options": [
+        "5 golpes en la espalda y luego 5 compresiones abdominales, en ciclos",
+        "Compresiones abdominales (Heimlich) solas hasta que expulse el objeto",
+        "Barrido a ciegas con el dedo en la boca para sacar el objeto",
+        "Animarlo a toser y esperar a que llegue la ambulancia"
+      ],
+      "correct": 0,
+      "whyCorrect": "Es una obstrucción grave de la vía aérea por cuerpo extraño. La AHA 2025 indica ciclos repetidos de 5 golpes en la espalda seguidos de 5 compresiones abdominales hasta que salga el objeto o la persona pierda la conciencia. El nuevo algoritmo empieza con los golpes en la espalda.",
+      "pearl": "AHA 2025: en la obstrucción grave del adulto ya no se empieza con Heimlich, sino con 5 golpes en la espalda.",
+      "trap": "Empezar con las compresiones abdominales, como en las guías anteriores.",
+      "cita": [
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult BLS · Foreign-Body Airway Obstruction",
+          "texto": "2025 (Updated): For adults with severe FBAO, repeated cycles of 5 back blows (slaps) followed by 5 abdominal thrusts should be performed until the object is expelled or the person becomes unresponsive."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult BLS · Foreign-Body Airway Obstruction",
+          "texto": "A new algorithm for the management of adult FBAO (Figure 6) was added to show the approach of using back blows as the initial maneuver, followed by abdominal thrusts."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "Correcta: ciclos de 5 golpes en la espalda seguidos de 5 compresiones abdominales.",
+        "No: la AHA 2025 empieza con los golpes en la espalda y alterna con las compresiones abdominales.",
+        "No: la maniobra indicada son ciclos de golpes en la espalda y compresiones abdominales.",
+        "No: no puede toser ni hablar; es una obstrucción grave y hay que actuar de inmediato."
+      ]
+    },
+    {
+      "id": "mi-c66",
+      "topic": "Urgencias · Atragantamiento: pierde la conciencia",
+      "difficulty": "residencia",
+      "src": "aha_rcp",
+      "vignette": "Estabas dando golpes en la espalda y compresiones abdominales a una mujer atragantada cuando <span class='hy'>pierde la conciencia</span> y cae al suelo. No respira con normalidad. ¿Qué haces?",
+      "options": [
+        "Seguir con las compresiones abdominales, ahora con ella en el suelo",
+        "Dar 2 ventilaciones de rescate antes de cualquier otra maniobra",
+        "RCP desde las compresiones; mirar la boca antes de ventilar",
+        "Barrido a ciegas con el dedo y luego pulso carotídeo por 30 segundos"
+      ],
+      "correct": 2,
+      "whyCorrect": "Si la persona pierde la conciencia, se inicia la RCP siguiendo el algoritmo de soporte vital básico del adulto: se empieza con las compresiones y se revisa si hay un objeto visible en la boca antes de dar las ventilaciones.",
+      "pearl": "En el algoritmo de obstrucción de la AHA 2025: se mira la boca en busca de un objeto visible antes de dar las ventilaciones.",
+      "trap": "Seguir con Heimlich en el suelo o hacer barridos a ciegas.",
+      "cita": [
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult FBAO Algorithm (Figura 6)",
+          "texto": "Start CPR until advanced care arrives; refer to adult BLS algorithm. • Start with compressions. • Check for visible object in mouth before giving breaths."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult BLS · Foreign-Body Airway Obstruction",
+          "texto": "2025 (Updated): For adults with severe FBAO, repeated cycles of 5 back blows (slaps) followed by 5 abdominal thrusts should be performed until the object is expelled or the person becomes unresponsive."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: los ciclos de golpes y compresiones abdominales son hasta que pierde la conciencia; luego se inicia la RCP.",
+        "No: la RCP empieza con las compresiones.",
+        "Correcta: RCP empezando por las compresiones y revisando la boca en busca de un objeto visible antes de ventilar.",
+        "No: el algoritmo indica revisar si hay un objeto visible en la boca antes de ventilar, y la RCP empieza con las compresiones."
+      ]
+    },
+    {
+      "id": "mi-c67",
+      "topic": "Reanimación · Adrenalina en ritmo no desfibrilable",
+      "difficulty": "residencia",
+      "src": "aha_rcp",
+      "vignette": "Hombre de 70 años en paro cardiaco intrahospitalario. El monitor muestra <span class='hy'>asistolia</span>. Ya se inició RCP de alta calidad y hay acceso venoso. ¿Cuándo das la adrenalina?",
+      "options": [
+        "Después de 3 ciclos de RCP sin cambios en el ritmo",
+        "Solo si no responde a una primera descarga del desfibrilador",
+        "Después de intubar al paciente para asegurar la vía aérea",
+        "Tan pronto como sea posible"
+      ],
+      "correct": 3,
+      "whyCorrect": "En los adultos en paro con ritmo no desfibrilable (asistolia o actividad eléctrica sin pulso) es razonable administrar la adrenalina tan pronto como sea posible. La adrenalina se asocia con más retorno de la circulación espontánea en todos los ritmos, con mayor beneficio en los no desfibrilables.",
+      "pearl": "Ritmo no desfibrilable: adrenalina cuanto antes. Ritmo desfibrilable: después de que fallen las primeras descargas.",
+      "trap": "Esperar ciclos de RCP o la intubación para dar la adrenalina en asistolia.",
+      "cita": [
+        {
+          "donde": "Part 9: Adult Advanced Life Support, 2025 AHA Guidelines for CPR and ECC, Vasopressor Medications",
+          "texto": "With respect to timing, for adult patients in cardiac arrest with a nonshockable rhythm, it is reasonable to administer epinephrine as soon as feasible."
+        },
+        {
+          "donde": "Part 9: Adult Advanced Life Support, 2025 AHA Guidelines for CPR and ECC, Vasopressor Medications",
+          "texto": "Systematic reviews and meta-analyses of RCTs and cohort studies have found that epinephrine is associated with improved ROSC in all rhythms, but the benefit in shockable rhythms is less than in nonshockable rhythms."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: en ritmo no desfibrilable la adrenalina va tan pronto como sea posible, sin esperar ciclos.",
+        "No: en ritmo no desfibrilable la adrenalina va tan pronto como sea posible, sin esperar otra intervención.",
+        "No: no se espera a la vía aérea avanzada para dar la adrenalina.",
+        "Correcta: en ritmo no desfibrilable, adrenalina tan pronto como sea posible."
+      ]
+    },
+    {
+      "id": "mi-c68",
+      "topic": "Reanimación · Adrenalina en fibrilación ventricular",
+      "difficulty": "dificil",
+      "src": "aha_rcp",
+      "vignette": "Mujer de 58 años en paro presenciado; el desfibrilador muestra <span class='hy'>fibrilación ventricular</span>. ¿Cuándo corresponde la primera dosis de adrenalina?",
+      "options": [
+        "Después de que fallen los primeros intentos de desfibrilación",
+        "Antes de la primera descarga, para que el corazón responda mejor",
+        "Al mismo tiempo que la primera descarga, sin pausar la RCP",
+        "Nunca: en la FV solo se usan antiarrítmicos y descargas"
+      ],
+      "correct": 0,
+      "whyCorrect": "En los adultos en paro con ritmo desfibrilable es razonable administrar la adrenalina después de que hayan fallado los primeros intentos de desfibrilación. Si la FV no responde a la desfibrilación, se puede considerar amiodarona o lidocaína.",
+      "pearl": "FV o TV sin pulso refractaria a las descargas: amiodarona o lidocaína.",
+      "trap": "Dar adrenalina antes de la primera descarga en un ritmo desfibrilable.",
+      "cita": [
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult ALS · Vasopressor Medications",
+          "texto": "2025 (Updated): In consideration of timing, for adult patients in cardiac arrest with a shockable rhythm, it is rea- sonable to administer epinephrine after initial defibrillation attempts have failed."
+        },
+        {
+          "donde": "Part 9: Adult Advanced Life Support, 2025 AHA Guidelines for CPR and ECC, Antiarrhythmic Drugs",
+          "texto": "For adults in cardiac arrest amiodarone or lido- caine may be considered for ventricular fibrillation (VF) or pulseless ventricular tachycardia (pVT) that is unresponsive to defibrillation."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "Correcta: en ritmo desfibrilable, adrenalina después de que fallen los primeros intentos de desfibrilación.",
+        "No: en la FV lo primero es desfibrilar; la adrenalina va después de que fallen las primeras descargas.",
+        "No: la adrenalina se da después de que fallen las primeras descargas, no con la primera.",
+        "No: la adrenalina sí se usa en los ritmos desfibrilables, después de las primeras descargas."
+      ]
+    },
+    {
+      "id": "mi-c69",
+      "topic": "Reanimación · Acceso vascular en el paro",
+      "difficulty": "basica",
+      "src": "aha_rcp",
+      "vignette": "Adulto en paro cardiaco en urgencias; necesitas administrar medicamentos. ¿Qué acceso intentas primero?",
+      "options": [
+        "Intraóseo de entrada, porque es más rápido",
+        "Endotraqueal, por el tubo, si ya está intubado",
+        "Venoso periférico; intraóseo si no se logra",
+        "Venoso central antes de cualquier medicamento"
+      ],
+      "correct": 2,
+      "whyCorrect": "La AHA 2025 recomienda que los profesionales intenten primero un acceso venoso para administrar medicamentos en el adulto en paro. El acceso intraóseo es razonable si los intentos de acceso venoso no tienen éxito o no son factibles.",
+      "pearl": "Paro del adulto: primero vena; si no se logra, intraóseo.",
+      "trap": "Empezar por el intraóseo o esperar un catéter central para dar los medicamentos.",
+      "cita": [
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult ALS · Initial Vascular Access",
+          "texto": "2025 (Updated): It is recommended that health care professionals first attempt establishing IV access for drug admin- istration in adult patients in cardiac arrest."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult ALS · Initial Vascular Access",
+          "texto": "2025 (Updated): Intraosseous (IO) access is reasonable if initial attempts at IV access are unsuccessful or not feasible for adult patients in cardiac arrest."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: en el adulto se intenta primero el acceso venoso; el intraóseo es para cuando este falla.",
+        "No: la recomendación es intentar primero el acceso venoso.",
+        "Correcta: primero acceso venoso; intraóseo si no se logra o no es factible.",
+        "No: la recomendación es intentar primero un acceso venoso, no esperar un catéter central."
+      ]
+    },
+    {
+      "id": "mi-c70",
+      "topic": "Reanimación · RCP en el adulto con obesidad",
+      "difficulty": "residencia",
+      "src": "aha_rcp",
+      "vignette": "Mujer de 45 años con <span class='hy'>obesidad grave</span> en paro cardiaco; aún no tiene vía aérea avanzada. Un compañero propone cambiar la técnica por su peso. ¿Qué indicas?",
+      "options": [
+        "Compresiones más lentas y menos profundas para no fracturar costillas",
+        "Solo compresiones, sin ventilaciones, por la obesidad",
+        "Ventilar 15:2 para compensar la menor distensibilidad",
+        "La misma técnica: ciclos de 30 compresiones y 2 ventilaciones"
+      ],
+      "correct": 3,
+      "whyCorrect": "La RCP del adulto con obesidad se hace con las mismas técnicas que en el paciente sin obesidad. Antes de colocar una vía aérea avanzada es razonable hacer ciclos de 30 compresiones seguidas de 2 ventilaciones, con el volumen suficiente para que el tórax se eleve.",
+      "pearl": "Ventilación en el paro: el volumen que eleve visiblemente el tórax; evita tanto la hipo como la hiperventilación.",
+      "trap": "Cambiar la técnica de RCP por la obesidad.",
+      "cita": [
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult BLS · CPR for Adults With Obesity",
+          "texto": "2025 (New): CPR for adults with obesity who are in cardiac arrest should be provided using the same techniques as for patients without obesity."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult BLS · Compression-to-Ventilation Ratio",
+          "texto": "2025 (Updated): It is reasonable for lay rescuers and health care professionals to perform CPR with cycles of 30 com- pressions followed by 2 breaths before placement of an advanced airway (eg, supraglottic airway or endotracheal tube)."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult BLS · Ventilation",
+          "texto": "2025 (Updated): When ventilating an adult patient in cardiac arrest, it is reasonable to give enough tidal volume to produce visible chest rise."
+        },
+        {
+          "donde": "Highlights of the 2025 AHA Guidelines for CPR and ECC, Adult BLS · Ventilation",
+          "texto": "2025 (Updated): When providing breaths to adult patients in cardiac arrest, rescuers should avoid hypoventilation (too few breaths or too little volume) or hyperventilation (too many breaths or too large a volume)."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: la técnica es la misma que en el paciente sin obesidad.",
+        "No: los profesionales hacen ciclos de 30 compresiones y 2 ventilaciones antes de la vía aérea avanzada.",
+        "No: la relación es 30:2, igual que en cualquier adulto.",
+        "Correcta: misma técnica que sin obesidad, con ciclos de 30:2 antes de la vía aérea avanzada."
+      ]
+    },
+    {
+      "id": "mi-c71",
+      "topic": "Prescripción de ejercicio · Adulto sedentario asintomático",
+      "difficulty": "basica",
+      "src": "acc_ejercicio26",
+      "vignette": "Hombre de 45 años, sedentario, sin síntomas ni enfermedad cardiovascular, con examen físico normal. Quiere empezar a hacer ejercicio y pregunta si antes necesita una prueba de esfuerzo. ¿Qué le dices?",
+      "options": [
+        "No la necesita: 150 min/semana moderados o 75 vigorosos",
+        "Sí: prueba de esfuerzo antes de cualquier ejercicio moderado",
+        "Sí: ecocardiograma y prueba de esfuerzo por ser sedentario",
+        "No la necesita, pero solo puede caminar 20 minutos al día"
+      ],
+      "correct": 0,
+      "whyCorrect": "La prueba de esfuerzo de rutina no es necesaria antes de prescribir ejercicio en la mayoría de las personas asintomáticas o clínicamente estables, y las pruebas innecesarias pueden ser una barrera para empezar. Los adultos deben acumular al menos 150 minutos por semana de actividad aeróbica moderada o 75 de vigorosa.",
+      "pearl": "Componentes de la prescripción de ejercicio (principio FITT): frecuencia, intensidad, tiempo, tipo y progresión.",
+      "trap": "Exigir una prueba de esfuerzo a toda persona sana antes de empezar.",
+      "cita": [
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Exercise testing before physical activity recommendations",
+          "texto": "Routine exercise testing is not required before exercise prescription for most asymptomatic or clinically stable individuals, and unnecessary testing may create barriers to exercise initiation."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Key points",
+          "texto": "Adults should accumulate at least 150 min/wk of moderate-intensity aerobic physical activity or 75 min/wk of vigorous-intensity aerobic physical activity, recognizing that additional benefits generally occur with greater exercise volumes."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Key points",
+          "texto": "The major components of exercise prescription include frequency, intensity, time (duration), type (mode), and progression (FITT principle)."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "Correcta: sin prueba de rutina; al menos 150 min/semana moderados o 75 vigorosos.",
+        "No: la prueba de rutina no es necesaria en la mayoría de los asintomáticos y puede ser una barrera.",
+        "No: no se piden estudios de rutina en un adulto asintomático para empezar a hacer ejercicio.",
+        "No: la meta es al menos 150 minutos por semana de actividad moderada, y hay más beneficio con más volumen."
+      ]
+    },
+    {
+      "id": "mi-c72",
+      "topic": "Prescripción de ejercicio · Claudicación intermitente",
+      "difficulty": "residencia",
+      "src": "acc_ejercicio26",
+      "vignette": "Hombre de 66 años con <span class='hy'>enfermedad arterial periférica y claudicación intermitente</span> a los 200 metros. ¿Qué ejercicio le prescribes?",
+      "options": [
+        "Reposo relativo, porque caminar empeora la isquemia del músculo",
+        "Caminar solo hasta antes de sentir cualquier molestia",
+        "Supervisado: caminar hasta claudicación moderada y descansar",
+        "Natación exclusivamente, para no cargar las piernas"
+      ],
+      "correct": 2,
+      "whyCorrect": "En la enfermedad arterial periférica sintomática con claudicación, el ejercicio supervisado o estructurado es el tratamiento de primera línea para mejorar la marcha, los síntomas, la función y la calidad de vida. Se camina en series hasta una molestia moderada o casi máxima, se descansa y se repite, progresando según la tolerancia.",
+      "pearl": "Si no hay ejercicio supervisado o no puede caminar: programas comunitarios o alternativas como bicicleta, ergómetro de brazos o step.",
+      "trap": "Indicar reposo o detener la caminata antes de que aparezca la claudicación.",
+      "cita": [
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Peripheral artery disease",
+          "texto": "Patients with symptomatic PAD and intermittent claudication should be referred to supervised or structured exercise therapy as first-line treatment to improve walking performance, symptoms, functional status, and quality of life."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Peripheral artery disease",
+          "texto": "Walking exercise should be performed in repeated bouts to moderate or near-maximal claudication discomfort followed by rest, with gradual progression as tolerated."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Peripheral artery disease",
+          "texto": "When supervised exercise is unavailable or walking is not feasible, community-based or individualized exercise programs and alternative modalities such as cycling, arm ergometry, or step exercise should be considered."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: el ejercicio supervisado es el tratamiento de primera línea de la claudicación.",
+        "No: se camina hasta una molestia moderada o casi máxima, no hasta antes de que aparezca.",
+        "Correcta: ejercicio supervisado, caminando en series hasta claudicación moderada o casi máxima, con descanso.",
+        "No: la primera línea es la caminata; las alternativas se usan si caminar no es factible."
+      ]
+    },
+    {
+      "id": "mi-c73",
+      "topic": "Prescripción de ejercicio · Presión arterial antes de entrenar",
+      "difficulty": "residencia",
+      "src": "acc_ejercicio26",
+      "vignette": "Hombre de 60 años con hipertensión que va a su sesión de ejercicio. En reposo, antes de empezar, tiene <span class='hy'>PA 206/104 mmHg</span>, sin síntomas. ¿Qué haces?",
+      "options": [
+        "Entrenar con pesas pesadas y maniobra de Valsalva",
+        "Entrenar a menor intensidad y vigilar los síntomas",
+        "Entrenar normal: el ejercicio baja la presión arterial",
+        "No entrenar hoy: la sistólica pasa de 200"
+      ],
+      "correct": 3,
+      "whyCorrect": "El ejercicio no debe hacerse si la presión sistólica en reposo supera 200 mmHg o la diastólica supera 110 mmHg. En la hipertensión, el ejercicio aeróbico y de fuerza acompaña al tratamiento farmacológico, y se evita contener la respiración o la maniobra de Valsalva.",
+      "pearl": "Ejercicio con hipertensión: no entrenar con PA en reposo > 200/110 mmHg; evitar la maniobra de Valsalva al levantar peso.",
+      "trap": "Entrenar suave porque está asintomático.",
+      "cita": [
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Hypertension",
+          "texto": "Exercise should not be performed if resting systolic BP exceeds 200 mm Hg or diastolic BP exceeds 110 mm Hg."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Hypertension",
+          "texto": "Individuals with hypertension benefit from regular exercise, and standard physical activity recommendations including aerobic and resistance exercise should accompany drug therapy for hypertension."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Hypertension",
+          "texto": "Breath holding or a Valsalva maneuver can cause marked changes in BP and should be avoided"
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: con sistólica en reposo mayor de 200 no se entrena, y la maniobra de Valsalva se evita.",
+        "No: con sistólica en reposo mayor de 200 mmHg no se hace ejercicio, ni a menor intensidad.",
+        "No: el ejercicio regular ayuda, pero con sistólica en reposo mayor de 200 no se entrena.",
+        "Correcta: con PA en reposo mayor de 200 de sistólica no se hace ejercicio."
+      ]
+    },
+    {
+      "id": "mi-c74",
+      "topic": "Prescripción de ejercicio · Adulto mayor frágil",
+      "difficulty": "residencia",
+      "src": "acc_ejercicio26",
+      "vignette": "Mujer de 82 años, <span class='hy'>frágil</span>: camina lento, se cansa rápido y tuvo una caída este año. Su hija pregunta qué ejercicio debe hacer. ¿Por dónde empiezas?",
+      "options": [
+        "Fuerza, equilibrio, movilidad y flexibilidad primero",
+        "Caminata rápida de 30 minutos diarios desde la primera semana",
+        "Ningún ejercicio, porque la fragilidad aumenta el riesgo de caídas",
+        "Prueba de esfuerzo máxima antes de indicar cualquier actividad"
+      ],
+      "correct": 0,
+      "whyCorrect": "En la persona frágil, el ejercicio se enfoca primero en la fuerza, el equilibrio, la movilidad y la flexibilidad, antes de progresar al ejercicio de resistencia aeróbica habitual. Al adulto mayor sin fragilidad se le indica ejercicio aeróbico moderado de 30 minutos o más la mayoría de los días.",
+      "pearl": "Pruebas útiles en el adulto mayor: caminata de 6 minutos, Timed Up and Go, marcha de 4 metros y levantarse de la silla.",
+      "trap": "Indicarle a una adulta frágil la misma caminata que a un adulto mayor sin fragilidad.",
+      "cita": [
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Older adults (≥65 years)",
+          "texto": "In individuals with frailty, exercise training should focus on increasing strength, balance, mobility, and flexibility before progressing to standard endurance exercise"
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Older adults (≥65 years)",
+          "texto": "For older adults without frailty, aim for moderate aerobic exercise for ≥30 min on most days of the week."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Older adults (≥65 years)",
+          "texto": "6-minute walk test, Timed Up and Go, and 4-Meter Walk and Sit to Stand tests may be used in older adults to assess endurance"
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "Correcta: en la fragilidad, primero fuerza, equilibrio, movilidad y flexibilidad.",
+        "No: los 30 minutos de aeróbico moderado son para el adulto mayor sin fragilidad.",
+        "No: la fragilidad no contraindica el ejercicio; cambia el enfoque hacia fuerza y equilibrio.",
+        "No: la prueba de esfuerzo máxima no es necesaria para empezar en la mayoría de las personas."
+      ]
+    },
+    {
+      "id": "mi-c75",
+      "topic": "Prescripción de ejercicio · Angina estable",
+      "difficulty": "residencia",
+      "src": "acc_ejercicio26",
+      "vignette": "Hombre de 62 años con <span class='hy'>angina estable</span> que aparece al subir dos pisos; en tratamiento médico óptimo. ¿Qué ejercicio le recomiendas?",
+      "options": [
+        "Evitar el ejercicio regular para no provocar la angina",
+        "Entrenar a la intensidad que provoca el dolor, para adaptarse",
+        "Ejercicio bajo el umbral de angina y rehabilitación cardiaca",
+        "Solo ejercicio de fuerza máxima, porque el aeróbico produce angina"
+      ],
+      "correct": 2,
+      "whyCorrect": "Los pacientes con angina estable deben hacer ejercicio con regularidad a una intensidad por debajo del umbral que les produce dolor torácico. A los pacientes con enfermedad cardiovascular que cumplen los criterios se les debe animar con fuerza a entrar a un programa de rehabilitación cardiaca.",
+      "pearl": "Si no puede ir a rehabilitación cardiaca formal: progresar hacia 150 minutos por semana de actividad moderada.",
+      "trap": "Prohibir el ejercicio o entrenar hasta provocar la angina.",
+      "cita": [
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Key points · Chronic CVD",
+          "texto": "Patients with stable angina should exercise regularly at an intensity below the threshold that provokes chest discomfort."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Key points · Chronic CVD",
+          "texto": "Patients with CVD who are eligible should be strongly encouraged to participate in a CR program."
+        },
+        {
+          "donde": "Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement, JACC 2026, Key points · Chronic CVD",
+          "texto": "Patients unable to participate in formal CR should be counseled to progress toward at least 150 min/wk of moderate-intensity physical activity."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: deben hacer ejercicio regular, por debajo del umbral de angina.",
+        "No: la intensidad debe estar por debajo del umbral que provoca el dolor torácico.",
+        "Correcta: ejercicio regular por debajo del umbral de angina y rehabilitación cardiaca si cumple los criterios.",
+        "No: la recomendación es ejercicio regular por debajo del umbral de angina."
+      ]
     }
   ],
   "fichas": [
