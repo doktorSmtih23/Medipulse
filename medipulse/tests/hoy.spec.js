@@ -141,15 +141,16 @@ test.describe("usuario nuevo de verdad (sin modo de prueba)", () => {
   });
 });
 
-test("residente o especialista: la bienvenida lo nombra y lo lleva a sus guías; Hoy le propone subir su primera guía", async ({ page }) => {
+test("residente o especialista: la bienvenida lo nombra y lo lleva a revisar un artículo; Hoy se lo propone", async ({ page }) => {
   await page.evaluate(() => { localStorage.removeItem("medipulse_prueba"); localStorage.removeItem("medipulse_bienvenida"); localStorage.removeItem("medipulse_perfil"); });
   await page.reload();
   await expect(page.locator("#bienvenida")).toContainText("residentes y especialistas que quieren estar al día");
   await page.click("#bienvSig"); await page.click("#bienvSig");
+  await expect(page.locator("#bienvenida")).not.toContainText("cambia de versión");
   await page.click("#bienvRes");
-  await expect(page.locator("#v-lib")).toBeVisible();
+  await expect(page.locator("#v-mbe")).toBeVisible();
   await page.click("nav [data-go=hoy]");
-  await expect(page.locator("#suggestCard")).toContainText("Sube tu primera guía");
+  await expect(page.locator("#suggestCard")).toContainText("Revisa un artículo");
   await page.click("#doGuia");
-  await expect(page.locator("#v-lib")).toBeVisible();
+  await expect(page.locator("#v-mbe")).toBeVisible();
 });
