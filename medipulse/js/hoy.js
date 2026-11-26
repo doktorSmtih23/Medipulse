@@ -15,6 +15,9 @@ function renderHoy(){
   // El siguiente paso: un botón grande («Seguir») y debajo por qué se eligió. s = {id, t: lo que hace, sub, por, mas}.
   let s;
   if (due>0) s = {id: "doDue", ico: "🔁", t: "Repasar ahora", sub: `${due} repaso${due>1?"s":""} pendiente${due>1?"s":""}`, por: "Es lo que más rinde: estás a punto de olvidarlo."};
+  // Residente o especialista (lo eligió en la bienvenida) sin guías todavía: lo primero es traer su material.
+  else if (perfilUso() === "residente" && !(S.sources || []).length && !diagHecho())
+    s = {id: "doGuia", ico: "📚", t: "Sube tu primera guía", sub: "Un PDF de una guía o un artículo", por: "Te armo fichas y casos desde tu material y te aviso cuando una guía cambie de versión. El diagnóstico sigue disponible si quieres medirte."};
   else if (!diagHecho()) { const p = diagProgreso();
     s = p.hechos ? {id: "doDiag", ico: "🎯", t: "Seguir el diagnóstico", sub: `Vas en ${p.hechos} de ${p.total} casos`, por: "Termínalo y te armo un plan con tus puntos débiles; mientras tanto, lo personalizado espera."}
       : {id: "doDiag", ico: "🎯", t: "Empezar el diagnóstico", sub: `${p.total} casos en bloques de ${DIAG_BLOQUE}`, por: `<b>Primero, tu diagnóstico.</b> Antes de recomendarte qué estudiar necesito conocerte: los casos (unos 12 minutos cada bloque), un cuestionario de cómo estudias y un caso de juicio clínico. Puedes hacerlo por partes.`}; }
@@ -40,6 +43,7 @@ function renderHoy(){
     <p class="sig-por small">${s.por}</p>${s.mas ? `<div class="row" style="margin-top:8px">${s.mas}</div>` : ""}${resto}`;
   $("#doDue") && ($("#doDue").onclick = startDue);
   $("#doDiag") && ($("#doDiag").onclick = () => go("diag"));
+  $("#doGuia") && ($("#doGuia").onclick = () => go("lib"));
   $("#doDiagResto") && ($("#doDiagResto").onclick = diagIrAlInicio);
   $("#doFoco") && ($("#doFoco").onclick = () => { const f = diagFocoHoy(); startSession({label: "Foco del día", tag: "norm", stages: [{name: `${QMETODO[f.tipo].t} · ${f.area}`, items: f.qs.map(q => ({t: "q", id: q.id}))}]}); });
   $("#doNew") && ($("#doNew").onclick = ()=>startSession({label:"Mis PDF",tag:"norm",stages:[{name:"Nuevo de tus fuentes",items:newUserItems().slice(0,15)}]}));
@@ -320,12 +324,16 @@ function perlaHTML(texto){
 }
 
 // ---------- Bienvenida (solo la primera vez, en este dispositivo) ----------
+// Para qué usa la app: "examen" (aspirante) o "residente" (residente o especialista). Solo cambia el paso sugerido.
+function perfilUso(v){
+  try { if (v) localStorage.setItem("medipulse_perfil", v); return localStorage.getItem("medipulse_perfil") || ""; } catch(e) { return ""; }
+}
 // Tres pantallas: qué es, cómo se usa y por dónde empezar. Se guarda en localStorage que ya se vio.
 const BIENV = [
-  {ico: "🩺", t: "Bienvenido a MediPulse", d: "Te prepara para el examen de residencia: casos tipo examen, repaso de lo que fallas y estudio desde tus propias guías."},
+  {ico: "🩺", t: "Bienvenido a MediPulse", d: "Para quien prepara el examen de residencia y para residentes y especialistas que quieren estar al día: casos tipo examen, repaso de lo que fallas, estudio desde tus propias guías y aviso cuando una guía cambia de versión."},
   {ico: "🧭", t: "Así se usa", lista: [["🏠", "Hoy", "te dice qué hacer cada día"], ["🩺", "Casos", "practica y descubre dónde fallas"], ["💎", "Fichas", "datos clave para repasar"], ["📚", "Fuentes", "tus PDF y guías"]],
     d: "Todo se guarda en tu celular."},
-  {ico: "🎯", t: "Empieza por tu diagnóstico", d: "60 casos en bloques de 10, unos 12 minutos cada uno. Puedes hacerlo por partes. Con eso te digo qué estudiar primero."}
+  {ico: "🎯", t: "¿Por dónde empiezas?", d: "Si preparas el examen, empieza por tu diagnóstico: 60 casos en bloques de 10, unos 12 minutos cada uno, por partes. Si ya eres residente o especialista, empieza por tus guías."}
 ];
 function bienvenida(paso = 0){
   try { if (localStorage.getItem("medipulse_bienvenida")) return; } catch(e) { return; }
@@ -339,11 +347,14 @@ function bienvenida(paso = 0){
     ${b.lista ? `<div class="bienv-lista">${b.lista.map(([i, t, x]) => `<div><span>${i}</span><p><b>${t}</b> · ${x}</p></div>`).join("")}</div>` : ""}
     <p class="muted">${b.d}</p>
     <div class="bienv-dots">${BIENV.map((_, i) => `<i class="${i === paso ? "on" : ""}"></i>`).join("")}</div>
-    ${ult ? `<button class="btn primary block" id="bienvDiag">🎯 Empezar el diagnóstico</button><button class="btn ghost block" id="bienvFin">Explorar primero</button>`
+    ${ult ? `<button class="btn primary block" id="bienvDiag">🎯 Preparo el examen: empezar el diagnóstico</button>
+      <button class="btn block" id="bienvRes">📚 Soy residente o especialista: ir a mis guías</button>
+      <button class="linkbtn" id="bienvFin">Explorar primero</button>`
       : `<button class="btn primary block" id="bienvSig">Siguiente</button>`}</div>`;
   const cerrar = () => { try { localStorage.setItem("medipulse_bienvenida", "1"); } catch(e) {} d.remove(); };
   $("#bienvSaltar").onclick = cerrar;
   $("#bienvSig") && ($("#bienvSig").onclick = () => bienvenida(paso + 1));
   $("#bienvFin") && ($("#bienvFin").onclick = cerrar);
-  $("#bienvDiag") && ($("#bienvDiag").onclick = () => { cerrar(); go("diag"); });
+  $("#bienvDiag") && ($("#bienvDiag").onclick = () => { perfilUso("examen"); cerrar(); go("diag"); });
+  $("#bienvRes") && ($("#bienvRes").onclick = () => { perfilUso("residente"); cerrar(); go("lib"); });
 }
