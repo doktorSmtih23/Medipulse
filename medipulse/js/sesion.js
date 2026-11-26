@@ -45,7 +45,7 @@ function renderItem(){
 
 function renderQ(q, exam){
   const k = sess.si+":"+sess.i, sel = sess.answers[k];
-  sess.struck = sess.struck || {}; sess.flags = sess.flags || {};
+  sess.struck = sess.struck || {}; sess.flags = sess.flags || {}; sess.conf = sess.conf || {};
   const struck = sess.struck[k] || (sess.struck[k] = []), flagged = !!sess.flags[k], hints = !exam && S.hints;
   const items = stage().items;
   $("#sessBody").innerHTML = `
@@ -55,7 +55,7 @@ function renderQ(q, exam){
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
       ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCDE"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
-      ${exam ? "" : metodoPregunta(q)}
+      ${exam ? `<div id="confRow">${confRowHTML(k)}</div>` : metodoPregunta(q)}
       <div id="fbBox"></div>
       ${exam || sess.prueba ? "" : `<div class="row" id="skipRow" style="margin-top:10px"><div class="spacer"></div><button class="btn ghost sm" id="skipBtn">Pasar esta pregunta →</button></div>`}
     </div>
@@ -71,6 +71,7 @@ function renderQ(q, exam){
   // Pasar sin responder: no cuenta como fallo ni como acierto, y la pregunta sigue nueva o donde estaba en el repaso.
   $("#skipBtn") && ($("#skipBtn").onclick = ()=>{ addTime(); sess.skipped = (sess.skipped||0) + 1; sess.i++; renderItem(); });
   $("#flagBtn") && ($("#flagBtn").onclick = ()=>{ sess.flags[k] = !sess.flags[k]; renderQ(q, exam); });
+  if (exam) bindConfRow(k);
   if (exam) {
     $("#nextBtn").onclick = ()=>{
       if (sess.i+1 >= items.length) {
@@ -84,7 +85,10 @@ function renderQ(q, exam){
 }
 function answerQ(q, o, exam){
   if (sess.state!=="ask") return;
-  if (exam){ sess.answers[sess.si+":"+sess.i]=o; document.querySelectorAll("#opts .opt").forEach((b,i)=>b.classList.toggle("sel",i===o));
+  if (exam){ const k = sess.si+":"+sess.i;
+    if (sess.answers[k] !== o) delete sess.conf[k];   // si cambias de opción, vuelves a marcar cómo la respondiste
+    sess.answers[k]=o; document.querySelectorAll("#opts .opt").forEach((b,i)=>b.classList.toggle("sel",i===o));
+    $("#confRow").innerHTML = confRowHTML(k); bindConfRow(k);
     const m = document.querySelector('.simmap [data-j="'+sess.i+'"]'); m && m.classList.add("ans"); return; }
   sess.state="fb";
   const ok = o===q.correct, prueba = !!sess.prueba;
@@ -116,6 +120,20 @@ function answerQ(q, o, exam){
     $("#archBtn").replaceWith(Object.assign(document.createElement("span"), {className: "xs muted", textContent: "🗄️ Archivado: no volverá a salir. Lo restauras en Casos, al final de la lista."})); };
   $("#nextBtn").onclick=()=>{ if (prueba) return terminarPrueba(); sess.i++; renderItem(); };
   $("#nextBtn").focus({preventScroll:true});
+}
+
+// Auditoría a ciegas mientras respondes (modo examen): al elegir una opción, marcas cómo la respondiste.
+// No se ve si acertaste; así no hay que repasar todo al final.
+function confRowHTML(k){
+  if (sess.answers[k] == null) return "";
+  const c = sess.conf[k];
+  return `<div class="confrow"><p class="xs" style="margin:10px 0 6px"><b>¿Cómo la respondiste?</b> <span class="muted">No te dice si acertaste.</span></p>
+    <div class="chips">${CONFIANZA.map(x=>`<button class="chip2${c===x.k?" on":""}" data-conf="${x.k}" title="${esc(x.d)}">${x.t}</button>`).join("")}</div></div>`;
+}
+function bindConfRow(k){
+  document.querySelectorAll("#confRow [data-conf]").forEach(b=>b.onclick=()=>{
+    sess.conf[k] = sess.conf[k] === b.dataset.conf ? undefined : b.dataset.conf;
+    $("#confRow").innerHTML = confRowHTML(k); bindConfRow(k); });
 }
 
 // Análisis de cada opción (preguntas importadas de otra IA o de otro banco): la que elegiste, abierta.
@@ -192,21 +210,24 @@ function finishExam(timeUp){
   if (sess.diagBloque != null) diagRegistrarBloque(sess.diagBloque, rs);
   sess.exRes = {rs, ok, timeUp};
   $("#sessBar").style.width="100%";
-  const n = rs.filter(r=>r.a!=null).length;
-  if (!n) return examResults();
-  // Antes de ver la nota: auditoría a ciegas (si ves primero que acertaste, tiendes a decir «estaba seguro»).
+  // Lo que marcaste mientras respondías (auditoría a ciegas) se aplica aquí, ya con el resultado.
+  rs.forEach(r=>{ const c = sess.conf && sess.conf[sess.si+":"+r.i]; if (r.a!=null && c) marcarConfianza(r, c); });
+  const falta = rs.filter(r=>r.a!=null && !r.c).length;
+  if (!falta) return examResults();
+  // Solo si quedó alguna sin marcar: se ofrece marcarla antes de ver la nota (si ves primero que acertaste, tiendes a decir «estaba seguro»).
   $("#sessBody").innerHTML = `<div class="card center stack">
       ${timeUp?'<span class="tag" style="background:var(--bad-soft);color:var(--bad)">Se acabó el tiempo</span>':""}
-      <div class="big">🔍</div><h3 style="margin:0">Antes de ver tu nota: auditoría a ciegas</h3>
-      <p class="small muted" style="margin:0">Repasa tus ${n} respuesta${n===1?"":"s"} <b>sin saber si acertaste</b> y marca cómo respondiste cada una. Así se separan los aciertos sólidos de los aciertos por suerte, y los fallos que no sabías de los errores cometidos con seguridad.</p>
-      <button class="btn primary block" id="auditGo">🔍 Auditar mis respuestas</button>
-      <button class="btn ghost block" id="auditSkip">Ver resultados sin auditar</button></div>`;
+      <div class="big">🔍</div><h3 style="margin:0">Te falta${falta===1?"":"n"} ${falta} por marcar</h3>
+      <p class="small muted" style="margin:0">No marcaste cómo respondiste ${falta===1?"una pregunta":falta+" preguntas"}. Puedes hacerlo ahora, <b>sin saber si acertaste</b>, o ver tu nota sin ${falta===1?"ella":"ellas"} en la auditoría.</p>
+      <button class="btn primary block" id="auditGo">🔍 Marcar ${falta===1?"la que falta":"las que faltan"}</button>
+      <button class="btn ghost block" id="auditSkip">Ver resultados</button></div>`;
   $("#auditGo").onclick = ()=>auditar(0);
   $("#auditSkip").onclick = ()=>examResults();
 }
 function auditar(j){
-  const rs = sess.exRes.rs, pend = rs.filter(r=>r.a!=null);
-  const r = pend.find((x,k)=>k>=j && !x.c);
+  const rs = sess.exRes.rs;
+  if (!sess.exRes.pend) sess.exRes.pend = rs.filter(r=>r.a!=null && !r.c);
+  const pend = sess.exRes.pend, r = pend.find((x,k)=>k>=j && !x.c);
   if (!r) return examResults();
   sess.state="audit";
   const k = pend.indexOf(r);

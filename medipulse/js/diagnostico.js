@@ -1,7 +1,7 @@
 // ===================================================================
 // DIAGNÓSTICO INICIAL: conocer al usuario antes de recomendarle qué estudiar.
 // Parte 1 · Conocimientos: 10 casos por área (60 con las 6 áreas), mezclando tipos de pregunta, en bloques de 10
-//   en modo examen, con auditoría a ciegas. Se puede hacer un bloque hoy y el resto otro día.
+//   en modo examen, con auditoría a ciegas al responder. Se puede hacer un bloque hoy y el resto otro día.
 // Parte 2 · Cómo estudias: cuestionario de hábitos comparado con la evidencia.
 // Parte 3 · Juicio clínico: un expediente con ruido (el usuario elige entre 3): filtrar, resumir,
 //   priorizar y decidir.
@@ -99,7 +99,7 @@ function renderDiag(){
       <div class="track" aria-label="Avance de la parte 1"><i style="width:${Math.round(p.hechos / p.total * 100)}%;background:var(--accent)"></i></div>
       <p class="xs muted" style="margin:0">Parte 1: ${p.hechos} de ${p.total} casos.${p.total < DIAG_POR_AREA * SPECS.length ? ` Por ahora hay ${p.total}: algunas áreas aún tienen pocos casos.` : ""}</p>
       ${modoPrueba() ? `<p class="xs" style="margin:0;color:var(--warn)">🧪 Modo de prueba: los candados están desactivados en este dispositivo. <button class="linkbtn" id="diagPruebaOff">Apagarlo</button></p>` : ""}</div>
-    ${parte(1, "Conocimientos", `${p.total} casos de las ${SPECS.length} áreas, en modo examen (unos 72 s por caso). Al final de cada bloque, una auditoría a ciegas: marcas si respondiste seguro, dudando o al azar antes de ver tu nota.`,
+    ${parte(1, "Conocimientos", `${p.total} casos de las ${SPECS.length} áreas, en modo examen (unos 72 s por caso). Al elegir cada respuesta marcas con un toque si la respondiste seguro, dudando o al azar, sin saber si acertaste.`,
       p1.fin ? listo : "",
       `<div class="stack" style="gap:6px">${bl.map((b, i) => { const hecho = b.every(id => p1.hechos.includes(id));
         return `<div class="row" style="gap:8px"><span class="small" style="flex:1">Bloque ${i + 1} · ${b.length} casos</span>${hecho ? `<span class="xs" style="color:var(--ok)">✓ Hecho</span>` : `<button class="btn sm${i === bl.findIndex(x => !x.every(id => p1.hechos.includes(id))) ? " primary" : ""}" data-dbl="${i}">Empezar</button>`}</div>`; }).join("")}</div>`)}
