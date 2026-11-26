@@ -70,7 +70,7 @@ test("guía «Gasta menos con la IA»: cómo se cobra, ejemplos con el nivel ele
   await page.goto("/");
   await page.evaluate(() => { localStorage.setItem("medipulse_api_key", "sk-ant-prueba"); });
   await page.reload(); await page.click("nav [data-go=lib]");
-  await page.click("#aiBox [data-go=ahorro]");
+  await page.click("#aiDet summary"); await page.click("#aiBox [data-go=ahorro]");
   await expect(page.locator("#ahorroBox")).toContainText("vuelve a leer el texto que le envías");
   await expect(page.locator("#ahorroBox .tabla tr")).toHaveCount(3);
   await expect(page.locator("#ahorroBox .regla")).toHaveCount(7);

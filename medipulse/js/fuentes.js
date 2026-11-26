@@ -200,6 +200,7 @@ function renderLib(){
 
 function renderAiBox(){
   const k = getKey();
+  $("#aiEstado") && ($("#aiEstado").textContent = k ? "· clave guardada" : "· sin clave");
   $("#aiBox").innerHTML = k
     ? `<p class="small" style="margin:0">✓ Clave guardada en este dispositivo (termina en …${esc(k.slice(-4))}). Al generar desde un PDF puedes pedir <b>casos clínicos tipo examen</b> con explicación, perla y trampa.</p>
        <div style="margin-top:10px">${aiLevelHTML()}</div>
@@ -215,6 +216,12 @@ function renderAiBox(){
 }
 
 
+// Lleva a Fuentes con la clave de API a la vista (la tarjeta de IA va plegada y se abre sola).
+function irAClave(){
+  go("lib"); if ($("#aiDet")) $("#aiDet").open = true;
+  const k = $("#keyIn") || $("#aiBox"); if (!k) return;
+  k.scrollIntoView({behavior: "smooth", block: "center"}); $("#keyIn") && $("#keyIn").focus({preventScroll: true});
+}
 function renderGuide(){
-  $("#gdToKey").onclick = ()=>{ go("lib"); const k = $("#keyIn") || $("#aiBox"); k && k.scrollIntoView({behavior:"smooth", block:"center"}); $("#keyIn") && $("#keyIn").focus({preventScroll:true}); };
+  $("#gdToKey").onclick = irAClave;
 }

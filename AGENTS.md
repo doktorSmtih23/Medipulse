@@ -25,6 +25,7 @@ El autor es médico, no programador: prueba la app como usuario real y decide el
 - Cuenta lo hecho y lo que falta, en español claro, sin jerga técnica. Si algo no se pudo verificar, dilo.
 
 **Interfaz**
+- **Primero la acción:** en las pantallas largas, lo primero es lo que se hace (el botón o el campo); la explicación va plegada. Los chips y botones tocables miden al menos 44 px de alto.
 - **Pantallas limpias:** nada de listas largas a la vista. Toda lista va plegada con `plegable()` (título y número) y se abre con un toque.
 - Los controles van **donde se usan**: un filtro debe estar junto al botón que lo usa y a la cantidad, no en otra tarjeta.
 - Cuida el espaciado: un campo nunca pegado a su texto.
@@ -68,7 +69,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/sesion.js` | Motor de sesión: casos, tarjetas, simulacro, resumen, atajos |
 | `js/banco.js` | Banco de casos: «Arma tu práctica» (varias especialidades, 1 a 100 casos, al azar / mis vulnerabilidades / con filtros, modo examen) y «Explorar el banco» (búsqueda, tipo, estado, lista sin tema ni fuente) |
 | `js/vulnerabilidades.js` | Registro de respuestas (`S.resp`, con el motivo del fallo que marca el usuario), rendimiento por tipo × especialidad, casos que se fallan una y otra vez, patrón de error auditoría a ciegas del modo examen (`CONFIANZA`, `marcarConfianza`: un acierto sin certeza vuelve mañana al repaso; nota real, aciertos frágiles y errores con seguridad) y elección de casos por vulnerabilidad (`elegirVulnerables`) o al azar balanceado (`elegirAlAzar`). Todo se calcula en el dispositivo |
-| `js/fichas-hy.js` | Fichas high-yield: estudio, editor y pestaña High Yield (buscador, filtros por especialidad, área y estado, lista compacta que abre cada ficha con un toque; «Repasar» usa lo filtrado) |
+| `js/fichas-hy.js` | Fichas high-yield: estudio, editor y pestaña High Yield (buscador y botón «Filtrar» con chips de especialidad, área y estado, lista compacta que abre cada ficha con un toque; «Repasar» usa lo filtrado) |
 | `js/progreso.js` | Progreso y borrado |
 | `js/fuentes.js` | Biblioteca, PDFs (IndexedDB, pdf.js), clave de API y guía |
 | `js/compromiso.js` | Compromiso con los PDF: estado de cada documento (sin abrir, en estudio, estudiado, en espera), pendientes en Hoy, meta semanal que elige el usuario (`S.metaPdf`) y pregunta al subir uno más con la meta llena |

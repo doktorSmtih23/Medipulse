@@ -125,7 +125,7 @@ const AP_ASK = () => ["Es un apunte que el médico escribió durante su rotació
   "Si el apunte no tiene información médica suficiente, deja \"fichas\" y \"questions\" vacíos.",
   gen.lang === "en" ? "Idioma: escribe todo en inglés." : "Idioma: escribe en español neutro y conserva los términos técnicos tal como aparecen."].join("\n") + focusLine();
 async function apIA(lib, pt, btn){
-  if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); go("lib"); const k = $("#keyIn"); k && k.focus(); return; }
+  if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); irAClave(); return; }
   if (genBusy) return;
   const s = apSync(lib); if (!s) return;
   const n = apParte(s, pt);

@@ -150,7 +150,7 @@ No propongas datos nuevos que la ficha no tenga. Si no hay problemas, "veredicto
 
 // Pestaña High Yield: buscador, filtros (especialidad, área, estado) y lista compacta por especialidad.
 // Cada ficha se abre con un toque; «Repasar» usa lo filtrado (primero lo pendiente y lo más relevante).
-let hySpec = null, hyArea = "", hyEst = "", hyQ = "";
+let hySpec = null, hyArea = "", hyEst = "", hyQ = "", hyFiltra = false;
 function hyEstado(h){
   const r = S.srs["h"+h.id];
   if (!r) return {k: "new", t: "Nueva"};
@@ -171,21 +171,32 @@ function renderHY(){
   const due = list.filter(h => isDue("h"+h.id)).length;
   const areas = [...new Set(HYS.filter(h => !hySpec || h.specialty === hySpec).map(h => h.area).filter(Boolean))].sort();
   if (hyArea && !areas.includes(hyArea)) hyArea = "";
-  const cnt = f => base.filter(f).length, opt = (v, l, on) => `<option value="${esc(v)}" ${on ? "selected" : ""}>${esc(l)}</option>`;
+  const cnt = f => base.filter(f).length;
   $("#hyTop").innerHTML = `<button class="btn primary" id="hyStudy" ${list.length ? "" : "disabled"}>💎 Repasar ${Math.min(10, list.length)} fichas${due ? ` (${due} pendientes)` : ""}</button><button class="btn" data-go="new" id="hyNew">➕ Crear ficha</button>`;
   $("#hyNew").onclick = ()=>{ newType = "h"; };
   $("#hyStudy").onclick = ()=>startSession({label:"High Yield", tag:"norm", stages:[{name:"Fichas high-yield", items:ordenHY(list).slice(0, 10)}]});
+  // Filtros como chips: se abren con «Filtrar» y, ya aplicados, se ven y se quitan con un toque.
+  const ESTADOS = [["", `Todas (${base.length})`], ["new", `Nuevas (${cnt(h => !S.srs["h"+h.id])})`], ["due", `Toca repasar (${cnt(h => isDue("h"+h.id))})`], ["rev", `En repaso (${cnt(h => hyEstado(h).k === "rev")})`], ["ok", `Dominadas (${cnt(h => hyEstado(h).k === "ok")})`], ["mine", `Creadas por ti (${cnt(mia)})`]];
+  const nombreEst = k => (ESTADOS.find(x => x[0] === k) || [])[1] || "";
+  const activos = [hySpec && ["spec", hySpec], hyArea && ["area", hyArea], hyEst && ["est", nombreEst(hyEst).replace(/ \(\d+\)$/, "")]].filter(Boolean);
+  const chip = (k, v, txt, on) => `<button class="chip2${on ? " on" : ""}" data-hyf="${k}" data-v="${esc(v)}" aria-pressed="${on}">${esc(txt)}</button>`;
+  const grupo = (t, chips) => `<div class="xs muted" style="margin:10px 0 6px">${t}</div><div class="chips">${chips}</div>`;
   const qPrev = $("#hyQ"), foco = qPrev && document.activeElement === qPrev;
-  $("#hyFilters").innerHTML = `<input type="search" id="hyQ" placeholder="Buscar: tema, dato, área o fuente (p. ej. NMDAR, dosis)" aria-label="Buscar fichas" style="grid-column:1/-1">
-    <label class="fld">Especialidad<select id="hySelSpec">${opt("", `Todas (${HYS.length})`, !hySpec)}${ESPS().filter(s => HYS.some(h => h.specialty === s)).map(s => opt(s, `${s} (${HYS.filter(h => h.specialty === s).length})`, hySpec === s)).join("")}</select></label>
-    ${areas.length ? `<label class="fld">Área<select id="hySelArea">${opt("", "Todas las áreas", !hyArea)}${areas.map(a => opt(a, a, hyArea === a)).join("")}</select></label>` : ""}
-    <label class="fld">Estado<select id="hySelEst">${opt("", `Todas (${base.length})`, !hyEst)}${opt("new", `Nuevas (${cnt(h => !S.srs["h"+h.id])})`, hyEst === "new")}${opt("due", `Toca repasar (${cnt(h => isDue("h"+h.id))})`, hyEst === "due")}${opt("rev", `En repaso (${cnt(h => hyEstado(h).k === "rev")})`, hyEst === "rev")}${opt("ok", `Dominadas (${cnt(h => hyEstado(h).k === "ok")})`, hyEst === "ok")}${opt("mine", `Creadas por ti (${cnt(mia)})`, hyEst === "mine")}</select></label>`;
+  $("#hyFilters").innerHTML = `<div class="row" style="gap:8px;grid-column:1/-1"><input type="search" id="hyQ" placeholder="Buscar fichas (p. ej. NMDAR)" aria-label="Buscar fichas: tema, dato, área o fuente" style="flex:1;min-width:0"><button class="btn${hyFiltra || activos.length ? " on" : ""}" id="hyFiltrar" aria-expanded="${hyFiltra}">⚙️ Filtrar${activos.length ? ` (${activos.length})` : ""}</button></div>
+    ${activos.length && !hyFiltra ? `<div class="chips" style="grid-column:1/-1">${activos.map(([k, t]) => `<button class="chip2 on" data-hyq="${k}" aria-label="Quitar el filtro ${esc(t)}">${esc(t)} ✕</button>`).join("")}</div>` : ""}
+    ${hyFiltra ? `<div class="card" style="grid-column:1/-1;padding:4px 14px 14px">
+      ${grupo("Especialidad", chip("spec", "", `Todas (${HYS.length})`, !hySpec) + ESPS().filter(s => HYS.some(h => h.specialty === s)).map(s => chip("spec", s, `${s} (${HYS.filter(h => h.specialty === s).length})`, hySpec === s)).join(""))}
+      ${areas.length ? grupo("Área", chip("area", "", "Todas las áreas", !hyArea) + areas.map(a => chip("area", a, a, hyArea === a)).join("")) : ""}
+      ${grupo("Estado", ESTADOS.map(([k, t]) => chip("est", k, t, hyEst === k)).join(""))}
+      <button class="btn primary block" id="hyListo" style="margin-top:14px">Ver ${list.length} ficha${list.length === 1 ? "" : "s"}</button></div>` : ""}`;
   const q = $("#hyQ"); q.value = hyQ;
   if (foco) { q.focus(); q.setSelectionRange(q.value.length, q.value.length); }
   q.oninput = () => { hyQ = q.value; clearTimeout(renderHY._t); renderHY._t = setTimeout(renderHY, 250); };
-  $("#hySelSpec").onchange = e => { hySpec = e.target.value || null; renderHY(); };
-  $("#hySelArea") && ($("#hySelArea").onchange = e => { hyArea = e.target.value; renderHY(); });
-  $("#hySelEst").onchange = e => { hyEst = e.target.value; renderHY(); };
+  $("#hyFiltrar").onclick = () => { hyFiltra = !hyFiltra; renderHY(); };
+  $("#hyListo") && ($("#hyListo").onclick = () => { hyFiltra = false; renderHY(); });
+  document.querySelectorAll("[data-hyf]").forEach(b => b.onclick = () => { const k = b.dataset.hyf, v = b.dataset.v;
+    if (k === "spec") hySpec = v || null; else if (k === "area") hyArea = v; else hyEst = v; renderHY(); });
+  document.querySelectorAll("[data-hyq]").forEach(b => b.onclick = () => { const k = b.dataset.hyq; if (k === "spec") hySpec = null; else if (k === "area") hyArea = ""; else hyEst = ""; renderHY(); });
   const abierto = !!txt;   // plegadas salvo que se esté buscando
   const grupos = ESPS().map(s => [s, list.filter(h => h.specialty === s)]).filter(([, hs]) => hs.length);
   $("#hyList").innerHTML = list.length ? grupos.map(([s, hs]) => `

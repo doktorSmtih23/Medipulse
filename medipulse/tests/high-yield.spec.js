@@ -26,12 +26,24 @@ test("buscar, filtrar por especialidad, área y estado; repasar usa lo filtrado"
   await expect(page.locator("#hyList .hyrow")).toHaveCount(1);
   await expect(page.locator("#hyQ")).toBeFocused();
   await page.fill("#hyQ", "");
-  await page.selectOption("#hySelSpec", "Medicina Interna");
-  await page.selectOption("#hySelArea", "Infectología");
+  // Sin listas desplegables: «Filtrar» abre chips de especialidad, área y estado
+  await expect(page.locator("#hyFilters select")).toHaveCount(0);
+  await page.click("#hyFiltrar");
+  await page.click('[data-hyf="spec"][data-v="Medicina Interna"]');
+  await page.click('[data-hyf="area"][data-v="Infectología"]');
   await expect(page.locator("#hyList .hyrow")).toHaveCount(1);
-  await page.selectOption("#hySelArea", "");
-  await page.selectOption("#hySelEst", "mine");
+  await page.click('[data-hyf="area"][data-v=""]');
+  await page.click('[data-hyf="est"][data-v="mine"]');
   await expect(page.locator("#hyList .hyrow")).toHaveCount(2);
+  // Cada chip mide al menos 44 px de alto (se toca con el pulgar)
+  const altos = await page.$$eval("#hyFilters .chip2", cs => cs.map(c => c.getBoundingClientRect().height));
+  expect(altos.length).toBeGreaterThan(5); expect(Math.min(...altos)).toBeGreaterThanOrEqual(44);
+  // Ya aplicados y con el panel cerrado, los filtros se ven y se quitan con un toque
+  await page.click("#hyListo");
+  await expect(page.locator("#hyFiltrar")).toContainText("(2)");
+  await page.click('[data-hyq="est"]');
+  await expect(page.locator("#hyFiltrar")).toContainText("(1)");
+  await page.click("#hyFiltrar"); await page.click('[data-hyf="est"][data-v="mine"]'); await page.click("#hyListo");
   await page.click("#hyStudy");
   expect(await page.evaluate(() => sess.stages[0].items.map(it => it.id).sort())).toEqual(["u1", "u2"]);
 });

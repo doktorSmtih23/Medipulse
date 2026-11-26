@@ -266,7 +266,7 @@ const IMP_IA_SYSTEM = `Organizas preguntas tipo examen que un médico copió de 
 async function organizarConIA(texto){
   const out = $("#impOut");
   if (!texto.trim()) return toast("Pega primero el texto.");
-  if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); return go("lib"); }
+  if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); return irAClave(); }
   out.innerHTML = `<p class="small" style="margin:0"><span class="spin"></span> La IA está repartiendo el texto en sus campos…</p>`;
   try {
     const r = await callForTool({system: IMP_IA_SYSTEM, tools: [IMP_IA_TOOL], light: true, label: "Organizar pregunta",

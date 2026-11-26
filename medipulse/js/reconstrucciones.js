@@ -262,26 +262,30 @@ function renderRecons(){
   if (!rcSel.length && L.length) rcSel = [L[L.length - 1].id];
   const sel = L.filter(r => rcSel.includes(r.id)), nRc = rcN;
   const sug = rcSugerencias(rcSugTxt);
-  box.innerHTML = `<h3 style="font-size:16px">🏛️ Simulacro estilo universidad</h3>
-    <p class="xs muted" style="margin:4px 0 10px">Sube la <b>reconstrucción</b> de un examen (lo que recuerdan quienes lo presentaron). MediPulse mide cómo pregunta esa universidad (áreas, tipo de pregunta, casos clínicos o directas) y arma un simulacro con casos de tu banco en esas proporciones. Sus respuestas no se usan: dependen de la memoria. El documento no sale de tu dispositivo; solo se guarda el patrón.</p>
-    ${rcBorrador ? rcBorradorHTML() : `<div class="row" style="gap:8px;flex-wrap:wrap">
+  // Primero la acción: con reconstrucciones guardadas, lo primero es armar el simulacro; subir otra y la explicación van plegadas.
+  const explica = plegable("rcexp", `<span class="small">¿Cómo funciona?</span>`, `<p class="xs muted" style="margin:4px 0 0">Sube la <b>reconstrucción</b> de un examen (lo que recuerdan quienes lo presentaron). MediPulse mide cómo pregunta esa universidad (áreas, tipo de pregunta, casos clínicos o directas) y arma un simulacro con casos de tu banco en esas proporciones. Sus respuestas no se usan: dependen de la memoria. El documento no sale de tu dispositivo; solo se guarda el patrón.</p>`);
+  const subirHTML = `<div class="row" style="gap:8px;flex-wrap:wrap">
       <label class="btn sm">📄 Subir PDF<input type="file" id="rcPdf" accept="application/pdf" hidden></label>
       <button class="btn sm" id="rcPegar">📋 Pegar texto</button></div>
       <div id="rcPegarBox" hidden style="margin-top:8px"><textarea id="rcTxt" rows="6" placeholder="Pega aquí la reconstrucción (por ejemplo, desde Google Docs o Word)."></textarea>
         <div class="row" style="margin-top:6px;gap:8px"><input id="rcTitulo" placeholder="Nombre: Reconstrucción UdeA 2025-1" aria-label="Nombre de la reconstrucción"><button class="btn sm primary" id="rcLeer">Medir el patrón</button></div></div>
-      <p class="xs" id="rcMsg" style="margin:6px 0 0"></p>`}
-    ${L.length ? `<div style="margin-top:12px">${plegable("rclista", `<b>Tus reconstrucciones</b> <span class="xs muted">${L.length}</span>`, L.map(r => `
-      <div class="card" style="padding:10px 12px;margin-top:8px"><div class="row"><b class="small">${esc(rcNombre(r))}</b><span class="xs muted" style="margin-left:6px">${r.total ? r.total + " en el examen" : r.perfil.n + " leídas"}</span><div class="spacer"></div><button class="linkbtn xs" data-rcdel="${r.id}">🗑️ Quitar</button></div>
-        ${plegable("rcp" + r.id, `<span class="xs">Ver el patrón</span>`, rcPatronHTML(r.perfil, r.total))}</div>`).join(""))}</div>
-      <div class="xs muted" style="margin:12px 0 6px">Imitar (elige una o varias del mismo examen: se suman)</div>
+      <p class="xs" id="rcMsg" style="margin:6px 0 0"></p>`;
+  const subir = rcBorrador ? rcBorradorHTML() : L.length ? plegable("rcsubir", `<span class="small">➕ Subir otra reconstrucción</span>`, subirHTML) : subirHTML;
+  const simulacro = L.length ? `<div class="xs muted" style="margin:12px 0 6px">Imitar (elige una o varias del mismo examen: se suman)</div>
       <div class="chips" id="rcSel">${L.map(r => `<button class="chip2${rcSel.includes(r.id) ? " on" : ""}" data-rcsel="${r.id}">${esc(rcNombre(r))} <span class="cnt">${r.total || r.perfil.n}</span></button>`).join("")}</div>
+      <div class="chips" id="rcNs" style="margin-top:10px">${[...new Set([20, 50, 100, ...sel.map(r => r.total).filter(Boolean).map(t => Math.min(PRAC_MAX, t))])].sort((a, b) => a - b).map(x => `<button class="chip2${nRc === x ? " on" : ""}" data-rcn="${x}">${x} casos${sel.some(r => r.total === x) ? " (como el examen)" : ""}</button>`).join("")}</div>
       <label class="fld" style="margin-top:10px"><span>Ajustes (opcional)</span><textarea id="rcSug" rows="2" placeholder="Ej.: más Ginecología, sin Urología, casos cortos, más conducta">${esc(rcSugTxt)}</textarea></label>
       <p class="xs muted" id="rcSugEco" style="margin:4px 0 0">${esc(rcSugTexto(sug))}</p>
-      <div class="row" style="margin-top:10px;gap:8px;align-items:flex-end">
-        <div class="chips" id="rcNs">${[...new Set([20, 50, 100, ...sel.map(r => r.total).filter(Boolean).map(t => Math.min(PRAC_MAX, t))])].sort((a, b) => a - b).map(x => `<button class="chip2${nRc === x ? " on" : ""}" data-rcn="${x}">${x} casos${sel.some(r => r.total === x) ? " (como el examen)" : ""}</button>`).join("")}</div></div>
       ${hecho ? `<button class="btn primary block" id="rcGo" style="margin-top:10px" ${sel.length ? "" : "disabled"}>⏱️ Simulacro estilo ${esc(sel.length ? [...new Set(sel.map(r => r.univ || "examen"))].join(" + ") : "…")} · ${nRc} casos · ${fmt(nRc * 72)}</button>`
         : `<div style="margin-top:10px">${diagCandadoHTML("El simulacro estilo universidad")}</div>`}
-      <p class="xs muted" id="rcNotas" style="margin:6px 0 0"></p>` : ""}`;
+      <p class="xs muted" id="rcNotas" style="margin:6px 0 0"></p>
+      <div style="margin-top:6px">${plegable("rclista", `<b class="small">Tus reconstrucciones</b> <span class="xs muted">${L.length}</span>`, L.map(r => `
+        <div class="card" style="padding:10px 12px;margin-top:8px"><div class="row"><b class="small">${esc(rcNombre(r))}</b><span class="xs muted" style="margin-left:6px">${r.total ? r.total + " en el examen" : r.perfil.n + " leídas"}</span><div class="spacer"></div><button class="linkbtn xs" data-rcdel="${r.id}">🗑️ Quitar</button></div>
+          ${plegable("rcp" + r.id, `<span class="xs">Ver el patrón</span>`, rcPatronHTML(r.perfil, r.total))}</div>`).join(""))}</div>` : "";
+  box.innerHTML = `<h3 style="font-size:16px">🏛️ Simulacro estilo universidad</h3>
+    <p class="xs muted" style="margin:4px 0 6px">${L.length ? "Arma un simulacro con las proporciones de un examen real." : "Mide cómo pregunta una universidad y arma un simulacro igual."}</p>
+    ${rcBorrador ? subir : L.length ? simulacro + `<div style="margin-top:6px">${subir}</div>` : subir}
+    <div style="margin-top:6px">${explica}</div>`;
   // Subir o pegar
   $("#rcPdf") && ($("#rcPdf").onchange = async e => { const f = e.target.files[0]; e.target.value = ""; if (!f) return;
     $("#rcMsg").innerHTML = `<span class="spin"></span> Leyendo “${esc(f.name)}”…`;
