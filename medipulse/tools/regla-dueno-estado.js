@@ -26,6 +26,7 @@ const DUENOS = {
   lastBackup: "datos", backupSnooze: "datos", iosWarnOk: "datos",
   aiSpend: "ia-costo", aiLevel: "ia-costo",
   especialidades: "especialidades",
+  recons: "reconstrucciones",
   exam: "estado"
 };
 // js/estado.js puede escribir cualquier campo: ahí se carga el progreso y se migran los datos viejos.
