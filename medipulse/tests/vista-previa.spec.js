@@ -16,7 +16,7 @@ test("el archivo único abre solo, sin las carpetas al lado", async ({ page }) =
   const r = await page.evaluate(() => [...new Set(QUESTIONS.map(q => q.specialty))].sort());
   expect(r).toEqual(["Cirugía", "Ginecología", "Medicina Interna", "Pediatría"]);
   await page.evaluate(() => go("banco"));
-  await expect(page.locator("#soloBasicas")).toContainText("Urología y Mastología están en la app web");
+  await expect(page.locator("#soloBasicas")).toContainText("Urología, Mastología y Psiquiatría están en la app web");
   expect(errores).toEqual([]);
   fs.rmSync(dir, {recursive: true});
 });

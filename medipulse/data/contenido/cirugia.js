@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Cirugía",
   "prefijo": "cir",
   "paquete": "starter",
-  "actualizado": "2026-11-25",
+  "actualizado": "2026-11-26",
   "casos": [
     {
       "id": 6,
@@ -1927,6 +1927,200 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-25"
+    },
+    {
+      "id": "cir-c71",
+      "topic": "Anestesia · Intubación fallida: regla 3+1",
+      "difficulty": "residencia",
+      "src": "das25",
+      "vignette": "En una inducción de secuencia rápida llevas <span class='hy'>tres intentos fallidos de intubación</span>, cambiando la posición, la hoja y usando bougie. La saturación es 94 % con ventilación con máscara. ¿Qué sigue?",
+      "options": [
+        "Un cuarto intento tuyo con otra hoja de laringoscopio",
+        "Seguir intentando mientras la saturación se mantenga",
+        "Un último intento solo de un colega más experto; si falla, plan B",
+        "Despertar al paciente sin más medidas y suspender el caso"
+      ],
+      "correct": 2,
+      "whyCorrect": "DAS 2025 mantiene el principio 3+1: máximo tres intentos de intubación y un cuarto y último solo por un colega más experto, cada uno con un cambio que aumente la probabilidad de éxito. Si falla, se declara la intubación fallida y se pasa al plan B: oxigenar con un dispositivo supraglótico.",
+      "pearl": "Algoritmo DAS: plan A intubación, B dispositivo supraglótico, C máscara facial, D vía aérea quirúrgica de urgencia (eFONA).",
+      "trap": "Seguir intentando porque la saturación es aceptable, sin respetar el límite de intentos.",
+      "cita": [
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan A",
+          "texto": "These guidelines maintain the principle of 3+1 attempts: a maximum of three attempts at intubation, with a fourth and final attempt only being undertaken by a more experienced colleague. Each subsequent attempt should involve a change to increase the likelihood of success."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan B",
+          "texto": "The principle of Plan B is that ongoing oxygenation should be maintained using a SAD as the initial plan for tracheal intu- bation has failed"
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Resumen",
+          "texto": "The recommendations maintain the concept of a linear algorithm from tracheal intubation (Plan A), to supraglottic airway device ventilation (Plan B), to facemask ventilation (Plan C), and to emergency front-of-neck airway (Plan D)."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: el cuarto y último intento lo hace solo un colega más experto, no el mismo operador.",
+        "No: los intentos se limitan a tres más uno, aunque la saturación se mantenga.",
+        "Correcta: regla 3+1; si el último intento falla, plan B con dispositivo supraglótico.",
+        "No: tras fallar la intubación, la prioridad es mantener la oxigenación con el plan B."
+      ]
+    },
+    {
+      "id": "cir-c72",
+      "topic": "Anestesia · Plan B: dispositivo supraglótico",
+      "difficulty": "residencia",
+      "src": "das25",
+      "vignette": "Se declaró la intubación fallida en un adulto y vas a pasar al <span class='hy'>plan B</span>. Tienes disponibles dispositivos supraglóticos de primera y de segunda generación. ¿Cuál usas y cuántos intentos haces?",
+      "options": [
+        "Primera generación, porque se inserta más rápido; sin límite",
+        "Segunda generación, con un máximo de tres intentos de inserción",
+        "Cualquiera de los dos, hasta lograr intubar a través de él",
+        "Segunda generación, pero solo un intento antes de la cricotiroidotomía"
+      ],
+      "correct": 1,
+      "whyCorrect": "Los supraglóticos de segunda generación están diseñados para reducir el riesgo de aspiración y deben usarse antes que los de primera generación. Los intentos de inserción se limitan a tres; si no se logra oxigenar, se declara la ventilación supraglótica fallida y se pasa al plan C.",
+      "pearl": "Con oxigenación efectiva por el supraglótico: «para, piensa y comunica».",
+      "trap": "Usar un supraglótico de primera generación o insistir sin límite de intentos.",
+      "cita": [
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan B",
+          "texto": "It is clear that second-generation SADs should be used ahead of first-generation devices."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan B · puntos clave",
+          "texto": "The number of supraglottic airway device insertion at- tempts should be limited to a maximum of three."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan B · puntos clave",
+          "texto": "Once effective oxygenation is established with a supra- glottic airway device, stop, think and communicate."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: los de segunda generación van antes que los de primera, y los intentos se limitan a tres.",
+        "Correcta: supraglótico de segunda generación, con un máximo de tres intentos de inserción.",
+        "No: no da igual; los de segunda generación reducen el riesgo de aspiración y van primero.",
+        "No: se permiten hasta tres intentos con el supraglótico antes de declararlo fallido."
+      ]
+    },
+    {
+      "id": "cir-c73",
+      "topic": "Anestesia · No intubo, no oxigeno (CICO)",
+      "difficulty": "dificil",
+      "src": "das25",
+      "vignette": "Paciente con laringoscopia <span class='hy'>Cormack IV</span>: fallaron la intubación y el dispositivo supraglótico, y ahora tampoco logras ventilar con máscara facial. La <span class='hy'>saturación cae a 70 %</span>. ¿Qué haces?",
+      "options": [
+        "Dar sugammadex y esperar que respire de forma espontánea",
+        "Otro intento de intubación con videolaringoscopio",
+        "Declarar CICO y hacer vía aérea quirúrgica con bisturí",
+        "Puncionar la membrana cricotiroidea con un catéter fino"
+      ],
+      "correct": 2,
+      "whyCorrect": "Si la ventilación con máscara falla después del plan B, se declara un escenario CICO («no puedo intubar, no puedo oxigenar»), se reparten los roles y se pasa de inmediato al plan D: vía aérea quirúrgica de urgencia (eFONA). Las guías favorecen la técnica con bisturí sobre la de cánula.",
+      "pearl": "Equipo de eFONA: bisturí con hoja número 10, bougie y tubo endotraqueal 6.0.",
+      "trap": "Revertir con sugammadex o insistir con la intubación: no es una estrategia confiable en el CICO.",
+      "cita": [
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan C",
+          "texto": "If facemask ventilation is unsuccessful, declare a CICO scenario, allocate roles to team members, and immediately proceed to Plan D to perform an eFONA."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan A · reversión del bloqueo",
+          "texto": "Although there are cases in which sugammadex was used to antagonise neuromuscular block during ‘cannot intubate, cannot oxygenate’ (CICO) scenarios, 100 this is not a reliable strategy in failed tracheal intubation."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan D · introducción",
+          "texto": "They also encouraged a significant change in emergency front-of-neck airway (eFONA) techniques from cannula to scalpel ap- proaches."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan D · equipo",
+          "texto": "The required equipment for eFONA are: a scalpel with a number 10 blade, a bougie, and a size 6.0 tracheal tube."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: revertir con sugammadex no es una estrategia confiable en un CICO.",
+        "No: fallaron los planes A, B y C; lo que sigue de inmediato es el plan D.",
+        "Correcta: se declara CICO y se hace la vía aérea quirúrgica de urgencia con técnica de bisturí.",
+        "No: las guías cambiaron de las técnicas con cánula a las de bisturí."
+      ]
+    },
+    {
+      "id": "cir-c74",
+      "topic": "Anestesia · Videolaringoscopio de primera línea",
+      "difficulty": "basica",
+      "src": "das25",
+      "vignette": "Vas a intubar a un adulto en cirugía programada y en tu quirófano tienes laringoscopio directo y <span class='hy'>videolaringoscopio</span>. ¿Cuál usas de entrada según DAS 2025?",
+      "options": [
+        "El directo, y el video solo si falla el primer intento",
+        "El videolaringoscopio siempre que sea posible",
+        "El directo, porque el video aumenta la intubación esofágica",
+        "Cualquiera: no cambian el éxito del primer intento"
+      ],
+      "correct": 1,
+      "whyCorrect": "DAS 2025 recomienda usar el videolaringoscopio de primera línea siempre que sea posible: aumenta el éxito del primer intento, reduce la hipoxemia y el riesgo de intubación esofágica frente al laringoscopio directo.",
+      "pearl": "Con hoja de videolaringoscopio hiperangulada se usa estilete, bougie o fibrobroncoscopio.",
+      "trap": "Reservar el videolaringoscopio para cuando ya falló la laringoscopia directa.",
+      "cita": [
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan A · videolaringoscopia",
+          "texto": "A videolaryngoscope should be used for tracheal intubation whenever possible."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan A · videolaringoscopia",
+          "texto": "There are a variety of videolaryngoscopes available and evidence suggests they are effective at increasing first-attempt success, reducing hypo- xaemia, and reducing the risk of oesophageal intubation compared with direct laryngoscopes."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan A · puntos clave",
+          "texto": "A stylet, bougie, or flexible bronchoscope should be used with a hyperangulated videolaryngoscope blade."
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: DAS 2025 lo recomienda de primera línea, no como rescate.",
+        "Correcta: videolaringoscopio de primera línea siempre que sea posible.",
+        "No: al contrario, reduce el riesgo de intubación esofágica frente al directo.",
+        "No: el videolaringoscopio aumenta el éxito del primer intento."
+      ]
+    },
+    {
+      "id": "cir-c75",
+      "topic": "Anestesia · Presión cricoidea en la laringoscopia difícil",
+      "difficulty": "dificil",
+      "src": "das25",
+      "vignette": "En una secuencia rápida tu asistente aplica <span class='hy'>presión cricoidea</span>. En la laringoscopia no ves la glotis y el primer intento falla. ¿Qué haces con la presión cricoidea?",
+      "options": [
+        "Aumentarla para proteger mejor contra la aspiración",
+        "Mantenerla igual hasta que el tubo esté en la tráquea",
+        "Retirarla, porque hay dificultad con la laringoscopia",
+        "Retirarla solo si el paciente vomita activamente"
+      ],
+      "correct": 2,
+      "whyCorrect": "La presión cricoidea busca reducir la aspiración, pero puede empeorar la visión laringoscópica. DAS 2025 indica retirarla si hay dificultad con la laringoscopia o la intubación, si se inserta un supraglótico en el plan B o si hay vómito activo.",
+      "pearl": "Entre los cambios para el siguiente intento: posición, hoja, introductor, manipulación laríngea externa, retirar la presión cricoidea y optimizar el bloqueo neuromuscular.",
+      "trap": "Mantener o aumentar la presión cricoidea cuando la laringoscopia es difícil.",
+      "cita": [
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Presión cricoidea",
+          "texto": "If inserting a SAD in Plan B, or dif- ficulty with laryngoscopy or tracheal intubation is encountered, or active vomiting occurs, cricoid force should be removed."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Presión cricoidea",
+          "texto": "In particular, there are concerns that cricoid force might worsen the view at laryngoscopy, reduce successful tracheal intubation, 181 reduce lower oesophageal sphincter tone, 182 and might not reduce the risk of pulmonary aspiration."
+        },
+        {
+          "donde": "Difficult Airway Society 2025 guidelines, Br J Anaesth 2026;136(1):283-307, Plan A · cambios entre intentos",
+          "texto": "Optimise head and neck position; optimise blade size and type; consider adjuncts; optimise tube size and type; external laryngeal manipulation; remove cricoid force; optimise neuromuscular block; change operator; suction; and optimise ergonomics"
+        }
+      ],
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: puede empeorar la visión laringoscópica; con dificultad se retira.",
+        "No: con dificultad en la laringoscopia o la intubación se retira, no se mantiene.",
+        "Correcta: con dificultad en la laringoscopia o la intubación, la presión cricoidea se retira.",
+        "No: el vómito activo es una indicación, pero no la única: la dificultad en la laringoscopia también lo es."
+      ]
     }
   ],
   "fichas": [
