@@ -520,3 +520,9 @@ label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap
 .areas-mas{display:block;margin:8px auto 0;font-weight:700}
 @media (max-width:360px){.areas-lista{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.ecg-clip,.ecg-pto{animation:none}.seguir,.rota-dots button,.rota-pista{transition:none}}
+
+/* Opciones después de responder un caso: cuatro botones ordenados en dos columnas */
+.acciones-caso{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:2px}
+.acciones-caso .btn{justify-content:center;font-weight:500;color:var(--muted);border:1px solid var(--border);white-space:normal;line-height:1.25}
+.acciones-caso .btn:hover{color:var(--text)}
+.acciones-caso .archivado{grid-column:1/-1;align-self:center;padding:4px 2px}

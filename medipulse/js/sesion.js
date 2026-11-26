@@ -110,14 +110,14 @@ function answerQ(q, o, exam){
       ${srcLine(q)}
       ${enfoqueTrasResponder(q)}
       ${prueba ? `<div class="note xs" style="margin:0">▶ Era una prueba de tu versión: no se guardó ni cuenta en tu progreso.</div>` : ""}
-      <div ${prueba ? "hidden" : ""}><button class="linkbtn xs" id="repBtn">🚩 ¿Error o dato desactualizado? Repórtalo</button> · <button class="linkbtn xs" id="fixBtn">✏️ Corregir</button> · <button class="linkbtn xs" id="verBtn">✏️ Hacer mi versión</button> · <button class="linkbtn xs" id="archBtn">🗄️ Archivar este caso</button><div id="repBox"></div><div id="fixBox"></div></div>
+      <div ${prueba ? "hidden" : ""}><div class="acciones-caso"><button class="btn sm ghost" id="repBtn" title="¿Error o dato desactualizado? Repórtalo">🚩 Reportar error</button><button class="btn sm ghost" id="fixBtn">✏️ Corregir</button><button class="btn sm ghost" id="verBtn">📝 Mi versión</button><button class="btn sm ghost" id="archBtn">🗄️ Archivar</button></div><div id="repBox"></div><div id="fixBox"></div></div>
       <button class="btn primary block" id="nextBtn">${prueba ? "← Volver a editar" : "Siguiente →"}</button>
     </div>`;
   $("#repBtn").onclick = ()=>openReportForm("q"+q.id, $("#repBox"));
   $("#fixBtn").onclick = ()=>openCorregir("q", q, $("#fixBox"));
   $("#verBtn").onclick = ()=>{ if (confirmLeave()) { go("new"); editarCaso(q); } };
   $("#archBtn").onclick = ()=>{ archivar("q"+q.id); olvidarRepaso("q"+q.id); rebuild(); save(); refreshChips();
-    $("#archBtn").replaceWith(Object.assign(document.createElement("span"), {className: "xs muted", textContent: "🗄️ Archivado: no volverá a salir. Lo restauras en Casos, al final de la lista."})); };
+    $("#archBtn").replaceWith(Object.assign(document.createElement("span"), {className: "xs muted archivado", textContent: "🗄️ Archivado: no volverá a salir. Lo restauras en Casos, al final de la lista."})); };
   $("#nextBtn").onclick=()=>{ if (prueba) return terminarPrueba(); sess.i++; renderItem(); };
   $("#nextBtn").focus({preventScroll:true});
 }

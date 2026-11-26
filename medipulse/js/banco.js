@@ -191,6 +191,9 @@ function renderBanco(){
   $("#vulnAzar") && ($("#vulnAzar").onclick = () => { P.modo = "azar"; save(); renderBanco(); });
   $("#vulnRep") && ($("#vulnRep").onclick = () => estudiarCasos(shuffle(rd.repetidos), "Fallos que se repiten"));
 
+  // Simulacro estilo universidad (reconstrucciones.js), debajo de «Arma tu práctica».
+  if (typeof renderRecons === "function") renderRecons();
+
   // Lista por especialidad: sin tema ni fuente, para no dar pistas antes de responder.
   // La lista sigue lo elegido arriba: con «Con mis filtros», solo esos casos; si no, los de las especialidades.
   const lista = P.modo === "filtros" ? pool : P.modo === "vuln" ? vpool : deSpecs, busca = P.modo === "filtros" && !!txt;

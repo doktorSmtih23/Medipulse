@@ -38,7 +38,7 @@ $("#impFile").onchange = e => { const f = e.target.files[0]; e.target.value = ""
 $("#resetBtn").onclick = () => {
   if (!confirm("¿Borrar tu progreso (racha, repasos, estadísticas)? Tus PDF y las preguntas generadas se conservan. No se puede deshacer.")) return;
   const conserva = {theme: S.theme, userQ: S.userQ, userC: S.userC, sources: S.sources, seq: S.seq, check: S.check, over: S.over, hidden: S.hidden,
-    notes: S.notes, reports: S.reports, exam: S.exam, focus: S.focus, hints: S.hints, tpls: S.tpls, userH: S.userH, apuntes: S.apuntes, prac: S.prac, especialidades: S.especialidades,
+    notes: S.notes, reports: S.reports, exam: S.exam, focus: S.focus, hints: S.hints, tpls: S.tpls, userH: S.userH, apuntes: S.apuntes, prac: S.prac, especialidades: S.especialidades, recons: S.recons,
     estudio: Object.assign({}, S.estudio, {ses: [], informes: [], actual: null})};
   S = Object.assign(BLANK(), conserva);
   save(); renderProg(); refreshChips(); toast("Progreso borrado");
