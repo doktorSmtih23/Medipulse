@@ -46,12 +46,12 @@ test.describe("Estudio", () => {
     await expect(page.locator("#sessBody .big")).toBeVisible();
   });
   test("ficha high-yield se estudia y entra al repaso", async ({ page }) => {
-    await page.click("nav [data-go=tarjetas]"); await page.click("#hyStudy");
+    await page.click("nav [data-go=banco]"); await page.click(".grupotabs [data-go=tarjetas]"); await page.click("#hyStudy");
     await page.keyboard.press("Space"); await page.keyboard.press("3");
     expect(await page.evaluate(() => Object.keys(S.srs).some(k => k[0] === "h"))).toBe(true);
   });
   test("crear ficha a mano", async ({ page }) => {
-    await page.click("nav [data-go=tarjetas]"); await page.click("#hyNew");
+    await page.click("nav [data-go=banco]"); await page.click(".grupotabs [data-go=tarjetas]"); await page.click("#hyNew");
     // El formulario termina de armarse (y enfoca el título) unos milisegundos después de abrirse.
     await expect(page.locator("#newForm .eTitle")).toBeFocused();
     await page.fill("#newForm .eTitle", "Prueba"); await page.fill("#newForm .eL >> nth=0", "Dato"); await page.fill("#newForm .eV >> nth=0", "Valor");
@@ -112,7 +112,7 @@ test.describe("Mi enfoque", () => {
 
 test.describe("MBE", () => {
   test("calculadora NNT (16 % vs 14.5 % → 67), plegada y explicando que funciona sola", async ({ page }) => {
-    await page.click("nav [data-go=mbe]");
+    await page.click("nav [data-go=estudio]"); await page.click(".grupotabs [data-go=mbe]");
     await expect(page.locator("#mbeCalc")).toContainText("escribes los números de cualquier estudio");
     await expect(page.locator("#cCer")).toBeHidden();
     await page.locator('[data-pleg="calcrr"] summary').click();
@@ -120,7 +120,7 @@ test.describe("MBE", () => {
     await expect(page.locator("#cOut")).toContainText("67");
   });
   test("ofrece auditar un PDF", async ({ page }) => {
-    await page.click("nav [data-go=mbe]");
+    await page.click("nav [data-go=estudio]"); await page.click(".grupotabs [data-go=mbe]");
     await expect(page.locator("#mbeDocs #mbeUp")).toBeVisible();
   });
 });
@@ -200,8 +200,8 @@ test("Hoy sin respuestas no inventa un «punto débil»: propone el diagnóstico
   await page.goto("/");
   await expect(page.locator("#suggestCard")).toContainText("Todavía no sé cuál es tu punto más débil");
   await expect(page.locator("#suggestCard #doDiag")).toBeVisible();
-  await expect(page.locator('#v-hoy [data-go="mbe"]')).toContainText("Laboratorio MBE");
-  await page.click("nav [data-go=mbe]");
+  await expect(page.locator('#v-hoy [data-go="mbe"]')).toContainText("Lectura crítica");
+  await page.click("nav [data-go=estudio]"); await page.click(".grupotabs [data-go=mbe]");
   await expect(page.locator("#v-mbe")).toContainText("Resume lo que leíste");
   await expect(page.locator("#v-mbe")).not.toContainText(/[Dd]estil/);
 });
@@ -257,11 +257,12 @@ test.describe("Hoy rediseñado", () => {
     expect(vistas).toBe(20);
   });
 
-  test("la barra usa íconos propios (no emojis), dice «Fichas» y cabe en un renglón a 360 px", async ({ page }) => {
+  test("la barra usa íconos propios (no emojis), tiene 5 grupos y cabe en un renglón a 360 px; «Fichas» está en Practicar", async ({ page }) => {
     await page.setViewportSize({width: 360, height: 780});
     await page.goto("/");
-    await expect(page.locator("nav.bottom button svg")).toHaveCount(7);
-    await expect(page.locator('nav.bottom [data-go="tarjetas"]')).toHaveText("Fichas");
+    await expect(page.locator("nav.bottom button svg")).toHaveCount(5);
+    await page.click('nav.bottom [data-go="banco"]');
+    await expect(page.locator('.grupotabs [data-go="tarjetas"]')).toHaveText("💎 Fichas");
     const alturas = await page.locator("nav.bottom button").evaluateAll(bs => bs.map(b => b.getBoundingClientRect().height));
     expect(Math.max(...alturas) - Math.min(...alturas)).toBeLessThan(1);   // ninguna etiqueta en dos renglones
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -270,7 +271,7 @@ test.describe("Hoy rediseñado", () => {
 
 test("MBE: los 4 tipos de documento se ven completos a 360 px, sin deslizar", async ({ page }) => {
   await page.goto("/");
-  await page.click("nav [data-go=mbe]");
+  await page.click("nav [data-go=estudio]"); await page.click(".grupotabs [data-go=mbe]");
   const bordes = await page.$$eval("#mbeTabs button", bs => bs.map(b => b.getBoundingClientRect().right));
   expect(bordes).toHaveLength(4);
   bordes.forEach(r => expect(r).toBeLessThanOrEqual(360));
@@ -299,4 +300,21 @@ test.describe("usabilidad en el celular (prueba de un usuario exigente)", () => 
     const r = await page.evaluate(() => { const b = document.querySelector("#fbBox").getBoundingClientRect(); return [b.top, innerHeight]; });
     expect(r[0]).toBeLessThan(r[1] * 0.6);
   });
+});
+
+test("barra de 5 grupos; dentro de cada grupo, sub-pestañas llevan a sus pantallas y la barra marca el grupo", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("nav.bottom button")).toHaveText(["Hoy", "Practicar", "Estudiar", "Biblioteca", "Progreso"]);
+  await page.click("nav [data-go=banco]");
+  await expect(page.locator("#v-banco .grupotabs button")).toHaveText(["🩺 Casos", "💎 Fichas"]);
+  await page.click(".grupotabs [data-go=tarjetas]");
+  await expect(page.locator("#v-tarjetas")).toBeVisible();
+  await expect(page.locator("nav [data-go=banco]")).toHaveClass(/on/);
+  await page.click("nav [data-go=estudio]"); await page.click(".grupotabs [data-go=mbe]");
+  await expect(page.locator("#v-mbe")).toBeVisible();
+  await expect(page.locator("nav [data-go=estudio]")).toHaveClass(/on/);
+  await page.click("nav [data-go=lib]"); await page.click(".grupotabs [data-go=apuntes]");
+  await expect(page.locator("#v-apuntes")).toBeVisible();
+  await expect(page.locator("nav [data-go=lib]")).toHaveClass(/on/);
+  expect(await sinDesborde(page)).toBe(true);
 });

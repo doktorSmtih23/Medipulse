@@ -195,7 +195,7 @@ test.describe("guardar los análisis", () => {
     await expect(page.locator("#anOut .anres")).toBeVisible();
     await irA(page, "revista"); await page.click("#anGo");
     await expect(page.locator("#anOut .anres")).toBeVisible();
-    await page.click("nav [data-go=mbe]");
+    await page.click("nav [data-go=estudio]"); await page.click(".grupotabs [data-go=mbe]");
     await expect(page.locator('#mbeDocs [data-pleg="misan"] summary')).toContainText("Mis análisis 2");
     await page.click('#mbeDocs [data-pleg="misan"] summary');
     await page.locator('#mbeDocs [data-misan$="audit"], #mbeDocs [data-misan*="|audit|"]').first().click();

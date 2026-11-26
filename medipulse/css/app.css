@@ -110,8 +110,8 @@ a.btn{text-decoration:none;display:inline-block}
 .plan li.done{color:var(--muted);text-decoration:line-through}
 .plan li.cur{font-weight:700;color:var(--fire)}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--panel);border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom)}
-nav.bottom .wrap{display:grid;grid-template-columns:repeat(7,1fr);padding:0 2px}
-nav.bottom button{background:none;border:0;padding:6px 0 8px;font-size:10.5px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap}
+nav.bottom .wrap{display:grid;grid-template-columns:repeat(5,1fr);padding:0 2px}
+nav.bottom button{background:none;border:0;padding:6px 0 8px;font-size:12px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap}
 nav.bottom button .i{width:44px;height:28px;border-radius:14px;display:flex;align-items:center;justify-content:center;transition:background .15s}
 nav.bottom button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav.bottom button.on{color:var(--accent)}
@@ -553,3 +553,10 @@ body.en-sesion{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 .bienv-dots{display:flex;gap:6px;justify-content:center;margin:4px 0}
 .bienv-dots i{width:8px;height:8px;border-radius:99px;background:var(--border)}.bienv-dots i.on{width:22px;background:var(--accent)}
 .atajos.dos{grid-template-columns:repeat(2,1fr)}
+
+/* Sub-pestañas dentro de un grupo de la barra (Practicar, Estudiar, Biblioteca) */
+.grupotabs{display:flex;gap:4px;background:var(--subtle);border-radius:14px;padding:4px;margin-bottom:14px}
+.grupotabs button{flex:1;min-height:40px;border:0;border-radius:10px;background:none;color:var(--muted);font-weight:700;font-size:14px;padding:6px 8px}
+.grupotabs button.on{background:var(--panel);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.grupotabs button,.grupotabs button.on{border:0!important;outline:0}
+.grupotabs button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}

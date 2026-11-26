@@ -64,9 +64,26 @@ function go(v){
   // Durante una sesión (casos, examen, diagnóstico) se ocultan la barra y los contadores: menos distracción y ningún toque sin querer.
   document.body.classList.toggle("en-sesion", v === "sess");
   document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.id==="v-"+v));
-  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v || ((v==="src"||v==="check"||v==="guide"||v==="rep"||v==="apuntes") && b.dataset.go==="lib") || (v==="new" && b.dataset.go==="banco") || (v==="instalar" && b.dataset.go==="prog") || (v==="ahorro" && b.dataset.go==="lib")));
+  const grupo = GRUPO_DE[v] || v;
+  document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===grupo));
+  subPestanas(v);
   vistas()[v]?.();
   scrollTo(0,0);
+}
+// Barra de abajo con 5 grupos (prueba de usabilidad: 7 pestañas eran demasiadas). Cada pantalla pertenece a uno;
+// dentro de un grupo con varias pantallas, una fila de sub-pestañas arriba lleva de una a otra.
+const GRUPO_DE = {banco: "banco", tarjetas: "banco", new: "banco", estudio: "estudio", mbe: "estudio",
+  lib: "lib", src: "lib", check: "lib", guide: "lib", rep: "lib", apuntes: "lib", ahorro: "lib", prog: "prog", instalar: "prog"};
+const SUBPESTANAS = {banco: [["banco", "🩺 Casos"], ["tarjetas", "💎 Fichas"]],
+  estudio: [["estudio", "⏱️ Sesión de estudio"], ["mbe", "🔬 Lectura crítica"]],
+  lib: [["lib", "📚 Fuentes"], ["apuntes", "📓 Mis apuntes"]]};
+function subPestanas(v){
+  const g = SUBPESTANAS[GRUPO_DE[v]], sec = $("#v-" + v);
+  if (!sec) return;
+  let bar = sec.querySelector(":scope > .grupotabs");
+  if (!g || !g.some(([k]) => k === v)) { if (bar) bar.remove(); return; }
+  if (!bar) { bar = document.createElement("div"); bar.className = "grupotabs"; bar.setAttribute("role", "tablist"); sec.prepend(bar); }
+  bar.innerHTML = g.map(([k, t]) => `<button role="tab" data-go="${k}" class="${k === v ? "on" : ""}" aria-selected="${k === v}">${t}</button>`).join("");
 }
 // Qué dibuja cada pantalla.
 const vistas = () => ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, prog:renderProg, lib:renderLib, src:renderSrc, check:renderCheck, guide:renderGuide, mbe:renderMbe, new:renderNew, rep:renderRep, apuntes:renderApuntes, instalar:renderInstalar, ahorro:renderAhorro, estudio:renderEstudio, diag:renderDiag});

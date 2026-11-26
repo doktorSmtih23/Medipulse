@@ -20,7 +20,7 @@ test("Crear: eliminar un caso propio lo quita del banco y de los repasos", async
 test("Fichas: eliminar una ficha propia la quita y borra su repaso", async ({ page }) => {
   const id = await page.evaluate(() => { const h = agregarPropio("h", {id: nuevoIdPropio(), specialty: "Pediatría", title: "Ficha de prueba", badge: "", thresholds: [{label: "Dato", val: "1"}], redFlag: "", trap: "", manual: true});
     grade("h" + h.id, 2); rebuild(); save(); return h.id; });
-  await page.click("nav [data-go=tarjetas]");
+  await page.click("nav [data-go=banco]"); await page.click(".grupotabs [data-go=tarjetas]");
   // La ficha se arma al abrirla.
   await page.evaluate(id => { const d = document.querySelector(`#hyList .hyrow[data-hid="${id}"]`); d.open = true; d.ontoggle(); }, id);
   await page.evaluate(id => document.querySelector(`[data-hdel="${id}"]`).click(), id);
