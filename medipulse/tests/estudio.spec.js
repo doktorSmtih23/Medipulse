@@ -11,7 +11,7 @@ test("la barra tiene Estudio en vez de Simulacro y MBE ya no tiene «Revisión d
   errores = vigilarErrores(page); await page.goto("/");
   await expect(page.locator("nav [data-go=estudio]")).toBeVisible();
   await expect(page.locator("nav [data-go=sim]")).toHaveCount(0);
-  await page.click("nav [data-go=mbe]");
+  await page.click("nav [data-go=estudio]"); await page.click(".grupotabs [data-go=mbe]");
   await expect(page.locator('#mbeTabs [data-mt="REV"]')).toHaveCount(0);
 });
 

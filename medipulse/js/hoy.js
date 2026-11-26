@@ -331,7 +331,7 @@ function perfilUso(v){
 // Tres pantallas: qué es, cómo se usa y por dónde empezar. Se guarda en localStorage que ya se vio.
 const BIENV = [
   {ico: "🩺", t: "Bienvenido a MediPulse", d: "Para quien prepara el examen de residencia y para residentes y especialistas que quieren estar al día: casos tipo examen, repaso de lo que fallas, estudio desde tus propias guías y una herramienta para revisar artículos rápido."},
-  {ico: "🧭", t: "Así se usa", lista: [["🏠", "Hoy", "te dice qué hacer cada día"], ["🩺", "Casos", "practica y descubre dónde fallas"], ["💎", "Fichas", "datos clave para repasar"], ["📚", "Fuentes", "tus PDF y guías"]],
+  {ico: "🧭", t: "Así se usa", lista: [["🏠", "Hoy", "te dice qué hacer cada día"], ["🩺", "Practicar", "casos y fichas; descubre dónde fallas"], ["📖", "Estudiar", "sesión de estudio y lectura crítica"], ["📚", "Biblioteca", "tus PDF, guías y apuntes"]],
     d: "Todo se guarda en tu celular."},
   {ico: "🎯", t: "¿Por dónde empiezas?", d: "Si preparas el examen, empieza por tu diagnóstico: 60 casos en bloques de 10, unos 12 minutos cada uno, por partes. Si ya eres residente o especialista, empieza revisando un artículo o una guía."}
 ];

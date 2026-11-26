@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
 test("la lista es compacta: cada ficha se abre con un toque", async ({ page }) => {
-  await page.click("nav [data-go=tarjetas]");
+  await page.click("nav [data-go=banco]"); await page.click(".grupotabs [data-go=tarjetas]");
   const n = await page.evaluate(() => HYS.length);
   await expect(page.locator("#hyList .hyrow")).toHaveCount(n);
   await expect(page.locator("#hyList .hycard")).toHaveCount(0);
@@ -21,7 +21,7 @@ test("la lista es compacta: cada ficha se abre con un toque", async ({ page }) =
 test("buscar, filtrar por especialidad, área y estado; repasar usa lo filtrado", async ({ page }) => {
   await page.evaluate(() => { S.userH.push({id: "u1", specialty: "Medicina Interna", area: "Neurología", title: "Encefalitis anti-NMDAR", badge: "Fenotipo", thresholds: [{label: "Tumor", val: "Teratoma ovárico"}], redFlag: "", trap: "", relevance: 5},
     {id: "u2", specialty: "Medicina Interna", area: "Infectología", title: "Neumonía grave", badge: "", thresholds: [{label: "a", val: "b"}], redFlag: "", trap: "", relevance: 3}); rebuild(); save(); });
-  await page.click("nav [data-go=tarjetas]");
+  await page.click("nav [data-go=banco]"); await page.click(".grupotabs [data-go=tarjetas]");
   await page.fill("#hyQ", "teratoma");
   await expect(page.locator("#hyList .hyrow")).toHaveCount(1);
   await expect(page.locator("#hyQ")).toBeFocused();
