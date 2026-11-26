@@ -9,14 +9,15 @@ const RESP_MAX = 5000;
 // Motivos de un fallo: un toque después de fallar. Cada uno trae la estrategia que lo corrige.
 const MOTIVOS = [
   {k: "nosabia", t: "📚 No lo sabía", d: "vacío de contenido", tip: "Es un vacío de contenido, no de razonamiento: estudia la ficha high-yield o la guía del tema antes de volver a practicarlo."},
+  {k: "umbral", t: "🎯 Umbral o dosis", d: "cifra exacta", tip: "Es un dato que se sabe de memoria o no se sabe: repasa las fichas de umbrales y dosis del tema y dilos en voz alta sin mirar antes de volver a practicar."},
   {k: "dato", t: "🔍 No vi un dato del caso", d: "lectura del caso", tip: "Lee primero la pregunta final y después el caso buscando edad, tiempo de evolución, signos vitales y antecedentes. Practica con 🔍 Pistas activadas."},
   {k: "dude", t: "⚖️ Dudé entre dos", d: "discriminar entre opciones", tip: "Antes de ver las opciones, di tu respuesta. Si dudas entre dos, busca el dato del caso que descarta una: siempre lo hay."},
   {k: "confundi", t: "🔀 Lo confundí con otra cosa", d: "conceptos que se mezclan", tip: "Haz una ficha de diferencias «A vs. B» con el dato que las separa (edad, tiempo, umbral o primera línea)."}
 ];
 // Registra cada respuesta a un caso. Devuelve su índice para poder marcarle el motivo del fallo.
-function registrarRespuesta(q, elegida, ok, examen){
+function registrarRespuesta(q, elegida, ok, examen, conf){
   S.resp = S.resp || [];
-  S.resp.push({id: String(q.id), d: Date.now(), ok, o: elegida == null ? -1 : elegida, ex: examen ? 1 : 0});
+  S.resp.push({id: String(q.id), d: Date.now(), ok, o: elegida == null ? -1 : elegida, ex: examen ? 1 : 0, ...(conf ? {c: conf} : {})});
   if (S.resp.length > RESP_MAX) S.resp.splice(0, S.resp.length - RESP_MAX);
   return S.resp.length - 1;
 }
@@ -51,8 +52,7 @@ function marcarConfianza(r, c){
   r.c = c;
   const e = S.resp && S.resp[r.ri]; if (e) e.c = c;
   // Un acierto sin certeza no avanza en el repaso como si estuviera dominado: vuelve mañana.
-  const x = S.srs["q" + r.q.id];
-  if (r.good && c !== "seguro" && x && !r.ajustado) { x.b = Math.max(0, x.b - 1); x.due = Date.now() + DAY; x.last = 1; r.ajustado = true; }
+  if (r.good && c && c !== "seguro" && !r.ajustado) { ajustarPorConfianza("q" + r.q.id, c); r.ajustado = true; }
   save();
 }
 function auditoriaResumen(rs, total){
@@ -159,7 +159,7 @@ function vulnHTML(specs){
     ${rd.audN.peligro || rd.audN.fragil ? `<p class="small" style="margin:10px 0 0">Según tus auditorías: ${rd.audN.peligro ? `<b>🚨 ${rd.audN.peligro} error${rd.audN.peligro === 1 ? "" : "es"} con seguridad</b>` : ""}${rd.audN.peligro && rd.audN.fragil ? " · " : ""}${rd.audN.fragil ? `<b>🍀 ${rd.audN.fragil} acierto${rd.audN.fragil === 1 ? "" : "s"} frágil${rd.audN.fragil === 1 ? "" : "es"}</b>` : ""}. Entran primero en «Mis vulnerabilidades».</p>` : ""}
     ${rd.repetidos.length ? `<p class="small" style="margin:10px 0 0">🔁 <b>${rd.repetidos.length} caso${rd.repetidos.length === 1 ? "" : "s"}</b> que fallaste dos veces o más: ahí hay un error que se repite.</p>` : ""}
     ${motTop.length ? `<div class="note trap" style="margin-top:10px"><b>Tu error más frecuente: ${esc(motTop[0].t)}</b> (${rd.mot[motTop[0].k]} de ${rd.nMot} fallos con motivo).<div class="small" style="margin-top:4px">${esc(motTop[0].tip)}</div></div>`
-      : `<p class="xs muted" style="margin:10px 0 0">Cuando falles, marca el motivo (no lo sabía, no vi un dato, dudé entre dos, lo confundí): así la app encuentra el error que repites.</p>`}
+      : `<p class="xs muted" style="margin:10px 0 0">Cuando falles, marca el motivo (no lo sabía, umbral o dosis, no vi un dato, dudé entre dos, lo confundí): así la app encuentra el error que repites.</p>`}
     <div class="row" style="gap:6px;margin-top:10px">${rd.repetidos.length ? `<button class="btn sm" id="vulnRep">🔁 Los que fallo una y otra vez (${rd.repetidos.length})</button>` : ""}</div>`;
 }
 // En el resumen de la sesión: cómo te fue por tipo de pregunta y los motivos de tus fallos.
@@ -170,4 +170,53 @@ function vulnResumen(results){
   const peor = Object.entries(por).filter(([, x]) => x.ok < x.n).sort((a, b) => a[1].ok / a[1].n - b[1].ok / b[1].n)[0];
   return `<div class="small" style="text-align:left"><div class="chips" style="justify-content:center">${Object.entries(por).map(([k, x]) => `<span class="chip">${esc(QMETODO[k].t)} ${x.ok}/${x.n}</span>`).join("")}</div>
     ${peor ? `<p class="xs muted" style="margin:6px 0 0;text-align:center">Lo que más te costó hoy: <b>${esc(QMETODO[peor[0]].t)}</b>.${Object.keys(mot).length ? ` Motivo más marcado: ${esc(MOTIVOS.find(m => m.k === Object.entries(mot).sort((a, b) => b[1] - a[1])[0][0]).t)}.` : ""}</p>` : ""}</div>`;
+}
+
+// ---------- Bloque de refuerzo ----------
+// Cuando un tipo de pregunta en una especialidad (una «celda») acumula 3 fallos o más en 14 días, la app
+// ofrece un bloque con preguntas de esa celda: primero las que no has visto, luego las demás. Al empezarlo,
+// esos fallos dejan de contar (S.refuerzo guarda cuándo se hizo el último bloque de cada celda).
+const REF_DIAS = 14, REF_FALLOS = 3, REF_N = 10;
+function refuerzoPendiente(){
+  // Los fallos del diagnóstico (sus casos, respondidos en modo examen) no cuentan: el diagnóstico arma su propio foco del día.
+  const desde = Date.now() - REF_DIAS * DAY, hecho = S.refuerzo || {}, fallos = {};
+  const diag = new Set(((S.diag && S.diag.p1 && S.diag.p1.ids) || []).map(String));
+  (S.resp || []).forEach(r => {
+    if (r.ok || r.d < desde || (r.ex && diag.has(r.id))) return; const q = qById(r.id); if (!q) return;
+    const k = q.specialty + "|" + qKind(q); if (r.d > (hecho[k] || 0)) fallos[k] = (fallos[k] || 0) + 1; });
+  const top = Object.entries(fallos).filter(([, n]) => n >= REF_FALLOS).sort((a, b) => b[1] - a[1])[0]; if (!top) return null;
+  const [spec, tipo] = top[0].split("|"), pool = QUESTIONS.filter(q => q.specialty === spec && qKind(q) === tipo);
+  const visto = q => !!S.srs["q" + q.id];
+  const qs = [...shuffle(pool.filter(q => !visto(q))), ...shuffle(pool.filter(q => visto(q) && !isFail(q))), ...shuffle(pool.filter(isFail))].slice(0, REF_N);
+  if (!qs.length) return null;
+  return {k: top[0], spec, tipo, fallos: top[1], nuevos: qs.filter(q => !visto(q)).length, items: qs.map(q => ({t: "q", id: q.id}))};
+}
+const tipoNombre = k => QMETODO[k].t.replace(/^[^\p{L}]+/u, "");
+const refuerzoTitulo = ref => `${tipoNombre(ref.tipo)} en ${ref.spec}`;
+const refuerzoPor = ref => `Fallaste ${ref.fallos} preguntas de ${tipoNombre(ref.tipo).toLowerCase()} en ${esc(ref.spec)} en los últimos ${REF_DIAS} días. ${ref.nuevos ? `Van primero ${ref.nuevos === ref.items.length ? "preguntas" : ref.nuevos} que no has visto` : "Ya viste todas las de esta celda: van primero las que no fallaste"}, para practicar el razonamiento y no la memoria del caso.`;
+function empezarRefuerzo(ref){
+  S.refuerzo = Object.assign({}, S.refuerzo, {[ref.k]: Date.now()}); save();
+  startSession({label: "Bloque de refuerzo", tag: "norm", stages: [{name: "🧱 " + refuerzoTitulo(ref), items: ref.items}]});
+}
+
+// ---------- Fichas de lo que fallaste ----------
+// Al final de la sesión: las fichas high-yield (umbrales, dosis y algoritmos) de la misma especialidad
+// cuyo título comparte una palabra del tema de un caso fallado.
+const FICHA_VACIAS = new Set(["paciente", "manejo", "conducta", "tratamiento", "diagnostico", "inicial", "clinico", "clinica", "sindrome", "enfermedad", "aguda", "agudo", "cronica", "cronico", "severa", "severo", "grave", "embarazo", "adulto", "nino", "ninos"]);
+function fichasDeFallos(results){
+  const fallados = results.filter(r => r.t === "q" && !r.ok).map(r => qById(r.id)).filter(Boolean);
+  const palabras = t => norm(t || "").split(/[^a-z0-9ñ]+/).filter(w => w.length >= 5 && !FICHA_VACIAS.has(w));
+  const fichas = [], sin = [];
+  fallados.forEach(q => {
+    const ws = palabras(q.topic);
+    const hs = HYS.filter(h => h.specialty === q.specialty && palabras(h.title).some(w => ws.includes(w)));
+    hs.forEach(h => { if (!fichas.includes(h)) fichas.push(h); });
+    if (!hs.length && q.topic && !sin.includes(q.topic)) sin.push(q.topic);
+  });
+  return {fichas: fichas.slice(0, 8), sin, n: fallados.length};
+}
+function fichasFallosHTML(f){
+  if (!f.n) return "";
+  if (f.fichas.length) return `<button class="btn block" id="fichasFallo">📌 Fichas de umbrales y dosis de lo que fallaste (${f.fichas.length})</button>`;
+  return `<p class="xs muted" style="margin:0">Todavía no hay fichas de umbrales y dosis de ${f.sin.length === 1 ? "este tema" : "estos temas"}: ${esc(f.sin.slice(0, 3).join(", "))}${f.sin.length > 3 ? "…" : ""}. Puedes crearlas en «Crear pregunta o ficha».</p>`;
 }

@@ -17,7 +17,7 @@ const DUENOS = {
   reports: "reportes",
   tpls: "taller-casos",
   apuntes: "apuntes",
-  resp: "vulnerabilidades",
+  resp: "vulnerabilidades", refuerzo: "vulnerabilidades",
   metaPdf: "compromiso",
   diag: "diagnostico",
   prac: "banco",
