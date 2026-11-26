@@ -160,7 +160,8 @@ function vulnHTML(specs){
     ${rd.repetidos.length ? `<p class="small" style="margin:10px 0 0">🔁 <b>${rd.repetidos.length} caso${rd.repetidos.length === 1 ? "" : "s"}</b> que fallaste dos veces o más: ahí hay un error que se repite.</p>` : ""}
     ${motTop.length ? `<div class="note trap" style="margin-top:10px"><b>Tu error más frecuente: ${esc(motTop[0].t)}</b> (${rd.mot[motTop[0].k]} de ${rd.nMot} fallos con motivo).<div class="small" style="margin-top:4px">${esc(motTop[0].tip)}</div></div>`
       : `<p class="xs muted" style="margin:10px 0 0">Cuando falles, marca el motivo (no lo sabía, umbral o dosis, no vi un dato, dudé entre dos, lo confundí): así la app encuentra el error que repites.</p>`}
-    <div class="row" style="gap:6px;margin-top:10px">${rd.repetidos.length ? `<button class="btn sm" id="vulnRep">🔁 Los que fallo una y otra vez (${rd.repetidos.length})</button>` : ""}</div>`;
+    <div class="row" style="gap:6px;margin-top:10px;flex-wrap:wrap">${rd.repetidos.length ? `<button class="btn sm" id="vulnRep">🔁 Los que fallo una y otra vez (${rd.repetidos.length})</button>` : ""}${recuerdoVulnerables().length ? `<button class="btn sm" id="vulnRec">✍️ Recuerdo libre de lo que más fallo</button>` : ""}</div>
+    ${recuerdoVulnerables().length ? `<p class="xs muted" style="margin:6px 0 0">Recuerdo libre: los casos sin opciones y las cifras de memoria. Lo que más fallas tienes que saberlo sin pistas.</p>` : ""}`;
 }
 // En el resumen de la sesión: cómo te fue por tipo de pregunta y los motivos de tus fallos.
 function vulnResumen(results){

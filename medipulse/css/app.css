@@ -579,3 +579,9 @@ body.en-sesion{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 .rc-rasgos li{font-size:12.5px;margin:3px 0;line-height:1.35}
 .rc-rasgos b{display:inline-block;min-width:38px;color:var(--accent)}
 .chip.rc-tema{white-space:normal;font-weight:500}
+/* Recuerdo libre: cifras de la perla para completar de memoria */
+.rc-perla{line-height:2}
+.rc-hueco{display:inline-block;width:auto;min-width:3.2em;max-width:6em;padding:2px 6px;margin:0 2px;border:1px dashed var(--accent);border-radius:6px;background:var(--bg);font:inherit;text-align:center}
+.rc-cifra{padding:0 4px;border-radius:4px}
+.rc-cifra.ok{background:var(--ok-soft,#e3f1e6);color:var(--ok)}
+.rc-cifra.mal{background:var(--bad-soft);color:var(--bad)}

@@ -86,6 +86,14 @@ function grade(key, g){
   delete r.frag;
   save();
 }
+// Recuerdo libre (recuerdo.js): no cuenta como respuesta en las estadísticas; solo agenda el repaso.
+// Si no la tenías, vuelve mañana desde el principio; a medias, vuelve mañana; si la tenías, no cambia.
+function recuerdoAgenda(key, g){
+  if (g === 2) return;
+  const r = repasoDe(key), manana = Date.now() + DAY;
+  if (g === 0) { r.b = 0; r.due = manana; } else r.due = Math.min(r.due || manana, manana);
+  save();
+}
 // Un acierto sin seguridad no cuenta como dominado: vuelve mañana. Si dudaste, baja un escalón;
 // si adivinaste o no lo sabías, vuelve al principio, junto con lo que fallaste.
 function ajustarPorConfianza(key, c){
