@@ -192,6 +192,7 @@ function renderBanco(){
   // ---- Tus vulnerabilidades (dentro de la opción) ----
   $("#vulnAzar") && ($("#vulnAzar").onclick = () => { P.modo = "azar"; save(); renderBanco(); });
   $("#vulnRep") && ($("#vulnRep").onclick = () => estudiarCasos(shuffle(rd.repetidos), "Fallos que se repiten"));
+  $("#vulnRec") && ($("#vulnRec").onclick = () => empezarRecuerdo(recuerdoVulnerables(), "Lo que más fallas"));
 
   // Simulacro estilo universidad (reconstrucciones.js), debajo de «Arma tu práctica».
   if (typeof renderRecons === "function") renderRecons();

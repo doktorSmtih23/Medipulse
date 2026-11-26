@@ -40,6 +40,7 @@ function renderItem(){
   if (it.t==="q") renderQ(qById(it.id), st.exam);
   else if (it.t==="c") renderC(cById(it.id));
   else if (it.t==="h") renderH(hyById(it.id));
+  else if (it.t==="o") renderO(qById(it.id));
   else renderHYItem(hyById(it.id));
 }
 
@@ -303,7 +304,7 @@ function endSession(showSummary){
   if(!sess) return; if (!sess.prueba) addTime(); clearInterval(tick);
   const s=sess; sess=null; refreshChips(); document.body.classList.remove("en-sesion");
   if (!showSummary) return;
-  const q=s.results.filter(r=>r.t==="q"), c=s.results.filter(r=>r.t!=="q");
+  const q=s.results.filter(r=>r.t==="q"), c=s.results.filter(r=>r.t!=="q" && r.t!=="o"), rec = s.prueba ? [] : recuerdoDeSesion(s.results);
   const ff = s.prueba ? {n: 0} : fichasDeFallos(s.results), ref = s.prueba ? null : refuerzoPendiente();
   const qok=q.filter(r=>r.ok).length, mins=Math.max(1,Math.round((Date.now()-s.start)/6e4));
   currentView="sess"; document.body.classList.remove("en-sesion");   // en el resumen vuelve la barra
@@ -321,6 +322,8 @@ function endSession(showSummary){
     ${s.diag ? diagSummary(q) : ""}
     ${enfoqueResumen(s.results)}
     ${vulnResumen(s.results)}
+    ${recuerdoResumenHTML(s.results)}
+    ${rec.length ? `<button class="btn block" id="recBtn">✍️ Recuerdo libre de lo que fallaste (${rec.length})</button>` : ""}
     ${fichasFallosHTML(ff)}
     ${ref ? `<div class="note trap" style="text-align:left;margin:0"><b>🧱 Bloque de refuerzo: ${esc(refuerzoTitulo(ref))}</b><div class="xs" style="margin-top:4px">${refuerzoPor(ref)}</div><button class="btn sm" id="refBtn" style="margin-top:8px">Hacer el bloque · ${ref.items.length} casos</button></div>` : ""}
     <p class="muted small" style="margin:0">🔥 Racha: <b>${streak()}</b> día${streak()===1?"":"s"}. ${s.lazy?"Lo difícil era empezar. ¿Y si haces otros 5 minutos ahora que ya entraste en ritmo?":"Lo que fallaste vuelve en tu repaso en el momento justo."}</p>
@@ -329,6 +332,7 @@ function endSession(showSummary){
   $("#diagGo") && ($("#diagGo").onclick = ()=>{ const sp = $("#diagGo").dataset.spec; startSession({label:sp, tag:"norm", stages:[{name:sp, items:pickQuestions(5,{spec:sp})}]}); });
   $("#fichasFallo") && ($("#fichasFallo").onclick = ()=>startSession({label:"Fichas de lo que fallaste", tag:"norm", stages:[{name:"Umbrales, dosis y algoritmos", items:ff.fichas.map(h=>({t:"h", id:h.id}))}]}));
   $("#refBtn") && ($("#refBtn").onclick = ()=>empezarRefuerzo(ref));
+  $("#recBtn") && ($("#recBtn").onclick = ()=>empezarRecuerdo(rec, "Lo que fallaste"));
   $("#moreBtn") && ($("#moreBtn").onclick=()=>startSession({label:"Sin ganas (+5)",tag:"lazy",lazy:true,stages:[{name:"5 casos rápidos",items:pickQuestions(3)},{name:"Fichas",items:pickHY(3)}]}));
 }
 
