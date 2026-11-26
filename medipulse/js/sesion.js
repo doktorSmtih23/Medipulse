@@ -11,7 +11,7 @@ function startSession(cfg){
   cfg.stages = cfg.stages.filter(s=>s.items.length);
   if (!cfg.stages.length) return toast("No hay contenido para esta sesión todavía.");
   sess = Object.assign({si:0, i:0, answers:{}, results:[], start:Date.now(), last:Date.now(), stageStart:Date.now(), state:"ask"}, cfg);
-  currentView="sess";
+  currentView="sess"; document.body.classList.add("en-sesion");
   document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.id==="v-sess"));
   document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.remove("on"));
   const tag=$("#sessTag"); tag.className="tag "+(cfg.tag||""); tag.textContent=cfg.label;
@@ -54,7 +54,8 @@ function renderQ(q, exam){
       <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span>${exam ? (q.qtype && q.qtype!=="caso" ? `<span class="muted">${qtLabel(q.qtype)}</span>` : "") : tipoChip(q) + nivelChip(q)}${origenChip(q)}<div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="btn sm${hints?" on":""}" id="hintBtn" title="Resalta los datos clave del caso">🔍 Pistas: ${hints?"sí":"no"}</button>`}</div>
       ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
-      <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCDE"[i]}" title="Tachar">✕</button></div>`).join("")}</div>
+      <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCDE"[i]}" title="Tachar"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 17 10 7l4 10M7.6 13h4.8"/><path d="M4 12h16" stroke-width="2.2"/></svg></button></div>`).join("")}</div>
+      ${tacharAyuda()}
       ${exam ? `<div id="confRow">${confRowHTML(k)}</div>` : metodoPregunta(q)}
       <div id="fbBox"></div>
       ${exam || sess.prueba ? "" : `<div class="row" id="skipRow" style="margin-top:10px"><div class="spacer"></div><button class="btn ghost sm" id="skipBtn">Pasar esta pregunta →</button></div>`}
@@ -66,7 +67,8 @@ function renderQ(q, exam){
     <p class="xs muted center kbhint" style="margin-top:10px">Atajos: <kbd>1</kbd>–<kbd>4</kbd> elegir · <kbd>Enter</kbd> seguir</p>`;
   document.querySelectorAll("#opts .opt").forEach(b=>b.onclick=()=>answerQ(q,+b.dataset.o,exam));
   document.querySelectorAll("#opts .xbtn").forEach(b=>b.onclick=()=>{ const i = +b.dataset.x, at = struck.indexOf(i);
-    at>=0 ? struck.splice(at,1) : struck.push(i); b.parentElement.classList.toggle("struck", at<0); });
+    at>=0 ? struck.splice(at,1) : struck.push(i); b.parentElement.classList.toggle("struck", at<0);
+    if (!tacharVisto()) { try { localStorage.setItem("medipulse_tachar", "1"); } catch(e) {} const h = $("#tacharAyuda"); if (h) h.remove(); } });
   $("#hintBtn") && ($("#hintBtn").onclick = ()=>{ S.hints = !S.hints; save(); renderQ(q, exam); });
   // Pasar sin responder: no cuenta como fallo ni como acierto, y la pregunta sigue nueva o donde estaba en el repaso.
   $("#skipBtn") && ($("#skipBtn").onclick = ()=>{ addTime(); sess.skipped = (sess.skipped||0) + 1; sess.i++; renderItem(); });
@@ -83,6 +85,9 @@ function renderQ(q, exam){
     document.querySelectorAll(".simmap [data-j]").forEach(b=>b.onclick=()=>{ addTime(); sess.i = +b.dataset.j; renderItem(); });
   }
 }
+// Ayuda para el botón de tachar, hasta que se use por primera vez.
+const tacharVisto = () => { try { return localStorage.getItem("medipulse_tachar") === "1"; } catch(e) { return true; } };
+const tacharAyuda = () => tacharVisto() ? "" : `<p class="xs muted" id="tacharAyuda" style="margin:8px 0 0">Toca el botón de la derecha de una opción para <b>tacharla</b> cuando la descartes.</p>`;
 function answerQ(q, o, exam){
   if (sess.state!=="ask") return;
   if (exam){ const k = sess.si+":"+sess.i;
@@ -90,7 +95,7 @@ function answerQ(q, o, exam){
     sess.answers[k]=o; document.querySelectorAll("#opts .opt").forEach((b,i)=>b.classList.toggle("sel",i===o));
     $("#confRow").innerHTML = confRowHTML(k); bindConfRow(k);
     const m = document.querySelector('.simmap [data-j="'+sess.i+'"]'); m && m.classList.add("ans"); return; }
-  sess.state="fb";
+  sess.state="fb"; const ayuda = $("#tacharAyuda"); if (ayuda) ayuda.remove();
   const ok = o===q.correct, prueba = !!sess.prueba;
   let ri = null;
   if (!prueba) { addTime(); grade("q"+q.id, ok?2:0);
@@ -113,6 +118,9 @@ function answerQ(q, o, exam){
       <div ${prueba ? "hidden" : ""}><div class="acciones-caso"><button class="btn sm ghost" id="repBtn" title="¿Error o dato desactualizado? Repórtalo">🚩 Reportar error</button><button class="btn sm ghost" id="fixBtn">✏️ Corregir</button><button class="btn sm ghost" id="verBtn">📝 Mi versión</button><button class="btn sm ghost" id="archBtn">🗄️ Archivar</button></div><div id="repBox"></div><div id="fixBox"></div></div>
       <button class="btn primary block" id="nextBtn">${prueba ? "← Volver a editar" : "Siguiente →"}</button>
     </div>`;
+  // La explicación queda debajo de las opciones: se sube para que se vea sin adivinar que hay que bajar.
+  requestAnimationFrame(() => { const r = $("#fbBox").getBoundingClientRect();
+    if (r.top > innerHeight * .55) scrollBy({top: r.top - innerHeight * .4, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); });
   $("#repBtn").onclick = ()=>openReportForm("q"+q.id, $("#repBox"));
   $("#fixBtn").onclick = ()=>openCorregir("q", q, $("#fixBox"));
   $("#verBtn").onclick = ()=>{ if (confirmLeave()) { go("new"); editarCaso(q); } };
@@ -272,11 +280,11 @@ function examResults(){
 
 function endSession(showSummary){
   if(!sess) return; if (!sess.prueba) addTime(); clearInterval(tick);
-  const s=sess; sess=null; refreshChips();
+  const s=sess; sess=null; refreshChips(); document.body.classList.remove("en-sesion");
   if (!showSummary) return;
   const q=s.results.filter(r=>r.t==="q"), c=s.results.filter(r=>r.t!=="q");
   const qok=q.filter(r=>r.ok).length, mins=Math.max(1,Math.round((Date.now()-s.start)/6e4));
-  currentView="sess";
+  currentView="sess"; document.body.classList.remove("en-sesion");   // en el resumen vuelve la barra
   $("#sessBar").style.width="100%";
   $("#sessStage").textContent="Resumen"; $("#sessCount").textContent=""; $("#sessTimer").textContent=fmt((Date.now()-s.start)/1000);
   $("#sessBody").innerHTML = `<div class="card center stack">

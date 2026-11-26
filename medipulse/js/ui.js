@@ -61,6 +61,8 @@ let currentView = "hoy";
 function go(v){
   if (sess && v!=="sess" && !confirmLeave()) return;
   currentView = v;
+  // Durante una sesión (casos, examen, diagnóstico) se ocultan la barra y los contadores: menos distracción y ningún toque sin querer.
+  document.body.classList.toggle("en-sesion", v === "sess");
   document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.id==="v-"+v));
   document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("on", b.dataset.go===v || ((v==="src"||v==="check"||v==="guide"||v==="rep"||v==="apuntes") && b.dataset.go==="lib") || (v==="new" && b.dataset.go==="banco") || (v==="instalar" && b.dataset.go==="prog") || (v==="ahorro" && b.dataset.go==="lib")));
   vistas()[v]?.();
@@ -69,5 +71,10 @@ function go(v){
 // Qué dibuja cada pantalla.
 const vistas = () => ({hoy:renderHoy, banco:renderBanco, tarjetas:renderHY, prog:renderProg, lib:renderLib, src:renderSrc, check:renderCheck, guide:renderGuide, mbe:renderMbe, new:renderNew, rep:renderRep, apuntes:renderApuntes, instalar:renderInstalar, ahorro:renderAhorro, estudio:renderEstudio, diag:renderDiag});
 document.addEventListener("click", e=>{ const g=e.target.closest("[data-go]"); if(g) go(g.dataset.go); });
-function refreshChips(){ $("#streakChip").textContent = "🔥 " + streak(); $("#dueChip").textContent = "🔁 " + dueKeys().length; }
+// Contadores de la cabecera con su nombre visible (en el celular no hay texto emergente).
+function refreshChips(){
+  const st = streak(), due = dueKeys().length;
+  $("#streakChip").innerHTML = `<b>🔥 ${st}</b><small>${st === 1 ? "día" : "días"}</small>`;
+  $("#dueChip").innerHTML = `<b>🔁 ${due}</b><small>${due === 1 ? "repaso" : "repasos"}</small>`;
+}
 const fmt = s => { s=Math.max(0,Math.round(s)); return String(s/60|0).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); };

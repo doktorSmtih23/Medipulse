@@ -211,8 +211,9 @@ test.describe("Hoy rediseñado", () => {
     await page.goto("/");
     // Arriba el pulso de hoy, luego el siguiente paso y el recuadro que cambia (con la perla).
     const orden = await page.evaluate(() => [...document.querySelectorAll("#v-hoy .stack > *")].map(e => e.id));
-    expect(orden.indexOf("todayCard")).toBeLessThan(orden.indexOf("suggestCard"));
-    expect(orden.indexOf("suggestCard")).toBeLessThan(orden.indexOf("rotaBox"));
+    // el siguiente paso va primero (prueba de usabilidad: debajo del pulso quedaba fuera de la primera vista)
+    expect(orden.indexOf("suggestCard")).toBeLessThan(orden.indexOf("todayCard"));
+    expect(orden.indexOf("todayCard")).toBeLessThan(orden.indexOf("rotaBox"));
     await expect(page.locator("#rotaBox #pearlCard")).toHaveCount(1);
     const r = await page.evaluate(() => [
       perlaHTML("UKKA: 1) proteger el corazón (calcio IV); 2) meter K+ a la célula (insulina 10 U; salbutamol nebulizado); 3) sacar K+ del cuerpo. El resonio ya no se usa de rutina."),
@@ -273,4 +274,29 @@ test("MBE: los 4 tipos de documento se ven completos a 360 px, sin deslizar", as
   const bordes = await page.$$eval("#mbeTabs button", bs => bs.map(b => b.getBoundingClientRect().right));
   expect(bordes).toHaveLength(4);
   bordes.forEach(r => expect(r).toBeLessThanOrEqual(360));
+});
+
+test.describe("usabilidad en el celular (prueba de un usuario exigente)", () => {
+  test("durante una sesión no hay barra inferior ni contadores; al salir vuelven", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("#streakChip")).toContainText("días");
+    await expect(page.locator("#dueChip")).toContainText("repasos");
+    await page.evaluate(() => startSession({label: "x", tag: "norm", stages: [{name: "x", items: [{t: "q", id: QUESTIONS[0].id}]}]}));
+    await expect(page.locator("nav.bottom")).toBeHidden();
+    await expect(page.locator("#streakChip")).toBeHidden();
+    await page.evaluate(() => { endSession(false); go("hoy"); });
+    await expect(page.locator("nav.bottom")).toBeVisible();
+  });
+
+  test("al responder, la explicación sube a la vista; la ayuda de tachar se va después de usarlo", async ({ page }) => {
+    await page.goto("/");
+    await page.evaluate(() => startSession({label: "x", tag: "norm", stages: [{name: "x", items: [{t: "q", id: QUESTIONS[0].id}]}]}));
+    await expect(page.locator("#tacharAyuda")).toBeVisible();
+    await page.click(".xbtn >> nth=0");
+    await expect(page.locator("#tacharAyuda")).toHaveCount(0);
+    await page.click("#opts .opt >> nth=1");
+    await page.waitForTimeout(700);
+    const r = await page.evaluate(() => { const b = document.querySelector("#fbBox").getBoundingClientRect(); return [b.top, innerHeight]; });
+    expect(r[0]).toBeLessThan(r[1] * 0.6);
+  });
 });
