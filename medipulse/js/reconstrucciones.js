@@ -329,3 +329,29 @@ function rcMedir(texto, titulo){
     muestras: qs.filter((_, i) => i % Math.max(1, Math.floor(qs.length / 6)) === 0).slice(0, 6).map(q => q.t.length > 220 ? q.t.slice(0, 217) + "…" : q.t)};
   renderRecons();
 }
+
+// ---------- parte 2: crear casos con el estilo de un examen (Taller con IA o «Pegar de otra IA») ----------
+// Se le pasa a la IA solo la FORMA del examen (cuántos casos clínicos, largo, tipos y unas preguntas de muestra).
+// El contenido, la respuesta y la cita siguen saliendo únicamente del documento del usuario.
+function rcEstiloLinea(id){
+  const r = rcLista().find(x => x.id === id); if (!r) return "";
+  const p = r.perfil, pct = c => Math.round(c / Math.max(1, p.n) * 100);
+  const tipos = FOCUS.slice(1).map(f => `${f.t.replace(/^\S+\s/, "").toLowerCase()} ${pct(p.tipos[f.k] || 0)} %`).join(", ");
+  const ej = (r.muestras || []).filter(t => t.length >= 25).slice(0, 4);
+  return [`Estilo del examen ${rcNombre(r)} (medido en una reconstrucción): ${pct(p.casos)} % son casos clínicos y el resto preguntas directas; enunciados de unas ${p.palabras} palabras; tipos de pregunta: ${tipos}.`,
+    "Imita solo la FORMA de ese examen (largo, tono y cómo se plantea la pregunta). El contenido, la respuesta correcta y la cita salen únicamente del documento, nunca de los ejemplos.",
+    ej.length ? "Así pregunta ese examen (ejemplos de forma; no los copies ni los uses como fuente):\n" + ej.map(t => "- " + t).join("\n") : ""].filter(Boolean).join("\n");
+}
+function rcEstiloChips(sel, attr){
+  const L = rcLista(); if (!L.length) return "";
+  return `<div class="chips">${[["", "Sin estilo"], ...L.map(r => [r.id, rcNombre(r)])].map(([id, t]) =>
+    `<button class="chip2${(sel || "") === id ? " on" : ""}" ${attr}="${id}">${esc(t)}</button>`).join("")}</div>`;
+}
+// Reparte los casos entre las clases del Taller según los tipos de pregunta del examen (sin IA).
+function rcRepartirClases(id, clases, total){
+  const r = rcLista().find(x => x.id === id); if (!r || !total) return null;
+  const pesos = {};
+  clases.forEach(x => { const grupo = clases.filter(y => y.tipo === x.tipo).length; pesos[x.k] = (r.perfil.tipos[x.tipo] || 0) / grupo; });
+  if (!Object.values(pesos).some(Boolean)) return null;
+  return rcRepartir(pesos, total);
+}

@@ -118,3 +118,21 @@ test("el tema se elige dentro de la sección y la cantidad de cada tipo se escri
   await expect(page.locator("#cGo")).toBeDisabled();
   expect(await sinDesborde(page)).toBe(true);
 });
+
+test("estilo de examen: se elige de las reconstrucciones, reparte los casos como ese examen y va en la petición", async ({ page }) => {
+  await page.evaluate(() => { S.recons = [{id: "rc1", univ: "UdeA", anio: "2026", fecha: 1, titulo: "x", muestras: ["Paciente de 42 años con fiebre y cefalea de 3 días, ¿cuál es la conducta inicial?"],
+    perfil: {n: 100, areas: {}, tipos: {conducta: 50, diagnostico: 30, critica: 0, datos: 20}, casos: 80, conOpc: 90, palabras: 35, temas: []}}]; save(); });
+  await abrirCasos(page, "REV");
+  await page.click('[data-cest="rc1"]');
+  await expect(page.locator("#cRepartir")).toBeVisible();
+  const total = await page.evaluate(() => casosTotal(gen.casos));
+  await page.click("#cRepartir");
+  expect(await page.evaluate(() => casosTotal(gen.casos))).toBe(total);
+  expect(await page.evaluate(() => gen.casos.cant.conducta)).toBe(Math.round(total * 0.5));
+  expect(await sinDesborde(page)).toBe(true);
+  await page.click("#cGo");
+  await expect(page.locator("#candList")).toBeVisible();
+  const pide = peticiones.at(-1).messages[0].content.map(b => b.text).join("\n");
+  expect(pide).toContain("Estilo del examen UdeA 2026");
+  expect(pide).toContain("nunca de los ejemplos");
+});
