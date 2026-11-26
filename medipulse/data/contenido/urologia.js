@@ -33,7 +33,13 @@ MP_CONTENIDO.agregar({
           "texto": "Ultrasonography has a sensitivity of 70% and specificity of 94% for identifying renal stones, but sensitivity is considerably lower, at 57.3%, for ureteral stones."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: la tomografía sin contraste es el patrón de referencia.",
+        "No: el patrón de referencia es la tomografía sin contraste.",
+        "No: el patrón de referencia es la tomografía sin contraste, que también muestra los signos de obstrucción.",
+        "No: la ecografía detecta solo 57,3 % de los cálculos ureterales; no es el patrón de referencia."
+      ]
     },
     {
       "id": "uro-c02",
@@ -57,7 +63,13 @@ MP_CONTENIDO.agregar({
           "texto": "Ultrasonography has a sensitivity of 70% and specificity of 94% for identifying renal stones, but sensitivity is considerably lower, at 57.3%, for ureteral stones. This imaging modality can be used initially to detect obstruction. It is the test of choice in sensitive populations, such as pregnant women and children, for whom MRI and low-dose CT are the second-line and third-line options, respectively."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: en el embarazo la tomografía de baja dosis es la tercera opción.",
+        "Correcta: en embarazadas la ecografía es el estudio de elección.",
+        "No: la resonancia es la segunda opción, después de la ecografía.",
+        "No: en el embarazo el orden es ecografía, resonancia y tomografía de baja dosis."
+      ]
     },
     {
       "id": "uro-c03",
@@ -81,7 +93,13 @@ MP_CONTENIDO.agregar({
           "texto": "For stones ≤20 mm, both ureteroscopy and SWL are proposed in international guidelines, although for lower pole stones ≤20 mm, especially those with unfavourable anatomy or hard stones, ureteroscopy might be preferred. For stones >20 mm, PCNL is the proposed first-line treatment option."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la litotricia se propone para cálculos de hasta 20 mm.",
+        "No: la ureteroscopia se propone para cálculos de hasta 20 mm.",
+        "No: es un cálculo sintomático de más de 20 mm; se trata.",
+        "Correcta: para cálculos de más de 20 mm la nefrolitotomía percutánea es la primera línea."
+      ]
     },
     {
       "id": "uro-c04",
@@ -109,7 +127,13 @@ MP_CONTENIDO.agregar({
           "texto": "Calcium intake should be 1–1.2 g/day and not restricted."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: restringir el calcio aumenta el riesgo, porque se absorbe más oxalato.",
+        "No: el calcio no se restringe; se recomienda 1 a 1,2 g al día.",
+        "Correcta: 1 a 1,2 g al día de calcio, sin restringirlo.",
+        "No: el calcio de la comida es el que se une al oxalato en el intestino."
+      ]
     },
     {
       "id": "uro-c05",
@@ -137,7 +161,13 @@ MP_CONTENIDO.agregar({
           "texto": "increased water intake to achieve ≥2 l/day urine volume reduced stone recurrence from 27.0% to 12.1% (P = 0.008) over 5 years"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: la meta es orinar 2 a 2,5 L al día, lo que exige tomar 2,5 a 3 L.",
+        "No: 1 L es una meta baja; hay que tomar 2,5 a 3 L.",
+        "No: la meta de diuresis es de 2 a 2,5 L al día.",
+        "No: la meta es tomar 2,5 a 3 L para orinar 2 a 2,5 L."
+      ]
     },
     {
       "id": "uro-c06",
@@ -165,7 +195,13 @@ MP_CONTENIDO.agregar({
           "texto": "a persistently low urinary pH (<5.5) favours uric acid precipitation, whereas high urinary pH (>6.5) facilitates calcium phosphate crystallization"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la orina alcalina con Proteus orienta a estruvita.",
+        "No: el ácido úrico precipita en orina ácida, no alcalina.",
+        "Correcta: las bacterias productoras de ureasa alcalinizan la orina y precipitan estruvita.",
+        "No: las infecciones por bacterias productoras de ureasa orientan a estruvita."
+      ]
     },
     {
       "id": "uro-c07",
@@ -193,7 +229,13 @@ MP_CONTENIDO.agregar({
           "texto": "High sodium intake increases urinary calcium excretion through shared transport mechanisms in the renal tubule; restriction to <100 mmol sodium per day may reduce hypercalciuria and stone recurrence."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: lo que puede reducir las recurrencias en la hipercalciuria son las tiazidas o la indapamida.",
+        "Correcta: tiazidas o indapamida en quien forma cálculos de calcio con hipercalciuria.",
+        "No: ya come calcio normal; el fármaco indicado es una tiazida o la indapamida.",
+        "No: en la hipercalciuria lo que reduce las recurrencias son las tiazidas o la indapamida."
+      ]
     },
     {
       "id": "uro-c08",
@@ -221,7 +263,13 @@ MP_CONTENIDO.agregar({
           "texto": "In a retrospective study in 24 patients with uric acid stones initially referred for surgery, medical dissolution therapy with potassium citrate (alone or with allopurinol) achieved complete stone resolution in 67% of patients and partial reduction (mean 68% decrease in stone burden) in 33% of patients."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: los cálculos de ácido úrico pueden disolverse con citrato antes de intervenir.",
+        "No: el ácido úrico precipita en orina ácida; hay que alcalinizar, no acidificar.",
+        "No: es un cálculo de ácido úrico; se disuelve alcalinizando la orina.",
+        "Correcta: el citrato de potasio alcaliniza la orina y disuelve los cálculos de ácido úrico puros."
+      ]
     },
     {
       "id": "uro-c09",
@@ -249,7 +297,13 @@ MP_CONTENIDO.agregar({
           "texto": "In general, water is the main component of fluid therapy, although citrus fruit juices show an additional beneficial effect through increasing urinary citrates and urine alkalinization."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: los jugos cítricos aumentan el citrato urinario y alcalinizan la orina.",
+        "No: lo que suma beneficio son los jugos cítricos, que aumentan el citrato urinario.",
+        "No: lo que suma beneficio son los jugos cítricos, que aumentan el citrato urinario.",
+        "No: el problema es la hipocitraturia; suman los jugos cítricos, que aumentan el citrato."
+      ]
     },
     {
       "id": "uro-c10",
@@ -273,7 +327,13 @@ MP_CONTENIDO.agregar({
           "texto": "An increasing number of surgeons are not inserting double-J ureteral stents after uncomplicated ureteroscopies, and a Cochrane review reported uncertain benefit of stent placement regarding unplanned emergency room visits and ancillary interventions."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: no es obligatorio; el beneficio de dejarlo de rutina es incierto.",
+        "No: la revisión Cochrane encontró un beneficio incierto sobre urgencias e intervenciones adicionales.",
+        "Correcta: tras una ureteroscopia no complicada, el beneficio del doble J de rutina es incierto.",
+        "No: la evidencia sobre el doble J no depende del sexo; su beneficio de rutina es incierto."
+      ]
     },
     {
       "id": "uro-c11",
@@ -301,7 +361,13 @@ MP_CONTENIDO.agregar({
           "texto": "Blood cultures should be obtained for patients with fever because 21% of patients with acute bacterial prostatitis have bacteremia."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el PSA no está indicado en la evaluación de la prostatitis aguda.",
+        "Correcta: hemocultivos por la fiebre y antibiótico de amplio espectro por 2 a 4 semanas.",
+        "No: el masaje prostático no se hace en la prostatitis aguda.",
+        "No: es una infección febril; se toman hemocultivos y se da antibiótico de amplio espectro."
+      ]
     },
     {
       "id": "uro-c12",
@@ -329,7 +395,13 @@ MP_CONTENIDO.agregar({
           "texto": "Chronic bacterial prostatitis should be treated with at least 4 weeks of oral fluoroquinolones."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: tratarla con un ciclo corto como una cistitis es la trampa.",
+        "No: la prostatitis bacteriana crónica se trata al menos 4 semanas.",
+        "No: es una infección persistente; se trata con fluoroquinolona al menos 4 semanas.",
+        "Correcta: fluoroquinolona oral al menos 4 semanas."
+      ]
     },
     {
       "id": "uro-c13",
@@ -357,7 +429,13 @@ MP_CONTENIDO.agregar({
           "texto": "First-line oral therapy for CP/CPPS with urinary symptoms is α-blockers (eg, tamsulosin, alfuzosin; ΔNIH-CPSI score difference vs placebo = −10.8 to −4.8)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: con urocultivo negativo no se da antibiótico prolongado.",
+        "No: los antiinflamatorios dan cambios modestos; la primera línea con síntomas urinarios es el alfa-bloqueador.",
+        "Correcta: con síntomas urinarios, la primera línea oral es un alfa-bloqueador.",
+        "No: la pregabalina da cambios modestos; la primera línea con síntomas urinarios es el alfa-bloqueador."
+      ]
     },
     {
       "id": "uro-c14",
@@ -385,7 +463,13 @@ MP_CONTENIDO.agregar({
           "texto": "When women present with recurrent UTI symptoms, urinalysis and urine culture should be obtained."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: 3 o más en un año es recurrente; en cada episodio, uroanálisis y urocultivo.",
+        "No: es recurrente desde 2 en 6 meses o 3 en un año.",
+        "No: en cada episodio se pide urocultivo con antibiograma.",
+        "No: es recurrente, y las imágenes o la cistoscopia se reservan para banderas rojas."
+      ]
     },
     {
       "id": "uro-c15",
@@ -409,7 +493,13 @@ MP_CONTENIDO.agregar({
           "texto": "Asymptomatic bacteriuria should not be treated, except in patients who are pregnant or undergoing invasive urologic procedures."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la bacteriuria asintomática no se trata, salvo en embarazadas o antes de un procedimiento urológico.",
+        "Correcta: no se trata; no está embarazada ni la van a operar.",
+        "No: la bacteriuria asintomática no se trata.",
+        "No: la bacteriuria asintomática no se trata."
+      ]
     },
     {
       "id": "uro-c16",
@@ -437,7 +527,13 @@ MP_CONTENIDO.agregar({
           "texto": "Physicians should not perform follow-up testing after completion of antibiotics in nonpregnant patients unless symptoms persist."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: un tratamiento más largo no reduce la recurrencia.",
+        "No: no se repiten pruebas al terminar el antibiótico si no hay síntomas.",
+        "Correcta: alargar el tratamiento no reduce la recurrencia.",
+        "No: la cistoscopia se reserva para banderas rojas."
+      ]
     },
     {
       "id": "uro-c17",
@@ -465,7 +561,13 @@ MP_CONTENIDO.agregar({
           "texto": "In this trial, omitting biopsy in patients with negative MRI results eliminated more than half of diagnoses of clinically insignificant prostate cancer, and the associated risk of having incurable cancer diagnosed at screening or as interval cancer was very low."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: no hubo diferencia significativa en el cáncer clínicamente significativo.",
+        "No: el sobrediagnóstico bajó; el RR de cáncer insignificante fue 0,43.",
+        "No: lo que mostró fue menos sobrediagnóstico: más de la mitad menos de cánceres insignificantes.",
+        "Correcta: omitir la biopsia con resonancia negativa eliminó más de la mitad de los cánceres insignificantes."
+      ]
     }
   ],
   "fichas": [],

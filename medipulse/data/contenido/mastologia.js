@@ -33,7 +33,13 @@ MP_CONTENIDO.agregar({
           "texto": "Calcifications alone seen on mammogram with no associated mass, asymmetry, or distortion"
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la conducta es la escisión diagnóstica, no la mastectomía.",
+        "Correcta: escisión diagnóstica; en la hiperplasia ductal atípica no se exige margen negativo.",
+        "No: la resonancia no debe cambiar la indicación de escisión.",
+        "No: hay distorsión; no cumple los criterios para observar sin cirugía."
+      ]
     },
     {
       "id": "mas-c02",
@@ -61,7 +67,13 @@ MP_CONTENIDO.agregar({
           "texto": "Patients diagnosed with ALH and C-LCIS with no personal history of breast cancer should be counseled about their increased lifetime risk of breast cancer and should be offered risk-reducing strategies, including chemoprevention."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el CLIS clásico concordante no requiere escisión.",
+        "No: se asesora y se ofrecen estrategias de reducción del riesgo, incluida la quimioprevención.",
+        "Correcta: observación, asesoría del riesgo y ofrecer quimioprevención.",
+        "No: el CLIS clásico concordante se observa; se ofrecen estrategias de reducción del riesgo."
+      ]
     },
     {
       "id": "mas-c03",
@@ -89,7 +101,13 @@ MP_CONTENIDO.agregar({
           "texto": "P-LCIS and F-LCIS identified on core biopsy should be followed by diagnostic excision regardless of the imaging modality of diagnosis."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el CLIS pleomórfico se extirpa siempre.",
+        "No: el CLIS pleomórfico requiere escisión diagnóstica.",
+        "No: el CLIS pleomórfico requiere margen negativo.",
+        "Correcta: escisión con margen negativo."
+      ]
     },
     {
       "id": "mas-c04",
@@ -117,7 +135,13 @@ MP_CONTENIDO.agregar({
           "texto": "There is no evidence that FEA is associated with an elevated future breast cancer risk."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: la atipia epitelial plana sola concordante vuelve al tamizaje habitual.",
+        "No: con concordancia, la atipia epitelial plana sola no suele requerir escisión.",
+        "No: no hay evidencia de que la atipia epitelial plana aumente el riesgo de cáncer de mama.",
+        "No: no hay evidencia de que aumente el riesgo; vuelve al tamizaje habitual."
+      ]
     },
     {
       "id": "mas-c05",
@@ -141,7 +165,13 @@ MP_CONTENIDO.agregar({
           "texto": "A second pathology review confirmation is recommended for ADH, should be considered for FEA, and is not necessary for ALH or LCIS."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: en la hiperplasia lobulillar atípica la segunda lectura no es necesaria.",
+        "No: en el CLIS la segunda lectura no es necesaria.",
+        "Correcta: la segunda lectura se recomienda en la hiperplasia ductal atípica.",
+        "No: en el CLIS la segunda lectura no es necesaria."
+      ]
     },
     {
       "id": "mas-c06",
@@ -165,7 +195,13 @@ MP_CONTENIDO.agregar({
           "texto": "In patients undergoing surgery for in situ or invasive breast cancer, re-excision is not required for ADH identified at the margin of resection."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la hiperplasia ductal atípica en el margen no obliga a reoperar.",
+        "Correcta: no se reopera por hiperplasia ductal atípica en el margen.",
+        "No: la hiperplasia ductal atípica en el margen no obliga a reoperar.",
+        "No: la hiperplasia ductal atípica en el margen no requiere tratamiento adicional del margen."
+      ]
     },
     {
       "id": "mas-c07",
@@ -189,7 +225,13 @@ MP_CONTENIDO.agregar({
           "texto": "No additional diagnostic imaging workup is necessary for concordant, mammographic diagnosis of ADH on core biopsy. The use of MRI to assess for the presence of occult malignancy after a core needle biopsy showing ADH is not necessary and should not influence the decision for diagnostic excision."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la resonancia no debe cambiar la decisión de hacer la escisión.",
+        "No: no se indica mastectomía por una hiperplasia ductal atípica.",
+        "No: con hiperplasia ductal atípica concordante no hace falta más imagen.",
+        "Correcta: la resonancia no es necesaria ni debe cambiar la decisión de escisión."
+      ]
     },
     {
       "id": "mas-c08",
@@ -213,7 +255,13 @@ MP_CONTENIDO.agregar({
           "texto": "The Gail breast cancer risk-assessment model, Tyrer-Cuzick Risk Calculator v.7 and v.8 model, and Breast Cancer Screening Consortium risk model should not be used to estimate breast cancer risk in patients with ALH or C-LCIS as they overestimate risk for women with these diagnoses."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: Gail, Tyrer-Cuzick y BCSC sobreestiman el riesgo en la HLA y el CLIS clásico.",
+        "No: el modelo de Gail no debe usarse en estas pacientes; sobreestima el riesgo.",
+        "No: Tyrer-Cuzick v8 tampoco debe usarse; sobreestima el riesgo.",
+        "No: tiene un riesgo aumentado de por vida."
+      ]
     },
     {
       "id": "mas-c09",
@@ -237,7 +285,13 @@ MP_CONTENIDO.agregar({
           "texto": "For those patients with ADH who met the aforementioned selection criteria for omission of diagnostic excision, a 6-mo follow-up mammogram may be considered before returning to age-appropriate screening. Annual MRI surveillance may be considered after a comprehensive risk assessment and a discussion of the risks and benefits."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: la resonancia anual se considera solo tras una evaluación integral del riesgo.",
+        "Correcta: mamografía a los 6 meses y luego tamizaje según la edad.",
+        "No: el seguimiento propuesto es la mamografía a los 6 meses.",
+        "No: se puede considerar una mamografía a los 6 meses antes de volver al tamizaje."
+      ]
     },
     {
       "id": "mas-c10",
@@ -261,7 +315,13 @@ MP_CONTENIDO.agregar({
           "texto": "Patients diagnosed with P-LCIS or F-LCIS with no personal history of breast cancer should be counseled about their increased lifetime risk of breast cancer. If estrogen receptor status is available, chemoprevention should be offered to those with estrogen receptor–positive P-LCIS or F-LCIS; otherwise, chemoprevention should be considered for all patients."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: con receptor de estrógeno positivo se ofrece quimioprevención y asesoría del riesgo.",
+        "No: lo que se ofrece es quimioprevención y asesoría del riesgo.",
+        "Correcta: receptor de estrógeno positivo: quimioprevención y asesoría del riesgo.",
+        "No: el riesgo de por vida sigue aumentado; se asesora y se ofrece quimioprevención."
+      ]
     },
     {
       "id": "mas-c11",
@@ -289,7 +349,13 @@ MP_CONTENIDO.agregar({
           "texto": "Type I overdiagnosis, which has also been referred to as obligate overdiagnosis, is a screen-detected cancer that would not have become clinically evident prior to a patient’s death from a noncancer etiology, such as cardiovascular disease."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: cáncer del tamizaje que no se habría manifestado antes de morir por otra causa: sobrediagnóstico tipo I.",
+        "No: en el sobrediagnóstico sí hay cáncer; en el falso positivo no.",
+        "No: el fenómeno descrito es sobrediagnóstico tipo I.",
+        "No: el fenómeno descrito es sobrediagnóstico tipo I: el cáncer no se habría manifestado antes de su muerte."
+      ]
     },
     {
       "id": "mas-c12",
@@ -313,7 +379,13 @@ MP_CONTENIDO.agregar({
           "texto": "When lead time and background incidence of breast cancer are adjusted for, the most reliable estimates of breast cancer overdiagnosis are less than 10%."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: ajustando por tiempo de adelanto e incidencia de fondo, es menos de 10 %.",
+        "No: las estimaciones más confiables son menores de 10 %.",
+        "No: las estimaciones más confiables son menores de 10 %.",
+        "Correcta: ajustando por tiempo de adelanto e incidencia de fondo, menos de 10 %."
+      ]
     },
     {
       "id": "mas-c13",
@@ -341,7 +413,13 @@ MP_CONTENIDO.agregar({
           "texto": "The risks of screening mammography include overdiagnosis/overtreatment, false-positive screening, false-positive biopsy, and radiation exposure."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: recomendación de biopsia por la mamografía con resultado benigno: biopsia falsa positiva.",
+        "No: en el sobrediagnóstico sí hay cáncer; aquí la biopsia fue benigna.",
+        "No: es una biopsia falsa positiva: el resultado fue benigno.",
+        "No: no hubo cáncer que tratar; es una biopsia falsa positiva."
+      ]
     }
   ],
   "fichas": [],
