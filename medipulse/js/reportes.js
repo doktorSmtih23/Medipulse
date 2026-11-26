@@ -12,9 +12,24 @@ function openReportForm(key, box){
   box.querySelector(".repSend").onclick = ()=>{
     S.reports.push({id: "r"+Date.now().toString(36), key, at: Date.now(), reason: box.querySelector(".repR").value, comment: box.querySelector(".repC").value.trim(), status: "open"});
     save();
-    box.innerHTML = `<p class="xs" style="color:var(--ok);margin:6px 0 0">✓ Reporte guardado. Lo revisas en Fuentes → Reportes.</p>`;
+    const r = S.reports[S.reports.length - 1];
+    box.innerHTML = `<div class="row" style="gap:8px;margin-top:6px;flex-wrap:wrap"><p class="xs" style="color:var(--ok);margin:0;flex:1;min-width:180px">✓ Reporte guardado. Lo revisas en Fuentes → Reportes.</p><button class="btn sm primary repShare">📤 Enviar a quien revisa la app</button></div>`;
+    box.querySelector(".repShare").onclick = () => compartirReportes([r]);
   };
   box.querySelector(".repCancel").onclick = ()=>{ box.innerHTML = ""; };
+}
+// Compartir reportes: por WhatsApp, correo o lo que tenga el teléfono (menú de compartir del sistema); en el
+// computador se copian. No pasa por ningún servidor: lo envía la persona, a quien ella elija.
+function repTexto(r){
+  const x = itemByKey(r.key), v = x && r.key[0] === "q" ? String(x.vignette || "").replace(/<[^>]+>/g, "") : "";
+  return [`🚩 ${r.reason}`, `Ítem: ${r.key}${x ? " · " + itemLabel(r.key, x).replace(/^\S+\s/, "") : " (ya no está)"}${x && x.specialty ? " · " + x.specialty : ""}`,
+    r.comment ? `Detalle: ${r.comment}` : "", v ? `Caso: ${v.length > 220 ? v.slice(0, 217) + "…" : v}` : "", `Fecha: ${fmtDate(r.at)}`].filter(Boolean).join("\n");
+}
+async function compartirReportes(lista){
+  const txt = `Reporte${lista.length === 1 ? "" : "s"} de MediPulse (${lista.length})\n\n` + lista.map(repTexto).join("\n\n— — —\n\n");
+  try { if (navigator.share) { await navigator.share({title: "Reportes de MediPulse", text: txt}); return; } } catch(e) { if (e && e.name === "AbortError") return; }
+  try { await navigator.clipboard.writeText(txt); toast("Copiado ✓ Pégalo en WhatsApp o en un correo"); }
+  catch(e) { toast("No se pudo copiar: selecciona el texto y cópialo a mano"); }
 }
 const itemByKey = k => k[0]==="q" ? qById(k.slice(1)) : k[0]==="h" ? hyById(k.slice(1)) : cById(k.slice(1));
 const itemLabel = (k, x) => !x ? "(ítem archivado o eliminado)" : k[0]==="q" ? "🩺 " + (x.topic || "Caso clínico") : k[0]==="h" ? "💎 " + x.title : "🃏 " + x.front;
@@ -40,17 +55,21 @@ function renderRep(){
         ${x ? `<button class="btn sm" data-rv="${r.id}">Ver</button>` : ""}
         ${x && getKey() && r.status==="open" && r.key[0]!=="h" ? `<button class="btn primary sm" data-rai="${r.id}">Corregir con IA</button>` : ""}
         ${x && r.status==="open" ? `<button class="btn ghost sm" data-rarch="${r.id}">Archivar ítem</button>` : ""}
+        <button class="btn ghost sm" data-rsh="${r.id}">📤 Enviar</button>
         <button class="btn ghost sm" data-rst="${r.id}">${r.status==="open" ? "Marcar resuelto" : "Reabrir"}</button>
         <button class="btn ghost sm" data-rdel="${r.id}" style="color:var(--bad)">Borrar</button>
       </div></div></div>`;
   };
   // Plegados por estado: abiertos y resueltos.
   const ab = list.filter(r=>r.status==="open"), ce = list.filter(r=>r.status!=="open");
-  $("#repList").innerHTML = list.length ? (ab.length ? plegable("repab", `<b>Abiertos</b> <span class="xs muted">${ab.length}</span>`, ab.map(fila).join("")) : "")
+  $("#repList").innerHTML = (ab.length ? `<button class="btn primary block" id="repShareAll" style="margin-bottom:10px">📤 ${ab.length === 1 ? "Enviar el reporte abierto" : `Enviar los ${ab.length} abiertos`} a quien revisa la app</button>` : "")
+    + (list.length ? (ab.length ? plegable("repab", `<b>Abiertos</b> <span class="xs muted">${ab.length}</span>`, ab.map(fila).join("")) : "")
     + (ce.length ? plegable("repce", `<b>Resueltos o archivados</b> <span class="xs muted">${ce.length}</span>`, ce.map(fila).join("")) : "")
-    : `<p class="muted small" style="margin:0">No hay reportes todavía.</p>`;
+    : `<p class="muted small" style="margin:0">No hay reportes todavía.</p>`);
   const R = id => S.reports.find(r=>r.id===id), L = $("#repList");
   L.querySelectorAll("[data-rv]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rv); startSession({label:"Reporte", tag:"norm", stages:[{name:"Ítem reportado", items:[{t:r.key[0], id:r.key.slice(1)}]}]}); });
+  $("#repShareAll") && ($("#repShareAll").onclick = () => compartirReportes(ab));
+  L.querySelectorAll("[data-rsh]").forEach(b=>b.onclick=()=>compartirReportes([R(b.dataset.rsh)]));
   L.querySelectorAll("[data-rst]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rst); r.status = r.status==="open" ? "done" : "open"; save(); renderRep(); });
   L.querySelectorAll("[data-rdel]").forEach(b=>b.onclick=()=>{ S.reports = S.reports.filter(r=>r.id!==b.dataset.rdel); save(); renderRep(); });
   L.querySelectorAll("[data-rarch]").forEach(b=>b.onclick=()=>{ const r = R(b.dataset.rarch); archivar(r.key); r.status = "done"; rebuild(); save(); refreshChips(); toast("Ítem archivado. Puedes restaurarlo en Fuentes → Vigencia."); renderRep(); });

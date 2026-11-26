@@ -14,22 +14,22 @@ function renderHoy(){
   const weak = weakestSpec();
   // El siguiente paso: un botón grande («Seguir») y debajo por qué se eligió. s = {id, t: lo que hace, sub, por, mas}.
   let s;
-  if (due>0) s = {id: "doDue", t: "Repasar ahora", sub: `${due} repaso${due>1?"s":""} pendiente${due>1?"s":""}`, por: "Es lo que más rinde: estás a punto de olvidarlo."};
+  if (due>0) s = {id: "doDue", ico: "🔁", t: "Repasar ahora", sub: `${due} repaso${due>1?"s":""} pendiente${due>1?"s":""}`, por: "Es lo que más rinde: estás a punto de olvidarlo."};
   else if (!diagHecho()) { const p = diagProgreso();
-    s = p.hechos ? {id: "doDiag", t: "🎯 Seguir el diagnóstico", sub: `Vas en ${p.hechos} de ${p.total} casos`, por: "Termínalo y te armo un plan con tus puntos débiles; mientras tanto, lo personalizado espera."}
-      : {id: "doDiag", t: "🎯 Empezar el diagnóstico", sub: `${p.total} casos en bloques de ${DIAG_BLOQUE}`, por: `<b>Primero, tu diagnóstico.</b> Antes de recomendarte qué estudiar necesito conocerte: los casos (unos 12 minutos cada bloque), un cuestionario de cómo estudias y un caso de juicio clínico. Puedes hacerlo por partes.`}; }
+    s = p.hechos ? {id: "doDiag", ico: "🎯", t: "Seguir el diagnóstico", sub: `Vas en ${p.hechos} de ${p.total} casos`, por: "Termínalo y te armo un plan con tus puntos débiles; mientras tanto, lo personalizado espera."}
+      : {id: "doDiag", ico: "🎯", t: "Empezar el diagnóstico", sub: `${p.total} casos en bloques de ${DIAG_BLOQUE}`, por: `<b>Primero, tu diagnóstico.</b> Antes de recomendarte qué estudiar necesito conocerte: los casos (unos 12 minutos cada bloque), un cuestionario de cómo estudias y un caso de juicio clínico. Puedes hacerlo por partes.`}; }
   else if (diagFocoHoy() && diagFocoHoy().qs.length) { const f = diagFocoHoy();
-    s = {id: "doFoco", t: `Seguir · ${f.qs.length} casos`, sub: `${esc(QMETODO[f.tipo].t)} · ${esc(f.area)}`, por: `Según tu diagnóstico, es tu punto más débil. Primero los que toca repasar y los que no has visto.`,
+    s = {id: "doFoco", ico: "🩺", t: `Seguir · ${f.qs.length} casos`, sub: `${esc(QMETODO[f.tipo].t)} · ${esc(f.area)}`, por: `Según tu diagnóstico, es tu punto más débil. Primero los que toca repasar y los que no has visto.`,
       mas: `<button class="btn sm sig-sec" data-go="diag">Ver mi plan</button>`}; }
-  else if (!l.sec && st>0) s = {id: "doOne", t: "Mantener racha", sub: "2 fichas · 1 min", por: `Llevas <b>${st} día${st>1?"s":""}</b> de racha. Aunque hoy no tengas ganas, con dos fichas la mantienes.`};
-  else if (newUserItems().length) s = {id: "doNew", t: "Practicar lo nuevo", sub: `${newUserItems().length} ítems de tus PDF sin estudiar`, por: "Lo que acabas de leer se fija mejor si lo practicas hoy."};
-  else if (!SPECS.some(x => specStats()[x].n >= 3)) s = {id: "doDiag", t: "🎯 Hacer el diagnóstico", sub: "Empieza por aquí", por: "Todavía no sé cuál es tu punto más débil: necesito que respondas algunos casos. Con el diagnóstico te recomiendo desde el primer día."};
+  else if (!l.sec && st>0) s = {id: "doOne", ico: "🔥", t: "Mantener racha", sub: "2 fichas · 1 min", por: `Llevas <b>${st} día${st>1?"s":""}</b> de racha. Aunque hoy no tengas ganas, con dos fichas la mantienes.`};
+  else if (newUserItems().length) s = {id: "doNew", ico: "📄", t: "Practicar lo nuevo", sub: `${newUserItems().length} ítems de tus PDF sin estudiar`, por: "Lo que acabas de leer se fija mejor si lo practicas hoy."};
+  else if (!SPECS.some(x => specStats()[x].n >= 3)) s = {id: "doDiag", ico: "🎯", t: "Hacer el diagnóstico", sub: "Empieza por aquí", por: "Todavía no sé cuál es tu punto más débil: necesito que respondas algunos casos. Con el diagnóstico te recomiendo desde el primer día."};
   else { const x = specStats()[weak];
-    s = {id: "doWeak", t: `Seguir · 5 casos`, sub: `${esc(weak)} · ${Math.round(x.ok / x.n * 100)} % de aciertos`, por: "Elegido porque es tu área más baja: una ronda de 5 casos de ese tema."}; }
+    s = {id: "doWeak", ico: "💪", t: `Seguir · 5 casos`, sub: `${esc(weak)} · ${Math.round(x.ok / x.n * 100)} % de aciertos`, por: "Elegido porque es tu área más baja: una ronda de 5 casos de ese tema."}; }
   // Con la parte 1 hecha, sea cual sea el paso de hoy, se recuerda lo que falta del diagnóstico.
   const resto = diagFaltan().length ? `<p class="xs sig-resto">Para completar tu plan te falta ${diagFaltan().join(" y ")}. <button class="linkbtn xs" id="doDiagResto">Terminar el diagnóstico</button></p>` : "";
   $("#suggestCard").innerHTML = `<p class="sig-k">💡 Tu siguiente paso</p>
-    <button class="seguir" id="${s.id}"><span><b>${s.t}</b><small>${s.sub}</small></span><span class="flecha" aria-hidden="true">›</span></button>
+    <button class="seguir" id="${s.id}"><span class="sig-ico" aria-hidden="true">${s.ico || "▶"}</span><span class="sig-txt"><b>${s.t}</b><small>${s.sub}</small></span><span class="flecha" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
     <p class="sig-por small">${s.por}</p>${s.mas ? `<div class="row" style="margin-top:8px">${s.mas}</div>` : ""}${resto}`;
   $("#doDue") && ($("#doDue").onclick = startDue);
   $("#doDiag") && ($("#doDiag").onclick = () => go("diag"));
