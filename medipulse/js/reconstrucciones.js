@@ -100,6 +100,116 @@ function rcSecuencia(L){
   while (k >= 0) { out.add(E[k][0]); k = prev[k]; }
   return out;
 }
+// Temas clínicos que se reconocen en una pregunta (texto sin tildes y en minúsculas). Sirven para ver qué temas
+// trae un examen, cuáles se repiten entre años y para buscar los casos del banco de esos temas.
+const RC_TEMAS = [
+  ["TEC y escala de Glasgow", /\btec\b|trauma (craneo|encefal)|craneoencefal|glasgow|anisocori|hematoma (epi|sub)dural/],
+  ["Síndrome compartimental", /compartimental/],
+  ["Vía aérea difícil e intubación", /cormack|via aerea dificil|intubaci|secuencia rapida|laringoscop|sellick/],
+  ["Choque hemorrágico", /(choque|shock) hemorrag|hemorragia masiva|transfusion masiva/],
+  ["Trauma de tórax", /neumotorax|hemotorax|taponamiento cardiaco|torax inestable/],
+  ["Quemaduras", /quemad/],
+  ["Obstrucción de la vía aérea por cuerpo extraño", /heimlich|atragant|cuerpo extrano en (la )?via aerea|obstruccion (grave )?de la via aerea/],
+  ["Reanimación cardiopulmonar", /reanimacion cardio|paro cardi|\brcp\b|desfibril/],
+  ["Anafilaxia", /anafila/],
+  ["Urticaria y angioedema", /urticari|angioedema/],
+  ["Intoxicación por acetaminofén", /acetaminof|paracetamol|acetilcisteina/],
+  ["Organofosforados y síndrome colinérgico", /organofosf|colinergic|carbamato/],
+  ["Toxicidad por anestésicos locales", /lidocain|bupivacain|anestesico local/],
+  ["SJS, DRESS y reacciones a fármacos", /stevens|necrolisis epidermica|\bdress\b|carbamazepin/],
+  ["Metanol y etilenglicol", /metanol|etilenglicol/],
+  ["Accidente ofídico", /ofidi|serpiente|bothrops|mordedura de culebra/],
+  ["Síndrome coronario agudo", /infarto|\biam\b|\bsca\b|supradesnivel|sindrome coronario|trombolis|fibrinolis|\bicp\b|angioplast/],
+  ["Fibrilación auricular y anticoagulación", /fibrilacion auricular|cha2?ds2|anticoagula|warfarina/],
+  ["Valvulopatías", /estenosis (mitral|aortica)|insuficiencia (mitral|aortica)|valvulopat/],
+  ["Insuficiencia cardiaca", /insuficiencia cardiaca|falla cardiaca/],
+  ["Hipertensión arterial", /hipertension arterial|crisis hipertens|emergencia hipertens|urgencia hipertens/],
+  ["Tromboembolia pulmonar y TVP", /tromboembol|\btep\b|trombosis venosa|\btvp\b/],
+  ["EPOC", /\bepoc\b|pulmonar obstructiva|\bgold\b|prism/],
+  ["Asma", /\basma|\bgina\b|broncoespasm/],
+  ["Neumonía", /neumonia|\bnac\b/],
+  ["Tuberculosis", /tuberculos/],
+  ["Sepsis", /sepsis|septic/],
+  ["Dengue", /dengue/],
+  ["Malaria", /malaria|paludismo|plasmodium/],
+  ["Sífilis", /sifilis|treponema|vdrl|benzatinica/],
+  ["VIH", /\bvih\b|antirretrovir/],
+  ["Herpes", /herpes/],
+  ["Infección urinaria", /infeccion (de vias |del tracto )?urinaria|\bitu\b|pielonefrit|cistitis|bacteriuria/],
+  ["Meningitis", /meningit/],
+  ["Toxoplasmosis", /toxoplasm/],
+  ["ITS y enfermedad pélvica inflamatoria", /gonorrea|gonococ|clamidia|chlamydia|uretritis|enfermedad pelvica|cervicitis/],
+  ["Diabetes y crisis hiperglucémicas", /diabet|cetoacidosis|hiperglucem|estado hiperosmolar|metformin/],
+  ["Tiroides", /tiroid|levotiroxina|graves|hashimoto/],
+  ["Trastornos del sodio y el potasio", /hiponatrem|hipernatrem|hiperkalem|hiperpotasem|hipokalem|hipopotasem/],
+  ["ACV", /\bacv\b|ictus|cerebrovascular|trombectom|alteplasa|tenecteplasa|nihss/],
+  ["Convulsiones y epilepsia", /convulsi|epilep|estatus/],
+  ["Radiculopatía y lumbalgia", /radiculopat|ciatic|hernia discal|\bl5\b|lumbalgia|trendelenburg/],
+  ["Plexo braquial y nervio periférico", /plexo braquial|nervio (radial|cubital|mediano|ulnar|axilar|peroneo|musculocutaneo)|tunel del carpo|mano en garra/],
+  ["Apendicitis", /apendic/],
+  ["Vesícula y vía biliar", /colecist|coledoc|colangit|vesicul|biliar/],
+  ["Pancreatitis", /pancreatit/],
+  ["Hemorragia digestiva", /hemorragia digestiva|sangrado digestivo|melenas|hematemesis|variceal|varices/],
+  ["Obstrucción intestinal", /obstruccion intestinal|volvulo|bridas/],
+  ["Hernias de pared", /hernia (inguinal|femoral|umbilical|incisional)/],
+  ["Cirrosis y sus complicaciones", /cirrosis|ascitis|encefalopatia hepatica|peritonitis bacteriana/],
+  ["Fracturas de antebrazo", /cubito|antebrazo|monteggia|galeazzi|colles|radio distal/],
+  ["Escafoides", /escafoid|tabaquera/],
+  ["Cadera", /fractura de cadera|cuello femoral|displasia (del desarrollo )?de (la )?cadera|perthes|epifisiolisis/],
+  ["Fracturas abiertas", /fractura abierta|gustilo/],
+  ["Luxaciones", /luxaci/],
+  ["Esguince de tobillo", /esguince|tobillo|ottawa/],
+  ["Osteomielitis y artritis séptica", /osteomielit|artritis septica/],
+  ["Preeclampsia e hipertensión en el embarazo y el posparto", /preeclampsia|eclampsia|\bhellp\b|sulfato de magnesio|hipertension (gestacional|posparto|en el puerperio)/],
+  ["Restricción del crecimiento fetal", /restriccion del crecimiento|\brciu\b|percentil \d|pequeno para la edad|doppler/],
+  ["Hemorragia posparto", /hemorragia posparto|atonia uterina|tranexamico/],
+  ["Placenta previa y abrupcio", /placenta previa|abrupcio|desprendimiento (prematuro )?de placenta/],
+  ["Parto pretérmino y ruptura de membranas", /pretermino|amenaza de parto|tocolis|maduracion pulmonar|ruptura (prematura )?de membranas|\brpm\b/],
+  ["Diabetes gestacional", /diabetes gestacional/],
+  ["Citología, VPH y cáncer de cuello uterino", /citolog|asc-?us|\bagc\b|\bvph\b|papiloma|colposcop|\bnic ?[123i]|cuello uterino|cervix/],
+  ["Síndrome de ovario poliquístico", /ovario poliquist|\bsop\b/],
+  ["Anticoncepción", /anticoncep|dispositivo intrauterino|\bdiu\b|implante subdermico/],
+  ["Embarazo ectópico", /ectopico/],
+  ["Aborto", /aborto/],
+  ["Vaginitis", /vaginosis|candidiasis vulvo|tricomon|vaginitis/],
+  ["Sangrado uterino y miomas", /mioma|sangrado uterino anormal|hiperplasia endometrial|dismenorrea/],
+  ["Menopausia", /menopaus|climaterio/],
+  ["Prescripción de ejercicio", /prescri\w* (de(l)? )?ejercicio|ejercicio (aerobico|fisico)|actividad fisica/],
+  ["Desnutrición aguda", /desnutrici|perimetro braquial|\bf-?75\b|\bf-?100\b|ftlc|marasmo|kwashiorkor/],
+  ["Fiebre sin foco", /fiebre sin foco|sin foco aparente/],
+  ["Bronquiolitis", /bronquiolit/],
+  ["Crup y epiglotitis", /\bcrup\b|laringotraque|epiglotit|tos perruna|estridor/],
+  ["Ictericia neonatal", /ictericia neonatal|hiperbilirrubin|fototerapia/],
+  ["Reanimación neonatal", /reanimacion neonatal|ventilacion con presion positiva/],
+  ["Diarrea y deshidratación", /deshidrata|diarrea aguda|plan [abc]\b|sales de rehidratacion/],
+  ["Leucocoria y retinoblastoma", /leucocori|retinoblast/],
+  ["Ptosis palpebral", /ptosis/],
+  ["Vacunación", /vacun/],
+  ["Kawasaki", /kawasaki/],
+  ["Invaginación intestinal", /invaginaci/],
+  ["Estenosis hipertrófica del píloro", /piloro|pilorica/],
+  ["Maltrato y abuso sexual", /maltrato|abuso sexual|zarandeado/],
+  ["Estrés postraumático", /estres postraum|\btept\b/],
+  ["Psicosis y esquizofrenia", /psicosis|psicotic|esquizofren|antipsicot|haloperidol/],
+  ["Trastorno obsesivo-compulsivo", /obsesiv|\btoc\b/],
+  ["Depresión y riesgo suicida", /trastorno depresivo|episodio depresivo|depresion mayor|suicid|antidepresiv|\bisrs\b/],
+  ["Ansiedad y pánico", /ansiedad generalizada|panico/],
+  ["Delirium", /delirium/],
+  ["Consumo de sustancias y abstinencia", /abstinencia|alcoholismo|consumo de (alcohol|sustancias)|opioide/],
+  ["Litiasis urinaria", /litiasis renal|urolitiasis|colico renal|calculo (renal|ureteral)/],
+  ["Próstata", /prostat|\bpsa\b/],
+  ["Escroto agudo", /torsion testicular|escroto agudo|epididim/],
+  ["Cáncer de mama", /cancer de mama|mamograf|bi-?rads|nodulo mamario/],
+  ["Rutas integrales de atención (RIAS)", /\brias\b|3280|ruta integral/],
+  ["Tamizaje", /tamizaj|tamizacion/],
+  ["Notificación y vigilancia en salud pública", /notificaci|sivigila|vigilancia epidemiol/],
+  ["Lectura crítica y estadística", /sensibilidad|especificidad|valor predictivo|\bnnt\b|riesgo relativo|odds ratio|ensayo clinico|cohorte|casos y controles|sesgo/],
+  ["Anemia", /anemia|ferropen/]
+];
+const rcTemasDe = t => { const n = rcNorm(t); return RC_TEMAS.filter(([, re]) => re.test(n)).map(([k]) => k); };
+const rcTextoCaso = q => (q.topic || "") + " " + String(q.vignette || "").replace(/<[^>]+>/g, "");
+// Una opción combinada junta varias medidas: «Ceftriaxona + aminofilina + VMNI» o «Oxígeno, salbutamol y prednisolona».
+const rcComb = l => /\S\s*\+\s*\S/.test(l) || (/,/.test(l) && /\sy\s/.test(l));
 function rcParsear(texto){
   const L = rcLimpiar(texto).filter(l => l && !/^[-_=*]{3,}$/.test(l));
   const esOpcion = l => RC_LETRA.test(l) || RC_VINETA.test(l) || RC_NUM.test(l);
@@ -111,7 +221,7 @@ function rcParsear(texto){
       const sec = rcSeccion(l); if (sec) { secc = sec.spec; seccNombre = sec.nombre; q = null; return; }
       if (idx.has(i)) { if (rcDiscusion(l.replace(RC_PROPIA, ""))) { q = null; return; } q = {t: l.replace(RC_PROPIA, "").trim(), opc: 0, secc, seccNombre}; qs.push(q); cerrada = false; return; }
       if (!q || cerrada || RC_RESP.test(l)) return;
-      if (esOpcion(l) && l.length < 200 && q.opc < 6) q.opc++;
+      if (esOpcion(l) && l.length < 200 && q.opc < 6) { q.opc++; if (rcComb(l)) q.comb = (q.comb || 0) + 1; }
       else if (!q.opc && l.length < 400 && !/\?\s*$/.test(q.t)) q.t += " " + l;
       else cerrada = true;
     });
@@ -130,11 +240,11 @@ function rcParsear(texto){
         // Numerada: es opción si sigue a una pregunta completa con opciones numeradas (o aún sin opciones);
         // es pregunta si pregunta algo, es larga, o la pregunta anterior ya tenía opciones de otra forma.
         const t = l.replace(RC_NUM, ""), pregunta = /\?/.test(t) || t.length >= 70 || (t.length >= 30 && rcEsCaso(t));
-        if (q && !pregunta && (q.tipoOpc === "num" || (!q.opc && (q.esperaOpc || completa(q.t))))) { q.opc++; q.tipoOpc = "num"; continue; }
+        if (q && !pregunta && (q.tipoOpc === "num" || (!q.opc && (q.esperaOpc || completa(q.t))))) { q.opc++; q.tipoOpc = "num"; if (rcComb(l)) q.comb = (q.comb || 0) + 1; continue; }
         if (t.length >= 6) nueva(l);
         continue;
       }
-      if (RC_LETRA.test(l) || RC_VINETA.test(l)) { if (q) { q.opc++; q.tipoOpc = q.tipoOpc || "letra"; } continue; }
+      if (RC_LETRA.test(l) || RC_VINETA.test(l)) { if (q) { q.opc++; q.tipoOpc = q.tipoOpc || "letra"; if (rcComb(l)) q.comb = (q.comb || 0) + 1; } continue; }
       // Línea sin marca: es pregunta si la siguen opciones; si no, continúa la pregunta o es discusión (no cuenta).
       const sig = L.slice(i + 1, i + 3);
       if (sig.length >= 2 && sig.every(opcion) && l.length >= 8 && l.length <= 700) { nueva(l, true); continue; }
@@ -151,27 +261,41 @@ function rcParsear(texto){
     && (x.opc >= 2 || rcPareceEnunciado(x.t) || (x.num && x.t.length < 200 && !/\.\s*$/.test(x.t))));
 }
 
+// Rasgos de la forma de preguntar, medidos en el texto de cada pregunta (sin IA).
+const RC_RASGOS = [
+  {k: "comp", t: "pide el paso complementario («Además de…», «aparte de…»)", re: /\b(ademas de|ademas del|aparte de|aparte del|adicional(mente)? a|junto con|ademas,)/},
+  {k: "ctx", t: "da el contexto de atención (nivel, lugar, distancia o recursos)", re: /\b(primer|segundo|tercer) nivel|baja complejidad|alta complejidad|puesto de salud|centro de salud|hospital local|\brural|brigada|vereda|municipio|\ba \d+ ?(horas|h)\b|no (hay|cuenta con|dispone)|sin disponibilidad|remision|remitir/},
+  {k: "mejor", t: "pide la mejor entre varias opciones posibles («la más adecuada»)", re: /mas (adecuad|apropiad|indicad|correct)|mejor (conducta|opcion|manejo|estudio|tratamiento)|de eleccion|primera linea/},
+  {k: "neg", t: "pregunta en negativo («excepto», «cuál no»)", re: /excepto|\bfalsa\b|\bincorrecta\b|\bcual(es)? no\b|\bno (es|corresponde|esta) (una|un|la|el)? ?(indicacion|causa|caracteristica|criterio|hallazgo)/},
+  {k: "comb", t: "usa opciones combinadas (varias medidas en una opción)", q: q => (q.comb || 0) >= 2}
+];
+const rcRasgosDe = q => RC_RASGOS.filter(r => r.q ? r.q(q) : r.re.test(rcNorm(q.t))).map(r => r.k);
 // Patrón del examen: lo que se guarda.
 function rcPerfil(qs){
-  const areas = {}, tipos = {conducta: 0, diagnostico: 0, critica: 0, datos: 0}, palabras = [], frec = {};
+  const areas = {}, tipos = {conducta: 0, diagnostico: 0, critica: 0, datos: 0}, palabras = [], frec = {}, rasgos = {}, clin = {};
   let casos = 0, conOpc = 0;
   qs.forEach(q => {
     const area = q.secc || rcArea(q.t), tipo = rcTipo(q.t, area);
     areas[area] = (areas[area] || 0) + 1; tipos[tipo]++;
     if (rcEsCaso(q.t)) casos++; if (q.opc >= 2) conOpc++;
+    rcRasgosDe(q).forEach(k => rasgos[k] = (rasgos[k] || 0) + 1);
+    rcTemasDe(q.t).forEach(k => clin[k] = (clin[k] || 0) + 1);
     palabras.push(q.t.split(/\s+/).length);
     new Set(rcNorm(q.t).match(/[a-zñ]{6,}/g) || []).forEach(w => { if (!RC_VACIAS.has(w)) frec[w] = (frec[w] || 0) + 1; });
   });
   palabras.sort((a, b) => a - b);
   const temas = Object.entries(frec).filter(([, c]) => c >= 2).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([w, c]) => [w, c]);
-  return {n: qs.length, areas, tipos, casos, conOpc, palabras: palabras.length ? palabras[palabras.length >> 1] : 0, temas};
+  // clin: los temas clínicos reconocidos (RC_TEMAS) y cuántas preguntas los tocan; sirve para ver qué se repite entre años.
+  return {n: qs.length, areas, tipos, casos, conOpc, palabras: palabras.length ? palabras[palabras.length >> 1] : 0, temas, rasgos, clin};
 }
 const RC_VACIAS = new Set(("paciente pacientes cuales siguiente siguientes manejo tratamiento diagnostico presenta consulta conducta " +
   "correcta incorrecta respuesta opcion excepto probable evolucion antecedente antecedentes examen fisico inicial debe deberia mientras " +
   "despues durante encuentra realiza realizar tiene tienen porque cuando donde entre sobre desde hasta contra principal principales " +
   "femenina masculino femenino mujeres hombres semana semanas recuerdo algo decia creo pregunta preguntas cuadro clinico clinica asociado " +
   "asociada ingresa urgencias servicio normal normales elevado elevada indicado indicada siempre ninguna anteriores todas mayor menor " +
-  "ademas estaba seguir aumenta habia tenia decian tambien porque correcto creemos dijeron alguien gracias entonces opciones manejar").split(" "));
+  "ademas estaba seguir aumenta habia tenia decian tambien porque correcto creemos dijeron alguien gracias entonces opciones manejar " +
+  "adecuada adecuado derecho derecha izquierdo izquierda sintomas signos inicio riesgo episodios refiere refieren hallazgos resultado " +
+  "resultados horas meses dias valores estudio estudios medico medicos atencion presion exacto exacta").split(" "));
 
 // ---------- simulacro con el patrón ----------
 const RC_SPEC_TXT = [[/ginecolog|obstetric|gineco/, "Ginecología"], [/pediatr|neonat/, "Pediatría"], [/cirug/, "Cirugía"],
@@ -251,9 +375,44 @@ function rcPatronHTML(p, total){
       <div class="kpi"><b>${pct(p.casos)} %</b><span>casos clínicos (el resto, preguntas directas)</span></div>
       <div class="kpi"><b>${p.palabras}</b><span>palabras por enunciado (mediana)</span></div></div>
     <div class="chips">${FOCUS.slice(1).map(f => `<span class="chip2">${f.t} ${pct(p.tipos[f.k] || 0)} %</span>`).join("")}</div>
-    ${p.temas.length ? `<p class="xs muted" style="margin:0">Palabras que más se repiten: ${p.temas.map(([w, c]) => `${esc(w)} (${c})`).join(", ")}</p>` : ""}
+    ${rcRasgosHTML(p)}
+    ${p.clin && Object.keys(p.clin).length ? `<p class="xs muted" style="margin:0">Temas que reconocí: ${Object.entries(p.clin).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([k, c]) => `${esc(k)} (${c})`).join(", ")}</p>`
+      : p.temas.length ? `<p class="xs muted" style="margin:0">Palabras que más se repiten: ${p.temas.map(([w, c]) => `${esc(w)} (${c})`).join(", ")}</p>` : ""}
     <p class="xs muted" style="margin:0">Calculado con ${p.n} pregunta${p.n === 1 ? "" : "s"}${p.conOpc < p.n ? ` (${p.conOpc} con opciones; las demás se recordaron sin ellas)` : ""}.${p.n < 30 ? " <b>Son pocas: el patrón es aproximado.</b>" : ""} El área y el tipo se deducen de las palabras de cada pregunta o de la sección donde está.</p>
     ${total && p.n > total * 1.15 ? `<p class="xs" style="margin:0;color:var(--warn)">Se leyeron ${p.n} preguntas y el examen tenía ${total}: la reconstrucción repite preguntas o mezcla discusión. Las proporciones siguen sirviendo; el simulacro usa ${total} casos.</p>` : ""}</div>`;
+}
+function rcRasgosHTML(p){
+  const xs = RC_RASGOS.filter(r => p.rasgos && p.rasgos[r.k]); if (!xs.length) return "";
+  return `<div class="small"><b>Cómo pregunta</b><ul class="rc-rasgos">${xs.map(r => `<li><b>${Math.round(p.rasgos[r.k] / Math.max(1, p.n) * 100)} %</b> ${esc(r.t)}</li>`).join("")}</ul></div>`;
+}
+// ---------- temas que se repiten entre años de una misma universidad ----------
+// Un tema se repite si aparece en reconstrucciones de años distintos de la misma universidad.
+function rcRepetidos(univ){
+  const rs = rcLista().filter(r => r.univ === univ && r.perfil && r.perfil.clin), anios = [...new Set(rs.map(r => r.anio || r.id))];
+  if (anios.length < 2) return {anios, temas: []};
+  const en = {}, veces = {};
+  rs.forEach(r => Object.entries(r.perfil.clin).forEach(([k, c]) => { (en[k] = en[k] || new Set()).add(r.anio || r.id); veces[k] = (veces[k] || 0) + c; }));
+  const temas = Object.entries(en).filter(([, a]) => a.size >= 2).map(([k, a]) => [k, [...a].sort()])
+    .sort((a, b) => b[1].length - a[1].length || veces[b[0]] - veces[a[0]] || a[0].localeCompare(b[0]));
+  return {anios: anios.sort(), temas};
+}
+// Casos del banco de esos temas.
+const rcCasosDeTema = k => { const re = (RC_TEMAS.find(x => x[0] === k) || [])[1]; return re ? QUESTIONS.filter(q => re.test(rcNorm(rcTextoCaso(q)))) : []; };
+function rcCasosDeTemas(temas, n){
+  const ids = new Set(); temas.forEach(([k]) => rcCasosDeTema(k).forEach(q => ids.add(q)));
+  return shuffle([...ids]).slice(0, n);
+}
+function rcRepetidosHTML(univ){
+  if (!univ) return "";
+  const {anios, temas} = rcRepetidos(univ);
+  if (anios.length < 2) return `<p class="xs muted" style="margin:8px 0 0">🔁 Sube la reconstrucción de otro año de ${esc(univ)} y verás qué temas se repiten entre años.</p>`;
+  if (!temas.length) return `<p class="xs muted" style="margin:8px 0 0">🔁 Entre ${esc(anios.join(", "))} no encontré temas repetidos.</p>`;
+  const casos = rcCasosDeTemas(temas, 20), sin = temas.filter(([k]) => !rcCasosDeTema(k).length);
+  return `<div class="note" style="margin-top:10px"><b class="small">🔁 Lo que se repite en ${esc(univ)}</b> <span class="xs muted">(${esc(anios.join(", "))})</span>
+    <div class="chips" style="margin-top:6px">${temas.slice(0, 10).map(([k, a]) => `<span class="chip rc-tema" title="${esc(a.join(", "))}">${esc(k)} · ${a.length}</span>`).join("")}${temas.length > 10 ? `<span class="xs muted">y ${temas.length - 10} más</span>` : ""}</div>
+    <p class="xs muted" style="margin:6px 0 0">Temas que aparecen en reconstrucciones de años distintos; el número es en cuántos años. Son pistas, no una predicción.</p>
+    ${sin.length ? `<p class="xs" style="margin:6px 0 0">Sin casos en tu banco: ${esc(sin.map(([k]) => k).join(", "))}.</p>` : ""}
+    ${casos.length ? `<button class="btn sm" id="rcRepGo" style="margin-top:8px">Practicar casos de estos temas · ${casos.length}</button>` : ""}</div>`;
 }
 function renderRecons(){
   const box = $("#qRecons"); if (!box) return;
@@ -274,6 +433,7 @@ function renderRecons(){
   const simulacro = L.length ? `<div class="xs muted" style="margin:12px 0 6px">Imitar (elige una o varias del mismo examen: se suman)</div>
       <div class="chips" id="rcSel">${L.map(r => `<button class="chip2${rcSel.includes(r.id) ? " on" : ""}" data-rcsel="${r.id}">${esc(rcNombre(r))} <span class="cnt">${r.total || r.perfil.n}</span></button>`).join("")}</div>
       <div class="chips" id="rcNs" style="margin-top:10px">${[...new Set([20, 50, 100, ...sel.map(r => r.total).filter(Boolean).map(t => Math.min(PRAC_MAX, t))])].sort((a, b) => a - b).map(x => `<button class="chip2${nRc === x ? " on" : ""}" data-rcn="${x}">${x} casos${sel.some(r => r.total === x) ? " (como el examen)" : ""}</button>`).join("")}</div>
+      ${rcRepetidosHTML(sel.length ? sel[0].univ : "")}
       <label class="fld" style="margin-top:10px"><span>Ajustes (opcional)</span><textarea id="rcSug" rows="2" placeholder="Ej.: más Ginecología, sin Urología, casos cortos, más conducta">${esc(rcSugTxt)}</textarea></label>
       <p class="xs muted" id="rcSugEco" style="margin:4px 0 0">${esc(rcSugTexto(sug))}</p>
       ${hecho ? `<button class="btn primary block" id="rcGo" style="margin-top:10px" ${sel.length ? "" : "disabled"}>⏱️ Simulacro estilo ${esc(sel.length ? [...new Set(sel.map(r => r.univ || "examen"))].join(" + ") : "…")} · ${nRc} casos · ${fmt(nRc * 72)}</button>`
@@ -281,7 +441,8 @@ function renderRecons(){
       <p class="xs muted" id="rcNotas" style="margin:6px 0 0"></p>
       <div style="margin-top:6px">${plegable("rclista", `<b class="small">Tus reconstrucciones</b> <span class="xs muted">${L.length}</span>`, L.map(r => `
         <div class="card" style="padding:10px 12px;margin-top:8px"><div class="row"><b class="small">${esc(rcNombre(r))}</b><span class="xs muted" style="margin-left:6px">${r.total ? r.total + " en el examen" : r.perfil.n + " leídas"}</span><div class="spacer"></div><button class="linkbtn xs" data-rcdel="${r.id}">🗑️ Quitar</button></div>
-          ${plegable("rcp" + r.id, `<span class="xs">Ver el patrón</span>`, rcPatronHTML(r.perfil, r.total))}</div>`).join(""))}</div>` : "";
+          ${plegable("rcp" + r.id, `<span class="xs">Ver el patrón</span>`, rcPatronHTML(r.perfil, r.total))}
+          ${plegable("rcn" + r.id, `<span class="xs">✍️ Notas de estilo${r.notas ? " ✓" : ""}</span>`, rcNotasHTML(r.notas, `data-rcnotas="${r.id}"`))}</div>`).join(""))}</div>` : "";
   box.innerHTML = `<h3 style="font-size:16px">🏛️ Simulacro estilo universidad</h3>
     <p class="xs muted" style="margin:4px 0 6px">${L.length ? "Arma un simulacro con las proporciones de un examen real." : "Mide cómo pregunta una universidad y arma un simulacro igual."}</p>
     ${rcBorrador ? subir : L.length ? simulacro + `<div style="margin-top:6px">${subir}</div>` : subir}
@@ -295,11 +456,15 @@ function renderRecons(){
   $("#rcLeer") && ($("#rcLeer").onclick = () => rcMedir($("#rcTxt").value, $("#rcTitulo").value || $("#rcTxt").value.split("\n").find(l => l.trim()) || ""));
   // Borrador: guardar o descartar
   $("#rcGuardar") && ($("#rcGuardar").onclick = () => {
-    const r = Object.assign({}, rcBorrador, {univ: $("#rcUniv").value.trim(), anio: $("#rcAnioIn").value.trim()});
+    const r = Object.assign({}, rcBorrador, {univ: $("#rcUniv").value.trim(), anio: $("#rcAnioIn").value.trim(), notas: $("#rcNotasIn").value.trim().slice(0, RC_NOTAS_MAX) || undefined});
     const tot = Math.round(+$("#rcTotal").value); if (tot >= 5 && tot <= 300) r.total = tot; else delete r.total;
     rcLista().push(r); rcSel = [r.id]; if (r.total) rcN = Math.min(PRAC_MAX, r.total); rcBorrador = null; save(); renderRecons(); toast("Patrón guardado ✓"); });
   $("#rcDescartar") && ($("#rcDescartar").onclick = () => { rcBorrador = null; renderRecons(); });
   // Lista y simulacro
+  box.querySelectorAll("[data-rcnotas]").forEach(t => t.onchange = () => { const r = L.find(x => x.id === t.dataset.rcnotas);
+    r.notas = t.value.trim().slice(0, RC_NOTAS_MAX) || undefined; save(); toast("Notas de estilo guardadas ✓"); });
+  $("#rcRepGo") && ($("#rcRepGo").onclick = () => { const u = sel[0].univ, qs = rcCasosDeTemas(rcRepetidos(u).temas, 20);
+    startSession({label: "Lo que se repite en " + u, tag: "norm", stages: [{name: "🔁 Temas repetidos · " + u, items: qs.map(q => ({t: "q", id: q.id}))}]}); });
   box.querySelectorAll("[data-rcdel]").forEach(b => b.onclick = () => { const r = L.find(x => x.id === b.dataset.rcdel);
     if (!confirm(`¿Quitar el patrón de «${rcNombre(r)}»?`)) return; S.recons = L.filter(x => x !== r); save(); renderRecons(); });
   box.querySelectorAll("[data-rcsel]").forEach(b => b.onclick = () => { const id = b.dataset.rcsel;
@@ -314,6 +479,11 @@ function renderRecons(){
     startSession({label: nombre, tag: "fire", stages: [{name: nombre, items: items.map(q => ({t: "q", id: q.id})), exam: true, limit: items.length * 72}]});
   });
 }
+// Notas de estilo: lo que observó quien presentó el examen sobre CÓMO pregunta (no el contenido).
+// Se pasan a la IA con el estilo; sin IA solo quedan guardadas con el patrón.
+const RC_NOTAS_MAX = 1500;
+const rcNotasHTML = (v, attr) => `<label class="fld"><span>Notas de estilo (opcional)</span><textarea ${attr} rows="3" maxlength="${RC_NOTAS_MAX}" placeholder="Ej.: preguntan «Además de…», opciones combinadas, contexto de primer nivel lejos de un centro con ICP, distractores con la dosis o el momento equivocado.">${esc(v || "")}</textarea>
+  <span class="xs muted">Solo cómo pregunta el examen. La IA las usa para imitar la forma; el contenido sigue saliendo de tu documento.</span></label>`;
 function rcBorradorHTML(){
   const b = rcBorrador;
   if (!b.perfil.n) return `<div class="note"><b>No encontré preguntas en este texto.</b> Revisa que sea la reconstrucción con las preguntas escritas (no imágenes escaneadas).<div style="margin-top:8px"><button class="btn sm" id="rcDescartar">Volver</button></div></div>`;
@@ -322,6 +492,7 @@ function rcBorradorHTML(){
       <label class="fld"><span>Año y periodo</span><input id="rcAnioIn" style="width:100%;min-width:0" value="${esc(b.anio)}" placeholder="2025-1"></label></div>
     <label class="fld"><span>Preguntas del examen real (opcional)</span><input id="rcTotal" type="number" min="5" max="300" inputmode="numeric" style="width:100%;min-width:0" value="${b.total || ""}" placeholder="Ej.: 70 en la UdeA"></label>
     ${rcPatronHTML(b.perfil)}
+    ${rcNotasHTML(b.notas, 'id="rcNotasIn"')}
     ${plegable("rcmuestra", `<span class="xs">Así leí algunas preguntas</span>`, b.muestras.map(t => `<p class="xs" style="margin:6px 0">• ${esc(t)}</p>`).join(""))}
     <div class="row" style="gap:8px"><button class="btn primary sm" id="rcGuardar">Guardar el patrón</button><button class="btn ghost sm" id="rcDescartar">Descartar</button></div></div>`;
 }
@@ -342,8 +513,12 @@ function rcEstiloLinea(id){
   const p = r.perfil, pct = c => Math.round(c / Math.max(1, p.n) * 100);
   const tipos = FOCUS.slice(1).map(f => `${f.t.replace(/^\S+\s/, "").toLowerCase()} ${pct(p.tipos[f.k] || 0)} %`).join(", ");
   const ej = (r.muestras || []).filter(t => t.length >= 25).slice(0, 4);
+  const rasgos = RC_RASGOS.filter(x => p.rasgos && pct(p.rasgos[x.k] || 0) >= 5).map(x => `${pct(p.rasgos[x.k])} % ${x.t}`);
   return [`Estilo del examen ${rcNombre(r)} (medido en una reconstrucción): ${pct(p.casos)} % son casos clínicos y el resto preguntas directas; enunciados de unas ${p.palabras} palabras; tipos de pregunta: ${tipos}.`,
-    "Imita solo la FORMA de ese examen (largo, tono y cómo se plantea la pregunta). El contenido, la respuesta correcta y la cita salen únicamente del documento, nunca de los ejemplos.",
+    rasgos.length ? `Cómo pregunta (reprodúcelo en esa proporción): ${rasgos.join("; ")}.` : "",
+    "Opciones: una sola es la mejor para ese paciente y ese contexto, aunque otra sea razonable (la explicación dice por qué esa otra no). Las incorrectas son medias verdades: el fármaco, estudio o conducta de la enfermedad con la dosis, la vía, el momento o el criterio equivocados, o lo correcto en otro escenario.",
+    r.notas ? "Observaciones de quien presentó ese examen sobre cómo pregunta (solo forma; no son fuente de contenido):\n" + r.notas : "",
+    "Imita solo la FORMA de ese examen (largo, tono y cómo se plantea la pregunta). El contenido, la respuesta correcta y la cita salen únicamente del documento, nunca de los ejemplos ni de las observaciones.",
     ej.length ? "Así pregunta ese examen (ejemplos de forma; no los copies ni los uses como fuente):\n" + ej.map(t => "- " + t).join("\n") : ""].filter(Boolean).join("\n");
 }
 function rcEstiloChips(sel, attr){

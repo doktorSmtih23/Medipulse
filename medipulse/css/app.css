@@ -574,3 +574,8 @@ body.en-sesion{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 .audnota.fragil,.audnota.vacio{border-color:var(--warn)}
 .confrow .linkbtn{font-size:13px;min-height:40px}
 .confrow .linkbtn.muted{color:var(--muted)}
+/* Reconstrucciones: rasgos de cómo pregunta un examen */
+.rc-rasgos{margin:4px 0 0;padding:0;list-style:none}
+.rc-rasgos li{font-size:12.5px;margin:3px 0;line-height:1.35}
+.rc-rasgos b{display:inline-block;min-width:38px;color:var(--accent)}
+.chip.rc-tema{white-space:normal;font-weight:500}

@@ -194,3 +194,77 @@ test("sin clave de IA: el prompt para otra IA lleva el estilo elegido", async ({
   await page.click('[data-iest=""]');
   await expect(page.locator("#impPrompt")).not.toContainText("Estilo del examen");
 });
+
+// ---------- grupo B: cómo pregunta, notas de estilo y temas que se repiten ----------
+const RASGOS = `RECONSTRUCCIÓN UDEA 2025
+
+1. Hombre de 60 años en un hospital de primer nivel a 3 horas de un centro con ICP, con dolor torácico y supradesnivel del ST. Además de la aspirina, ¿cuál es la conducta más adecuada?
+a. Alteplasa + enoxaparina + clopidogrel
+b. Clopidogrel + heparina no fraccionada
+c. Remitir sin otra medida
+d. Observar con troponinas seriadas
+2. Todas las siguientes son causas de pancreatitis aguda, excepto:
+a. Alcohol
+b. Cálculos biliares
+c. Hipertrigliceridemia
+d. Hipocalcemia
+3. Niño de 3 años con tos perruna y estridor en reposo, ¿cuál es el manejo?
+a. Dexametasona
+b. Salbutamol
+c. Amoxicilina
+d. Observación`;
+
+test("mide cómo pregunta: paso complementario, contexto de atención, la mejor opción, negativa y opciones combinadas", async ({ page }) => {
+  const p = await page.evaluate(t => rcPerfil(rcParsear(t)), RASGOS);
+  expect(p.n).toBe(3);
+  expect(p.rasgos).toEqual({comp: 1, ctx: 1, mejor: 1, neg: 1, comb: 1});
+  expect(p.clin).toEqual({"Síndrome coronario agudo": 1, "Pancreatitis": 1, "Crup y epiglotitis": 1});
+  await page.click("nav [data-go=banco]");
+  await page.click("#rcPegar");
+  await page.fill("#rcTxt", RASGOS);
+  await page.click("#rcLeer");
+  await expect(page.locator("#qRecons")).toContainText("pide el paso complementario («Además de…», «aparte de…»)");
+  await expect(page.locator("#qRecons")).toContainText("usa opciones combinadas");
+  // Notas de estilo escritas por quien presentó el examen: se guardan con el patrón
+  await page.fill("#rcNotasIn", "Les gusta la conducta en primer nivel antes de remitir.");
+  expect(await sinDesborde(page)).toBe(true);
+  await page.click("#rcGuardar");
+  expect(await page.evaluate(() => S.recons[0].notas)).toBe("Les gusta la conducta en primer nivel antes de remitir.");
+  const t = await page.evaluate(() => rcEstiloLinea(S.recons[0].id));
+  expect(t).toContain("Cómo pregunta (reprodúcelo en esa proporción): 33 % pide el paso complementario");
+  expect(t).toContain("medias verdades");
+  expect(t).toContain("Observaciones de quien presentó ese examen");
+  expect(t).toContain("Les gusta la conducta en primer nivel");
+  // Se editan después desde la lista
+  await page.click("#qRecons summary >> text=Tus reconstrucciones");
+  await page.click("#qRecons summary >> text=Notas de estilo");
+  await page.fill("[data-rcnotas]", "Preguntan dosis exactas.");
+  await page.locator("[data-rcnotas]").blur();
+  expect(await page.evaluate(() => S.recons[0].notas)).toBe("Preguntan dosis exactas.");
+});
+
+test("temas que se repiten entre años de la misma universidad, y practicar los casos de esos temas", async ({ page }) => {
+  await page.evaluate(() => {
+    const per = clin => ({n: 70, areas: {"Pediatría": 70}, tipos: {conducta: 70, diagnostico: 0, critica: 0, datos: 0}, casos: 60, conOpc: 70, palabras: 30, temas: [], rasgos: {}, clin});
+    S.recons = [{id: "a", univ: "UdeA", anio: "2023", titulo: "a", fecha: 1, perfil: per({"Dengue": 1, "TEC y escala de Glasgow": 2, "Malaria": 1, "EPOC": 1}), muestras: []},
+      {id: "b", univ: "UdeA", anio: "2025", titulo: "b", fecha: 2, perfil: per({"Dengue": 3, "TEC y escala de Glasgow": 1, "Sífilis": 1, "EPOC": 2}), muestras: []},
+      {id: "c", univ: "Univalle", anio: "2025", titulo: "c", fecha: 3, perfil: per({"Malaria": 1}), muestras: []}];
+    save(); go("banco");
+  });
+  // Solo cuenta la misma universidad: Malaria está en UdeA 2023 y en Univalle, no se repite en la UdeA.
+  // Primero lo que más veces salió (a igual número, en orden alfabético).
+  expect(await page.evaluate(() => rcRepetidos("UdeA").temas.map(x => x[0]))).toEqual(["Dengue", "EPOC", "TEC y escala de Glasgow"]);
+  await page.click('[data-rcsel="c"]');   // deja seleccionada la UdeA
+  await page.click('[data-rcsel="a"]');
+  await expect(page.locator("#qRecons")).toContainText("Lo que se repite en UdeA");
+  await expect(page.locator("#qRecons")).toContainText("Dengue · 2");
+  // Se avisa lo que no tiene casos en el banco (sirve para saber qué falta)
+  const sinCasos = await page.evaluate(() => ["Dengue", "TEC y escala de Glasgow", "EPOC"].filter(k => !rcCasosDeTema(k).length));
+  if (sinCasos.length) await expect(page.locator("#qRecons")).toContainText("Sin casos en tu banco: " + sinCasos.join(", "));
+  expect(await sinDesborde(page)).toBe(true);
+  await page.click("#rcRepGo");
+  const ok = await page.evaluate(() => sess.stages[0].items.every(it => { const q = qById(it.id); return ["Dengue", "TEC y escala de Glasgow", "EPOC"].some(k => rcCasosDeTema(k).includes(q)); }));
+  expect(ok).toBe(true);
+  // Con un solo año se invita a subir otro
+  expect(await page.evaluate(() => rcRepetidosHTML("Univalle"))).toContain("Sube la reconstrucción de otro año de Univalle");
+});
