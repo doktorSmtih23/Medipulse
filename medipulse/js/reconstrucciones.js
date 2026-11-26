@@ -241,7 +241,7 @@ function rcArmar(perfiles, n, sug){
 let rcBorrador = null;   // patrón leído y aún sin guardar (se muestra antes de guardar)
 let rcSugTxt = "", rcSel = [], rcN = 50;   // lo elegido para el simulacro (no hace falta guardarlo)
 const rcNombre = r => [r.univ || "Examen", r.anio].filter(Boolean).join(" ");
-function rcPatronHTML(p){
+function rcPatronHTML(p, total){
   const pct = c => Math.round(c / Math.max(1, p.n) * 100);
   const areas = Object.entries(p.areas).sort((a, b) => b[1] - a[1]);
   return `<div class="stack" style="gap:8px">
@@ -252,7 +252,8 @@ function rcPatronHTML(p){
       <div class="kpi"><b>${p.palabras}</b><span>palabras por enunciado (mediana)</span></div></div>
     <div class="chips">${FOCUS.slice(1).map(f => `<span class="chip2">${f.t} ${pct(p.tipos[f.k] || 0)} %</span>`).join("")}</div>
     ${p.temas.length ? `<p class="xs muted" style="margin:0">Palabras que más se repiten: ${p.temas.map(([w, c]) => `${esc(w)} (${c})`).join(", ")}</p>` : ""}
-    <p class="xs muted" style="margin:0">Calculado con ${p.n} pregunta${p.n === 1 ? "" : "s"}${p.conOpc < p.n ? ` (${p.conOpc} con opciones; las demás se recordaron sin ellas)` : ""}.${p.n < 30 ? " <b>Son pocas: el patrón es aproximado.</b>" : ""} El área y el tipo se deducen de las palabras de cada pregunta o de la sección donde está.</p></div>`;
+    <p class="xs muted" style="margin:0">Calculado con ${p.n} pregunta${p.n === 1 ? "" : "s"}${p.conOpc < p.n ? ` (${p.conOpc} con opciones; las demás se recordaron sin ellas)` : ""}.${p.n < 30 ? " <b>Son pocas: el patrón es aproximado.</b>" : ""} El área y el tipo se deducen de las palabras de cada pregunta o de la sección donde está.</p>
+    ${total && p.n > total * 1.15 ? `<p class="xs" style="margin:0;color:var(--warn)">Se leyeron ${p.n} preguntas y el examen tenía ${total}: la reconstrucción repite preguntas o mezcla discusión. Las proporciones siguen sirviendo; el simulacro usa ${total} casos.</p>` : ""}</div>`;
 }
 function renderRecons(){
   const box = $("#qRecons"); if (!box) return;
@@ -270,14 +271,14 @@ function renderRecons(){
         <div class="row" style="margin-top:6px;gap:8px"><input id="rcTitulo" placeholder="Nombre: Reconstrucción UdeA 2025-1" aria-label="Nombre de la reconstrucción"><button class="btn sm primary" id="rcLeer">Medir el patrón</button></div></div>
       <p class="xs" id="rcMsg" style="margin:6px 0 0"></p>`}
     ${L.length ? `<div style="margin-top:12px">${plegable("rclista", `<b>Tus reconstrucciones</b> <span class="xs muted">${L.length}</span>`, L.map(r => `
-      <div class="card" style="padding:10px 12px;margin-top:8px"><div class="row"><b class="small">${esc(rcNombre(r))}</b><span class="xs muted" style="margin-left:6px">${r.perfil.n} preguntas</span><div class="spacer"></div><button class="linkbtn xs" data-rcdel="${r.id}">🗑️ Quitar</button></div>
-        ${plegable("rcp" + r.id, `<span class="xs">Ver el patrón</span>`, rcPatronHTML(r.perfil))}</div>`).join(""))}</div>
+      <div class="card" style="padding:10px 12px;margin-top:8px"><div class="row"><b class="small">${esc(rcNombre(r))}</b><span class="xs muted" style="margin-left:6px">${r.total ? r.total + " en el examen" : r.perfil.n + " leídas"}</span><div class="spacer"></div><button class="linkbtn xs" data-rcdel="${r.id}">🗑️ Quitar</button></div>
+        ${plegable("rcp" + r.id, `<span class="xs">Ver el patrón</span>`, rcPatronHTML(r.perfil, r.total))}</div>`).join(""))}</div>
       <div class="xs muted" style="margin:12px 0 6px">Imitar (elige una o varias del mismo examen: se suman)</div>
-      <div class="chips" id="rcSel">${L.map(r => `<button class="chip2${rcSel.includes(r.id) ? " on" : ""}" data-rcsel="${r.id}">${esc(rcNombre(r))} <span class="cnt">${r.perfil.n}</span></button>`).join("")}</div>
+      <div class="chips" id="rcSel">${L.map(r => `<button class="chip2${rcSel.includes(r.id) ? " on" : ""}" data-rcsel="${r.id}">${esc(rcNombre(r))} <span class="cnt">${r.total || r.perfil.n}</span></button>`).join("")}</div>
       <label class="fld" style="margin-top:10px"><span>Ajustes (opcional)</span><textarea id="rcSug" rows="2" placeholder="Ej.: más Ginecología, sin Urología, casos cortos, más conducta">${esc(rcSugTxt)}</textarea></label>
       <p class="xs muted" id="rcSugEco" style="margin:4px 0 0">${esc(rcSugTexto(sug))}</p>
       <div class="row" style="margin-top:10px;gap:8px;align-items:flex-end">
-        <div class="chips" id="rcNs">${[20, 50, 100].map(x => `<button class="chip2${nRc === x ? " on" : ""}" data-rcn="${x}">${x} casos</button>`).join("")}</div></div>
+        <div class="chips" id="rcNs">${[...new Set([20, 50, 100, ...sel.map(r => r.total).filter(Boolean).map(t => Math.min(PRAC_MAX, t))])].sort((a, b) => a - b).map(x => `<button class="chip2${nRc === x ? " on" : ""}" data-rcn="${x}">${x} casos${sel.some(r => r.total === x) ? " (como el examen)" : ""}</button>`).join("")}</div></div>
       ${hecho ? `<button class="btn primary block" id="rcGo" style="margin-top:10px" ${sel.length ? "" : "disabled"}>⏱️ Simulacro estilo ${esc(sel.length ? [...new Set(sel.map(r => r.univ || "examen"))].join(" + ") : "…")} · ${nRc} casos · ${fmt(nRc * 72)}</button>`
         : `<div style="margin-top:10px">${diagCandadoHTML("El simulacro estilo universidad")}</div>`}
       <p class="xs muted" id="rcNotas" style="margin:6px 0 0"></p>` : ""}`;
@@ -291,7 +292,8 @@ function renderRecons(){
   // Borrador: guardar o descartar
   $("#rcGuardar") && ($("#rcGuardar").onclick = () => {
     const r = Object.assign({}, rcBorrador, {univ: $("#rcUniv").value.trim(), anio: $("#rcAnioIn").value.trim()});
-    rcLista().push(r); rcSel = [r.id]; rcBorrador = null; save(); renderRecons(); toast("Patrón guardado ✓"); });
+    const tot = Math.round(+$("#rcTotal").value); if (tot >= 5 && tot <= 300) r.total = tot; else delete r.total;
+    rcLista().push(r); rcSel = [r.id]; if (r.total) rcN = Math.min(PRAC_MAX, r.total); rcBorrador = null; save(); renderRecons(); toast("Patrón guardado ✓"); });
   $("#rcDescartar") && ($("#rcDescartar").onclick = () => { rcBorrador = null; renderRecons(); });
   // Lista y simulacro
   box.querySelectorAll("[data-rcdel]").forEach(b => b.onclick = () => { const r = L.find(x => x.id === b.dataset.rcdel);
@@ -314,6 +316,7 @@ function rcBorradorHTML(){
   return `<div class="note stack" style="gap:8px"><b>Patrón de «${esc(b.titulo)}»</b>
     <div class="grid2" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><label class="fld"><span>Universidad</span><input id="rcUniv" style="width:100%;min-width:0" value="${esc(b.univ)}" placeholder="UdeA, Univalle…"></label>
       <label class="fld"><span>Año y periodo</span><input id="rcAnioIn" style="width:100%;min-width:0" value="${esc(b.anio)}" placeholder="2025-1"></label></div>
+    <label class="fld"><span>Preguntas del examen real (opcional)</span><input id="rcTotal" type="number" min="5" max="300" inputmode="numeric" style="width:100%;min-width:0" value="${b.total || ""}" placeholder="Ej.: 70 en la UdeA"></label>
     ${rcPatronHTML(b.perfil)}
     ${plegable("rcmuestra", `<span class="xs">Así leí algunas preguntas</span>`, b.muestras.map(t => `<p class="xs" style="margin:6px 0">• ${esc(t)}</p>`).join(""))}
     <div class="row" style="gap:8px"><button class="btn primary sm" id="rcGuardar">Guardar el patrón</button><button class="btn ghost sm" id="rcDescartar">Descartar</button></div></div>`;

@@ -125,8 +125,14 @@ test("pegar una reconstrucción: se ve el patrón antes de guardar; luego el sim
   await expect(page.locator("#qRecons")).toContainText("Son pocas: el patrón es aproximado");
   expect(await page.evaluate(() => (S.recons || []).length)).toBe(0);
   expect(await sinDesborde(page)).toBe(true);
+  await page.fill("#rcTotal", "5");
   await page.click("#rcGuardar");
-  expect(await page.evaluate(() => S.recons.map(r => [r.univ, r.anio, r.perfil.n]))).toEqual([["USCO", "2027-1", 6]]);
+  expect(await page.evaluate(() => S.recons.map(r => [r.univ, r.anio, r.perfil.n, r.total]))).toEqual([["USCO", "2027-1", 6, 5]]);
+  // El número real del examen: se ofrece esa cantidad y se avisa que se leyeron más preguntas
+  await expect(page.locator('#rcNs [data-rcn="5"]')).toHaveText("5 casos (como el examen)");
+  await expect(page.locator('#rcNs [data-rcn="5"]')).toHaveClass(/on/);
+  await page.click("#qRecons summary >> text=Tus reconstrucciones"); await page.click("#qRecons summary >> text=Ver el patrón");
+  await expect(page.locator("#qRecons")).toContainText("Se leyeron 6 preguntas y el examen tenía 5");
   // Del documento solo se guarda el patrón y unas pocas muestras
   expect(await page.evaluate(() => JSON.stringify(S.recons).length)).toBeLessThan(3000);
   // Simulacro de 20: 2/6 de Pediatría, 2/6 de Ginecología y 2/6 de Cirugía, menos lo que diga el ajuste
