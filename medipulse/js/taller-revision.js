@@ -84,6 +84,8 @@ function marcaHTML(c){
 function extrasIA(c){
   const x = {};
   if (c.area) x.area = c.area;
+  // El análisis de cada opción, solo si sigue alineado con las opciones (en la revisión se pueden quitar opciones).
+  if (c.kind === "q" && Array.isArray(c.porOpcion) && c.porOpcion.length === c.options.length && c.porOpcion.some(Boolean)) x.porOpcion = c.porOpcion.slice();
   if (c.pages && c.pages.length > 1) x.pages = c.pages;
   if (c.citas && c.citas.length) x.cita = c.citas.map(k => ({donde: `pág. ${k.page}${k.ok === false ? " · ⚠️ no se encontró en el PDF" : ""}`, texto: k.texto}));
   return x;

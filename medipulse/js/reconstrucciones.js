@@ -164,7 +164,7 @@ const RC_TEMAS = [
   ["Restricción del crecimiento fetal", /restriccion del crecimiento|\brciu\b|percentil \d|pequeno para la edad|doppler/],
   ["Hemorragia posparto", /hemorragia posparto|atonia uterina|tranexamico/],
   ["Placenta previa y abrupcio", /placenta previa|abrupcio|desprendimiento (prematuro )?de placenta/],
-  ["Parto pretérmino y ruptura de membranas", /pretermino|amenaza de parto|tocolis|maduracion pulmonar|ruptura (prematura )?de membranas|\brpm\b/],
+  ["Parto pretérmino y ruptura de membranas", /pretermino|amenaza de parto|tocolis|maduracion pulmonar|ruptura (prematura )?de membranas/],
   ["Diabetes gestacional", /diabetes gestacional/],
   ["Citología, VPH y cáncer de cuello uterino", /citolog|asc-?us|\bagc\b|\bvph\b|papiloma|colposcop|\bnic ?[123i]|cuello uterino|cervix/],
   ["Síndrome de ovario poliquístico", /ovario poliquist|\bsop\b/],
