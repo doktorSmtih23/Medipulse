@@ -153,8 +153,15 @@ function esPediatrico(v){
 // Un título en mayúsculas («RESPUESTAS Y JUSTIFICACIÓN») no es parte de la última opción.
 const pareceEncabezado = l => /^[^a-záéíóúñ]{6,}$/.test(l.trim()) || /^respuestas?\b/i.test(l.trim());
 // Todo el texto: las preguntas y, si las respuestas vienen aparte (al final), se emparejan en orden.
+// Algunas IA entregan todo seguido, sin saltos de línea («…del paciente.Opción D - … COMO EVITAR CAER EN ESTA
+// TRAMPA:…»). Cada encabezado conocido se pasa a su propia línea para que caiga en su campo.
+function separarEncabezados(t){
+  return String(t).replace(/\\text\{([^}]*)\}/g, "$1")
+    .replace(/([^\n])\s*(?=Opci[oó]n\s+\(?[A-E]\)?\s*[-–:.)]\s)/g, "$1\n")
+    .replace(/([^\n])\s*(?=(?:C[OÓ]MO EVITAR|DATO CLAVE|Dato clave|Perla\s*:|Trampa\s*:|Explicaci[oó]n\s*:|Respuesta correcta\s*:|Fuente\s*:))/g, "$1\n");
+}
 function organizarTexto(texto){
-  const bloques = limpiarMd(texto).split(SEPARA_RE).map(b => b.trim()).filter(Boolean);
+  const bloques = separarEncabezados(limpiarMd(texto)).split(SEPARA_RE).map(b => b.trim()).filter(Boolean);
   const qs = [], resp = [];
   bloques.forEach(b => { if (tieneOpciones(b)) qs.push(parsearPregunta(b)); else if (pareceRespuesta(b)) resp.push(b); });
   const sinAnalisis = qs.filter(q => q && !q.porOpcion.some(Boolean) && !q.pearl && !q.trap);
@@ -175,7 +182,9 @@ function renderImportar(box){
     <div class="stack">
       <p class="small" style="margin:0">¿Tienes preguntas que te hizo otra IA (Gemini, ChatGPT…) sueltas en el chat? Pégalas aquí tal cual, una o varias: la app separa el caso, las opciones, la respuesta, el análisis de cada opción, el dato clave y cómo evitar la trampa. Es gratis: no usa IA.</p>
       <textarea id="impTxt" rows="9" placeholder="Pega aquí la pregunta completa, con sus opciones y su explicación…"></textarea>
-      <div class="row" style="gap:6px"><button class="btn primary" id="impGo">🧩 Organizar</button></div>
+      <div class="row" style="gap:6px;flex-wrap:wrap"><button class="btn primary" id="impGo">🧩 Organizar</button>
+        ${getKey() ? `<button class="btn" id="impIA">✨ Organizar con IA</button>` : ""}</div>
+      <p class="xs muted" style="margin:0" id="impIAinfo">${getKey() ? "«Organizar» es gratis y no usa IA. Si algo no queda en su lugar (por ejemplo, la trampa vacía), «Organizar con IA» reparte el texto en cada campo sin cambiar su contenido." : "Con tu clave de IA también puedes pedir que la IA reparta el texto en cada campo."}</p>
       <details class="custom"><summary>📋 Prompt para tu IA: preguntas desde tu fuente, listas para pegar aquí</summary><div class="stack" style="margin-top:8px">
         <p class="xs muted" style="margin:0"><b>Con tu fuente:</b> copia este prompt y pégalo en Gemini, ChatGPT u otra IA, sin cambiar nada. Tu IA te pedirá la fuente (el PDF, el texto o una foto), sacará sola el título y el año, te mostrará el mapa conceptual y luego te preguntará qué temas, cuántas preguntas, de qué tipo y si quieres 4 o 5 opciones. Usará solo ese documento y dirá la página de cada pregunta.</p>
         ${typeof rcLista === "function" && rcLista().length ? `<div><div class="xs muted" style="margin-bottom:6px">Estilo de examen (opcional): tu IA imita cómo pregunta ese examen; el contenido sigue saliendo de tu fuente</div><div id="impEstilo">${rcEstiloChips(impEstilo, "data-iest")}</div></div>` : ""}
@@ -193,6 +202,9 @@ function renderImportar(box){
   const bindEstilo = () => box.querySelectorAll("[data-iest]").forEach(b => b.onclick = () => { impEstilo = b.dataset.iest || null;
     $("#impEstilo").innerHTML = rcEstiloChips(impEstilo, "data-iest"); $("#impPrompt").textContent = promptIA(); bindEstilo(); });
   bindEstilo();
+  $("#impIA") && ($("#impIA").onclick = () => organizarConIA($("#impTxt").value));
+  $("#impTxt").oninput = () => { const n = $("#impTxt").value.length, i = $("#impIAinfo");
+    if (getKey() && i && n > 50) i.textContent = `«Organizar» es gratis. «Organizar con IA» reparte el texto en cada campo sin cambiar su contenido: costo aprox. ${aiEstimateLine(n, {light: true, outTokens: Math.round(n / 3) + 500})}.`; };
   $("#impGo").onclick = () => {
     impCands = organizarTexto($("#impTxt").value).filter(q => q.vignette && q.options.length >= 4);
     if (!impCands.length) { $("#impOut").innerHTML = `<p class="small" style="margin:0;color:var(--bad)">No encontré una pregunta con al menos 4 opciones: A), B), C) y D). Revisa que cada opción empiece con su letra.</p>`; return; }
@@ -236,6 +248,46 @@ function renderImpCands(){
   });
   $("#impSave").onclick = guardarImportadas;
 }
+// ---------- Organizar con IA ----------
+// La IA solo reparte el texto pegado en los campos: no corrige ni agrega contenido médico.
+const IMP_IA_TOOL = {name: "entregar_preguntas", description: "Entrega las preguntas del texto, repartidas en sus campos.", input_schema: {type: "object", additionalProperties: false, required: ["preguntas"],
+  properties: {preguntas: {type: "array", items: {type: "object", additionalProperties: false,
+    required: ["caso", "opciones", "correcta", "porOpcion", "explicacion", "perla", "trampa", "tema", "especialidad", "tipo", "fuente"],
+    properties: {caso: {type: "string"}, opciones: {type: "array", items: {type: "string"}}, correcta: {type: "integer"},
+      porOpcion: {type: "array", items: {type: "string"}}, explicacion: {type: "string"}, perla: {type: "string"}, trampa: {type: "string"},
+      tema: {type: "string"}, especialidad: {type: "string"}, tipo: {type: "string", enum: ["conducta", "diagnostico", "critica", "datos", ""]}, fuente: {type: "string"}}}}}}};
+const IMP_IA_SYSTEM = `Organizas preguntas tipo examen que un médico copió de otra IA. Tu único trabajo es repartir el texto en campos.
+- No corrijas, no completes y no agregues contenido médico. Copia las palabras tal como vienen; solo quita marcas de formato (negritas, LaTeX como \\text{}, encabezados).
+- "caso": el enunciado. "opciones": el texto de cada opción, sin la letra. "correcta": índice de la respuesta correcta (0 = A); si el texto no la dice, -1.
+- "porOpcion": el análisis de cada opción, en el mismo orden (vacío si no hay).
+- "explicacion": la explicación general de la respuesta. "perla": el dato clave o perla. "trampa": cómo evitar caer en la trampa.
+- "tema", "especialidad", "tipo" y "fuente": solo si el texto los dice; si no, vacíos.
+- Un campo que no está en el texto queda vacío. Nunca lo inventes.`;
+async function organizarConIA(texto){
+  const out = $("#impOut");
+  if (!texto.trim()) return toast("Pega primero el texto.");
+  if (!getKey()) { toast("Para usar la IA, guarda primero tu clave en Fuentes."); return go("lib"); }
+  out.innerHTML = `<p class="small" style="margin:0"><span class="spin"></span> La IA está repartiendo el texto en sus campos…</p>`;
+  try {
+    const r = await callForTool({system: IMP_IA_SYSTEM, tools: [IMP_IA_TOOL], light: true, label: "Organizar pregunta",
+      user: `<texto_pegado>\n${texto.slice(0, 60000)}\n</texto_pegado>\nEntrega las preguntas llamando a ${IMP_IA_TOOL.name}.`}, IMP_IA_TOOL.name);
+    impCands = (r && r.preguntas || []).map(p => {
+      const options = (p.opciones || []).map(o => String(o).trim()).filter(Boolean);
+      const por = options.map((_, i) => String((p.porOpcion || [])[i] || "").trim());
+      const sp = specCanon(p.especialidad || "");
+      return {vignette: String(p.caso || "").trim(), options, correct: Number.isInteger(p.correcta) && p.correcta < options.length ? p.correcta : -1, porOpcion: por,
+        fundamento: String(p.explicacion || "").trim(), pearl: String(p.perla || "").trim(), trap: String(p.trampa || "").trim(),
+        topic: String(p.tema || "").trim(), specialty: ESPS().includes(sp) ? sp : "", tipo: FOCUS.some(f => f.k === p.tipo) ? p.tipo : qKind({vignette: p.caso}),
+        fuenteTxt: String(p.fuente || "").trim()};
+    }).filter(q => q.vignette && q.options.length >= 2);
+    if (!impCands.length) { out.innerHTML = `<p class="small" style="margin:0;color:var(--bad)">La IA no encontró preguntas con opciones en ese texto.</p>`; return; }
+    renderImpCands();
+    toast("Organizado con IA ✓ Revisa cada campo antes de guardar.");
+  } catch(err) {
+    out.innerHTML = `<p class="small" style="margin:0;color:var(--bad)">${esc(err.userMsg || ("No se pudo organizar: " + (err.message || err)))}</p>`;
+  }
+}
+
 // Parecido con el banco y con las anteriores de lo pegado.
 const impDup = (q, k) => dupBuscar(q, "q", {extra: impCands.slice(0, k)});
 function guardarImportadas(){

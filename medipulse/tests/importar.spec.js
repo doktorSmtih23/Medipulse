@@ -129,3 +129,40 @@ test("formato con «Dato clave» y la explicación dentro de la opción correcta
   expect(qs.map(q => q.slice(0, 7))).toEqual([[2, "Medicina Interna", "conducta", true, true, true, true], [0, "Cirugía", "diagnostico", true, true, true, true], [0, "Epidemiología y Estadística", "datos", true, true, true, true]]);
   expect(qs[0][7]).toMatch(/^Es correcta porque/);
 });
+
+// Formato real reportado por el autor: todo seguido, sin saltos, con «Opción D - …» y «COMO EVITAR…» en la misma línea.
+const SEGUIDO = `Pregunta 1
+Hombre de 58 años con vértigo continuo de 30 horas, nistagmo que cambia de dirección y skew deviation. ¿Conducta?
+A) Hospitalizar y RM con difusión
+B) Alta con betahistina
+C) Corticoide oral y control
+D) Aciclovir intravenoso y audiometría
+Respuesta correcta: A
+Explicación: Los signos centrales obligan a descartar ACV.Opcion A - Por que es correcta: es un síndrome vestibular agudo con HINTS central.Opcion D - Tecnica de distraccion utilizada: sobretratamiento.Por que parece plausible: parece prudente.Por que es incorrecta: los antivirales no sirven y retrasa el protocolo de ACV.COMO EVITAR CAER EN ESTA TRAMPA LA PROXIMA VEZ: en todo síndrome vestibular agudo (>24\\text{ h}) aplica el HINTS antes de pensar en neuritis.`;
+
+test("texto de otra IA todo seguido: cada opción y la trampa caen en su campo (sin IA)", async ({ page }) => {
+  await page.goto("/");
+  const q = await page.evaluate(t => organizarTexto(t)[0], SEGUIDO);
+  expect(q.options.length).toBe(4);
+  expect(q.correct).toBe(0);
+  expect(q.trap).toContain("aplica el HINTS antes de pensar en neuritis");
+  expect(q.trap).toContain(">24 h");
+  expect(q.porOpcion[3]).toContain("sobretratamiento");
+  expect(q.fundamento).not.toContain("COMO EVITAR");
+});
+
+test("«Organizar con IA»: la IA reparte el texto en los campos sin cambiar el contenido; con clave aparece el botón", async ({ page }) => {
+  const { simularIA, abrirConClave } = require("./ayudas");
+  const peticiones = await simularIA(page, () => ({tool: "entregar_preguntas", input: {preguntas: [{caso: "Hombre de 58 años con vértigo. ¿Conducta?", opciones: ["Hospitalizar", "Alta", "Corticoide", "Aciclovir"], correcta: 0,
+    porOpcion: ["Correcta", "", "", "Sobretratamiento"], explicacion: "Signos centrales.", perla: "HINTS", trampa: "Aplica el HINTS antes de pensar en neuritis.", tema: "Vértigo", especialidad: "Medicina Interna", tipo: "conducta", fuente: ""}]}}));
+  await abrirConClave(page);
+  await page.evaluate(() => { newType = "i"; go("new"); });
+  await page.fill("#impTxt", SEGUIDO);
+  await expect(page.locator("#impIAinfo")).toContainText("costo aprox.");
+  await page.click("#impIA");
+  await expect(page.locator(".impq")).toHaveCount(1);
+  await expect(page.locator('.impq [data-if="trap"]')).toHaveValue("Aplica el HINTS antes de pensar en neuritis.");
+  const pide = JSON.stringify(peticiones.at(-1));
+  expect(pide).toContain("No corrijas, no completes y no agregues contenido médico");
+  expect(pide).toContain("aplica el HINTS antes de pensar en neuritis");
+});
