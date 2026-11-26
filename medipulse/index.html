@@ -17,8 +17,8 @@
 <header class="top"><div class="wrap">
   <div class="brand"><img src="icon.svg" alt="" aria-hidden="true">MediPulse</div>
   <div class="spacer"></div>
-  <span class="chip" id="streakChip" title="Racha de días">🔥 0</span>
-  <span class="chip" id="dueChip" title="Repasos pendientes">🔁 0</span>
+  <span class="chip chip2l" id="streakChip" title="Racha de días">🔥 0</span>
+  <span class="chip chip2l" id="dueChip" title="Repasos pendientes">🔁 0</span>
   <button class="iconbtn" id="themeBtn" aria-label="Apariencia: colores y modo claro u oscuro" style="font-size:17px">🌓</button>
 </div></header>
 
@@ -26,15 +26,15 @@
   <!-- ============ HOY ============ -->
   <section class="view on" id="v-hoy">
     <div class="stack">
-      <div id="dataWarn"></div>
       <div class="hoy-cab"><span id="hoyFecha"></span> · <span id="greet">Hola</span></div>
+      <div class="sigpaso" id="suggestCard"></div>
+      <div id="dataWarn"></div>
       <div class="enfoque" id="enfoqueBox">
         <label class="examsel" style="margin-top:0">🎯 Mi enfoque<select id="focusSel" aria-label="Tipo de pregunta que quieres reforzar"></select></label>
         <p class="xs muted" id="focusDesc" style="margin:4px 0 0"></p>
         <div id="focusBox"></div>
       </div>
       <div class="pulso" id="todayCard"></div>
-      <div class="sigpaso" id="suggestCard"></div>
       <div class="rota" id="rotaBox">
         <div class="rota-pista" id="rotaPista">
           <div class="perla rota-it" id="pearlCard" data-nombre="Perla del día"></div>

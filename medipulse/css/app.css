@@ -530,3 +530,12 @@ label.fld.cantidad{display:flex;flex-direction:column;align-items:flex-start;gap
 .acciones-caso .btn{justify-content:center;font-weight:500;color:var(--muted);border:1px solid var(--border);white-space:normal;line-height:1.25}
 .acciones-caso .btn:hover{color:var(--text)}
 .acciones-caso .archivado{grid-column:1/-1;align-self:center;padding:4px 2px}
+
+/* Durante una sesión: sin barra inferior ni contadores (sesion.js / go) */
+body.en-sesion nav.bottom{display:none}
+body.en-sesion #streakChip,body.en-sesion #dueChip{display:none}
+/* Contadores de la cabecera con su nombre debajo */
+.chip.chip2l{flex-direction:column;gap:0;padding:3px 10px;line-height:1.1;border-radius:14px}
+.chip.chip2l b{font-size:13px}.chip.chip2l small{font-size:10px;font-weight:600;color:var(--muted)}
+.xbtn{display:grid;place-items:center}
+body.en-sesion{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
