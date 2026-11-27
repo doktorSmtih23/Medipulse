@@ -2575,6 +2575,142 @@ MP_CONTENIDO.agregar({
         "Correcta: agua corriente de inmediato y, en un niño pequeño, vigilar el enfriamiento excesivo.",
         "No: ILCOR recomienda enfriar de inmediato, no esperar."
       ]
+    },
+    {
+      "id": "cir-c77",
+      "topic": "Pie diabético · Úlcera plantar neuropática: descarga",
+      "difficulty": "residencia",
+      "src": "nrdp_pie26",
+      "vignette": "Hombre de 61 años con diabetes y una úlcera neuropática plantar en el antepié, <span class='hy'>sin infección ni isquemia</span>. Usa zapatos convencionales. ¿Qué descarga es la de primera línea?",
+      "options": [
+        "Zapato convencional cómodo y curaciones diarias",
+        "Bota removible hasta el tobillo, solo para salir",
+        "Yeso de contacto total o bota no removible",
+        "Reposo en cama absoluto hasta que cierre"
+      ],
+      "correct": 2,
+      "whyCorrect": "Para la úlcera plantar neuropática del antepié o mediopié, el IWGDF recomienda como primera línea una descarga no removible hasta la rodilla: yeso de contacto total o una bota hasta la rodilla que no se pueda retirar. Reduce la presión plantar 80 a 90 % frente al calzado convencional y evita la falta de adherencia.",
+      "pearl": "Úlcera plantar neuropática: descarga no removible hasta la rodilla (yeso de contacto total). Si no se tolera, removible, pero en toda actividad con carga.",
+      "trap": "Confiar en curaciones sin quitar la presión que causa la úlcera.",
+      "cita": [
+        {
+          "donde": "Nat Rev Dis Primers 2026, pie diabético, tratamiento",
+          "texto": "For an appropriate neuropathic plantar forefoot or midfoot ulcer, the IWGDF recommend a non-removable knee-high offloading device, either a total contact cast or a knee-high walker rendered irremovable, as first-line therapy"
+        },
+        {
+          "donde": "Nat Rev Dis Primers 2026, pie diabético, tratamiento",
+          "texto": "These devices reduce plantar pressure by 80–90% compared with conventional footwear while minimizing opportunities for non-adherence"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: sin descarga sigue la presión plantar; la primera línea es la descarga no removible.",
+        "No: la primera línea es no removible y hasta la rodilla; si es removible, se usa en toda actividad con carga.",
+        "Correcta: yeso de contacto total o bota hasta la rodilla no removible.",
+        "No: la primera línea es la descarga no removible hasta la rodilla."
+      ]
+    },
+    {
+      "id": "cir-c78",
+      "topic": "Pie diabético · Perfusión con arterias calcificadas",
+      "difficulty": "dificil",
+      "src": "nrdp_pie26",
+      "vignette": "Mujer de 70 años con diabetes desde hace 25 años y úlcera en el talón. Pulsos pedios no palpables. El índice tobillo-brazo es de <span class='hy'>1,4</span>. ¿Qué concluyes?",
+      "options": [
+        "Perfusión normal: no tiene enfermedad arterial",
+        "ITB falso alto: medir la presión en el dedo",
+        "Revascularizar de urgencia por el ITB elevado",
+        "Amputar porque no hay pulsos palpables"
+      ],
+      "correct": 1,
+      "whyCorrect": "En la diabetes de larga evolución es común la calcificación de la media, que vuelve las arterias poco compresibles y eleva falsamente la presión del tobillo y el ITB. Por eso la perfusión se evalúa en toda úlcera con la presión en el dedo, el índice dedo-brazo o la presión de perfusión cutánea.",
+      "pearl": "ITB alto (poco compresible) en diabéticos: no descarta isquemia; usa presión del dedo o índice dedo-brazo.",
+      "trap": "Confiar en un ITB alto en una diabética de larga evolución sin pulsos.",
+      "cita": [
+        {
+          "donde": "Nat Rev Dis Primers 2026, pie diabético, fisiopatología",
+          "texto": "rendering arteries poorly compressible and producing falsely elevated ankle pressures and ankle–brachial index (ABI) values"
+        },
+        {
+          "donde": "Nat Rev Dis Primers 2026, pie diabético, figura de manejo",
+          "texto": "Toe pressure, TBI, TP or skin perfusion pressure (ABI unreliable with medial arterial calcification)"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con calcificación de la media el ITB puede estar falsamente elevado.",
+        "Correcta: la calcificación eleva falsamente el ITB; se mide la presión en el dedo.",
+        "No: un ITB alto aquí no es un hallazgo que se revascularice; hay que medir bien la perfusión.",
+        "No: primero se evalúa la perfusión con presión en el dedo o índice dedo-brazo."
+      ]
+    },
+    {
+      "id": "cir-c79",
+      "topic": "Otorrinolaringología · Epistaxis: primera medida",
+      "difficulty": "basica",
+      "src": "nejm_epist21",
+      "vignette": "Hombre de 45 años con epistaxis anterior izquierda desde hace 20 minutos, estable. ¿Cuál es la primera medida?",
+      "options": [
+        "Echar la cabeza hacia atrás y poner hielo en la nuca",
+        "Compresión nasal 15–20 min, inclinado adelante",
+        "Taponamiento posterior con sonda de balón de inmediato",
+        "Suspender sus antihipertensivos y esperar"
+      ],
+      "correct": 1,
+      "whyCorrect": "El manejo es escalonado. Primero, compresión digital continua del tercio inferior de la nariz por 15 a 20 minutos, inclinado hacia adelante: hace tamponamiento de los vasos anteriores y evita la aspiración, tragar sangre y el compromiso de la vía aérea. Después se hace rinoscopia anterior y, si sigue sangrando, vasoconstrictor tópico, ácido tranexámico, cauterización o taponamiento anterior.",
+      "pearl": "Epistaxis: compresión del tercio inferior 15–20 min inclinado hacia adelante; luego rinoscopia y medidas locales.",
+      "trap": "Echar la cabeza hacia atrás: la sangre se traga o se aspira.",
+      "cita": [
+        {
+          "donde": "NEJM 2021, epistaxis",
+          "texto": "patients in the medical setting are advised to apply continuous digital compression to the lower third of the nose for 15 to 20 minutes while leaning forward"
+        },
+        {
+          "donde": "NEJM 2021, epistaxis",
+          "texto": "This action helps to achieve tamponade of the anterior nasal blood vessels while preventing aspiration, swallowing of blood, and airway compromise."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: se comprime inclinado hacia adelante para evitar tragar o aspirar sangre.",
+        "Correcta: compresión continua del tercio inferior 15 a 20 minutos, inclinado hacia adelante.",
+        "No: el manejo es escalonado; se empieza por la compresión digital.",
+        "No: la primera medida es la compresión digital del tercio inferior de la nariz."
+      ]
+    },
+    {
+      "id": "cir-c80",
+      "topic": "Otorrinolaringología · Epistaxis: cauterización",
+      "difficulty": "residencia",
+      "src": "nejm_epist21",
+      "vignette": "Mujer de 38 años con epistaxis anterior recurrente; en la rinoscopia se ve el punto sangrante en el septo izquierdo y también vasos prominentes en el derecho. ¿Qué haces al cauterizar?",
+      "options": [
+        "Cauterizar ambos lados del septo en la misma sesión",
+        "Nunca cauterizar: solo taponamiento anterior",
+        "Solo el lado que sangra, de preferencia eléctrica",
+        "Usar solo nitrato de plata, que falla menos"
+      ],
+      "correct": 2,
+      "whyCorrect": "Se cauteriza el sitio que sangra; evitar cauterizar ambos lados del septo minimiza el riesgo de perforación septal. En una revisión sistemática, la electrocauterización fue más eficaz que la química (falla en 14,5 % frente a 35,1 %), sin más complicaciones ni molestias.",
+      "pearl": "Cauterización: un solo lado del septo; la eléctrica falla menos que el nitrato de plata.",
+      "trap": "Cauterizar ambos lados del septo a la vez.",
+      "cita": [
+        {
+          "donde": "NEJM 2021, epistaxis",
+          "texto": "electrocautery was associated with greater efficacy than chemical cautery (failure in 14.5% of patients vs. 35.1%) without a higher incidence of complications or discomfort."
+        },
+        {
+          "donde": "NEJM 2021, epistaxis",
+          "texto": "septal perforation is rare, and the risk is minimized by avoidance of cauterization of both sides of the septum."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: cauterizar ambos lados del septo aumenta el riesgo de perforación septal.",
+        "No: si se identifica el sitio, se cauteriza; el taponamiento viene si falla.",
+        "Correcta: solo el lado que sangra, y la eléctrica falla menos que la química.",
+        "No: la química (nitrato de plata) falló más que la eléctrica: 35,1 % frente a 14,5 %."
+      ]
     }
   ],
   "fichas": [

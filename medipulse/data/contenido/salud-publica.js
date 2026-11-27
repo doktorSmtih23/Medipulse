@@ -696,6 +696,180 @@ MP_CONTENIDO.agregar({
         "No: la ruta ofrece el tacto rectal desde los 40 a quien tiene factores de riesgo.",
         "No: el tamizaje es el tacto rectal desde los 40, no la biopsia."
       ]
+    },
+    {
+      "id": "sp-c21",
+      "topic": "Lectura crítica · Trombólisis por catéter en el TEP",
+      "difficulty": "dificil",
+      "src": "nejm_cdt26",
+      "vignette": "En un ensayo con 558 pacientes con TEP de riesgo intermedio-alto, el desenlace compuesto a 7 días (muerte, recurrencia o descompensación) ocurrió en 0,7 % con trombólisis por catéter más anticoagulación y en 6,8 % con anticoagulación sola. ¿Cuántos hay que tratar para evitar un evento?",
+      "options": [
+        "Unos 2, porque el riesgo relativo es 0,10",
+        "Unos 16",
+        "Unos 61",
+        "Unos 147"
+      ],
+      "correct": 1,
+      "whyCorrect": "La reducción absoluta es 6,8 − 0,7 = 6,1 puntos: NNT = 100 / 6,1 ≈ 16. El RR de 0,10 es relativo. La diferencia se debió sobre todo a menos descompensación o colapso cardiorrespiratorio; el sangrado clínicamente relevante fue parecido (4,6 % frente a 5,0 %).",
+      "pearl": "NNT = 100 / reducción absoluta en puntos. Mira qué componente del desenlace compuesto explica el efecto.",
+      "trap": "Calcular el NNT con el riesgo relativo, o creer que el compuesto bajó por menos muertes.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, trombólisis por catéter en TEP de riesgo intermedio-alto",
+          "texto": "A primary-outcome event occurred in 2 patients (0.7%) in the thrombolysis group and in 19 patients (6.8%) in the standard-care group (relative risk, 0.10; 95% confidence interval, 0.02 to 0.44; P<0.001); this difference was driven mainly by the lower incidence of cardiorespiratory decompensation or collapse in the thrombolysis group."
+        },
+        {
+          "donde": "NEJM 2026, trombólisis por catéter en TEP de riesgo intermedio-alto",
+          "texto": "By day 7, clinically relevant bleeding had occurred in 13 patients (4.6%) in the thrombolysis group and in 14 patients (5.0%) in the standard-care group (P = 0.85)"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: el NNT se calcula con la diferencia absoluta (6,1 puntos), no con el riesgo relativo.",
+        "Correcta: 6,8 − 0,7 = 6,1 puntos; 100 / 6,1 ≈ 16.",
+        "No: el NNT es 100 / 6,1 ≈ 16.",
+        "No: el NNT es 100 / 6,1 ≈ 16."
+      ]
+    },
+    {
+      "id": "sp-c22",
+      "topic": "Lectura crítica · Diseño factorial (PITSTOP)",
+      "difficulty": "residencia",
+      "src": "jama_pitstop_ab26",
+      "vignette": "PITSTOP asignó a pacientes con sospecha de sepsis en la ambulancia a ceftriaxona o placebo y, además, a líquidos liberales o usuales; cada comparación se reportó por separado. ¿Qué diseño es?",
+      "options": [
+        "Ensayo cruzado: cada paciente recibió ambos tratamientos",
+        "Estudio de cohorte con dos exposiciones",
+        "Factorial 2 × 2: dos intervenciones a la vez",
+        "Ensayo por conglomerados de ambulancias"
+      ],
+      "correct": 2,
+      "whyCorrect": "Es un ensayo factorial 2 × 2: cada paciente se aleatoriza en dos comparaciones independientes (ceftriaxona o placebo, y líquidos liberales o usuales), lo que permite responder dos preguntas con los mismos participantes. Cada resultado se reporta por separado.",
+      "pearl": "Factorial 2 × 2: dos aleatorizaciones independientes en los mismos pacientes; dos preguntas en un ensayo.",
+      "trap": "Confundirlo con un ensayo cruzado, en el que cada paciente recibe ambos tratamientos en periodos distintos.",
+      "cita": [
+        {
+          "donde": "JAMA 2026, PITSTOP-Antibiotics",
+          "texto": "This multicenter, 2 × 2 factorial randomized, placebo-controlled trial was conducted among 4 paramedic services and their destination hospitals in Ontario, Canada."
+        },
+        {
+          "donde": "JAMA 2026, PITSTOP-Antibiotics",
+          "texto": "Patients were randomized to receive 1 g of intramuscular ceftriaxone or placebo (and to receive liberal fluids vs usual fluids; reported separately) during prehospital care in the ambulance."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: no recibió cada uno ambos tratamientos; se aleatorizó en dos comparaciones independientes.",
+        "No: es un ensayo aleatorizado, no una cohorte.",
+        "Correcta: factorial 2 × 2, dos aleatorizaciones independientes en los mismos pacientes.",
+        "No: es un ensayo factorial 2 × 2 con aleatorización de pacientes."
+      ]
+    },
+    {
+      "id": "sp-c23",
+      "topic": "Lectura crítica · Antibiótico en la ambulancia (PITSTOP)",
+      "difficulty": "dificil",
+      "src": "jama_pitstop_ab26",
+      "vignette": "En PITSTOP, la ceftriaxona en la ambulancia frente a placebo tuvo una mortalidad hospitalaria de 18,0 % frente a 18,4 % (RR 0,97; IC 95 % 0,81 a 1,17). Casi todos recibieron antibiótico en urgencias unas 4 horas después. ¿Qué concluyes?",
+      "options": [
+        "Adelantarlo no bajó la mortalidad",
+        "Que el antibiótico no sirve en la sepsis",
+        "Que la ceftriaxona reduce la mortalidad un 3 %",
+        "Que el estudio demostró que son equivalentes"
+      ],
+      "correct": 0,
+      "whyCorrect": "El IC 95 % incluye 1: no hubo diferencia significativa. Como más del 92 % de ambos grupos recibió antibiótico en el hospital, lo que se evaluó fue adelantarlo a la ambulancia frente a darlo en urgencias, no dar o no dar antibiótico. Un resultado no significativo tampoco demuestra equivalencia.",
+      "pearl": "Pregunta siempre qué recibió el grupo control: aquí también recibió antibiótico, solo más tarde.",
+      "trap": "Concluir que el antibiótico no sirve en la sepsis.",
+      "cita": [
+        {
+          "donde": "JAMA 2026, PITSTOP-Antibiotics",
+          "texto": "The rate of hospital mortality was 182 of 1009 (18.0%) in the ceftriaxone group and 186 of 1011 (18.4%) in the placebo group (risk ratio, 0.97 [95% CI, 0.81-1.17]; P = .77)."
+        },
+        {
+          "donde": "JAMA 2026, PITSTOP-Antibiotics",
+          "texto": "Most patients (735 of 795 [92.5%] in the ceftriaxone group and 730 of 792 [92.2%] in placebo group) were treated with antibiotics in the hospital"
+        },
+        {
+          "donde": "JAMA 2026, PITSTOP-Antibiotics",
+          "texto": "earlier treatment with antibiotics in the ambulance did not reduce mortality compared with usual care provided in the emergency department."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: darlo antes, en la ambulancia, no bajó la mortalidad frente a darlo en urgencias.",
+        "No: el grupo control también recibió antibiótico en urgencias; se evaluó adelantarlo.",
+        "No: el IC 95 % incluye 1; la diferencia no es significativa.",
+        "No: un resultado no significativo no demuestra equivalencia."
+      ]
+    },
+    {
+      "id": "sp-c24",
+      "topic": "Lectura crítica · Presión arterial tras la trombectomía",
+      "difficulty": "dificil",
+      "src": "jamaneuro_hope26",
+      "vignette": "En un ensayo tras trombectomía exitosa, el desenlace funcional favorable a 90 días fue 60,0 % con metas de presión guiadas por la reperfusión y 47,1 % con el manejo de la guía (diferencia absoluta 13,3 %; IC 95 % 4,1 % a 22,6 %). ¿Cuántos hay que tratar para que uno más tenga buen desenlace?",
+      "options": [
+        "Unos 2",
+        "Unos 8",
+        "Unos 13",
+        "Unos 60"
+      ],
+      "correct": 1,
+      "whyCorrect": "NNT = 100 / 13,3 ≈ 7,5: unos 8. El intervalo no incluye 0, así que la diferencia es significativa. Fue un ensayo abierto con evaluación ciega del desenlace; la transformación hemorrágica también fue menor.",
+      "pearl": "Con diferencia absoluta: NNT = 100 / diferencia en puntos. Con diferencias, el valor nulo es 0.",
+      "trap": "Usar el porcentaje de un grupo en vez de la diferencia entre grupos.",
+      "cita": [
+        {
+          "donde": "JAMA Neurology 2026, ensayo HOPE",
+          "texto": "At 90 days, 129 patients (60.0%) in the intervention group and 106 (47.1%) in the control group achieved a favorable functional outcome (absolute risk difference, 13.3%; 95% CI, 4.1%-22.6%; P = .005)."
+        },
+        {
+          "donde": "JAMA Neurology 2026, ensayo HOPE",
+          "texto": "investigator-initiated, multicenter, prospective, randomized, open-label clinical trial with blinded end point assessment"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: NNT = 100 / 13,3 ≈ 8.",
+        "Correcta: 100 / 13,3 ≈ 7,5, es decir, unos 8.",
+        "No: 13,3 es la diferencia absoluta; el NNT es 100 / 13,3 ≈ 8.",
+        "No: 60 % es el resultado de un grupo; el NNT sale de la diferencia (13,3)."
+      ]
+    },
+    {
+      "id": "sp-c25",
+      "topic": "Lectura crítica · Efecto relativo y absoluto según el riesgo",
+      "difficulty": "dificil",
+      "src": "nejm_bplttc26",
+      "vignette": "En un metaanálisis con datos individuales, bajar 5 mmHg la presión sistólica redujo los eventos cardiovasculares con HR 0,90 sin variar entre deciles de riesgo. El NNT a 5 años fue 38 en el decil de mayor riesgo y 255 en el de menor riesgo. ¿Cómo se explica?",
+      "options": [
+        "El tratamiento funciona menos en los de bajo riesgo",
+        "Error estadístico: el NNT debería ser igual",
+        "El NNT bajo indica más efectos adversos",
+        "Igual efecto relativo, distinto beneficio absoluto"
+      ],
+      "correct": 3,
+      "whyCorrect": "El efecto relativo fue el mismo en todos los deciles (HR 0,90 por cada 5 mmHg), pero el beneficio absoluto depende del riesgo basal: la reducción absoluta a 5 años fue de 2,6 puntos en el decil más alto y de 0,4 en el más bajo, de ahí NNT de 38 frente a 255.",
+      "pearl": "Mismo riesgo relativo, más riesgo basal = más beneficio absoluto y menor NNT.",
+      "trap": "Interpretar un NNT alto como que el tratamiento no funciona en ese grupo.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, BPLTTC",
+          "texto": "The overall estimated hazard ratio for a major cardiovascular event per 5–mm Hg reduction in systolic blood pressure was 0.90 (95% confidence interval, 0.88 to 0.92), with no evidence of variation across deciles."
+        },
+        {
+          "donde": "NEJM 2026, BPLTTC",
+          "texto": "The absolute reduction in the 5-year cumulative risk of a major cardiovascular event was greater in the highest decile than in the lowest decile (2.6 vs. 0.4 percentage points), and the number needed to treat to prevent one major cardiovascular event over 5 years was lower in the highest decile than in the lowest decile (38 vs. 255)."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: el efecto relativo (HR 0,90) no varió entre deciles.",
+        "No: con igual efecto relativo y distinto riesgo basal, el NNT cambia.",
+        "No: el NNT mide beneficio (eventos evitados), no efectos adversos.",
+        "Correcta: el mismo efecto relativo da menos beneficio absoluto cuando el riesgo basal es bajo."
+      ]
     }
   ],
   "fichas": [

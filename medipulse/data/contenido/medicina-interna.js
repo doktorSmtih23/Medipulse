@@ -3631,6 +3631,244 @@ MP_CONTENIDO.agregar({
         "No: no está entre lo indicado; el lego empieza por las compresiones.",
         "Correcta: el rescatista lego empieza por las compresiones (CAB), como en cualquier paro."
       ]
+    },
+    {
+      "id": "mi-c91",
+      "topic": "Reumatología · Arteritis de células gigantes: qué hacer primero",
+      "difficulty": "residencia",
+      "src": "nejm_gca26",
+      "vignette": "Mujer de 74 años con 3 semanas de cefalea temporal nueva, <span class='hy'>claudicación mandibular</span> y VSG de 82 mm/h. Sin síntomas visuales. Mañana puede verla reumatología. ¿Qué haces hoy?",
+      "options": [
+        "Esperar la biopsia para no alterar el resultado",
+        "Prednisona 40–60 mg y ecografía urgente",
+        "Antiinflamatorio y control en un mes si persiste",
+        "Tomografía de cráneo y, si es normal, dar de alta"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con alta sospecha clínica, el reto es confirmar pronto el diagnóstico sin retrasar el tratamiento por el riesgo de complicaciones isquémicas, sobre todo la pérdida visual permanente. EULAR recomienda iniciar prednisona oral a 40–60 mg al día. La prueba de primera línea es la ecografía de las arterias temporales y axilares, con remisión a una clínica de vía rápida en 24 a 48 horas.",
+      "pearl": "Arteritis de células gigantes: con alta sospecha, se trata ya; la ecografía temporal y axilar se hace lo antes posible.",
+      "trap": "Retrasar los glucocorticoides esperando la biopsia o la imagen.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), diagnóstico",
+          "texto": "Given the risk of rapidly evolving ischemic complications, a central clinical challenge is to obtain diagnostic confirmation promptly while ensuring that treatment is not delayed, particularly when clinical suspicion is high."
+        },
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), imagen",
+          "texto": "Current European Alliance of Associations for Rheumatology (EULAR) imaging recommendations support ultrasonography of the temporal and axillary arteries as the first-line test for suspected cranial and large-vessel giant-cell arteritis"
+        },
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), tratamiento",
+          "texto": "advise initiating oral prednisone (or prednisolone) at 40 to 60 mg daily, tapering to 15 to 20 mg daily within 2 to 3 months, and discontinuing glucocorticoid therapy within 12 to 18 months."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con alta sospecha, el tratamiento no se retrasa por el riesgo isquémico.",
+        "Correcta: prednisona 40–60 mg sin retrasar el tratamiento, y ecografía temporal y axilar pronto.",
+        "No: es una sospecha de arteritis con riesgo de pérdida visual; se trata ya con glucocorticoides.",
+        "No: la prueba de primera línea es la ecografía de las arterias temporales y axilares."
+      ]
+    },
+    {
+      "id": "mi-c92",
+      "topic": "Reumatología · Arteritis de células gigantes con amaurosis",
+      "difficulty": "dificil",
+      "src": "nejm_gca26",
+      "vignette": "Hombre de 79 años con sospecha de arteritis de células gigantes que hoy presenta <span class='hy'>amaurosis fugaz</span> del ojo derecho. ¿Qué tratamiento puede considerarse de inmediato?",
+      "options": [
+        "Aspirina sola y valoración por oftalmología",
+        "Prednisona 10 mg al día con reducción rápida",
+        "Metilprednisolona IV 0,25–1 g al día hasta 3 días",
+        "Esperar la ecografía antes de cualquier tratamiento"
+      ],
+      "correct": 2,
+      "whyCorrect": "Ante amaurosis fugaz o pérdida visual aguda atribuible a arteritis activa, puede considerarse metilprednisolona IV inmediata (0,25 a 1 g al día por hasta 3 días), seguida de glucocorticoides orales o IV a dosis altas con reducción posterior.",
+      "pearl": "Arteritis con síntomas visuales: metilprednisolona IV 0,25–1 g al día hasta 3 días, luego dosis altas y reducción.",
+      "trap": "Tratar los síntomas visuales con dosis bajas o esperar la confirmación.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), tratamiento",
+          "texto": "In patients presenting with amaurosis fugax or acute vision loss attributable to active giant-cell arteritis, immediate treatment with intravenous methylprednisolone (0.25 to 1.00 g daily for up to 3 days) may be considered, followed by high-dose oral or intravenous glucocorticoid therapy with subsequent tapering."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con amaurosis fugaz puede considerarse metilprednisolona IV inmediata.",
+        "No: con síntomas visuales se usan dosis altas, no 10 mg.",
+        "Correcta: metilprednisolona IV 0,25 a 1 g al día hasta 3 días, luego dosis altas y reducción.",
+        "No: con síntomas visuales el tratamiento es inmediato."
+      ]
+    },
+    {
+      "id": "mi-c93",
+      "topic": "Reumatología · Ecografía después de iniciar glucocorticoides",
+      "difficulty": "dificil",
+      "src": "nejm_gca26",
+      "vignette": "Mujer de 71 años con sospecha de arteritis de células gigantes que recibe prednisona desde hace <span class='hy'>2 semanas</span>. La ecografía de las arterias temporales sale negativa. ¿Cómo la interpretas?",
+      "options": [
+        "Descarta la arteritis: suspender la prednisona",
+        "Confirma que la arteritis ya está en remisión",
+        "Es negativa porque la técnica fue inadecuada",
+        "No la descarta: baja la sensibilidad"
+      ],
+      "correct": 3,
+      "whyCorrect": "El tratamiento reduce rápido el edema de la pared y la sensibilidad diagnóstica, sobre todo en las arterias craneales; en las extracraneales las alteraciones pueden durar bastante más. En una cohorte, la sensibilidad de la ecografía temporal bajó de 73 % antes de los glucocorticoides a 53 % a los 10 días. Por eso la ecografía se hace lo antes posible y conviene mirar también las axilares.",
+      "pearl": "La ecografía temporal pierde sensibilidad en días con los glucocorticoides; las axilares conservan los hallazgos más tiempo.",
+      "trap": "Suspender el tratamiento por una ecografía temporal negativa hecha tarde.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), imagen",
+          "texto": "Ultrasonography should be performed as early as possible because treatment can rapidly attenuate mural edema and reduce diagnostic sensitivity, particularly in the cranial arteries, whereas abnormalities in the extracranial arteries may persist considerably longer."
+        },
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), imagen",
+          "texto": "In a prospective cohort, the sensitivity of temporal-artery ultrasonography declined from 73% before treatment with glucocorticoids to 53% 10 days after initiation of treatment."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: tras días de tratamiento la ecografía pierde sensibilidad; un negativo no descarta.",
+        "No: un negativo tras el tratamiento puede deberse a la menor sensibilidad, no a remisión.",
+        "No: la explicación esperable es que el tratamiento atenúa el edema y baja la sensibilidad.",
+        "Correcta: el tratamiento atenúa el edema de la pared; un negativo tardío no la descarta."
+      ]
+    },
+    {
+      "id": "mi-c94",
+      "topic": "Reumatología · Arteritis de células gigantes: ahorrar glucocorticoides",
+      "difficulty": "residencia",
+      "src": "nejm_gca26",
+      "vignette": "Mujer de 68 años con arteritis de células gigantes confirmada, diabetes mal controlada y osteoporosis con fractura vertebral. Inicia prednisona. ¿Qué agregas para reducir la exposición a glucocorticoides?",
+      "options": [
+        "Tocilizumab desde el inicio",
+        "Metotrexato en dosis altas como monoterapia",
+        "Nada: la prednisona sola por 3 años es lo indicado",
+        "Cambiar la prednisona por aspirina a dosis altas"
+      ],
+      "correct": 0,
+      "whyCorrect": "El tocilizumab, inhibidor del receptor de la interleucina 6, es eficaz como terapia ahorradora de glucocorticoides y está aprobado para la arteritis. Las guías avalan usarlo con glucocorticoides, incluso al inicio, en pacientes con alto riesgo de recaída o de toxicidad por glucocorticoides, como ella.",
+      "pearl": "Tocilizumab desde el inicio si hay alto riesgo de recaída o de toxicidad por glucocorticoides (diabetes, osteoporosis).",
+      "trap": "Dejar solo prednisona por años en una paciente con alta toxicidad esperable.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), tratamiento",
+          "texto": "These findings established tocilizumab as an effective glucocorticoid-sparing therapy and led to its approval for the treatment of giant-cell arteritis."
+        },
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), tratamiento",
+          "texto": "Current guidelines endorse its use in combination with glucocorticoids, including at disease onset in patients at high risk for relapse or glucocorticoid-related toxic effects."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: con alto riesgo de toxicidad por glucocorticoides, tocilizumab desde el inicio.",
+        "No: el ahorrador de glucocorticoides con eficacia clara y aprobado es el tocilizumab.",
+        "No: con diabetes y osteoporosis, las guías avalan agregar tocilizumab desde el inicio.",
+        "No: el tratamiento se basa en glucocorticoides, con tocilizumab como ahorrador."
+      ]
+    },
+    {
+      "id": "mi-c95",
+      "topic": "Endocrinología · Tamizaje del pie diabético",
+      "difficulty": "basica",
+      "src": "nrdp_pie26",
+      "vignette": "Hombre de 55 años con diabetes tipo 2 desde hace 8 años, sin úlceras previas. En su control anual, ¿cómo evalúas la pérdida de la sensibilidad protectora del pie?",
+      "options": [
+        "Electromiografía de los miembros inferiores",
+        "Monofilamento de 10 g o diapasón de 128 Hz",
+        "Radiografía de ambos pies cada año",
+        "Solo preguntar si tiene dolor"
+      ],
+      "correct": 1,
+      "whyCorrect": "El IWGDF recomienda tamizar los pies una vez al año a todas las personas con diabetes, con una frecuencia posterior según el riesgo. La neuropatía y la pérdida de la sensibilidad protectora se evalúan con el monofilamento de Semmes-Weinstein 5.07 (10 g) o el diapasón de 128 Hz; si no se tienen, sirve el Ipswich Touch Test.",
+      "pearl": "Pie diabético: tamizaje anual con monofilamento de 10 g o diapasón de 128 Hz, y pulsos (con ITB si hace falta).",
+      "trap": "Esperar síntomas: la neuropatía quita el dolor que avisaría.",
+      "cita": [
+        {
+          "donde": "Nat Rev Dis Primers 2026, pie diabético, tamizaje",
+          "texto": "The International Working Group on the Diabetic Foot (IWGDF) recommend annual foot screening for all people with diabetes mellitus, with subsequent screening frequency determined by individual risk"
+        },
+        {
+          "donde": "Nat Rev Dis Primers 2026, pie diabético, tamizaje",
+          "texto": "The IWGDF recommend that DPN and loss of protective sensation be assessed using the Semmes–Weinstein 5.07 (10 g) monofilament and/or the 128-Hz tuning fork"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: el tamizaje usa pruebas simples junto a la cama, como el monofilamento.",
+        "Correcta: monofilamento de 10 g o diapasón de 128 Hz, una vez al año.",
+        "No: el tamizaje de la neuropatía se hace con monofilamento o diapasón.",
+        "No: la sensibilidad protectora se evalúa con monofilamento o diapasón."
+      ]
+    },
+    {
+      "id": "mi-c96",
+      "topic": "Cardiología · Calcio coronario en cero",
+      "difficulty": "residencia",
+      "src": "acc_lip26",
+      "vignette": "Hombre de 52 años con riesgo cardiovascular intermedio, LDL de 140 mg/dL, sin diabetes, no fuma, sin antecedentes familiares de enfermedad prematura. Puntaje de calcio coronario (CAC) <span class='hy'>de 0</span>. ¿Qué es razonable?",
+      "options": [
+        "Estatina de alta intensidad de todas formas",
+        "Ezetimibe más estatina desde el inicio",
+        "Diferir y repetir el CAC en 3–7 años",
+        "Angiotomografía coronaria para buscar placa"
+      ],
+      "correct": 2,
+      "whyCorrect": "Con un CAC de 0 y sin condiciones de mayor riesgo (hipercolesterolemia familiar, LDL mayor de 190, diabetes con más de 40 años, tabaquismo actual o antecedente familiar fuerte de enfermedad prematura), es razonable diferir la estatina y repetir el CAC en 3 a 7 años. Un CAC de 0 se asocia con bajo riesgo de eventos en los siguientes 2 a 3 años.",
+      "pearl": "CAC 0 sin condiciones de alto riesgo: diferir y repetir en 3–7 años. CAC > 0: iniciar; 100–299: meta LDL < 70.",
+      "trap": "Diferir la estatina por un CAC de 0 en un fumador o con LDL mayor de 190.",
+      "cita": [
+        {
+          "donde": "ACC 2026, estrategias hipolipemiantes, tabla 3",
+          "texto": "It is reasonable to defer statin therapy and reassess with repeat CAC in 3-7 years in patients without higher-risk conditions such as FH, LDL-C >190 mg/dL, diabetes and age >40 years, current smoking, or strong family history of premature ASCVD."
+        },
+        {
+          "donde": "ACC 2026, estrategias hipolipemiantes, texto",
+          "texto": "A CAC score of zero is associated with a low risk of events over the next 2 to 3 years and may lead to deferral of pharmacologic LLT in otherwise lower-risk individuals."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con CAC de 0 y sin condiciones de alto riesgo es razonable diferir la estatina.",
+        "No: con CAC de 0 y sin condiciones de alto riesgo es razonable diferir el tratamiento.",
+        "Correcta: diferir la estatina y repetir el CAC en 3 a 7 años.",
+        "No: con CAC de 0 y sin condiciones de alto riesgo, lo razonable es diferir y repetir el CAC."
+      ]
+    },
+    {
+      "id": "mi-c97",
+      "topic": "Cardiología · Calcio coronario de 100 a 299",
+      "difficulty": "residencia",
+      "src": "acc_lip26",
+      "vignette": "Mujer de 58 años sin enfermedad cardiovascular, con riesgo intermedio y LDL de 132 mg/dL. Su puntaje de calcio coronario es de <span class='hy'>180 unidades Agatston</span>. ¿Qué meta propones?",
+      "options": [
+        "Bajar el LDL ≥ 50 % y a menos de 70",
+        "No tratar: el CAC solo sirve si es mayor de 1000",
+        "Reducir el LDL 10 % con dieta y ejercicio",
+        "Meta de LDL menor de 130 mg/dL"
+      ],
+      "correct": 0,
+      "whyCorrect": "Con un CAC mayor de 0 se recomienda iniciar tratamiento hipolipemiante, sobre todo si es de 100 o más. Con un CAC de 100 a 299, la meta es reducir el LDL al menos 50 % y llevarlo a menos de 70 mg/dL (clase 1).",
+      "pearl": "CAC 1–99: reducir LDL 30–49 %, meta < 100. CAC 100–299: ≥ 50 %, meta < 70. CAC ≥ 300: ≥ 50 %, meta < 55.",
+      "trap": "Pensar que un CAC «moderado» no cambia la conducta.",
+      "cita": [
+        {
+          "donde": "ACC 2026, estrategias hipolipemiantes, tabla 3",
+          "texto": "LLT initiation is recommended, particularly if CAC is ≥100 AU or ≥75th percentile."
+        },
+        {
+          "donde": "ACC 2026, estrategias hipolipemiantes, tabla 3",
+          "texto": "CAC 100-299 AU or ≥75th percentile Target ≥50% LDL-C reduction, with goal LDL-C <70 mg/dL."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: CAC de 100 a 299: reducir el LDL al menos 50 % y llevarlo a menos de 70.",
+        "No: con CAC mayor de 0 se recomienda iniciar tratamiento, sobre todo desde 100.",
+        "No: con CAC de 100 a 299 la meta es reducir el LDL al menos 50 %.",
+        "No: con CAC de 100 a 299 la meta es LDL menor de 70 mg/dL."
+      ]
     }
   ],
   "fichas": [
