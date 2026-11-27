@@ -22,7 +22,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Antes de publicar, las mismas pruebas que corren en cada PR: si fallan, no se publica.
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: medipulse
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: medipulse/package-lock.json
+      - run: npm ci
+      - run: npm run revisar
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+
   build:
+    needs: pruebas
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
