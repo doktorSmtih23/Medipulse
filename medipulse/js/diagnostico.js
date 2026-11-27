@@ -94,8 +94,9 @@ function renderDiag(){
   const parte = (n, t, d, estado, cuerpo) => `<div class="card stack diagparte"><div class="row" style="gap:8px"><span class="pnum">${n}</span><b style="flex:1">${t}</b>${estado}</div>
     <p class="xs muted" style="margin:0">${d}</p>${cuerpo}</div>`;
   const listo = `<span class="tag" style="background:var(--ok-soft);color:var(--ok)">✓ Hecha</span>`;
-  box.innerHTML = (p1.hechos.length ? diagPerfilHTML() : "") + `
-    <div class="card stack"><p class="small" style="margin:0">${p1.fin ? "<b>Las partes de tu diagnóstico.</b> Puedes revisar tu resultado en cada una; todo queda guardado en tu dispositivo." : "Antes de recomendarte qué estudiar, necesito conocerte: qué sabes, cómo estudias y cómo razonas un caso. Puedes hacerlo por partes y seguir otro día; todo queda guardado en tu dispositivo."}</p>
+  const todo = !!(p1.fin && D.p2 && D.p2.fin && D.p3 && D.p3.fin);
+  const partes = `
+    <div class="card stack">${todo ? "" : `<p class="small" style="margin:0">${p1.fin ? "<b>Las partes de tu diagnóstico.</b> Puedes revisar tu resultado en cada una; todo queda guardado en tu dispositivo." : "Antes de recomendarte qué estudiar, necesito conocerte: qué sabes, cómo estudias y cómo razonas un caso. Puedes hacerlo por partes y seguir otro día; todo queda guardado en tu dispositivo."}</p>`}
       <div class="track" aria-label="Avance de la parte 1"><i style="width:${Math.round(p.hechos / p.total * 100)}%;background:var(--accent)"></i></div>
       <p class="xs muted" style="margin:0">Parte 1: ${p.hechos} de ${p.total} casos.${p.total < DIAG_POR_AREA * SPECS.length ? ` Por ahora hay ${p.total}: algunas áreas aún tienen pocos casos.` : ""}</p>
       ${modoPrueba() ? `<p class="xs" style="margin:0;color:var(--warn)">🧪 Modo de prueba: los candados están desactivados en este dispositivo. <button class="linkbtn" id="diagPruebaOff">Apagarlo</button></p>` : ""}</div>
@@ -107,6 +108,9 @@ function renderDiag(){
       D.p2 && D.p2.fin ? listo : "", `<button class="btn sm${p1.fin && !(D.p2 && D.p2.fin) ? " primary" : ""}" data-dpart="p2">${D.p2 && D.p2.fin ? "Ver tu resultado" : D.p2 && D.p2.i ? "Seguir" : "Empezar"}</button>`)}
     ${parte(3, "Juicio clínico", "Un expediente real, con datos que importan y otros que distraen. Eliges el caso; filtras, resumes, priorizas y decides. Unos 25 minutos.",
       D.p3 && D.p3.fin ? listo : "", `<button class="btn sm" data-dpart="p3">${D.p3 && D.p3.fin ? "Ver tu resultado" : D.p3 && D.p3.caso ? "Seguir" : "Elegir el caso"}</button>`)}`;
+  // Con las 3 partes hechas, el detalle se repliega para que el informe quede solo al frente.
+  box.innerHTML = (p1.hechos.length ? diagPerfilHTML() : "") + (todo ? `<div class="card diagpartes">${plegable("diagpartes",
+    `<span class="small"><b>✓ Las 3 partes de tu diagnóstico</b> <span class="muted">· ver el detalle o tus resultados</span></span>`, `<div class="stack" style="margin-top:10px">${partes}</div>`)}</div>` : partes);
   box.querySelectorAll("[data-dbl]").forEach(b => b.onclick = () => diagEmpezarBloque(+b.dataset.dbl));
   box.querySelectorAll("[data-dpart]").forEach(b => b.onclick = () => { D.vista = b.dataset.dpart; save(); renderDiag(); scrollTo(0, 0); });
   $("#diagFoco") && ($("#diagFoco").onclick = diagEmpezarFoco);
