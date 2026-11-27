@@ -23,7 +23,6 @@ function inflar(txt){
   });
 }
 
-test.use({serviceWorkers: "block"});
 let errores;
 test.beforeEach(async ({ page }) => {
   errores = vigilarErrores(page);

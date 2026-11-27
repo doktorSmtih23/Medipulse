@@ -67,12 +67,14 @@ const idb = (()=>{
   return { get:id=>tx("readonly",s=>s.get(id)), put:(id,v)=>tx("readwrite",s=>s.put(v,id)), del:id=>tx("readwrite",s=>s.delete(id)) };
 })();
 const recCache = {};
+const pdfBlob = r => r.blob || new Blob([r.datos], {type: "application/pdf"});
+const pdfBytes = async r => new Uint8Array(r.datos ? r.datos.slice(0) : await r.blob.arrayBuffer());
 async function getRec(id){ return recCache[id] || (recCache[id] = await idb.get(id)); }
 
 async function openPdf(id, page){
   const r = await getRec(id).catch(()=>null);
   if (!r) return toast("Este PDF no está guardado en este dispositivo.");
-  window.open(URL.createObjectURL(r.blob) + "#page=" + (page||1), "_blank", "noopener");
+  window.open(URL.createObjectURL(pdfBlob(r)) + "#page=" + (page||1), "_blank", "noopener");
 }
 
 // ---------- pdf.js 4 (incluido en vendor/, funciona sin internet) ----------
@@ -154,7 +156,9 @@ async function addPdf(f, openAfter, meta){
     const pages = await extractPages(buf, (i,n)=> prog.innerHTML = `<span class="spin"></span> Extrayendo texto de “${esc(f.name)}”: página ${i} de ${n}…`);
     const chars = pages.reduce((a,p)=>a+p.length, 0);
     const id = "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
-    const rec = {blob: new Blob([buf], {type:"application/pdf"}), pages};
+    // Los bytes como ArrayBuffer, no como Blob: Safari en navegación privada (y WebKit en sesiones efímeras) no deja
+    // guardar un Blob en IndexedDB. Los PDF guardados antes como Blob se siguen leyendo (pdfBlob, pdfBytes).
+    const rec = {datos: buf.slice(0), pages};
     await idb.put(id, rec); recCache[id] = rec;
     agregarFuente(Object.assign({id, title: tituloFuente(f.name, pages.titulo, pages.tituloPag), year: pages.anio || "", pages: pages.length, chars, added: Date.now(), recien: Date.now(), spec: "Medicina Interna"}, meta || {}));
     save(); prog.innerHTML = "";

@@ -46,12 +46,12 @@ test("Lectura crítica: primero resumir lo que leíste; el método y el ejemplo 
   expect(await sinDesborde(page)).toBe(true);
 });
 
-test("Sesión de estudio: «Empezar la sesión» va antes de las opciones, que quedan plegadas", async ({ page, browserName }) => {
-  test.fixme(browserName === "webkit", "En WebKit Playwright ve como visible el contenido de un <details> cerrado; por confirmar en Safari real");
+test("Sesión de estudio: «Empezar la sesión» va antes de las opciones, que quedan plegadas", async ({ page }) => {
   await page.click("nav [data-go=estudio]");
   expect(await arriba(page, "#estGo", '[data-pleg="estopc"]')).toBe(true);
   await expect(page.locator('[data-pleg="estopc"]')).not.toHaveAttribute("open", "");
-  await expect(page.locator("#estMias")).toBeHidden();
+  // Dentro del plegable cerrado no se dibuja: sin cajas en la página (más fiable que toBeHidden en WebKit)
+  expect(await page.locator("#estMias").evaluate(e => e.getClientRects().length)).toBe(0);
   const y = await page.locator("#estGo").evaluate(b => b.getBoundingClientRect().bottom);
   expect(y).toBeLessThan(800);   // se ve sin deslizar en un celular
   await page.click('[data-pleg="estopc"] > summary');

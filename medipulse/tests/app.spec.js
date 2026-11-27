@@ -289,8 +289,10 @@ test.describe("usabilidad en el celular (prueba de un usuario exigente)", () => 
     await expect(page.locator("nav.bottom")).toBeVisible();
   });
 
-  test("al responder, la explicación sube a la vista; la ayuda de tachar se va después de usarlo", async ({ page, browserName }) => {
-    test.fixme(browserName === "webkit", "En Safari la explicación no sube a la vista tras responder (scrollBy suave en WebKit); por depurar en un iPhone real");
+  test("al responder, la explicación sube a la vista; la ayuda de tachar se va después de usarlo", async ({ page }) => {
+    // Con movimiento reducido la app desplaza sin animación: se prueba la lógica, no la animación suave
+    // (WebKit sin ventana no la anima).
+    await page.emulateMedia({reducedMotion: "reduce"});
     await page.goto("/");
     await page.evaluate(() => startSession({label: "x", tag: "norm", stages: [{name: "x", items: [{t: "q", id: QUESTIONS[0].id}]}]}));
     await expect(page.locator("#tacharAyuda")).toBeVisible();
