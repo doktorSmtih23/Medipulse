@@ -118,8 +118,8 @@ function answerQ(q, o, exam, c){
   $("#fbBox").innerHTML = `
     <div class="stack" style="margin-top:14px">
       <div class="xs muted">Tema: <b>${esc(q.topic || "Caso clínico")}</b>${q.area ? ` · Área: ${esc(q.area)}` : ""}</div>
-      <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":prueba?"✗ Incorrecto":"✗ Incorrecto — volverá en tu repaso"}</h4>${esc(q.whyCorrect)}</div>
-      ${cl && cl.msg ? `<div class="note xs audnota ${cl.k}"><b>${cl.t}.</b> ${esc(cl.msg)}</div>` : ""}
+      <div class="fb ${ok?"ok":"bad"}"><h4>${ok?"✓ Correcto":"✗ Incorrecto"}</h4><div>${esc(q.whyCorrect)}</div>
+        ${cl && cl.msg ? `<div class="fbpie audnota ${cl.k}"><b>${cl.t}.</b> ${esc(cl.msg)}</div>` : !ok && !prueba ? `<div class="fbpie">↻ Volverá en tu repaso.</div>` : ""}</div>
       ${ok || prueba ? "" : motivoHTML(ri)}
       ${porOpcionHTML(q, o)}
       ${q.pearl ? `<div class="note pearl"><b>💎 Perla:</b> ${esc(q.pearl)}</div>` : ""}

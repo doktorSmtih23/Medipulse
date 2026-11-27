@@ -569,9 +569,10 @@ body.en-sesion{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 .sw[aria-checked="true"] i{background:var(--accent)}
 .sw[aria-checked="true"] i::after{left:16px}
 /* Aviso de confianza tras responder en la práctica (seguro/dudé/al azar cruzado con el resultado) */
-.audnota{margin:0}
-.audnota.peligro{border-color:var(--bad)}
-.audnota.fragil,.audnota.vacio{border-color:var(--warn)}
+/* Pie de la explicación: la marca de seguridad o el aviso de repaso, dentro de la misma caja */
+.fbpie{margin-top:10px;padding-top:9px;border-top:1px solid color-mix(in srgb,currentColor 14%,transparent);font-size:13px;line-height:1.45}
+.fbpie.peligro b{color:var(--bad)}
+.fbpie.fragil b,.fbpie.vacio b{color:var(--warn)}
 .confrow .linkbtn{font-size:13px;min-height:40px}
 .confrow .linkbtn.muted{color:var(--muted)}
 /* Reconstrucciones: rasgos de cómo pregunta un examen */
