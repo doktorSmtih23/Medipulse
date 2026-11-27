@@ -85,7 +85,7 @@ const SOURCES = [
   {id:"esc_ic26", t:"2026 ESC Guidelines for the management of heart failure", r:"European Heart Journal, 2026", y:2026, k:"guideline"},
   {id:"afp_croup",t:"Croup: Rapid Evidence Review (Cooke A, Conway S, Griffin L)", r:"American Family Physician, 2026", y:2026, k:"guideline"},
   {id:"nice_bq",  t:"NICE guideline NG9: Bronchiolitis in children: diagnosis and management", r:"NICE, 2015 · actualizada en 2021", y:2021, k:"guideline", u:"https://www.nice.org.uk/guidance/ng9"},
-  {id:"gold26",   t:"GOLD 2026 Pocket Guide: Global Strategy for the Diagnosis, Management, and Prevention of COPD", r:"Global Initiative for Chronic Obstructive Lung Disease, 2025 · versión 1.1, noviembre de 2025", y:2026, k:"guideline", u:"https://goldcopd.org/2026-gold-report/"},
+  {id:"gold27",   t:"GOLD 2027 Pocket Guide: Global Strategy for the Diagnosis, Management, and Prevention of COPD", r:"Global Initiative for Chronic Obstructive Lung Disease, 2026 · versión 1.1, 20 de noviembre de 2026", y:2027, k:"guideline", u:"https://www.goldcopd.org"},
   {id:"gold26_cambios", t:"GOLD Report 2026: Key Changes Summary", r:"Global Initiative for Chronic Obstructive Lung Disease, noviembre de 2025", y:2026, k:"guideline", u:"https://goldcopd.org/2026-gold-report/"},
   {id:"das25",    t:"Difficult Airway Society 2025 guidelines for management of unanticipated difficult tracheal intubation in adults (Ahmad I et al.)", r:"Br J Anaesth 2026;136(1):283-307", y:2026, k:"guideline", u:"https://doi.org/10.1016/j.bja.2025.10.006"},
   {id:"nice_tept", t:"NICE guideline NG116: Post-traumatic stress disorder", r:"NICE, 2018", y:2018, k:"guideline", u:"https://www.nice.org.uk/guidance/ng116"},
