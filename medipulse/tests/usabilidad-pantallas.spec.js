@@ -50,8 +50,10 @@ test("Sesión de estudio: «Empezar la sesión» va antes de las opciones, que q
   await page.click("nav [data-go=estudio]");
   expect(await arriba(page, "#estGo", '[data-pleg="estopc"]')).toBe(true);
   await expect(page.locator('[data-pleg="estopc"]')).not.toHaveAttribute("open", "");
-  // Dentro del plegable cerrado no se dibuja: sin cajas en la página (más fiable que toBeHidden en WebKit)
-  expect(await page.locator("#estMias").evaluate(e => e.getClientRects().length)).toBe(0);
+  // Cerrado, el plegable mide lo mismo que su título: las opciones no ocupan pantalla (WebKit deja cajas
+  // dentro de un <details> cerrado, así que se mide el plegable y no lo de adentro)
+  const alto = await page.locator('[data-pleg="estopc"]').evaluate(d => d.getBoundingClientRect().height - d.querySelector("summary").getBoundingClientRect().height);
+  expect(alto).toBeLessThan(40);
   const y = await page.locator("#estGo").evaluate(b => b.getBoundingClientRect().bottom);
   expect(y).toBeLessThan(800);   // se ve sin deslizar en un celular
   await page.click('[data-pleg="estopc"] > summary');

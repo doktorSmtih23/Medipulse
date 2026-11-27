@@ -25,8 +25,12 @@ test("un PDF guardado antes como Blob se sigue abriendo", async ({ page }) => {
   await page.goto("/");
   const bytes = [...fs.readFileSync(PDF)];
   const n = await page.evaluate(async bytes => {
-    await idb.put("pviejo", {blob: new Blob([new Uint8Array(bytes)], {type: "application/pdf"}), pages: ["x"]});
-    delete recCache.pviejo; return (await anDoc("pviejo")).numPages;
+    const viejo = {blob: new Blob([new Uint8Array(bytes)], {type: "application/pdf"}), pages: ["x"]};
+    // Un motor que no guarda Blob en IndexedDB (WebKit de pruebas) nunca tuvo registros así: se prueba
+    // igual la lectura del registro viejo, dándolo ya cargado
+    delete recCache.pviejo;
+    try { await idb.put("pviejo", viejo); } catch (e) { recCache.pviejo = viejo; }
+    return (await anDoc("pviejo")).numPages;
   }, bytes);
   expect(n).toBe(4);
 });

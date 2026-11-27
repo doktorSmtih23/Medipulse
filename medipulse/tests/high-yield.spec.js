@@ -36,8 +36,10 @@ test("buscar, filtrar por especialidad, área y estado; repasar usa lo filtrado"
   await page.click('[data-hyf="est"][data-v="mine"]');
   await expect(page.locator("#hyList .hyrow")).toHaveCount(2);
   // Cada chip mide al menos 44 px de alto (se toca con el pulgar)
-  const altos = await page.$$eval("#hyFilters .chip2", cs => cs.map(c => c.getBoundingClientRect().height));
-  expect(altos.length).toBeGreaterThan(5); expect(Math.min(...altos)).toBeGreaterThanOrEqual(44);
+  // (se espera a que el panel termine de dibujarse: con la máquina de CI cargada se midió a medio render)
+  const altos = () => page.$$eval("#hyFilters .chip2", cs => cs.map(c => c.getBoundingClientRect().height));
+  expect((await altos()).length).toBeGreaterThan(5);
+  await expect.poll(async () => Math.min(...await altos())).toBeGreaterThanOrEqual(44);
   // Ya aplicados y con el panel cerrado, los filtros se ven y se quitan con un toque
   await page.click("#hyListo");
   await expect(page.locator("#hyFiltrar")).toContainText("(2)");
