@@ -48,12 +48,6 @@ function downloadPack(pack){
   const msg = `Pack descargado: ${pack.questions.length} casos y ${(pack.fichas || []).length} fichas`;
   try { navigator.clipboard.writeText(txt).then(()=>toast(msg + " · también copiado ✓"), ()=>toast(msg + " ✓")); } catch(e) { toast(msg + " ✓"); }
 }
-function sanitizeVig(v){
-  const decoded = String(v).replace(/[\u0001\u0002]/g, "")
-    .replace(/<span class=['"]hy['"]>([\s\S]*?)<\/span>/gi, "\u0001$1\u0002").replace(/<[^>]*>/g, "")
-    .replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,"&");
-  return esc(decoded).replace(/\u0001/g, "<span class='hy'>").replace(/\u0002/g, "</span>");
-}
 $("#packIn").onchange = e => { const f = e.target.files[0]; e.target.value = ""; if (!f) return;
   f.text().then(t=>{ try { importPack(JSON.parse(t)); } catch(err) { toast("El archivo no es un pack válido."); } }); };
 $("#pasteBtn").onclick = togglePaste;

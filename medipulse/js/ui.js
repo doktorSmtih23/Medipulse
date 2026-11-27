@@ -5,6 +5,14 @@
 const APP_URL = "https://doktorsmtih23.github.io/Medipulse/medipulse/";
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+// El enunciado de un caso solo admite el resaltado <span class='hy'>; todo lo demás se escapa. Se aplica al guardar
+// (packs importados) y siempre al mostrar, así una vía nueva que olvide sanear no puede inyectar HTML.
+function sanitizeVig(v){
+  const decoded = String(v).replace(/[\u0001\u0002]/g, "")
+    .replace(/<span class=['"]hy['"]>([\s\S]*?)<\/span>/gi, "\u0001$1\u0002").replace(/<[^>]*>/g, "")
+    .replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,"&");
+  return esc(decoded).replace(/\u0001/g, "<span class='hy'>").replace(/\u0002/g, "</span>");
+}
 function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("on"),2600); }
 // Apariencia: combinación de colores (S.palette) y modo (S.theme: "light", "dark" o null = automático, sigue al
 // teléfono). Se guarda en este dispositivo. Los colores salen de css/app.css (data-pal) y SPEC_PALETAS.

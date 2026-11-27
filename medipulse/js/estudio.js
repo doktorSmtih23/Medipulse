@@ -180,7 +180,7 @@ function estQuiz(box, a, cual){
   if (!q) { ids.forEach(id => { if (resp[id] === undefined) resp[id] = -1; }); save(); return renderEstudio(); }
   box.innerHTML = `<div class="card stack">${estCabecera(a, cual === "pre" ? "pre-test" : "post-test")}
     <p class="xs muted" style="margin:0">${cual === "pre" ? `Pre-test: ${ids.length === 1 ? "1 caso" : ids.length + " casos"} del banco sobre este tema. Responde lo que puedas; las respuestas las verás al final.` : `Post-test: los mismos casos del inicio. Ahora sí verás cómo te fue.`} · ${i + 1} de ${ids.length}</p>
-    <p class="vignette" style="margin:4px 0">${q.vignette}</p>
+    <p class="vignette" style="margin:4px 0">${sanitizeVig(q.vignette)}</p>
     <div id="opts">${q.options.map((o, j) => `<div class="optrow"><button class="opt" data-eo="${j}"><span class="l">${"ABCDE"[j]}</span><span>${esc(o)}</span></button></div>`).join("")}</div>
     ${cual === "pre" ? `<button class="linkbtn xs" id="estSaltar" style="align-self:flex-start">Saltar el pre-test</button>` : ""}</div>`;
   estBindCab(box, a);

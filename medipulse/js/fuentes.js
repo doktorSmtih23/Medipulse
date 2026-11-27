@@ -27,6 +27,8 @@ function citaHtml(item){
   const s = SRC_BY_ID[item.src], deQue = !s ? "del documento" : s.k === "guideline" ? "de la guía" : s.k === "book" ? "del libro" : "del documento";
   return `<details class="cita"><summary>📍 Ver la cita textual ${deQue}${v}</summary>${item.cita.map(c => `<div class="cita-i"><b>${esc(c.donde)}</b><blockquote>“${esc(c.texto)}”</blockquote></div>`).join("")}</details>`;
 }
+// «Ver en el PDF» de una cita: un solo escuchador (sin onclick en línea, que la CSP bloquea).
+document.addEventListener("click", e => { const b = e.target.closest && e.target.closest("[data-openpdf]"); if (b) openPdf(b.dataset.openpdf, +b.dataset.pg || 1); });
 function srcLine(item){
   // Versión editada por el usuario: se dice, y debajo va la fuente del caso original.
   if (item.editada) return `<div class="srcline">✏️ <span>Versión editada por ti${item.ia ? " con ayuda de la IA" : ""}, basada en ${item.externa ? "una pregunta importada" : item.src && srcInfo(item.src) && srcInfo(item.src).builtin ? "un caso del banco de MediPulse" : "un caso"}. MediPulse no revisa los cambios; la responsabilidad es de quien los hizo.</span></div>` + srcLine(Object.assign({}, item, {editada: false, ia: false, manual: item.src ? item.manual : false}));
@@ -41,7 +43,7 @@ function srcLine(item){
     + (st==="outdated" && !item.updated ? warn("Hay una versión más nueva de esta fuente; este dato podría haber cambiado. Revísalo en Fuentes → Vigencia.") : "") + marca;
   const how = item.ai ? " · generada con IA, verifícala" : item.auto ? " · generada automáticamente" : item.pack ? " · de un pack compartido, no revisado por MediPulse: verifícalo" : "";
   const pdf = s.kind==="pdf", where = item.pages && item.pages.length > 1 && !s.apunte && s.kind!=="text" ? ` · págs. ${item.pages.join(", ")}` : item.page ? (s.apunte ? ` · punto ${item.page}` : s.kind==="text" ? ` · parte ${item.page}` : ` · pág. ${item.page}`) : "";
-  return `<div class="srcline">${pdf?"📄":s.kind==="pack"?"📦":s.apunte?"📓":"📋"} <span>${esc(s.t)}${where}${how}${upd}${pdf?` · <button class="linkbtn" onclick="openPdf('${s.id}',${item.page||1})">abrir PDF</button>`:""}</span></div>`
+  return `<div class="srcline">${pdf?"📄":s.kind==="pack"?"📦":s.apunte?"📓":"📋"} <span>${esc(s.t)}${where}${how}${upd}${pdf?` · <button class="linkbtn" data-openpdf="${esc(s.id)}" data-pg="${+(item.page||1) || 1}">abrir PDF</button>`:""}</span></div>`
     + (item.stale ? warn("Viene de la versión anterior de este PDF.") : st==="outdated" ? warn("Hay una versión más nueva de este documento.") : "") + marca;
 }
 
@@ -73,48 +75,44 @@ async function openPdf(id, page){
   window.open(URL.createObjectURL(r.blob) + "#page=" + (page||1), "_blank", "noopener");
 }
 
-// ---------- pdf.js (incluido en vendor/, funciona sin internet) ----------
+// ---------- pdf.js 4 (incluido en vendor/, funciona sin internet) ----------
+// Versión «legacy» de pdf.js 4.10.38: trae compatibilidad para Safari y navegadores más viejos. Es un módulo ES:
+// se carga con import() y queda también en window.pdfjsLib.
 let pdfjsP = null;
-// Lector de PDF: primero la copia incluida en la app (funciona sin internet); si no carga, una copia idéntica en un CDN.
 const PDFJS_SOURCES = [
-  {lib: "vendor/pdf.min.js", worker: "vendor/pdf.worker.min.js"},
-  {lib: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", worker: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"},
-  {lib: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js", worker: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js"}
+  {lib: "vendor/pdf.min.mjs", worker: "vendor/pdf.worker.min.mjs"},
+  {lib: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/legacy/build/pdf.min.mjs", worker: "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/legacy/build/pdf.worker.min.mjs"}
 ];
-function loadScript(src){
-  return new Promise((res, rej)=>{
-    const s = document.createElement("script"); s.src = src;
-    s.onload = ()=>res(); s.onerror = ()=>{ s.remove(); rej(new Error(src)); };
-    document.head.appendChild(s);
-  });
-}
 // En la versión de un solo archivo, las librerías vienen dentro del HTML (<script type="text/plain" id="vend-…">).
 const vendorUrl = id => { const el = document.getElementById(id); if (!el) return "";
   const bin = atob(el.textContent.trim()), bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
   return URL.createObjectURL(new Blob([bytes], {type: "text/javascript"})); };
+// Rutas absolutas: import() en un script clásico resolvería «vendor/…» desde js/.
+const absUrl = u => new URL(u, document.baseURI).href;
+async function cargarModuloPdf(lib, worker){
+  const m = await import(lib);
+  if (!m || !m.getDocument) throw new Error(lib + " (no es pdf.js)");
+  m.GlobalWorkerOptions.workerSrc = worker; window.pdfjsLib = m; return m;
+}
 function loadPdfJs(){
   return pdfjsP || (pdfjsP = (async ()=>{
     const failed = [];
     const inl = vendorUrl("vend-pdf");
     if (inl) {
-      try { await loadScript(inl); pdfjsLib.GlobalWorkerOptions.workerSrc = vendorUrl("vend-pdfw"); return pdfjsLib; }
+      try { return await cargarModuloPdf(inl, vendorUrl("vend-pdfw")); }
       catch(e) { failed.push("copia incluida en el archivo"); }
     }
     for (const src of PDFJS_SOURCES) {
-      try {
-        await loadScript(src.lib);
-        if (!window.pdfjsLib) throw new Error(src.lib + " (no definió pdfjsLib)");
-        pdfjsLib.GlobalWorkerOptions.workerSrc = src.worker;
-        return pdfjsLib;
-      } catch(e) { failed.push(e.message); }
+      try { return await cargarModuloPdf(absUrl(src.lib), absUrl(src.worker)); }
+      catch(e) { failed.push(src.lib + ": " + (e && e.message || e)); }
     }
     pdfjsP = null;
     console.error("No cargó el lector de PDF desde:", failed);
     throw new Error("no se pudo cargar el lector de PDF. Revisa tu conexión y recarga la página; si sigue igual, abre la app desde " + APP_URL);
   })());
 }
-// pdf.js 3.x compila código para dibujar las fuentes salvo que se desactive (CVE-2024-4367): un PDF manipulado
-// podría ejecutar JavaScript en la app y leer, por ejemplo, la clave de IA. Todo PDF se abre por aquí.
+// Sin eval para dibujar las fuentes: en pdf.js anterior a 4.2.67 un PDF manipulado podía ejecutar JavaScript
+// (CVE-2024-4367). La versión 4 ya lo corrige; se deja desactivado igual, como defensa extra. Todo PDF se abre por aquí.
 const PDF_OPCIONES = {isEvalSupported: false};
 const abrirPdf = (lib, bytes) => lib.getDocument(Object.assign({data: bytes}, PDF_OPCIONES)).promise;
 async function extractPages(buf, onProg){

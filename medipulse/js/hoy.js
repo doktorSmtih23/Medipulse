@@ -211,7 +211,7 @@ function renderRelampago(){
   const box = $("#relCard"), q = relPregunta(); box.hidden = !q; if (!q) return;
   const o = relHoy.o, hecho = o != null, ok = o === q.correct;
   box.innerHTML = `<div class="rota-k"><b>⚡ PREGUNTA RELÁMPAGO</b><span class="muted">${esc(q.specialty)}</span></div>
-    <p class="vignette rel-v">${q.vignette}</p>
+    <p class="vignette rel-v">${sanitizeVig(q.vignette)}</p>
     <div class="rel-ops">${q.options.map((x, i) => `<button class="rel-op${hecho && i === q.correct ? " ok" : ""}${hecho && i === o && !ok ? " bad" : ""}" data-rel="${i}" ${hecho ? "disabled" : ""}><b>${"ABCDE"[i]}</b> ${esc(x)}</button>`).join("")}</div>
     ${hecho ? `<p class="small rel-fb ${ok ? "ok" : "bad"}"><b>${ok ? "✓ Correcto." : `✗ Era la ${"ABCDE"[q.correct]}. Vuelve en tu repaso.`}</b> ${esc(q.whyCorrect || "")}</p>` : `<p class="xs muted" style="margin:8px 0 0">Responde con un toque: cuenta como cualquier caso.</p>`}`;
   box.querySelectorAll("[data-rel]").forEach(b => b.onclick = () => {

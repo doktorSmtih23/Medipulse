@@ -104,7 +104,7 @@ Los scripts se cargan **en este orden** (ver el final de `index.html`). Comparte
 | `js/datos.js` | Proteger los datos: copia de seguridad (descargar/cargar/deshacer), recordatorio de copia, aviso de iPhone, alerta si no se pudo guardar, ítems archivados |
 | `js/instalar.js` | Pantalla «Instalar en tu celular»: detecta iPhone, Android o computador y muestra sus pasos; botón «Instalar» del navegador (`beforeinstallprompt`) y aviso en Hoy si no está instalada. Íconos PNG (`icon-192`, `icon-512`, `icon-maskable-512`, `apple-touch-icon`) |
 | `js/inicio.js` | Arranque (va siempre al final) |
-| `vendor/` | pdf.js 3.11.174 y `@anthropic-ai/sdk` 1.2.0 (no editar a mano) |
+| `vendor/` | pdf.js 4.10.38 (legacy, módulo ES) y `@anthropic-ai/sdk` 1.2.0 (no editar a mano) |
 | `sw.js` | Caché sin conexión |
 | `tests/*.spec.js` | Pruebas automáticas (Playwright Test): `app` (flujos principales), `analisis`, `ia-taller` (IA simulada), `documento` (limpieza del texto y capítulos), `vista-previa` (archivo único) |
 | `tests/fixtures/` | PDF de prueba inventado (`articulo-prueba.pdf`) y el script que lo crea |

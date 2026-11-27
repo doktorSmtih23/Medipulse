@@ -66,7 +66,7 @@ async function renderPdfPage(box, srcId, pageNum, zoom){
     wrap.appendChild(cv);
     const tl = document.createElement("div"); tl.className = "textLayer"; wrap.appendChild(tl);
     box.innerHTML = ""; box.appendChild(wrap);
-    try { await lib.renderTextLayer({textContentSource: await page.getTextContent(), container: tl, viewport: vp, textDivs: []}).promise; } catch(e) {}
+    try { await new lib.TextLayer({textContentSource: await page.getTextContent(), container: tl, viewport: vp}).render(); } catch(e) {}
     return {wrap, canvas: cv};
   } catch(e) {
     if (e && e.name === "RenderingCancelledException") return null;

@@ -86,12 +86,14 @@ function build() {
   // Librerías de vendor/ como texto: la app las carga desde aquí si no tiene la carpeta al lado.
   // Solo con --con-librerias (pesa ~2,8 MB y algunos visores se cuelgan). Por defecto, la app las busca
   // en internet (respaldos que ya tiene) y el archivo queda liviano.
-  const vend = !WITH_LIBS ? "" : [["vend-pdf", "vendor/pdf.min.js"], ["vend-pdfw", "vendor/pdf.worker.min.js"], ["vend-sdk", "vendor/anthropic-sdk.mjs"]]
+  const vend = !WITH_LIBS ? "" : [["vend-pdf", "vendor/pdf.min.mjs"], ["vend-pdfw", "vendor/pdf.worker.min.mjs"], ["vend-sdk", "vendor/anthropic-sdk.mjs"]]
     // en base64: así ningún "<!--" ni "</script" del código puede romper el HTML
     .map(([id, f]) => `<script type="text/plain" id="${id}">${fs.readFileSync(path.join(ROOT, f)).toString("base64")}</script>`).join("\n");
   // La app avisa en Casos qué especialidades quedaron fuera (solo están en la app web).
   if (fuera.length) html = html.replace(/(<script>\n\/\/ ===== data\/)/, `<script>window.MP_SOLO_BASICAS = ${JSON.stringify(fuera)};${muestra.n < muestra.total ? ` window.MP_MUESTRA = ${JSON.stringify([muestra.n, muestra.total])};` : ""}</script>\n$1`);
   if (vend) html = html.replace(/(<script>\n\/\/ ===== data\/)/, vend + "\n$1");
+  // La CSP de index.html no sirve aquí: todo el código va en línea. Se quita con su comentario.
+  html = html.replace(/<!-- Política de seguridad \(CSP\)[\s\S]*?-->\n?/, "").replace(/<meta http-equiv="Content-Security-Policy"[^>]*>\n?/, "");
   // Ícono incrustado; el manifiesto solo sirve en el sitio publicado.
   const icon = "data:image/svg+xml;base64," + Buffer.from(read("icon.svg")).toString("base64");
   html = html.replace(/(href|src)="icon\.svg"/g, (m, a) => `${a}="${icon}"`).replace(/<link rel="manifest"[^>]*>\n?/, "");

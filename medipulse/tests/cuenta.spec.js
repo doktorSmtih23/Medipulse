@@ -2,7 +2,9 @@
 const { test, expect } = require("@playwright/test");
 const { vigilarErrores } = require("./ayudas");
 
-const URL_SB = "https://prueba.supabase.co";
+// El dominio del servidor configurado (data/servidor.js): la CSP de la app solo permite conectarse a ese.
+// La red está simulada: nunca se llega al servidor real.
+const URL_SB = require("fs").readFileSync(require("path").join(__dirname, "..", "data", "servidor.js"), "utf8").match(/url: "(https:\/\/[^"]+)"/)[1];
 const b64 = o => Buffer.from(JSON.stringify(o)).toString("base64").replace(/=+$/, "").replace(/\+/g, "-").replace(/\//g, "_");
 const token = email => `${b64({alg: "HS256"})}.${b64({email, role: "authenticated"})}.firma`;
 const SESION = email => ({access_token: token(email), refresh_token: "r-" + email, expires_in: 3600, user: {email}});
