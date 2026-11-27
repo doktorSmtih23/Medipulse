@@ -135,6 +135,14 @@ test("resultado: perfil con el área y el tipo más débiles, errores con seguri
   const plan = await page.evaluate(() => diagPerfil().plan);
   expect(plan[0].s).toBe("Pediatría");                         // la mayor parte del tiempo, a la brecha
   expect(await sinDesborde(page)).toBe(true);
+  // El informe se ve primero y cada hallazgo trae su acción: repasar los errores con seguridad
+  await expect(page.locator("#diagPerfil .diaghero")).toContainText("Hallazgos");
+  await expect(page.locator("#diagPerfil .diagscore")).toBeVisible();
+  await page.click("#diagPeligro");
+  const rep = await page.evaluate(() => [sess.label, sess.stages[0].items.every(it => qById(it.id).specialty === "Pediatría"), sess.stages[0].items.length > 0]);
+  expect(rep).toEqual(["Errores con seguridad", true, true]);
+  await page.evaluate(() => { endSession(false); go("diag"); });
+  await expect(page.locator("#diagFocoPlan")).toContainText("Pediatría");
   await page.click("nav [data-go=hoy]");
   await expect(page.locator("#suggestCard")).toContainText("Según tu diagnóstico");
   await expect(page.locator("#suggestCard")).toContainText("Pediatría");
