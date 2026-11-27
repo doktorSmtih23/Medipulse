@@ -34,7 +34,13 @@ MP_CONTENIDO.agregar({
           "texto": "La sensibilidad y la especificidad no dependen de la prevalencia."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: con sensibilidad alta un negativo descarta; los positivos se confirman con una prueba más específica.",
+        "No: su alta sensibilidad la hace útil para tamizaje, confirmando los positivos.",
+        "No: la confirmación se hace con una prueba de alta especificidad.",
+        "No: el VPP sí depende de la prevalencia."
+      ]
     },
     {
       "id": 20,
@@ -58,7 +64,13 @@ MP_CONTENIDO.agregar({
           "texto": "Debido a ello, la fuerza de la asociación no se puede calcular directamente, como en el estudio de cohortes, sino de forma indirecta mediante la odds ratio."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: no hay intervención asignada; se parte del desenlace y se busca la exposición hacia atrás.",
+        "Correcta: parte de la enfermedad y busca la exposición hacia atrás: casos y controles, con odds ratio.",
+        "No: se parte de casos y controles y se busca la exposición pasada; la medida es el odds ratio.",
+        "No: la cohorte parte de la exposición; aquí se parte de la enfermedad."
+      ]
     },
     {
       "id": "sp-c01",
@@ -82,7 +94,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se obtiene como el inverso de la RAR multiplicado por 100, y es el número de pacientes que se deben tratar para prevenir un suceso indeseable adicional."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: 5 sale de usar la reducción relativa (1/0,20).",
+        "No: el NNT es 1/0,02 = 50.",
+        "Correcta: RRA = 10 % − 8 % = 2 %; NNT = 1/0,02 = 50.",
+        "No: el NNT es 1/0,02 = 50, no 100."
+      ]
     },
     {
       "id": "sp-c02",
@@ -106,7 +124,13 @@ MP_CONTENIDO.agregar({
           "texto": "Por intención de tratar. El análisis incluye a todos los pacientes que han sido seleccionados y en el grupo en el que fueron asignados, aunque no hayan finalizado el estudio o hayan cambiado de grupo."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: excluir a quienes abandonan rompe la comparabilidad y exagera el beneficio.",
+        "No: en un ensayo de superioridad, el análisis principal es por intención de tratar.",
+        "No: contar solo a los adherentes rompe la comparabilidad de la aleatorización.",
+        "Correcta: intención de tratar: todos en el grupo asignado, para conservar la aleatorización."
+      ]
     },
     {
       "id": "sp-c03",
@@ -130,7 +154,13 @@ MP_CONTENIDO.agregar({
           "texto": "Por el contrario, si la prevalencia de la enfermedad decrece, aumenta el valor predictivo negativo y se reduce el valor predictivo positivo."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: 9 verdaderos positivos y 99 falsos positivos: VPP = 9/108 ≈ 8 %.",
+        "No: VPP = 9/(9 + 99) ≈ 8 %.",
+        "No: 90 % es la sensibilidad, no el valor predictivo positivo.",
+        "No: con prevalencia de 1 %, la mayoría de los positivos son falsos: VPP ≈ 8 %."
+      ]
     },
     {
       "id": "sp-c04",
@@ -154,7 +184,13 @@ MP_CONTENIDO.agregar({
           "texto": "En este caso la prueba de cribado detecta antes la enfermedad, pero no cambia su pronóstico. Por tanto, el paciente no vive más, si no que vive más tiempo diagnosticado."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el desenlace que demuestra el beneficio es la mortalidad, y no cambió.",
+        "No: el diagnóstico se adelantó sin cambiar la fecha de muerte: es sesgo de anticipación.",
+        "No: el hallazgo se explica por el adelanto del diagnóstico, no por la memoria.",
+        "Correcta: el diagnóstico se adelantó sin cambiar la muerte: más tiempo diagnosticado, no más vida."
+      ]
     },
     {
       "id": "sp-c05",
@@ -178,7 +214,13 @@ MP_CONTENIDO.agregar({
           "texto": "El sesgo de confusión se debe a la existencia de un factor de confusión, que es esencialmente un factor que está desigualmente distribuido entre los dos grupos de pacientes del estudio, y que se relaciona etiológicamente con la enfermedad final."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: el tabaco se asocia con el café y causa el cáncer; al ajustar, la asociación desaparece.",
+        "No: la asociación desaparece al ajustar por un factor desigualmente distribuido: es confusión.",
+        "No: en la interacción el efecto cambia según un tercer factor; no desaparece al ajustar.",
+        "No: la asociación desaparece al ajustar por tabaquismo: es confusión."
+      ]
     },
     {
       "id": "sp-c06",
@@ -202,7 +244,13 @@ MP_CONTENIDO.agregar({
           "texto": "El riesgo relativo (RR) es la medida de asociación en los estudios de cohortes."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con el pollo, 30 % frente a 34 %: RR ≈ 0,9, sin asociación.",
+        "No: el grupo de comparación son quienes no comieron el alimento.",
+        "No: 50 % frente a 5 % da un RR de 10, no de 2.",
+        "Correcta: tasa de ataque de 60/120 = 50 % frente a 4/80 = 5 %: RR = 10."
+      ]
     },
     {
       "id": "sp-c07",
@@ -230,7 +278,13 @@ MP_CONTENIDO.agregar({
           "texto": "there is a higher prevalence in Hitown people than in Lotown people, not because the risk of disease is higher in Hitown people, but because affected Hitown people survive longer; the prevalence of disease (incidence × duration) is therefore higher in Hitown people than in Lotown people."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: los casos nuevos no cambian y, al vivir más sin curarse, la prevalencia sube (P ≈ I × D).",
+        "No: la incidencia no cambia: los casos nuevos son los mismos.",
+        "No: el tratamiento no cura; los pacientes se acumulan y la prevalencia sube.",
+        "No: los casos nuevos no cambian y la duración aumenta: la prevalencia sube."
+      ]
     },
     {
       "id": "sp-c08",
@@ -254,7 +308,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se denomina β a la probabilidad de cometer un error tipo II"
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: un resultado no significativo con poco poder no demuestra equivalencia.",
+        "No: un resultado no significativo tampoco demuestra inferioridad.",
+        "Correcta: con poder de 40 %, había 60 % de probabilidad de no detectar una diferencia real.",
+        "No: el error tipo I es encontrar una diferencia que no existe; aquí no se encontró ninguna."
+      ]
     },
     {
       "id": "sp-c09",
@@ -283,7 +343,13 @@ MP_CONTENIDO.agregar({
           "texto": "PRISMA-AI (15), diseñada para estandarizar las revisiones sistemáticas y metaanálisis que evalúan intervenciones basadas en IA"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: STROBE es para estudios observacionales.",
+        "No: SPIRIT-AI es para los protocolos, no para el informe de resultados.",
+        "No: PRISMA-AI es para revisiones sistemáticas y metaanálisis.",
+        "Correcta: informe de resultados de un ensayo aleatorizado con IA: CONSORT-AI."
+      ]
     },
     {
       "id": "sp-c10",
@@ -311,7 +377,13 @@ MP_CONTENIDO.agregar({
           "texto": "using the age-adjusted cutoff instead of the 500 μg/L cutoff increased the proportion of patients in whom PE could be excluded on the basis of D-dimer from 43 of 673 patients (6.4% [95% CI, 4.8%-8.5%) to 200 of 673 patients (29.7% [95% CI, 26.4%-33.3%), without any additional false-negative findings."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: a los 80 años el corte es de 800 µg/L, y 650 está por debajo.",
+        "No: con probabilidad no alta y dímero D bajo el corte por edad, el TEP ya queda descartado.",
+        "No: con el dímero D bajo su corte por edad se descarta el TEP; no se anticoagula.",
+        "Correcta: edad × 10 = 800 µg/L; con probabilidad no alta y 650, se descarta sin imagen."
+      ]
     },
     {
       "id": "sp-c11",
@@ -339,7 +411,13 @@ MP_CONTENIDO.agregar({
           "texto": "this study was not designed as a randomized clinic al study. Therefore, we could not compare the 3-month thromboembolic risk with that of a control group that would have been managed using the conventional 500 μg/L cutoff."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: no fue diseñado como estudio aleatorizado.",
+        "No: es un estudio prospectivo de manejo, no de casos y controles.",
+        "Correcta: estudio prospectivo de manejo; no hay grupo control con el corte de 500 µg/L.",
+        "No: fue prospectivo, y su limitación es la falta de grupo control."
+      ]
     },
     {
       "id": "sp-c12",
@@ -367,7 +445,13 @@ MP_CONTENIDO.agregar({
           "texto": "The 3-month failure rate in patients with a D-dimer level higher than 500 μg/L but below the age-adjusted cutoff was 1 of 331 patients (0.3% [95% CI, 0.1%-1.7%])."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "Correcta: el límite superior del IC (1,7 %) queda bajo el umbral de 3 %.",
+        "No: la seguridad se juzga con el límite superior del IC, que quedó bajo 3 %.",
+        "No: el criterio de seguridad era el límite superior del IC 95 %, y se cumplió.",
+        "No: se juzga con el límite superior del intervalo, no con el valor puntual."
+      ]
     },
     {
       "id": "sp-c13",
@@ -391,7 +475,13 @@ MP_CONTENIDO.agregar({
           "texto": "the use of the age-adjusted cutoff resulted in an 11.6% absolute increase (95% CI, 10.5%-12.9%) or a 41.2% relative increase (95% CI, 31.3%-52.0%) in the proportion of negative D-dimer results."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: al revés: 11,6 son puntos porcentuales (absoluto) y 41,2 % es relativo.",
+        "Correcta: 11,6 es la diferencia absoluta en puntos porcentuales y 41,2 % el aumento relativo.",
+        "No: 11,6 es una diferencia absoluta de proporciones.",
+        "No: 41,2 % es el aumento relativo sobre la proporción con el corte de 500."
+      ]
     },
     {
       "id": "sp-c14",
@@ -415,7 +505,13 @@ MP_CONTENIDO.agregar({
           "texto": "showed a c-index for out-of-hospital TIMI major or minor bleeding of 0·73 (95% CI 0·61–0·85) in the derivation cohort, and 0·70 (0·65–0·74) in the PLATO trial validation cohort and 0·66 (0·61–0·71) in the BernPCI registry validation cohort."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: un índice c de 0,66 a 0,73 es discriminación moderada, no exactitud individual.",
+        "No: que el desempeño baje en cohortes externas es lo usual.",
+        "Correcta: 0,66 a 0,73 es discriminación moderada, y bajar en la validación externa es lo usual.",
+        "No: el índice c mide discriminación, no calibración."
+      ]
     },
     {
       "id": "sp-c15",
@@ -439,7 +535,13 @@ MP_CONTENIDO.agregar({
           "texto": "exclusively in patients at high bleeding risk (absolute risk difference [ARD] +2·59% [95% CI +0·82 to +4·34]; number needed to treat: 38)"
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: el NNH es 1/0,0259 ≈ 38.",
+        "No: 1 dividido por la diferencia absoluta (0,0259) da ≈ 38.",
+        "Correcta: NNH = 1 / diferencia absoluta = 1/0,0259 ≈ 38.",
+        "No: 259 sale de ubicar mal la coma; el NNH es ≈ 38."
+      ]
     },
     {
       "id": "sp-c16",
@@ -463,7 +565,13 @@ MP_CONTENIDO.agregar({
           "texto": "but not in those without a high bleeding risk profile (ie, very low risk, low risk, and moderate risk: mean of the first three quartiles ARD +0·14% [–0·22 to +0·49]; pinteraction=0·007; figure 3)."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: el sangrado aumentó en los de alto riesgo y no en los demás: el efecto difiere.",
+        "Correcta: un p de interacción bajo indica que el efecto cambia según el subgrupo.",
+        "No: un p de interacción de 0,007 indica que el efecto difiere entre subgrupos.",
+        "No: el p de interacción compara el efecto entre subgrupos; no mide el poder."
+      ]
     },
     {
       "id": "sp-c17",
@@ -521,7 +629,13 @@ MP_CONTENIDO.agregar({
           "texto": "Mujeres a partir de los 40 años: Examen clínico de la mama cada año. Mujeres de 50 a 69 años: Mamografía de 2 proyecciones cada 2 años."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el tamizaje es la mamografía cada 2 años de los 50 a los 69, no la ecografía.",
+        "Correcta: mamografía de 2 proyecciones cada 2 años entre los 50 y los 69 años.",
+        "No: desde los 40 va el examen clínico anual; la mamografía es cada 2 años de 50 a 69.",
+        "No: le corresponden examen clínico anual y mamografía cada 2 años."
+      ]
     },
     {
       "id": "sp-c19",
@@ -545,7 +659,13 @@ MP_CONTENIDO.agregar({
           "texto": "Hombres y mujeres iguales o mayores a 50 años: sangre oculta en materia fecal inmunoquímica cada dos años o colonoscopia cada diez años cuando esta se encuentre disponible."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: sin colonoscopia disponible, sangre oculta inmunoquímica cada 2 años desde los 50.",
+        "No: la colonoscopia cada 10 años es la opción cuando está disponible.",
+        "No: el antígeno carcinoembrionario no sirve como tamizaje.",
+        "No: desde los 50 años se tamiza sin esperar síntomas."
+      ]
     },
     {
       "id": "sp-c20",
@@ -569,7 +689,13 @@ MP_CONTENIDO.agregar({
           "texto": "Hombres entre 50 y 75 años: Examen clínico de la próstata (tacto rectal) cada cinco (5) años; o en mayores de 40 años con factores de riesgo (antecedentes familiares o que sean de raza negra)."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con antecedente familiar, el tacto rectal se ofrece desde los 40 años.",
+        "Correcta: con antecedente familiar, tacto rectal desde los 40 años.",
+        "No: la ruta ofrece el tacto rectal desde los 40 a quien tiene factores de riesgo.",
+        "No: el tamizaje es el tacto rectal desde los 40, no la biopsia."
+      ]
     }
   ],
   "fichas": [
