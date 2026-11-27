@@ -38,7 +38,13 @@ MP_CONTENIDO.agregar({
           "texto": "Nebulized epinephrine should be used to treat moderate to severe croup. Children should be monitored for 2 to 4 hours after treatment due to its short half-life and the risk of symptom recurrence."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: el crup moderado a grave se trata con corticoide y adrenalina nebulizada.",
+        "No: no hay babeo ni posición en trípode; es un crup, no una epiglotitis.",
+        "Correcta: crup con estridor en reposo: dexametasona más adrenalina nebulizada.",
+        "No: todo crup recibe corticoide, y el moderado a grave, adrenalina nebulizada."
+      ]
     },
     {
       "id": 11,
@@ -108,7 +114,13 @@ MP_CONTENIDO.agregar({
           "texto": "Do not routinely perform upper airway suctioning in babies or children with bronchiolitis. · Consider upper airway suctioning in babies and children who have respiratory distress or feeding difficulties because of upper airway secretions."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: bronquiolitis con saturación menor de 90 %: oxígeno y soporte; aspirar solo si las secreciones estorban.",
+        "No: en la bronquiolitis no se usan salbutamol ni solución salina hipertónica.",
+        "No: el manejo de la bronquiolitis es de soporte.",
+        "No: en la bronquiolitis no se usan corticoides ni antibióticos."
+      ]
     },
     {
       "id": 22,
@@ -144,7 +156,13 @@ MP_CONTENIDO.agregar({
           "texto": "Kawasaki disease (KD), an acute self-limited febrile illness that primarily affects children <5 years old, is the leading cause of acquired heart disease in developed countries, with the potential of leading to coronary artery dilation and coronary artery aneurysms in 25% of untreated patients."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: Kawasaki completo: IGIV 2 g/kg más aspirina.",
+        "No: con fiebre y 4 o más criterios principales es un Kawasaki completo, no escarlatina.",
+        "No: el tratamiento estándar es la IGIV 2 g/kg más aspirina.",
+        "No: tratar dentro de los 10 días de fiebre reduce los aneurismas; no se espera."
+      ]
     },
     {
       "id": "ped-c01",
@@ -184,7 +202,13 @@ MP_CONTENIDO.agregar({
           "texto": "Children <1 year of age are at higher risk of developing CAA than older patients, as documented in the prevalence of CAAs in patients between 6 and 12 months of age (40%) and those <6 months of age (68%)."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: con rasgos de alto riesgo se considera intensificar con un adyuvante.",
+        "No: esperar la resistencia para intensificar es la trampa.",
+        "Correcta: alto riesgo (menor de 6 meses y Z score de 2,5 o más): IGIV y aspirina más un adyuvante.",
+        "No: la IGIV sigue siendo el estándar; en alto riesgo se le suma un adyuvante."
+      ]
     },
     {
       "id": "ped-c02",
@@ -220,7 +244,13 @@ MP_CONTENIDO.agregar({
           "texto": "The erythrocyte sedimentation rate is increased after IVIg treatment; therefore, erythrocyte sedimentation rate is not a reliable marker of inflammation after IVIg infusion."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: fiebre 36 horas o más tras la IGIV: resistencia; segunda IGIV o infliximab.",
+        "No: la resistencia aumenta el riesgo de aneurismas; no se espera.",
+        "No: las opciones para la resistencia son segunda IGIV, infliximab o corticoides.",
+        "No: fiebre 36 horas o más tras terminar la IGIV define la resistencia."
+      ]
     },
     {
       "id": "ped-c03",
@@ -252,7 +282,13 @@ MP_CONTENIDO.agregar({
           "texto": "MIS-C should be added to the differential diagnosis of KD, although the prevalence of this condition has decreased markedly since 2022."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: no tiene cambios de la mucosa oral y las coronarias son normales; el cuadro es más propio del MIS-C.",
+        "No: el compromiso gastrointestinal, la linfopenia y la disfunción ventricular orientan a MIS-C.",
+        "No: la troponina elevada y la disfunción ventricular orientan a MIS-C.",
+        "Correcta: síntomas gastrointestinales, linfopenia, troponina alta y disfunción ventricular: MIS-C."
+      ]
     },
     {
       "id": "ped-c04",
@@ -277,7 +313,13 @@ MP_CONTENIDO.agregar({
           "texto": "All live vaccines, including measles, mumps, rubella, and varicella vaccines, should be deferred for 11 months after IVIg administration, as administered IVIg may reduce efficacy of those live vaccines."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: las vacunas vivas se difieren 11 meses tras la IGIV.",
+        "No: las vacunas vivas se difieren 11 meses tras la IGIV.",
+        "No: las vacunas vivas se difieren 11 meses tras la IGIV.",
+        "Correcta: las vacunas vivas se difieren 11 meses tras la IGIV."
+      ]
     },
     {
       "id": "ped-c05",
@@ -317,7 +359,13 @@ MP_CONTENIDO.agregar({
           "texto": "The risk of MI in patients with KD with CAA is highest in the first 2 to 3 months after KD onset."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: aneurisma gigante: antiagregación más anticoagulación.",
+        "No: tratar un aneurisma gigante como una dilatación es la trampa.",
+        "No: el aneurisma gigante requiere antiagregación y anticoagulación.",
+        "No: el aneurisma gigante tiene alto riesgo de trombosis; requiere tratamiento."
+      ]
     },
     {
       "id": "ped-c06",
@@ -357,7 +405,13 @@ MP_CONTENIDO.agregar({
           "texto": "Increasing awareness of the premonitory urge and training aimed at breaking the urge–tic–relief cycle forms the basis of CBIT"
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: el provisional es de menos de 1 año; estos tics llevan 2 años.",
+        "No: el crónico tiene solo tics motores o solo fónicos; este tiene ambos.",
+        "Correcta: varios tics motores y al menos uno fónico por más de 1 año: Tourette.",
+        "No: la urgencia premonitoria y la supresión voluntaria son típicas de los tics."
+      ]
     },
     {
       "id": "ped-c07",
@@ -385,7 +439,13 @@ MP_CONTENIDO.agregar({
           "texto": "Diagnosis of TS requires the presence of multiple motor tics and one or more phonic tics that begin during the developmental period and are present for more than 1 year"
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: tics de menos de 1 año: trastorno de tics provisional.",
+        "No: para Tourette los tics deben durar más de 1 año.",
+        "No: el crónico dura más de 1 año y tiene solo motores o solo fónicos.",
+        "No: el parpadeo y el carraspeo repetidos con examen normal son tics."
+      ]
     },
     {
       "id": "ped-c08",
@@ -421,7 +481,13 @@ MP_CONTENIDO.agregar({
           "texto": "Increasing awareness of the premonitory urge and training aimed at breaking the urge–tic–relief cycle forms the basis of CBIT"
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: los antipsicóticos no son la primera línea; primero la terapia conductual.",
+        "No: la estimulación cerebral profunda es para casos graves refractarios.",
+        "No: el aripiprazol es del segundo escalón; la primera línea es la terapia conductual.",
+        "Correcta: terapia conductual (CBIT o reversión del hábito) como primera línea."
+      ]
     },
     {
       "id": "ped-c09",
@@ -465,7 +531,13 @@ MP_CONTENIDO.agregar({
           "texto": "Combination antifungal-corticosteroid products, such as clotrimazole-betamethasone, generally should be avoided."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: la tiña de la cabeza compromete el folículo y necesita antimicótico oral.",
+        "No: las combinaciones de antimicótico y corticoide generalmente deben evitarse.",
+        "Correcta: terbinafina oral, preferida en la tiña de la cabeza.",
+        "No: la tiña de la cabeza necesita antimicótico oral; los tópicos no bastan."
+      ]
     },
     {
       "id": "ped-c10",
@@ -493,7 +565,13 @@ MP_CONTENIDO.agregar({
           "texto": "TSH mayor de 10 mU/L confirmado con una segunda medición, más aún en presencia de anticuerpos antitiroperoxidasa o antitiroglobulina."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: con una sola TSH levemente alta no se trata; se repite en 2 a 3 meses.",
+        "No: primero se confirma repitiendo la medición en 2 a 3 meses.",
+        "No: primero se confirma repitiendo TSH y T4 libre en 2 a 3 meses.",
+        "Correcta: repetir TSH y T4 libre en 2 a 3 meses antes de tratar."
+      ]
     },
     {
       "id": "ped-c11",
@@ -521,7 +599,13 @@ MP_CONTENIDO.agregar({
           "texto": "La serie esquelética inicial es el estudio de elección en la evaluación del maltrato físico infantil, especialmente en niños menores de 2 años."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: una sola equimosis en un menor de 4 meses debe generar sospecha inmediata de maltrato.",
+        "No: hay sospecha de maltrato físico; se busca con serie esquelética y se activa la ruta.",
+        "Correcta: serie esquelética completa y activar la ruta de protección.",
+        "No: una sola equimosis en un menor de 4 meses debe generar sospecha inmediata de maltrato."
+      ]
     },
     {
       "id": "ped-c12",
@@ -553,7 +637,13 @@ MP_CONTENIDO.agregar({
           "texto": "no se debe demorar el inicio de estos medicamentos por ausencia de un acceso central, ya que se puede utilizar una vía periférica o intraósea, con monitorización estricta."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: hipoperfusión tras 40 mL/kg con choque frío: adrenalina por vía periférica.",
+        "No: tras 30 a 40 mL/kg se inicia el vasoactivo, sin esperar el catéter central.",
+        "No: la dopamina no se recomienda como primera línea.",
+        "No: en el choque frío se prefiere la adrenalina, y no se espera el catéter central."
+      ]
     },
     {
       "id": "ped-c13",
@@ -578,7 +668,13 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-21",
-      "tipo": "diagnostico"
+      "tipo": "diagnostico",
+      "porOpcion": [
+        "No: en su curva específica crece bien; no hay falla de medro.",
+        "No: en las curvas específicas para síndrome de Down su crecimiento es adecuado.",
+        "No: en su curva específica sigue su canal; no hay desnutrición.",
+        "Correcta: con las curvas específicas para síndrome de Down crece de forma adecuada."
+      ]
     },
     {
       "id": "ped-c14",
@@ -606,7 +702,13 @@ MP_CONTENIDO.agregar({
           "texto": "Urgencia neurológica: Inicio de tratamiento idealmente en los primeros 7 días. Prednisolona o ACTH y vigabatrina."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: síndrome de West: prednisolona o ACTH, o vigabatrina, en los primeros 7 días.",
+        "No: el tratamiento del West es con prednisolona o ACTH y vigabatrina, en los primeros 7 días.",
+        "No: no se espera a conocer la etiología para tratar.",
+        "No: es una urgencia neurológica; se trata en los primeros 7 días con prednisolona o ACTH y vigabatrina."
+      ]
     },
     {
       "id": "ped-c15",
@@ -634,7 +736,13 @@ MP_CONTENIDO.agregar({
           "texto": "Anormal: >180 cm/seg en alguna medición en carótida interna o cerebral media. Se debe solicitar RM/Angio RM preferente y repetir DTC en 1 semana."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: Doppler mayor de 180 cm/s: resonancia preferente y repetir el Doppler en una semana.",
+        "No: un Doppler anormal no espera un año; el Doppler sirve para prevenir el primer ictus.",
+        "No: un Doppler anormal obliga a resonancia y a repetir el Doppler en una semana.",
+        "No: con Doppler anormal se pide resonancia y se repite el Doppler en una semana."
+      ]
     },
     {
       "id": "ped-c16",
@@ -662,7 +770,13 @@ MP_CONTENIDO.agregar({
           "texto": "La exposición debe ser frecuente, al menos dos veces a la semana"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: la introducción de alérgenos no debe retrasarse.",
+        "No: la introducción temprana de alérgenos es segura; no se retrasa.",
+        "No: la introducción de alérgenos no debe retrasarse.",
+        "Correcta: huevo cocido desde el inicio de la alimentación complementaria, al menos 2 veces por semana."
+      ]
     },
     {
       "id": "ped-c17",
@@ -690,7 +804,13 @@ MP_CONTENIDO.agregar({
           "texto": "El tratamiento antiviral se reserva para recién nacidos sintomáticos o con compromiso del sistema nervioso central, con valganciclovir oral o ganciclovir intravenoso durante seis meses"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: el diagnóstico se hace con PCR antes de los 21 días.",
+        "No: el antiviral es valganciclovir o ganciclovir, y la PCR en saliva se confirma en orina.",
+        "Correcta: PCR en orina antes de los 21 días y valganciclovir por 6 meses.",
+        "No: el diagnóstico es con PCR en el recién nacido, y el sintomático se trata 6 meses."
+      ]
     },
     {
       "id": "ped-c18",
@@ -719,7 +839,13 @@ MP_CONTENIDO.agregar({
         }
       ],
       "verificado": "2026-11-23",
-      "tipo": "datos"
+      "tipo": "datos",
+      "porOpcion": [
+        "No: a las 20 horas aún es muy pronto; puede no detectar la enfermedad.",
+        "No: la muestra del tamizaje ampliado es de talón; la de cordón es para la TSH.",
+        "Correcta: muestra de talón entre las 48 y 72 horas de vida, ya alimentado.",
+        "No: el tiempo máximo es de 5 días de vida."
+      ]
     },
     {
       "id": "ped-c19",
@@ -747,7 +873,13 @@ MP_CONTENIDO.agregar({
           "texto": "este paciente tiene una bradicardia sinusal, el cual es uno de los hallazgos que normalmente se encuentran en atletas con alto volumen de entrenamiento"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: la bradicardia sinusal es frecuente en atletas; no se suspende el deporte.",
+        "No: con interrogatorio, examen y ECG normales se da el aval.",
+        "Correcta: bradicardia sinusal por adaptación al entrenamiento: se da el aval.",
+        "No: la bradicardia sinusal aislada es un hallazgo esperado en el atleta."
+      ]
     },
     {
       "id": "ped-c20",
@@ -805,7 +937,13 @@ MP_CONTENIDO.agregar({
           "texto": "Un perímetro cefálico que se desvía de la curva de crecimiento del paciente (p. ej., cruzar dos o más líneas de percentil) es a menudo el signo de alarma más significativo que una medición aislada en un percentil bajo o alto"
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: lo alarmante es la trayectoria: cruzó dos o más líneas de percentil.",
+        "No: con fontanela abombada y cruce de percentiles se estudia con neuroimagen.",
+        "No: cruzar dos o más percentiles con fontanela abombada exige estudiar ya.",
+        "Correcta: neuroimagen por cruce de percentiles con fontanela abombada."
+      ]
     },
     {
       "id": "ped-c22",
@@ -833,7 +971,13 @@ MP_CONTENIDO.agregar({
           "texto": "La morfina es el opioide potente recomendado como primera elección en caso de dolor moderado a grave"
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: la codeína tiene problemas de seguridad por su metabolismo variable.",
+        "No: con dolor de 9/10 se titulan opioides potentes.",
+        "No: el tramadol tiene poca evidencia en niños; la primera elección es la morfina.",
+        "Correcta: dolor intenso: acceso venoso y morfina titulada."
+      ]
     },
     {
       "id": "ped-c23",
@@ -857,7 +1001,13 @@ MP_CONTENIDO.agregar({
           "texto": "En los niños la taquicardia y la disminución de la perfusión distal son signos tempranos de hipovolemia, otro signo sutil es la disminución progresiva de los pulsos periféricos, entre los signos tardíos se encuentra la hipotensión y la reducción del gasto urinario (Tabla 8)."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "Correcta: taquicardia y mala perfusión distal son signos tempranos; la hipotensión es tardía.",
+        "No: la presión normal no descarta el choque; la hipotensión es un signo tardío.",
+        "No: la taquicardia con mala perfusión y pulsos débiles son signos de hipovolemia.",
+        "No: la presión es normal: es un choque compensado."
+      ]
     },
     {
       "id": "ped-c24",
@@ -881,7 +1031,13 @@ MP_CONTENIDO.agregar({
           "texto": "Otra medida para prevenir la coagulopatía asociada a trauma es el uso de ácido tranexámico en las primeras 3 horas del trauma, a una dosis 15mg/kg (máx. 1 gr) y continuar con 2 mg/kg/h por 8 horas."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: en el niño la dosis es de 15 mg/kg (máximo 1 g).",
+        "No: se usa en las primeras 3 horas del trauma.",
+        "No: en el niño se usa a 15 mg/kg en las primeras 3 horas.",
+        "Correcta: 15 mg/kg (375 mg) y luego 2 mg/kg/h (50 mg/h) por 8 horas."
+      ]
     },
     {
       "id": "ped-c25",
@@ -909,7 +1065,13 @@ MP_CONTENIDO.agregar({
           "texto": "Más del 80 % de los niños con delirium responden a las intervenciones no farmacológicas."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "Correcta: tratar la causa y medidas no farmacológicas; más del 80 % responde.",
+        "No: subir la benzodiacepina perpetúa el delirium.",
+        "No: los antipsicóticos quedan para casos refractarios.",
+        "No: la eficacia de los antipsicóticos en niños no está establecida."
+      ]
     },
     {
       "id": "ped-c26",
@@ -937,7 +1099,13 @@ MP_CONTENIDO.agregar({
           "texto": "La paciente inicia tratamiento con suplementación oral de hierro elemental a dosis de 3 mg/kg/día y orientación nutricional."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "Correcta: hierro elemental oral 3 mg/kg/día y orientación nutricional.",
+        "No: es una niña estable con ferropenia; no se transfunde.",
+        "No: la ferritina baja confirma la ferropenia; se trata.",
+        "No: el tratamiento es hierro elemental oral."
+      ]
     },
     {
       "id": "ped-c27",
@@ -965,7 +1133,13 @@ MP_CONTENIDO.agregar({
           "texto": "Recomendación clave: evitar el uso prolongado de antibióticos tópicos en monoterapia, y mantener los retinoides como pilar de mantenimiento post-tratamiento activo."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: el antibiótico tópico no se deja en monoterapia por meses.",
+        "No: la terapia sistémica es para el acné moderado a severo, noduloquístico o resistente a los tópicos.",
+        "Correcta: el antibiótico tópico se combina con peróxido de benzoilo o un retinoide.",
+        "No: el antibiótico tópico en monoterapia genera resistencia; se combina con peróxido o retinoide."
+      ]
     },
     {
       "id": "ped-c28",
@@ -989,7 +1163,13 @@ MP_CONTENIDO.agregar({
           "texto": "El tratamiento para EVALI es principalmente de soporte, e incluye oxígeno suplementario y en los casos más graves, se ha recurrido al uso de corticosteroides sistémicos y soporte ventilatorio mecánico, además es indispensable, la suspensión inmediata del uso de vapeadores (14)."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: hay que preguntar por el vapeo; es una probable EVALI.",
+        "No: el manejo de soporte con oxígeno no espera el cultivo.",
+        "No: tiene saturación de 89 %; requiere oxígeno y soporte.",
+        "Correcta: soporte con oxígeno y suspender de inmediato el vapeo."
+      ]
     },
     {
       "id": "ped-c29",
@@ -1013,7 +1193,13 @@ MP_CONTENIDO.agregar({
           "texto": "Los pacientes “calientes y secos” pueden manejarse ambulatoriamente; los “calientes y húmedos” van a requerir terapia diurética"
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: está congestiva; los bolos de líquidos empeoran la congestión.",
+        "No: está caliente y bien perfundida; los inotrópicos pueden necesitarse en los perfiles fríos.",
+        "Correcta: perfil caliente y húmedo: diurético.",
+        "No: el perfil caliente y húmedo es de congestión; requiere diurético."
+      ]
     },
     {
       "id": "ped-c30",
@@ -1041,7 +1227,13 @@ MP_CONTENIDO.agregar({
           "texto": "El resultado del tamizaje será positivo cuando: 1) El niño o la niña presente una saturación menor a 90% en cualquier momento del tamizaje y a cualquier altitud, y 2) Cuando presente una diferencia de 4% o más entre la pulsooximetría pre y postductal (independiente de cuál sea la mayor) en la medición repetida y a cualquier altitud."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: por encima de 1.500 m s. n. m. el corte es de 92 %.",
+        "No: la diferencia es de 1 %; el tamizaje es positivo con diferencia de 4 % o más.",
+        "Correcta: 92 % o más a esa altitud con diferencia menor de 4 %: negativo.",
+        "No: el tamizaje es negativo a esa altitud."
+      ]
     },
     {
       "id": "ped-c31",
@@ -1069,7 +1261,13 @@ MP_CONTENIDO.agregar({
           "texto": "Diagnóstico de hipotiroidismo congénito: evaluación de los niveles de TSH y de T4L en muestra de suero (de sangre venosa o arterial)."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: en el recién nacido a término el corte en el talón es de 10 µUI/mL.",
+        "No: es un caso probable; se confirma con TSH y T4 libre en suero.",
+        "No: el diagnóstico se confirma con TSH y T4 libre en suero.",
+        "Correcta: TSH de talón mayor de 10: confirmar con TSH y T4 libre en suero."
+      ]
     },
     {
       "id": "ped-c32",
@@ -1097,7 +1295,13 @@ MP_CONTENIDO.agregar({
           "texto": "hipotiroidismo congénito, fenilcetonuria, galactosemia, fibrosis quística, hiperplasia suprarrenal congénita, déficit de biotinidasa o defectos de la hemoglobina"
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el tiempo máximo es de 5 días de vida.",
+        "No: la TSH del cordón solo mira el hipotiroidismo.",
+        "No: el tiempo máximo es de 5 días de vida.",
+        "Correcta: tomarla hoy; el máximo son 5 días de vida."
+      ]
     },
     {
       "id": "ped-c33",
@@ -1125,7 +1329,13 @@ MP_CONTENIDO.agregar({
           "texto": "In patients older than age 6 months who are improving with amoxicillin, a shorter course of 3 to 5 days is noninferior to a 10-day regimen for clinical response, treatment failure, or readmissions, and reduces antibiotic exposure and, possibly, resistance."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el estándar es la amoxicilina en dosis alta (90 mg/kg/día).",
+        "Correcta: amoxicilina 90 mg/kg/día; si mejora, curso corto de 3 a 5 días.",
+        "No: los atípicos se consideran en mayores de 5 años.",
+        "No: el estándar es la amoxicilina oral en dosis alta."
+      ]
     },
     {
       "id": "ped-c34",
@@ -1149,7 +1359,13 @@ MP_CONTENIDO.agregar({
           "texto": "recommended to consider coverage for atypical pathogens, such as Mycoplasma pneumoniae, if clinical suspicion is present in children over age 5 years. Azithromycin should be prescribed as a single agent in these cases with conﬁrmatory testing when available (Table 6)."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con sospecha de atípicos en mayores de 5 años se considera cubrirlos con azitromicina.",
+        "No: la azitromicina se da como agente único.",
+        "Correcta: azitromicina como agente único, con prueba confirmatoria si hay.",
+        "No: en los atípicos de mayores de 5 años se da azitromicina como agente único."
+      ]
     },
     {
       "id": "ped-c35",
@@ -1177,7 +1393,13 @@ MP_CONTENIDO.agregar({
           "texto": "Routine measurement of complete blood cell count (CBC) and acute-phase reactants such as C-reactive protein (CRP) and procalcitonin (PCT) are not recommended in fully immunized children with suspected CAP who are candidates for outpatient management."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: en el manejo ambulatorio la radiografía no es necesaria para confirmar la neumonía.",
+        "Correcta: en el niño vacunado que se maneja en casa no se piden de rutina.",
+        "No: la procalcitonina no se recomienda de rutina en el niño vacunado de manejo ambulatorio.",
+        "No: el hemograma y la PCR no se recomiendan de rutina en el niño vacunado."
+      ]
     },
     {
       "id": "ped-c36",
@@ -1205,7 +1427,13 @@ MP_CONTENIDO.agregar({
           "texto": "Results from the CARE study, in children 5–15 years who were using SABA alone, demonstrated that low-dose budesonide-formoterol, used as-needed for symptom relief, reduced the risk of moderate-severe exacerbations by nearly half, compared with SABA alone."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: GINA no recomienda el salbutamol solo en niños de 6 a 11 años.",
+        "Correcta: GINA no recomienda el SABA solo; todo asmático necesita corticoide inhalado.",
+        "No: el problema es el SABA solo; lo que se agrega es corticoide inhalado.",
+        "No: todo asmático necesita corticoide inhalado, aunque los síntomas sean leves."
+      ]
     },
     {
       "id": "ped-c37",
@@ -1263,7 +1491,13 @@ MP_CONTENIDO.agregar({
           "texto": "However, lumbar puncture should be postponed in clinically unstable infants, such as those experiencing ongoing apnoea, severe respiratory distress, shock or cardiovascular instability, until their condition is adequately stabilized."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la punción se pospone en el neonato inestable hasta estabilizarlo.",
+        "Correcta: diferir la punción hasta estabilizarlo y no retrasar el antibiótico.",
+        "No: la punción se hace, pero cuando esté estable.",
+        "No: la punción se indica por sospecha de infección o meningitis, una vez estable."
+      ]
     },
     {
       "id": "ped-c39",
@@ -1291,7 +1525,13 @@ MP_CONTENIDO.agregar({
           "texto": "Key Action Statement 2: In children with UTI, the AAP Guideline Panel suggests a shorter course of antibiotic therapy (≤7 days) rather than a longer (>7 days) course of antibiotic therapy (conditional recommendation, low certainty of evidence)."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: en mayores de 28 días se recomienda antibiótico oral en lugar del parenteral.",
+        "Correcta: antibiótico oral ambulatorio, curso de 7 días o menos.",
+        "No: se sugiere un curso de 7 días o menos.",
+        "No: se recomienda antibiótico oral, sin hospitalización."
+      ]
     },
     {
       "id": "ped-c40",
@@ -1315,7 +1555,13 @@ MP_CONTENIDO.agregar({
           "texto": "Key Action Statement 5A: The AAP Guideline Panel suggests against routine VCUG after a ﬁrst febrile UTI in children younger than 5 years who have normal RBUS (conditional recommendation, high certainty of evidence of test accuracy, low certainty of evidence of overall effect)."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con ecografía normal no se hace de rutina tras la primera IVU febril.",
+        "Correcta: no de rutina en menores de 5 años con ecografía normal.",
+        "No: con ecografía normal no se hacen estudios adicionales de rutina.",
+        "No: las indicaciones son grupos específicos, no la duración de la fiebre."
+      ]
     },
     {
       "id": "ped-c41",
@@ -1339,7 +1585,13 @@ MP_CONTENIDO.agregar({
           "texto": "Key Action Statement 3A: In children 8 to 28 days of age in whom a UTI has been diagnosed, the AAP Guideline Panel suggests parenteral antibiotics with early transition to oral following clinical improvement rather than parenteral antibiotics alone (conditional recommendation, very low certainty of evidence)."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: entre 8 y 28 días se pasa a la vía oral tras la mejoría.",
+        "Correcta: antibiótico parenteral con paso temprano a la vía oral tras la mejoría.",
+        "No: se completa el tratamiento por vía oral.",
+        "No: se completa el tratamiento por vía oral."
+      ]
     },
     {
       "id": "ped-c42",
@@ -1363,7 +1615,13 @@ MP_CONTENIDO.agregar({
           "texto": "Las epifisiólisis son las fracturas que interesan al cartílago de crecimiento del niño o fisis; son quirúrgicas las de tipo III y IV con desplazamientos de más de 2 mm, para evitar su complicación más frecuente, la epifisiodesis."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: los tipos III y IV desplazados más de 2 mm son quirúrgicos.",
+        "Correcta: Salter-Harris III con más de 2 mm de desplazamiento: reducción quirúrgica y fijación.",
+        "No: es una fractura fisaria desplazada; es quirúrgica.",
+        "No: los tipos III y IV desplazados más de 2 mm son quirúrgicos."
+      ]
     },
     {
       "id": "ped-c43",
@@ -1387,7 +1645,13 @@ MP_CONTENIDO.agregar({
           "texto": "La ecografía es el método de elección para valorar la patología de la cadera neonatal, aun cuando todavía no se han osificado los elementos articulares, así como para detectar colecciones de líquido."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: en el neonato la cabeza femoral aún no se ha osificado; se usa ecografía.",
+        "Correcta: la ecografía es el método de elección en la cadera neonatal.",
+        "No: el método de elección es la ecografía.",
+        "No: el método de elección es la ecografía."
+      ]
     },
     {
       "id": "ped-c44",
@@ -1445,7 +1709,13 @@ MP_CONTENIDO.agregar({
           "texto": "The effectiveness of preventive therapy was 63% (adjusted HR 0·37 [95% CI 0·30-0·47]) among all exposed children, and 91% (adjusted HR 0·09 [0·05-0·15]) among those with a positive result for tuberculosis infection."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: sin terapia preventiva, cerca del 19 % de los menores de 5 años infectados enferma en 2 años.",
+        "Correcta: terapia preventiva, con efectividad del 91 % en los niños con infección.",
+        "No: está sano con radiografía normal; lo indicado es la terapia preventiva.",
+        "No: el riesgo es mayor en los primeros años; se da terapia preventiva ya."
+      ]
     },
     {
       "id": "ped-c46",
@@ -1477,7 +1747,13 @@ MP_CONTENIDO.agregar({
           "texto": "el panel recomienda la profilaxis durante 6 semanas por considerar que el riesgo de eventos adversos no excede el beneficio de evitar un caso de TMI."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la zidovudina sola es el esquema del bajo riesgo.",
+        "Correcta: alto riesgo: zidovudina, lamivudina y raltegravir o nevirapina por 6 semanas.",
+        "No: la zidovudina sola es el esquema del bajo riesgo.",
+        "No: la profilaxis se inicia sin esperar el resultado del niño."
+      ]
     },
     {
       "id": "ped-c47",
@@ -1505,7 +1781,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se recomienda no usar la profilaxis con zidovudina oral durante menos de 4 semanas en neonatos de bajo riesgo de transmisión materno infantil del VIH."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: en el bajo riesgo no se recomienda agregar nevirapina.",
+        "No: los 3 medicamentos son para el alto riesgo.",
+        "Correcta: bajo riesgo: zidovudina oral durante 4 semanas.",
+        "No: no se recomienda la zidovudina durante menos de 4 semanas."
+      ]
     },
     {
       "id": "ped-c48",
@@ -1533,7 +1815,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se recomienda realizar la carga viral ARN para el diagnóstico de infección por VIH en niños de bajo riesgo*, a las 2 semanas de finalizado el manejo profiláctico**."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: en el expuesto perinatal las pruebas serológicas detectan los anticuerpos de la madre.",
+        "No: en el expuesto perinatal el diagnóstico es virológico, no serológico.",
+        "Correcta: carga viral ARN, 2 semanas después de terminar la profilaxis.",
+        "No: la ELISA no sirve en el expuesto perinatal; se pide carga viral ARN."
+      ]
     },
     {
       "id": "ped-c49",
@@ -1561,7 +1849,13 @@ MP_CONTENIDO.agregar({
           "texto": "Independientemente de si la madre recibe tratamiento antirretroviral o si la niña o el niño se encuentra en profilaxis antirretroviral, se recomienda no dar leche materna."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la guía recomienda no dar leche materna aunque la madre esté en tratamiento.",
+        "Correcta: leche de fórmula desde el nacimiento hasta los 12 meses.",
+        "No: no se da leche materna aunque el niño reciba profilaxis.",
+        "No: se recomienda no dar leche materna."
+      ]
     },
     {
       "id": "ped-c50",
@@ -1589,7 +1883,13 @@ MP_CONTENIDO.agregar({
           "texto": "Oral supplementation with water or dextrose water should not be provided to prevent hyperbilirubinemia or decrease bilirubin concentrations."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: no se dan agua ni dextrosa para bajar la bilirrubina.",
+        "No: la ictericia antes de las 24 horas no se llama fisiológica; se mide la bilirrubina.",
+        "No: la ictericia antes de las 24 horas obliga a medir la bilirrubina cuanto antes.",
+        "Correcta: ictericia antes de las 24 horas: medir la bilirrubina lo antes posible."
+      ]
     },
     {
       "id": "ped-c51",
@@ -1617,7 +1917,13 @@ MP_CONTENIDO.agregar({
           "texto": "Use TSB as the definitive diagnostic test to guide phototherapy and escalation-of-care decisions, including exchange transfusion."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: transcutánea a 3 mg/dL o menos del umbral: medir la bilirrubina sérica total.",
+        "No: la sérica total es la que define la fototerapia.",
+        "No: está a 2 mg/dL del umbral; se mide la bilirrubina sérica total.",
+        "No: a 3 mg/dL o menos del umbral se mide la sérica total ya."
+      ]
     },
     {
       "id": "ped-c52",
@@ -1641,7 +1947,13 @@ MP_CONTENIDO.agregar({
           "texto": "For breastfed infants who are still jaundiced at 3 to 4 weeks of age, and for formula-fed infants who are still jaundiced at 2 weeks of age, the total and direct-reacting (or conjugated) bilirubin concentrations should be measured to identify possible pathologic cholestasis."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: amamantado ictérico a las 3 a 4 semanas: bilirrubina total y directa.",
+        "No: no se suspende la lactancia; se mide la bilirrubina directa.",
+        "No: antes de atribuirla a la leche materna se mide la fracción directa.",
+        "No: primero se mide la bilirrubina total y directa para buscar colestasis."
+      ]
     },
     {
       "id": "ped-c53",
@@ -1665,7 +1977,13 @@ MP_CONTENIDO.agregar({
           "texto": "An urgent exchange transfusion should be performed for infants with signs of intermediate or advanced stages of intermediate or advanced stages of acute bilirubin encephalopathy (eg, hypertonia, arching, retrocollis, opisthotonos, high-pitched cry, or recurrent apnea)."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con signos neurológicos no se espera al siguiente valor.",
+        "No: los signos de encefalopatía indican exsanguinotransfusión urgente.",
+        "No: los signos de encefalopatía indican exsanguinotransfusión urgente.",
+        "Correcta: signos de encefalopatía bilirrubínica: exsanguinotransfusión urgente."
+      ]
     },
     {
       "id": "ped-c54",
@@ -1689,7 +2007,13 @@ MP_CONTENIDO.agregar({
           "texto": "Rotavirus: Primera dosis entre 2 meses y máximo hasta 3 meses 21 dias y segunda dosis hasta 11 meses 29 dias. Sin primera no hay segunda dosis."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la primera dosis se aplica como máximo hasta los 3 meses y 21 días.",
+        "No: la primera dosis se aplica como máximo hasta los 3 meses y 21 días.",
+        "Correcta: ya pasó la edad máxima de la primera dosis.",
+        "No: la limitante es la edad máxima de la primera dosis."
+      ]
     },
     {
       "id": "ped-c55",
@@ -1713,7 +2037,13 @@ MP_CONTENIDO.agregar({
           "texto": "Influenza: Se considera primovacunación a la aplicación de 2 dosis de la misma cepa. Sin antecedente de primovacunación, entre los 6 a 35 meses se deben garantizar 2 dosis en intervalo de 4 semanas."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: sin primovacunación, de 6 a 35 meses: 2 dosis con 4 semanas de intervalo.",
+        "No: la primovacunación son 2 dosis con 4 semanas de intervalo.",
+        "No: sin primovacunación, de 6 a 35 meses se dan 2 dosis.",
+        "No: entre los 6 y los 35 meses se vacuna; sin primovacunación, 2 dosis."
+      ]
     },
     {
       "id": "ped-c56",
@@ -1741,7 +2071,13 @@ MP_CONTENIDO.agregar({
           "texto": "No está indicado reiniciar esquemas de vacunación, se debe revisar el antecedente vacunal."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: no se reinician esquemas; se aplica la dosis que falta.",
+        "No: de 1 a 10 años se necesitan 2 dosis de triple viral.",
+        "No: la dosis que falta se aplica en el primer contacto.",
+        "Correcta: se aplica hoy la segunda dosis, sin reiniciar."
+      ]
     },
     {
       "id": "ped-c57",
@@ -1799,7 +2135,13 @@ MP_CONTENIDO.agregar({
           "texto": "El esquema acortado consiste en administrar las dosis de la vacuna pentavalente o hexavalente (según corresponda) con un intervalo de 6 semanas entre cada aplicación, iniciando a partir de los 1.5 meses de edad, es decir, desde las 6 semanas de vida."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: en el esquema acortado se inicia desde las 6 semanas de vida.",
+        "No: en el esquema acortado no se espera a los 2 meses.",
+        "No: en el esquema acortado se vacuna al lactante desde las 6 semanas.",
+        "No: el esquema acortado se inicia a las 6 semanas, con 6 semanas entre dosis."
+      ]
     },
     {
       "id": "ped-c59",
@@ -1823,7 +2165,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se mantienen las edades de aplicación del primer y segundo refuerzo a los 18 meses y cinco años con pentavalente y DPT"
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: los refuerzos se mantienen a los 18 meses y a los 5 años.",
+        "No: el acortamiento solo cambia las tres primeras dosis.",
+        "Correcta: los refuerzos siguen a los 18 meses y a los 5 años.",
+        "No: los refuerzos se mantienen a los 18 meses y a los 5 años."
+      ]
     },
     {
       "id": "ped-c60",
@@ -1847,7 +2195,13 @@ MP_CONTENIDO.agregar({
           "texto": "Población infantil con peso al nacer menor a 1.500 gramos, que sean prematuros o a término, nacidos a partir del 1 de enero de 2025 sin antecedente de vacunación con hexavalente o pentavalente."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con peso al nacer menor de 1.500 g le corresponde la hexavalente acelular.",
+        "No: no se difiere; le corresponde la hexavalente acelular del PAI.",
+        "No: la hexavalente acelular está incluida en el PAI para su caso.",
+        "Correcta: peso al nacer menor de 1.500 g desde 2025: hexavalente acelular del PAI."
+      ]
     },
     {
       "id": "ped-c65",
@@ -1875,7 +2229,13 @@ MP_CONTENIDO.agregar({
           "texto": "Doxycycline and lymecycline can be recommended in preference to minocycline and tetracycline."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el antibiótico sistémico para el acné se limita a 3 meses.",
+        "Correcta: limitar el antibiótico sistémico a 3 meses.",
+        "No: la doxiciclina se prefiere sobre la minociclina.",
+        "No: prolongar el antibiótico debe ser excepcional por el riesgo de resistencia."
+      ]
     },
     {
       "id": "ped-c66",
@@ -1903,7 +2263,13 @@ MP_CONTENIDO.agregar({
           "texto": "In studies conducted on children and adults, systemic glucocorticosteroids do not induce long-term remission and swift rebound is common."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: el corticoide sistémico no induce remisión duradera y el rebote rápido es frecuente.",
+        "Correcta: la guía recomienda no usarlo a largo plazo: no da remisión y el rebote es común.",
+        "No: en días alternos sigue siendo uso a largo plazo, que la guía desaconseja.",
+        "No: el de depósito también es corticoide sistémico a largo plazo."
+      ]
     },
     {
       "id": "ped-c67",
@@ -1927,7 +2293,13 @@ MP_CONTENIDO.agregar({
           "texto": "También se considera caso sospechoso a todo niño que reside o haya viajado en los últimos 14 días a una zona con transmisión de dengue que presenta cuadro febril agudo, por lo general, de 2 a 7 días de evolución, sin foco aparente."
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: en zona de dengue, la fiebre aguda sin foco en un niño ya es caso sospechoso.",
+        "No: las dos manifestaciones se exigen en el adulto; en el niño basta la fiebre sin foco.",
+        "Correcta: niño de zona de transmisión con fiebre aguda sin foco aparente: caso sospechoso.",
+        "No: en el niño no hace falta exantema; basta la fiebre aguda sin foco."
+      ]
     },
     {
       "id": "ped-c68",
@@ -1955,7 +2327,13 @@ MP_CONTENIDO.agregar({
           "texto": "Grupo B1: Posible remisión a unidad de dengue para observación y atención de su infección y afecciones asociadas"
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: tener 1 año o menos es una condición asociada que lo saca del grupo A.",
+        "Correcta: tener 1 año o menos lo pasa al grupo B1: remisión para observación.",
+        "No: B2 es para el dengue con signos de alarma, y no los tiene.",
+        "No: C es para el dengue grave."
+      ]
     },
     {
       "id": "ped-c69",
@@ -1983,7 +2361,13 @@ MP_CONTENIDO.agregar({
           "texto": "because of the risk of bleeding and thrombocytopenia, aspirin and nonsteroidal anti-inflammatory drugs are not recommended."
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: los antiinflamatorios no esteroideos no se recomiendan por el riesgo de sangrado.",
+        "No: la aspirina no se recomienda por el riesgo de sangrado y la trombocitopenia.",
+        "No: el naproxeno es un antiinflamatorio no esteroideo; no se recomienda.",
+        "Correcta: acetaminofén 10 mg/kg cada 6 horas, con medios físicos y líquidos."
+      ]
     },
     {
       "id": "ped-c70",
@@ -2007,7 +2391,13 @@ MP_CONTENIDO.agregar({
           "texto": "Solución cristaloide (Hartman o solución salina normal 0.9%) 10ml/kg en 1 h."
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "Correcta: grupo B2: cristaloide 10 mL/kg en 1 hora y reevaluar.",
+        "No: el bolo de 20 mL/kg en 15 minutos es para el choque (grupo C).",
+        "No: con signos de alarma va al grupo B2, con líquidos intravenosos.",
+        "No: la OPS inicia con cristaloide (Hartmann o solución salina 0,9 %)."
+      ]
     },
     {
       "id": "ped-c71",
@@ -2031,7 +2421,13 @@ MP_CONTENIDO.agregar({
           "texto": "Reevaluar: Hay mejoría clínica Reducir goteo a 5 a 7 ml/kg/h y continúe por 2-4 h + monitoreo horario al paciente."
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: la carga se repite solo si no mejora.",
+        "No: no se cortan los líquidos de golpe en plena fase crítica.",
+        "Correcta: con mejoría se baja a 5–7 mL/kg/h por 2–4 horas.",
+        "No: con mejoría se reduce el goteo; el bolo de 20 mL/kg es para el choque."
+      ]
     },
     {
       "id": "ped-c72",
@@ -2059,7 +2455,13 @@ MP_CONTENIDO.agregar({
           "texto": "shock – defined as tachycardia, narrowing of the pulse pressure (a difference in systolic and diastolic pressure less than 20 mmHg), delayed capillary filling, and hypotension"
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: tiene choque; 10 mL/kg en 1 hora es para el dengue con signos de alarma sin choque.",
+        "No: el choque es por extravasación de plasma; se trata con cristaloide.",
+        "Correcta: grupo C: cristaloide 20 mL/kg en 15–30 minutos y reevaluar.",
+        "No: está en choque y necesita líquidos: cristaloide 20 mL/kg."
+      ]
     },
     {
       "id": "ped-c73",
@@ -2087,7 +2489,13 @@ MP_CONTENIDO.agregar({
           "texto": "7. Hepatomegalia >2 cm 8. Aumento progresivo del hematocrito"
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: la hepatomegalia mayor de 2 cm es signo de alarma.",
+        "Correcta: no es signo de alarma; es parte del dengue sin signos de alarma.",
+        "No: el sangrado de mucosas es signo de alarma.",
+        "No: el letargo es signo de alarma."
+      ]
     },
     {
       "id": "ped-c74",
@@ -2115,7 +2523,13 @@ MP_CONTENIDO.agregar({
           "texto": "Tendencia ascendente del recuento de plaquetas"
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: cumple el laboratorio, pero faltan 48 horas sin fiebre y sin antipiréticos.",
+        "No: comer y orinar bien no basta; faltan 48 horas sin fiebre y sin antipiréticos.",
+        "Correcta: la fiebre controlada con acetaminofén no cuenta: faltan 48 h sin fiebre ni antipiréticos.",
+        "No: no hay un número de plaquetas para el alta; importa la tendencia ascendente."
+      ]
     },
     {
       "id": "ped-c75",
