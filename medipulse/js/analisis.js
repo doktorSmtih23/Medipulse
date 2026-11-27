@@ -182,7 +182,7 @@ async function anDoc(id){
   if (pdfDocs[id]) return pdfDocs[id];
   const lib = await loadPdfJs(), r = await getRec(id);
   if (!r || !r.blob) throw new Error("El PDF no está guardado en este dispositivo.");
-  return pdfDocs[id] = await lib.getDocument({data: new Uint8Array(await r.blob.arrayBuffer())}).promise;
+  return pdfDocs[id] = await abrirPdf(lib, new Uint8Array(await r.blob.arrayBuffer()));
 }
 // Salta a una página citada: en el visor si es un PDF; en el lector del taller si es texto pegado.
 function anJump(p){

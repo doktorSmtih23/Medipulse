@@ -113,9 +113,13 @@ function loadPdfJs(){
     throw new Error("no se pudo cargar el lector de PDF. Revisa tu conexión y recarga la página; si sigue igual, abre la app desde " + APP_URL);
   })());
 }
+// pdf.js 3.x compila código para dibujar las fuentes salvo que se desactive (CVE-2024-4367): un PDF manipulado
+// podría ejecutar JavaScript en la app y leer, por ejemplo, la clave de IA. Todo PDF se abre por aquí.
+const PDF_OPCIONES = {isEvalSupported: false};
+const abrirPdf = (lib, bytes) => lib.getDocument(Object.assign({data: bytes}, PDF_OPCIONES)).promise;
 async function extractPages(buf, onProg){
   const lib = await loadPdfJs();
-  const doc = await lib.getDocument({data: new Uint8Array(buf.slice(0))}).promise;
+  const doc = await abrirPdf(lib, new Uint8Array(buf.slice(0)));
   const pages = [];
   for (let i=1; i<=doc.numPages; i++){
     const tc = await (await doc.getPage(i)).getTextContent();
