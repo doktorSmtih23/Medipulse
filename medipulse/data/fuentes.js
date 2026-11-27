@@ -156,5 +156,9 @@ const SOURCES = [
   {id:"eddleston_op04", t:"Early management after self-poisoning with an organophosphorus or carbamate pesticide – a treatment protocol for junior doctors (Eddleston M et al.)", r:"Critical Care, 2004;8:R391–R397", y:2004, k:"article", v:"Protocolo de referencia de acceso abierto; no hay una guía más nueva que lo reemplace."},
   {id:"hoffman_tox25", t:"Toxidromes and a general approach to poisoning (Hoffman RJ, Nillas A)", r:"Archives of Disease in Childhood, 2025;110:681–686", y:2025, k:"article"},
   {id:"vega_afp24", t:"Acute Medication Poisoning (Vega IL, Griswold MK, Laskey D)", r:"American Family Physician, 2024;109(2):143–153", y:2024, k:"article"},
+  {id:"ics_se25", t:"Guidance for: The acute management of status epilepticus in adult patients (Mullhi R et al., Intensive Care Society)", r:"Journal of the Intensive Care Society, 2025;26(2):249–263", y:2025, k:"guideline"},
+  {id:"udea_hte", t:"Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (Ramírez Ríos R, Gómez Serna CM), capítulo 6 de memorias de neurocirugía", r:"Universidad de Antioquia, s. f.", y:2020, k:"book", v:"El documento no indica el año; su bibliografía llega hasta 2020."},
+  {id:"aha_hsa23", t:"2023 Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage (AHA/ASA, Hoh BL et al.)", r:"Stroke, 2023;54:e314–e370", y:2023, k:"guideline"},
+  {id:"afp_mig26", t:"Acute Migraine Treatment: Guidelines From the International Headache Society (resumen de Arnold MJ)", r:"American Family Physician, 2026;113(2):196–198", y:2026, k:"article"},
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));

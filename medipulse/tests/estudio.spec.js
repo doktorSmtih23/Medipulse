@@ -211,7 +211,7 @@ test.describe("preguntas de búsqueda activa", () => {
     await abrirConClave(page);
     await page.click("nav [data-go=estudio]");
     await expect(page.locator("#estNotaPaper")).toHaveCount(0);
-    await page.fill("#estTema", "Encefalitis autoinmune");
+    await page.fill("#estTema", "Síndrome de Susac");
     await page.click("#estGo");
     await expect(page.locator("#estBox")).toContainText("¿Cuál es la primera línea?");
     const p = peticiones.at(-1);
