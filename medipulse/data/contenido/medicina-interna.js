@@ -34,7 +34,13 @@ MP_CONTENIDO.agregar({
           "texto": "PPCI is superior to fibrinolytic therapy, which is used when the patient is in a non–PCI-capable hospital and transfer time to a PCI-capable hospital is anticipated to be >120 minutes."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: con supradesnivel del ST y sala disponible en 45 minutos, ICP primaria dentro de 90 minutos.",
+        "No: el IAMCEST no necesita troponinas; esperarlas retrasa la reperfusión.",
+        "No: la reperfusión no se retrasa por un ecocardiograma.",
+        "No: la fibrinólisis es para cuando el traslado a hemodinamia tardaría más de 120 minutos; aquí hay sala en 45."
+      ]
     },
     {
       "id": 2,
@@ -203,7 +209,13 @@ MP_CONTENIDO.agregar({
           "texto": "We recommend that calcium resonium should no longer be routinely used in the management of acute hyperkalaemia."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: el resonio ya no se usa de rutina en la hiperkalemia aguda.",
+        "No: con cambios en el ECG primero se protege el corazón con calcio; la insulina va después.",
+        "Correcta: con cambios en el ECG, primero calcio IV: gluconato de calcio al 10 %, 30 mL en 10 minutos.",
+        "No: con cambios en el ECG lo primero es proteger el corazón con calcio IV."
+      ]
     },
     {
       "id": 14,
@@ -343,7 +355,13 @@ MP_CONTENIDO.agregar({
           "texto": "(i) HFrEF: characterized by LVEF <50% and symptoms and/or signs of HF. (ii) HFpEF: characterized by LVEF ≥50% and symptoms and/or signs of HF and objective evidence of cardiac structural and/or functional abnormalities consistent with the presence of left ventricular (LV) diastolic dysfunction/raised LV filling pressures"
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: en la ESC 2026, la IC con FE reducida va hasta una FEVI menor de 50 %.",
+        "No: la ESC 2026 eliminó la categoría levemente reducida.",
+        "No: la FE preservada exige FEVI de 50 % o más.",
+        "No: con síntomas y FEVI menor de 50 % es IC con FE reducida."
+      ]
     },
     {
       "id": "mi-c02",
@@ -379,7 +397,13 @@ MP_CONTENIDO.agregar({
           "texto": "For adults with high-severity community-acquired pneumonia in hospital, consider a corticosteroid, in addition to antibiotics, for 4 to 7 days or until discharge, if sooner."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: tiene urea mayor de 7 mmol/L y 65 años o más: CURB65 de 2.",
+        "No: la edad de 65 años o más también suma: CURB65 de 2.",
+        "Correcta: urea mayor de 7 y 65 años o más: CURB65 de 2, hospital o casa con supervisión hospitalaria.",
+        "No: está orientada y su FR es de 24 (no de 30 o más): no llega a 3."
+      ]
     },
     {
       "id": "mi-c03",
@@ -419,7 +443,13 @@ MP_CONTENIDO.agregar({
           "texto": "Evitar el uso de quinolonas en pacientes adultos con diagnóstico de NAC, debido a su impacto en la resistencia antimicrobiana y efectos adversos graves."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: con CRB-65 de 0 y sin hipoxemia se trata en casa por vía oral.",
+        "No: la guía colombiana pide evitar las quinolonas en la NAC.",
+        "Correcta: CRB-65 de 0: amoxicilina 1 g cada 8 horas, en casa, por 5 días.",
+        "No: con CRB-65 de 0, sin hipoxemia ni intolerancia oral, se trata en casa."
+      ]
     },
     {
       "id": "mi-c04",
@@ -455,7 +485,13 @@ MP_CONTENIDO.agregar({
           "texto": "No dar cubrimiento de manera empírica para SAMR en pacientes sin factores de riesgo."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: sin factores de riesgo no se cubren empíricamente SAMR ni Pseudomonas.",
+        "No: sin gravedad ni factores de riesgo, la guía indica un betalactámico en monoterapia.",
+        "Correcta: sala general sin gravedad ni riesgo de SAMR o Pseudomonas: betalactámico en monoterapia.",
+        "No: según la guía colombiana, un CURB-65 de 2 indica hospitalización en sala general."
+      ]
     },
     {
       "id": "mi-c05",
@@ -503,7 +539,13 @@ MP_CONTENIDO.agregar({
           "texto": "Sugerimos la no utilización de corticosteroides en pacientes adultos con diagnóstico de NAC por influenza."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: en la NAC grave el betalactámico va con claritromicina.",
+        "No: en la NAC grave se recomienda un betalactámico más claritromicina.",
+        "No: sin riesgo de SAMR o Pseudomonas no se cubren gérmenes resistentes.",
+        "Correcta: NAC grave sin riesgo de SAMR o Pseudomonas: betalactámico más claritromicina."
+      ]
     },
     {
       "id": "mi-c06",
@@ -535,7 +577,13 @@ MP_CONTENIDO.agregar({
           "texto": "Sugerimos la no utilización de corticosteroides en pacientes adultos con diagnóstico de NAC por influenza."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: en la NAC con influenza se da oseltamivir, sin importar el tiempo de evolución.",
+        "No: en la NAC con influenza el antiviral se da independientemente del tiempo de evolución.",
+        "No: en el hospitalizado con virus positivo se mantiene el antibiótico por la probable coinfección bacteriana.",
+        "No: en la NAC por influenza no se sugieren corticosteroides."
+      ]
     },
     {
       "id": "mi-c07",
@@ -564,7 +612,13 @@ MP_CONTENIDO.agregar({
           "texto": "Recomendamos no usar procalcitonina sérica como criterio aislado para decidir el inicio de antibióticos en pacientes adultos con diagnóstico de NAC. · Sugerimos usar procalcitonina y la evolución clínica para reducir la duración del tratamiento antibiótico en pacientes adultos con diagnóstico de NAC."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: en la NAC no grave se recomiendan 5 días en total.",
+        "Correcta: 5 días en total, con la estabilidad clínica como criterio para suspender.",
+        "No: en un paciente estable con NAC no grave son 5 días en total.",
+        "No: completar 10 días «por costumbre» no es lo recomendado; son 5 días."
+      ]
     },
     {
       "id": "mi-c08",
@@ -597,7 +651,13 @@ MP_CONTENIDO.agregar({
           "texto": "Sugerimos reservar el uso de la TC para situaciones específicas, cuando la radiografía es negativa o equívoca, pero persiste una alta sospecha clínica de NAC"
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: el umbral es de 10 mm o más en imágenes.",
+        "No: no se espera a 20 mm; desde 10 mm se sugiere la toracocentesis temprana.",
+        "Correcta: derrame de 10 mm o más en imágenes: toracocentesis diagnóstica temprana.",
+        "No: no se espera a que crezca; desde 10 mm se sugiere puncionar."
+      ]
     },
     {
       "id": "mi-c09",
@@ -673,7 +733,13 @@ MP_CONTENIDO.agregar({
           "texto": "At day 180, the reduction in the urinary albumin-to-creatinine ratio with combination therapy was 29% greater than that with finerenone alone (least-squares mean ratio of the difference in the change from baseline, 0.71; 95% confidence interval [CI], 0.61 to 0.82; P<0.001) and 32% greater than that with empagliflozin alone (least-squares mean ratio of the difference in the change from baseline, 0.68; 95% CI, 0.59 to 0.79; P<0.001)."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: 1 − 0,71 = reducción 29 % mayor, y el IC 95 % no incluye 1: es significativo.",
+        "No: el desenlace fue la albuminuria, un sustituto; no midió diálisis.",
+        "No: en una razón el valor nulo es 1, no 0, y el intervalo no incluye 1.",
+        "No: 0,71 es una razón, no una diferencia absoluta."
+      ]
     },
     {
       "id": "mi-c11",
@@ -709,7 +775,13 @@ MP_CONTENIDO.agregar({
           "texto": "The 3-month failure rate in patients with a D-dimer level higher than 500 μg/L but below the age-adjusted cutoff was 1 of 331 patients (0.3% [95% CI, 0.1%-1.7%])."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: a los 82 años el umbral ajustado es 820 μg/L; 650 está por debajo.",
+        "No: un dímero D bajo el umbral ajustado ya excluye el TEP sin más estudios.",
+        "No: con el dímero D bajo el umbral ajustado no se necesitan imágenes.",
+        "Correcta: edad × 10 = 820 μg/L; con 650 y probabilidad menor de 50 %, se descarta el TEP."
+      ]
     },
     {
       "id": "mi-c12",
@@ -737,7 +809,13 @@ MP_CONTENIDO.agregar({
           "texto": "YEARS algorithm: A D-dimer threshold of 500 μg/L in patients who have ≥1 of the following: 1) clinical signs of DVT; 2) hemoptysis; and/or 3) PE as the most likely diagnosis. A D-dimer threshold of 1000 μg/L is used for patients who have no YEARS criteria."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: sin criterios YEARS el umbral es de 1000 μg/L, no de 500.",
+        "No: con 800 μg/L y ningún criterio YEARS no necesita imágenes.",
+        "Correcta: sin criterios YEARS el umbral es de 1000 μg/L; con 800 no necesita imágenes.",
+        "No: con 800 μg/L y ningún criterio YEARS no necesita imágenes."
+      ]
     },
     {
       "id": "mi-c13",
@@ -777,7 +855,13 @@ MP_CONTENIDO.agregar({
           "texto": "In adult patients undergoing evaluation for PE and who have a low or intermediate clinical probability of PE (<50%) by risk assessment, an age-adjusted D-dimer value below the threshold (age × 10 μg/L for fibrinogen equivalent units assays) effectively excludes PE and the need for imaging."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: en alta probabilidad un dímero D negativo no basta para descartar y retrasa el diagnóstico.",
+        "No: el ecocardiograma no confirma ni descarta el TEP.",
+        "No: con probabilidad alta la imagen recomendada es la angioTC.",
+        "Correcta: probabilidad alta: imagen, y la angioTC se prefiere sobre la gammagrafía V/Q."
+      ]
     },
     {
       "id": "mi-c14",
@@ -813,7 +897,13 @@ MP_CONTENIDO.agregar({
           "texto": "In patients undergoing imaging evaluation for suspected PE, a positive CTPA or high probability ventilation/perfusion (V/Q) scan is sufficient to diagnose PE."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: sin angioTC, gammagrafía V/Q antes que angioRM, y mejor con SPECT que planar.",
+        "No: la gammagrafía V/Q rinde más que la angioRM para el diagnóstico.",
+        "No: el ecocardiograma no confirma ni descarta el TEP.",
+        "No: si no se puede hacer angioTC, el estudio indicado es la gammagrafía V/Q."
+      ]
     },
     {
       "id": "mi-c15",
@@ -845,7 +935,13 @@ MP_CONTENIDO.agregar({
           "texto": "Pregnancy is an acquired and independent risk factor for VTE, and PE accounts for up to 11% of pregnancy-related deaths in the United States."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: el TEP es una causa importante de muerte materna; no se deja sin diagnóstico.",
+        "No: es razonable la angioTC de baja dosis antes que la gammagrafía de perfusión.",
+        "Correcta: con criterios YEARS sugestivos y radiografía normal, angioTC de baja dosis.",
+        "No: necesita imagen pulmonar: angioTC de baja dosis."
+      ]
     },
     {
       "id": "mi-c16",
@@ -878,7 +974,13 @@ MP_CONTENIDO.agregar({
           "texto": "PRECISE-DAPT score showed potential to identify patients at high bleeding risk (score ≥25) who might benefit from a shortened (ie, <12 months) DAPT duration."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: el alto riesgo de sangrado empieza en 25.",
+        "Correcta: con 25 o más, la doble antiagregación larga aumenta el sangrado sin beneficio isquémico.",
+        "No: el corte de alto riesgo es 25, no 40.",
+        "No: el corte de alto riesgo es 25, no 50."
+      ]
     },
     {
       "id": "mi-c17",
@@ -902,7 +1004,13 @@ MP_CONTENIDO.agregar({
           "texto": "patients who had a previous stroke or transient ischemic attack had net harm from prasugrel (hazard ratio, 1.54; 95% CI, 1.02 to 2.32; P = 0.04), patients 75 years of age or older had no net benefit from prasugrel (hazard ratio, 0.99; 95% CI, 0.81 to 1.21; P = 0.92), and patients weighing less than 60 kg had no net benefit from prasugrel (hazard ratio, 1.03; 95% CI, 0.69 to 1.53; P = 0.89)."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: el daño neto con ACV o AIT previo se vio con prasugrel.",
+        "No: el antecedente de AIT contraindica el prasugrel, no este fármaco.",
+        "No: el daño clínico neto con AIT previo se describió con prasugrel.",
+        "Correcta: con ACV o AIT previo, el prasugrel tuvo daño clínico neto (HR 1,54)."
+      ]
     },
     {
       "id": "mi-c18",
@@ -939,7 +1047,13 @@ MP_CONTENIDO.agregar({
           "texto": "Overall mortality did not differ significantly between treatment groups."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: se calcula con las diferencias absolutas, 2,2 % y 0,6 %: NNT ≈ 46 y NNH ≈ 167.",
+        "No: NNT = 100/2,2 ≈ 46 y NNH = 100/0,6 ≈ 167.",
+        "Correcta: 100/2,2 ≈ 46 para evitar un evento y 100/0,6 ≈ 167 para causar un sangrado mayor.",
+        "No: con 2,2 % y 0,6 % absolutos salen ≈ 46 y ≈ 167, no 81 y 132."
+      ]
     },
     {
       "id": "mi-c19",
@@ -1021,7 +1135,13 @@ MP_CONTENIDO.agregar({
           "texto": "Early diagnosis of NPH is important because shorter symptom duration and less advanced disease are associated with more favorable outcomes."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: punción lumbar de 30 a 50 mL: la mejoría de la marcha confirma y predice la respuesta a la derivación.",
+        "No: la imagen es necesaria para el diagnóstico, pero no predice la respuesta al tratamiento.",
+        "No: la prueba que confirma y predice la respuesta es la punción lumbar de gran volumen.",
+        "No: fuerza y sensibilidad son normales; la prueba indicada es la punción lumbar de gran volumen."
+      ]
     },
     {
       "id": "mi-c21",
@@ -1069,7 +1189,13 @@ MP_CONTENIDO.agregar({
           "texto": "Symptoms of iNPH may be attributed to normal aging or misdiagnosed as Parkinson disease or Alzheimer disease, which are present in 20% to 30% of patients with iNPH and may have overlapping clinical features such as gait disturbance and cognitive dysfunction."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: en el Parkinson la marcha es de base estrecha; aquí es de base amplia.",
+        "No: en el Alzheimer domina la memoria episódica, y aquí está relativamente conservada.",
+        "Correcta: marcha de base amplia «magnética», urgencia urinaria, lentitud mental y ventrículos grandes.",
+        "No: estos síntomas se atribuyen a la edad por error; con ventriculomegalia orientan a HPN."
+      ]
     },
     {
       "id": "mi-c22",
@@ -1105,7 +1231,13 @@ MP_CONTENIDO.agregar({
           "texto": "Brain neuroimaging may demonstrate structural changes including, but not limited to, focal atrophy, infarcts, and tumor, that may not be identified on physical examination."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: inicio antes de los 65 años y curso rápido: considerar LCR o pruebas genéticas.",
+        "No: el inicio antes de los 65 años y el comienzo rápido son rasgos de demencia atípica.",
+        "No: los rasgos atípicos piden considerar LCR o pruebas genéticas, no esperar.",
+        "No: en la demencia atípica puede considerarse LCR o pruebas genéticas."
+      ]
     },
     {
       "id": "mi-c23",
@@ -1138,7 +1270,13 @@ MP_CONTENIDO.agregar({
           "texto": "if the assessment is inconclusive (eg, symptoms present, but normal examination findings), neuropsychological testing can help determine whether dementia is present."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: la evaluación de seguimiento se recomienda con un MoCA menor de 24.",
+        "No: el corte para el seguimiento es menor de 24, no de 20.",
+        "No: el corte para el seguimiento es menor de 24, no de 22.",
+        "Correcta: con un MoCA menor de 24 se recomienda una evaluación de seguimiento."
+      ]
     },
     {
       "id": "mi-c24",
@@ -1174,7 +1312,13 @@ MP_CONTENIDO.agregar({
           "texto": "Allodynia Pain caused by a normally non-painful stimulus."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: con signos sensitivos en el examen ya es probable, y se trata.",
+        "No: el definitivo exige una prueba objetiva que confirme la lesión.",
+        "Correcta: historia plausible más alodinia e hipoestesia: probable, y ya justifica tratar.",
+        "No: con dolor neuropático probable se trata sin esperar la electromiografía."
+      ]
     },
     {
       "id": "mi-c25",
@@ -1206,7 +1350,13 @@ MP_CONTENIDO.agregar({
           "texto": "In using screening tools, such as the Douleur Neuropathique 4 questions (DN4) or the Leeds Assessment of Neuropathic Symptoms and Signs (LANSS) pain scale"
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "Correcta: pregabalina, gabapentina, duloxetina y tricíclicos tienen recomendación fuerte de primera línea.",
+        "No: el opioide no es la primera opción en el dolor neuropático.",
+        "No: los AINE no son la primera opción en el dolor neuropático.",
+        "No: el topiramato no tiene la evidencia de los fármacos de primera línea."
+      ]
     },
     {
       "id": "mi-c26",
@@ -1242,7 +1392,13 @@ MP_CONTENIDO.agregar({
           "texto": "Clinical diagnosis without testing may be unreliable because other conditions can resemble tinea infections (eg, tinea corporis can be confused with eczema, and onychomycosis with dystrophic toenails from repeated low-level trauma or psoriasis)."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: antes de tratar se confirma con una prueba diagnóstica.",
+        "No: no se trata empíricamente; primero se confirma la onicomicosis.",
+        "No: antes de cualquier tratamiento se confirma la onicomicosis con una prueba.",
+        "Correcta: confirmar con KOH, cultivo, PAS o PCR, porque otras distrofias ungueales se le parecen."
+      ]
     },
     {
       "id": "mi-c27",
@@ -1278,7 +1434,13 @@ MP_CONTENIDO.agregar({
           "texto": "Combination antifungal-corticosteroid products, such as clotrimazole-betamethasone, generally should be avoided."
         }
       ],
-      "verificado": "2026-11-15"
+      "verificado": "2026-11-15",
+      "porOpcion": [
+        "No: la candidiasis compromete el escroto, y aquí está respetado.",
+        "No: placa de borde activo en el muslo frente al escroto, respetándolo, es tiña crural.",
+        "Correcta: muslo frente al escroto con escroto respetado: tiña crural.",
+        "No: esa distribución, respetando el escroto, es la de la tiña crural."
+      ]
     },
     {
       "id": "mi-c28",
@@ -1306,7 +1468,13 @@ MP_CONTENIDO.agregar({
           "texto": "hs-cTnT (Elecsys; Roche) <5 <12 <3 ≥52 ≥5"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: el descarte con una sola muestra exige más de 3 horas de dolor; lleva 90 minutos.",
+        "No: con troponina de alta sensibilidad se sigue el algoritmo 0/1 h.",
+        "No: sin elevación del ST se sigue el algoritmo 0/1 h para decidir.",
+        "Correcta: con 90 minutos de dolor, repetir a la hora 1 y decidir con el valor y el cambio."
+      ]
     },
     {
       "id": "mi-c29",
@@ -1334,7 +1502,13 @@ MP_CONTENIDO.agregar({
           "texto": "Medir relación aldosterona/renina (típicamente sin suspender medicamentos, incluso espironolactona. Si la renina es suprimida se puede interpretar)."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: se tamiza a todo hipertenso al menos una vez, aunque el potasio sea normal.",
+        "No: la relación aldosterona/renina se mide típicamente sin suspender medicamentos.",
+        "No: la imagen de suprarrenales va después de confirmar.",
+        "Correcta: relación aldosterona/renina, típicamente sin suspender los medicamentos."
+      ]
     },
     {
       "id": "mi-c30",
@@ -1362,7 +1536,13 @@ MP_CONTENIDO.agregar({
           "texto": "es la amoxicilina la opción preferida por su perfil de seguridad y bajo riesgo de efectos adversos (amoxicilina VO 2 g 30–60 min antes)"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: antecedente de endocarditis: amoxicilina 2 g oral, 30 a 60 minutos antes.",
+        "No: el antecedente de endocarditis también es de alto riesgo.",
+        "No: la profilaxis es una dosis única antes, no un esquema de días después.",
+        "No: va contra estreptococos del grupo viridans, y la preferida es la amoxicilina."
+      ]
     },
     {
       "id": "mi-c31",
@@ -1428,7 +1608,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se ha demostrado que el intercambio plasmático o plasmaféresis (PLEX) y la inmunoglobulina intravenosa (IVIg) reducen el tiempo hasta el inicio de la recuperación en aproximadamente un 40 % a 50 %"
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "Correcta: no camina 10 metros solo: IgIV 2 g/kg en 5 días o plasmaféresis.",
+        "No: la inmunoterapia que acorta la recuperación es la IgIV o la plasmaféresis.",
+        "No: se usa una de las dos, IgIV o plasmaféresis, no ambas en secuencia.",
+        "No: se trata a quien no camina 10 metros solo, sin esperar la falla respiratoria."
+      ]
     },
     {
       "id": "mi-c33",
@@ -1460,7 +1646,13 @@ MP_CONTENIDO.agregar({
           "texto": "Debe aplicarse exclusivamente en pacientes con SVA que presenten nistagmo espontáneo activo."
         }
       ],
-      "verificado": "2026-11-21"
+      "verificado": "2026-11-21",
+      "porOpcion": [
+        "No: un impulso cefálico normal prácticamente descarta la neuritis vestibular.",
+        "No: tiene vértigo continuo con nistagmo espontáneo, y el impulso normal orienta a una causa central.",
+        "No: HINTS+ es válido justamente cuando hay nistagmo espontáneo.",
+        "Correcta: sin sacada correctiva es un signo de alto riesgo: ACV hasta demostrar lo contrario."
+      ]
     },
     {
       "id": "mi-c34",
@@ -1492,7 +1684,13 @@ MP_CONTENIDO.agregar({
           "texto": "El tratamiento requiere administración urgente de tiamina parenteral en todos los casos sospechosos o con riesgo, siempre antes de glucosa. Se recomienda 200 mg IV cada 8 horas durante 3–5 días, junto con corrección de déficits asociados (magnesio y folato), siendo el magnesio clave para su función(10)."
         }
       ],
-      "verificado": "2026-11-22"
+      "verificado": "2026-11-22",
+      "porOpcion": [
+        "No: con sospecha de Wernicke, lo que va antes de la glucosa es la tiamina.",
+        "No: ante la sospecha de Wernicke, antes de la glucosa va la tiamina parenteral.",
+        "No: lo que no puede faltar antes de la dextrosa es la tiamina IV.",
+        "Correcta: tiamina 200 mg IV cada 8 horas antes de la glucosa, y la dextrosa justo después."
+      ]
     },
     {
       "id": "mi-c35",
@@ -1516,7 +1714,13 @@ MP_CONTENIDO.agregar({
           "texto": "Patients with any warning signs or inadequate fluid intake should receive intravenous crystalloid solutions (normal 0·9% saline or Ringer’s lactate) at 5–7 mL per kg per h for 1–2 h, then reduced to 3–5 mL per kg per h for 2–4 h, and then reduced to 2–3 mL per kg per h or less according to clinical response."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: tiene signos de alarma, y la caída de la fiebre marca el inicio de la fase crítica.",
+        "Correcta: signos de alarma: hospitalizar y cristaloide a 5–7 mL/kg/h por 1–2 horas.",
+        "No: con signos de alarma sin choque, el cristaloide se inicia a 5–7 mL/kg/h.",
+        "No: se inicia con cristaloide (salina 0,9 % o lactato de Ringer)."
+      ]
     },
     {
       "id": "mi-c36",
@@ -1540,7 +1744,13 @@ MP_CONTENIDO.agregar({
           "texto": "Some patients with dengue experience the critical phase, which generally occurs around days 4–6 of illness and often coincides with defervescence."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la caída de la fiebre suele coincidir con la fase crítica.",
+        "Correcta: la fase crítica suele ser entre los días 4 y 6, con la caída de la fiebre.",
+        "No: está en la fase crítica, cuando aparece la fuga de plasma.",
+        "No: el riesgo es ahora, sin fiebre: la fase crítica coincide con la defervescencia."
+      ]
     },
     {
       "id": "mi-c37",
@@ -1564,7 +1774,13 @@ MP_CONTENIDO.agregar({
           "texto": "Among patients with thrombocytopenia, prophylactic platelet transfusion does not prevent bleeding and could contribute to fluid overload."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la transfusión profiláctica de plaquetas no previene el sangrado y puede sobrecargar de líquidos.",
+        "Correcta: no previene el sangrado y puede contribuir a la sobrecarga de líquidos.",
+        "No: la transfusión de sangre se reserva para el sangrado grave, y ella no sangra.",
+        "No: los corticoides no mejoraron el curso del dengue en los ensayos."
+      ]
     },
     {
       "id": "mi-c38",
@@ -1592,7 +1808,13 @@ MP_CONTENIDO.agregar({
           "texto": "NS1 tests can be as sensitive as molecular tests during the first 7 days of symptoms in primary infections, although sensitivity is lower in secondary infections"
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la IgM se detecta desde el día 4, y está en el día 2.",
+        "No: en los primeros días el virus se detecta con PCR o NS1.",
+        "Correcta: en los primeros días, PCR (de preferencia) o antígeno NS1.",
+        "No: la confirmación en los primeros días es con PCR o NS1."
+      ]
     },
     {
       "id": "mi-c39",
@@ -1620,7 +1842,13 @@ MP_CONTENIDO.agregar({
           "texto": "The requirement for a laboratory test before vaccine administration creates a unique challenge for Dengvaxia implementation."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: en los seronegativos aumentaron la hospitalización y el dengue grave.",
+        "Correcta: sin infección previa, si luego se infecta aumenta el riesgo de dengue grave.",
+        "No: sin infección previa demostrada no se vacuna con Dengvaxia.",
+        "No: la condición para vacunar es demostrar una infección previa."
+      ]
     },
     {
       "id": "mi-c40",
@@ -1648,7 +1876,13 @@ MP_CONTENIDO.agregar({
           "texto": "SABA-only treatment is not recommended by GINA for adults, adolescents or children 6–11 years with asthma."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: GINA no recomienda el SABA solo en adultos con asma.",
+        "Correcta: el AIR con ICS-formoterol a dosis baja es el preferido en los pasos 1 y 2.",
+        "No: el preferido es ICS-formoterol a demanda, con corticoide inhalado.",
+        "No: en los pasos 1 y 2 el preferido es ICS-formoterol solo a demanda."
+      ]
     },
     {
       "id": "mi-c41",
@@ -1672,7 +1906,13 @@ MP_CONTENIDO.agregar({
           "texto": "ICS-formoterol should not be used as the reliever for patients taking a different ICS-LABA maintenance treatment, because clinical evidence for safety and efficacy is lacking."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: no hay evidencia de seguridad ni eficacia con otra combinación de mantenimiento.",
+        "Correcta: no se usa de rescate con otra ICS-LABA de mantenimiento; para eso se pasa a MART.",
+        "No: con otra ICS-LABA de mantenimiento no se usa de rescate, a ninguna hora.",
+        "No: para usarlo de rescate se pasa a MART, con la misma combinación de mantenimiento y rescate."
+      ]
     },
     {
       "id": "mi-c42",
@@ -1696,7 +1936,13 @@ MP_CONTENIDO.agregar({
           "texto": "Spontaneous bacterial peritonitis is diagnosed after paracentesis with ascites concentrations of neutrophil count greater than 250/μL."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: más de 250 neutrófilos/μL ya es peritonitis bacteriana espontánea.",
+        "Correcta: más de 250 neutrófilos/μL en el líquido ascítico, aunque el Gram sea negativo.",
+        "No: en el cirrótico con ascitis, más de 250 neutrófilos/μL define la peritonitis bacteriana espontánea.",
+        "No: el diagnóstico no exige Gram ni cultivo positivos."
+      ]
     },
     {
       "id": "mi-c43",
@@ -1720,7 +1966,13 @@ MP_CONTENIDO.agregar({
           "texto": "First-line therapies include carvedilol or propranolol to prevent variceal bleeding, lactulose for hepatic encephalopathy, combination aldosterone antagonists and loop diuretics for ascites, and terlipressin for hepatorenal syndrome."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la primera línea es la lactulosa, con meta de 2 a 3 deposiciones blandas.",
+        "Correcta: lactulosa, con meta de 2 a 3 deposiciones blandas al día.",
+        "No: la dieta debe ser alta en proteína.",
+        "No: la primera línea es la lactulosa, guiada por las deposiciones."
+      ]
     },
     {
       "id": "mi-c44",
@@ -1744,7 +1996,13 @@ MP_CONTENIDO.agregar({
           "texto": "Updates in pre-­endoscopic treatment include restrictive transfusion thresholds, thromboelastography-­ guided correction of coagulopathy, avoidance of tranexamic acid and quality of care initiatives focused on resuscitative management."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el umbral de transfusión es de 7 g/dL y el tranexámico no se recomienda.",
+        "Correcta: transfusión restrictiva (umbral de 7 g/dL) y sin ácido tranexámico.",
+        "No: la estrategia es restrictiva, con umbral de hemoglobina menor de 7 g/dL.",
+        "No: el ácido tranexámico no se recomienda, y va endoscopia temprana."
+      ]
     },
     {
       "id": "mi-c45",
@@ -1772,7 +2030,13 @@ MP_CONTENIDO.agregar({
           "texto": "A recent RCT demonstrated that a 48-­hour course of terlipressin and ceftriaxone was non-­inferior to 5 days of therapy following haemostasis, suggesting shorter treatment durations may be appropriate in selected patients."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el sangrado variceal lleva vasoactivo (terlipresina) y antibiótico profiláctico.",
+        "Correcta: terlipresina más ceftriaxona, con endoscopia temprana.",
+        "No: lo indicado junto con la endoscopia es terlipresina más ceftriaxona.",
+        "No: el betabloqueador es para la prevención, no para el episodio agudo."
+      ]
     },
     {
       "id": "mi-c46",
@@ -1796,7 +2060,13 @@ MP_CONTENIDO.agregar({
           "texto": "The recommended treatment for syphilis is benzathine penicillin G administered as intramuscular doses of 2.4 million units: a single injection for early stage and 3 weekly injections for late latent stage syphilis."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la dosis única es para la sífilis temprana; la latente tardía lleva tres dosis.",
+        "Correcta: latente tardía o de duración desconocida: 2,4 millones UI semanales por 3 semanas.",
+        "No: la penicilina cristalina IV es para la neurosífilis o la sífilis ocular u ótica.",
+        "No: el tratamiento recomendado es la penicilina benzatínica."
+      ]
     },
     {
       "id": "mi-c47",
@@ -1820,7 +2090,13 @@ MP_CONTENIDO.agregar({
           "texto": "The Jarisch-Herxheimer reaction does not constitute a penicillin allergy."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la reacción de Jarisch-Herxheimer no es alergia a la penicilina.",
+        "Correcta: empeoramiento transitorio tras el tratamiento; no es alergia y se maneja con antipiréticos.",
+        "No: es un empeoramiento transitorio esperable, no una falla del tratamiento.",
+        "No: fiebre, escalofríos, cefalea y más exantema tras la penicilina son la reacción de Jarisch-Herxheimer."
+      ]
     },
     {
       "id": "mi-c48",
@@ -1844,7 +2120,13 @@ MP_CONTENIDO.agregar({
           "texto": "The key therapeutic advance was the replacement of quinine by artesunate, which had been shown to reduce mortality by between one fifth and one third in very large randomized controlled trials [18, 19]."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: es malaria grave por P. falciparum; no se trata por vía oral.",
+        "Correcta: malaria grave: artesunato parenteral, que reduce la mortalidad frente a la quinina.",
+        "No: el artesunato reemplazó a la quinina porque reduce la mortalidad.",
+        "No: la malaria grave no se trata por vía oral ni de forma ambulatoria."
+      ]
     },
     {
       "id": "mi-c49",
@@ -1872,7 +2154,13 @@ MP_CONTENIDO.agregar({
           "texto": "No se recomienda usar esquemas basados en lamivudina/zidovudina (3TC/AZT) como columna vertebral o con lopinavir /ritonavir (LPV/r) o atazanavir (ATV) con o sin ritonavir como tercer medicamento para profilaxis post-exposición del VIH en adultos con exposición no ocupacional y ocupacional."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: dentro de las 72 horas, cuanto antes, con 3 medicamentos como DTG + FTC/TDF.",
+        "No: la profilaxis se puede iniciar hasta las 72 horas; a las 30 todavía sirve.",
+        "No: la profilaxis se inicia tan pronto como sea posible, sin esperar.",
+        "No: la guía no recomienda la columna de zidovudina/lamivudina ni el lopinavir/ritonavir."
+      ]
     },
     {
       "id": "mi-c50",
@@ -1896,7 +2184,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se recomienda iniciar el tratamiento antirretroviral en pacientes adolescentes y adultos (mayores de 18 años) que reciben diagnóstico de infección por VIH lo más pronto posible, dentro de las siguientes 4 semanas al diagnóstico."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el inicio no depende del recuento de CD4.",
+        "No: no se espera a los síntomas; se inicia dentro de las 4 semanas del diagnóstico.",
+        "No: no se espera a un umbral de CD4.",
+        "Correcta: lo más pronto posible, dentro de las 4 semanas siguientes al diagnóstico."
+      ]
     },
     {
       "id": "mi-c51",
@@ -1928,7 +2222,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se recomienda realizar la determinación del HLA-B*5701 en toda persona viviendo con VIH antes del inicio de terapia antirretroviral que incluya abacavir."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: el HLA-B*5701 positivo descarta los esquemas con abacavir.",
+        "No: la terapia dual se evita con carga viral mayor de 500.000.",
+        "No: el HLA-B*5701 positivo descarta el abacavir.",
+        "Correcta: DTG + TDF/FTC: régimen preferido, sin abacavir y sin terapia dual."
+      ]
     },
     {
       "id": "mi-c52",
@@ -1956,7 +2256,13 @@ MP_CONTENIDO.agregar({
           "texto": "No se recomienda usar profilaxis primaria para candidiasis en personas que viven con VIH."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "Correcta: la candidiasis orofaríngea sola ya indica profilaxis para Pneumocystis.",
+        "No: la candidiasis orofaríngea indica la profilaxis aunque los CD4 pasen de 200.",
+        "No: la profilaxis primaria de candidiasis no se recomienda.",
+        "No: la profilaxis de MAC aplica con CD4 menores de 50 sin poder iniciar la terapia en 4 semanas."
+      ]
     },
     {
       "id": "mi-c53",
@@ -1980,7 +2286,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se sugiere que en personas que viven con VIH se inicie profilaxis para criptococo basado en fluconazol, o con itraconazol (en el caso de contraindicación al fluconazol) cuando se tenga un recuento de CD4 inferior a 100 células/mm 3, hasta tener el reporte de antígeno para criptococo en suero, si el resultado es negativo se deberá suspender la profilaxis."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: con CD4 menores de 100 se inicia fluconazol mientras llega el antígeno.",
+        "No: la profilaxis mientras llega el antígeno es con fluconazol.",
+        "Correcta: con CD4 menores de 100, fluconazol hasta tener el antígeno sérico.",
+        "No: con menos de 100 CD4 no se esperan síntomas: profilaxis con fluconazol."
+      ]
     },
     {
       "id": "mi-c54",
@@ -2012,7 +2324,13 @@ MP_CONTENIDO.agregar({
           "texto": "Se recomienda el uso diario o a demanda de los medicamentos recomendados para profilaxis preexposición en personas que se evalúen como de riesgo substancial de infección por VIH de acuerdo con las preferencias del usuario."
         }
       ],
-      "verificado": "2026-11-23"
+      "verificado": "2026-11-23",
+      "porOpcion": [
+        "No: la PrEP es para quien tiene riesgo sustancial, no solo para parejas serodiscordantes.",
+        "No: el maraviroc queda solo si las opciones recomendadas están contraindicadas.",
+        "No: con riesgo sustancial y continuo se recomienda la PrEP.",
+        "Correcta: riesgo sustancial: FTC/TDF o FTC/TAF, diaria o a demanda según su preferencia."
+      ]
     },
     {
       "id": "mi-c55",
@@ -2044,7 +2362,13 @@ MP_CONTENIDO.agregar({
           "texto": "Common presenting symptoms are neurologic (eg, headache, confusion, or seizures [39%-80%]) and abdominal pain (35%-39%)."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "Correcta: recambio plasmático, corticoides y rituximab de inmediato, sin esperar ADAMTS13.",
+        "No: el tratamiento no espera el resultado de ADAMTS13.",
+        "No: el tratamiento es recambio plasmático, corticoides y rituximab, desde ya.",
+        "No: el tratamiento de la PTT inmune es recambio plasmático, corticoides y rituximab."
+      ]
     },
     {
       "id": "mi-c56",
@@ -2076,7 +2400,13 @@ MP_CONTENIDO.agregar({
           "texto": "Colonoscopy is not indicated routinely in patients with suspected IBS without alarm features."
         }
       ],
-      "verificado": "2026-11-25"
+      "verificado": "2026-11-25",
+      "porOpcion": [
+        "No: sin signos de alarma, la colonoscopia no está indicada de rutina.",
+        "No: el diagnóstico es positivo, con pocas pruebas dirigidas.",
+        "No: sin signos de alarma basta un diagnóstico positivo con pocas pruebas.",
+        "Correcta: sin signos de alarma, diagnóstico positivo por los síntomas y sin colonoscopia."
+      ]
     },
     {
       "id": "mi-c57",
@@ -2100,7 +2430,13 @@ MP_CONTENIDO.agregar({
           "texto": "Solución cristaloide (Hartman o SSN 0.9%) 5 ml/kg en 1 h."
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: 10 mL/kg es la carga para quien no tiene comorbilidad.",
+        "Correcta: con comorbilidad o edad avanzada, cristaloide 5 mL/kg en 1 hora y reevaluar.",
+        "No: tiene signos de alarma sin choque; la carga es de 5 mL/kg en 1 hora.",
+        "No: vomita todo; con signos de alarma necesita cristaloide intravenoso."
+      ]
     },
     {
       "id": "mi-c58",
@@ -2128,7 +2464,13 @@ MP_CONTENIDO.agregar({
           "texto": "Evaluar la acidosis persistente y el riesgo de hemorragia (oculta) y tratarlas;"
         }
       ],
-      "verificado": "2026-11-26"
+      "verificado": "2026-11-26",
+      "porOpcion": [
+        "No: un hematocrito que baja solo indica mejoría si el paciente está estable.",
+        "No: hematocrito que baja con choque persistente obliga a buscar sangrado oculto.",
+        "No: ese descenso, sin mejoría clínica, no es recuperación: hay que buscar sangrado.",
+        "Correcta: hematocrito que baja sin mejoría clínica: buscar y tratar un sangrado oculto."
+      ]
     },
     {
       "id": "mi-c59",
