@@ -3078,7 +3078,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c76",
       "topic": "Cardiología · Hipertensión grave sin daño agudo a órgano",
       "difficulty": "residencia",
-      "src": "mer_hta26",
+      "src": "aha_hta25",
       "vignette": "Mujer de 68 años, hipertensa, en control de consulta externa con <span class='hy'>PA 196/112 mmHg</span>, asintomática. Examen neurológico, fondo de ojo, ECG y creatinina sin datos de daño agudo. ¿Qué haces?",
       "options": [
         "Nifedipino sublingual y repetir la toma en 30 minutos",
@@ -3087,36 +3087,32 @@ MP_CONTENIDO.agregar({
         "Labetalol IV en la consulta hasta llegar a 140/90"
       ],
       "correct": 1,
-      "whyCorrect": "Sin daño agudo a órgano no es una emergencia: la presión muy alta se maneja por vía oral y sin prisa, reiniciando o ajustando el tratamiento con control ambulatorio cercano. Enviarla a urgencias no reduce eventos y aumenta las hospitalizaciones.",
-      "pearl": "La pregunta en la crisis hipertensiva es una sola: ¿hay daño agudo a órgano (corazón, cerebro, riñón, retina o aorta)?",
-      "trap": "Dar nifedipino sublingual o mandar a urgencias por la cifra.",
+      "whyCorrect": "Es hipertensión grave (más de 180/120) sin daño agudo a órgano, lo que antes se llamaba urgencia hipertensiva. La guía indica no bajarla de forma agresiva en el corto plazo ni con fármacos parenterales: se evalúa y se trata en la consulta externa, iniciando, reiniciando o intensificando a tiempo el tratamiento oral.",
+      "pearl": "La pregunta ante la presión muy alta es una sola: ¿hay daño agudo a órgano? Sin daño, la guía americana ya no habla de «urgencia hipertensiva» sino de hipertensión grave.",
+      "trap": "Bajarla rápido o mandarla a urgencias por la cifra, sin daño agudo a órgano.",
       "cita": [
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), Lo que tienes que saber",
-          "texto": "Sin daño agudo a órgano, la presión muy alta se maneja por vía oral y sin prisa; el nifedipino sublingual no se usa."
+          "donde": "AHA/ACC 2025, 10 mensajes principales (mensaje 10)",
+          "texto": "Severe hypertension in nonpregnant individuals, defined as blood pressure >180/120 mm Hg, without evidence of acute target organ damage, should be evaluated and treated in the outpatient setting with initiation, reinstitution, or intensification of oral antihypertensive medications in a timely manner."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 6. Crisis hipertensiva",
-          "texto": "Reiniciar o ajustar el tratamiento oral y control ambulatorio cercano. Enviar a urgencias desde la consulta no redujo eventos y sí aumentó las hospitalizaciones."
-        },
-        {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 6. Crisis hipertensiva",
-          "texto": "El nifedipino de acción corta nunca fue aprobado para esto; la caída es brusca e impredecible, con reportes de infarto, evento vascular cerebral e hipotensión grave."
+          "donde": "AHA/ACC 2025, 6.2. Emergencias hipertensivas e hipertensión grave, sinopsis",
+          "texto": "patients with severe hypertension without evidence of acute target organ damage (previously called hypertensive urgency) should not have aggressive BP lowering in the short-term or be given parenteral antihypertensive drug therapy."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
-        "No: el nifedipino sublingual no se usa; la caída es brusca e impredecible.",
-        "Correcta: sin daño agudo a órgano, tratamiento oral y control ambulatorio cercano.",
-        "No: enviarla a urgencias no redujo eventos y sí aumentó las hospitalizaciones.",
-        "No: sin daño agudo a órgano la presión se baja por vía oral y sin prisa."
+        "No: sin daño agudo a órgano la presión no se baja de forma agresiva en el corto plazo.",
+        "Correcta: hipertensión grave sin daño agudo: tratamiento oral a tiempo, en la consulta externa.",
+        "No: sin daño agudo a órgano se evalúa y se trata en la consulta externa, no por vía IV.",
+        "No: sin daño agudo a órgano no se usan fármacos parenterales."
       ]
     },
     {
       "id": "mi-c77",
       "topic": "Cardiología · Hipertensión: cómo iniciar el tratamiento",
       "difficulty": "basica",
-      "src": "mer_hta26",
+      "src": "aha_hta25",
       "vignette": "Hombre de 60 años, sin fragilidad, con <span class='hy'>152/96 mmHg confirmado</span> fuera del consultorio. No tiene enfermedad cardiovascular ni renal. ¿Cómo inicias el tratamiento farmacológico?",
       "options": [
         "Un betabloqueador solo y control en 3 meses",
@@ -3125,36 +3121,36 @@ MP_CONTENIDO.agregar({
         "Dos fármacos de distinta clase en una sola tableta"
       ],
       "correct": 3,
-      "whyCorrect": "Con 140/90 o más se inicia con dos fármacos de distinta clase, de preferencia en una tableta (IECA o ARA II más amlodipino o tiazida): solo cerca del 30 % llega a la meta con un solo fármaco. Un fármaco solo se reserva para casos como los mayores de 85 años, la fragilidad o la hipotensión ortostática sintomática.",
-      "pearl": "IECA y ARA II nunca juntos: más daño sin beneficio.",
-      "trap": "Empezar con monoterapia por costumbre o usar un betabloqueador sin indicación.",
+      "whyCorrect": "Tiene hipertensión estadio 2 (140/90 o más). La guía recomienda iniciar con dos fármacos de primera línea de distinta clase, idealmente en una sola tableta, para mejorar el control y la adherencia. Los de primera línea son tiazídicos, calcioantagonistas dihidropiridínicos de acción larga, IECA y ARA II. Un solo fármaco es razonable en el estadio 1 (130–139/80–89).",
+      "pearl": "IECA, ARA II o inhibidor de renina, nunca juntos: no se recomiendan por el potencial de daño.",
+      "trap": "Empezar con monoterapia por costumbre en el estadio 2.",
       "cita": [
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), Lo que tienes que saber",
-          "texto": "Con 140/90 o más se inicia con dos fármacos en una tableta: IECA o ARA-II más amlodipino o tiazida."
+          "donde": "AHA/ACC 2025, 5.2.4. Monoterapia o combinación inicial, recomendación 1",
+          "texto": "In adults with stage 2 hypertension (SBP ≥ 140 mm Hg and DBP ≥90 mm Hg), initiation of antihypertensive drug therapy with 2 first-line agents of different classes, ideally in a single-pill combination (SPC), is recommended to improve BP control and adherence."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), portada",
-          "texto": "llega a la meta con un solo fármaco: por eso se inicia con combinación en una tableta"
+          "donde": "AHA/ACC 2025, 5.2.4. Monoterapia o combinación inicial, recomendación 3",
+          "texto": "In adults with hypertension, simultaneous use of an ACEi, ARB, and/or renin inhibitor in combination is not recommended due to the potential for harm."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 9. Errores frecuentes",
-          "texto": "Más daño sin beneficio; elegir uno"
+          "donde": "AHA/ACC 2025, elección del fármaco inicial, texto de apoyo",
+          "texto": "Strong RCT evidence supports 4 classes of first-line agents compared with placebo (thiazide-type diuretics, long-acting dihydropyridine CCB, and ACEi and ARB)"
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
-        "No: el betabloqueador no es de primera línea sin una indicación como la cardiopatía isquémica o la insuficiencia cardiaca.",
-        "No: con 140/90 o más se inicia con dos fármacos; con uno solo, pocos llegan a la meta.",
-        "No: IECA y ARA II juntos dan más daño sin beneficio; se elige uno.",
-        "Correcta: dos fármacos de distinta clase, de preferencia en una tableta."
+        "No: los de primera línea son tiazídicos, calcioantagonistas, IECA y ARA II, y en el estadio 2 se inicia con dos.",
+        "No: en el estadio 2 se inicia con dos fármacos, no con uno solo.",
+        "No: IECA y ARA II juntos no se recomiendan por el potencial de daño.",
+        "Correcta: estadio 2: dos fármacos de primera línea de distinta clase, idealmente en una tableta."
       ]
     },
     {
       "id": "mi-c78",
       "topic": "Cardiología · Hipertensión resistente: antes del cuarto fármaco",
       "difficulty": "dificil",
-      "src": "mer_hta26",
+      "src": "aha_hta25",
       "vignette": "Hombre de 54 años con hipertensión en tratamiento con un IECA, amlodipino y clortalidona a dosis máximas, con buen apego y técnica de medición correcta. En casa tiene 148/90. <span class='hy'>Potasio 4,2 mmol/L</span>. ¿Qué sigue?",
       "options": [
         "Agregar espironolactona sin más estudios",
@@ -3163,36 +3159,40 @@ MP_CONTENIDO.agregar({
         "No buscar aldosteronismo: el potasio es normal"
       ],
       "correct": 1,
-      "whyCorrect": "En la hipertensión resistente se busca aldosteronismo antes del cuarto fármaco, aunque el potasio sea normal. Se miden aldosterona y renina sin suspender la mayoría de los antihipertensivos (solo el antagonista mineralocorticoide), corrigiendo antes el potasio. El cuarto fármaco es la espironolactona.",
-      "pearl": "La hipokalemia puede dar una aldosterona falsamente baja: corrige el potasio antes de medirla.",
-      "trap": "Descartar aldosteronismo porque el potasio es normal, o agregar espironolactona antes de medir renina y aldosterona.",
+      "whyCorrect": "En la hipertensión resistente se recomienda tamizar aldosteronismo primario haya o no hipokalemia. Para medir aldosterona y renina se continúa la mayoría de los antihipertensivos (salvo el antagonista mineralocorticoide), con el potasio en rango normal. Si sigue sin control con IECA o ARA II, calcioantagonista y tiazídico tipo clortalidona, se agrega un antagonista mineralocorticoide.",
+      "pearl": "Al medir aldosterona y renina, el potasio debe estar en rango normal para evitar un falso negativo.",
+      "trap": "Descartar aldosteronismo porque el potasio es normal, o suspender todos los antihipertensivos antes de tamizar.",
       "cita": [
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), Lo que tienes que saber",
-          "texto": "Hipertensión resistente: busca aldosteronismo antes del cuarto fármaco; el cuarto es espironolactona."
+          "donde": "AHA/ACC 2025, 3.2.3. Formas secundarias de hipertensión, recomendación 2",
+          "texto": "In adults with resistant hypertension, screening for primary aldosteronism is recommended regardless of whether hypokalemia is present to increase rates of detection, diagnosis, and specific targeted therapy."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 7. Hipertensión resistente y aldosteronismo primario",
-          "texto": "Cómo: aldosterona y renina. No suspendas la mayoría de los antihipertensivos; solo el ARM. Corrige antes el potasio: la hipokalemia puede dar una aldosterona falsamente baja."
+          "donde": "AHA/ACC 2025, Tabla 1 (3.2.3.1. Aldosteronismo primario)",
+          "texto": "it is recommended to continue most antihypertensive medications (other than MRA) prior to initial screening to minimize barriers to or delays in screening."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 10. Preguntas tipo examen (pregunta 6)",
-          "texto": "Tamizar aldosteronismo en todo resistente aunque el potasio sea normal; no hace falta suspender casi ningún fármaco."
+          "donde": "AHA/ACC 2025, 3.2.3.1. Aldosteronismo primario, texto de apoyo",
+          "texto": "Patients should have unrestricted salt intake, serum potassium in the normal range (to avoid false-negative testing), and ideally, MRA (eg, spironolactone or eplerenone) withdrawn for at least 4 weeks before testing."
+        },
+        {
+          "donde": "AHA/ACC 2025, 5.6. Hipertensión resistente, recomendación 2",
+          "texto": "addition of a MRA is recommended to control BP."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
-        "No: antes del cuarto fármaco se busca aldosteronismo; la espironolactona falsea el tamizaje.",
-        "Correcta: aldosterona y renina sin suspender casi ningún fármaco, aunque el potasio sea normal.",
-        "No: no hace falta suspender casi ningún fármaco; solo el antagonista mineralocorticoide.",
-        "No: se tamiza a todo hipertenso resistente aunque el potasio sea normal."
+        "No: primero se tamiza el aldosteronismo; la espironolactona idealmente se retira 4 semanas antes de medir.",
+        "Correcta: aldosterona y renina continuando la mayoría de los antihipertensivos, aunque el potasio sea normal.",
+        "No: se continúa la mayoría de los antihipertensivos; solo se retira el antagonista mineralocorticoide.",
+        "No: en la hipertensión resistente se tamiza haya o no hipokalemia."
       ]
     },
     {
       "id": "mi-c79",
       "topic": "Neurología · Presión arterial en el ACV isquémico",
       "difficulty": "residencia",
-      "src": "mer_hta26",
+      "src": "aha_hta25",
       "vignette": "Mujer de 74 años con ACV isquémico de 9 horas de evolución; <span class='hy'>no es candidata a trombólisis</span>. PA 196/104 mmHg. El residente quiere bajarla con labetalol IV. ¿Qué indicas?",
       "options": [
         "Bajarla con labetalol IV hasta 140/90 en la primera hora",
@@ -3201,36 +3201,36 @@ MP_CONTENIDO.agregar({
         "No tratarla: no supera 220/120 y no va a trombólisis"
       ],
       "correct": 3,
-      "whyCorrect": "En el evento cerebral isquémico no se baja la presión salvo que pase de 220/120; si va a trombólisis, se lleva por debajo de 185/110. Bajarla rápido es un error frecuente.",
-      "pearl": "Hemorragia intracerebral, en cambio: sistólica cerca de 140, nunca por debajo de 130.",
+      "whyCorrect": "Con PA menor de 220/120, sin trombólisis ni trombectomía y sin otra condición que exija bajarla, iniciar o reiniciar el tratamiento en las primeras 48 a 72 horas del ACV isquémico no sirve para prevenir muerte ni discapacidad. Si fuera candidata a trombólisis, se bajaría antes a menos de 185/110.",
+      "pearl": "Hemorragia intracerebral con sistólica de 150 a 220: bajarla a 130 a menos de 140 mmHg, y suspender los antihipertensivos si baja de 130.",
       "trap": "Bajar la presión rápido en el ACV isquémico, como si fuera una emergencia hipertensiva cualquiera.",
       "cita": [
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 9. Errores frecuentes",
-          "texto": "Bajar rápido la presión en un evento cerebral isquémico"
+          "donde": "AHA/ACC 2025, 5.3.9.2. ACV isquémico agudo, recomendación 5",
+          "texto": "In patients with BP <220/120 mm Hg who do not receive IV thrombolysis or endovascular treatment and do not have a comorbid condition requiring urgent antihypertensive treatment, initiating or reinitiating treatment of hypertension within the first 48 to 72 hours after an acute ischemic stroke is not effective to prevent death or disability."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 9. Errores frecuentes · lo correcto",
-          "texto": "No tratar salvo >220/120, o <185/110 si va a trombólisis"
+          "donde": "AHA/ACC 2025, 5.3.9.2. ACV isquémico agudo, recomendación 2",
+          "texto": "Patients who have elevated BP and are otherwise eligible for treatment with IV thrombolytics should have their BP lowered to SBP <185 mm Hg and DBP <110 mm Hg before IV thrombolytic therapy is initiated"
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 6. Crisis hipertensiva · tabla de condiciones",
-          "texto": "Hemorragia intracerebral Sistólica ~140, nunca <130"
+          "donde": "AHA/ACC 2025, 5.3.9.1. Hemorragia intracerebral aguda, recomendación 1",
+          "texto": "it can be beneficial to immediately lower SBP to 130 to <140 mm Hg for at least 7 days after ICH to improve functional outcomes but stop antihypertensive medications if SBP <130 mm Hg."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
-        "No: bajar rápido la presión en el ACV isquémico es un error frecuente.",
-        "No: el nifedipino sublingual no se usa; la caída es brusca e impredecible.",
-        "No: llevarla por debajo de 185/110 es para quien va a trombólisis, y ella no lo es.",
-        "Correcta: sin trombólisis, no se trata salvo que pase de 220/120."
+        "No: con menos de 220/120 y sin trombólisis, iniciar tratamiento en las primeras 48 a 72 horas no sirve.",
+        "No: con menos de 220/120 y sin trombólisis no se inicia antihipertensivo en las primeras 48 a 72 horas.",
+        "No: bajarla a menos de 185/110 es para quien va a trombólisis, y ella no lo es.",
+        "Correcta: menos de 220/120 y sin trombólisis: tratarla en las primeras 48 a 72 horas no sirve."
       ]
     },
     {
       "id": "mi-c80",
       "topic": "Cardiología · Medición correcta de la presión arterial",
       "difficulty": "basica",
-      "src": "mer_hta26",
+      "src": "aha_hta25",
       "vignette": "En una brigada de salud, a un hombre de 50 años le toman la presión apenas llega caminando, sentado <span class='hy'>con las piernas cruzadas y hablando</span>, recién tomado un café: 146/92. ¿Qué haces?",
       "options": [
         "Diagnosticar hipertensión e iniciar tratamiento ya",
@@ -3239,36 +3239,40 @@ MP_CONTENIDO.agregar({
         "Usar un brazalete más pequeño para que ajuste"
       ],
       "correct": 1,
-      "whyCorrect": "La técnica incorrecta (sin reposo, piernas cruzadas, paciente hablando) sube la presión de 5 a 10 mmHg. Se mide tras 5 minutos sentado, sin cafeína, tabaco ni ejercicio en los 30 minutos previos, con el brazo apoyado a la altura del corazón y el brazalete sobre la piel; y se confirma fuera del consultorio antes de diagnosticar.",
-      "pearl": "Brazalete chico: sobreestima la presión; grande: la subestima.",
+      "whyCorrect": "La toma no cumple la técnica: sin reposo, con las piernas cruzadas, hablando y con cafeína reciente. Se repite sentado, con la espalda apoyada y los pies en el piso, tras más de 5 minutos de reposo, sin hablar, con el brazo apoyado a la altura del corazón y el brazalete del tamaño correcto sobre el brazo descubierto. Una sola lectura no basta para decidir: se promedian 2 o más.",
+      "pearl": "Cafeína, ejercicio y cigarrillo: nada en los 30 minutos previos. Brazalete del tamaño correcto, sobre el brazo descubierto.",
       "trap": "Diagnosticar hipertensión con una sola toma mal hecha.",
       "cita": [
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 2. Medición correcta",
-          "texto": "Lo que la altera (de 5 a 10 mmHg hacia arriba cuando la técnica es incorrecta): sin reposo, espalda sin apoyo, piernas cruzadas, brazo colgando, paciente hablando, manga arremangada que hace torniquete."
+          "donde": "AHA/ACC 2025, figura 3: lista para la medición correcta en el consultorio (punto 5)",
+          "texto": "Have the patient relax, sitting in a chair (feet on floor, legs uncrossed, and back supported) for more than 5 minutes of rest."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 2. Medición correcta",
-          "texto": "Técnica: 5 minutos sentado; sin cafeína, tabaco ni ejercicio en los 30 minutos previos; vejiga vacía; brazo apoyado a la altura del corazón; brazalete sobre la piel."
+          "donde": "AHA/ACC 2025, figura 3 (puntos 1 y 6)",
+          "texto": "The patient should avoid caffeine, exercise, and smoking for at least 30 minutes before measurement. … Neither the patient nor the clinician should talk during the rest period or during the measurement."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 2. Medición correcta",
-          "texto": "Brazalete chico la sobreestima; grande, la subestima."
+          "donde": "AHA/ACC 2025, figura 3 (puntos 3 y 4)",
+          "texto": "Use the correct cuff size on a bare arm. The patient’s arm should be supported at heart level."
+        },
+        {
+          "donde": "AHA/ACC 2025, 3.1.1. Medición correcta de la PA en el consultorio, texto de apoyo",
+          "texto": "a single reading is inadequate for clinical decision-making."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
-        "No: con una toma mal hecha no se diagnostica; se repite con técnica correcta y se confirma fuera del consultorio.",
-        "Correcta: repetir tras 5 minutos de reposo con técnica correcta, y confirmar fuera del consultorio.",
-        "No: la técnica es sentado, con el brazo apoyado a la altura del corazón.",
-        "No: un brazalete chico sobreestima la presión."
+        "No: una sola lectura no basta para decidir, y menos una tomada sin la técnica correcta.",
+        "Correcta: repetirla sentado, tras más de 5 minutos de reposo, sin hablar y con la técnica correcta.",
+        "No: se toma sentado, con la espalda apoyada y el brazo a la altura del corazón.",
+        "No: se usa el brazalete del tamaño correcto, no uno más pequeño."
       ]
     },
     {
       "id": "mi-c81",
       "topic": "Cardiología · Presión alta en el paciente hospitalizado",
       "difficulty": "residencia",
-      "src": "mer_hta26",
+      "src": "aha_hta25",
       "vignette": "Hombre de 72 años hospitalizado por neumonía, sin antecedentes de daño a órgano. En la noche, la enfermera reporta <span class='hy'>PA 182/96 mmHg</span>; está asintomático y sin datos de daño agudo. ¿Qué haces?",
       "options": [
         "Labetalol IV ahora y repetir hasta 140/90",
@@ -3277,29 +3281,29 @@ MP_CONTENIDO.agregar({
         "Trasladarlo a cuidados intensivos para infusión IV"
       ],
       "correct": 2,
-      "whyCorrect": "Sin daño agudo a órgano no hay emergencia. En el hospitalizado por otra causa, tratar la presión de forma aguda se asoció a más lesión renal y miocárdica, y AHA/ACC 2025 lo marca como clase 3: daño. Se revisa y ajusta el tratamiento oral.",
+      "whyCorrect": "Es hipertensión grave sin daño agudo a órgano en un paciente hospitalizado por una causa no cardiaca. La guía marca como clase 3 (daño) dar dosis adicionales intermitentes de antihipertensivos IV u orales para bajarla de forma aguda: en estudios observacionales se asoció a más mortalidad intrahospitalaria, lesión renal aguda y estancia prolongada. Además, la presión baja sola, sin fármacos, en el 40 a 50 % de estos pacientes.",
       "pearl": "Sin daño agudo, la guía americana ya no habla de «urgencia hipertensiva» sino de hipertensión grave.",
-      "trap": "Usar labetalol IV o nifedipino sublingual por la cifra de la noche.",
+      "trap": "Usar labetalol IV o una dosis oral de rescate por la cifra de la noche.",
       "cita": [
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 6. Crisis hipertensiva",
-          "texto": "tratarla de forma aguda se asoció a más lesión renal y miocárdica: AHA/ACC 2025 lo marca como clase 3: daño."
+          "donde": "AHA/ACC 2025, Tabla 1 (6.2, recomendación nueva, clase 3: daño)",
+          "texto": "For adults with severe hypertension (>180/120 mm Hg) who are hospitalized for noncardiac conditions without evidence of acute target organ damage, intermittent use of additional intravenous or oral antihypertensive medications are not recommended to acutely reduce BP."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), Lo que tienes que saber",
-          "texto": "Sin daño agudo a órgano, la presión muy alta se maneja por vía oral y sin prisa; el nifedipino sublingual no se usa."
+          "donde": "AHA/ACC 2025, 6.2. Emergencias hipertensivas e hipertensión grave, texto de apoyo 4",
+          "texto": "spontaneous falls in BP without any antihypertensive agents occur commonly, at a rate of 40% to 50%."
         },
         {
-          "donde": "Guía en resumen · Hipertensión 2026 (v1.3), 6. Crisis hipertensiva",
-          "texto": "Si no lo hay, la guía americana ya no habla de \"urgencia hipertensiva\" sino de hipertensión grave"
+          "donde": "AHA/ACC 2025, 6.2. Emergencias hipertensivas e hipertensión grave, texto de apoyo 4",
+          "texto": "associated with increased risk of in-hospital mortality, AKI, and prolonged hospital stay."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
-        "No: tratarla de forma aguda en el hospitalizado se asoció a más lesión renal y miocárdica (clase 3: daño).",
-        "No: el nifedipino sublingual no se usa.",
-        "Correcta: sin daño agudo a órgano, no se trata de forma aguda; se ajusta el tratamiento oral.",
-        "No: sin daño agudo a órgano no es una emergencia que requiera infusión IV."
+        "No: los antihipertensivos IV intermitentes para bajarla de forma aguda son clase 3: daño.",
+        "No: tampoco se recomiendan dosis orales adicionales para bajarla de forma aguda.",
+        "Correcta: sin daño agudo, no se baja de forma aguda; en el 40 a 50 % la presión cae sola.",
+        "No: sin daño agudo a órgano no hay emergencia que justifique una infusión IV."
       ]
     }
   ],
