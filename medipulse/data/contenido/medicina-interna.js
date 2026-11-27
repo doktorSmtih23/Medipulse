@@ -3479,6 +3479,158 @@ MP_CONTENIDO.agregar({
         "No: la azitromicina está en la rama de exacerbaciones, y él no las tiene.",
         "No: la rama de disnea parte de LABA más LAMA y no propone volver a uno solo."
       ]
+    },
+    {
+      "id": "mi-c87",
+      "topic": "Reanimación · Profundidad de las compresiones (ILCOR 2026)",
+      "difficulty": "basica",
+      "src": "ilcor26",
+      "vignette": "Durante una RCP en un adulto de contextura promedio, el dispositivo de retroalimentación marca compresiones de <span class='hy'>7 cm</span> de profundidad, a 110 por minuto, y el reanimador se apoya en el tórax entre una y otra. ¿Qué le corriges?",
+      "options": [
+        "Unos 5 cm, sin pasar de 6, dejando reexpandir el tórax",
+        "Nada: más profundidad siempre da más flujo cerebral al paciente",
+        "Bajar la frecuencia a 80 por minuto para compensar la profundidad",
+        "Comprimir solo 3 cm, como en los niños, para evitar las fracturas"
+      ],
+      "correct": 0,
+      "whyCorrect": "ILCOR recomienda comprimir aproximadamente 5 cm, evitar profundidades excesivas (más de 6 cm en un adulto promedio) y no apoyarse en el tórax entre compresiones para permitir su reexpansión completa. La frecuencia recomendada es de 100 a 120 por minuto, así que 110 está bien.",
+      "pearl": "Compresiones de calidad en el adulto: 100 a 120 por minuto, unos 5 cm (no más de 6) y reexpansión completa del tórax.",
+      "trap": "Creer que «más profundo es mejor» o compensar un error de profundidad cambiando la frecuencia.",
+      "cita": [
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS: componentes de las compresiones",
+          "texto": "We recommend a chest compression depth of approximately 5 cm (2 inches) (strong recommendation, low-certainty evidence) while avoiding excessive chest compression depths (>6 cm [>2.4 inches] in an average adult) during manual CPR"
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS: componentes de las compresiones",
+          "texto": "We suggest that rescuers performing manual CPR avoid leaning on the chest between compressions to allow full chest wall recoil"
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS: componentes de las compresiones",
+          "texto": "We recommend a manual chest compression rate of 100 to 120/ min"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: unos 5 cm, sin pasar de 6 cm, y sin apoyarse para que el tórax se reexpanda.",
+        "No: ILCOR recomienda evitar las profundidades mayores de 6 cm en un adulto promedio.",
+        "No: 110 por minuto está dentro de lo recomendado (100 a 120); lo que se corrige es la profundidad.",
+        "No: en el adulto la profundidad recomendada es de unos 5 cm."
+      ]
+    },
+    {
+      "id": "mi-c88",
+      "topic": "Reanimación · Ventilación con vía aérea avanzada (ILCOR 2026)",
+      "difficulty": "residencia",
+      "src": "ilcor26",
+      "vignette": "Hombre de 58 años en paro cardiaco intrahospitalario; ya está <span class='hy'>intubado</span> y el equipo hace compresiones continuas. El residente ventila con la bolsa unas 25 veces por minuto «para oxigenar mejor». ¿Qué indicas?",
+      "options": [
+        "Seguir a 25 por minuto mientras dure la RCP",
+        "Pausar las compresiones antes de cada ventilación dada",
+        "Ventilar solo si la saturación baja de 90 %",
+        "10 ventilaciones por minuto, una cada 6 segundos"
+      ],
+      "correct": 3,
+      "whyCorrect": "Con compresiones continuas en el adulto, ILCOR sugiere 10 ventilaciones por minuto (una cada 6 segundos), con o sin vía aérea avanzada; sin compresiones continuas, 2 ventilaciones por cada 30 compresiones. El volumen debe producir una elevación visible del tórax (400 a 600 mL si se puede medir) y se usa la mayor concentración de oxígeno posible.",
+      "pearl": "Paro en el adulto: 30:2, o 10 ventilaciones por minuto con compresiones continuas. Volumen: 400–600 mL (6–10 mL/kg de peso ideal).",
+      "trap": "Hiperventilar durante la RCP con la idea de oxigenar mejor.",
+      "cita": [
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS: ventilación durante la RCP",
+          "texto": "We suggest delivering 2 ventilations for every 30 compressions or 10 ventilations per minute (1 ventilation every 6 seconds) for continuous compressions in adults with cardiac arrest with or without an advanced airway"
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS: ventilación durante la RCP",
+          "texto": "When tidal volume can be measured, we suggest delivering a tidal volume of 400 to 600 mL (or 6–10 mL/kg of ideal or predicted body weight)"
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, ALS: oxígeno durante la RCP",
+          "texto": "We suggest using the highest possible inspired oxygen concentration during CPR"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con compresiones continuas se sugieren 10 ventilaciones por minuto, no 25.",
+        "No: con compresiones continuas se ventila sin pausarlas, una vez cada 6 segundos.",
+        "No: se ventila a 10 por minuto durante toda la RCP, con la mayor concentración de oxígeno posible.",
+        "Correcta: con compresiones continuas, 10 ventilaciones por minuto (una cada 6 segundos)."
+      ]
+    },
+    {
+      "id": "mi-c89",
+      "topic": "Reanimación · Trombolíticos durante la RCP (ILCOR 2026)",
+      "difficulty": "residencia",
+      "src": "ilcor26",
+      "vignette": "Mujer de 67 años con paro cardiaco extrahospitalario en asistolia, <span class='hy'>sin sospecha de tromboembolismo pulmonar</span>. Tras 15 minutos de RCP con adrenalina, un colega propone alteplasa «por si es un infarto». ¿Qué dices?",
+      "options": [
+        "No: el trombolítico de rutina en el paro no mejora los desenlaces",
+        "Sí: la alteplasa en todo paro prolongado mejora la supervivencia",
+        "Sí, pero solo si el paro ocurre fuera del hospital, como en este caso",
+        "Sí, combinada con un bolo de hidroxietilalmidón para mantener la perfusión"
+      ],
+      "correct": 0,
+      "whyCorrect": "ILCOR recomienda no administrar trombolíticos de rutina durante la RCP: en los ensayos aleatorizados no mejoraron ningún desenlace crítico ni importante. Esto no reemplaza la recomendación específica para el paro asociado a tromboembolismo pulmonar, que no cambia. Tampoco se usa hidroxietilalmidón durante la RCP ni tras el retorno de la circulación.",
+      "pearl": "Paro sin causa definida: sin trombolítico de rutina y sin líquidos de rutina. El paro por TEP tiene su propia recomendación.",
+      "trap": "Trombolizar a ciegas un paro prolongado «por si acaso».",
+      "cita": [
+        {
+          "donde": "ILCOR 2026 CoSTR, ALS: trombolíticos durante la RCP",
+          "texto": "We recommend against the routine administration of thrombolytics during CPR for the treatment of cardiac arrest (strong recommendation, moderate-certainty evidence)."
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, ALS: trombolíticos durante la RCP",
+          "texto": "This recommendation does not replace the existing treatment recommendation specifically for cardiac arrest associated with pulmonary embolism, which remains unchanged."
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, ALS: líquidos durante la RCP",
+          "texto": "We recommend against the use of hydroxyethyl starch solutions during CPR or after ROSC"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: el trombolítico de rutina durante la RCP no mejoró ningún desenlace crítico ni importante.",
+        "No: ILCOR recomienda no dar trombolíticos de rutina durante la RCP.",
+        "No: la recomendación contra el trombolítico de rutina no depende del lugar del paro.",
+        "No: el hidroxietilalmidón no se usa durante la RCP ni después, y el trombolítico de rutina tampoco."
+      ]
+    },
+    {
+      "id": "mi-c90",
+      "topic": "Reanimación · Ahogamiento: qué hace el rescatista lego (ILCOR 2026)",
+      "difficulty": "residencia",
+      "src": "ilcor26",
+      "vignette": "En un río, unos bañistas sacan del agua a un hombre de 30 años que no respira. Un transeúnte sin entrenamiento en salud va a ayudar mientras llega la ambulancia. ¿Qué secuencia le indicas por teléfono?",
+      "options": [
+        "Cinco ventilaciones de rescate antes de empezar",
+        "Ponerlo de lado para que salga el agua primero",
+        "Maniobra de Heimlich para sacar el agua del pulmón",
+        "Empezar por las compresiones (CAB)"
+      ],
+      "correct": 3,
+      "whyCorrect": "Para el rescatista lego, ILCOR recomienda empezar por las compresiones (CAB) en el adulto con paro por ahogamiento, igual que en cualquier paro. Son los profesionales de la salud y quienes tienen el deber de rescatar (como los salvavidas) quienes deben considerar ventilar primero (ABC). La RCP se inicia y se mantiene hasta tener el DEA listo.",
+      "pearl": "Ahogamiento: lego, compresiones primero; profesional o salvavidas, considerar ventilar primero.",
+      "trap": "Pedirle al lego que ventile primero, una conducta que ILCOR reserva para profesionales y salvavidas.",
+      "cita": [
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS: paro por ahogamiento",
+          "texto": "We recommend a compression-first strategy (CAB) for laypeople providing resuscitation for adults in cardiac arrest caused by drowning (good practice statement)."
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS: paro por ahogamiento",
+          "texto": "Health care professionals and those trained and with a duty to respond to drowning (eg, lifeguards) should consider providing rescue breaths or ventilation first (ABC), before chest compressions (good practice statement)."
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS: paro por ahogamiento",
+          "texto": "We recommend that CPR should be started first and continued until an AED has been obtained and is ready for use for adults and children in cardiac arrest caused by drowning (good practice statement)."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: ventilar primero es para profesionales y salvavidas; el lego empieza por las compresiones.",
+        "No: la RCP se inicia de inmediato y se mantiene hasta tener el DEA listo.",
+        "No: no está entre lo indicado; el lego empieza por las compresiones.",
+        "Correcta: el rescatista lego empieza por las compresiones (CAB), como en cualquier paro."
+      ]
     }
   ],
   "fichas": [

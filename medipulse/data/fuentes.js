@@ -66,6 +66,7 @@ const SOURCES = [
   {id:"eu_hna",   t:"Clinical practice guideline on diagnosis and treatment of hyponatraemia (ESE/ESICM/ERA-EDTA)", r:"European Journal of Endocrinology, 2014", y:2014, k:"guideline", v:"Antigua, pero sigue siendo la guía europea de referencia"},
   {id:"aha_hta25", t:"2025 AHA/ACC Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults (Jones DW et al.)", r:"Circulation, 2025;152:e114–e218", y:2025, k:"guideline"},
   {id:"aha_rcp",  t:"2025 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care", r:"Circulation, 2025", y:2025, k:"guideline"},
+  {id:"ilcor26", t:"2026 International Liaison Committee on Resuscitation Consensus on Science With Treatment Recommendations (resumen de BLS, ALS, PLS, NLS, EIT y primeros auxilios)", r:"Resuscitation, 2026 (Bray JE y cols.)", y:2026, k:"guideline"},
   {id:"acc_ejercicio26", t:"Exercise Prescriptions for Cardiovascular Health in Adults: 2026 ACC Scientific Statement (Myers J et al.)", r:"JACC, 2026", y:2026, k:"guideline"},
   {id:"goldf",    t:"Goldfrank's Toxicologic Emergencies, 12ª edición", r:"McGraw-Hill", y:2024, k:"book"},
   {id:"acin_nac26", t:"Guía de práctica clínica para el diagnóstico y tratamiento de la neumonía adquirida en la comunidad (Asociación Colombiana de Infectología)", r:"Infectio, 2026", y:2026, k:"guideline"},

@@ -2541,6 +2541,40 @@ MP_CONTENIDO.agregar({
         "Correcta: con dificultad en la laringoscopia o la intubación, la presión cricoidea se retira.",
         "No: el vómito activo es una indicación, pero no la única: la dificultad en la laringoscopia también lo es."
       ]
+    },
+    {
+      "id": "cir-c76",
+      "topic": "Quemaduras · Primeros auxilios (ILCOR 2026)",
+      "difficulty": "basica",
+      "src": "ilcor26",
+      "vignette": "Niño de 3 años que se derramó agua hirviendo en el antebrazo hace 5 minutos. La madre llama: tiene hielo, crema dental y una llave de agua. ¿Qué le indicas como primer auxilio?",
+      "options": [
+        "Aplicar hielo directo para enfriar más rápido",
+        "Untar crema dental o aceite sobre la quemadura",
+        "Enfriar ya con agua corriente",
+        "No mojarla y cubrirla con una toalla seca hasta llegar"
+      ],
+      "correct": 2,
+      "whyCorrect": "ILCOR recomienda enfriar de inmediato las quemaduras térmicas con agua corriente, en adultos y niños, como primer auxilio. No pudo recomendar una duración específica porque no se demostraron diferencias entre las duraciones estudiadas. En niños pequeños que se enfrían con agua corriente hay que vigilar signos de enfriamiento excesivo.",
+      "pearl": "Quemadura térmica: agua corriente de inmediato. En el niño pequeño, vigila que no se enfríe de más.",
+      "trap": "Retrasar el enfriamiento o usar remedios caseros.",
+      "cita": [
+        {
+          "donde": "ILCOR 2026 CoSTR, primeros auxilios: enfriamiento de quemaduras",
+          "texto": "We recommend the immediate active cooling of thermal burns using running water as a first aid intervention for adults and children (strong recommendation, very low–certainty evidence)."
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, primeros auxilios: enfriamiento de quemaduras",
+          "texto": "Young children with thermal burns being actively cooled with running water should be monitored for signs and/or symptoms of excessive body cooling (good practice statement)."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: el primer auxilio recomendado es enfriar con agua corriente.",
+        "No: el primer auxilio recomendado es enfriar de inmediato con agua corriente.",
+        "Correcta: agua corriente de inmediato y, en un niño pequeño, vigilar el enfriamiento excesivo.",
+        "No: ILCOR recomienda enfriar de inmediato, no esperar."
+      ]
     }
   ],
   "fichas": [
