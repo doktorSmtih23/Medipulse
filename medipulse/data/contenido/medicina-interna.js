@@ -3631,6 +3631,818 @@ MP_CONTENIDO.agregar({
         "No: no está entre lo indicado; el lego empieza por las compresiones.",
         "Correcta: el rescatista lego empieza por las compresiones (CAB), como en cualquier paro."
       ]
+    },
+    {
+      "id": "mi-c91",
+      "topic": "Reumatología · Arteritis de células gigantes: qué hacer primero",
+      "difficulty": "residencia",
+      "src": "nejm_gca26",
+      "vignette": "Mujer de 74 años con 3 semanas de cefalea temporal nueva, <span class='hy'>claudicación mandibular</span> y VSG de 82 mm/h. Sin síntomas visuales. Mañana puede verla reumatología. ¿Qué haces hoy?",
+      "options": [
+        "Esperar la biopsia para no alterar el resultado",
+        "Prednisona 40–60 mg y ecografía urgente",
+        "Antiinflamatorio y control en un mes si persiste",
+        "Tomografía de cráneo y, si es normal, dar de alta"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con alta sospecha clínica, el reto es confirmar pronto el diagnóstico sin retrasar el tratamiento por el riesgo de complicaciones isquémicas, sobre todo la pérdida visual permanente. EULAR recomienda iniciar prednisona oral a 40–60 mg al día. La prueba de primera línea es la ecografía de las arterias temporales y axilares, con remisión a una clínica de vía rápida en 24 a 48 horas.",
+      "pearl": "Arteritis de células gigantes: con alta sospecha, se trata ya; la ecografía temporal y axilar se hace lo antes posible.",
+      "trap": "Retrasar los glucocorticoides esperando la biopsia o la imagen.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), diagnóstico",
+          "texto": "Given the risk of rapidly evolving ischemic complications, a central clinical challenge is to obtain diagnostic confirmation promptly while ensuring that treatment is not delayed, particularly when clinical suspicion is high."
+        },
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), imagen",
+          "texto": "Current European Alliance of Associations for Rheumatology (EULAR) imaging recommendations support ultrasonography of the temporal and axillary arteries as the first-line test for suspected cranial and large-vessel giant-cell arteritis"
+        },
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), tratamiento",
+          "texto": "advise initiating oral prednisone (or prednisolone) at 40 to 60 mg daily, tapering to 15 to 20 mg daily within 2 to 3 months, and discontinuing glucocorticoid therapy within 12 to 18 months."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con alta sospecha, el tratamiento no se retrasa por el riesgo isquémico.",
+        "Correcta: prednisona 40–60 mg sin retrasar el tratamiento, y ecografía temporal y axilar pronto.",
+        "No: es una sospecha de arteritis con riesgo de pérdida visual; se trata ya con glucocorticoides.",
+        "No: la prueba de primera línea es la ecografía de las arterias temporales y axilares."
+      ]
+    },
+    {
+      "id": "mi-c92",
+      "topic": "Reumatología · Arteritis de células gigantes con amaurosis",
+      "difficulty": "dificil",
+      "src": "nejm_gca26",
+      "vignette": "Hombre de 79 años con sospecha de arteritis de células gigantes que hoy presenta <span class='hy'>amaurosis fugaz</span> del ojo derecho. ¿Qué tratamiento puede considerarse de inmediato?",
+      "options": [
+        "Aspirina sola y valoración por oftalmología",
+        "Prednisona 10 mg al día con reducción rápida",
+        "Metilprednisolona IV 0,25–1 g al día hasta 3 días",
+        "Esperar la ecografía antes de cualquier tratamiento"
+      ],
+      "correct": 2,
+      "whyCorrect": "Ante amaurosis fugaz o pérdida visual aguda atribuible a arteritis activa, puede considerarse metilprednisolona IV inmediata (0,25 a 1 g al día por hasta 3 días), seguida de glucocorticoides orales o IV a dosis altas con reducción posterior.",
+      "pearl": "Arteritis con síntomas visuales: metilprednisolona IV 0,25–1 g al día hasta 3 días, luego dosis altas y reducción.",
+      "trap": "Tratar los síntomas visuales con dosis bajas o esperar la confirmación.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), tratamiento",
+          "texto": "In patients presenting with amaurosis fugax or acute vision loss attributable to active giant-cell arteritis, immediate treatment with intravenous methylprednisolone (0.25 to 1.00 g daily for up to 3 days) may be considered, followed by high-dose oral or intravenous glucocorticoid therapy with subsequent tapering."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con amaurosis fugaz puede considerarse metilprednisolona IV inmediata.",
+        "No: con síntomas visuales se usan dosis altas, no 10 mg.",
+        "Correcta: metilprednisolona IV 0,25 a 1 g al día hasta 3 días, luego dosis altas y reducción.",
+        "No: con síntomas visuales el tratamiento es inmediato."
+      ]
+    },
+    {
+      "id": "mi-c93",
+      "topic": "Reumatología · Ecografía después de iniciar glucocorticoides",
+      "difficulty": "dificil",
+      "src": "nejm_gca26",
+      "vignette": "Mujer de 71 años con sospecha de arteritis de células gigantes que recibe prednisona desde hace <span class='hy'>2 semanas</span>. La ecografía de las arterias temporales sale negativa. ¿Cómo la interpretas?",
+      "options": [
+        "Descarta la arteritis: suspender la prednisona",
+        "Confirma que la arteritis ya está en remisión",
+        "Es negativa porque la técnica fue inadecuada",
+        "No la descarta: baja la sensibilidad"
+      ],
+      "correct": 3,
+      "whyCorrect": "El tratamiento reduce rápido el edema de la pared y la sensibilidad diagnóstica, sobre todo en las arterias craneales; en las extracraneales las alteraciones pueden durar bastante más. En una cohorte, la sensibilidad de la ecografía temporal bajó de 73 % antes de los glucocorticoides a 53 % a los 10 días. Por eso la ecografía se hace lo antes posible y conviene mirar también las axilares.",
+      "pearl": "La ecografía temporal pierde sensibilidad en días con los glucocorticoides; las axilares conservan los hallazgos más tiempo.",
+      "trap": "Suspender el tratamiento por una ecografía temporal negativa hecha tarde.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), imagen",
+          "texto": "Ultrasonography should be performed as early as possible because treatment can rapidly attenuate mural edema and reduce diagnostic sensitivity, particularly in the cranial arteries, whereas abnormalities in the extracranial arteries may persist considerably longer."
+        },
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), imagen",
+          "texto": "In a prospective cohort, the sensitivity of temporal-artery ultrasonography declined from 73% before treatment with glucocorticoids to 53% 10 days after initiation of treatment."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: tras días de tratamiento la ecografía pierde sensibilidad; un negativo no descarta.",
+        "No: un negativo tras el tratamiento puede deberse a la menor sensibilidad, no a remisión.",
+        "No: la explicación esperable es que el tratamiento atenúa el edema y baja la sensibilidad.",
+        "Correcta: el tratamiento atenúa el edema de la pared; un negativo tardío no la descarta."
+      ]
+    },
+    {
+      "id": "mi-c94",
+      "topic": "Reumatología · Arteritis de células gigantes: ahorrar glucocorticoides",
+      "difficulty": "residencia",
+      "src": "nejm_gca26",
+      "vignette": "Mujer de 68 años con arteritis de células gigantes confirmada, diabetes mal controlada y osteoporosis con fractura vertebral. Inicia prednisona. ¿Qué agregas para reducir la exposición a glucocorticoides?",
+      "options": [
+        "Tocilizumab desde el inicio",
+        "Metotrexato en dosis altas como monoterapia",
+        "Nada: la prednisona sola por 3 años es lo indicado",
+        "Cambiar la prednisona por aspirina a dosis altas"
+      ],
+      "correct": 0,
+      "whyCorrect": "El tocilizumab, inhibidor del receptor de la interleucina 6, es eficaz como terapia ahorradora de glucocorticoides y está aprobado para la arteritis. Las guías avalan usarlo con glucocorticoides, incluso al inicio, en pacientes con alto riesgo de recaída o de toxicidad por glucocorticoides, como ella.",
+      "pearl": "Tocilizumab desde el inicio si hay alto riesgo de recaída o de toxicidad por glucocorticoides (diabetes, osteoporosis).",
+      "trap": "Dejar solo prednisona por años en una paciente con alta toxicidad esperable.",
+      "cita": [
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), tratamiento",
+          "texto": "These findings established tocilizumab as an effective glucocorticoid-sparing therapy and led to its approval for the treatment of giant-cell arteritis."
+        },
+        {
+          "donde": "NEJM 2026, arteritis de células gigantes (revisión), tratamiento",
+          "texto": "Current guidelines endorse its use in combination with glucocorticoids, including at disease onset in patients at high risk for relapse or glucocorticoid-related toxic effects."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: con alto riesgo de toxicidad por glucocorticoides, tocilizumab desde el inicio.",
+        "No: el ahorrador de glucocorticoides con eficacia clara y aprobado es el tocilizumab.",
+        "No: con diabetes y osteoporosis, las guías avalan agregar tocilizumab desde el inicio.",
+        "No: el tratamiento se basa en glucocorticoides, con tocilizumab como ahorrador."
+      ]
+    },
+    {
+      "id": "mi-c95",
+      "topic": "Endocrinología · Tamizaje del pie diabético",
+      "difficulty": "basica",
+      "src": "nrdp_pie26",
+      "vignette": "Hombre de 55 años con diabetes tipo 2 desde hace 8 años, sin úlceras previas. En su control anual, ¿cómo evalúas la pérdida de la sensibilidad protectora del pie?",
+      "options": [
+        "Electromiografía de los miembros inferiores",
+        "Monofilamento de 10 g o diapasón de 128 Hz",
+        "Radiografía de ambos pies cada año",
+        "Solo preguntar si tiene dolor"
+      ],
+      "correct": 1,
+      "whyCorrect": "El IWGDF recomienda tamizar los pies una vez al año a todas las personas con diabetes, con una frecuencia posterior según el riesgo. La neuropatía y la pérdida de la sensibilidad protectora se evalúan con el monofilamento de Semmes-Weinstein 5.07 (10 g) o el diapasón de 128 Hz; si no se tienen, sirve el Ipswich Touch Test.",
+      "pearl": "Pie diabético: tamizaje anual con monofilamento de 10 g o diapasón de 128 Hz, y pulsos (con ITB si hace falta).",
+      "trap": "Esperar síntomas: la neuropatía quita el dolor que avisaría.",
+      "cita": [
+        {
+          "donde": "Nat Rev Dis Primers 2026, pie diabético, tamizaje",
+          "texto": "The International Working Group on the Diabetic Foot (IWGDF) recommend annual foot screening for all people with diabetes mellitus, with subsequent screening frequency determined by individual risk"
+        },
+        {
+          "donde": "Nat Rev Dis Primers 2026, pie diabético, tamizaje",
+          "texto": "The IWGDF recommend that DPN and loss of protective sensation be assessed using the Semmes–Weinstein 5.07 (10 g) monofilament and/or the 128-Hz tuning fork"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: el tamizaje usa pruebas simples junto a la cama, como el monofilamento.",
+        "Correcta: monofilamento de 10 g o diapasón de 128 Hz, una vez al año.",
+        "No: el tamizaje de la neuropatía se hace con monofilamento o diapasón.",
+        "No: la sensibilidad protectora se evalúa con monofilamento o diapasón."
+      ]
+    },
+    {
+      "id": "mi-c96",
+      "topic": "Cardiología · Calcio coronario en cero",
+      "difficulty": "residencia",
+      "src": "acc_lip26",
+      "vignette": "Hombre de 52 años con riesgo cardiovascular intermedio, LDL de 140 mg/dL, sin diabetes, no fuma, sin antecedentes familiares de enfermedad prematura. Puntaje de calcio coronario (CAC) <span class='hy'>de 0</span>. ¿Qué es razonable?",
+      "options": [
+        "Estatina de alta intensidad de todas formas",
+        "Ezetimibe más estatina desde el inicio",
+        "Diferir y repetir el CAC en 3–7 años",
+        "Angiotomografía coronaria para buscar placa"
+      ],
+      "correct": 2,
+      "whyCorrect": "Con un CAC de 0 y sin condiciones de mayor riesgo (hipercolesterolemia familiar, LDL mayor de 190, diabetes con más de 40 años, tabaquismo actual o antecedente familiar fuerte de enfermedad prematura), es razonable diferir la estatina y repetir el CAC en 3 a 7 años. Un CAC de 0 se asocia con bajo riesgo de eventos en los siguientes 2 a 3 años.",
+      "pearl": "CAC 0 sin condiciones de alto riesgo: diferir y repetir en 3–7 años. CAC > 0: iniciar; 100–299: meta LDL < 70.",
+      "trap": "Diferir la estatina por un CAC de 0 en un fumador o con LDL mayor de 190.",
+      "cita": [
+        {
+          "donde": "ACC 2026, estrategias hipolipemiantes, tabla 3",
+          "texto": "It is reasonable to defer statin therapy and reassess with repeat CAC in 3-7 years in patients without higher-risk conditions such as FH, LDL-C >190 mg/dL, diabetes and age >40 years, current smoking, or strong family history of premature ASCVD."
+        },
+        {
+          "donde": "ACC 2026, estrategias hipolipemiantes, texto",
+          "texto": "A CAC score of zero is associated with a low risk of events over the next 2 to 3 years and may lead to deferral of pharmacologic LLT in otherwise lower-risk individuals."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con CAC de 0 y sin condiciones de alto riesgo es razonable diferir la estatina.",
+        "No: con CAC de 0 y sin condiciones de alto riesgo es razonable diferir el tratamiento.",
+        "Correcta: diferir la estatina y repetir el CAC en 3 a 7 años.",
+        "No: con CAC de 0 y sin condiciones de alto riesgo, lo razonable es diferir y repetir el CAC."
+      ]
+    },
+    {
+      "id": "mi-c97",
+      "topic": "Cardiología · Calcio coronario de 100 a 299",
+      "difficulty": "residencia",
+      "src": "acc_lip26",
+      "vignette": "Mujer de 58 años sin enfermedad cardiovascular, con riesgo intermedio y LDL de 132 mg/dL. Su puntaje de calcio coronario es de <span class='hy'>180 unidades Agatston</span>. ¿Qué meta propones?",
+      "options": [
+        "Bajar el LDL ≥ 50 % y a menos de 70",
+        "No tratar: el CAC solo sirve si es mayor de 1000",
+        "Reducir el LDL 10 % con dieta y ejercicio",
+        "Meta de LDL menor de 130 mg/dL"
+      ],
+      "correct": 0,
+      "whyCorrect": "Con un CAC mayor de 0 se recomienda iniciar tratamiento hipolipemiante, sobre todo si es de 100 o más. Con un CAC de 100 a 299, la meta es reducir el LDL al menos 50 % y llevarlo a menos de 70 mg/dL (clase 1).",
+      "pearl": "CAC 1–99: reducir LDL 30–49 %, meta < 100. CAC 100–299: ≥ 50 %, meta < 70. CAC ≥ 300: ≥ 50 %, meta < 55.",
+      "trap": "Pensar que un CAC «moderado» no cambia la conducta.",
+      "cita": [
+        {
+          "donde": "ACC 2026, estrategias hipolipemiantes, tabla 3",
+          "texto": "LLT initiation is recommended, particularly if CAC is ≥100 AU or ≥75th percentile."
+        },
+        {
+          "donde": "ACC 2026, estrategias hipolipemiantes, tabla 3",
+          "texto": "CAC 100-299 AU or ≥75th percentile Target ≥50% LDL-C reduction, with goal LDL-C <70 mg/dL."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: CAC de 100 a 299: reducir el LDL al menos 50 % y llevarlo a menos de 70.",
+        "No: con CAC mayor de 0 se recomienda iniciar tratamiento, sobre todo desde 100.",
+        "No: con CAC de 100 a 299 la meta es reducir el LDL al menos 50 %.",
+        "No: con CAC de 100 a 299 la meta es LDL menor de 70 mg/dL."
+      ]
+    },
+    {
+      "id": "mi-c98",
+      "topic": "Neurología · Esclerosis múltiple: criterios de McDonald 2024",
+      "difficulty": "dificil",
+      "src": "cont_emdx26",
+      "vignette": "Mujer de 27 años con neuritis óptica izquierda. La resonancia muestra lesiones típicas periventriculares, yuxtacorticales, infratentoriales y medulares, todas sin realce. No hay otra explicación. ¿Puede diagnosticarse esclerosis múltiple?",
+      "options": [
+        "No: todavía falta demostrar la diseminación en el tiempo",
+        "Sí: lesiones típicas en 4 de 5 localizaciones bastan",
+        "No: los criterios exigen siempre un segundo brote",
+        "Solo si las bandas oligoclonales salen positivas"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con los criterios de McDonald 2024, la diseminación en el tiempo sigue siendo un componente, pero ya no es obligatoria. En un cuadro clínico típico, demostrar lesiones típicas en al menos 4 de las 5 localizaciones (periventricular, cortical o yuxtacortical, infratentorial, médula espinal y nervio óptico) basta para el diagnóstico. La esclerosis múltiple sigue siendo un diagnóstico de exclusión.",
+      "pearl": "McDonald 2024: 5 localizaciones (incluye el nervio óptico); 2 o más = diseminación en el espacio; 4 o más con clínica típica = diagnóstico, sin exigir diseminación en el tiempo.",
+      "trap": "Exigir diseminación en el tiempo como en los criterios de 2017.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, diagnóstico de la esclerosis múltiple, puntos clave",
+          "texto": "Whereas dissemination in time remains a component of the McDonald criteria, its presence is no longer required for diagnosing MS."
+        },
+        {
+          "donde": "Continuum 2026, diagnóstico de la esclerosis múltiple, puntos clave",
+          "texto": "Demonstrating typical lesions in at least four of the five anatomic locations is now considered sufficient to diagnose MS in patients with typical clinical presentations."
+        },
+        {
+          "donde": "Continuum 2026, diagnóstico de la esclerosis múltiple, puntos clave",
+          "texto": "The five typical anatomic locations of MS lesions for fulfillment of dissemination in space are periventricular, cortical or juxtacortical, infratentorial, spinal cord, and optic nerve regions."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en McDonald 2024 la diseminación en el tiempo ya no es obligatoria.",
+        "Correcta: con clínica típica, lesiones típicas en 4 de 5 localizaciones bastan.",
+        "No: con 4 de 5 localizaciones y clínica típica no hace falta otro brote.",
+        "No: con 4 de 5 localizaciones y clínica típica el diagnóstico no depende del LCR."
+      ]
+    },
+    {
+      "id": "mi-c99",
+      "topic": "Neurología · Esclerosis múltiple en mayores de 50 años",
+      "difficulty": "dificil",
+      "src": "cont_emdx26",
+      "vignette": "Hombre de 56 años, hipertenso y fumador, con un cuadro clínico sugestivo de desmielinización. La resonancia muestra lesiones periventriculares y yuxtacorticales. ¿Qué hallazgos se recomiendan con fuerza para confirmar la esclerosis múltiple?",
+      "options": [
+        "Ninguno: con esas lesiones típicas ya se hace el diagnóstico",
+        "Una tomografía de cráneo con contraste",
+        "Lesiones medulares, LCR positivo o signo de la vena central",
+        "Esperar 2 años y repetir la resonancia"
+      ],
+      "correct": 2,
+      "whyCorrect": "En mayores de 50 años, o a cualquier edad con migraña o factores de riesgo vascular importantes, las lesiones de la sustancia blanca pueden ser de otro origen. Por eso, para confirmar la esclerosis múltiple se recomiendan con fuerza las lesiones medulares, el LCR positivo (bandas oligoclonales o índice de cadenas ligeras kappa) y el signo de la vena central (criterio Select-6).",
+      "pearl": "Más de 50 años, migraña o riesgo vascular: confirmar con médula, LCR o signo de la vena central.",
+      "trap": "Diagnosticar esclerosis múltiple con lesiones inespecíficas en un paciente con riesgo vascular.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, diagnóstico de la esclerosis múltiple, puntos clave",
+          "texto": "In patients older than 50 years or at any age with migraine or significant vascular risk factors, findings strongly recommended to confirm MS include spinal cord lesions, positive CSF, and central vein sign Select-6 criteria."
+        },
+        {
+          "donde": "Continuum 2026, diagnóstico de la esclerosis múltiple, puntos clave",
+          "texto": "Either CSF-restricted oligoclonal bands or a positive kappa free light chain index can indicate positive CSF in the 2024 McDonald criteria."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con más de 50 años y riesgo vascular se recomienda confirmar con hallazgos más específicos.",
+        "No: lo que se recomienda es buscar lesiones medulares, LCR positivo o signo de la vena central.",
+        "Correcta: lesiones medulares, LCR positivo o signo de la vena central (Select-6).",
+        "No: se recomienda confirmar con hallazgos específicos, no solo esperar."
+      ]
+    },
+    {
+      "id": "mi-c100",
+      "topic": "Neurología · Esclerosis múltiple: seudobrote",
+      "difficulty": "residencia",
+      "src": "cont_emtx26",
+      "vignette": "Mujer de 34 años con esclerosis múltiple que hace 2 años tuvo una mielitis que se recuperó. Hoy consulta porque reaparecieron las parestesias de ese episodio; tiene fiebre de 38,5 °C y disuria. ¿Qué es lo más probable?",
+      "options": [
+        "Un seudobrote desencadenado por la infección",
+        "Un brote nuevo que requiere metilprednisolona ya",
+        "Progresión primaria de la enfermedad",
+        "Un efecto adverso del tratamiento modificador"
+      ],
+      "correct": 0,
+      "whyCorrect": "Los seudobrotes suelen manifestarse como reaparición de síntomas que ya habían mejorado o desaparecido, y la fiebre o una infección oculta son desencadenantes frecuentes. Un brote verdadero es un evento inflamatorio desmielinizante nuevo, que suele acompañarse de una lesión nueva en la resonancia.",
+      "pearl": "Síntomas viejos que reaparecen con fiebre o infección: seudobrote; trata la causa.",
+      "trap": "Dar pulsos de corticoide a todo empeoramiento con fiebre.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, tratamiento de la esclerosis múltiple, puntos clave",
+          "texto": "MS pseudorelapses typically manifest with recrudescence of one or more symptoms that had previously improved or resolved completely."
+        },
+        {
+          "donde": "Continuum 2026, tratamiento de la esclerosis múltiple",
+          "texto": "Fever or occult infection are common triggers of pseudorelapse, although stress and fatigue can be triggers as well."
+        },
+        {
+          "donde": "Continuum 2026, tratamiento de la esclerosis múltiple, puntos clave",
+          "texto": "Multiple sclerosis (MS) relapses are caused by new focal inflammatory demyelinating events in the central nervous system, such that they are typically accompanied by a new lesion on MRI."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: reaparecen síntomas previos con fiebre e infección: seudobrote.",
+        "No: un brote es un evento desmielinizante nuevo; aquí reaparecen síntomas viejos con fiebre.",
+        "No: la reaparición de un síntoma previo con fiebre orienta a seudobrote.",
+        "No: la fiebre y la infección son desencadenantes frecuentes de seudobrote."
+      ]
+    },
+    {
+      "id": "mi-c101",
+      "topic": "Neurología · Esclerosis múltiple: corticoides en el brote",
+      "difficulty": "residencia",
+      "src": "cont_emtx26",
+      "vignette": "Hombre de 30 años con un brote confirmado de esclerosis múltiple (hipoestesia en una pierna, con lesión nueva en la resonancia). Pregunta si los corticoides evitarán que le quede una secuela. ¿Qué le respondes?",
+      "options": [
+        "Sí: evitan cualquier secuela",
+        "Aceleran la recuperación, no la secuela final",
+        "No sirven y están contraindicados en los brotes agudos",
+        "Solo si se dan por 6 meses"
+      ],
+      "correct": 1,
+      "whyCorrect": "Las dosis altas de corticoides pueden acelerar la recuperación de un brote agudo, pero no parecen mejorar la discapacidad residual. Por eso, los pros y contras de usarlos en un brote confirmado se discuten con cada paciente.",
+      "pearl": "Corticoide en el brote de esclerosis múltiple: recuperación más rápida, igual secuela final. Decisión compartida.",
+      "trap": "Prometer que el corticoide previene la secuela.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, tratamiento de la esclerosis múltiple, puntos clave",
+          "texto": "High-dose corticosteroids can hasten recovery from acute MS relapses, but do not appear to improve residual disability."
+        },
+        {
+          "donde": "Continuum 2026, tratamiento de la esclerosis múltiple",
+          "texto": "Therefore, the pros and cons of using corticosteroids for a confirmed relapse should be discussed with each patient."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: aceleran la recuperación, pero no parecen mejorar la discapacidad residual.",
+        "Correcta: aceleran la recuperación, pero no parecen mejorar la discapacidad residual.",
+        "No: pueden acelerar la recuperación; los pros y contras se discuten con el paciente.",
+        "No: se usan en dosis altas en el brote agudo, no por meses."
+      ]
+    },
+    {
+      "id": "mi-c102",
+      "topic": "Neurología · Tamizaje de aneurismas intracraneales",
+      "difficulty": "residencia",
+      "src": "cont_aneu26",
+      "vignette": "Mujer de 38 años con enfermedad renal poliquística autosómica dominante, asintomática. Pregunta si debe hacerse algún estudio cerebral. ¿Qué le indicas?",
+      "options": [
+        "Nada: solo se estudia si llega a tener cefalea intensa",
+        "Tamizaje de aneurismas intracraneales no rotos",
+        "Electroencefalograma anual",
+        "Punción lumbar diagnóstica"
+      ],
+      "correct": 1,
+      "whyCorrect": "En la enfermedad renal poliquística autosómica dominante se debe tamizar la presencia de aneurismas intracraneales no rotos; también en algunas enfermedades del colágeno como Ehlers-Danlos, Loeys-Dietz y Marfan. La angiotomografía y la angiorresonancia son eficaces para el tamizaje, aunque pierden precisión en aneurismas de 2 mm o menos.",
+      "pearl": "Tamizaje de aneurismas: poliquistosis renal autosómica dominante, Ehlers-Danlos, Loeys-Dietz, Marfan.",
+      "trap": "Esperar síntomas en una paciente con poliquistosis renal.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, aneurismas y malformaciones, puntos clave",
+          "texto": "Patients with autosomal dominant polycystic kidney disease should be screened for unruptured intracranial aneurysms."
+        },
+        {
+          "donde": "Continuum 2026, aneurismas y malformaciones, puntos clave",
+          "texto": "CT angiography (CTA) and magnetic resonance angiography (MRA) are effective screening tools for the presence of cerebral aneurysms; however, their accuracy decreases for aneurysms that are 2 mm or smaller."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en la poliquistosis renal autosómica dominante se tamizan los aneurismas, aunque no haya síntomas.",
+        "Correcta: en la poliquistosis renal se tamizan los aneurismas intracraneales no rotos.",
+        "No: el tamizaje es de aneurismas, con angiotomografía o angiorresonancia.",
+        "No: el tamizaje se hace con angiotomografía o angiorresonancia, no con punción."
+      ]
+    },
+    {
+      "id": "mi-c103",
+      "topic": "Neurología · Malformación arteriovenosa no rota",
+      "difficulty": "dificil",
+      "src": "cont_aneu26",
+      "vignette": "Hombre de 42 años al que, estudiando una cefalea, le encuentran una malformación arteriovenosa cerebral que nunca ha sangrado y no le da síntomas. ¿Qué es lo habitual?",
+      "options": [
+        "Resecarla pronto para evitar que llegue a sangrar",
+        "Embolizarla de rutina en todos los casos",
+        "No tratarla de rutina; decidir en equipo",
+        "Radiocirugía inmediata sin más estudios"
+      ],
+      "correct": 2,
+      "whyCorrect": "En general, las malformaciones arteriovenosas no rotas y asintomáticas no se tratan de rutina. Al diagnosticarla se evalúa su angioarquitectura con angiotomografía y resonancia o angiorresonancia, y el manejo lo orienta un equipo multidisciplinario (neurología, radiología y neurocirugía con experiencia en radiocirugía).",
+      "pearl": "MAV no rota y asintomática: no se trata de rutina; estudio de angioarquitectura y equipo multidisciplinario.",
+      "trap": "Operar toda MAV hallada por casualidad.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, aneurismas y malformaciones, puntos clave",
+          "texto": "Generally, unruptured, asymptomatic arteriovenous malformations are not routinely treated."
+        },
+        {
+          "donde": "Continuum 2026, aneurismas y malformaciones, puntos clave",
+          "texto": "Once an arteriovenous malformation is diagnosed, management recommendations should be guided by a multidisciplinary team of neurologists, radiologists, and neurosurgeons with expertise in stereotactic radiosurgery."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: las MAV no rotas y asintomáticas no se tratan de rutina.",
+        "No: las MAV no rotas y asintomáticas no se tratan de rutina.",
+        "Correcta: no se trata de rutina, y el manejo lo orienta un equipo multidisciplinario.",
+        "No: primero se estudia la angioarquitectura y decide un equipo; no se trata de rutina."
+      ]
+    },
+    {
+      "id": "mi-c104",
+      "topic": "Neurología · Estenosis carotídea sintomática",
+      "difficulty": "dificil",
+      "src": "cont_laa26",
+      "vignette": "Hombre de 74 años con un AIT hace 3 días: debilidad de la mano derecha. Tiene una estenosis de la carótida interna izquierda de 80 %. Ya está estable. ¿Qué revascularización y cuándo?",
+      "options": [
+        "Stent carotídeo dentro de 6 meses",
+        "Endarterectomía entre 2 días y 2 semanas",
+        "Endarterectomía, pero después de 3 meses del evento",
+        "No revascularizar, solo aspirina"
+      ],
+      "correct": 1,
+      "whyCorrect": "El evento está en el territorio de la carótida estenótica. Se revasculariza cuando el paciente está neurológicamente estable, entre 2 días y 2 semanas después del evento. En mayores de 70 años se prefiere la endarterectomía al stent; el stent se prefiere ante oclusión contralateral, cuello de acceso difícil o comorbilidades graves.",
+      "pearl": "Carótida sintomática: revascularizar entre 2 días y 2 semanas; más de 70 años: endarterectomía.",
+      "trap": "Diferir la revascularización meses o elegir stent por la edad.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, aterosclerosis de grandes arterias, puntos clave",
+          "texto": "The timing of carotid revascularization should be once the patient is neurologically stable and 2 days to 2 weeks from the index event."
+        },
+        {
+          "donde": "Continuum 2026, aterosclerosis de grandes arterias, puntos clave",
+          "texto": "Carotid endarterectomy is preferred over carotid stenting for patients older than 70 years."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en mayores de 70 años se prefiere la endarterectomía, y entre 2 días y 2 semanas.",
+        "Correcta: endarterectomía (más de 70 años), entre 2 días y 2 semanas, ya estable.",
+        "No: la revascularización se hace entre 2 días y 2 semanas del evento.",
+        "No: está indicada la revascularización carotídea."
+      ]
+    },
+    {
+      "id": "mi-c105",
+      "topic": "Neurología · Estenosis intracraneal",
+      "difficulty": "dificil",
+      "src": "cont_laa26",
+      "vignette": "Mujer de 63 años con AIT por una estenosis de 80 % de la arteria cerebral media. El residente propone un stent intracraneal de entrada. ¿Qué indicas?",
+      "options": [
+        "Stent de inmediato: es lo más eficaz",
+        "Tratamiento médico intensivo, sin stent de entrada",
+        "Anticoagulación oral con warfarina de forma indefinida",
+        "Endarterectomía de la arteria cerebral media"
+      ],
+      "correct": 1,
+      "whyCorrect": "El stent no se recomienda como primera línea en la estenosis aterosclerótica intracraneal. El manejo es médico: control de la presión (meta menor de 130/80), estatina de alta intensidad para el LDL (con ezetimibe o inhibidor de PCSK9 si no llega a la meta) y doble antiagregación por un tiempo tras un AIT de alto riesgo o un ACV no incapacitante.",
+      "pearl": "Estenosis intracraneal: tratamiento médico intensivo; el stent no es de primera línea.",
+      "trap": "Poner un stent intracraneal como primera opción.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, aterosclerosis de grandes arterias, puntos clave",
+          "texto": "Stenting is not recommended as first-line treatment for patients with intracranial atherosclerotic stenosis."
+        },
+        {
+          "donde": "Continuum 2026, aterosclerosis de grandes arterias, puntos clave",
+          "texto": "Low-density lipoprotein targets can be achieved with high-intensity statins (eg, atorvastatin, rosuvastatin) and in combination with ezetimibe and proprotein convertase subtilisin/ kexin type 9 inhibitors in patients who do not reach their low-density lipoprotein goal."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: el stent no se recomienda como primera línea en la estenosis intracraneal.",
+        "Correcta: tratamiento médico intensivo; el stent no es de primera línea.",
+        "No: el manejo es médico con antiagregación, estatina y control de la presión.",
+        "No: no es una arteria que se trate con endarterectomía; el manejo es médico."
+      ]
+    },
+    {
+      "id": "mi-c106",
+      "topic": "Neurología · Hemorragia lobar y fibrilación auricular",
+      "difficulty": "dificil",
+      "src": "cont_hic26",
+      "vignette": "Hombre de 78 años que tuvo una hemorragia intracerebral lobar; la resonancia muestra microsangrados lobares y siderosis cortical superficial. Tiene fibrilación auricular. ¿Qué haces con la anticoagulación?",
+      "options": [
+        "Reiniciar warfarina a las 4 semanas",
+        "Evitarla; considerar cierre de la orejuela",
+        "Usar warfarina más aspirina",
+        "Anticoagular solo si la presión está controlada"
+      ],
+      "correct": 1,
+      "whyCorrect": "Con hemorragia intracerebral y angiopatía amiloide cerebral, o con sus marcadores en la imagen (siderosis cortical superficial y microsangrados lobares), se debe evitar la anticoagulación. El cierre de la orejuela izquierda no es inferior a la anticoagulación para reducir el riesgo de ACV y puede ser una opción.",
+      "pearl": "Hemorragia lobar con marcadores de angiopatía amiloide: no anticoagular; considerar cierre de la orejuela.",
+      "trap": "Reanudar la warfarina en un paciente con angiopatía amiloide.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, hemorragia intracerebral, puntos clave",
+          "texto": "Anticoagulation should be avoided in all patients with ICH and CAA or with imaging markers of CAA, such as cortical superficial siderosis and lobar microbleeds."
+        },
+        {
+          "donde": "Continuum 2026, hemorragia intracerebral, puntos clave",
+          "texto": "Left atrial appendage occlusion is noninferior to anticoagulation in reducing stroke risk and may be a potential option for patients with ICH."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con marcadores de angiopatía amiloide se debe evitar la anticoagulación.",
+        "Correcta: evitar la anticoagulación; el cierre de la orejuela puede ser una opción.",
+        "No: se evita la anticoagulación, y más aún combinada.",
+        "No: con angiopatía amiloide se evita la anticoagulación en todos los casos."
+      ]
+    },
+    {
+      "id": "mi-c107",
+      "topic": "Neurología · Antiagregante tras una hemorragia intracerebral",
+      "difficulty": "dificil",
+      "src": "cont_hic26",
+      "vignette": "Mujer de 66 años con infarto agudo de miocardio hace 2 años, que tuvo una hemorragia intracerebral profunda hace 2 meses. Suspendieron la aspirina. ¿Qué haces?",
+      "options": [
+        "No volver a dar ningún antitrombótico",
+        "Reanudar un solo antiagregante",
+        "Doble antiagregación por el infarto",
+        "Warfarina en lugar de aspirina"
+      ],
+      "correct": 1,
+      "whyCorrect": "Los ensayos RESTART y E-START mostraron que reanudar un solo antiagregante en sobrevivientes de hemorragia intracerebral no aumenta el riesgo de nueva hemorragia y puede reducir los eventos isquémicos mayores. Tras una hemorragia profunda, el riesgo de eventos isquémicos es mayor que el de recurrencia hemorrágica.",
+      "pearl": "Sobreviviente de hemorragia intracerebral con indicación: reanudar un solo antiagregante (RESTART).",
+      "trap": "Dejar sin antiagregante a un paciente de alto riesgo isquémico por miedo a sangrar.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, hemorragia intracerebral, puntos clave",
+          "texto": "The RESTART and E-START trials have demonstrated that resuming a single antiplatelet agent in survivors of ICH, including those undergoing evacuation surgeries, does not increase ICH risk and may reduce the burden of major ischemic and thrombotic cardiovascular events."
+        },
+        {
+          "donde": "Continuum 2026, hemorragia intracerebral, puntos clave",
+          "texto": "recurrent ischemic risk is higher than ICH risk in patients with deep ICHs."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: reanudar un solo antiagregante no aumentó la hemorragia y puede reducir eventos isquémicos.",
+        "Correcta: un solo antiagregante no aumentó la recurrencia hemorrágica en RESTART.",
+        "No: lo estudiado y seguro fue un solo antiagregante.",
+        "No: lo que se reanuda es un solo antiagregante."
+      ]
+    },
+    {
+      "id": "mi-c108",
+      "topic": "Neurología · Guillain-Barré temprano con estudios normales",
+      "difficulty": "residencia",
+      "src": "cont_gbs26",
+      "vignette": "Mujer de 35 años con debilidad ascendente desde hace 3 días tras una gastroenteritis. Los reflejos aquilianos aún están presentes; la proteína del LCR es normal y la neuroconducción también. ¿Qué concluyes?",
+      "options": [
+        "Se descarta Guillain-Barré por el LCR normal",
+        "Los estudios pueden ser normales al inicio",
+        "Es una miopatía porque hay reflejos",
+        "Repetir la punción en 6 meses"
+      ],
+      "correct": 1,
+      "whyCorrect": "En la fase temprana del Guillain-Barré los reflejos todavía pueden estar presentes y la disociación albuminocitológica y la neuroconducción pueden ser normales. Los estudios apoyan el diagnóstico, pero normales al inicio no lo descartan.",
+      "pearl": "Guillain-Barré temprano: reflejos presentes, LCR y neuroconducción normales no lo descartan.",
+      "trap": "Descartar Guillain-Barré por un LCR normal en los primeros días.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, enfoque de la neuropatía, puntos clave",
+          "texto": "In the early phase of Guillain-Barré syndrome, muscle stretch reflexes may still be present, and albumin-cytologic dissociation and nerve conduction studies may be normal."
+        },
+        {
+          "donde": "Continuum 2026, Guillain-Barré, puntos clave",
+          "texto": "Electrodiagnostic studies may be normal early in the course of GBS."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: al inicio el LCR puede ser normal; no lo descarta.",
+        "Correcta: al inicio, reflejos, LCR y neuroconducción pueden ser normales.",
+        "No: al inicio del Guillain-Barré los reflejos todavía pueden estar presentes.",
+        "No: un LCR normal temprano no descarta, y no se esperan 6 meses."
+      ]
+    },
+    {
+      "id": "mi-c109",
+      "topic": "Neurología · Síndrome de Miller Fisher",
+      "difficulty": "residencia",
+      "src": "cont_gbs26",
+      "vignette": "Hombre de 45 años con oftalmoplejía, ataxia y arreflexia de inicio subagudo, 10 días después de una infección respiratoria. ¿Qué anticuerpo se espera y cuál es el pronóstico?",
+      "options": [
+        "Anti-acetilcolina; mala recuperación",
+        "Anti-GQ1b; recuperación usualmente buena",
+        "Anti-NMDA; obliga a buscar y resecar un teratoma",
+        "Anti-MOG; recaídas frecuentes"
+      ],
+      "correct": 1,
+      "whyCorrect": "Es la tríada del síndrome de Miller Fisher. Los anticuerpos anti-GQ1b están presentes en 85 a 90 % de estos pacientes, y la recuperación suele ser buena incluso sin tratamiento.",
+      "pearl": "Miller Fisher: oftalmoplejía, ataxia y arreflexia; anti-GQ1b en 85–90 %; buen pronóstico.",
+      "trap": "Confundirlo con miastenia o encefalitis autoinmune.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, Guillain-Barré, puntos clave",
+          "texto": "GQ1b antibodies are present in approximately 85% to 90% of patients with Miller Fisher syndrome, and recovery is usually good even without treatment."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en el Miller Fisher el anticuerpo típico es el anti-GQ1b, con buena recuperación.",
+        "Correcta: anti-GQ1b en 85 a 90 %, y la recuperación suele ser buena.",
+        "No: el anticuerpo del Miller Fisher es el anti-GQ1b.",
+        "No: el anticuerpo del Miller Fisher es el anti-GQ1b."
+      ]
+    },
+    {
+      "id": "mi-c110",
+      "topic": "Neurología · Estudio de la neuropatía diabética típica",
+      "difficulty": "residencia",
+      "src": "cont_ndiab26",
+      "vignette": "Hombre de 60 años con diabetes de 12 años y una polineuropatía sensitiva simétrica, distal y de progresión lenta. ¿Qué estudios bastan en esta presentación típica?",
+      "options": [
+        "Hemograma, metabólico, B12 y electroforesis con inmunofijación",
+        "Biopsia de nervio sural de entrada, para tipificar la neuropatía",
+        "Resonancia de toda la columna",
+        "Ninguno: es diabética y no hay que estudiar nada"
+      ],
+      "correct": 0,
+      "whyCorrect": "En la presentación típica de la neuropatía diabética periférica, el estudio puede limitarse a hemograma, panel metabólico completo, vitamina B12 y electroforesis de proteínas séricas con inmunofijación. Los rasgos atípicos (inicio agudo, debilidad temprana, asimetría, arreflexia difusa o disautonomía grave temprana) obligan a buscar otra causa.",
+      "pearl": "Neuropatía diabética típica: hemograma, metabólico, B12 y electroforesis con inmunofijación. Si es atípica, ampliar.",
+      "trap": "Atribuir toda neuropatía a la diabetes sin pedir la B12 ni la inmunofijación.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, neuropatías diabéticas, puntos clave",
+          "texto": "For typical presentations of diabetic peripheral neuropathy, the evaluation can be limited to complete blood count, comprehensive metabolic panel, vitamin B12 levels, and serum protein electrophoresis with immunofixation."
+        },
+        {
+          "donde": "Continuum 2026, neuropatías diabéticas, puntos clave",
+          "texto": "Atypical clinical features of diabetic peripheral neuropathy include acute or subacute onset, early or severe extremity weakness, marked asymmetry, diffuse areflexia, nonlength dependency, and severe early autonomic dysfunction."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: en la presentación típica basta con hemograma, metabólico, B12 y electroforesis con inmunofijación.",
+        "No: en la presentación típica el estudio puede limitarse a laboratorio básico.",
+        "No: en la presentación típica basta con hemograma, metabólico, B12 y electroforesis.",
+        "No: aun en la típica se piden hemograma, metabólico, B12 y electroforesis con inmunofijación."
+      ]
+    },
+    {
+      "id": "mi-c111",
+      "topic": "Endocrinología · Neuropatía autonómica cardiaca",
+      "difficulty": "residencia",
+      "src": "cont_ndiab26",
+      "vignette": "Mujer de 52 años con diabetes tipo 1 de 20 años. Quieres buscar neuropatía autonómica cardiaca. ¿Cuál es una de sus manifestaciones más tempranas?",
+      "options": [
+        "Bradicardia sinusal de reposo persistente y sintomática",
+        "Menor variabilidad de la frecuencia cardiaca",
+        "Bloqueo auriculoventricular completo",
+        "Fibrilación auricular paroxística"
+      ],
+      "correct": 1,
+      "whyCorrect": "La neuropatía autonómica cardiaca es una complicación frecuente y peligrosa de la diabetes que se reconoce poco. Una de sus manifestaciones más tempranas es la reducción de la variabilidad de la frecuencia cardiaca, que puede evaluarse en un electrocardiograma estándar.",
+      "pearl": "Neuropatía autonómica cardiaca: temprano, baja la variabilidad de la frecuencia cardiaca (se ve en el ECG).",
+      "trap": "Esperar la hipotensión ortostática para pensar en ella.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, neuropatías diabéticas, puntos clave",
+          "texto": "Cardiac autonomic neuropathy is a prevalent and dangerous complication of diabetes that remains underrecognized."
+        },
+        {
+          "donde": "Continuum 2026, neuropatías diabéticas, puntos clave",
+          "texto": "One of the earliest manifestations of cardiac autonomic neuropathy is reduced heart rate variability, which can be assessed on standard electrocardiography."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: una de las manifestaciones más tempranas es la menor variabilidad de la frecuencia cardiaca.",
+        "Correcta: la menor variabilidad de la frecuencia cardiaca, visible en el ECG estándar.",
+        "No: lo temprano es la menor variabilidad de la frecuencia cardiaca.",
+        "No: lo temprano es la menor variabilidad de la frecuencia cardiaca."
+      ]
+    },
+    {
+      "id": "mi-c112",
+      "topic": "Neurología · Hallazgos de la edad en el examen",
+      "difficulty": "residencia",
+      "src": "cont_nap26",
+      "vignette": "Hombre de 84 años, sin diabetes ni síntomas, al que en un control encuentran disminución de la vibración en los dedos de los pies y aquilianos disminuidos. ¿Qué concluyes?",
+      "options": [
+        "Tiene una polineuropatía y requiere una electromiografía pronto",
+        "Pueden ser hallazgos de la edad, no necesariamente anormales",
+        "Debe iniciar pregabalina de inmediato",
+        "Es una mielopatía hasta demostrar lo contrario"
+      ],
+      "correct": 1,
+      "whyCorrect": "La pérdida de la vibración, el extensor corto de los dedos pequeño y los reflejos aquilianos disminuidos no son necesariamente anormales en personas mayores. En un paciente asintomático no indican por sí solos una neuropatía.",
+      "pearl": "En el anciano, vibración y aquilianos disminuidos pueden ser normales para la edad.",
+      "trap": "Diagnosticar polineuropatía en un anciano asintomático por esos dos hallazgos.",
+      "cita": [
+        {
+          "donde": "Continuum 2026, enfoque de la neuropatía, puntos clave",
+          "texto": "Loss of vibration sense, reduced extensor digitorum brevis size, and decreased ankle reflexes are not necessarily abnormal findings in older patients."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en mayores, esos hallazgos no son necesariamente anormales.",
+        "Correcta: en personas mayores no son necesariamente anormales.",
+        "No: no hay síntomas que tratar, y los hallazgos pueden ser de la edad.",
+        "No: en mayores, esos hallazgos pueden ser normales; no orientan por sí solos a mielopatía."
+      ]
+    },
+    {
+      "id": "mi-c113",
+      "topic": "Infectología · Diagnóstico de tuberculosis pulmonar",
+      "difficulty": "residencia",
+      "src": "who_tbdx",
+      "vignette": "Hombre de 45 años con tos de 4 semanas, fiebre vespertina y pérdida de peso. VIH negativo. ¿Qué prueba inicial recomienda la OMS en el esputo?",
+      "options": [
+        "Baciloscopia seriada de 3 muestras",
+        "Cultivo en medio sólido y esperar el resultado",
+        "Prueba molecular automatizada (NAAT)",
+        "Prueba de tuberculina"
+      ],
+      "correct": 2,
+      "whyCorrect": "En adultos y adolescentes con signos o síntomas de tuberculosis pulmonar, la OMS recomienda como prueba inicial una prueba molecular automatizada de baja complejidad en muestras respiratorias, en lugar de la baciloscopia o el cultivo. En los casos confirmados, esa misma prueba sirve como inicial para detectar resistencia a la rifampicina.",
+      "pearl": "Tuberculosis: la prueba molecular (como Xpert) reemplaza a la baciloscopia como prueba inicial y detecta resistencia a rifampicina.",
+      "trap": "Pedir baciloscopia como prueba inicial donde hay prueba molecular.",
+      "cita": [
+        {
+          "donde": "OMS, guías consolidadas de tuberculosis, módulo 3: diagnóstico, recomendación 1",
+          "texto": "For adults and adolescents with signs or symptoms of TB or who screened positive1 for pulmonary TB, low-complexity automated NAATs should be used on respiratory samples as initial diagnostic tests for TB, rather than smear microscopy or culture."
+        },
+        {
+          "donde": "OMS, guías consolidadas de tuberculosis, módulo 3: diagnóstico, recomendación 2",
+          "texto": "For people with bacteriologically confirmed TB , low-complexity automated NAATs should be used on respiratory samples as initial tests for detection of resistance to rifampicin, rather than culture-based DST."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: la OMS recomienda la prueba molecular en lugar de la baciloscopia como prueba inicial.",
+        "No: la prueba molecular se prefiere al cultivo como prueba inicial.",
+        "Correcta: prueba molecular automatizada en muestras respiratorias como prueba inicial.",
+        "No: la tuberculina detecta infección, no diagnostica la enfermedad activa."
+      ]
+    },
+    {
+      "id": "mi-c114",
+      "topic": "Infectología · Tuberculosis en VIH avanzado",
+      "difficulty": "dificil",
+      "src": "who_tbdx",
+      "vignette": "Hombre de 33 años con VIH avanzado (CD4 de 60), tos, fiebre y aspecto de enfermo grave. ¿Qué estrategia diagnóstica inicial recomienda la OMS?",
+      "options": [
+        "Solo prueba molecular en esputo",
+        "Solo baciloscopia en esputo",
+        "Prueba molecular en esputo más LF-LAM en orina",
+        "Esperar a que suba el CD4 con la terapia para estudiar"
+      ],
+      "correct": 2,
+      "whyCorrect": "En adultos y adolescentes con VIH que tienen signos o síntomas de tuberculosis, están gravemente enfermos o tienen enfermedad avanzada, la OMS recomienda hacer al mismo tiempo la prueba molecular en muestras respiratorias y el LF-LAM en orina, en lugar de la prueba molecular sola.",
+      "pearl": "VIH avanzado o grave con sospecha de tuberculosis: prueba molecular en esputo y LF-LAM en orina, a la vez.",
+      "trap": "Confiar solo en el esputo en un paciente con VIH avanzado.",
+      "cita": [
+        {
+          "donde": "OMS, guías consolidadas de tuberculosis, módulo 3: diagnóstico, recomendación 7",
+          "texto": "For adults and adolescents with HIV who have signs or symptoms of TB, screen positive for TB, are seriously ill or have advanced HIV disease, concurrent testing using low-complexity automated NAATs on respiratory samples and LF-LAM on urine should be used as the initial diagnostic strategy for diagnosing TB, rather than low-complexity automated NAATs on respiratory samples alone."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en VIH avanzado se recomienda agregar el LF-LAM en orina a la prueba molecular.",
+        "No: la estrategia es prueba molecular en esputo más LF-LAM en orina.",
+        "Correcta: prueba molecular en esputo y LF-LAM en orina, al mismo tiempo.",
+        "No: se estudia de inmediato con prueba molecular y LF-LAM."
+      ]
     }
   ],
   "fichas": [

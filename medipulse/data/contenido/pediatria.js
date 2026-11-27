@@ -2852,6 +2852,36 @@ MP_CONTENIDO.agregar({
         "No: está estable, con saturación de 96 % y tolera la vía oral: se trata en casa.",
         "No: en el niño escolar ambulatorio, la amoxicilina es el tratamiento de elección."
       ]
+    },
+    {
+      "id": "ped-c84",
+      "topic": "Infectología pediátrica · Muestras en el niño con sospecha de TB",
+      "difficulty": "dificil",
+      "src": "who_tbdx",
+      "vignette": "Escolar de 6 años, VIH negativo, que lleva 3 semanas con tos, febrícula y adelgazamiento; convive con su abuelo bacilífero y <span class='hy'>no logra expectorar</span>. ¿Qué muestras pides para confirmar según la OMS?",
+      "options": [
+        "Solo baciloscopia seriada del jugo gástrico, en ayunas",
+        "Molecular en muestra respiratoria y en heces",
+        "Solo radiografía de tórax",
+        "Tuberculina y esperar el resultado"
+      ],
+      "correct": 1,
+      "whyCorrect": "En niños VIH negativos o con estado desconocido con signos o síntomas de tuberculosis pulmonar, la OMS recomienda hacer al mismo tiempo la prueba molecular en una muestra respiratoria y en heces, en lugar de solo una de las dos.",
+      "pearl": "Tuberculosis en el niño: prueba molecular en muestra respiratoria y en heces, a la vez.",
+      "trap": "Depender solo de la baciloscopia en un niño que no expectora.",
+      "cita": [
+        {
+          "donde": "OMS, guías consolidadas de tuberculosis, módulo 3: diagnóstico, recomendación 8",
+          "texto": "For children who are HIV-negative or have an unknown HIV status, who have signs or symptoms or screen positive for pulmonary TB, concurrent testing using low-complexity automated NAATs on respiratory and stool samples should be used as the initial diagnostic strategy for diagnosing TB, rather than low-complexity automated NAATs on respiratory or stool samples alone."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: la estrategia inicial es la prueba molecular en muestra respiratoria y en heces.",
+        "Correcta: prueba molecular en muestra respiratoria y en heces, al mismo tiempo.",
+        "No: la confirmación es con prueba molecular en muestra respiratoria y heces.",
+        "No: la tuberculina no diagnostica enfermedad activa; se usa la prueba molecular."
+      ]
     }
   ],
   "fichas": [
