@@ -95,7 +95,7 @@ function renderDiag(){
     <p class="xs muted" style="margin:0">${d}</p>${cuerpo}</div>`;
   const listo = `<span class="tag" style="background:var(--ok-soft);color:var(--ok)">✓ Hecha</span>`;
   box.innerHTML = (p1.hechos.length ? diagPerfilHTML() : "") + `
-    <div class="card stack"><p class="small" style="margin:0">Antes de recomendarte qué estudiar, necesito conocerte: qué sabes, cómo estudias y cómo razonas un caso. Puedes hacerlo por partes y seguir otro día; todo queda guardado en tu dispositivo.</p>
+    <div class="card stack"><p class="small" style="margin:0">${p1.fin ? "<b>Las partes de tu diagnóstico.</b> Puedes revisar tu resultado en cada una; todo queda guardado en tu dispositivo." : "Antes de recomendarte qué estudiar, necesito conocerte: qué sabes, cómo estudias y cómo razonas un caso. Puedes hacerlo por partes y seguir otro día; todo queda guardado en tu dispositivo."}</p>
       <div class="track" aria-label="Avance de la parte 1"><i style="width:${Math.round(p.hechos / p.total * 100)}%;background:var(--accent)"></i></div>
       <p class="xs muted" style="margin:0">Parte 1: ${p.hechos} de ${p.total} casos.${p.total < DIAG_POR_AREA * SPECS.length ? ` Por ahora hay ${p.total}: algunas áreas aún tienen pocos casos.` : ""}</p>
       ${modoPrueba() ? `<p class="xs" style="margin:0;color:var(--warn)">🧪 Modo de prueba: los candados están desactivados en este dispositivo. <button class="linkbtn" id="diagPruebaOff">Apagarlo</button></p>` : ""}</div>
@@ -109,6 +109,9 @@ function renderDiag(){
       D.p3 && D.p3.fin ? listo : "", `<button class="btn sm" data-dpart="p3">${D.p3 && D.p3.fin ? "Ver tu resultado" : D.p3 && D.p3.caso ? "Seguir" : "Elegir el caso"}</button>`)}`;
   box.querySelectorAll("[data-dbl]").forEach(b => b.onclick = () => diagEmpezarBloque(+b.dataset.dbl));
   box.querySelectorAll("[data-dpart]").forEach(b => b.onclick = () => { D.vista = b.dataset.dpart; save(); renderDiag(); scrollTo(0, 0); });
+  $("#diagFoco") && ($("#diagFoco").onclick = diagEmpezarFoco);
+  $("#diagFocoPlan") && ($("#diagFocoPlan").onclick = diagEmpezarFoco);
+  $("#diagPeligro") && ($("#diagPeligro").onclick = diagEmpezarPeligro);
   $("#diagPruebaOff") && ($("#diagPruebaOff").onclick = () => { setModoPrueba(false); toast("Modo de prueba apagado"); renderDiag(); });
 }
 
@@ -273,10 +276,10 @@ function diagPerfil(){
   const ids = new Set(p1.ids.map(String)), primera = {};
   (S.resp || []).forEach(r => { if (ids.has(String(r.id)) && r.d >= p1.ini && !primera[r.id]) primera[r.id] = r; });
   const area = {}, tipo = {}, celda = {}, add = (o, k, ok) => { const x = o[k] || (o[k] = {n: 0, ok: 0}); x.n++; if (ok) x.ok++; };
-  let n = 0, ok = 0, peligro = 0, fragil = 0;
+  let n = 0, ok = 0, peligro = 0, fragil = 0; const peligroIds = [];
   Object.values(primera).forEach(r => { const q = qById(r.id); if (!q) return; const k = qKind(q);
     add(area, q.specialty, r.ok); add(tipo, k, r.ok); add(celda, q.specialty + "|" + k, r.ok); n++; if (r.ok) ok++;
-    if (r.c) { const c = clasifConfianza(r.ok, r.c).k; if (c === "peligro") peligro++; if (c === "fragil") fragil++; } });
+    if (r.c) { const c = clasifConfianza(r.ok, r.c).k; if (c === "peligro") { peligro++; peligroIds.push(String(r.id)); } if (c === "fragil") fragil++; } });
   // Lo más débil primero (con al menos 2 casos para no sacar conclusiones de uno).
   const pct = x => x.ok / x.n;
   const areas = SPECS.filter(s => area[s]).sort((a, b) => pct(area[a]) - pct(area[b]));
@@ -291,7 +294,7 @@ function diagPerfil(){
   let falta = medias - ideal.reduce((a, x) => a + x.u, 0);
   ideal.slice().sort((a, b) => b.r - a.r).forEach(x => { if (falta > 0) { x.u++; falta--; } });
   const plan = ideal.map(x => ({s: x.s, h: x.u / 2})).sort((a, b) => b.h - a.h);
-  return {n, ok, area, tipo, celda, areas, tipos, peligro, fragil, horas, plan, examen: p2.examen, control: p1.fin ? p1.fin + 35 * DAY : 0};
+  return {n, ok, area, tipo, celda, areas, tipos, peligro, peligroIds, fragil, horas, plan, examen: p2.examen, control: p1.fin ? p1.fin + 35 * DAY : 0};
 }
 // Con la parte 1 hecha, lo que falta del diagnóstico (partes 2 y 3), para recordarlo en Hoy.
 function diagFaltan(){
@@ -308,23 +311,59 @@ function diagFocoHoy(){
   const qs = orden(delTipo).concat(orden(pool.filter(q => !delTipo.includes(q)))).slice(0, 10);
   return {area, tipo, qs};
 }
+// Sesiones que lanza el informe: el foco del día y los errores con seguridad.
+function diagEmpezarFoco(){
+  const f = diagFocoHoy(); if (!f || !f.qs.length) return;
+  startSession({label: "Foco del día", tag: "norm", stages: [{name: `${QMETODO[f.tipo].t} · ${f.area}`, items: f.qs.map(q => ({t: "q", id: q.id}))}]});
+}
+function diagEmpezarPeligro(){
+  const P = diagPerfil(), ids = P ? P.peligroIds.filter(id => qById(id)) : []; if (!ids.length) return;
+  startSession({label: "Errores con seguridad", tag: "norm", stages: [{name: "🚨 Errores con seguridad", items: ids.map(id => ({t: "q", id}))}]});
+}
 function diagPerfilHTML(){
   const P = diagPerfil(); if (!P) return "";
   const D = S.diag, R2 = D.p2 && D.p2.fin ? diagP2Resultado() : null, R3 = D.p3 && D.p3.fin ? diagP3Resultado() : null;
+  const fin = !!(D.p1 && D.p1.fin), foco = fin ? diagFocoHoy() : null;
   const color = x => !x ? "var(--subtle)" : x.ok / x.n >= 0.7 ? "var(--ok-soft)" : x.ok / x.n >= 0.5 ? "var(--warn-soft)" : "var(--bad-soft)";
   const pctT = x => x ? `${Math.round(x.ok / x.n * 100)} %` : "—";
   const tiposK = ["conducta", "diagnostico", "datos", "critica"];
   const mapa = `<table class="tabla mapa small"><tr><td></td>${tiposK.map(k => `<td class="xs" style="text-align:center">${esc(QMETODO[k].t)}</td>`).join("")}</tr>
     ${SPECS.map(s => `<tr><td class="xs">${esc(s)}</td>${tiposK.map(k => { const x = P.celda[s + "|" + k]; return `<td style="background:${color(x)};text-align:center">${x ? `${x.ok}/${x.n}` : "·"}</td>`; }).join("")}</tr>`).join("")}</table>`;
-  return `<div class="card stack" id="diagPerfil"><h3 style="font-size:16px">📊 Tu perfil</h3>
-    <p class="small" style="margin:0">${P.ok} de ${P.n} casos correctos (${Math.round(P.ok / P.n * 100)} %).${P.n < 30 ? " Con pocos casos el perfil orienta; se afina al terminar." : " Son 10 casos por área: tómalo como orientación."}</p>
-    ${P.areas.length ? `<p class="small" style="margin:0">Tu área más débil: <b>${esc(P.areas[0])}</b> (${pctT(P.area[P.areas[0]])})${P.tipos.length ? ` · tipo de pregunta: <b>${esc(QMETODO[P.tipos[0]].t)}</b> (${pctT(P.tipo[P.tipos[0]])})` : ""}.</p>` : ""}
-    ${plegable("diagmapa", `<span class="small">Ver el mapa por área y tipo de pregunta</span>`, mapa + `<p class="xs muted" style="margin:6px 0 0">Verde ≥ 70 % · amarillo 50–69 % · rojo &lt; 50 % · gris: sin casos.</p>`)}
-    ${P.peligro ? `<div class="note trap" style="margin:0"><b class="small">🚨 ${P.peligro} error${P.peligro === 1 ? "" : "es"} con seguridad</b><div class="xs" style="margin-top:2px">Respondiste convencido y estaba mal: son conceptos mal aprendidos. Ya están en tus repasos; corrígelos primero.</div></div>` : ""}
-    ${R2 ? `<p class="small" style="margin:0">📋 Tus hábitos suman <b>${R2.pct} %</b> de lo recomendado.${R2.cambiar[0] ? ` Lo primero que conviene cambiar: ${esc(R2.cambiar[0].tip)}` : ""}</p>` : `<p class="xs muted" style="margin:0">📋 Haz la parte 2 para sumar tus hábitos al plan.</p>`}
-    ${R3 ? `<p class="small" style="margin:0">🩺 Juicio clínico: encontraste ${R3.senal} de ${R3.nSenal} datos clave y marcaste ${R3.ruido} de ruido.${R3.ancla ? " Te anclaste en el distractor: practica preguntarte si cada dato cambia la conducta." : ""}</p>` : `<p class="xs muted" style="margin:0">🩺 Haz la parte 3 para medir cómo filtras y decides.</p>`}
-    <h3 style="font-size:16px;margin-top:6px">🗓️ Tu plan semanal</h3>
-    <p class="xs muted" style="margin:0">${P.horas} horas por semana${D.p2 && D.p2.resp && D.p2.resp.horas != null ? " (lo que dijiste en la parte 2)" : " (estimado: responde la parte 2 para ajustarlo)"}, repartidas según tu brecha.${P.examen === 0 ? " Tu examen es en menos de un mes: prioriza repasos y simulacros sobre temas nuevos." : ""}</p>
-    ${P.plan.map(x => `<div class="row small" style="gap:8px"><span class="dot" style="background:${SPEC_COLOR[x.s]}"></span><span style="flex:1">${esc(x.s)}</span><b>${String(x.h).replace(".", ",")} h</b></div>`).join("")}
-    <p class="xs muted" style="margin:0">Cada día, Hoy te propone el foco: tu tipo de pregunta más débil en tu área más débil.</p></div>`;
+  const pc = Math.round(P.ok / P.n * 100);
+  const veredicto = !fin ? "Resultado parcial" : pc >= 80 ? "Buen punto de partida" : pc >= 60 ? "Base aceptable, con brechas claras" : "Hay mucho por ganar";
+  // Hallazgos: lo más urgente primero, cada uno con lo que puedes hacer ya.
+  const hall = [];
+  if (P.peligro) hall.push({c: "bad", ico: "🚨", t: `${P.peligro} error${P.peligro === 1 ? "" : "es"} con seguridad`,
+    d: "Respondiste convencido y estaba mal: son conceptos mal aprendidos. Ya están en tus repasos; corrígelos primero.",
+    b: P.peligroIds.length ? `<button class="btn sm" id="diagPeligro">Repasarlos ahora</button>` : ""});
+  if (P.areas.length) hall.push({c: "warn", ico: "🎯", t: `Tu área más débil: <b>${esc(P.areas[0])}</b> (${pctT(P.area[P.areas[0]])})`,
+    d: P.tipos.length ? `El tipo de pregunta que más fallas: <b>${esc(QMETODO[P.tipos[0]].t)}</b> (${pctT(P.tipo[P.tipos[0]])}).` : "",
+    b: foco && foco.qs.length ? `<button class="btn sm primary" id="diagFoco">Practicar ese foco · ${foco.qs.length} casos</button>` : ""});
+  hall.push(R2 ? {c: "", ico: "📋", t: `Tus hábitos suman <b>${R2.pct} %</b> de lo recomendado`, d: R2.cambiar[0] ? `Lo primero que conviene cambiar: ${esc(R2.cambiar[0].tip)}` : "",
+      b: `<button class="btn sm ghost" data-dpart="p2">Ver tus hábitos</button>`}
+    : {c: "", ico: "📋", t: "Falta: cómo estudias", d: "Haz la parte 2 para sumar tus hábitos al plan.", b: `<button class="btn sm" data-dpart="p2">Hacer la parte 2</button>`});
+  hall.push(R3 ? {c: "", ico: "🩺", t: `Juicio clínico: encontraste <b>${R3.senal} de ${R3.nSenal}</b> datos clave y marcaste ${R3.ruido} de ruido`,
+      d: R3.ancla ? "Te anclaste en el distractor: practica preguntarte si cada dato cambia la conducta." : "", b: `<button class="btn sm ghost" data-dpart="p3">Ver tu caso</button>`}
+    : {c: "", ico: "🩺", t: "Falta: juicio clínico", d: "Haz la parte 3 para medir cómo filtras y decides.", b: `<button class="btn sm" data-dpart="p3">Hacer la parte 3</button>`});
+  const maxH = Math.max(...P.plan.map(x => x.h));
+  return `<div id="diagPerfil" class="stack">
+    <div class="card stack diaghero">
+      <div class="row" style="gap:14px;align-items:center;flex-wrap:nowrap">
+        <div class="diagscore" style="--p:${pc}" role="img" aria-label="${pc} % de aciertos"><b>${pc} %</b><span>aciertos</span></div>
+        <div style="flex:1;min-width:0"><div class="xs muted">Resultado</div><h2 class="diagtit">${veredicto}</h2>
+          <p class="small" style="margin:0">${P.ok} de ${P.n} casos correctos.${P.n < 30 ? " Con pocos casos el perfil orienta; se afina al terminar." : " Son 10 casos por área: tómalo como orientación."}</p></div>
+      </div>
+      <h3 class="diagsec" style="margin-top:10px">Hallazgos</h3>
+      <div class="stack" style="gap:8px">${hall.map(h => `<div class="hallazgo ${h.c}"><div class="row" style="gap:10px;align-items:flex-start;flex-wrap:nowrap"><span class="hico" aria-hidden="true">${h.ico}</span>
+        <div style="flex:1;min-width:0"><div class="small">${h.t}</div>${h.d ? `<div class="xs" style="margin-top:3px">${h.d}</div>` : ""}${h.b ? `<div style="margin-top:8px">${h.b}</div>` : ""}</div></div></div>`).join("")}</div>
+      ${plegable("diagmapa", `<span class="small">Ver el mapa por área y tipo de pregunta</span>`, mapa + `<p class="xs muted" style="margin:6px 0 0">Verde ≥ 70 % · amarillo 50–69 % · rojo &lt; 50 % · gris: sin casos.</p>`)}
+    </div>
+    <div class="card stack diagplan">
+      <h3 class="diagsec" style="margin:0">🗓️ Tu plan semanal</h3>
+      <p class="xs muted" style="margin:0">${P.horas} horas por semana${D.p2 && D.p2.resp && D.p2.resp.horas != null ? " (lo que dijiste en la parte 2)" : " (estimado: responde la parte 2 para ajustarlo)"}, repartidas según tu brecha.${P.examen === 0 ? " Tu examen es en menos de un mes: prioriza repasos y simulacros sobre temas nuevos." : ""}</p>
+      ${P.plan.map(x => `<div class="planfila"><div class="row small" style="gap:8px;flex-wrap:nowrap"><span class="dot" style="background:${SPEC_COLOR[x.s]}"></span><span style="flex:1;min-width:0">${esc(x.s)}</span>${P.area[x.s] ? `<span class="xs muted">acierto ${pctT(P.area[x.s])}</span>` : ""}<b style="min-width:42px;text-align:right">${String(x.h).replace(".", ",")} h</b></div>
+        <div class="track"><i style="width:${Math.round(x.h / maxH * 100)}%;background:${SPEC_COLOR[x.s]}"></i></div></div>`).join("")}
+      <p class="xs muted" style="margin:4px 0 0">Cada día, Hoy te propone el foco: tu tipo de pregunta más débil en tu área más débil.</p>
+      ${foco && foco.qs.length ? `<button class="btn primary block" id="diagFocoPlan">Empezar hoy: ${esc(QMETODO[foco.tipo].t)} · ${esc(foco.area)}</button>` : ""}
+    </div></div>`;
 }

@@ -585,3 +585,21 @@ body.en-sesion{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 .rc-cifra{padding:0 4px;border-radius:4px}
 .rc-cifra.ok{background:var(--ok-soft,#e3f1e6);color:var(--ok)}
 .rc-cifra.mal{background:var(--bad-soft);color:var(--bad)}
+
+/* Informe del diagnóstico: lo primero que se ve al terminar */
+.diaghero{border:2px solid var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--panel) 140px)}
+.diagscore{--p:0;flex:none;width:92px;height:92px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p) * 1%),var(--subtle) 0);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.diagscore::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--panel)}
+.diagscore b,.diagscore span{position:relative}
+.diagscore b{font-size:22px;line-height:1.1;font-variant-numeric:tabular-nums}
+.diagscore span{font-size:11px;color:var(--muted)}
+.diagtit{font-size:20px;line-height:1.2;margin:2px 0 4px}
+.diagsec{font-size:15px;margin:6px 0 0}
+.hallazgo{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:10px 12px;background:var(--panel)}
+.hallazgo.bad{border-left-color:var(--bad);background:var(--bad-soft)}
+.hallazgo.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.hico{font-size:20px;line-height:1.1}
+.diagplan{border:2px solid var(--border)}
+.planfila{display:grid;gap:5px}
+.diagplan .track{height:10px;background:var(--subtle);border-radius:99px;overflow:hidden}
+.diagplan .track i{display:block;height:100%;border-radius:99px}
