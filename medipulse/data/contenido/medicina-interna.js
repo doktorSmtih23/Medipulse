@@ -2476,7 +2476,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c59",
       "topic": "Neumología · EPOC: diagnóstico con espirometría",
       "difficulty": "basica",
-      "src": "gold26",
+      "src": "gold27",
       "vignette": "Hombre de 61 años, fumador de 35 paquetes-año, con disnea de esfuerzo y tos con expectoración desde hace 2 años. Espirometría: <span class='hy'>FEV1/FVC 0,64 antes y 0,66 después del broncodilatador</span>. ¿Qué concluyes?",
       "options": [
         "Es asma: mejoró algo con el broncodilatador",
@@ -2490,15 +2490,15 @@ MP_CONTENIDO.agregar({
       "trap": "Pedir una tomografía para «confirmar» o llamar asma a cualquier mejoría con el broncodilatador.",
       "cita": [
         {
-          "donde": "GOLD 2026 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
+          "donde": "GOLD 2027 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
           "texto": "spirometry with post-bronchodilator FEV1/FVC < 0.7 is mandatory to establish the diagnosis of COPD."
         },
         {
-          "donde": "GOLD 2026 Pocket Guide, Definition and overview · Diagnostic criteria",
+          "donde": "GOLD 2027 Pocket Guide, Definition and overview · Diagnostic criteria",
           "texto": "the presence of non- fully reversible airflow obstruction (i.e., FEV1/FVC < 0.7 post-bronchodilation) measured by spirometry confirms the diagnosis of COPD."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
         "No: la relación sigue por debajo de 0,7 después del broncodilatador: la obstrucción no es totalmente reversible.",
         "Correcta: con clínica y exposición, FEV1/FVC posbroncodilatador menor de 0,7 confirma la EPOC.",
@@ -2510,7 +2510,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c60",
       "topic": "Neumología · EPOC: espirometría prebroncodilatador normal",
       "difficulty": "residencia",
-      "src": "gold26",
+      "src": "gold27",
       "vignette": "Mujer de 55 años, exfumadora, con tos crónica. En la espirometría <span class='hy'>prebroncodilatador la relación FEV1/FVC es 0,79</span>. El técnico pregunta si debe repetirla después del broncodilatador para descartar EPOC. ¿Qué respondes?",
       "options": [
         "No hace falta: una prebroncodilatador normal descarta la EPOC",
@@ -2524,15 +2524,15 @@ MP_CONTENIDO.agregar({
       "trap": "Creer que siempre hace falta la posbroncodilatador, también para descartar.",
       "cita": [
         {
-          "donde": "GOLD 2026 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
+          "donde": "GOLD 2027 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
           "texto": "Pre-bronchodilator spirometry can be used to exclude a diagnosis of COPD."
         },
         {
-          "donde": "GOLD 2026 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
+          "donde": "GOLD 2027 Pocket Guide, Diagnosis, assessment and monitoring · Key points",
           "texto": "spirometry with post-bronchodilator FEV1/FVC < 0.7 is mandatory to establish the diagnosis of COPD."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
         "Correcta: una espirometría prebroncodilatador sin obstrucción sirve para descartar la EPOC.",
         "No: la posbroncodilatador es obligatoria para confirmar; para descartar basta la prebroncodilatador.",
@@ -2578,7 +2578,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c62",
       "topic": "Neumología · EPOC: tamizaje de cáncer de pulmón",
       "difficulty": "residencia",
-      "src": "gold26",
+      "src": "gold27",
       "vignette": "Mujer de 63 años de zona rural, <span class='hy'>nunca fumadora</span>, con EPOC por <span class='hy'>humo de leña</span>. Leyó que las personas con EPOC deben hacerse una tomografía cada año. ¿Qué le recomiendas sobre el tamizaje de cáncer de pulmón?",
       "options": [
         "Tomografía de baja dosis cada año, como a los fumadores",
@@ -2592,11 +2592,11 @@ MP_CONTENIDO.agregar({
       "trap": "Extender el tamizaje a toda EPOC, sin mirar si hubo tabaquismo.",
       "cita": [
         {
-          "donde": "GOLD 2026 Pocket Guide, COPD and multimorbidity · Key points",
+          "donde": "GOLD 2027 Pocket Guide, COPD and multimorbidity · Key points",
           "texto": "An annual LDCT scan is recommended for lung cancer screening in patients with a smoking history, similar to recommendations for the general population. Screening for lung cancer in patients with COPD not associated with tobacco smoking is not recommended due to lack of evidence."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
         "No: la tomografía anual se recomienda a quienes tienen antecedente de tabaquismo; ella nunca fumó.",
         "No: el método de tamizaje que menciona GOLD es la tomografía de baja dosis, y en su caso no se recomienda tamizar.",
@@ -2608,7 +2608,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c63",
       "topic": "Neumología · EPOC: cigarrillo electrónico para dejar de fumar",
       "difficulty": "basica",
-      "src": "gold26",
+      "src": "gold27",
       "vignette": "Hombre de 57 años con EPOC que fuma 15 cigarrillos al día y quiere dejar de fumar. Pregunta si <span class='hy'>pasarse al cigarrillo electrónico</span> es la mejor forma. ¿Qué le ofreces?",
       "options": [
         "Cigarrillo electrónico: es la ayuda más segura y efectiva",
@@ -2622,15 +2622,15 @@ MP_CONTENIDO.agregar({
       "trap": "Recomendar el vapeo como si fuera un tratamiento probado.",
       "cita": [
         {
-          "donde": "GOLD 2026 Pocket Guide, Prevention and management of COPD · Key points",
+          "donde": "GOLD 2027 Pocket Guide, Prevention and management of COPD · Key points",
           "texto": "Nicotine replacement and pharmacotherapy reliably increase long-term smoking abstinence rates. Legislative smoking bans and counseling, delivered by healthcare professionals, improve quit rates. There is no evidence to support the effectiveness and safety of e-cigarettes as a smoking cessation aid at present."
         },
         {
-          "donde": "GOLD 2026 Pocket Guide, Prevention and management of COPD · Key points",
+          "donde": "GOLD 2027 Pocket Guide, Prevention and management of COPD · Key points",
           "texto": "All individuals who smoke should be strongly encouraged and supported to quit."
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
         "No: GOLD dice que no hay evidencia de su efectividad ni de su seguridad para dejar de fumar.",
         "Correcta: consejería con reemplazo de nicotina o farmacoterapia aumentan la abstinencia a largo plazo.",
@@ -2642,7 +2642,7 @@ MP_CONTENIDO.agregar({
       "id": "mi-c64",
       "topic": "Neumología · EPOC: definición de exacerbación",
       "difficulty": "residencia",
-      "src": "gold26",
+      "src": "gold27",
       "vignette": "Mujer de 70 años con EPOC que consulta por <span class='hy'>más disnea, más tos y esputo purulento desde hace 4 días</span>, con taquipnea. ¿Qué es lo correcto sobre este cuadro?",
       "options": [
         "No es exacerbación: debe durar más de 14 días",
@@ -2656,15 +2656,15 @@ MP_CONTENIDO.agregar({
       "trap": "Atribuir todo a una exacerbación bacteriana sin buscar neumonía u otras causas.",
       "cita": [
         {
-          "donde": "GOLD 2026 Pocket Guide, Management of exacerbations · Key points",
+          "donde": "GOLD 2027 Pocket Guide, Management of exacerbations · Key points",
           "texto": "An exacerbation of COPD is an acute event with symptoms worsening over a few days (up to 14 days) and characterized by increased dyspnea and/or cough and sputum that may be accompanied by tachypnea and/or tachycardia."
         },
         {
-          "donde": "GOLD 2026 Pocket Guide, Management of exacerbations · Key points",
+          "donde": "GOLD 2027 Pocket Guide, Management of exacerbations · Key points",
           "texto": "Although COPD exacerbations are most frequently caused by infections (viral, bacteria) or environmental pollutants, other conditions can mimic or worsen exacerbation-like symptoms. These include pneumonia,"
         }
       ],
-      "verificado": "2026-11-26",
+      "verificado": "2026-11-27",
       "porOpcion": [
         "No: el empeoramiento de la exacerbación ocurre en pocos días, hasta 14; no debe durar más.",
         "Correcta: cumple la definición, y otras condiciones como la neumonía pueden simularla o empeorarla.",
@@ -3304,6 +3304,180 @@ MP_CONTENIDO.agregar({
         "No: tampoco se recomiendan dosis orales adicionales para bajarla de forma aguda.",
         "Correcta: sin daño agudo, no se baja de forma aguda; en el 40 a 50 % la presión cae sola.",
         "No: sin daño agudo a órgano no hay emergencia que justifique una infusión IV."
+      ]
+    },
+    {
+      "id": "mi-c82",
+      "topic": "Neumología · EPOC: grupo ABE y tratamiento inicial",
+      "difficulty": "residencia",
+      "src": "gold27",
+      "vignette": "Hombre de 66 años, exfumador, con EPOC confirmada por espirometría (FEV1 58 % del predicho) y sin tratamiento de mantenimiento. Tiene disnea mMRC 2 y <span class='hy'>ninguna exacerbación en el último año</span>. Según GOLD 2027, ¿cuál es su grupo y cómo inicias el tratamiento?",
+      "options": [
+        "Grupo B: LABA más LAMA, idealmente en un solo inhalador",
+        "Grupo A: un LAMA solo, porque no ha tenido exacerbaciones",
+        "Grupo E: LABA más LAMA más corticoide inhalado desde el inicio",
+        "GOLD 2: solo un broncodilatador de acción corta a demanda"
+      ],
+      "correct": 0,
+      "whyCorrect": "Sin exacerbaciones moderadas ni graves en el último año y con mMRC de 2 o más, es grupo B. En GOLD 2027, el grupo B inicia con LABA más LAMA; un solo inhalador puede ser más cómodo y eficaz, y mejora la adherencia. El tratamiento inicial se decide por las exacerbaciones y los síntomas; el FEV1 da el grado (GOLD 2: 50 a 79 %).",
+      "pearl": "ABE: E = una o más exacerbaciones moderadas o graves en el último año. Sin ellas: A (mMRC 0–1, CAAT < 10) o B (mMRC ≥ 2, CAAT ≥ 10). GOLD 2027 usa el CAAT.",
+      "trap": "Darle un LAMA solo porque no ha tenido exacerbaciones: con mMRC 2 es grupo B, no A.",
+      "cita": [
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 2.14: herramienta de evaluación ABE",
+          "texto": "One or more (≥ 1) moderate or severe exacerbations in the previous year → E · Zero (0) moderate or severe exacerbations in the previous year → A: mMRC 0-1, CAAT < 10 · B: mMRC ≥ 2, CAAT ≥ 10"
+        },
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.8: tratamiento farmacológico inicial",
+          "texto": "GROUP B LABA + LAMA* … *Single inhaler therapy may be more convenient and effective than multiple inhalers; single inhalers improve adherence to treatment."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: sin exacerbaciones y con mMRC 2: grupo B, que inicia con LABA más LAMA.",
+        "No: con mMRC de 2 o más es grupo B, no A; el LAMA solo es para el grupo A.",
+        "No: sin exacerbaciones en el último año no es grupo E.",
+        "No: el grupo B inicia con LABA más LAMA de mantenimiento."
+      ]
+    },
+    {
+      "id": "mi-c83",
+      "topic": "Neumología · EPOC: primer inhalador del grupo E",
+      "difficulty": "residencia",
+      "src": "gold27",
+      "vignette": "Mujer de 71 años, recién diagnosticada de EPOC y sin inhaladores de mantenimiento, que en los 12 meses previos requirió prednisolona dos veces por <span class='hy'>crisis moderadas tratadas en casa</span>. Su hemograma muestra <span class='hy'>350 eosinófilos por microlitro</span>. ¿Con qué inicias según GOLD 2027?",
+      "options": [
+        "Un LAMA solo y reevaluarla en la consulta de 3 meses",
+        "LABA más corticoide inhalado, sin agregar un LAMA",
+        "Ningún inhalador fijo hasta una tercera exacerbación",
+        "LABA más LAMA, y considerar agregar el corticoide"
+      ],
+      "correct": 3,
+      "whyCorrect": "Con una o más exacerbaciones moderadas o graves en el último año es grupo E. GOLD 2027 inicia con LABA más LAMA y, con eosinófilos de 300 o más, considera la triple terapia (LABA más LAMA más corticoide inhalado). Entre los factores para agregar el corticoide, los eosinófilos de 300 o más lo favorecen fuertemente.",
+      "pearl": "Grupo E: LABA + LAMA; considerar LABA + LAMA + ICS si los eosinófilos son ≥ 300.",
+      "trap": "Iniciar con LABA más corticoide inhalado sin LAMA, o esperar más exacerbaciones.",
+      "cita": [
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 2.14: herramienta de evaluación ABE",
+          "texto": "One or more (≥ 1) moderate or severe exacerbations in the previous year → E · Zero (0) moderate or severe exacerbations in the previous year → A: mMRC 0-1, CAAT < 10 · B: mMRC ≥ 2, CAAT ≥ 10"
+        },
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.8: tratamiento farmacológico inicial",
+          "texto": "GROUP E LABA + LAMA* consider LABA+LAMA+ICS* if blood eos ≥ 300"
+        },
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.10: factores para iniciar corticoide inhalado",
+          "texto": "STRONGLY FAVORS USE … Blood eosinophils ≥ 300 cells/µL"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con una o más exacerbaciones moderadas es grupo E, que inicia con LABA más LAMA.",
+        "No: el grupo E inicia con LABA más LAMA, no con LABA más corticoide.",
+        "No: una o más exacerbaciones moderadas o graves ya la ubican en el grupo E.",
+        "Correcta: grupo E: LABA más LAMA y, con eosinófilos de 300 o más, considerar la triple."
+      ]
+    },
+    {
+      "id": "mi-c84",
+      "topic": "Neumología · EPOC: escalar sin corticoide inhalado",
+      "difficulty": "dificil",
+      "src": "gold27",
+      "vignette": "Exfumador de 69 años que, pese a usar bien su LABA con LAMA, ha tenido <span class='hy'>dos crisis moderadas</span> que obligaron a antibiótico y esteroide oral desde enero. Recuento eosinofílico: <span class='hy'>80/µL</span>. FEV1 42 %, sin expectoración crónica. ¿Siguiente paso según GOLD 2027?",
+      "options": [
+        "Agregar corticoide inhalado: tuvo dos exacerbaciones",
+        "Agregar roflumilast, aunque no tenga bronquitis crónica",
+        "Considerar azitromicina; el corticoide no le conviene",
+        "Iniciar dupilumab por las exacerbaciones repetidas"
+      ],
+      "correct": 2,
+      "whyCorrect": "Con eosinófilos menores de 100, el seguimiento de GOLD 2027 no lleva al corticoide inhalado sino a roflumilast o azitromicina. El roflumilast es para FEV1 menor de 50 % con bronquitis crónica, que él no tiene; la azitromicina se prefiere en exfumadores. Los eosinófilos menores de 100 están en contra del corticoide inhalado.",
+      "pearl": "Exacerbaciones con LABA + LAMA: eosinófilos ≥ 100 → triple; < 100 → roflumilast (FEV1 < 50 % y bronquitis crónica) o azitromicina (de preferencia en exfumadores).",
+      "trap": "Agregar corticoide inhalado por las exacerbaciones sin mirar los eosinófilos.",
+      "cita": [
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.9: tratamiento farmacológico de seguimiento",
+          "texto": "LABA + LAMA → if blood eos < 100 → Roflumilast if FEV1 < 50% & chronic bronchitis · Azithromycin preferentially in former smokers; if blood eos ≥ 100 → LABA + LAMA + ICS"
+        },
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.10: factores para iniciar corticoide inhalado",
+          "texto": "AGAINST USE: Repeated pneumonia events · Blood eosinophils < 100 cells/µL · History of mycobacterial infection"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con eosinófilos menores de 100, el corticoide inhalado está en contra.",
+        "No: el roflumilast es para FEV1 menor de 50 % con bronquitis crónica, y no la tiene.",
+        "Correcta: eosinófilos menores de 100: azitromicina, de preferencia en exfumadores, y no corticoide.",
+        "No: el biológico es para quien ya está en triple terapia y tiene eosinófilos de 300 o más."
+      ]
+    },
+    {
+      "id": "mi-c85",
+      "topic": "Neumología · EPOC: terapia biológica",
+      "difficulty": "dificil",
+      "src": "gold27",
+      "vignette": "Paciente de 64 años con triple terapia inhalada y buena adherencia, que sigue con tos productiva diaria. Este año presentó <span class='hy'>dos agudizaciones moderadas</span>; eosinofilia sanguínea de <span class='hy'>420/µL</span>. ¿Qué agregarías según GOLD 2027?",
+      "options": [
+        "Retirar el corticoide inhalado por la falta de respuesta",
+        "Un biológico como dupilumab, por la bronquitis crónica",
+        "Cambiar a LABA más LAMA y repetir los eosinófilos",
+        "Agregar teofilina como siguiente escalón de terapia"
+      ],
+      "correct": 1,
+      "whyCorrect": "Ya está en triple terapia, tuvo dos exacerbaciones moderadas y tiene eosinófilos de 300 o más: GOLD 2027 lleva a terapia biológica, con dupilumab si hay bronquitis crónica (tos productiva crónica por 3 meses en el último año) o mepolizumab. Con eosinófilos de 300 o más, retirar el corticoide se asocia más a nuevas exacerbaciones.",
+      "pearl": "Biológicos en EPOC: en triple terapia, con 2 exacerbaciones moderadas o 1 grave y eosinófilos ≥ 300: dupilumab (si hay bronquitis crónica) o mepolizumab.",
+      "trap": "Retirar el corticoide inhalado con eosinófilos altos.",
+      "cita": [
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.9: tratamiento farmacológico de seguimiento",
+          "texto": "LABA + LAMA + ICS → if two moderate or one severe exacerbation AND if blood eos ≥ 300 → Biologic Therapy: Dupilumab (if chronic bronchitis) · Mepolizumab"
+        },
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.9, nota c",
+          "texto": "Patient-reported history of chronic bronchitis (chronic productive cough) for 3 months in the year up to screening, absent other known causes."
+        },
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.9, nota final",
+          "texto": "In case of blood eosinophils ≥ 300 cells/µl de-escalation is more likely to be associated with the development of exacerbations."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con eosinófilos de 300 o más, retirar el corticoide se asocia más a nuevas exacerbaciones.",
+        "Correcta: triple terapia, dos exacerbaciones moderadas y eosinófilos de 300 o más: biológico.",
+        "No: bajar a LABA más LAMA con eosinófilos de 300 o más se asocia más a exacerbaciones.",
+        "No: con dos exacerbaciones y eosinófilos de 300 o más, el siguiente paso es un biológico."
+      ]
+    },
+    {
+      "id": "mi-c86",
+      "topic": "Neumología · EPOC: disnea persistente",
+      "difficulty": "residencia",
+      "src": "gold27",
+      "vignette": "Hombre de 72 años con EPOC en tratamiento con LABA más LAMA y buena técnica. <span class='hy'>No ha tenido exacerbaciones</span>, pero tiene disnea persistente que lo limita. ¿Qué plantea GOLD 2027?",
+      "options": [
+        "Revisar el inhalador, rehabilitar y buscar otras causas",
+        "Agregar un corticoide inhalado para mejorar la disnea diaria",
+        "Iniciar azitromicina diaria y mantenerla por tiempo indefinido",
+        "Pasar a un solo broncodilatador para comparar"
+      ],
+      "correct": 0,
+      "whyCorrect": "La disnea persistente con LABA más LAMA no se maneja agregando corticoide inhalado. GOLD 2027 propone considerar cambiar de dispositivo o de moléculas, implementar o intensificar el tratamiento no farmacológico, considerar agregar ensifentrina e investigar y tratar otras causas de disnea. El corticoide, el roflumilast y la azitromicina están en la rama de las exacerbaciones.",
+      "pearl": "Disnea persistente en LABA + LAMA: dispositivo, tratamiento no farmacológico, ensifentrina y otras causas. Exacerbaciones: corticoide inhalado, roflumilast o azitromicina según los eosinófilos.",
+      "trap": "Agregar corticoide inhalado por la disnea en un paciente sin exacerbaciones.",
+      "cita": [
+        {
+          "donde": "GOLD 2027 Pocket Guide, figura 3.9: tratamiento farmacológico de seguimiento",
+          "texto": "IF PERSISTENT DYSPNEA … Consider switching inhaler device or molecules · Implement or escalate non-pharmacological treatment(s) · Consider adding ensifentrine · Investigate (and treat) other causes of dyspnea"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: revisar el dispositivo, intensificar lo no farmacológico, considerar ensifentrina y buscar otras causas.",
+        "No: en la rama de disnea persistente no se agrega corticoide inhalado.",
+        "No: la azitromicina está en la rama de exacerbaciones, y él no las tiene.",
+        "No: la rama de disnea parte de LABA más LAMA y no propone volver a uno solo."
       ]
     }
   ],
