@@ -363,7 +363,8 @@ function rcArmar(perfiles, n, sug){
 
 // ---------- pantalla ----------
 let rcBorrador = null;   // patrón leído y aún sin guardar (se muestra antes de guardar)
-let rcSugTxt = "", rcSel = [], rcN = 50;   // lo elegido para el simulacro (no hace falta guardarlo)
+let rcSugTxt = "", rcSel = [], rcN = 50;
+let rcEstiloElegido = null;   // estilo con que abre el Taller   // lo elegido para el simulacro (no hace falta guardarlo)
 const rcNombre = r => [r.univ || "Examen", r.anio].filter(Boolean).join(" ");
 function rcPatronHTML(p, total){
   const pct = c => Math.round(c / Math.max(1, p.n) * 100);
@@ -422,7 +423,10 @@ function renderRecons(){
   const sel = L.filter(r => rcSel.includes(r.id)), nRc = rcN;
   const sug = rcSugerencias(rcSugTxt);
   // Primero la acción: con reconstrucciones guardadas, lo primero es armar el simulacro; subir otra y la explicación van plegadas.
-  const explica = plegable("rcexp", `<span class="small">¿Cómo funciona?</span>`, `<p class="xs muted" style="margin:4px 0 0">Sube la <b>reconstrucción</b> de un examen (lo que recuerdan quienes lo presentaron). MediPulse mide cómo pregunta esa universidad (áreas, tipo de pregunta, casos clínicos o directas) y arma un simulacro con casos de tu banco en esas proporciones. Sus respuestas no se usan: dependen de la memoria. El documento no sale de tu dispositivo; solo se guarda el patrón.</p>`);
+  const explica = plegable("rcexp", `<span class="small">¿Cómo funciona?</span>`, `<p class="xs muted" style="margin:4px 0 0">Sube la <b>reconstrucción</b> de un examen (lo que recuerdan quienes lo presentaron). MediPulse mide cómo pregunta esa universidad (áreas, tipo de pregunta, casos clínicos o directas) y lo usa para dos cosas:</p>
+    <ul class="xs muted" style="margin:4px 0 0;padding-left:18px"><li><b>Simulacro:</b> casos de tu banco en esas proporciones.</li>
+      <li><b>Crear preguntas con ese estilo:</b> desde tus PDF, la IA imita la forma de ese examen; el contenido y la respuesta salen solo de tu documento.</li></ul>
+    <p class="xs muted" style="margin:4px 0 0">Las respuestas de la reconstrucción no se usan: dependen de la memoria. El documento no sale de tu dispositivo; solo se guarda el patrón.</p>`);
   const subirHTML = `<div class="row" style="gap:8px;flex-wrap:wrap">
       <label class="btn sm">📄 Subir PDF<input type="file" id="rcPdf" accept="application/pdf" hidden></label>
       <button class="btn sm" id="rcPegar">📋 Pegar texto</button></div>
@@ -439,10 +443,15 @@ function renderRecons(){
       ${hecho ? `<button class="btn primary block" id="rcGo" style="margin-top:10px" ${sel.length ? "" : "disabled"}>⏱️ Simulacro estilo ${esc(sel.length ? [...new Set(sel.map(r => r.univ || "examen"))].join(" + ") : "…")} · ${nRc} casos · ${fmt(nRc * 72)}</button>`
         : `<div style="margin-top:10px">${diagCandadoHTML("El simulacro estilo universidad")}</div>`}
       <p class="xs muted" id="rcNotas" style="margin:6px 0 0"></p>
+      ${sel.length ? `<button class="btn block" id="rcCrear" style="margin-top:8px">✍️ Crear preguntas estilo ${esc(rcNombre(sel[0]))} desde un PDF</button>` : ""}
       <div style="margin-top:6px">${plegable("rclista", `<b class="small">Tus reconstrucciones</b> <span class="xs muted">${L.length}</span>`, L.map(r => `
         <div class="card" style="padding:10px 12px;margin-top:8px"><div class="row"><b class="small">${esc(rcNombre(r))}</b><span class="xs muted" style="margin-left:6px">${r.total ? r.total + " en el examen" : r.perfil.n + " leídas"}</span><div class="spacer"></div><button class="linkbtn xs" data-rcdel="${r.id}">🗑️ Quitar</button></div>
           ${plegable("rcp" + r.id, `<span class="xs">Ver el patrón</span>`, rcPatronHTML(r.perfil, r.total))}
-          ${plegable("rcn" + r.id, `<span class="xs">✍️ Notas de estilo${r.notas ? " ✓" : ""}</span>`, rcNotasHTML(r.notas, `data-rcnotas="${r.id}"`))}</div>`).join(""))}</div>` : "";
+          ${plegable("rcn" + r.id, `<span class="xs">✍️ Notas de estilo${r.notas ? " ✓" : ""}</span>`, rcNotasHTML(r.notas, `data-rcnotas="${r.id}"`))}
+          ${plegable("rce" + r.id, `<span class="xs">🏷️ Universidad y año${r.univ ? "" : " · falta la universidad"}</span>`, `<div class="grid2" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+            <label class="fld"><span>Universidad</span><input data-rcuniv="${r.id}" style="width:100%;min-width:0" value="${esc(r.univ || "")}" placeholder="UdeA, Univalle…"></label>
+            <label class="fld"><span>Año y periodo</span><input data-rcanio="${r.id}" style="width:100%;min-width:0" value="${esc(r.anio || "")}" placeholder="2025-1"></label></div>
+            <button class="btn sm" data-rcedit="${r.id}" style="margin-top:6px">Guardar</button>`)}</div>`).join(""))}</div>` : "";
   box.innerHTML = `<h3 style="font-size:16px">🏛️ Simulacro estilo universidad</h3>
     <p class="xs muted" style="margin:4px 0 6px">${L.length ? "Arma un simulacro con las proporciones de un examen real." : "Mide cómo pregunta una universidad y arma un simulacro igual."}</p>
     ${rcBorrador ? subir : L.length ? simulacro + `<div style="margin-top:6px">${subir}</div>` : subir}
@@ -471,6 +480,12 @@ function renderRecons(){
     rcSel = rcSel.includes(id) ? rcSel.filter(x => x !== id) : [...rcSel, id]; renderRecons(); });
   box.querySelectorAll("[data-rcn]").forEach(b => b.onclick = () => { rcN = +b.dataset.rcn; renderRecons(); });
   $("#rcSug") && ($("#rcSug").oninput = e => { rcSugTxt = e.target.value; $("#rcSugEco").textContent = rcSugTexto(rcSugerencias(rcSugTxt)); });
+  box.querySelectorAll("[data-rcedit]").forEach(b => b.onclick = () => { const id = b.dataset.rcedit, r = L.find(x => x.id === id);
+    r.univ = box.querySelector(`[data-rcuniv="${id}"]`).value.trim(); r.anio = box.querySelector(`[data-rcanio="${id}"]`).value.trim();
+    save(); renderRecons(); toast("Guardado: " + rcNombre(r) + " ✓"); });
+  $("#rcCrear") && ($("#rcCrear").onclick = () => { const r = sel[0]; rcEstiloElegido = r.id; impEstilo = r.id;
+    newType = getKey() ? "g" : "i"; go("new");
+    toast(getKey() ? "Elige el documento y pulsa «Crear»." : "Abre «Prompt para tu IA» y cópialo."); });
   $("#rcGo") && ($("#rcGo").onclick = () => {
     const s = rcSugerencias(rcSugTxt), {items, notas} = rcArmar(sel.map(r => r.perfil), nRc, s);
     if (!items.length) { $("#rcNotas").textContent = "Tu banco no tiene casos para armar este simulacro."; return; }

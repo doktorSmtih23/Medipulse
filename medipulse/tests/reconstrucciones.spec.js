@@ -268,3 +268,27 @@ test("temas que se repiten entre años de la misma universidad, y practicar los 
   // Con un solo año se invita a subir otro
   expect(await page.evaluate(() => rcRepetidosHTML("Univalle"))).toContain("Sube la reconstrucción de otro año de Univalle");
 });
+
+test("desde el simulacro: crear preguntas con ese estilo y corregir la universidad y el año de una reconstrucción", async ({ page }) => {
+  await page.evaluate(p => { S.recons = [Object.assign({}, p, {univ: "", anio: "2025"})]; S.sources.push({id: "d1", kind: "text", title: "Guía de prueba", pages: 1, added: 1, text: ["Texto de prueba"]});
+    localStorage.setItem("medipulse_prueba", "1"); save(); go("banco"); }, PATRON);
+  // «¿Cómo funciona?» explica los dos usos del patrón
+  await page.click("summary:has-text('¿Cómo funciona?')");
+  await expect(page.locator("#qRecons")).toContainText("Crear preguntas con ese estilo");
+  // Sin clave: lleva al prompt para otra IA con el estilo ya elegido
+  await page.click("#rcCrear");
+  await page.click("summary:has-text('Prompt para tu IA')");
+  await expect(page.locator("#impPrompt")).toContainText("Estilo del examen");
+  // La universidad y el año se corrigen sin volver a subirla
+  await page.evaluate(() => go("banco"));
+  await page.click("summary:has-text('Tus reconstrucciones')");
+  await page.click("summary:has-text('Universidad y año')");
+  await page.fill('[data-rcuniv="rc1"]', "UdeA"); await page.fill('[data-rcanio="rc1"]', "2025-1");
+  await page.click('[data-rcedit="rc1"]');
+  expect(await page.evaluate(() => [S.recons[0].univ, S.recons[0].anio])).toEqual(["UdeA", "2025-1"]);
+  await expect(page.locator("#rcCrear")).toContainText("UdeA 2025-1");
+  expect(await sinDesborde(page)).toBe(true);
+  // Con clave: el Taller del documento abre con ese estilo
+  const est = await page.evaluate(() => { localStorage.setItem("medipulse_key", "x"); rcEstiloElegido = "rc1"; prepSrc("d1", {tab: "ai", sub: "casos"}); return gen.estilo; });
+  expect(est).toBe("rc1");
+});

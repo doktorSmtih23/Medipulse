@@ -11,7 +11,7 @@ const cur = () => S.sources.find(x=>x.id===curSrc);
 function prepSrc(id, extra){
   curSrc = id; cands = null;
   const s = cur();
-  gen = Object.assign(TEMPLATE_DEFAULT(), {tab: (anIntent && anIntent.id === id && anIntent.kind) || "read", tema: null, manual: null, from: 1, to: Math.max(1, Math.min(s.pages, 10)), pageSet: null, topic: "", spec: s.spec || "Medicina Interna", n: 10, rdPage: 1, rdQuery: ""}, extra || {});
+  gen = Object.assign(TEMPLATE_DEFAULT(), {tab: (anIntent && anIntent.id === id && anIntent.kind) || "read", tema: null, manual: null, from: 1, to: Math.max(1, Math.min(s.pages, 10)), pageSet: null, topic: "", spec: s.spec || "Medicina Interna", n: 10, rdPage: 1, rdQuery: "", estilo: rcLista().some(r => r.id === rcEstiloElegido) ? rcEstiloElegido : null}, extra || {});
   anIntent = null;
 }
 function openSrc(id){ prepSrc(id); go("src"); }
