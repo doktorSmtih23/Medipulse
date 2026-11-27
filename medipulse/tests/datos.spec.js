@@ -3,7 +3,9 @@ const { test, expect } = require("@playwright/test");
 const { vigilarErrores } = require("./ayudas");
 
 let errores;
-test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); });
+test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/");
+  // En iPhone primero sale el aviso de agregarla a la pantalla de inicio (va antes que el de la copia): se descarta aquí.
+  await page.evaluate(() => { if (isIOS()) { S.iosWarnOk = Date.now(); save(); renderDataWarn(); } }); });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
 // Simula a alguien que ya estudió (con datos que vale la pena respaldar).
@@ -102,4 +104,12 @@ test("si el progreso guardado pasa de 3,5 MB, Hoy avisa antes de que el navegado
   await expect(page.locator("#dataWarn")).toContainText("Tu progreso ya ocupa 3,6 MB");
   await page.evaluate(() => { S.notes = S.notes.filter(n => n.id !== "relleno"); save(); });
   await expect(page.locator("#dataWarn")).not.toContainText("ya ocupa");
+});
+
+test("en iPhone (Safari) sin instalar, primero pide agregarla a la pantalla de inicio por el borrado a los 7 días", async ({ page, browserName }) => {
+  test.skip(browserName !== "webkit", "solo aplica a Safari en iPhone");
+  await page.evaluate(() => { delete S.iosWarnOk; renderDataWarn(); });
+  await expect(page.locator("#dataWarn")).toContainText("agrega MediPulse a la pantalla de inicio");
+  await page.click('#dataWarn [data-dw="ios"]');
+  await expect(page.locator("#dataWarn")).not.toContainText("pantalla de inicio");
 });
