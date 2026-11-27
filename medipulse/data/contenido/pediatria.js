@@ -2568,6 +2568,290 @@ MP_CONTENIDO.agregar({
         "No: mientras está consciente se alternan golpes en la espalda y compresiones torácicas hasta que salga el objeto.",
         "No: los golpes se alternan con 5 compresiones torácicas, en ciclos repetidos."
       ]
+    },
+    {
+      "id": "ped-c76",
+      "topic": "Reanimación pediátrica · Compresiones en el lactante (ILCOR 2026)",
+      "difficulty": "basica",
+      "src": "ilcor26",
+      "vignette": "Lactante de 5 meses en paro cardiaco. Estás capacitando al personal de enfermería del servicio de pediatría. ¿Qué profundidad de compresión les enseñas?",
+      "options": [
+        "Al menos un tercio del diámetro, unos 4 cm",
+        "Unos 5 a 6 cm, igual que en el adulto",
+        "Apenas 1 cm, para no fracturar costillas",
+        "La que se logre, a 60 compresiones por minuto"
+      ],
+      "correct": 0,
+      "whyCorrect": "ILCOR sugiere comprimir el tórax del lactante al menos un tercio de su diámetro anteroposterior, unos 4 cm; en el niño, al menos un tercio, unos 5 cm. La frecuencia puede ser de 100 a 120 por minuto, como en el adulto.",
+      "pearl": "Profundidad: lactante, un tercio del tórax (unos 4 cm); niño, un tercio (unos 5 cm). Frecuencia: 100 a 120 por minuto.",
+      "trap": "Comprimir con miedo y quedarse corto en la profundidad.",
+      "cita": [
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS/PLS: compresiones en lactantes y niños",
+          "texto": "We suggest that rescuers compress the chests of infants by at least one third the anteroposterior dimension, or approximately 1½ inches (4 cm)."
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, BLS/PLS: compresiones en lactantes y niños",
+          "texto": "approximately 2 inches (5 cm) (weak recommen-dation, very low–quality evidence). 2026 Good Practice Statement (New) The target for manual chest compression rate may be 100 to 120/ min for infants and children in cardiac arrest (good practice statement)."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: al menos un tercio del diámetro anteroposterior, unos 4 cm.",
+        "No: unos 5 cm es en el niño; en el lactante, unos 4 cm.",
+        "No: se comprime al menos un tercio del tórax, unos 4 cm.",
+        "No: la frecuencia es de 100 a 120 por minuto, con al menos un tercio de profundidad."
+      ]
+    },
+    {
+      "id": "ped-c77",
+      "topic": "Reanimación pediátrica · Temperatura tras el retorno de la circulación (ILCOR 2026)",
+      "difficulty": "residencia",
+      "src": "ilcor26",
+      "vignette": "Niño de 6 años que recuperó la circulación tras un paro extrahospitalario y sigue <span class='hy'>en coma</span> en la UCI pediátrica. Temperatura central de 38,2 °C. ¿Qué indica ILCOR 2026?",
+      "options": [
+        "Dejar la fiebre: ayuda a la recuperación neurológica",
+        "Hipotermia a 30 °C por 72 horas, que es superior",
+        "Solo acetaminofén si la temperatura pasa de 39 °C",
+        "Control activo para no pasar de 37,5 °C"
+      ],
+      "correct": 3,
+      "whyCorrect": "ILCOR recomienda el control activo de la temperatura en lactantes y niños comatosos tras el retorno de la circulación y evitar temperaturas centrales mayores de 37,5 °C. No hay evidencia concluyente de que la hipotermia inducida a 32–34 °C sea mejor que mantener la normotermia (36–37,5 °C). Los protocolos sugeridos son los del ensayo THAPCA.",
+      "pearl": "Niño en coma tras el paro: control activo de la temperatura y nada de fiebre (no más de 37,5 °C).",
+      "trap": "Tolerar la fiebre o creer que la hipotermia profunda es superior.",
+      "cita": [
+        {
+          "donde": "ILCOR 2026 CoSTR, PLS: temperatura tras el paro en niños",
+          "texto": "We recommend using ATM to prevent central temperatures >37.5 °C (strong recommendation, low-certainty evidence)."
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, PLS: temperatura tras el paro en niños",
+          "texto": "There is inconclusive evidence to support or refute the use of induced hypothermia (32–34 °C) compared with active control of temperature at normothermia (36–37.5 °C) (or an alternative temperature) for children who achieve ROSC but remain comatose after OHCA or IHCA."
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, PLS: temperatura tras el paro en niños",
+          "texto": "We suggest that ATM protocols follow one of the published THAPCA trial interventions—(1) ATM at 32 to 34 °C for 48 hours, followed by gradual rewarming and maintenance at 36 to 37.5 °C until a total of 120 hours or (2) ATM at 36 to 37.5 °C for 120 hours total"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: ILCOR recomienda evitar temperaturas centrales mayores de 37,5 °C.",
+        "No: no hay evidencia concluyente de que la hipotermia sea mejor, y los protocolos usan 32–34 °C o 36–37,5 °C.",
+        "No: se usa control activo de la temperatura para no pasar de 37,5 °C.",
+        "Correcta: control activo de la temperatura para evitar más de 37,5 °C."
+      ]
+    },
+    {
+      "id": "ped-c78",
+      "topic": "Neonatología · Acceso vascular en la sala de partos (ILCOR 2026)",
+      "difficulty": "residencia",
+      "src": "ilcor26",
+      "vignette": "Recién nacido a término en la sala de partos que, pese a ventilación efectiva y compresiones, sigue con frecuencia cardiaca menor de 60. Necesitas un acceso para la adrenalina. ¿Cuál es el de primera elección?",
+      "options": [
+        "Vena periférica del dorso de la mano",
+        "Catéter venoso umbilical",
+        "Vía intraósea en la tibia, siempre de entrada",
+        "Vía intramuscular en el muslo"
+      ],
+      "correct": 1,
+      "whyCorrect": "En la reanimación del recién nacido en la sala de partos, ILCOR sugiere el catéter venoso umbilical como acceso vascular principal. Si no es factible, la vía intraósea es una alternativa razonable. Fuera de la sala de partos se puede usar cualquiera de las dos.",
+      "pearl": "Sala de partos: catéter umbilical primero; intraósea si no se logra.",
+      "trap": "Perder tiempo buscando una vena periférica en un neonato en paro.",
+      "cita": [
+        {
+          "donde": "ILCOR 2026 CoSTR, NLS: acceso vascular en la reanimación neonatal",
+          "texto": "We suggest UVC as the primary method of vascular access during newborn infant resuscitation in the DR. If umbilical venous access is not feasible, the IO route is a reasonable alternative for vascular access during new-born resuscitation"
+        },
+        {
+          "donde": "ILCOR 2026 CoSTR, NLS: acceso vascular en la reanimación neonatal",
+          "texto": "Outside the DR setting, we suggest that either umbilical venous access or the IO route may be used to administer fluids and medications during newborn resuscitation"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en la sala de partos el acceso principal es el catéter venoso umbilical.",
+        "Correcta: en la sala de partos, el catéter venoso umbilical es el acceso principal.",
+        "No: la intraósea es la alternativa si el umbilical no es factible, no la primera.",
+        "No: en la sala de partos el acceso principal es el catéter venoso umbilical."
+      ]
+    },
+    {
+      "id": "ped-c79",
+      "topic": "Neumología pediátrica · Derrame paraneumónico pequeño (IDSA 2026)",
+      "difficulty": "residencia",
+      "src": "idsa_nacped26",
+      "vignette": "Niña de 4 años hospitalizada por neumonía, estable, con ampicilina. La radiografía en decúbito lateral muestra un <span class='hy'>derrame con un borde de 6 mm</span>, sin dificultad respiratoria. ¿Qué haces con el derrame?",
+      "options": [
+        "Toracentesis diagnóstica hoy para cultivo",
+        "Tubo de tórax con fibrinolíticos de entrada",
+        "Toracoscopia temprana para evitar el empiema",
+        "Observarlo y seguir con el antibiótico"
+      ],
+      "correct": 3,
+      "whyCorrect": "Un borde de líquido menor de 10 mm en la radiografía en decúbito lateral (o que ocupa menos de un cuarto del hemitórax) es un derrame pequeño. En los derrames pequeños no complicados, IDSA 2026 sugiere observar en lugar de drenar. El drenaje se reserva para los moderados con dificultad respiratoria, los grandes o los purulentos.",
+      "pearl": "Derrame en niños: pequeño < 10 mm (o < ¼ del hemitórax); moderado ≥ 10 mm y < ½; grande > ½. Pequeño no complicado: observar.",
+      "trap": "Puncionar o drenar todo derrame, sin importar su tamaño.",
+      "cita": [
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, definiciones",
+          "texto": "An effusion is classified as small if it contains a rim of fluid <10 mm on a lateral decubitus radiograph or opacifies less than ¼ of the hemithorax, moderate if it contains a rim of fluid ≥10 mm but opacifies less than half of the hemithorax, and large if it opacifies more than half of the hemithorax"
+        },
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, pregunta 1",
+          "texto": "In children with small, uncomplicated parapneumonic effusions, the IDSA panel suggests observation over pleural drainage (conditional recommendation, very low certainty of the evidence)."
+        },
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, pregunta 1",
+          "texto": "In children with moderate parapneumonic effusions associated with respiratory distress, large parapneumonic effusions, or documented purulent effusions, the panel recommends pleural drainage"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: un derrame pequeño y no complicado se observa; no se drena.",
+        "No: el drenaje es para los derrames moderados con dificultad respiratoria, los grandes o los purulentos.",
+        "No: un derrame pequeño no complicado se observa.",
+        "Correcta: derrame pequeño (< 10 mm) no complicado: observar y seguir el antibiótico."
+      ]
+    },
+    {
+      "id": "ped-c80",
+      "topic": "Neumología pediátrica · Empiema: tubo o toracoscopia (IDSA 2026)",
+      "difficulty": "dificil",
+      "src": "idsa_nacped26",
+      "vignette": "Niño de 7 años con neumonía y <span class='hy'>empiema</span> que necesita drenaje. No tiene loculaciones extensas. El cirujano pregunta si hace una toracoscopia de entrada. ¿Qué sugiere IDSA 2026 como primera línea?",
+      "options": [
+        "Tubo de tórax con fibrinolíticos intrapleurales",
+        "Toracoscopia (VATS) de entrada en todos los casos",
+        "Solo antibiótico intravenoso, sin drenar el líquido",
+        "Toracotomía abierta con decorticación inmediata"
+      ],
+      "correct": 0,
+      "whyCorrect": "En el empiema que requiere drenaje, IDSA 2026 sugiere como primera línea el tubo de tórax con fibrinolíticos intrapleurales en lugar del desbridamiento quirúrgico. Los resultados son parecidos a los de la toracoscopia, pero es menos invasivo, más barato y muchas veces no necesita anestesia general. La toracoscopia se reserva para las loculaciones extensas o la enfermedad refractaria.",
+      "pearl": "Empiema en niños: tubo más fibrinolítico primero; toracoscopia si hay loculaciones extensas o no responde.",
+      "trap": "Llevar a todo niño con empiema directo a toracoscopia.",
+      "cita": [
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, pregunta 2",
+          "texto": "In children and adolescents (3 months to 18 years) with pneumonia-associated empyema in whom pleural drainage is indicated, the panel suggests using chest tube drainage and intrapleural fibrinolytics rather than surgical debridement as first-line therapy in most cases"
+        },
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, pregunta 2, comentarios",
+          "texto": "chest tube placement with fibrinolytics is less invasive, less costly, and can often be performed without general anesthesia. VATS may be reserved for a subset of patients, such as those with extensive loculation and those with refractory disease after chest tube placement with fibrinolysis."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: tubo de tórax con fibrinolíticos intrapleurales como primera línea en la mayoría.",
+        "No: la toracoscopia se reserva para loculaciones extensas o enfermedad refractaria.",
+        "No: el empiema que requiere drenaje se drena; el antibiótico solo no basta.",
+        "No: la primera línea es el tubo con fibrinolíticos, no el desbridamiento quirúrgico."
+      ]
+    },
+    {
+      "id": "ped-c81",
+      "topic": "Neumología pediátrica · Imagen del derrame (IDSA 2026)",
+      "difficulty": "residencia",
+      "src": "idsa_nacped26",
+      "vignette": "Niña de 5 años con neumonía; la radiografía muestra un derrame que <span class='hy'>ocupa un tercio del hemitórax</span>. Quieres saber su tamaño real y si está tabicado antes de decidir. ¿Qué estudio pides?",
+      "options": [
+        "Tomografía de tórax con contraste",
+        "Resonancia magnética de tórax",
+        "Ecografía de tórax",
+        "Otra radiografía en 24 horas"
+      ],
+      "correct": 2,
+      "whyCorrect": "Ocupa más de un cuarto y menos de la mitad del hemitórax: es un derrame moderado. Para caracterizar el tamaño y la complejidad de un derrame moderado o grande, IDSA 2026 sugiere la ecografía de tórax en lugar de la tomografía o la resonancia.",
+      "pearl": "Derrame moderado o grande en niños: ecografía para ver tamaño y tabiques; evita la radiación de la tomografía.",
+      "trap": "Pedir tomografía de rutina para caracterizar el derrame.",
+      "cita": [
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, definiciones",
+          "texto": "An effusion is classified as small if it contains a rim of fluid <10 mm on a lateral decubitus radiograph or opacifies less than ¼ of the hemithorax, moderate if it contains a rim of fluid ≥10 mm but opacifies less than half of the hemithorax, and large if it opacifies more than half of the hemithorax"
+        },
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, pregunta 3",
+          "texto": "In children with radiographic evidence of a moderate to large parapneumonic effusion, the panel suggests obtaining a chest ultrasound over CT or MRI to characterize the size and complexity of the effusion"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: para caracterizar el derrame se sugiere la ecografía en lugar de la tomografía.",
+        "No: se sugiere la ecografía en lugar de la resonancia.",
+        "Correcta: derrame moderado: ecografía de tórax para ver tamaño y complejidad.",
+        "No: para caracterizar el derrame se sugiere la ecografía de tórax."
+      ]
+    },
+    {
+      "id": "ped-c82",
+      "topic": "Neumología pediátrica · Tubo y fibrinolítico en el empiema (IDSA 2026)",
+      "difficulty": "dificil",
+      "src": "idsa_nacped26",
+      "vignette": "Adolescente de 12 años con empiema paraneumónico en quien ya se decidió drenaje con tubo y fibrinolisis. El residente pregunta qué calibre de tubo y qué fibrinolítico usar. ¿Qué sugiere IDSA 2026?",
+      "options": [
+        "Tubo de más de 14 Fr con tPA y DNasa",
+        "Tubo de menos de 12 Fr y tPA solo",
+        "Tubo de más de 20 Fr sin fibrinolítico",
+        "Tubo de menos de 12 Fr con DNasa sola"
+      ],
+      "correct": 1,
+      "whyCorrect": "IDSA 2026 sugiere tubos de calibre pequeño (menos de 12 Fr) en lugar de grandes (más de 14 Fr): drenan bien y permiten la fibrinolisis; todos los protocolos publicados desde la guía anterior usaron 12 Fr o menos. Para la fibrinolisis, sugiere tPA solo en lugar de tPA con DNasa.",
+      "pearl": "Empiema en niños: tubo < 12 Fr y tPA solo.",
+      "trap": "Creer que el pus necesita un tubo grueso.",
+      "cita": [
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, pregunta 4",
+          "texto": "In children (3 months to 18 years) with parapneumonic effusion or empyema that necessitates drainage, the panel members suggest the use of small-bore (<12Fr) chest tubes over large-bore (>14FR) tubes"
+        },
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, pregunta 4, comentarios",
+          "texto": "Smaller tubes are effective at allowing for adequate drainage and subsequent fibrinolysis. Since the last IDSA update, all published protocols have used 12 Fr or smaller chest tubes."
+        },
+        {
+          "donde": "IDSA/PIDS 2026, NAC en niños: derrame y empiema, pregunta 5",
+          "texto": "In children (3 months to 18 years of age) with pneumonia-associated empyema, the panel suggests administering tPA alone over tPA and DNase"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: se sugieren tubos de menos de 12 Fr y tPA solo, sin DNasa.",
+        "Correcta: tubo de calibre pequeño (< 12 Fr) y tPA solo.",
+        "No: se sugiere un tubo pequeño y fibrinolisis con tPA.",
+        "No: el fibrinolítico sugerido es el tPA solo, no la DNasa."
+      ]
+    },
+    {
+      "id": "ped-c83",
+      "topic": "Neumología pediátrica · NAC ambulatoria: radiografía y antibiótico",
+      "difficulty": "basica",
+      "src": "afp_nacped21",
+      "vignette": "Niño de 7 años con 2 días de fiebre, tos y taquipnea leve, con crépitos en la base derecha. Saturación de 96 % al aire ambiente, sin tirajes, tolera la vía oral. ¿Qué haces?",
+      "options": [
+        "Amoxicilina en casa, sin radiografía",
+        "Radiografía de tórax antes de tratarlo",
+        "Hospitalizar para antibiótico intravenoso",
+        "Azitromicina como primera elección oral"
+      ],
+      "correct": 0,
+      "whyCorrect": "La radiografía de tórax no es necesaria para confirmar la neumonía sospechada en el niño ambulatorio. Se pide si el diagnóstico es dudoso, si hay hipoxemia (saturación menor de 90 %) o dificultad respiratoria importante, o si no mejora en 48 a 72 horas de antibiótico. En el niño en edad escolar que se trata en casa, la amoxicilina es el tratamiento de elección.",
+      "pearl": "Radiografía en la NAC del niño: diagnóstico dudoso, saturación < 90 %, dificultad respiratoria importante o sin mejoría en 48–72 h.",
+      "trap": "Pedir radiografía de rutina a todo niño con neumonía leve.",
+      "cita": [
+        {
+          "donde": "AFP 2021, NAC en niños, pruebas diagnósticas",
+          "texto": "Chest radiography is not necessary to confirm suspected pneumonia in children in the outpatient setting. It should be obtained for patients with hypoxemia (oxygen saturation less than 90%) or significant respiratory distress or for those without clinical improvement within 48 to 72 hours after initiation of antibiotic therapy."
+        },
+        {
+          "donde": "AFP 2021, NAC en niños, recomendaciones clave (SORT)",
+          "texto": "Amoxicillin is the treatment of choice for communityacquired pneumonia in school-aged children in the outpatient setting."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: sin hipoxemia ni dificultad importante, amoxicilina en casa y sin radiografía.",
+        "No: la radiografía no es necesaria para confirmar la neumonía en el niño ambulatorio.",
+        "No: está estable, con saturación de 96 % y tolera la vía oral: se trata en casa.",
+        "No: en el niño escolar ambulatorio, la amoxicilina es el tratamiento de elección."
+      ]
     }
   ],
   "fichas": [

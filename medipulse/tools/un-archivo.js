@@ -49,15 +49,30 @@ function sinComentarios(js){
 }
 const safeCss = s => s.replace(/<\/style/gi, "<\\/style");
 
+// Presupuesto de casos del archivo único: el banco crece (meta: unos 300 casos por especialidad) y los visores
+// se cuelgan con archivos grandes, así que sin --completo cada especialidad básica lleva una muestra que cabe
+// en su parte del presupuesto: primero los casos completos (análisis de cada opción y cita) y, entre ellos,
+// los más recientes. El banco completo sigue en la app web.
+const PRESUPUESTO_CASOS = 500 * 1024, N_BASICAS = 4;
+let muestra = {n: 0, total: 0};
+function muestraDe(d) {
+  const cupo = PRESUPUESTO_CASOS / N_BASICAS, casos = d.casos || [];
+  const orden = casos.map((q, i) => [q, i]).sort((a, b) => (+!!(b[0].porOpcion && b[0].cita) - +!!(a[0].porOpcion && a[0].cita)) || b[1] - a[1]);
+  const dentro = new Set(); let usado = 0;
+  for (const [q, i] of orden) { const b = Buffer.byteLength(JSON.stringify(q)); if (usado + b > cupo) continue; usado += b; dentro.add(i); }
+  muestra.n += dentro.size; muestra.total += casos.length;
+  return Object.assign({}, d, {casos: casos.filter((q, i) => dentro.has(i))});
+}
 // El contenido incluido (data/contenido/*.js) va en JSON sin sangrías: pesa bastante menos y es idéntico.
 function compactar(src, js) {
   if (!/^data\/contenido\//.test(src)) return js;
   return js.replace(/MP_CONTENIDO\.agregar\(([\s\S]*)\);\s*$/, (_, json) => {
-    try { return `MP_CONTENIDO.agregar(${JSON.stringify(JSON.parse(json))});\n`; } catch (e) { return _; }
+    try { let d = JSON.parse(json); if (!COMPLETO && d.paquete === "starter") d = muestraDe(d);
+      return `MP_CONTENIDO.agregar(${JSON.stringify(d)});\n`; } catch (e) { return _; }
   });
 }
 function build() {
-  let html = read("index.html");
+  let html = read("index.html"); muestra = {n: 0, total: 0};
   const parts = [];
   html = html.replace(/<link rel="stylesheet" href="([^"]+)"\s*\/?>/g, (_, href) => {
     parts.push(href); return `<style>\n${safeCss(read(href))}</style>`;
@@ -75,7 +90,7 @@ function build() {
     // en base64: así ningún "<!--" ni "</script" del código puede romper el HTML
     .map(([id, f]) => `<script type="text/plain" id="${id}">${fs.readFileSync(path.join(ROOT, f)).toString("base64")}</script>`).join("\n");
   // La app avisa en Casos qué especialidades quedaron fuera (solo están en la app web).
-  if (fuera.length) html = html.replace(/(<script>\n\/\/ ===== data\/)/, `<script>window.MP_SOLO_BASICAS = ${JSON.stringify(fuera)};</script>\n$1`);
+  if (fuera.length) html = html.replace(/(<script>\n\/\/ ===== data\/)/, `<script>window.MP_SOLO_BASICAS = ${JSON.stringify(fuera)};${muestra.n < muestra.total ? ` window.MP_MUESTRA = ${JSON.stringify([muestra.n, muestra.total])};` : ""}</script>\n$1`);
   if (vend) html = html.replace(/(<script>\n\/\/ ===== data\/)/, vend + "\n$1");
   // Ícono incrustado; el manifiesto solo sirve en el sitio publicado.
   const icon = "data:image/svg+xml;base64," + Buffer.from(read("icon.svg")).toString("base64");
@@ -103,4 +118,4 @@ if (process.argv.includes("--watch")) {
 }
 }
 
-module.exports = { build, OUT };
+module.exports = { build, OUT, PRESUPUESTO_CASOS };

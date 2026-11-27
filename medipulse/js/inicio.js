@@ -3,7 +3,8 @@ applyTheme(); renderHoy();
 // Versión de un solo archivo liviana (tools/un-archivo.js): trae solo las 4 básicas y lo dice en Casos.
 if (window.MP_SOLO_BASICAS && $("#soloBasicas")) {
   $("#soloBasicas").hidden = false;
-  $("#soloBasicas").innerHTML = `Esta versión de un solo archivo trae los casos de las 4 básicas. ${esc(window.MP_SOLO_BASICAS.join(", ").replace(/, ([^,]*)$/, " y $1"))} están en <a href="${APP_URL}" target="_blank" rel="noopener">la app web</a>.`;
+  const m = window.MP_MUESTRA;
+  $("#soloBasicas").innerHTML = `Esta versión de un solo archivo trae ${m ? `una muestra de las 4 básicas: ${m[0]} de ${m[1]} casos; el resto está en la app web.` : "los casos de las 4 básicas."} ${esc(window.MP_SOLO_BASICAS.join(", ").replace(/, ([^,]*)$/, " y $1"))} están en <a href="${APP_URL}" target="_blank" rel="noopener">la app web</a>.`;
 }
 if (!CAN_STORE) {
   const n = document.createElement("div"); n.className = "previewnote";
