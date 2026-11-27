@@ -143,6 +143,12 @@ test("resultado: perfil con el área y el tipo más débiles, errores con seguri
   expect(rep).toEqual(["Errores con seguridad", true, true]);
   await page.evaluate(() => { endSession(false); go("diag"); });
   await expect(page.locator("#diagFocoPlan")).toContainText("Pediatría");
+  // Con las 3 partes hechas, su detalle queda replegado debajo del informe y se abre con un toque
+  await page.evaluate(() => { S.diag.p3 = Object.assign(S.diag.p3 || {}, {fin: Date.now()}); save(); renderDiag(); });
+  await expect(page.locator(".diagpartes details")).not.toHaveAttribute("open", "");
+  await expect(page.locator(".diagparte").first()).toBeHidden();
+  await page.click(".diagpartes summary");
+  await expect(page.locator(".diagparte").first()).toBeVisible();
   await page.click("nav [data-go=hoy]");
   await expect(page.locator("#suggestCard")).toContainText("Según tu diagnóstico");
   await expect(page.locator("#suggestCard")).toContainText("Pediatría");
