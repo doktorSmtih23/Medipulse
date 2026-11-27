@@ -151,6 +151,10 @@ const SOURCES = [
   {id:"ops_dengue20", t:"Algoritmos para el manejo clínico de los casos de dengue (Programa Regional de Enfermedades Arbovirales)", r:"Organización Panamericana de la Salud, junio de 2020", y:2020, k:"guideline"},
   {id:"peds_dengue22", t:"Dengue: A Growing Problem With New Interventions (Wong JM et al.)", r:"Pediatrics, 2022;149(6):e2021055522", y:2022, k:"article"},
   {id:"jim_dengue24", t:"Severe dengue in the intensive care unit (Tejo AM et al.)", r:"Journal of Intensive Medicine, 2024;4:16-33", y:2024, k:"article"},
-  {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"}
+  {id:"asbrs_atipia26", t:"ASBrS/SBI/CAP 2026 Guidelines for the Management of Proliferative Lesions With Atypia and Lobular Carcinoma In Situ", r:"JAMA Surgery, 2026;161(10):1076-1083", y:2026, k:"guideline"},
+  {id:"dart_apap23", t:"Management of Acetaminophen Poisoning in the US and Canada: A Consensus Statement (Dart RC et al.)", r:"JAMA Network Open, 2023;6(8):e2327739", y:2023, k:"guideline"},
+  {id:"eddleston_op04", t:"Early management after self-poisoning with an organophosphorus or carbamate pesticide – a treatment protocol for junior doctors (Eddleston M et al.)", r:"Critical Care, 2004;8:R391–R397", y:2004, k:"article", v:"Protocolo de referencia de acceso abierto; no hay una guía más nueva que lo reemplace."},
+  {id:"hoffman_tox25", t:"Toxidromes and a general approach to poisoning (Hoffman RJ, Nillas A)", r:"Archives of Disease in Childhood, 2025;110:681–686", y:2025, k:"article"},
+  {id:"vega_afp24", t:"Acute Medication Poisoning (Vega IL, Griswold MK, Laskey D)", r:"American Family Physician, 2024;109(2):143–153", y:2024, k:"article"},
 ];
 const SRC_BY_ID = Object.fromEntries(SOURCES.map(s=>[s.id,s]));
