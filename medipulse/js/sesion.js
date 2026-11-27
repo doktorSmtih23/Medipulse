@@ -54,7 +54,7 @@ function renderQ(q, exam){
     <div class="card">
       <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[q.specialty]}">${esc(q.specialty)}</span>${exam ? (q.qtype && q.qtype!=="caso" ? `<span class="muted">${qtLabel(q.qtype)}</span>` : "") : tipoChip(q) + nivelChip(q)}${origenChip(q)}<div class="spacer"></div>
         ${exam ? `<button class="btn sm${flagged?" flagon":""}" id="flagBtn">🚩 ${flagged?"Marcada":"Marcar para revisar"}</button>` : `<button class="sw" id="hintBtn" role="switch" aria-checked="${hints?"true":"false"}" title="Resalta los datos clave del caso">🔍 Pistas <i aria-hidden="true"></i><span class="xs">${hints?"sí":"no"}</span></button>`}</div>
-      ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${q.vignette}</p>
+      ${imgTag(q.img)}<p class="vignette${hints?" hints":""}" style="margin:12px 0 4px">${sanitizeVig(q.vignette)}</p>
       <div id="opts">${q.options.map((o,i)=>`<div class="optrow${struck.includes(i)?" struck":""}"><button class="opt${sel===i?" sel":""}" data-o="${i}"><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button><button class="xbtn" data-x="${i}" aria-label="Tachar la opción ${"ABCDE"[i]}" title="Tachar"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 17 10 7l4 10M7.6 13h4.8"/><path d="M4 12h16" stroke-width="2.2"/></svg></button></div>`).join("")}</div>
       ${tacharAyuda()}
       <div id="confRow">${exam ? confRowHTML(k) : ""}</div>
@@ -265,7 +265,7 @@ function auditar(j){
   $("#sessBar").style.width = (k/pend.length*100)+"%";
   $("#sessBody").innerHTML = `<div class="card">
       <div class="row xs"><span class="tag" style="color:${SPEC_COLOR[r.q.specialty]}">${esc(r.q.specialty)}</span><span class="muted">Pregunta ${r.i+1}</span></div>
-      ${imgTag(r.q.img)}<p class="vignette" style="margin:12px 0 4px">${r.q.vignette}</p>
+      ${imgTag(r.q.img)}<p class="vignette" style="margin:12px 0 4px">${sanitizeVig(r.q.vignette)}</p>
       <div id="opts" class="done">${r.q.options.map((o,i)=>`<div class="optrow"><button class="opt${i===r.a?" sel":""}" disabled><span class="l">${"ABCDE"[i]}</span><span>${esc(o)}</span></button></div>`).join("")}</div>
       <p class="small" style="margin:12px 0 6px"><b>¿Cómo respondiste la ${"ABCDE"[r.a]}?</b></p>
       <div class="grid2" id="confBtns">${CONFIANZA.map((c,i)=>`<button class="btn" data-conf="${c.k}"><b>${c.t}</b><br><span class="xs muted">${esc(c.d)}</span> <kbd>${i+1}</kbd></button>`).join("")}</div>
@@ -281,7 +281,7 @@ function examResults(){
   $("#sessBar").style.width="100%"; $("#sessStage").textContent = st.name; $("#sessCount").textContent = "";
   const rows = rs.map(({q, a, good, ri, i, c})=>{ const cf = CONFIANZA.find(x=>x.k===c), cl = clasifConfianza(good, c);
     return `<details class="card" style="padding:12px 14px;margin-top:10px"><summary style="cursor:pointer"><b style="color:${good?"var(--ok)":"var(--bad)"}">${good?"✓":"✗"}</b> ${i+1}. ${esc(q.topic)}${sess.flags && sess.flags[sess.si+":"+i] ? " 🚩" : ""}${cl ? ` <span class="audtag ${cl.k}">${cl.t}</span>` : ""}</summary>
-      ${imgTag(q.img)}<p class="small" style="margin:10px 0">${q.vignette}</p>
+      ${imgTag(q.img)}<p class="small" style="margin:10px 0">${sanitizeVig(q.vignette)}</p>
       <p class="small" style="margin:0">Tu respuesta: <b>${a==null?"(sin responder)":esc(q.options[a])}</b>${cf ? ` · la marcaste como <b>${cf.t}</b>` : ""}<br>Correcta: <b style="color:var(--ok)">${esc(q.options[q.correct])}</b></p>
       ${cl && cl.msg ? `<p class="xs" style="margin:6px 0 0">${esc(cl.msg)}</p>` : ""}
       <p class="small muted" style="margin:8px 0 0">${esc(q.whyCorrect)}</p>${porOpcionHTML(q, a)}${good ? "" : motivoHTML(ri)}${q.pearl ? `<div class="note pearl" style="margin-top:8px"><b>💎</b> ${esc(q.pearl)}</div>` : ""}${srcLine(q)}<div style="margin-top:6px"><button class="linkbtn xs" data-rep="q${q.id}">🚩 Reportar un error</button><div class="repslot"></div></div></details>`; });

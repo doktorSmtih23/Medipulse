@@ -1,6 +1,6 @@
 // Caché sin conexión: sirve la app aunque no haya internet y la actualiza en segundo plano.
 // Sube la versión de CACHE cada vez que cambies algún archivo.
-const CACHE = "medipulse-v199";
+const CACHE = "medipulse-v201";
 const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png", "css/app.css",
   "data/especialidades.js","data/fuentes.js","data/servidor.js","data/contenido/registro.js","data/contenido/medicina-interna.js","data/contenido/cirugia.js","data/contenido/pediatria.js","data/contenido/ginecologia.js","data/contenido/salud-publica.js","data/contenido/ortopedia.js","data/contenido/urologia.js","data/contenido/mastologia.js","data/contenido/psiquiatria.js","data/contenido/armar.js","data/expedientes.js",
   "js/estado.js",
@@ -40,7 +40,7 @@ const FILES = ["./", "index.html", "manifest.webmanifest", "icon.svg", "icon-192
   "js/cuenta.js",
   "js/instalar.js",
   "js/inicio.js",
-  "vendor/pdf.min.js", "vendor/pdf.worker.min.js", "vendor/anthropic-sdk.mjs"];
+  "vendor/pdf.min.mjs", "vendor/pdf.worker.min.mjs", "vendor/anthropic-sdk.mjs"];
 // Al instalar se piden los archivos al servidor, no a la caché HTTP del navegador:
 // si no, la versión nueva podría guardarse con archivos viejos.
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES.map(f => new Request(f, {cache: "reload"}))))); self.skipWaiting(); });

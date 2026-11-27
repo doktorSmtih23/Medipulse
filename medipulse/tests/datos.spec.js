@@ -3,7 +3,9 @@ const { test, expect } = require("@playwright/test");
 const { vigilarErrores } = require("./ayudas");
 
 let errores;
-test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/"); });
+test.beforeEach(async ({ page }) => { errores = vigilarErrores(page); await page.goto("/");
+  // En iPhone primero sale el aviso de agregarla a la pantalla de inicio (va antes que el de la copia): se descarta aquí.
+  await page.evaluate(() => { if (isIOS()) { S.iosWarnOk = Date.now(); save(); renderDataWarn(); } }); });
 test.afterEach(() => expect(errores, "errores de JavaScript").toEqual([]));
 
 // Simula a alguien que ya estudió (con datos que vale la pena respaldar).
@@ -34,7 +36,8 @@ test("«Más tarde» pospone el recordatorio; vuelve si pasan más de 14 días d
 });
 
 test("en iPhone sin instalar avisa que Safari puede borrar los datos", async ({ page }) => {
-  await page.evaluate(() => { isIOS = () => true; isInstalled = () => false; renderDataWarn(); });
+  // En Safari el beforeEach ya lo descartó (S.iosWarnOk): aquí se vuelve a mostrar
+  await page.evaluate(() => { delete S.iosWarnOk; isIOS = () => true; isInstalled = () => false; renderDataWarn(); });
   await expect(page.locator("#dataWarn")).toContainText("Agregar a pantalla de inicio");
   await page.click('#dataWarn [data-dw="ios"]');
   await expect(page.locator("#dataWarn")).toBeEmpty();

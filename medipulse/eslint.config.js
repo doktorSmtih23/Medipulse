@@ -16,7 +16,7 @@ module.exports = [
       globals: {
         ...globals.browser,
         ...deLaApp,
-        pdfjsLib: "readonly",     // vendor/pdf.min.js
+        pdfjsLib: "readonly",     // vendor/pdf.min.mjs (módulo; queda en window.pdfjsLib)
         Anthropic: "readonly"     // vendor/anthropic-sdk.mjs, cuando se carga
       }
     },

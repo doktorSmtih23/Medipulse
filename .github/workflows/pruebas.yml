@@ -29,7 +29,7 @@ jobs:
           cache-dependency-path: medipulse/package-lock.json
       - run: npm ci
       - run: npm run revisar
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
       - run: npx playwright test
       - if: failure()
         uses: actions/upload-artifact@v4

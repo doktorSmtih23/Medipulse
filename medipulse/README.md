@@ -55,7 +55,7 @@ Los datos se guardan solo en el dispositivo: el progreso en `localStorage` y los
 Las funciones con IA usan la clave de API de Claude del propio usuario. Guía paso a paso para obtenerla, costos, seguridad y solución de problemas: **[GUIA_CLAVE_API.md](GUIA_CLAVE_API.md)** (también dentro de la app: Fuentes → Generación con IA → 📖 Guía paso a paso).
 
 ## Archivos de terceros (`vendor/`)
-- `pdf.min.js`, `pdf.worker.min.js`: pdf.js 3.11.174 (Mozilla, licencia Apache 2.0).
+- `pdf.min.mjs`, `pdf.worker.min.mjs`: pdf.js 4.10.38, versión legacy (Mozilla, licencia Apache 2.0; `LICENSE-pdfjs`).
 - `anthropic-sdk.mjs`: SDK oficial `@anthropic-ai/sdk` 1.2.0 (licencia MIT), empaquetado con esbuild para el navegador.
 
 Se incluyen en el repo para que la app no dependa de ningún CDN y funcione sin conexión.

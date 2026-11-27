@@ -4,7 +4,7 @@
 //   En VS Code: extensión "Playwright Test for VSCode" (ms-playwright.playwright); las pruebas aparecen
 //   en el panel de pruebas (ícono del matraz) y se pueden correr o depurar una por una.
 // Ninguna prueba usa la API real de Claude ni internet: las respuestas de la IA se simulan.
-const { defineConfig } = require("@playwright/test");
+const { defineConfig, devices } = require("@playwright/test");
 
 const PORT = 4173;
 module.exports = defineConfig({
@@ -17,6 +17,9 @@ module.exports = defineConfig({
     baseURL: `http://localhost:${PORT}/`,
     viewport: {width: 360, height: 800},   // primero celular: sin desplazamiento horizontal a 360 px
     trace: "off",
+    // Sin service worker: con él activo, page.route puede no ver las peticiones de la página (pasa en WebKit), y las
+    // pruebas simulan la IA y el servidor con page.route. Ninguna prueba depende del service worker.
+    serviceWorkers: "block",
     // Las pruebas corren en modo de prueba (sin los candados del diagnóstico); las del diagnóstico
     // lo apagan para probar los candados (tests/diagnostico.spec.js). La pregunta de confianza en la práctica
     // está apagada para que un toque en una opción muestre la respuesta; tests/practica-diaria.spec.js la prende.
@@ -27,5 +30,9 @@ module.exports = defineConfig({
     url: `http://localhost:${PORT}/`,
     reuseExistingServer: !process.env.CI
   },
-  projects: [{name: "celular", use: {browserName: "chromium"}}]
+  projects: [{name: "celular", use: {browserName: "chromium"}},
+    // Safari (WebKit, como en iPhone) con las pruebas de los flujos principales y del guardado. Corre en GitHub (CI) o con
+    // MP_WEBKIT=1; en un equipo sin WebKit instalado se omite para que «npm test» siga funcionando.
+    ...(process.env.CI || process.env.MP_WEBKIT ? [{name: "iphone", use: {...devices["iPhone 13"]},
+      testMatch: /(app|hoy|practica-diaria|datos|seguridad|recuerdo|especialidades|usabilidad-pantallas|pdf-guardado)\.spec\.js$/}] : [])]
 });
