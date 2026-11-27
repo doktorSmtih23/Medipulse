@@ -1,7 +1,7 @@
 // Versión de un solo archivo (tools/un-archivo.js) y visores que bloquean el almacenamiento.
 const fs = require("fs"), os = require("os"), path = require("path");
 const { test, expect } = require("@playwright/test");
-const { build, OUT } = require("../tools/un-archivo.js");
+const { build, OUT, PRESUPUESTO_CASOS } = require("../tools/un-archivo.js");
 
 test.beforeAll(() => build());
 
@@ -17,6 +17,11 @@ test("el archivo único abre solo, sin las carpetas al lado", async ({ page }) =
   expect(r).toEqual(["Cirugía", "Ginecología", "Medicina Interna", "Pediatría"]);
   await page.evaluate(() => go("banco"));
   await expect(page.locator("#soloBasicas")).toContainText("Urología, Mastología y Psiquiatría están en la app web");
+  // Con el banco creciendo, lleva una muestra dentro del presupuesto y lo dice
+  const m = await page.evaluate(() => window.MP_MUESTRA);
+  if (m) await expect(page.locator("#soloBasicas")).toContainText(`una muestra de las 4 básicas: ${m[0]} de ${m[1]} casos`);
+  const casosBytes = await page.evaluate(() => MP_CONTENIDO.especialidades.filter(e => e.paquete === "starter").reduce((a, e) => a + new TextEncoder().encode(JSON.stringify(e.casos || [])).length, 0));
+  expect(casosBytes).toBeLessThanOrEqual(PRESUPUESTO_CASOS);
   expect(errores).toEqual([]);
   fs.rmSync(dir, {recursive: true});
 });
