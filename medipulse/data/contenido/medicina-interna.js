@@ -6,7 +6,7 @@ MP_CONTENIDO.agregar({
   "especialidad": "Medicina Interna",
   "prefijo": "mi",
   "paquete": "starter",
-  "actualizado": "2026-11-26",
+  "actualizado": "2026-11-27",
   "casos": [
     {
       "id": 1,
@@ -4442,6 +4442,550 @@ MP_CONTENIDO.agregar({
         "No: la estrategia es prueba molecular en esputo más LF-LAM en orina.",
         "Correcta: prueba molecular en esputo y LF-LAM en orina, al mismo tiempo.",
         "No: se estudia de inmediato con prueba molecular y LF-LAM."
+      ]
+    },
+    {
+      "id": "mi-c115",
+      "topic": "Neurología · Estatus epiléptico refractario",
+      "difficulty": "residencia",
+      "src": "ics_se25",
+      "vignette": "Hombre de 44 años con crisis tónico-clónica generalizada continua. Recibió <span class='hy'>dos dosis de lorazepam IV</span> y luego <span class='hy'>carga de levetiracetam</span>; a los 40 minutos sigue convulsionando. ¿Qué sigue?",
+      "options": [
+        "Tercera dosis de lorazepam IV",
+        "Carga de fenitoína y esperar 20 minutos",
+        "Carga de valproato y observar en sala",
+        "Intubar y anestesia IV en la UCI"
+      ],
+      "correct": 3,
+      "whyCorrect": "No respondió a una benzodiacepina y a un anticonvulsivante no benzodiacepínico: es un estatus refractario. Requiere ingreso a cuidados intensivos y anestesia intravenosa para suprimir las crisis (propofol, midazolam o tiopental en infusión).",
+      "pearl": "Estatus = 5 minutos o más de crisis continua, o crisis repetidas sin recuperar la conciencia entre ellas.",
+      "trap": "Seguir sumando anticonvulsivantes en sala cuando ya es refractario.",
+      "cita": [
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, definiciones",
+          "texto": "SE that does not respond to initial pharmacological therapy (one benzodiazepine and one non-benzodiazepine anticonvulsant medication). Treatment requires admission to critical care and intravenous anaesthesia to suppress seizures."
+        },
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, definiciones",
+          "texto": "This is defined as five or more minutes of either continuous seizure activity or repetitive seizures with no intervening recovery of consciousness."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: ya recibió la dosis de benzodiacepina; el siguiente paso del refractario es la anestesia IV.",
+        "No: falló una benzodiacepina y un anticonvulsivante; ya es refractario y requiere anestesia IV en UCI.",
+        "No: es un estatus refractario; no se maneja en sala sino en UCI con anestesia IV.",
+        "Correcta: estatus refractario (falló benzodiacepina más anticonvulsivante): UCI y anestesia IV."
+      ]
+    },
+    {
+      "id": "mi-c116",
+      "topic": "Neurología · Coma tras el estatus convulsivo",
+      "difficulty": "dificil",
+      "src": "ics_se25",
+      "vignette": "Mujer de 37 años con estatus convulsivo que cedió hace 1 hora con lorazepam y levetiracetam. Ya no tiene movimientos, pero <span class='hy'>sigue sin despertar</span> (Glasgow 7) y la TAC de cráneo es normal. ¿Qué haces?",
+      "options": [
+        "EEG para buscar estatus no convulsivo",
+        "Esperar: es el estado posictal esperado",
+        "Flumazenil para revertir el lorazepam",
+        "RM cerebral antes de cualquier otro estudio"
+      ],
+      "correct": 0,
+      "whyCorrect": "El estatus no convulsivo puede seguir al convulsivo y es una causa tratable de coma. En el paciente que sigue inconsciente sin crisis visibles se hace EEG; si persiste la depresión de la conciencia se aconseja EEG continuo.",
+      "pearl": "El EEG continuo es la única forma de saber si el tratamiento funcionó cuando ceden los movimientos.",
+      "trap": "Atribuir todo el coma al estado posictal.",
+      "cita": [
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, definiciones",
+          "texto": "NCSE can follow CSE and is an important treatable cause of coma."
+        },
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, otras consideraciones",
+          "texto": "Admission EEG if the patient remains unconscious without visible seizures"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: sigue inconsciente sin crisis visibles; el EEG busca un estatus no convulsivo tratable.",
+        "No: el estatus no convulsivo puede seguir al convulsivo y es una causa tratable de coma.",
+        "No: el flumazenil puede desencadenar convulsiones y no busca la causa del coma.",
+        "No: la guía pide EEG si sigue inconsciente sin crisis visibles; la RM queda a criterio del especialista."
+      ]
+    },
+    {
+      "id": "mi-c117",
+      "topic": "Neurología · Segunda línea en el estatus",
+      "difficulty": "residencia",
+      "src": "ics_se25",
+      "vignette": "Hombre de 58 años en estatus convulsivo que no cedió con la dosis máxima de benzodiacepina. Tienes disponibles levetiracetam, fosfenitoína y valproato. ¿Qué dice la evidencia sobre su eficacia?",
+      "options": [
+        "El levetiracetam es claramente superior",
+        "La fosfenitoína es la más eficaz",
+        "El valproato es superior a los otros dos",
+        "Los tres tienen eficacia equivalente"
+      ],
+      "correct": 3,
+      "whyCorrect": "En el estudio ESETT, levetiracetam, fosfenitoína y valproato fueron equivalentes como segunda línea. La elección depende del paciente (interacciones, función hepática y renal, posibilidad de embarazo).",
+      "pearl": "Si sigue convulsionando tras la dosis máxima de benzodiacepina, se inicia un anticonvulsivante de segunda línea.",
+      "trap": "Creer que uno de los tres es claramente superior.",
+      "cita": [
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, dosificación de anticonvulsivantes",
+          "texto": "Levetiracetam, fosphenytoin and valproate have been shown to be equivalent."
+        },
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, dosificación de anticonvulsivantes",
+          "texto": "If the patient is actively, visibly seizing despite maximum dose benzodiazepine commence anticonvulsants as per doses detailed in Appendix 1."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en ESETT los tres fueron equivalentes.",
+        "No: la fosfenitoína no fue superior; los tres fueron equivalentes.",
+        "No: el valproato no fue superior; los tres fueron equivalentes.",
+        "Correcta: levetiracetam, fosfenitoína y valproato mostraron eficacia equivalente."
+      ]
+    },
+    {
+      "id": "mi-c118",
+      "topic": "Neurología · Estatus en epiléptico conocido",
+      "difficulty": "residencia",
+      "src": "ics_se25",
+      "vignette": "Mujer de 26 años con epilepsia que <span class='hy'>dejó de tomar su lamotrigina hace una semana</span>. Llega en estatus convulsivo, que cede con benzodiacepina y levetiracetam. Pediste niveles. ¿Qué haces con su tratamiento de base?",
+      "options": [
+        "Darla a dosis completa ya",
+        "Suspenderla: ya recibe levetiracetam",
+        "Esperar los niveles para decidir la dosis",
+        "Darla solo a la mitad de la dosis previa"
+      ],
+      "correct": 0,
+      "whyCorrect": "El tratamiento de base se continúa a dosis completa en paralelo con el de urgencia y se revierten las reducciones recientes. No se omiten dosis esperando niveles. La falta de adherencia es una causa común de estatus.",
+      "pearl": "Si se sospecha mala adherencia, se considera recargar con uno de los fármacos de urgencia.",
+      "trap": "Suspender u omitir el anticonvulsivante de base mientras llegan los niveles.",
+      "cita": [
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, recomendaciones generales",
+          "texto": "Long term anticonvulsant medication should be given in parallel with emergency treatment. Any pre-existing therapy should be continued at full dose and any recent reductions reversed."
+        },
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, recomendaciones generales",
+          "texto": "Do not omit doses whilst awaiting level to be reported. Failure to take medication as prescribed is a common cause of a patient with epilepsy developing SE."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: el tratamiento de base va a dosis completa en paralelo; no se omiten dosis esperando niveles.",
+        "No: el tratamiento de base se mantiene en paralelo con el de urgencia.",
+        "No: no se omiten dosis mientras se esperan los niveles.",
+        "No: se continúa a dosis completa y se revierten las reducciones recientes."
+      ]
+    },
+    {
+      "id": "mi-c119",
+      "topic": "Neurología · Estatus refractario de inicio nuevo (NORSE)",
+      "difficulty": "avanzada",
+      "src": "ics_se25",
+      "vignette": "Mujer de 24 años, sin epilepsia previa, con estatus que persiste tras <span class='hy'>más de 24 horas de anestesia IV</span>. TAC, LCR, tóxicos y estudio metabólico sin causa; los anticuerpos de encefalitis autoinmune salen <span class='hy'>negativos</span>. ¿Qué consideras?",
+      "options": [
+        "Esperar anticuerpos de otro laboratorio de referencia",
+        "Suspender la anestesia y observar",
+        "Inmunoterapia (esteroide, IgIV o recambio)",
+        "Lobectomía temporal urgente"
+      ],
+      "correct": 2,
+      "whyCorrect": "Es un estatus súper refractario de inicio nuevo sin causa (NORSE). Se considera encefalitis autoinmune o estatus inmunomediado: la inmunoterapia puede indicarse aun con serología negativa. De primera línea: metilprednisolona 1 g/día por 3 días, IgIV o plasmaféresis.",
+      "pearl": "Súper refractario = persiste o recurre pese a más de 24 horas de anestésico IV en infusión.",
+      "trap": "Esperar una serología positiva para iniciar inmunoterapia.",
+      "cita": [
+        {
+          "donde": "Mullhi R et al. Guidance for the acute management of status epilepticus in adult patients. J Intensive Care Soc 2025;26(2):249–263, estatus súper refractario",
+          "texto": "Further management should be directed by a neurologist and may include immunomodulatory therapy, even in patients with negative serology. First line inter- ventions which have been used include pulsed methylprednisolone 1 g/day for 3 days, intravenous immunoglobulin (IVIG) or plasma exchange."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: la inmunoterapia puede indicarse aun con serología negativa.",
+        "No: si las crisis recurren al retirar la anestesia, esta se reinicia; no basta observar.",
+        "Correcta: NORSE sin causa: inmunoterapia (metilprednisolona, IgIV o plasmaféresis) aun con serología negativa.",
+        "No: la cirugía se plantea ante una lesión focal causante, que aquí no existe."
+      ]
+    },
+    {
+      "id": "mi-c120",
+      "topic": "Neurología · Herniación uncal",
+      "difficulty": "residencia",
+      "src": "udea_hte",
+      "vignette": "Hombre de 63 años con cefalea súbita que se deteriora en urgencias: Glasgow de 13 a 8, <span class='hy'>pupila izquierda dilatada</span> y <span class='hy'>hemiparesia derecha</span>. Aún no tiene TAC. Ya aseguraste la vía aérea. ¿Qué haces?",
+      "options": [
+        "Esperar la TAC para definir el manejo",
+        "Punción lumbar para medir la presión",
+        "Corticoide IV en dosis alta",
+        "Hiperosmolar ya, junto con la TAC"
+      ],
+      "correct": 3,
+      "whyCorrect": "Cambio agudo de conciencia, midriasis ipsilateral y hemiparesia contralateral son los signos de la herniación transtentorial (uncal). La reanimación y la terapia hiperosmolar inicial van antes de las imágenes y continúan mientras se hacen; no se retrasan esperando el diagnóstico.",
+      "pearl": "La herniación es potencialmente reversible si se trata a tiempo.",
+      "trap": "Esperar la TAC antes de iniciar la terapia hiperosmolar.",
+      "cita": [
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, diagnóstico",
+          "texto": "Los signos cardinales de la herniación transtentorial (uncal) son un cambio agudo en la conciencia, asociado con la dilatación pupilar ipsolateral y la hemiparesia contralateral"
+        },
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, neuroimagen",
+          "texto": "Las medidas de reanimación iniciales y la estabilización, incluidas las intervenciones en la vía aérea, el soporte circulatorio, ventilatorio y la terapia hiperosmolar inicial, deben ocurrir antes y continuar simultáneamente con las imágenes de diagnósticas."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: la terapia hiperosmolar va antes de las imágenes y en simultáneo.",
+        "No: con signos de herniación la punción lumbar no está indicada; se trata la hipertensión endocraneana.",
+        "No: el capítulo reserva los corticoides para el edema vasogénico, no para cualquier hipertensión endocraneana.",
+        "Correcta: signos de herniación uncal: terapia hiperosmolar sin esperar la TAC."
+      ]
+    },
+    {
+      "id": "mi-c121",
+      "topic": "Neurología · Hiperventilación en hipertensión endocraneana",
+      "difficulty": "dificil",
+      "src": "udea_hte",
+      "vignette": "Paciente intubado con hematoma subdural agudo y signos de herniación mientras se prepara el quirófano. Ya recibió solución salina hipertónica. ¿Cómo usas la ventilación?",
+      "options": [
+        "Hiperventilación breve a PaCO2 30–35 mmHg",
+        "PaCO2 menor de 25 mmHg hasta la cirugía",
+        "Hiperventilación por 24 horas a 30 mmHg",
+        "No modificar la ventilación en ningún caso"
+      ],
+      "correct": 0,
+      "whyCorrect": "La hiperventilación puede usarse como puente: un curso breve (menos de 2 horas) a PaCO2 de 30 a 35 mmHg mientras se da el tratamiento definitivo. Prolongarla produce vasoconstricción e isquemia cerebral.",
+      "pearl": "Más de 4 horas de hiperventilación no es eficaz y aumenta el riesgo de isquemia.",
+      "trap": "Hiperventilar de forma intensa o prolongada.",
+      "cita": [
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, nivel 1",
+          "texto": "Hiperventilación temporal se puede considerar un curso breve (< 2 h) de hiperventilación a una PaCO2 de 30 - 35 mm Hg"
+        },
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, nivel 1",
+          "texto": "existe riesgo de generar isquemia cerebral segundaria a fenómenos de vasoconstricción cuando esta medida se perpetua"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: curso breve (menos de 2 horas) a PaCO2 de 30 a 35 mmHg como puente.",
+        "No: la meta es 30 a 35 mmHg; más baja aumenta el riesgo de isquemia.",
+        "No: prolongarla produce vasoconstricción e isquemia cerebral.",
+        "No: un curso breve es una medida puente aceptada mientras llega el tratamiento definitivo."
+      ]
+    },
+    {
+      "id": "mi-c122",
+      "topic": "Neurología · Corticoides en el edema cerebral",
+      "difficulty": "residencia",
+      "src": "udea_hte",
+      "vignette": "Hombre de 35 años con trauma craneoencefálico grave y contusiones con edema en la TAC. Un colega propone <span class='hy'>dexametasona IV</span> para el edema. ¿Qué respondes?",
+      "options": [
+        "Sí: reduce el edema y la mortalidad",
+        "No: en el TEC aumenta la mortalidad",
+        "Sí, pero solo durante 48 horas",
+        "Sí, si la presión intracraneal supera 22"
+      ],
+      "correct": 1,
+      "whyCorrect": "Los corticoides en dosis alta sirven para el edema vasogénico de tumores, abscesos o algunas infecciones del sistema nervioso central. En el trauma craneoencefálico, la hemorragia intracerebral y la hemorragia subaracnoidea aumentan la mortalidad y las secuelas.",
+      "pearl": "Edema de tumor: sí corticoide. Trauma, hemorragia intracerebral o subaracnoidea: no.",
+      "trap": "Dar corticoide a cualquier edema cerebral.",
+      "cita": [
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, nivel 0",
+          "texto": "La terapia con corticosteroides en altas dosis (0,15 mg/kg/dosis cada 6 horas; 10 mg cada 6 horas por 4 días), se inicia para el edema vasogénico resultante de tumores cerebrales"
+        },
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, nivel 0",
+          "texto": "Caso contrario en las condiciones como TEC, hemorragia intracerebral (HIC), hemorragia subaracnoidea (HSA), donde la mortalidad aumenta junto a las secuelas neurológicas (11)."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: en el trauma craneoencefálico los corticoides aumentan la mortalidad.",
+        "Correcta: en el TEC los corticoides aumentan la mortalidad y las secuelas.",
+        "No: el problema no es la duración; en el TEC no están indicados.",
+        "No: la presión intracraneal alta no cambia que en el TEC aumenten la mortalidad."
+      ]
+    },
+    {
+      "id": "mi-c123",
+      "topic": "Neurología · Monitor de presión intracraneal en el TEC",
+      "difficulty": "avanzada",
+      "src": "udea_hte",
+      "vignette": "Hombre de <span class='hy'>52 años</span> con trauma craneoencefálico, <span class='hy'>Glasgow de 6</span> tras la reanimación y <span class='hy'>postura de descerebración</span>. La TAC de cráneo es normal y la presión arterial es de 128/76. ¿Qué indicas?",
+      "options": [
+        "Nada: la TAC normal descarta hipertensión",
+        "Repetir la TAC en 48 horas y decidir",
+        "Craniectomía descompresiva primaria",
+        "Monitoreo de la presión intracraneal"
+      ],
+      "correct": 3,
+      "whyCorrect": "Se recomienda monitorear la PIC en el TEC con Glasgow de 3 a 8 tras la reanimación y TAC anormal, o con TAC normal si cumple al menos dos de tres criterios: edad mayor de 40 años, PAS menor de 90 mmHg o postura anormal. Él cumple edad y postura.",
+      "pearl": "Umbral de tratamiento: PIC mayor de 22 mmHg por más de 5 minutos.",
+      "trap": "Creer que una TAC normal excluye la hipertensión endocraneana en el coma traumático.",
+      "cita": [
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, monitorización de la PIC",
+          "texto": "En pacientes que han sufrido una lesión cerebral traumática, se recomienda la monitorización de la PIC en aquellos que permanecen comatosos después de la reanimación (escala de coma de Glasgow [GCS] de 3 a 8) y tienen:"
+        },
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, monitorización de la PIC",
+          "texto": "Cumplen al menos dos de los siguientes tres criterios: • Edad> 40 años. • Presión arterial sistólica (PAS) < 90 mm Hg. • Postura anormal."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: con TAC normal se monitorea si cumple dos de tres criterios, y él cumple edad y postura.",
+        "No: cumple criterios de monitoreo ahora; no se espera.",
+        "No: la craniectomía se evalúa si fallan las medidas previas; hoy no hay masa en la TAC.",
+        "Correcta: Glasgow de 6, mayor de 40 años y postura anormal: monitoreo de la PIC."
+      ]
+    },
+    {
+      "id": "mi-c124",
+      "topic": "Neurología · Terapia hiperosmolar en choque",
+      "difficulty": "dificil",
+      "src": "udea_hte",
+      "vignette": "Motociclista de 29 años con trauma craneoencefálico y fractura de pelvis. Tiene <span class='hy'>PA 82/50 mmHg</span> y signos de herniación. Vas a iniciar terapia hiperosmolar. ¿Cuál eliges?",
+      "options": [
+        "Salina hipertónica en bolo",
+        "Manitol 1 g/kg en 15 minutos",
+        "Manitol en infusión continua",
+        "Dextrosa al 10 % en bolo"
+      ],
+      "correct": 0,
+      "whyCorrect": "La solución salina hipertónica es de elección cuando está indicada la terapia hiperosmolar. El manitol no se prefiere en el paciente en choque porque puede agravarlo. Se prefieren bolos de 2 mL/kg a la infusión.",
+      "pearl": "Concentraciones mayores de 7,5 % van por catéter venoso central.",
+      "trap": "Usar manitol en un paciente hipotenso.",
+      "cita": [
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, nivel 1",
+          "texto": "no se prefiere su uso en pacientes con estado de choque, ya que puede agravar la condición."
+        },
+        {
+          "donde": "Ramírez Ríos R, Gómez Serna CM. Hipertensión endocraneana: «diagnóstico y manejo del código cerebral» (cap. 6), Neurocirugía UdeA, nivel 1",
+          "texto": "La solución salina hipertónica según la guía para el manejo del edema cerebral de Cuidado Critico Neurológico reciente, es de elección para todas las condiciones patológicas en las cuales este indicado el uso de terapia hiperosmolar (HSA, TEC, HIC, ECV isquémica)"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: en choque, solución salina hipertónica en bolo; el manitol puede agravarlo.",
+        "No: el manitol no se prefiere en choque porque puede agravarlo.",
+        "No: el manitol no se prefiere en choque, y se usa en bolos, no en infusión.",
+        "No: solo se usan líquidos iso o hiperosmóticos; la dextrosa no es terapia hiperosmolar."
+      ]
+    },
+    {
+      "id": "mi-c125",
+      "topic": "Neurología · Hemorragia subaracnoidea con TAC negativa",
+      "difficulty": "residencia",
+      "src": "aha_hsa23",
+      "vignette": "Mujer de 41 años con la <span class='hy'>peor cefalea de su vida</span>, de inicio súbito; consulta <span class='hy'>9 horas después</span>. Examen neurológico normal. La TAC simple no muestra sangrado. ¿Qué haces?",
+      "options": [
+        "Alta con analgésico y control en 24 horas",
+        "Resonancia magnética ambulatoria",
+        "Punción lumbar para descartar hemorragia",
+        "Repetir la TAC simple en 24 horas"
+      ],
+      "correct": 2,
+      "whyCorrect": "En la cefalea súbita grave que consulta después de 6 horas del inicio, o con déficit nuevo, se hace TAC simple y, si es negativa, punción lumbar. Solo dentro de las primeras 6 horas, sin déficit, una TAC negativa de alta calidad basta para descartar.",
+      "pearl": "Dentro de 6 horas, TAC de alta calidad negativa: sensibilidad de 98,7 %.",
+      "trap": "Dar de alta con la TAC negativa pasadas 6 horas.",
+      "cita": [
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, recomendación 2 de diagnóstico (1, B-NR)",
+          "texto": "In patients with acute onset of severe head- ache who present >6 hours from symptom onset or who have a new neurological defi- cit, a noncontrast head CT and, if negative for aSAH, lumbar puncture (LP) should be performed to diagnose/exclude aSAH."
+        },
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, texto de apoyo",
+          "texto": "For patients presenting within 6 hours of headache onset who have no new neurological deficits, the lack of SAH on a noncontrast head CT is likely sufficient to exclude aSAH."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: consulta después de 6 horas; la TAC negativa no basta y sigue la punción lumbar.",
+        "No: lo recomendado tras la TAC negativa pasadas 6 horas es la punción lumbar.",
+        "Correcta: más de 6 horas y TAC negativa: punción lumbar.",
+        "No: repetir la TAC retrasa el diagnóstico; el paso es la punción lumbar."
+      ]
+    },
+    {
+      "id": "mi-c126",
+      "topic": "Neurología · Nimodipino en la hemorragia subaracnoidea",
+      "difficulty": "basica",
+      "src": "aha_hsa23",
+      "vignette": "Hombre de 50 años con hemorragia subaracnoidea aneurismática confirmada, despierto y estable. Se planea el tratamiento del aneurisma. ¿Qué inicias para prevenir la isquemia cerebral tardía?",
+      "options": [
+        "Atorvastatina en dosis alta",
+        "Sulfato de magnesio IV en infusión",
+        "Hipervolemia e hipertensión profilácticas",
+        "Nimodipino enteral desde el inicio"
+      ],
+      "correct": 3,
+      "whyCorrect": "El nimodipino enteral iniciado temprano previene la isquemia cerebral tardía y mejora el desenlace funcional (clase 1, nivel A). No se recomiendan de rutina las estatinas ni el magnesio IV, y la hipervolemia o la hipertensión profilácticas causan daño.",
+      "pearl": "Ante isquemia tardía sintomática sí puede ser razonable subir la presión y mantener la euvolemia.",
+      "trap": "Usar estatinas o magnesio de rutina.",
+      "cita": [
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, vasoespasmo e isquemia tardía, recomendación 1 (1, A)",
+          "texto": "In patients with aSAH, early initiation of enteral nimodipine is beneficial in preventing DCI and improving functional outcomes."
+        },
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, recomendaciones 6 y 7 (3: sin beneficio, A)",
+          "texto": "In patients with aSAH, routine use of statin therapy to improve outcomes is not recommended."
+        },
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, recomendación 8 (3: daño, B-R)",
+          "texto": "For patients with aSAH at risk of DCI, prophylactic hemodynamic augmenta- tion should not be performed to reduce iatrogenic patient harm."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: las estatinas de rutina no mejoran el desenlace.",
+        "No: el magnesio IV de rutina no se recomienda.",
+        "No: la hemodinámica aumentada profiláctica causa daño.",
+        "Correcta: nimodipino enteral temprano previene la isquemia tardía."
+      ]
+    },
+    {
+      "id": "mi-c127",
+      "topic": "Neurología · Momento de tratar el aneurisma roto",
+      "difficulty": "residencia",
+      "src": "aha_hsa23",
+      "vignette": "Mujer de 47 años con hemorragia subaracnoidea por un aneurisma de la comunicante anterior, Hunt y Hess 2. El equipo propone tratar el aneurisma <span class='hy'>la próxima semana</span>, cuando haya turno programado. ¿Qué opinas?",
+      "options": [
+        "Tratarlo antes de 24 horas",
+        "Diferirlo 2 semanas, pasado el vasoespasmo",
+        "Ácido tranexámico y diferirlo una semana",
+        "Tratar solo si vuelve a sangrar"
+      ],
+      "correct": 0,
+      "whyCorrect": "El resangrado aumenta la mortalidad. El aneurisma roto se trata, por vía quirúrgica o endovascular, lo antes posible, idealmente en las primeras 24 horas. El ácido tranexámico ultra temprano (ULTRA) no mejoró el desenlace funcional.",
+      "pearl": "La meta es la oclusión completa del aneurisma siempre que sea factible.",
+      "trap": "Diferir el tratamiento del aneurisma roto.",
+      "cita": [
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, tratamiento del aneurisma, recomendación 1 (1, B-NR)",
+          "texto": "For patients with aSAH, surgical or endovascular treatment of the ruptured aneurysm should be performed as early as feasible after presentation, preferably within 24 hours of onset, to improve outcome."
+        },
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, texto de apoyo",
+          "texto": "did not show a significant reduction in the rate of rebleeding and demonstrated no improvement in functional outcomes among patients treated with tranexamic acid"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "Correcta: el aneurisma roto se trata lo antes posible, idealmente antes de 24 horas.",
+        "No: diferirlo expone al resangrado, que aumenta la mortalidad.",
+        "No: el tranexámico no mejoró el desenlace funcional y no justifica diferir el tratamiento.",
+        "No: esperar el resangrado es inaceptable; aumenta la mortalidad."
+      ]
+    },
+    {
+      "id": "mi-c128",
+      "topic": "Neurología · Anticonvulsivantes en la hemorragia subaracnoidea",
+      "difficulty": "dificil",
+      "src": "aha_hsa23",
+      "vignette": "Hombre de 55 años con hemorragia subaracnoidea por aneurisma de la comunicante posterior, Hunt y Hess 1, <span class='hy'>sin hematoma intraparenquimatoso ni hidrocefalia</span> y sin crisis. Te piden dejar <span class='hy'>fenitoína profiláctica</span>. ¿Qué indicas?",
+      "options": [
+        "Fenitoína profiláctica por 7 días",
+        "Levetiracetam profiláctico por 3 meses",
+        "Ninguno: sin crisis ni riesgo alto",
+        "Fenitoína y EEG continuo de rutina"
+      ],
+      "correct": 2,
+      "whyCorrect": "En la hemorragia subaracnoidea sin rasgos de alto riesgo de crisis (aneurisma de la cerebral media roto, grado alto, hematoma, hidrocefalia o infarto cortical), los anticonvulsivantes profilácticos no son beneficiosos. La fenitoína se asocia a más morbilidad y debe evitarse. Si aparece una crisis, se trata por 7 días.",
+      "pearl": "Crisis nueva tras la hemorragia subaracnoidea: anticonvulsivante por 7 días.",
+      "trap": "Dejar fenitoína profiláctica a todos.",
+      "cita": [
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, crisis, recomendación 3 (3: sin beneficio, B-R)",
+          "texto": "In patients with aSAH without high- seizure-risk features (ie, ruptured MCA aneurysm, high-grade SAH, ICH, hydrocephalus, and cortical infarction), prophylactic treatment with antiseizure medication is not beneficial."
+        },
+        {
+          "donde": "Hoh BL et al. 2023 AHA/ASA Guideline for the Management of Patients With Aneurysmal Subarachnoid Hemorrhage. Stroke 2023;54:e314–e370, mensajes clave",
+          "texto": "For new-onset seizures after aSAH, treatment with antiseizure medication for 7 days is recommended. Prophylactic antiseizure medication should not be routinely used but can be considered in high- risk patients (with ruptured middle cerebral artery aneurysm, intraparenchymal hemorrhage, high- grade aSAH, hydrocephalus, or cortical infarction). Phenytoin use is associated with excess morbidity and should be avoided."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: sin rasgos de alto riesgo la profilaxis no es beneficiosa, y la fenitoína se evita.",
+        "No: sin rasgos de alto riesgo la profilaxis no es beneficiosa.",
+        "Correcta: sin crisis y sin rasgos de alto riesgo no se indica profilaxis.",
+        "No: la fenitoína se asocia a más morbilidad y se evita."
+      ]
+    },
+    {
+      "id": "mi-c129",
+      "topic": "Neurología · Migraña en el embarazo",
+      "difficulty": "basica",
+      "src": "afp_mig26",
+      "vignette": "Mujer de 28 años con <span class='hy'>12 semanas de embarazo</span> y migraña sin aura conocida. Consulta por una crisis típica, sin signos de alarma y examen neurológico normal. ¿Qué analgésico le ofreces primero?",
+      "options": [
+        "Naproxeno 500 mg",
+        "Ibuprofeno 400 mg",
+        "Ergotamina con cafeína",
+        "Acetaminofén"
+      ],
+      "correct": 3,
+      "whyCorrect": "En el embarazo se prefiere el acetaminofén para la migraña. Se evitan los AINE: en el primer trimestre se asocian a aborto y malformaciones. Si se requiere un triptán, el sumatriptán es el que tiene más evidencia, y la metoclopramida es segura para las náuseas.",
+      "pearl": "Se evitan los compuestos con butalbital u opioides.",
+      "trap": "Dar AINE en el primer trimestre.",
+      "cita": [
+        {
+          "donde": "Arnold MJ. Acute Migraine Treatment: Guidelines From the International Headache Society. Am Fam Physician 2026;113(2):196–198, embarazo",
+          "texto": "Acetamin- ophen is preferred for migraines in pregnancy despite recent evidence suggesting an association with urogenital and repro- ductive disorders."
+        },
+        {
+          "donde": "Arnold MJ. Acute Migraine Treatment: Guidelines From the International Headache Society. Am Fam Physician 2026;113(2):196–198, embarazo",
+          "texto": "NSAIDs should be avoided because first-trimester use is associated with miscarriage and congenital malformations"
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: los AINE se evitan; en el primer trimestre se asocian a aborto y malformaciones.",
+        "No: el ibuprofeno es un AINE y se evita en el embarazo.",
+        "No: no es lo preferido; el acetaminofén es el de elección en el embarazo.",
+        "Correcta: en el embarazo se prefiere el acetaminofén para la migraña."
+      ]
+    },
+    {
+      "id": "mi-c130",
+      "topic": "Neurología · Cuándo cambiar de triptán",
+      "difficulty": "residencia",
+      "src": "afp_mig26",
+      "vignette": "Hombre de 34 años con migraña que toma <span class='hy'>sumatriptán al inicio del dolor</span>. Le falló en <span class='hy'>2 de sus últimas 3 crisis</span>. Nunca ha probado otro triptán. ¿Qué haces?",
+      "options": [
+        "Duplicar la dosis de sumatriptán",
+        "Cambiar a otro triptán",
+        "Pasar a un ergotamínico",
+        "Pasar a un opioide oral"
+      ],
+      "correct": 1,
+      "whyCorrect": "Un triptán se considera eficaz si trata 3 de 4 crisis consecutivas; se cambia si falla en 2 de 3. La guía aconseja probar otros dos triptanes antes de cambiar de clase. Subir la dosis mejora la eficacia en 11 % o menos.",
+      "pearl": "Los ergotamínicos solo se consideran si fallan las otras opciones recomendadas.",
+      "trap": "Subir la dosis del mismo triptán o saltar a otra clase.",
+      "cita": [
+        {
+          "donde": "Arnold MJ. Acute Migraine Treatment: Guidelines From the International Headache Society. Am Fam Physician 2026;113(2):196–198, triptanes",
+          "texto": "A triptan is considered effective when it successfully treats 3 of 4 consecutive migraines; switching medications is recom- mended after failure in 2 of 3 consecutive migraines. The guide- line recommends a trial of two other triptans before changing to a different medication class."
+        },
+        {
+          "donde": "Arnold MJ. Acute Migraine Treatment: Guidelines From the International Headache Society. Am Fam Physician 2026;113(2):196–198, derivados del ergot",
+          "texto": "Ergot derivatives should only be considered when other recom- mended treatments for acute migraine have failed."
+        }
+      ],
+      "verificado": "2026-11-27",
+      "porOpcion": [
+        "No: subir la dosis mejora la eficacia en 11 % o menos; se cambia de triptán.",
+        "Correcta: falló en 2 de 3 crisis: cambiar a otro triptán antes de cambiar de clase.",
+        "No: los ergotamínicos solo se consideran tras fallar las otras opciones, y antes se prueban otros dos triptanes.",
+        "No: antes de cambiar de clase se prueban otros dos triptanes."
       ]
     }
   ],
