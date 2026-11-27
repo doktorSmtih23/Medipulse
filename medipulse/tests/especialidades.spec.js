@@ -13,7 +13,7 @@ test("crear, renombrar y eliminar desde Fuentes; la nueva aparece en Casos con s
   await page.evaluate(() => { PLEG.misesp = true; renderEspCard(); });
   await page.fill("#espNueva", "neurología"); await page.click("#espCrear");
   await expect(page.locator("#espCard")).toContainText("Neurología");
-  expect(await page.evaluate(() => [ESPS().length, SPEC_COLOR["Neurología"] != null])).toEqual([10, true]);   // 6 básicas + Urología, Mastología y Psiquiatría + la nueva
+  expect(await page.evaluate(() => [ESPS().length, SPEC_COLOR["Neurología"] != null])).toEqual([11, true]);   // 6 básicas + Urología, Mastología, Psiquiatría y Toxicología + la nueva
   // Un caso propio de Neurología: sale en Casos como especialidad, con su conteo.
   await page.evaluate(() => { agregarPropio("q", {id: nuevoIdPropio(), specialty: "Neurología", topic: "Cefalea", vignette: "V", options: ["a", "b", "c", "d"], correct: 0, whyCorrect: "w", manual: true}); rebuild(); save(); });
   await page.click("nav [data-go=banco]");
@@ -24,7 +24,7 @@ test("crear, renombrar y eliminar desde Fuentes; la nueva aparece en Casos con s
   expect(await page.evaluate(() => S.userQ[0].specialty)).toBe("Neurociencias");
   // Eliminar pasa sus casos a la especialidad elegida.
   await page.evaluate(() => { eliminarEspecialidad("Neurociencias", "Medicina Interna"); rebuild(); save(); });
-  expect(await page.evaluate(() => [S.userQ[0].specialty, ESPS().length])).toEqual(["Medicina Interna", 9]);
+  expect(await page.evaluate(() => [S.userQ[0].specialty, ESPS().length])).toEqual(["Medicina Interna", 10]);
   expect(await page.evaluate(() => eliminarEspecialidad("Pediatría", "Medicina Interna"))).toBe(false);   // las básicas no se borran
   expect(await page.evaluate(() => eliminarEspecialidad("Urología", "Medicina Interna"))).toBe(false);   // ni las incluidas aparte
   expect(await sinDesborde(page)).toBe(true);
